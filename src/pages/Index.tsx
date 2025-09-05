@@ -260,14 +260,14 @@ const Index = () => {
           <div className="flex flex-col items-center justify-center text-center">
             <div className="space-y-10 max-w-4xl">
               <div className="space-y-8">
-                <h1 className="text-6xl md:text-8xl font-bold leading-tight bg-black/15 rounded-3xl p-8 backdrop-blur-sm">
+                <h1 className="text-6xl md:text-8xl font-bold leading-tight p-8">
                   <span className="text-white drop-shadow-lg">Organisez votre</span><br />
                   <span className="gradient-text-secondary font-black text-7xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
                   <span className="text-white drop-shadow-lg"> et partez au</span><br />
                   <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
                 
-                <p className="text-2xl md:text-3xl font-bold leading-relaxed bg-black/25 backdrop-blur-sm rounded-2xl px-8 py-4">
+                <p className="text-2xl md:text-3xl font-bold leading-relaxed px-8 py-4">
                   <span className="text-white drop-shadow-lg">Réduisez vos coûts, pas vos rêves</span>
                 </p>
               </div>
