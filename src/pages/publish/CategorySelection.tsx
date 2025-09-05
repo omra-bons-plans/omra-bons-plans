@@ -26,10 +26,10 @@ const CategorySelection = () => {
     
     if (selectedCategory === 'sejours') {
       navigate('/publish/formula');
-    } else if (['vols', 'guides'].includes(selectedCategory)) {
+    } else if (['vols', 'guides', 'chauffeurs', 'babysitting'].includes(selectedCategory)) {
       navigate(`/publish/${selectedCategory}`);
     } else {
-      // For categories not yet implemented
+      // For categories not yet implemented (like hebergement)
       navigate('/publish/placeholder');
     }
   };

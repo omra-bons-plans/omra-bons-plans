@@ -12,7 +12,7 @@ const PlaceholderDetails = () => {
   useEffect(() => {
     const selectedCategory = sessionStorage.getItem('selectedCategory');
     
-    if (!selectedCategory || !['chauffeurs', 'babysitting', 'hebergement'].includes(selectedCategory)) {
+    if (!selectedCategory || !['hebergement'].includes(selectedCategory)) {
       navigate('/publish');
     }
   }, [navigate]);
@@ -23,8 +23,6 @@ const PlaceholderDetails = () => {
 
   const selectedCategory = sessionStorage.getItem('selectedCategory');
   const categoryNames: { [key: string]: string } = {
-    'chauffeurs': 'Chauffeurs',
-    'babysitting': 'Baby-sitting',
     'hebergement': 'Hébergement'
   };
 
