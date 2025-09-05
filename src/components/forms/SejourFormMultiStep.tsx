@@ -148,10 +148,10 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
         fieldsToValidate = ['description'];
         break;
       case 3:
-        fieldsToValidate = ['departureDate', 'returnDate'];
+        fieldsToValidate = ['departureDate', 'returnDate', 'nightsMedina', 'nightsMecca'];
         break;
       case 4:
-        fieldsToValidate = ['medinaHotelDistance', 'meccaHotelDistance'];
+        fieldsToValidate = ['medinaHotelName', 'medinaHotelDistance', 'meccaHotelName', 'meccaHotelDistance'];
         break;
       case 5:
         fieldsToValidate = ['price', 'publishEndDate'];
@@ -159,6 +159,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     }
 
     const isValid = await trigger(fieldsToValidate);
+    
+    // Validation spéciale pour l'étape 5 - photo de couverture obligatoire
+    if (currentStep === 5 && !coverImage) {
+      alert("La photo de couverture est obligatoire");
+      return;
+    }
+    
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
@@ -171,6 +178,11 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
   };
 
   const handleFormSubmit = (data: SejourFormData) => {
+    // Vérifier que la photo de couverture est présente
+    if (!coverImage) {
+      alert("La photo de couverture est obligatoire");
+      return;
+    }
     onSubmit(data, false);
   };
 
@@ -299,13 +311,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="nightsMedina">Nombre de nuitées à Médine</Label>
+                  <Label htmlFor="nightsMedina">Nombre de nuitées à Médine *</Label>
                   <Input
                     id="nightsMedina"
                     type="number"
                     min="0"
                     max={totalNightsFromDates || 30}
                     {...register("nightsMedina", { 
+                      required: "Le nombre de nuitées est requis",
                       valueAsNumber: true,
                       validate: (value) => {
                         const total = (value || 0) + (nightsMecca || 0);
@@ -321,13 +334,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="nightsMecca">Nombre de nuitées à Makkah</Label>
+                  <Label htmlFor="nightsMecca">Nombre de nuitées à Makkah *</Label>
                   <Input
                     id="nightsMecca"
                     type="number"
                     min="0"
                     max={totalNightsFromDates || 30}
                     {...register("nightsMecca", { 
+                      required: "Le nombre de nuitées est requis",
                       valueAsNumber: true,
                       validate: (value) => {
                         const total = (nightsMedina || 0) + (value || 0);
@@ -376,12 +390,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 <div className="space-y-4">
                   <h4 className="font-semibold text-lg">🕌 Hôtel Médine</h4>
                   <div className="space-y-2">
-                    <Label htmlFor="medinaHotelName">Nom de l'hôtel</Label>
+                    <Label htmlFor="medinaHotelName">Nom de l'hôtel *</Label>
                     <Input
                       id="medinaHotelName"
-                      {...register("medinaHotelName")}
+                      {...register("medinaHotelName", { required: "Le nom de l'hôtel est requis" })}
                       placeholder="Ex: Pullman Zamzam Medina"
                     />
+                    {errors.medinaHotelName && <p className="text-destructive text-sm">{errors.medinaHotelName.message}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres) *</Label>
@@ -399,12 +414,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 <div className="space-y-4">
                   <h4 className="font-semibold text-lg">🕋 Hôtel Makkah</h4>
                   <div className="space-y-2">
-                    <Label htmlFor="meccaHotelName">Nom de l'hôtel</Label>
+                    <Label htmlFor="meccaHotelName">Nom de l'hôtel *</Label>
                     <Input
                       id="meccaHotelName"
-                      {...register("meccaHotelName")}
+                      {...register("meccaHotelName", { required: "Le nom de l'hôtel est requis" })}
                       placeholder="Ex: Fairmont Makkah Clock Royal Tower"
                     />
+                    {errors.meccaHotelName && <p className="text-destructive text-sm">{errors.meccaHotelName.message}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres) *</Label>
@@ -436,7 +452,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Photo de couverture (obligatoire)</Label>
+                    <Label>Photo de couverture (obligatoire) *</Label>
                     <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                       <input
                         type="file"
@@ -458,7 +474,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                         ) : (
                           <div className="space-y-2">
                             <Upload className="w-8 h-8 mx-auto text-muted-foreground" />
-                            <p className="text-sm text-muted-foreground">Cliquez pour ajouter une photo de couverture</p>
+                            <p className="text-sm text-muted-foreground">Cliquez pour ajouter une photo de couverture *</p>
+                            <p className="text-xs text-destructive">Ce champ est obligatoire</p>
                           </div>
                         )}
                       </label>
