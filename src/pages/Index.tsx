@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,17 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
   const { data: weatherAndExchange } = useWeatherAndExchange();
+
+  // Switch between Makkah and Madinah every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const categories = [
     { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets Omra", count: 45 },
@@ -195,8 +205,8 @@ const Index = () => {
                   <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
                 
-                <p className="text-2xl text-muted-foreground leading-relaxed font-light">
-                  Réduisez vos coûts, pas vos rêves
+                <p className="text-2xl md:text-3xl font-bold leading-relaxed bg-black/50 backdrop-blur-sm rounded-2xl px-8 py-4">
+                  <span className="text-white drop-shadow-lg">Réduisez vos coûts, pas vos rêves</span>
                 </p>
               </div>
 
@@ -207,12 +217,16 @@ const Index = () => {
                     <span className="text-3xl">🕌</span>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground font-medium mb-1">
-                      {weatherAndExchange?.weather.makkah ? 'Makkah aujourd\'hui' : 'Hajj PACK 2024'}
+                    <p className="text-sm text-muted-foreground font-medium mb-1 transition-all duration-500">
+                      {weatherAndExchange?.weather ? 
+                        `${currentWeatherCity === 'makkah' ? 'Makkah' : 'Madinah'} aujourd'hui` : 
+                        'Hajj PACK 2024'}
                     </p>
                     <div className="flex items-center space-x-3">
-                      <span className="text-4xl font-black gradient-text-primary">
-                        {weatherAndExchange?.weather.makkah?.temperature ?? 32}°
+                      <span className="text-4xl font-black gradient-text-primary transition-all duration-500">
+                        {currentWeatherCity === 'makkah' 
+                          ? (weatherAndExchange?.weather.makkah?.temperature ?? 32)
+                          : (weatherAndExchange?.weather.madinah?.temperature ?? 28)}°
                       </span>
                       <div className="text-sm text-muted-foreground">
                         <div>EUR → SAR</div>
