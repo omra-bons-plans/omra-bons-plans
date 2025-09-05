@@ -54,7 +54,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
   const offersOther = watch('offersOther');
 
   const availableLanguages = [
@@ -92,15 +92,18 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
     
     switch (currentStep) {
       case 1:
-        fieldsToValidate = ['title', 'description', 'gender', 'city', 'yearsExperience'];
+        fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        // Languages and services - no required validation needed
+        fieldsToValidate = ['gender', 'city', 'yearsExperience'];
         break;
       case 3:
-        fieldsToValidate = ['price'];
+        // Languages and services - no required validation needed
         break;
       case 4:
+        fieldsToValidate = ['price'];
+        break;
+      case 5:
         fieldsToValidate = ['publishEndDate'];
         break;
     }
@@ -129,7 +132,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <span>📋</span>
-                <span>Informations générales</span>
+                <span>Informations de base</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -153,7 +156,20 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 />
                 {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
+            </CardContent>
+          </Card>
+        );
 
+      case 2:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <User className="w-5 h-5" />
+                <span>Informations personnelles</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="gender">Genre *</Label>
@@ -202,7 +218,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
           </Card>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-8">
             <Card>

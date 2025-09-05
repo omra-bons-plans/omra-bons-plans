@@ -50,7 +50,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
   const isPromotion = watch('isPromotion');
   const originalPrice = watch('originalPrice');
   const price = watch('price');
@@ -92,16 +92,19 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     
     switch (currentStep) {
       case 1:
-        fieldsToValidate = ['title', 'description', 'airline', 'departureDate', 'returnDate'];
+        fieldsToValidate = ['title', 'airline'];
         break;
       case 2:
-        // Hotel information - no required validation needed
+        fieldsToValidate = ['description'];
         break;
       case 3:
-        fieldsToValidate = ['price'];
+        fieldsToValidate = ['departureDate', 'returnDate'];
         break;
       case 4:
-        fieldsToValidate = ['publishEndDate'];
+        // Hotel information - no required validation needed
+        break;
+      case 5:
+        fieldsToValidate = ['price', 'publishEndDate'];
         break;
     }
 
@@ -129,7 +132,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <span>📋</span>
-                <span>Informations générales</span>
+                <span>Informations de base</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -160,18 +163,44 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   </Select>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        );
 
+      case 2:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span>📝</span>
+                <span>Description du séjour</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="description">Description complète *</Label>
                 <Textarea
                   id="description"
                   {...register("description", { required: "La description est requise" })}
                   placeholder="Décrivez votre séjour Omra en détail..."
-                  rows={4}
+                  rows={6}
                 />
                 {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
+            </CardContent>
+          </Card>
+        );
 
+      case 3:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Calendar className="w-5 h-5" />
+                <span>Dates du voyage</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="departureDate">Date de départ *</Label>
@@ -221,7 +250,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
           </Card>
         );
 
-      case 2:
+      case 4:
         return (
           <Card>
             <CardHeader>
@@ -276,7 +305,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
           </Card>
         );
 
-      case 3:
+      case 5:
         return (
           <div className="space-y-8">
             <Card>
@@ -429,55 +458,52 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 )}
               </CardContent>
             </Card>
-          </div>
-        );
 
-      case 4:
-        return (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calendar className="w-5 h-5" />
-                <span>Paramètres de publication</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="publishEndDate">Date de fin de publication *</Label>
-                <Input
-                  id="publishEndDate"
-                  type="date"
-                  {...register("publishEndDate", { required: "La date de fin est requise" })}
-                />
-                {errors.publishEndDate && <p className="text-destructive text-sm">{errors.publishEndDate.message}</p>}
-                <p className="text-sm text-muted-foreground">
-                  L'annonce sera automatiquement supprimée après cette date
-                </p>
-              </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Calendar className="w-5 h-5" />
+                  <span>Paramètres de publication</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="publishEndDate">Date de fin de publication *</Label>
+                  <Input
+                    id="publishEndDate"
+                    type="date"
+                    {...register("publishEndDate", { required: "La date de fin est requise" })}
+                  />
+                  {errors.publishEndDate && <p className="text-destructive text-sm">{errors.publishEndDate.message}</p>}
+                  <p className="text-sm text-muted-foreground">
+                    L'annonce sera automatiquement supprimée après cette date
+                  </p>
+                </div>
 
-              <div className="space-y-4">
-                <h4 className="font-semibold">Informations de contact affichées</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id="showEmail"
-                      checked={watch("showEmail")}
-                      onCheckedChange={(checked) => setValue("showEmail", !!checked)}
-                    />
-                    <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id="showPhone"
-                      checked={watch("showPhone")}
-                      onCheckedChange={(checked) => setValue("showPhone", !!checked)}
-                    />
-                    <Label htmlFor="showPhone">Afficher le téléphone</Label>
+                <div className="space-y-4">
+                  <h4 className="font-semibold">Informations de contact affichées</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="showEmail"
+                        checked={watch("showEmail")}
+                        onCheckedChange={(checked) => setValue("showEmail", !!checked)}
+                      />
+                      <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="showPhone"
+                        checked={watch("showPhone")}
+                        onCheckedChange={(checked) => setValue("showPhone", !!checked)}
+                      />
+                      <Label htmlFor="showPhone">Afficher le téléphone</Label>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         );
 
       default:

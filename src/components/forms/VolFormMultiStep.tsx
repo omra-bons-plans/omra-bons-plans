@@ -51,7 +51,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
   const originalPrice = watch('originalPrice');
   const price = watch('price');
 
@@ -80,12 +80,15 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        fieldsToValidate = ['airline', 'departureAirport', 'arrivalAirport', 'departureDate', 'returnDate'];
+        fieldsToValidate = ['airline', 'departureAirport', 'arrivalAirport'];
         break;
       case 3:
-        fieldsToValidate = ['price'];
+        fieldsToValidate = ['departureDate', 'returnDate'];
         break;
       case 4:
+        fieldsToValidate = ['price'];
+        break;
+      case 5:
         fieldsToValidate = ['publishEndDate'];
         break;
     }
@@ -148,7 +151,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Plane className="w-5 h-5" />
-                <span>Détails du vol</span>
+                <span>Compagnie et aéroports</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -191,7 +194,20 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   {errors.arrivalAirport && <p className="text-destructive text-sm">{errors.arrivalAirport.message}</p>}
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        );
 
+      case 3:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Calendar className="w-5 h-5" />
+                <span>Dates et escales</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="departureDate">Date de départ *</Label>
@@ -261,7 +277,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
           </Card>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-8">
             <Card>
@@ -397,7 +413,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <Card>
             <CardHeader>
