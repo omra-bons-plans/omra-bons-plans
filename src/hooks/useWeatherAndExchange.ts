@@ -41,6 +41,18 @@ export const useWeatherAndExchange = () => {
     } catch (err: any) {
       console.error('Error fetching weather and exchange data:', err);
       setError(err.message || 'Une erreur est survenue');
+      
+      // Set fallback data if API fails
+      setData({
+        weather: {
+          makkah: { city: 'makkah', temperature: 32, description: 'ensoleillé', icon: '01d' },
+          madinah: { city: 'madinah', temperature: 28, description: 'ensoleillé', icon: '01d' }
+        },
+        exchange: {
+          eurToSar: 3.95,
+          lastUpdated: new Date().toISOString()
+        }
+      });
     } finally {
       setLoading(false);
     }
