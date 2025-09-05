@@ -417,7 +417,17 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                       id="price"
                       type="number"
                       step="0.01"
-                      {...register("price", { required: "Le prix est requis", valueAsNumber: true })}
+                      {...register("price", { 
+                        required: "Le prix est requis", 
+                        valueAsNumber: true,
+                        validate: (value) => {
+                          const basePrice = watch("originalPrice");
+                          if (basePrice && value > basePrice) {
+                            return "Le prix de vente ne peut pas être supérieur au prix de base";
+                          }
+                          return true;
+                        }
+                      })}
                       placeholder="Ex: 650"
                     />
                     {errors.price && <p className="text-destructive text-sm">{errors.price.message}</p>}
@@ -429,8 +439,23 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                       id="originalPrice"
                       type="number"
                       step="0.01"
-                      {...register("originalPrice", { valueAsNumber: true })}
+                      {...register("originalPrice", { 
+                        valueAsNumber: true,
+                        validate: (value) => {
+                          const salePrice = watch("price");
+                          if (value && salePrice && salePrice > value) {
+                            return "Le prix de base doit être supérieur au prix de vente";
+                          }
+                          return true;
+                        }
+                      })}
                       placeholder="Ex: 850"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setValue("originalPrice", value ? parseFloat(value) : undefined);
+                        // Re-valider le prix de vente quand le prix de base change
+                        trigger("price");
+                      }}
                     />
                   </div>
                 </div>
