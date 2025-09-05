@@ -274,9 +274,9 @@ const Index = () => {
 
               {/* Modern Weather & Exchange Card */}
               <div className="bg-white/95 backdrop-blur-sm p-6 rounded-3xl shadow-soft max-w-2xl mx-auto border border-border/20">
-                <div className="flex flex-col sm:flex-row gap-6">
+                <div className="flex flex-col gap-6">
                   {/* Weather Section */}
-                  <div className="flex-1 flex items-center space-x-4">
+                  <div className="flex items-center space-x-4">
                     {/* City Indicator Dots */}
                     <div className="flex flex-col space-y-2 mr-2">
                       <button
@@ -335,17 +335,11 @@ const Index = () => {
                     </div>
                   </div>
 
-                  {/* Divider */}
-                  <div className="w-px bg-gray-200 hidden sm:block"></div>
-                  <div className="h-px bg-gray-200 sm:hidden"></div>
-
-                  {/* Exchange Rate Section */}
-                  <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600 font-medium mb-1">Taux du jour</div>
-                      <div className="text-xl font-bold text-gray-800">
-                        1€ = <span className="text-amber-500">{weatherAndExchange?.exchange.eurToSar ?? '3.95'}</span> Sar
-                      </div>
+                  {/* Exchange Rate Section - Mobile Centered */}
+                  <div className="text-center pt-4 border-t border-gray-200">
+                    <div className="text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
+                    <div className="text-2xl md:text-3xl font-bold text-gray-800">
+                      1€ = <span className="text-amber-500">{weatherAndExchange?.exchange.eurToSar ?? '3.95'}</span> Sar
                     </div>
                   </div>
                 </div>
