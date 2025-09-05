@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield } from "lucide-react";
+import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,30 @@ import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
 import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
 import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
 import airplaneInterior from "@/assets/airplane-interior.jpg";
+
+// Weather icon mapping function
+const getWeatherIcon = (description: string) => {
+  const desc = description.toLowerCase();
+  
+  if (desc.includes('clear') || desc.includes('sunny') || desc.includes('dégagé')) {
+    return <Sun className="w-8 h-8 text-yellow-500" />;
+  }
+  if (desc.includes('cloud') || desc.includes('nuageux') || desc.includes('couvert')) {
+    return <Cloudy className="w-8 h-8 text-gray-500" />;
+  }
+  if (desc.includes('rain') || desc.includes('pluie') || desc.includes('averse')) {
+    return <CloudRain className="w-8 h-8 text-blue-500" />;
+  }
+  if (desc.includes('snow') || desc.includes('neige')) {
+    return <CloudSnow className="w-8 h-8 text-blue-300" />;
+  }
+  if (desc.includes('partly') || desc.includes('partiellement')) {
+    return <Cloud className="w-8 h-8 text-gray-400" />;
+  }
+  
+  // Default sunny icon
+  return <Sun className="w-8 h-8 text-yellow-500" />;
+};
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -214,7 +238,13 @@ const Index = () => {
               <div className="glass-strong p-8 rounded-3xl border-2 border-primary/30 shadow-elegant max-w-lg mx-auto bg-background/80 backdrop-blur-md">
                 <div className="flex items-center space-x-6">
                   <div className="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center shadow-large">
-                    <span className="text-4xl">🕌</span>
+                    {weatherAndExchange?.weather && 
+                      getWeatherIcon(
+                        currentWeatherCity === 'makkah' 
+                          ? (weatherAndExchange.weather.makkah?.description || 'Sunny')
+                          : (weatherAndExchange.weather.madinah?.description || 'Sunny')
+                      )
+                    }
                   </div>
                   <div className="flex-1">
                     <p className="text-lg font-bold text-foreground mb-2 transition-all duration-500">
