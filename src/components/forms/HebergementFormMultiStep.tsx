@@ -62,6 +62,9 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     }
   });
 
+  const watchedCity = watch('city');
+  const watchedAccommodationType = watch('accommodationType');
+
   const totalSteps = 5;
   const steps = ["Informations de base", "Dates et détails", "Commodités", "Photos et médias", "Prix et publication"];
 
@@ -70,13 +73,23 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     
     switch (currentStep) {
       case 1:
-        isValid = await trigger(['title', 'description', 'city', 'accommodationType', 'name']);
+        // Valider titre, description, ville, type et nom (si hôtel)
+        if (watchedAccommodationType === 'hotel') {
+          isValid = await trigger(['title', 'description', 'city', 'accommodationType', 'name']);
+        } else {
+          isValid = await trigger(['title', 'description', 'city', 'accommodationType']);
+        }
         break;
       case 2:
-        isValid = await trigger(['distanceToMosque', 'availableFrom', 'availableTo', 'roomsCount', 'bedsCount']);
+        // Valider lits (obligatoire) et chambres (si appartement)
+        if (watchedAccommodationType === 'apartment') {
+          isValid = await trigger(['bedsCount', 'roomsCount']);
+        } else {
+          isValid = await trigger(['bedsCount']);
+        }
         break;
       case 3:
-        isValid = true; // Commodités are optional
+        isValid = true; // Commodités et vidéo sont optionnelles
         break;
       case 4:
         isValid = !!coverImage; // Cover image is required
@@ -221,15 +234,18 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nom de l'hébergement *</Label>
-                  <Input
-                    id="name"
-                    {...register("name", { required: "Le nom est obligatoire" })}
-                    placeholder="Ex: Hôtel Hilton Makkah ou Appartement Al Noor"
-                  />
-                  {errors.name && <span className="text-destructive text-sm">{errors.name.message}</span>}
-                </div>
+                {/* Nom uniquement pour les hôtels */}
+                {watchedAccommodationType === 'hotel' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nom de l'hôtel *</Label>
+                    <Input
+                      id="name"
+                      {...register("name", { required: watchedAccommodationType === 'hotel' ? "Le nom de l'hôtel est obligatoire" : false })}
+                      placeholder="Ex: Hôtel Hilton Makkah"
+                    />
+                    {errors.name && <span className="text-destructive text-sm">{errors.name.message}</span>}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -247,11 +263,14 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="distanceToMosque">Distance de la mosquée</Label>
+                  <Label htmlFor="distanceToMosque">
+                    Distance en mètres jusqu'à {watchedCity === 'medina' ? 'la mosquée du Prophète' : 'la mosquée Al-Haram'}
+                  </Label>
                   <Input
                     id="distanceToMosque"
                     {...register("distanceToMosque")}
-                    placeholder="Ex: 500m à pied, 2 minutes en voiture"
+                    placeholder="Ex: 500"
+                    type="number"
                   />
                 </div>
 
@@ -276,42 +295,50 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="roomsCount">Nombre de chambres</Label>
-                    <Input
-                      type="number"
-                      id="roomsCount"
-                      {...register("roomsCount", { min: 0 })}
-                      min="0"
-                      placeholder="0"
-                    />
-                  </div>
+                  {/* Chambres uniquement pour les appartements */}
+                  {watchedAccommodationType === 'apartment' && (
+                    <div className="space-y-2">
+                      <Label htmlFor="roomsCount">Nombre de chambres *</Label>
+                      <Input
+                        type="number"
+                        id="roomsCount"
+                        {...register("roomsCount", { min: 1, required: watchedAccommodationType === 'apartment' ? "Le nombre de chambres est obligatoire" : false })}
+                        min="1"
+                        placeholder="1"
+                      />
+                      {errors.roomsCount && <span className="text-destructive text-sm">{errors.roomsCount.message}</span>}
+                    </div>
+                  )}
 
                   <div className="space-y-2">
-                    <Label htmlFor="bedsCount">Nombre de lits</Label>
+                    <Label htmlFor="bedsCount">Nombre de lits *</Label>
                     <Input
                       type="number"
                       id="bedsCount"
-                      {...register("bedsCount", { min: 0 })}
-                      min="0"
-                      placeholder="0"
+                      {...register("bedsCount", { min: 1, required: "Le nombre de lits est obligatoire" })}
+                      min="1"
+                      placeholder="1"
                     />
+                    {errors.bedsCount && <span className="text-destructive text-sm">{errors.bedsCount.message}</span>}
                   </div>
 
-                  <div className="flex items-center space-x-2 mt-8">
-                    <Controller
-                      name="hasLivingRoom"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasLivingRoom"
-                        />
-                      )}
-                    />
-                    <Label htmlFor="hasLivingRoom" className="text-sm">Salon disponible</Label>
-                  </div>
+                  {/* Salon uniquement pour les appartements */}
+                  {watchedAccommodationType === 'apartment' && (
+                    <div className="flex items-center space-x-2 mt-8">
+                      <Controller
+                        name="hasLivingRoom"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            id="hasLivingRoom"
+                          />
+                        )}
+                      />
+                      <Label htmlFor="hasLivingRoom" className="text-sm">Salon disponible</Label>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -323,115 +350,128 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Commodités disponibles</CardTitle>
+                <CardTitle>
+                  {watchedAccommodationType === 'apartment' ? 'Commodités disponibles' : 'Informations supplémentaires'}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-3">
-                    <Controller
-                      name="hasWifi"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasWifi"
+                {watchedAccommodationType === 'apartment' && (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex items-center space-x-3">
+                        <Controller
+                          name="hasWifi"
+                          control={control}
+                          render={({ field }) => (
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              id="hasWifi"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Label htmlFor="hasWifi" className="flex items-center space-x-2">
-                      <Wifi className="w-4 h-4" />
-                      <span>Wi-Fi gratuit</span>
-                    </Label>
-                  </div>
+                        <Label htmlFor="hasWifi" className="flex items-center space-x-2">
+                          <Wifi className="w-4 h-4" />
+                          <span>Wi-Fi gratuit</span>
+                        </Label>
+                      </div>
 
-                  <div className="flex items-center space-x-3">
-                    <Controller
-                      name="hasAc"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasAc"
+                      <div className="flex items-center space-x-3">
+                        <Controller
+                          name="hasAc"
+                          control={control}
+                          render={({ field }) => (
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              id="hasAc"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Label htmlFor="hasAc" className="flex items-center space-x-2">
-                      <Snowflake className="w-4 h-4" />
-                      <span>Climatisation</span>
-                    </Label>
-                  </div>
+                        <Label htmlFor="hasAc" className="flex items-center space-x-2">
+                          <Snowflake className="w-4 h-4" />
+                          <span>Climatisation</span>
+                        </Label>
+                      </div>
 
-                  <div className="flex items-center space-x-3">
-                    <Controller
-                      name="hasTv"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasTv"
+                      <div className="flex items-center space-x-3">
+                        <Controller
+                          name="hasTv"
+                          control={control}
+                          render={({ field }) => (
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              id="hasTv"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Label htmlFor="hasTv" className="flex items-center space-x-2">
-                      <Tv className="w-4 h-4" />
-                      <span>Télévision</span>
-                    </Label>
-                  </div>
+                        <Label htmlFor="hasTv" className="flex items-center space-x-2">
+                          <Tv className="w-4 h-4" />
+                          <span>Télévision</span>
+                        </Label>
+                      </div>
 
-                  <div className="flex items-center space-x-3">
-                    <Controller
-                      name="hasFridge"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasFridge"
+                      <div className="flex items-center space-x-3">
+                        <Controller
+                          name="hasFridge"
+                          control={control}
+                          render={({ field }) => (
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              id="hasFridge"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Label htmlFor="hasFridge" className="flex items-center space-x-2">
-                      <Refrigerator className="w-4 h-4" />
-                      <span>Réfrigérateur</span>
-                    </Label>
-                  </div>
+                        <Label htmlFor="hasFridge" className="flex items-center space-x-2">
+                          <Refrigerator className="w-4 h-4" />
+                          <span>Réfrigérateur</span>
+                        </Label>
+                      </div>
 
-                  <div className="flex items-center space-x-3">
-                    <Controller
-                      name="hasWashingMachine"
-                      control={control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          id="hasWashingMachine"
+                      <div className="flex items-center space-x-3">
+                        <Controller
+                          name="hasWashingMachine"
+                          control={control}
+                          render={({ field }) => (
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              id="hasWashingMachine"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Label htmlFor="hasWashingMachine" className="flex items-center space-x-2">
-                      <WashingMachine className="w-4 h-4" />
-                      <span>Lave-linge</span>
-                    </Label>
-                  </div>
-                </div>
+                        <Label htmlFor="hasWashingMachine" className="flex items-center space-x-2">
+                          <WashingMachine className="w-4 h-4" />
+                          <span>Lave-linge</span>
+                        </Label>
+                      </div>
+                    </div>
 
-                <div className="space-y-2 mt-6">
-                  <Label htmlFor="videoUrl" className="flex items-center space-x-2">
-                    <Video className="w-4 h-4" />
-                    <span>Lien vidéo (YouTube/Vimeo)</span>
-                  </Label>
-                  <Input
-                    id="videoUrl"
-                    {...register("videoUrl")}
-                    placeholder="https://www.youtube.com/watch?v=..."
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Ajoutez un lien vers une vidéo de présentation de votre hébergement
-                  </p>
-                </div>
+                    <div className="space-y-2 mt-6">
+                      <Label htmlFor="videoUrl" className="flex items-center space-x-2">
+                        <Video className="w-4 h-4" />
+                        <span>Lien vidéo (YouTube/Vimeo)</span>
+                      </Label>
+                      <Input
+                        id="videoUrl"
+                        {...register("videoUrl")}
+                        placeholder="https://www.youtube.com/watch?v=..."
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        Ajoutez un lien vers une vidéo de présentation de votre appartement
+                      </p>
+                    </div>
+                  </>
+                )}
+
+                {watchedAccommodationType === 'hotel' && (
+                  <div className="text-center text-muted-foreground py-8">
+                    <p>Aucune information supplémentaire n'est requise pour les hôtels.</p>
+                    <p>Cliquez sur "Suivant" pour continuer.</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
