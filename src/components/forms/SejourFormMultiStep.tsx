@@ -151,7 +151,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
         fieldsToValidate = ['departureDate', 'returnDate'];
         break;
       case 4:
-        // Hotel information - no required validation needed
+        fieldsToValidate = ['medinaHotelDistance', 'meccaHotelDistance'];
         break;
       case 5:
         fieldsToValidate = ['price', 'publishEndDate'];
@@ -384,14 +384,15 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres)</Label>
+                    <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres) *</Label>
                     <Input
                       id="medinaHotelDistance"
                       type="number"
                       min="0"
-                      {...register("medinaHotelDistance")}
+                      {...register("medinaHotelDistance", { required: "La distance est requise" })}
                       placeholder="200"
                     />
+                    {errors.medinaHotelDistance && <p className="text-destructive text-sm">{errors.medinaHotelDistance.message}</p>}
                   </div>
                 </div>
 
@@ -406,14 +407,15 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres)</Label>
+                    <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres) *</Label>
                     <Input
                       id="meccaHotelDistance"
                       type="number"
                       min="0"
-                      {...register("meccaHotelDistance")}
+                      {...register("meccaHotelDistance", { required: "La distance est requise" })}
                       placeholder="50"
                     />
+                    {errors.meccaHotelDistance && <p className="text-destructive text-sm">{errors.meccaHotelDistance.message}</p>}
                   </div>
                 </div>
               </div>
