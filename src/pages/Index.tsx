@@ -1062,60 +1062,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section - Now second */}
-      <section className="py-20 px-6 relative overflow-hidden bg-accent/20">
-        {/* Decorative background */}
-        <div className="absolute top-10 right-10 w-24 h-24 bg-secondary/10 rounded-full"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-primary/10 rounded-full"></div>
-        
-        <div className="container mx-auto relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold">
-                  <span className="text-foreground">Des réductions en exclusivité</span><br />
-                  <span className="text-foreground">sur </span>
-                  <span className="gradient-text-secondary">Omra Bons plans</span>
-                </h2>
-                
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Grâce aux bons plans pour un voyage Omra remarquable
-                  découvrant chez vous, activités, décontracte et fassc vous en vous
-                  déplaçant. Profitez des réductions sur tous les services.
-                </p>
-              </div>
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-8">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center space-y-2">
-                    <div className="text-4xl font-bold gradient-text-secondary">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Person Image */}
-            <div className="relative">
-              <div className="w-full max-w-md mx-auto">
-                <div className="bg-gradient-primary rounded-3xl overflow-hidden shadow-large">
-                  <div className="aspect-square bg-gradient-subtle flex items-center justify-center">
-                    <div className="text-8xl opacity-60">👨‍👩‍👧‍👦</div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Floating decorations */}
-              <div className="absolute -top-6 -right-6 w-16 h-16 bg-secondary rounded-full flex items-center justify-center shadow-soft">
-                <span className="text-2xl">✨</span>
-              </div>
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-warning/30 rounded-full"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Additional Services */}
       <section className="py-20 px-6 bg-card">
         <div className="container mx-auto">
