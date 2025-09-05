@@ -23,6 +23,7 @@ export type Database = {
           description: string
           id: string
           images: string[] | null
+          is_draft: boolean | null
           is_promotion: boolean | null
           is_published: boolean | null
           location: string | null
@@ -44,6 +45,7 @@ export type Database = {
           description: string
           id?: string
           images?: string[] | null
+          is_draft?: boolean | null
           is_promotion?: boolean | null
           is_published?: boolean | null
           location?: string | null
@@ -65,6 +67,7 @@ export type Database = {
           description?: string
           id?: string
           images?: string[] | null
+          is_draft?: boolean | null
           is_promotion?: boolean | null
           is_published?: boolean | null
           location?: string | null

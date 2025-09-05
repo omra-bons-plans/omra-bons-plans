@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,11 +7,15 @@ import { toast } from "sonner";
 import SejourForm from "@/components/forms/SejourForm";
 import VolForm from "@/components/forms/VolForm";
 import GuideForm from "@/components/forms/GuideForm";
+import ProgressBar from "@/components/ui/ProgressBar";
 
 const PublishAd = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFormula, setSelectedFormula] = useState("");
+  
+  const totalSteps = 3;
+  const steps = ["Catégorie", "Formule", "Détails"];
 
   const categories = [
     { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets" },
@@ -27,6 +31,63 @@ const PublishAd = () => {
     { id: "essentiel", name: "Essentiel", rating: "4★", description: "Séjour équilibré qualité-prix" },
     { id: "eco", name: "Éco", rating: "3★", description: "Séjour économique et accessible" }
   ];
+
+  const saveDraft = async (adData: any, categoryData?: any) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("Vous devez être connecté pour sauvegarder");
+        return;
+      }
+
+      // Create the main ad as draft
+      const { data: ad, error: adError } = await supabase
+        .from('ads')
+        .insert({
+          ...adData,
+          user_id: user.id,
+          is_published: false,
+          is_draft: true,
+        })
+        .select()
+        .single();
+
+      if (adError) throw adError;
+
+      // Save category-specific data if provided
+      if (categoryData && selectedCategory) {
+        let categoryError;
+        switch (selectedCategory) {
+          case 'sejours':
+            const { error: sejourError } = await supabase
+              .from('ads_sejours')
+              .insert({ ad_id: ad.id, ...categoryData });
+            categoryError = sejourError;
+            break;
+          case 'vols':
+            const { error: volError } = await supabase
+              .from('ads_vols')
+              .insert({ ad_id: ad.id, ...categoryData });
+            categoryError = volError;
+            break;
+          case 'guides':
+            const { error: guideError } = await supabase
+              .from('ads_guides')
+              .insert({ ad_id: ad.id, ...categoryData });
+            categoryError = guideError;
+            break;
+        }
+        
+        if (categoryError) throw categoryError;
+      }
+
+      toast.success("Brouillon sauvegardé avec succès !");
+      return ad.id;
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      toast.error("Erreur lors de la sauvegarde du brouillon");
+    }
+  };
 
   const handleNext = () => {
     if (currentStep === 1 && selectedCategory) {
@@ -44,12 +105,44 @@ const PublishAd = () => {
     }
   };
 
-  const handleSejourSubmit = async (data: any) => {
+  const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
     try {
       // Get current user
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      if (saveAsDraft) {
+        const adData = {
+          category: 'sejours',
+          title: data.title || 'Brouillon séjour',
+          description: data.description || '',
+          price: data.price || 0,
+          original_price: data.originalPrice,
+          location: `${data.nightsMedina ? 'Médine' : ''} ${data.nightsMecca ? 'Makkah' : ''}`.trim(),
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        };
+
+        const categoryData = {
+          formula_type: selectedFormula,
+          airline: data.airline,
+          departure_date: data.departureDate,
+          return_date: data.returnDate,
+          nights_medina: data.nightsMedina || 0,
+          nights_mecca: data.nightsMecca || 0,
+          medina_hotel_name: data.medinaHotelName,
+          medina_hotel_distance: data.medinaHotelDistance,
+          mecca_hotel_name: data.meccaHotelName,
+          mecca_hotel_distance: data.meccaHotelDistance,
+        };
+
+        await saveDraft(adData, categoryData);
         return;
       }
 
@@ -70,6 +163,7 @@ const PublishAd = () => {
           promotion_end_date: data.promotionEndDate || null,
           publish_end_date: data.publishEndDate,
           is_published: true,
+          is_draft: false,
         })
         .select()
         .single();
@@ -104,11 +198,40 @@ const PublishAd = () => {
     }
   };
 
-  const handleVolSubmit = async (data: any) => {
+  const handleVolSubmit = async (data: any, saveAsDraft = false) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      if (saveAsDraft) {
+        const adData = {
+          category: 'vols',
+          title: data.title || 'Brouillon vol',
+          description: data.description || '',
+          price: data.price || 0,
+          original_price: data.originalPrice,
+          location: `${data.departureAirport} → ${data.arrivalAirport}`,
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        };
+
+        const categoryData = {
+          airline: data.airline,
+          departure_airport: data.departureAirport,
+          arrival_airport: data.arrivalAirport,
+          departure_date: data.departureDate,
+          return_date: data.returnDate,
+          has_stopover: data.hasStopover,
+          stopover_details: data.stopoverDetails,
+        };
+
+        await saveDraft(adData, categoryData);
         return;
       }
 
@@ -128,6 +251,7 @@ const PublishAd = () => {
           promotion_end_date: data.promotionEndDate || null,
           publish_end_date: data.publishEndDate,
           is_published: true,
+          is_draft: false,
         })
         .select()
         .single();
@@ -157,11 +281,41 @@ const PublishAd = () => {
     }
   };
 
-  const handleGuideSubmit = async (data: any) => {
+  const handleGuideSubmit = async (data: any, saveAsDraft = false) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      if (saveAsDraft) {
+        const adData = {
+          category: 'guides',
+          title: data.title || 'Brouillon guide',
+          description: data.description || '',
+          price: data.price || 0,
+          location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        };
+
+        const categoryData = {
+          gender: data.gender,
+          city: data.city,
+          years_experience: data.yearsExperience || 0,
+          languages: data.languages || [],
+          offers_omra_guidance: data.offersOmraGuidance,
+          offers_visits: data.offersVisits,
+          offers_courses: data.offersCourses,
+          offers_omra_badal: data.offersOmraBadal,
+          offers_wheelchair_help: data.offersWheelchairHelp,
+          offers_other: data.offersOther,
+          other_services_description: data.otherServicesDescription,
+        };
+
+        await saveDraft(adData, categoryData);
         return;
       }
 
@@ -178,6 +332,7 @@ const PublishAd = () => {
           show_phone: data.showPhone,
           publish_end_date: data.publishEndDate,
           is_published: true,
+          is_draft: false,
         })
         .select()
         .single();
@@ -238,7 +393,7 @@ const PublishAd = () => {
         </div>
       </header>
 
-      <main className="flex-1 py-12 px-6">
+      <main className="flex-1 py-12 px-6 pb-32">
         <div className="container mx-auto max-w-4xl">
           
           {/* Step 1: Category Selection */}
@@ -427,6 +582,13 @@ const PublishAd = () => {
           )}
         </div>
       </main>
+      
+      {/* Progress Bar */}
+      <ProgressBar 
+        currentStep={currentStep}
+        totalSteps={totalSteps}
+        steps={steps}
+      />
     </div>
   );
 };

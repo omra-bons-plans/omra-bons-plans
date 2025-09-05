@@ -33,7 +33,7 @@ interface SejourFormData {
 
 interface SejourFormProps {
   formulaType: string;
-  onSubmit: (data: SejourFormData) => void;
+  onSubmit: (data: SejourFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
 }
 
@@ -48,6 +48,10 @@ const SejourForm = ({ formulaType, onSubmit, onBack }: SejourFormProps) => {
       isPromotion: false,
     }
   });
+
+  const handleFormSubmit = (data: SejourFormData) => {
+    onSubmit(data, false);
+  };
 
   const isPromotion = watch('isPromotion');
   const originalPrice = watch('originalPrice');
@@ -100,7 +104,7 @@ const SejourForm = ({ formulaType, onSubmit, onBack }: SejourFormProps) => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
         {/* Basic Information */}
         <Card>
           <CardHeader>
@@ -465,9 +469,22 @@ const SejourForm = ({ formulaType, onSubmit, onBack }: SejourFormProps) => {
           <Button type="button" variant="outline" onClick={onBack}>
             Retour
           </Button>
-          <Button type="submit" className="btn-modern px-8">
-            Publier l'annonce
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              type="button" 
+              variant="secondary" 
+              onClick={() => {
+                const data = watch();
+                onSubmit(data, true);
+              }}
+              className="px-6"
+            >
+              Enregistrer et continuer plus tard
+            </Button>
+            <Button type="submit" className="btn-modern px-8">
+              Publier l'annonce
+            </Button>
+          </div>
         </div>
       </form>
     </div>
