@@ -173,15 +173,20 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="gender">Genre *</Label>
-                  <Select onValueChange={(value) => setValue("gender", value)}>
+                  <Select 
+                    onValueChange={(value) => setValue("gender", value)} 
+                    value={watch("gender")}
+                    {...register("gender", { required: "Le genre est requis" })}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-background border-border">
                       <SelectItem value="male">Homme</SelectItem>
                       <SelectItem value="female">Femme</SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.gender && <p className="text-destructive text-sm">{errors.gender.message}</p>}
                 </div>
 
                 <div className="space-y-2">
@@ -190,6 +195,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                     id="yearsExperience"
                     type="number"
                     min="0"
+                    step="1"
                     {...register("yearsExperience", { 
                       required: "L'expérience est requise", 
                       valueAsNumber: true,
@@ -203,16 +209,21 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
               <div className="space-y-2">
                 <Label htmlFor="city">Ville d'exercice *</Label>
-                <Select onValueChange={(value) => setValue("city", value)}>
+                <Select 
+                  onValueChange={(value) => setValue("city", value)} 
+                  value={watch("city")}
+                  {...register("city", { required: "La ville est requise" })}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner la ville" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background border-border">
                     <SelectItem value="makkah">Makkah</SelectItem>
                     <SelectItem value="medina">Médine</SelectItem>
                     <SelectItem value="both">Makkah et Médine</SelectItem>
                   </SelectContent>
                 </Select>
+                {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
               </div>
             </CardContent>
           </Card>
