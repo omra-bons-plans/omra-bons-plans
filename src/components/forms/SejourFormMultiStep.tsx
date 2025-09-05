@@ -217,7 +217,16 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   <Input
                     id="returnDate"
                     type="date"
-                    {...register("returnDate", { required: "La date de retour est requise" })}
+                    {...register("returnDate", { 
+                      required: "La date de retour est requise",
+                      validate: (value) => {
+                        const departureDate = watch("departureDate");
+                        if (departureDate && value && new Date(value) <= new Date(departureDate)) {
+                          return "La date de retour doit être après la date de départ";
+                        }
+                        return true;
+                      }
+                    })}
                   />
                   {errors.returnDate && <p className="text-destructive text-sm">{errors.returnDate.message}</p>}
                 </div>
