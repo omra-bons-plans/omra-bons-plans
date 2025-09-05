@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 interface GuideFormData {
   title: string;
   description: string;
-  price: number;
   gender: string;
   city: string;
   yearsExperience: number;
@@ -54,7 +53,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
     }
   });
 
-  const totalSteps = 5;
+  const totalSteps = 4;
   const offersOther = watch('offersOther');
 
   const availableLanguages = [
@@ -101,9 +100,6 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         // Languages and services - no required validation needed
         break;
       case 4:
-        fieldsToValidate = ['price'];
-        break;
-      case 5:
         fieldsToValidate = ['publishEndDate'];
         break;
     }
@@ -327,12 +323,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 )}
               </CardContent>
             </Card>
-          </div>
-        );
 
-      case 3:
-        return (
-          <div className="space-y-8">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -409,31 +400,6 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                       )}
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <DollarSign className="w-5 h-5" />
-                  <span>Tarifs</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="price">Tarif journalier (€) *</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    step="0.01"
-                    {...register("price", { required: "Le tarif est requis", valueAsNumber: true })}
-                    placeholder="Ex: 45"
-                  />
-                  {errors.price && <p className="text-destructive text-sm">{errors.price.message}</p>}
-                  <p className="text-sm text-muted-foreground">
-                    Indiquez votre tarif par jour de service
-                  </p>
                 </div>
               </CardContent>
             </Card>

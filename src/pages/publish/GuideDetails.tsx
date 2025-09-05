@@ -75,7 +75,7 @@ const GuideDetails = () => {
           category: 'guides',
           title: data.title || 'Brouillon guide',
           description: data.description || '',
-          price: data.price || 0,
+          price: 0, // Guides sans prix
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,
@@ -107,7 +107,7 @@ const GuideDetails = () => {
           category: 'guides',
           title: data.title,
           description: data.description,
-          price: data.price,
+          price: 0, // Guides sans prix
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,

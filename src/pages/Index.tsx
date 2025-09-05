@@ -155,8 +155,12 @@ const Index = () => {
     ? featuredListings 
     : featuredListings.filter(listing => listing.type === selectedCategory);
 
-  // Get the earliest flash sale end date for the countdown
-  const flashSaleListings = featuredListings.filter(listing => listing.isFlashSale && listing.flashSaleEndDate);
+  // Get flash sale listings (only services with prices: sejours, vols, hebergement)
+  const flashSaleListings = featuredListings.filter(listing => 
+    listing.isFlashSale && 
+    listing.flashSaleEndDate && 
+    ['sejours', 'vols', 'hotels'].includes(listing.type)
+  );
   const earliestEndDate = flashSaleListings.length > 0 
     ? flashSaleListings.reduce((earliest, listing) => 
         listing.flashSaleEndDate! < earliest ? listing.flashSaleEndDate! : earliest, 
