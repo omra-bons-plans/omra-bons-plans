@@ -493,18 +493,20 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
           </Button>
           
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button 
-              type="button" 
-              variant="secondary" 
-              onClick={() => {
-                const data = watch();
-                onSubmit(data, true);
-              }}
-              className="px-4 sm:px-6 w-full sm:w-auto"
-            >
-              <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
-              <span className="sm:hidden">Sauvegarder brouillon</span>
-            </Button>
+            {currentStep === totalSteps && (
+              <Button 
+                type="button" 
+                variant="secondary" 
+                onClick={() => {
+                  const data = watch();
+                  onSubmit(data, true);
+                }}
+                className="px-4 sm:px-6 w-full sm:w-auto"
+              >
+                <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
+                <span className="sm:hidden">Sauvegarder brouillon</span>
+              </Button>
+            )}
             
             {currentStep < totalSteps ? (
               <Button 
