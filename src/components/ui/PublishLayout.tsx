@@ -31,7 +31,7 @@ const PublishLayout = ({
       <header className="bg-background/95 backdrop-blur-sm border-b border-border/40 sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 cursor-pointer" onClick={handleClose}>
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-soft">
                 <span className="text-primary-foreground font-bold text-base sm:text-lg">O</span>
               </div>

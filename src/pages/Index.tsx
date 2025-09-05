@@ -182,7 +182,7 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <div className="w-10 h-10 flex items-center justify-center">
                 <img src="/lovable-uploads/65b9282b-fcad-4d0b-8167-14248d2d69af.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
               </div>
