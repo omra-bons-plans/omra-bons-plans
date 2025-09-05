@@ -53,6 +53,10 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
     }
   });
 
+  const handleFormSubmit = (data: GuideFormData) => {
+    onSubmit(data, false);
+  };
+
   const offersOther = watch('offersOther');
   const availableLanguages = [
     { id: 'francais', name: 'Français' },
@@ -99,7 +103,7 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
         {/* Basic Information */}
         <Card>
           <CardHeader>
