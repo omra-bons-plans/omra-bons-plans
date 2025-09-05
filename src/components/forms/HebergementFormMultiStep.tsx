@@ -11,6 +11,64 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProgressBar from "@/components/ui/ProgressBar";
 
+// Component pour l'aperçu vidéo
+const VideoPreview = ({ url }: { url: string }) => {
+  const getVideoEmbed = (url: string) => {
+    // YouTube patterns
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+    const youtubeMatch = url.match(youtubeRegex);
+    
+    if (youtubeMatch) {
+      const videoId = youtubeMatch[1];
+      return (
+        <div className="aspect-video w-full max-w-md">
+          <iframe
+            width="100%"
+            height="100%"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title="YouTube video preview"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="rounded-lg"
+          />
+        </div>
+      );
+    }
+
+    // Vimeo patterns
+    const vimeoRegex = /(?:vimeo\.com\/)([0-9]+)/;
+    const vimeoMatch = url.match(vimeoRegex);
+    
+    if (vimeoMatch) {
+      const videoId = vimeoMatch[1];
+      return (
+        <div className="aspect-video w-full max-w-md">
+          <iframe
+            width="100%"
+            height="100%"
+            src={`https://player.vimeo.com/video/${videoId}`}
+            title="Vimeo video preview"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="rounded-lg"
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="p-4 border border-dashed border-gray-300 rounded-lg text-center text-muted-foreground">
+        <Video className="w-8 h-8 mx-auto mb-2 opacity-50" />
+        <p>URL vidéo non reconnue. Veuillez utiliser un lien YouTube ou Vimeo valide.</p>
+      </div>
+    );
+  };
+
+  return getVideoEmbed(url);
+};
+
 interface HebergementFormData {
   title: string;
   description: string;
@@ -481,20 +539,28 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                       </div>
                     </div>
 
-                    <div className="space-y-2 mt-6">
-                      <Label htmlFor="videoUrl" className="flex items-center space-x-2">
-                        <Video className="w-4 h-4" />
-                        <span>Lien vidéo (YouTube/Vimeo)</span>
-                      </Label>
-                      <Input
-                        id="videoUrl"
-                        {...register("videoUrl")}
-                        placeholder="https://www.youtube.com/watch?v=..."
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Ajoutez un lien vers une vidéo de présentation de votre appartement
-                      </p>
-                    </div>
+                     <div className="space-y-2 mt-6">
+                       <Label htmlFor="videoUrl" className="flex items-center space-x-2">
+                         <Video className="w-4 h-4" />
+                         <span>Lien vidéo (YouTube/Vimeo)</span>
+                       </Label>
+                       <Input
+                         id="videoUrl"
+                         {...register("videoUrl")}
+                         placeholder="https://www.youtube.com/watch?v=..."
+                       />
+                       <p className="text-sm text-muted-foreground">
+                         Ajoutez un lien vers une vidéo de présentation de votre appartement
+                       </p>
+                       
+                       {/* Video Preview */}
+                       {watch('videoUrl') && (
+                         <div className="mt-4">
+                           <Label className="text-sm text-muted-foreground">Aperçu de la vidéo</Label>
+                           <VideoPreview url={watch('videoUrl')} />
+                         </div>
+                       )}
+                     </div>
                   </>
                 )}
 
