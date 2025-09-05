@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import VolForm from "@/components/forms/VolForm";
+import VolFormMultiStep from "@/components/forms/VolFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 
 const VolDetails = () => {
@@ -151,10 +151,10 @@ const VolDetails = () => {
 
   return (
     <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
-      <VolForm 
-        onSubmit={handleVolSubmit}
-        onBack={handleBack}
-      />
+        <VolFormMultiStep 
+          onSubmit={handleVolSubmit} 
+          onBack={handleBack}
+        />
     </PublishLayout>
   );
 };

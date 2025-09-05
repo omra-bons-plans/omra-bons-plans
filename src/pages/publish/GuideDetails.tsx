@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import GuideForm from "@/components/forms/GuideForm";
+import GuideFormMultiStep from "@/components/forms/GuideFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 
 const GuideDetails = () => {
@@ -153,10 +153,10 @@ const GuideDetails = () => {
 
   return (
     <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
-      <GuideForm 
-        onSubmit={handleGuideSubmit}
-        onBack={handleBack}
-      />
+        <GuideFormMultiStep 
+          onSubmit={handleGuideSubmit} 
+          onBack={handleBack}
+        />
     </PublishLayout>
   );
 };

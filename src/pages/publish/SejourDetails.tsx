@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import SejourForm from "@/components/forms/SejourForm";
+import SejourFormMultiStep from "@/components/forms/SejourFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 
 const SejourDetails = () => {
@@ -166,7 +166,7 @@ const SejourDetails = () => {
 
   return (
     <PublishLayout currentStep={3} totalSteps={3} steps={steps}>
-      <SejourForm 
+      <SejourFormMultiStep 
         formulaType={formulaType}
         onSubmit={handleSejourSubmit}
         onBack={handleBack}
