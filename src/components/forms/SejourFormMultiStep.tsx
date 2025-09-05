@@ -123,7 +123,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isFormDirty]);
 
-  const totalSteps = 5;
+  const totalSteps = 6;
   const isPromotion = watch('isPromotion');
   const originalPrice = watch('originalPrice');
   const price = watch('price');
@@ -179,6 +179,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       case 5:
         fieldsToValidate = ['price', 'publishEndDate'];
         break;
+      case 6:
+        // Récapitulatif - pas de validation nécessaire
+        break;
     }
 
     const isValid = await trigger(fieldsToValidate);
@@ -191,8 +194,10 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
-      // Scroll vers le haut de la page
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll vers le haut de la page avec un délai pour s'assurer que le DOM est mis à jour
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }
   };
 
@@ -687,6 +692,105 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
           </div>
         );
 
+      case 6:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span>📋</span>
+                <span>Récapitulatif de votre annonce</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Informations générales */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Informations générales</h3>
+                  <div className="space-y-2">
+                    <div><strong>Titre :</strong> {watch("title") || "Non renseigné"}</div>
+                    <div><strong>Compagnie aérienne :</strong> {watch("airline") || "Non renseigné"}</div>
+                    <div><strong>Description :</strong> {watch("description") ? `${watch("description").substring(0, 100)}...` : "Non renseigné"}</div>
+                  </div>
+                </div>
+
+                {/* Dates et durée */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Dates et durée</h3>
+                  <div className="space-y-2">
+                    <div><strong>Départ :</strong> {watch("departureDate") || "Non renseigné"}</div>
+                    <div><strong>Retour :</strong> {watch("returnDate") || "Non renseigné"}</div>
+                    <div><strong>Nuitées Médine :</strong> {watch("nightsMedina") || 0}</div>
+                    <div><strong>Nuitées Makkah :</strong> {watch("nightsMecca") || 0}</div>
+                  </div>
+                </div>
+
+                {/* Hôtels */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Hôtels</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <strong>🕌 Médine :</strong> {watch("medinaHotelName") || "Non renseigné"}
+                      {watch("medinaHotelDistance") && ` (${watch("medinaHotelDistance")}m de la mosquée)`}
+                    </div>
+                    <div>
+                      <strong>🕋 Makkah :</strong> {watch("meccaHotelName") || "Non renseigné"}
+                      {watch("meccaHotelDistance") && ` (${watch("meccaHotelDistance")}m de la mosquée)`}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prix et publication */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Prix et publication</h3>
+                  <div className="space-y-2">
+                    <div><strong>Prix :</strong> {watch("price") || 0}€</div>
+                    {watch("originalPrice") && <div><strong>Prix original :</strong> {watch("originalPrice")}€</div>}
+                    {watch("isPromotion") && <div className="text-amber-600"><strong>En promotion</strong></div>}
+                    <div><strong>Fin de publication :</strong> {watch("publishEndDate") || "Non renseigné"}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Photos */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">Photos</h3>
+                <div className="flex flex-wrap gap-4">
+                  {coverImage && (
+                    <div className="relative">
+                      <img 
+                        src={URL.createObjectURL(coverImage)} 
+                        alt="Photo de couverture" 
+                        className="w-24 h-16 object-cover rounded-lg"
+                      />
+                      <Badge className="absolute -top-2 -right-2 text-xs">Couverture</Badge>
+                    </div>
+                  )}
+                  {images.map((image, index) => (
+                    <img 
+                      key={index}
+                      src={URL.createObjectURL(image)} 
+                      alt={`Photo ${index + 1}`}
+                      className="w-24 h-16 object-cover rounded-lg"
+                    />
+                  ))}
+                </div>
+                {!coverImage && images.length === 0 && (
+                  <p className="text-muted-foreground">Aucune photo ajoutée</p>
+                )}
+              </div>
+
+              {/* Contact */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">Informations de contact</h3>
+                <div className="space-y-2">
+                  <div><strong>Email :</strong> {watch("showEmail") ? "Affiché" : "Masqué"}</div>
+                  <div><strong>Téléphone :</strong> {watch("showPhone") ? "Affiché" : "Masqué"}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+
       default:
         return null;
     }
@@ -708,6 +812,20 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       </div>
 
       <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
+        {/* Progress indicator */}
+        <div className="w-full bg-muted rounded-full h-2 mb-8">
+          <div 
+            className="bg-gradient-primary h-2 rounded-full transition-all duration-300" 
+            style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+          />
+        </div>
+        <div className="text-center mb-6">
+          <p className="text-sm text-muted-foreground">
+            Étape {currentStep} sur {totalSteps}
+            {currentStep === 6 ? " - Récapitulatif" : ""}
+          </p>
+        </div>
+
         {renderStep()}
 
         {/* Navigation */}
