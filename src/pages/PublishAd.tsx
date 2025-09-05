@@ -2,6 +2,11 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import SejourForm from "@/components/forms/SejourForm";
+import VolForm from "@/components/forms/VolForm";
+import GuideForm from "@/components/forms/GuideForm";
 
 const PublishAd = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -25,13 +30,184 @@ const PublishAd = () => {
 
   const handleNext = () => {
     if (currentStep === 1 && selectedCategory) {
-      setCurrentStep(2);
+      setCurrentStep(selectedCategory === 'sejours' ? 2 : 3);
+    } else if (currentStep === 2 && selectedFormula) {
+      setCurrentStep(3);
     }
   };
 
   const handleBack = () => {
-    if (currentStep === 2) {
+    if (currentStep === 3 && selectedCategory === 'sejours') {
+      setCurrentStep(2);
+    } else if (currentStep === 3 || currentStep === 2) {
       setCurrentStep(1);
+    }
+  };
+
+  const handleSejourSubmit = async (data: any) => {
+    try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      // Create the main ad
+      const { data: ad, error: adError } = await supabase
+        .from('ads')
+        .insert({
+          user_id: user.id,
+          category: 'sejours',
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          original_price: data.originalPrice,
+          location: `${data.nightsMedina ? 'Médine' : ''} ${data.nightsMecca ? 'Makkah' : ''}`.trim(),
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate,
+          is_published: true,
+        })
+        .select()
+        .single();
+
+      if (adError) throw adError;
+
+      // Create the sejour details
+      const { error: sejourError } = await supabase
+        .from('ads_sejours')
+        .insert({
+          ad_id: ad.id,
+          formula_type: selectedFormula,
+          airline: data.airline,
+          departure_date: data.departureDate,
+          return_date: data.returnDate,
+          nights_medina: data.nightsMedina || 0,
+          nights_mecca: data.nightsMecca || 0,
+          medina_hotel_name: data.medinaHotelName,
+          medina_hotel_distance: data.medinaHotelDistance,
+          mecca_hotel_name: data.meccaHotelName,
+          mecca_hotel_distance: data.meccaHotelDistance,
+        });
+
+      if (sejourError) throw sejourError;
+
+      toast.success("Annonce publiée avec succès !");
+      // Redirect to home or user dashboard
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error creating ad:', error);
+      toast.error("Erreur lors de la publication de l'annonce");
+    }
+  };
+
+  const handleVolSubmit = async (data: any) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      const { data: ad, error: adError } = await supabase
+        .from('ads')
+        .insert({
+          user_id: user.id,
+          category: 'vols',
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          original_price: data.originalPrice,
+          location: `${data.departureAirport} → ${data.arrivalAirport}`,
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate,
+          is_published: true,
+        })
+        .select()
+        .single();
+
+      if (adError) throw adError;
+
+      const { error: volError } = await supabase
+        .from('ads_vols')
+        .insert({
+          ad_id: ad.id,
+          airline: data.airline,
+          departure_airport: data.departureAirport,
+          arrival_airport: data.arrivalAirport,
+          departure_date: data.departureDate,
+          return_date: data.returnDate,
+          has_stopover: data.hasStopover,
+          stopover_details: data.stopoverDetails,
+        });
+
+      if (volError) throw volError;
+
+      toast.success("Annonce publiée avec succès !");
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error creating ad:', error);
+      toast.error("Erreur lors de la publication de l'annonce");
+    }
+  };
+
+  const handleGuideSubmit = async (data: any) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("Vous devez être connecté pour publier une annonce");
+        return;
+      }
+
+      const { data: ad, error: adError } = await supabase
+        .from('ads')
+        .insert({
+          user_id: user.id,
+          category: 'guides',
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          publish_end_date: data.publishEndDate,
+          is_published: true,
+        })
+        .select()
+        .single();
+
+      if (adError) throw adError;
+
+      const { error: guideError } = await supabase
+        .from('ads_guides')
+        .insert({
+          ad_id: ad.id,
+          gender: data.gender,
+          city: data.city,
+          years_experience: data.yearsExperience,
+          languages: data.languages,
+          offers_omra_guidance: data.offersOmraGuidance,
+          offers_visits: data.offersVisits,
+          offers_courses: data.offersCourses,
+          offers_omra_badal: data.offersOmraBadal,
+          offers_wheelchair_help: data.offersWheelchairHelp,
+          offers_other: data.offersOther,
+          other_services_description: data.otherServicesDescription,
+        });
+
+      if (guideError) throw guideError;
+
+      toast.success("Annonce publiée avec succès !");
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error creating ad:', error);
+      toast.error("Erreur lors de la publication de l'annonce");
     }
   };
 
@@ -168,6 +344,7 @@ const PublishAd = () => {
 
               <div className="flex justify-center pt-8">
                 <Button 
+                  onClick={handleNext}
                   disabled={!selectedFormula}
                   className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-3 text-lg rounded-full"
                 >
@@ -178,8 +355,31 @@ const PublishAd = () => {
             </div>
           )}
 
-          {/* Step 2: Other categories (direct to form) */}
-          {currentStep === 2 && selectedCategory !== 'sejours' && (
+          {/* Step 3: Forms for each category */}
+          {currentStep === 3 && selectedCategory === 'sejours' && (
+            <SejourForm 
+              formulaType={selectedFormula}
+              onSubmit={handleSejourSubmit}
+              onBack={handleBack}
+            />
+          )}
+
+          {currentStep === 3 && selectedCategory === 'vols' && (
+            <VolForm 
+              onSubmit={handleVolSubmit}
+              onBack={handleBack}
+            />
+          )}
+
+          {currentStep === 3 && selectedCategory === 'guides' && (
+            <GuideForm 
+              onSubmit={handleGuideSubmit}
+              onBack={handleBack}
+            />
+          )}
+
+          {/* Step 3: Other categories (placeholder) */}
+          {currentStep === 3 && !['sejours', 'vols', 'guides'].includes(selectedCategory) && (
             <div className="space-y-8">
               <div className="flex items-center justify-center space-x-4 mb-8">
                 <Button 
@@ -197,7 +397,7 @@ const PublishAd = () => {
                   Créer votre annonce {categories.find(c => c.id === selectedCategory)?.name}
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Remplissez les informations de votre annonce
+                  Cette catégorie sera bientôt disponible
                 </p>
               </div>
 
@@ -208,14 +408,17 @@ const PublishAd = () => {
                       {categories.find(c => c.id === selectedCategory)?.icon}
                     </div>
                     <div className="space-y-4">
-                      <h3 className="text-2xl font-bold">Formulaire en construction</h3>
+                      <h3 className="text-2xl font-bold">Formulaire en développement</h3>
                       <p className="text-muted-foreground">
                         Le formulaire détaillé pour les annonces {categories.find(c => c.id === selectedCategory)?.name} sera bientôt disponible.
                       </p>
                     </div>
                     
-                    <Button className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-3 rounded-full">
-                      Commencer à créer
+                    <Button 
+                      onClick={() => window.location.href = '/'}
+                      className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-3 rounded-full"
+                    >
+                      Retour à l'accueil
                     </Button>
                   </div>
                 </CardContent>
