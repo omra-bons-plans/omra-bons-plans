@@ -619,7 +619,357 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* All Services Section - Now first */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="mb-16">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
+              <div>
+                <h2 className="text-4xl font-bold mb-4">Tout ce dont vous avez besoin en un seul endroit</h2>
+                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Category Pills - Same as Flash Sales */}
+          <div className="horizontal-scroll-container category-scroll-container">
+            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+              <div className="flex gap-3 min-w-max md:min-w-0">
+                <Button 
+                  onClick={() => setSelectedCategory("all")}
+                  className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                    selectedCategory === "all" 
+                      ? "btn-modern text-primary-foreground" 
+                      : "glass border-2 border-primary/30 hover:bg-primary/10"
+                  }`}
+                  variant={selectedCategory === "all" ? "default" : "outline"}
+                >
+                  Tous
+                </Button>
+                {categories.map((category) => (
+                  <Button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                      selectedCategory === category.id 
+                        ? "btn-modern text-primary-foreground" 
+                        : "glass border-2 border-primary/30 hover:bg-primary/10"
+                    }`}
+                    variant={selectedCategory === category.id ? "default" : "outline"}
+                  >
+                    {category.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Listings under tabs */}
+          {/* Desktop: Grid Layout */}
+          <div className="hidden lg:grid grid-cols-4 gap-8 mb-16">
+            {filteredListings.map((listing) => (
+              <Card key={listing.id} className="card-modern overflow-hidden border-border/20 bg-card/50">
+                <div className="relative group">
+                  <div className="w-full h-56 overflow-hidden">
+                    <img 
+                      src={listing.image} 
+                      alt={listing.title}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                  </div>
+                  
+                  {listing.isPopular && (
+                    <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                      ⭐ Populaire
+                    </Badge>
+                  )}
+                  
+                  {listing.isFlashSale && (
+                    <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                      <Zap className="w-3 h-3 mr-1" />
+                      Vente Flash
+                    </Badge>
+                  )}
+                  
+                  {listing.isFlashSale && listing.flashSaleEndDate && (
+                    <div className="absolute top-16 right-4">
+                      <CountdownTimer 
+                        targetDate={listing.flashSaleEndDate} 
+                        className="text-xs scale-50 origin-top-right"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="absolute bottom-4 right-4">
+                    <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
+                      {listing.type === 'sejours' ? 'Séjour' : 
+                       listing.type === 'hotels' ? 'Hôtel' : 
+                       listing.type === 'guides' ? 'Guide' : 
+                       listing.type === 'vols' ? 'Vol' :
+                       listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                    </Badge>
+                  </div>
+                </div>
+                
+                <CardContent className="p-6 space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
+                    <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <div className="flex items-center">
+                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
+                      <span className="font-semibold">{listing.rating}</span>
+                    </div>
+                    <span className="text-muted-foreground">•</span>
+                    <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                    <MapPin className="w-4 h-4" />
+                    <span>{listing.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <div className="flex items-baseline space-x-2">
+                        <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                        {listing.originalPrice && (
+                          <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                        )}
+                      </div>
+                      {listing.discount && (
+                        <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                          -{listing.discount}%
+                        </Badge>
+                      )}
+                    </div>
+                    <Button className="btn-modern px-6 py-2 text-sm">
+                      Réserver
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Tablet: Carousel with 2 items */}
+          <div className="hidden md:block lg:hidden carousel-item-peek mb-16">
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-4">
+                {filteredListings.map((listing) => (
+                  <CarouselItem key={listing.id} className="pl-4 basis-1/2">
+                    <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                      <div className="relative group">
+                        <div className="w-full h-56 overflow-hidden">
+                          <img 
+                            src={listing.image} 
+                            alt={listing.title}
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                        </div>
+                        
+                        {listing.isPopular && (
+                          <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                            ⭐ Populaire
+                          </Badge>
+                        )}
+                        
+                        {listing.isFlashSale && (
+                          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                            <Zap className="w-3 h-3 mr-1" />
+                            Vente Flash
+                          </Badge>
+                        )}
+                        
+                        {listing.isFlashSale && listing.flashSaleEndDate && (
+                          <div className="absolute top-16 right-4">
+                            <CountdownTimer 
+                              targetDate={listing.flashSaleEndDate} 
+                              className="text-xs scale-50 origin-top-right"
+                            />
+                          </div>
+                        )}
+                        
+                        <div className="absolute bottom-4 right-4">
+                          <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
+                            {listing.type === 'sejours' ? 'Séjour' : 
+                             listing.type === 'hotels' ? 'Hôtel' : 
+                             listing.type === 'guides' ? 'Guide' : 
+                             listing.type === 'vols' ? 'Vol' :
+                             listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                          </Badge>
+                        </div>
+                      </div>
+                      
+                      <CardContent className="p-6 space-y-4">
+                        <div className="space-y-2">
+                          <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
+                          <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center">
+                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
+                            <span className="font-semibold">{listing.rating}</span>
+                          </div>
+                          <span className="text-muted-foreground">•</span>
+                          <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                          <MapPin className="w-4 h-4" />
+                          <span>{listing.location}</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <div className="flex items-baseline space-x-2">
+                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                              {listing.originalPrice && (
+                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                              )}
+                            </div>
+                            {listing.discount && (
+                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                -{listing.discount}%
+                              </Badge>
+                            )}
+                          </div>
+                          <Button className="btn-modern px-6 py-2 text-sm">
+                            Réserver
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex" />
+              <CarouselNext className="hidden sm:flex" />
+            </Carousel>
+          </div>
+
+          {/* Mobile: Carousel with 1 item */}
+          <div className="block md:hidden carousel-item-peek mb-16">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {filteredListings.map((listing) => (
+                  <CarouselItem key={listing.id}>
+                    <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                      <div className="relative group">
+                        <div className="w-full h-56 overflow-hidden">
+                          <img 
+                            src={listing.image} 
+                            alt={listing.title}
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                        </div>
+                        
+                        {listing.isPopular && (
+                          <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                            ⭐ Populaire
+                          </Badge>
+                        )}
+                        
+                        {listing.isFlashSale && (
+                          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                            <Zap className="w-3 h-3 mr-1" />
+                            Vente Flash
+                          </Badge>
+                        )}
+                        
+                        {listing.isFlashSale && listing.flashSaleEndDate && (
+                          <div className="absolute top-16 right-4">
+                            <CountdownTimer 
+                              targetDate={listing.flashSaleEndDate} 
+                              className="text-xs scale-50 origin-top-right"
+                            />
+                          </div>
+                        )}
+                        
+                        <div className="absolute bottom-4 right-4">
+                          <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
+                            {listing.type === 'sejours' ? 'Séjour' : 
+                             listing.type === 'hotels' ? 'Hôtel' : 
+                             listing.type === 'guides' ? 'Guide' : 
+                             listing.type === 'vols' ? 'Vol' :
+                             listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                          </Badge>
+                        </div>
+                      </div>
+                      
+                      <CardContent className="p-6 space-y-4">
+                        <div className="space-y-2">
+                          <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
+                          <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center">
+                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
+                            <span className="font-semibold">{listing.rating}</span>
+                          </div>
+                          <span className="text-muted-foreground">•</span>
+                          <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                          <MapPin className="w-4 h-4" />
+                          <span>{listing.location}</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <div className="flex items-baseline space-x-2">
+                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                              {listing.originalPrice && (
+                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                              )}
+                            </div>
+                            {listing.discount && (
+                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                -{listing.discount}%
+                              </Badge>
+                            )}
+                          </div>
+                          <Button className="btn-modern px-6 py-2 text-sm">
+                            Réserver
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex" />
+              <CarouselNext className="hidden sm:flex" />
+            </Carousel>
+          </div>
+
+          {/* Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.map((category) => (
+              <Card key={category.id} className="card-modern p-8 text-center hover:scale-105 transition-all duration-300 cursor-pointer">
+                <div className="space-y-4">
+                  <div className="text-5xl mb-4">{category.icon}</div>
+                  <h3 className="text-xl font-bold">{category.name}</h3>
+                  <p className="text-muted-foreground">{category.description}</p>
+                  <Badge className="bg-primary/10 text-primary">
+                    {category.count} disponibles
+                  </Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section - Now second */}
       <section className="py-20 px-6 relative overflow-hidden bg-accent/20">
         {/* Decorative background */}
         <div className="absolute top-10 right-10 w-24 h-24 bg-secondary/10 rounded-full"></div>
@@ -669,67 +1019,6 @@ const Index = () => {
               </div>
               <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-warning/30 rounded-full"></div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* All Services Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="mb-16">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
-              <div>
-                <h2 className="text-4xl font-bold mb-4">Tout ce dont vous avez besoin en un seul endroit</h2>
-                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Category Pills - Same as Flash Sales */}
-          <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center">
-            <div className="flex gap-3 min-w-max md:min-w-0">
-              <Button 
-                onClick={() => setSelectedCategory("all")}
-                className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
-                  selectedCategory === "all" 
-                    ? "btn-modern text-primary-foreground" 
-                    : "glass border-2 border-primary/30 hover:bg-primary/10"
-                }`}
-                variant={selectedCategory === "all" ? "default" : "outline"}
-              >
-                Tous
-              </Button>
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
-                    selectedCategory === category.id 
-                      ? "btn-modern text-primary-foreground" 
-                      : "glass border-2 border-primary/30 hover:bg-primary/10"
-                  }`}
-                  variant={selectedCategory === category.id ? "default" : "outline"}
-                >
-                  {category.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
-              <Card key={category.id} className="card-modern p-8 text-center hover:scale-105 transition-all duration-300 cursor-pointer">
-                <div className="space-y-4">
-                  <div className="text-5xl mb-4">{category.icon}</div>
-                  <h3 className="text-xl font-bold">{category.name}</h3>
-                  <p className="text-muted-foreground">{category.description}</p>
-                  <Badge className="bg-primary/10 text-primary">
-                    {category.count} disponibles
-                  </Badge>
-                </div>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
