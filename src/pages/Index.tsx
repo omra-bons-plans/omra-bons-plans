@@ -185,8 +185,8 @@ const Index = () => {
         <div className="absolute bottom-32 left-20 w-12 h-12 bg-warning/20 rounded-full blur-sm float" style={{animationDelay: '4s'}}></div>
         
         <div className="container mx-auto px-6 relative z-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-10 max-w-2xl">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="space-y-10 max-w-4xl">
               <div className="space-y-8">
                 <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                   <span className="text-foreground">Organisez votre</span><br />
@@ -201,7 +201,7 @@ const Index = () => {
               </div>
 
               {/* Modern Weather & Exchange Card */}
-              <div className="glass p-6 rounded-3xl border border-border/30 shadow-large max-w-md">
+              <div className="glass p-6 rounded-3xl border border-border/30 shadow-large max-w-md mx-auto">
                 <div className="flex items-center space-x-6">
                   <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-medium">
                     <span className="text-3xl">🕌</span>
@@ -226,58 +226,13 @@ const Index = () => {
               </div>
 
               {/* Modern CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button className="btn-modern text-primary-foreground px-10 py-4 rounded-2xl text-lg font-semibold">
                   Découvrir les offres
                 </Button>
                 <Button variant="outline" className="glass border-2 border-primary/30 px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-primary/10">
                   En savoir plus
                 </Button>
-              </div>
-            </div>
-
-            {/* Modern Floating Cards */}
-            <div className="relative lg:block hidden">
-              <div className="relative w-full max-w-lg mx-auto">
-                {/* Floating Images with Modern Cards */}
-                <div className="relative w-96 h-96 mx-auto">
-                  {/* Card 1 */}
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-24 card-modern rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={meccaMosqueHero} alt="Mecca" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-primary/20"></div>
-                  </div>
-                  
-                  {/* Card 2 */}
-                  <div className="absolute top-12 -right-8 w-28 h-36 card-modern rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={tourGuideMecca} alt="Guide" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-secondary/20"></div>
-                  </div>
-                  
-                  {/* Card 3 */}
-                  <div className="absolute bottom-8 -left-8 w-32 h-24 card-modern rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={luxuryHotelMecca} alt="Hotel" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-hero/20"></div>
-                  </div>
-                  
-                  {/* Card 4 */}
-                  <div className="absolute bottom-2 right-12 w-28 h-32 card-modern rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={airplaneInterior} alt="Flight" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-subtle/40"></div>
-                  </div>
-                </div>
-                
-                {/* Modern Floating Elements */}
-                <div className="absolute -top-12 -right-12 w-20 h-20 bg-gradient-secondary rounded-full flex items-center justify-center shadow-large float">
-                  <span className="text-3xl">✨</span>
-                </div>
-                <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-primary/40 rounded-full blur-sm float" style={{animationDelay: '3s'}}></div>
-                
-                {/* Animated Lines */}
-                <div className="absolute top-16 left-16 w-40 h-40 opacity-20">
-                  <svg viewBox="0 0 100 100" className="w-full h-full text-primary/60">
-                    <path d="M10,10 Q50,5 90,90" stroke="currentColor" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse"/>
-                  </svg>
-                </div>
               </div>
             </div>
           </div>
