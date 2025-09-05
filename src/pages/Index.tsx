@@ -111,7 +111,7 @@ const Index = () => {
       originalPrice: "2100€", 
       discount: 19,
       isFlashSale: false,
-      image: meccaMosqueHero,
+      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png",
       rating: 4.6,
       reviews: 89,
       location: "Makkah",
@@ -227,7 +227,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `url(${meccaMosqueHero})`,
+            backgroundImage: `url(/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed'
