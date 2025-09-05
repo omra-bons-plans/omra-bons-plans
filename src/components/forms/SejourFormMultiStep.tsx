@@ -281,11 +281,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="medinaHotelDistance">Distance de la mosquée</Label>
+                    <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres)</Label>
                     <Input
                       id="medinaHotelDistance"
+                      type="number"
+                      min="0"
                       {...register("medinaHotelDistance")}
-                      placeholder="Ex: 200m de Masjid Al-Nabawi"
+                      placeholder="200"
                     />
                   </div>
                 </div>
@@ -301,11 +303,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="meccaHotelDistance">Distance de la mosquée</Label>
+                    <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres)</Label>
                     <Input
                       id="meccaHotelDistance"
+                      type="number"
+                      min="0"
                       {...register("meccaHotelDistance")}
-                      placeholder="Ex: 50m du Masjid Al-Haram"
+                      placeholder="50"
                     />
                   </div>
                 </div>
