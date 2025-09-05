@@ -441,11 +441,11 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
         </Card>
 
         {/* Actions */}
-        <div className="flex justify-between pt-8">
-          <Button type="button" variant="outline" onClick={onBack}>
+        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8">
+          <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-auto">
             Retour
           </Button>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Button 
               type="button" 
               variant="secondary" 
@@ -453,11 +453,12 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
                 const data = watch();
                 onSubmit(data, true);
               }}
-              className="px-6"
+              className="px-4 sm:px-6 w-full sm:w-auto"
             >
-              Enregistrer et continuer plus tard
+              <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
+              <span className="sm:hidden">Sauvegarder brouillon</span>
             </Button>
-            <Button type="submit" className="btn-modern px-8">
+            <Button type="submit" className="btn-modern px-6 sm:px-8 w-full sm:w-auto">
               Publier l'annonce
             </Button>
           </div>
