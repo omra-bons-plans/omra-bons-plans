@@ -237,7 +237,7 @@ const Index = () => {
               {/* Modern Weather & Exchange Card */}
               <div className="glass-strong p-8 rounded-3xl border-2 border-primary/30 shadow-elegant max-w-lg mx-auto bg-background/80 backdrop-blur-md">
                 <div className="flex items-center space-x-6">
-                  <div className="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center shadow-large">
+                  <div className="flex items-center justify-center">
                     {weatherAndExchange?.weather && 
                       getWeatherIcon(
                         currentWeatherCity === 'makkah' 
