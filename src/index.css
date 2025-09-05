@@ -293,4 +293,14 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 25px hsl(var(--primary) / 0.3);
   }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

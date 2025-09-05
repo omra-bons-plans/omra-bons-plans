@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -15,6 +16,8 @@ import airplaneInterior from "@/assets/airplane-interior.jpg";
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const { data: weatherAndExchange } = useWeatherAndExchange();
 
   const categories = [
     { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets Omra", count: 45 },
@@ -28,7 +31,7 @@ const Index = () => {
   const featuredListings = [
     {
       id: 1,
-      type: "sejour",
+      type: "sejours",
       title: "Saciet abou yahya",
       subtitle: "15 jours avec hôtel 5 étoiles",
       price: "1450€",
@@ -43,7 +46,7 @@ const Index = () => {
     },
     {
       id: 2,
-      type: "hotel", 
+      type: "hotels", 
       title: "ALBATT",
       subtitle: "Hôtel proche Masjid Al Haram",
       price: "1690€",
@@ -58,7 +61,7 @@ const Index = () => {
     },
     {
       id: 3,
-      type: "guide",
+      type: "guides",
       title: "Omra Pour Tous", 
       subtitle: "Guide expérimenté - Français/Arabe",
       price: "990€",
@@ -73,7 +76,7 @@ const Index = () => {
     },
     {
       id: 4,
-      type: "guide",
+      type: "vols",
       title: "Ouasis tours",
       subtitle: "Vol direct avec Emirates",
       price: "80€",
@@ -87,6 +90,11 @@ const Index = () => {
       isPopular: false
     }
   ];
+
+  // Filter listings based on selected category
+  const filteredListings = selectedCategory === "all" 
+    ? featuredListings 
+    : featuredListings.filter(listing => listing.type === selectedCategory);
 
   const stats = [
     { value: "+15M", label: "visiteurs par an", icon: TrendingUp },
@@ -180,19 +188,25 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Modern Price Card */}
+              {/* Modern Weather & Exchange Card */}
               <div className="glass p-6 rounded-3xl border border-border/30 shadow-large max-w-md">
                 <div className="flex items-center space-x-6">
                   <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-medium">
                     <span className="text-3xl">🕌</span>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground font-medium mb-1">Hajj PACK 2024</p>
+                    <p className="text-sm text-muted-foreground font-medium mb-1">
+                      {weatherAndExchange?.weather.makkah ? 'Makkah aujourd\'hui' : 'Hajj PACK 2024'}
+                    </p>
                     <div className="flex items-center space-x-3">
-                      <span className="text-4xl font-black gradient-text-primary">32°</span>
+                      <span className="text-4xl font-black gradient-text-primary">
+                        {weatherAndExchange?.weather.makkah?.temperature ?? 32}°
+                      </span>
                       <div className="text-sm text-muted-foreground">
-                        <div>Prix en baisse</div>
-                        <div className="text-primary font-semibold">de 3.95 Sar</div>
+                        <div>EUR → SAR</div>
+                        <div className="text-primary font-semibold">
+                          {weatherAndExchange?.exchange.eurToSar ?? '3.95'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -266,21 +280,39 @@ const Index = () => {
             <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
           </div>
 
-          {/* Category Pills */}
-          <div className="flex gap-4 mb-16 justify-center">
-            <Button className="btn-modern text-primary-foreground rounded-full px-8 py-3 text-base font-semibold">
-              Séjours
-            </Button>
-            <Button variant="outline" className="glass border-2 border-primary/30 rounded-full px-8 py-3 text-base font-semibold hover:bg-primary/10 transition-all duration-300">
-              Vols
-            </Button>
-            <Button variant="outline" className="glass border-2 border-primary/30 rounded-full px-8 py-3 text-base font-semibold hover:bg-primary/10 transition-all duration-300">
-              Hébergements
-            </Button>
+          {/* Category Pills - Horizontal Scroll on Mobile */}
+          <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center">
+            <div className="flex gap-3 min-w-max md:min-w-0">
+              <Button 
+                onClick={() => setSelectedCategory("all")}
+                className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                  selectedCategory === "all" 
+                    ? "btn-modern text-primary-foreground" 
+                    : "glass border-2 border-primary/30 hover:bg-primary/10"
+                }`}
+                variant={selectedCategory === "all" ? "default" : "outline"}
+              >
+                Tous
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                    selectedCategory === category.id 
+                      ? "btn-modern text-primary-foreground" 
+                      : "glass border-2 border-primary/30 hover:bg-primary/10"
+                  }`}
+                  variant={selectedCategory === category.id ? "default" : "outline"}
+                >
+                  {category.name}
+                </Button>
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredListings.map((listing) => (
+            {filteredListings.map((listing) => (
               <Card key={listing.id} className="card-modern overflow-hidden border-border/20 bg-card/50">
                 <div className="relative group">
                   <div className="w-full h-56 overflow-hidden">
@@ -307,9 +339,11 @@ const Index = () => {
                   
                   <div className="absolute bottom-4 right-4">
                     <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                      {listing.type === 'sejour' ? 'Séjour' : 
-                       listing.type === 'hotel' ? 'Hôtel' : 
-                       listing.type === 'guide' ? 'Guide' : 'Vol'}
+                      {listing.type === 'sejours' ? 'Séjour' : 
+                       listing.type === 'hotels' ? 'Hôtel' : 
+                       listing.type === 'guides' ? 'Guide' : 
+                       listing.type === 'vols' ? 'Vol' :
+                       listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                     </Badge>
                   </div>
                 </div>
@@ -365,30 +399,39 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Category Pills */}
-          <div className="flex gap-3 mb-12">
-            <Button variant="default" className="bg-primary text-primary-foreground rounded-full px-6 py-2">
-              Séjours
-            </Button>
-            <Button variant="outline" className="rounded-full px-6 py-2 border-border hover:bg-accent">
-              Vols
-            </Button>
-            <Button variant="outline" className="rounded-full px-6 py-2 border-border hover:bg-accent">
-              Hébergements
-            </Button>
-            <Button variant="outline" className="rounded-full px-6 py-2 border-border hover:bg-accent">
-              Guides
-            </Button>
-            <Button variant="outline" className="rounded-full px-6 py-2 border-border hover:bg-accent">
-              Chauffeurs
-            </Button>
-            <Button variant="outline" className="rounded-full px-6 py-2 border-border hover:bg-accent">
-              Baby-Sitting
-            </Button>
+          {/* Category Pills - Horizontal Scroll on Mobile */}
+          <div className="flex gap-3 mb-12 overflow-x-auto scrollbar-hide pb-2 md:justify-center">
+            <div className="flex gap-3 min-w-max md:min-w-0">
+              <Button 
+                onClick={() => setSelectedCategory("all")}
+                className={`rounded-full px-6 py-2 whitespace-nowrap transition-all duration-300 ${
+                  selectedCategory === "all" 
+                    ? "bg-primary text-primary-foreground" 
+                    : "border-border hover:bg-accent"
+                }`}
+                variant={selectedCategory === "all" ? "default" : "outline"}
+              >
+                Tous
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`rounded-full px-6 py-2 whitespace-nowrap transition-all duration-300 ${
+                    selectedCategory === category.id 
+                      ? "bg-primary text-primary-foreground" 
+                      : "border-border hover:bg-accent"
+                  }`}
+                  variant={selectedCategory === category.id ? "default" : "outline"}
+                >
+                  {category.name}
+                </Button>
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredListings.map((listing) => (
+            {filteredListings.map((listing) => (
               <Card key={`all-${listing.id}`} className="group hover:shadow-large transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden border border-border bg-card">
                 <div className="relative">
                   <div className="w-full h-48 bg-gradient-subtle flex items-center justify-center overflow-hidden">
@@ -402,9 +445,11 @@ const Index = () => {
                   
                   <div className="absolute top-3 right-3">
                     <Badge className="bg-card text-card-foreground border border-border text-xs">
-                      {listing.type === 'sejour' ? 'Séjour' : 
-                       listing.type === 'hotel' ? 'Hôtel' : 
-                       listing.type === 'guide' ? 'Guide' : 'Service'}
+                      {listing.type === 'sejours' ? 'Séjour' : 
+                       listing.type === 'hotels' ? 'Hôtel' : 
+                       listing.type === 'guides' ? 'Guide' : 
+                       listing.type === 'vols' ? 'Vol' :
+                       listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                     </Badge>
                   </div>
                 </div>
