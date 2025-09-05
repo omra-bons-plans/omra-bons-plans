@@ -20,8 +20,10 @@ interface VolFormData {
   arrivalAirport: string;
   departureDate: string;
   returnDate: string;
-  hasStopover: boolean;
-  stopoverDetails?: string;
+  hasOutboundStopover: boolean;
+  hasReturnStopover: boolean;
+  outboundStopoverDetails?: string;
+  returnStopoverDetails?: string;
   publishEndDate: string;
   showEmail: boolean;
   showPhone: boolean;
@@ -44,12 +46,12 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
       showEmail: true,
       showPhone: false,
       isPromotion: false,
-      hasStopover: false,
+      hasOutboundStopover: false,
+      hasReturnStopover: false,
     }
   });
 
   const totalSteps = 4;
-  const hasStopover = watch('hasStopover');
   const originalPrice = watch('originalPrice');
   const price = watch('price');
 
@@ -213,22 +215,44 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="hasStopover"
-                    checked={hasStopover}
-                    onCheckedChange={(checked) => setValue("hasStopover", !!checked)}
-                  />
-                  <Label htmlFor="hasStopover">Vol avec escale</Label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="hasOutboundStopover"
+                      checked={watch('hasOutboundStopover')}
+                      onCheckedChange={(checked) => setValue("hasOutboundStopover", !!checked)}
+                    />
+                    <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="hasReturnStopover"
+                      checked={watch('hasReturnStopover')}
+                      onCheckedChange={(checked) => setValue("hasReturnStopover", !!checked)}
+                    />
+                    <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
+                  </div>
                 </div>
 
-                {hasStopover && (
+                {watch('hasOutboundStopover') && (
                   <div className="space-y-2">
-                    <Label htmlFor="stopoverDetails">Détails de l'escale</Label>
+                    <Label htmlFor="outboundStopoverDetails">Détails de l'escale aller</Label>
                     <Input
-                      id="stopoverDetails"
-                      {...register("stopoverDetails")}
+                      id="outboundStopoverDetails"
+                      {...register("outboundStopoverDetails")}
                       placeholder="Ex: Escale à Dubaï (2h30)"
+                    />
+                  </div>
+                )}
+
+                {watch('hasReturnStopover') && (
+                  <div className="space-y-2">
+                    <Label htmlFor="returnStopoverDetails">Détails de l'escale retour</Label>
+                    <Input
+                      id="returnStopoverDetails"
+                      {...register("returnStopoverDetails")}
+                      placeholder="Ex: Escale à Istanbul (3h15)"
                     />
                   </div>
                 )}
