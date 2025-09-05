@@ -424,21 +424,27 @@ const Index = () => {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="flex items-baseline space-x-2">
-                        <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                        {listing.originalPrice && (
-                          <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                    {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                      <div className="space-y-1">
+                        <div className="text-lg font-semibold text-primary">Service disponible</div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <div className="flex items-baseline space-x-2">
+                          <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                          {listing.originalPrice && (
+                            <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          )}
+                        </div>
+                        {listing.discount && (
+                          <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                            -{listing.discount}%
+                          </Badge>
                         )}
                       </div>
-                      {listing.discount && (
-                        <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                          -{listing.discount}%
-                        </Badge>
-                      )}
-                    </div>
+                    )}
                     <Button className="btn-modern px-6 py-2 text-sm">
-                      Réserver
+                      {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                     </Button>
                   </div>
                 </CardContent>
@@ -517,21 +523,27 @@ const Index = () => {
                         </div>
                         
                         <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <div className="flex items-baseline space-x-2">
-                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                              {listing.originalPrice && (
-                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                            <div className="space-y-1">
+                              <div className="text-lg font-semibold text-primary">Service disponible</div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1">
+                              <div className="flex items-baseline space-x-2">
+                                <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                                {listing.originalPrice && (
+                                  <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                                )}
+                              </div>
+                              {listing.discount && (
+                                <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                  -{listing.discount}%
+                                </Badge>
                               )}
                             </div>
-                            {listing.discount && (
-                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                -{listing.discount}%
-                              </Badge>
-                            )}
-                          </div>
+                          )}
                           <Button className="btn-modern px-6 py-2 text-sm">
-                            Réserver
+                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                           </Button>
                         </div>
                       </CardContent>
@@ -618,21 +630,27 @@ const Index = () => {
                         </div>
                         
                         <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <div className="flex items-baseline space-x-2">
-                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                              {listing.originalPrice && (
-                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                            <div className="space-y-1">
+                              <div className="text-lg font-semibold text-primary">Service disponible</div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1">
+                              <div className="flex items-baseline space-x-2">
+                                <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                                {listing.originalPrice && (
+                                  <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                                )}
+                              </div>
+                              {listing.discount && (
+                                <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                  -{listing.discount}%
+                                </Badge>
                               )}
                             </div>
-                            {listing.discount && (
-                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                -{listing.discount}%
-                              </Badge>
-                            )}
-                          </div>
+                          )}
                           <Button className="btn-modern px-6 py-2 text-sm">
-                            Réserver
+                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                           </Button>
                         </div>
                       </CardContent>
@@ -774,21 +792,27 @@ const Index = () => {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="flex items-baseline space-x-2">
-                        <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                        {listing.originalPrice && (
-                          <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                    {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                      <div className="space-y-1">
+                        <div className="text-lg font-semibold text-primary">Service disponible</div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <div className="flex items-baseline space-x-2">
+                          <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                          {listing.originalPrice && (
+                            <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          )}
+                        </div>
+                        {listing.discount && (
+                          <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                            -{listing.discount}%
+                          </Badge>
                         )}
                       </div>
-                      {listing.discount && (
-                        <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                          -{listing.discount}%
-                        </Badge>
-                      )}
-                    </div>
+                    )}
                     <Button className="btn-modern px-6 py-2 text-sm">
-                      Réserver
+                      {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                     </Button>
                   </div>
                 </CardContent>
@@ -867,21 +891,27 @@ const Index = () => {
                         </div>
                         
                         <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <div className="flex items-baseline space-x-2">
-                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                              {listing.originalPrice && (
-                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                            <div className="space-y-1">
+                              <div className="text-lg font-semibold text-primary">Service disponible</div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1">
+                              <div className="flex items-baseline space-x-2">
+                                <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                                {listing.originalPrice && (
+                                  <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                                )}
+                              </div>
+                              {listing.discount && (
+                                <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                  -{listing.discount}%
+                                </Badge>
                               )}
                             </div>
-                            {listing.discount && (
-                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                -{listing.discount}%
-                              </Badge>
-                            )}
-                          </div>
+                          )}
                           <Button className="btn-modern px-6 py-2 text-sm">
-                            Réserver
+                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                           </Button>
                         </div>
                       </CardContent>
@@ -968,21 +998,27 @@ const Index = () => {
                         </div>
                         
                         <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <div className="flex items-baseline space-x-2">
-                              <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                              {listing.originalPrice && (
-                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                          {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
+                            <div className="space-y-1">
+                              <div className="text-lg font-semibold text-primary">Service disponible</div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1">
+                              <div className="flex items-baseline space-x-2">
+                                <span className="text-2xl font-bold text-primary">{listing.price}</span>
+                                {listing.originalPrice && (
+                                  <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                                )}
+                              </div>
+                              {listing.discount && (
+                                <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
+                                  -{listing.discount}%
+                                </Badge>
                               )}
                             </div>
-                            {listing.discount && (
-                              <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                -{listing.discount}%
-                              </Badge>
-                            )}
-                          </div>
+                          )}
                           <Button className="btn-modern px-6 py-2 text-sm">
-                            Réserver
+                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
                           </Button>
                         </div>
                       </CardContent>
