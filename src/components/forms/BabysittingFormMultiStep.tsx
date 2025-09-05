@@ -157,10 +157,10 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background border-border">
-                    <SelectItem value="male">Homme</SelectItem>
-                    <SelectItem value="female">Femme</SelectItem>
-                  </SelectContent>
+                    <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                      <SelectItem value="male">Homme</SelectItem>
+                      <SelectItem value="female">Femme</SelectItem>
+                    </SelectContent>
                 </Select>
                 {errors.gender && <p className="text-destructive text-sm">{errors.gender.message}</p>}
               </div>

@@ -157,11 +157,14 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="airline">Compagnie aérienne *</Label>
-                <Select onValueChange={(value) => setValue("airline", value)}>
+                <Select 
+                  onValueChange={(value) => setValue("airline", value)}
+                  value={watch("airline") || ""}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Choisir la compagnie" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
                     <SelectItem value="emirates">Emirates</SelectItem>
                     <SelectItem value="saudia">Saudia</SelectItem>
                     <SelectItem value="air-france">Air France</SelectItem>
@@ -171,6 +174,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                     <SelectItem value="autre">Autre</SelectItem>
                   </SelectContent>
                 </Select>
+                {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

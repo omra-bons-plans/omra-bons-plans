@@ -159,7 +159,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     <SelectTrigger>
                       <SelectValue placeholder="Choisir la compagnie" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background border-border z-50">
+                    <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
                       <SelectItem value="air-france">Air France</SelectItem>
                       <SelectItem value="egyptair">EgyptAir</SelectItem>
                       <SelectItem value="emirates">Emirates</SelectItem>
