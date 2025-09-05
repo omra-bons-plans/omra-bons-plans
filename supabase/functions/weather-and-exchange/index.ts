@@ -22,11 +22,11 @@ serve(async (req) => {
 
     console.log('Fetching weather data using Open-Meteo (free API)...');
     
-    // Fetch weather data for both cities using Open-Meteo (completely free)
+    // Fetch weather data for both cities using Open-Meteo with detailed parameters
     const weatherPromises = Object.entries(cities).map(async ([city, coords]) => {
       console.log(`Fetching weather for ${coords.name}...`);
       const weatherResponse = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&timezone=Asia/Riyadh`
+        `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,relative_humidity_2m,weathercode,windspeed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Riyadh`
       );
       
       if (!weatherResponse.ok) {
@@ -38,16 +38,20 @@ serve(async (req) => {
       console.log(`Weather data for ${city}:`, weatherData);
       
       // Check if weather data is valid
-      if (!weatherData.current_weather) {
+      if (!weatherData.current) {
         console.error(`Invalid weather data for ${city}:`, weatherData);
         throw new Error(`Invalid weather data received for ${city}`);
       }
       
       return {
         city,
-        temperature: Math.round(weatherData.current_weather.temperature),
-        description: getWeatherDescription(weatherData.current_weather.weathercode),
-        icon: getWeatherIcon(weatherData.current_weather.weathercode)
+        temperature: Math.round(weatherData.current.temperature_2m),
+        description: getWeatherDescription(weatherData.current.weathercode),
+        icon: getWeatherIcon(weatherData.current.weathercode),
+        humidity: weatherData.current.relative_humidity_2m,
+        windSpeed: weatherData.current.windspeed_10m,
+        tempMax: weatherData.daily ? Math.round(weatherData.daily.temperature_2m_max[0]) : null,
+        tempMin: weatherData.daily ? Math.round(weatherData.daily.temperature_2m_min[0]) : null
       };
     });
 
