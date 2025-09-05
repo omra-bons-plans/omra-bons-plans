@@ -7,7 +7,8 @@ interface ProgressBarProps {
 }
 
 const ProgressBar = ({ currentStep, totalSteps, steps }: ProgressBarProps) => {
-  const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+  // Don't show 100% until actually completed - show progress based on steps
+  const progress = Math.min(((currentStep - 1) / totalSteps) * 100, 85);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border/40 p-3 sm:p-4 z-40">
