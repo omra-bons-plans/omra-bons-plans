@@ -162,10 +162,11 @@ const SejourDetails = () => {
   };
 
   const formulaType = sessionStorage.getItem('selectedFormula') || '';
-  const steps = ["Catégorie", "Formule", "Détails"];
+  const steps = ["Catégorie", "Formule", "Infos de base", "Description", "Dates", "Hôtels", "Photos et prix"];
+  const currentStep = 3; // We're on "Détails" which now includes multiple sub-steps
 
   return (
-    <PublishLayout currentStep={3} totalSteps={3} steps={steps}>
+    <PublishLayout currentStep={currentStep} totalSteps={7} steps={steps}>
       <SejourFormMultiStep 
         formulaType={formulaType}
         onSubmit={handleSejourSubmit}
