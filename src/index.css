@@ -158,6 +158,25 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    position: relative;
+  }
+
+  /* Overlay dégradé doré avec effet blur */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 20%, #FFD500 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, #FFD500 0%, transparent 40%),
+      radial-gradient(circle at 40% 90%, #FFD500 0%, transparent 35%);
+    opacity: 0.03;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: -1;
   }
 
   /* Custom scrollbar */
