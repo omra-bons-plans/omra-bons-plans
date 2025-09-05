@@ -211,8 +211,10 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                       onValueChange={(value) => {
                         console.log("Airline selected:", value);
                         field.onChange(value);
-                        // Trigger validation pour s'assurer que la valeur est bien enregistrée
-                        trigger("airline");
+                        // Force la validation pour s'assurer que c'est bien pris en compte
+                        setTimeout(() => {
+                          trigger("airline");
+                        }, 0);
                       }} 
                       value={field.value || ""}
                     >

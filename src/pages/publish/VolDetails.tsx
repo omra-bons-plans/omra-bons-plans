@@ -147,10 +147,10 @@ const VolDetails = () => {
     }
   };
 
-  const steps = ["Catégorie", "Détails"];
+  const steps = ["Catégorie", "Infos générales", "Compagnie", "Dates", "Photos/Prix", "Publication", "Récapitulatif"];
 
   return (
-    <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
+    <PublishLayout currentStep={2} totalSteps={7} steps={steps}>
         <VolFormMultiStep 
           onSubmit={handleVolSubmit} 
           onBack={handleBack}
