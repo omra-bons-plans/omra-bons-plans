@@ -39,6 +39,7 @@ const Index = () => {
       originalPrice: "1890€",
       discount: 23,
       isFlashSale: true,
+      flashSaleEndDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 jours
       image: luxuryHotelMecca,
       rating: 4.8,
       reviews: 124,
@@ -84,6 +85,7 @@ const Index = () => {
       originalPrice: "120€",
       discount: 33,
       isFlashSale: true,
+      flashSaleEndDate: new Date(Date.now() + 6 * 60 * 60 * 1000), // 6 heures
       image: airplaneInterior,
       rating: 4.7,
       reviews: 95,
@@ -96,6 +98,15 @@ const Index = () => {
   const filteredListings = selectedCategory === "all" 
     ? featuredListings 
     : featuredListings.filter(listing => listing.type === selectedCategory);
+
+  // Get the earliest flash sale end date for the countdown
+  const flashSaleListings = featuredListings.filter(listing => listing.isFlashSale && listing.flashSaleEndDate);
+  const earliestEndDate = flashSaleListings.length > 0 
+    ? flashSaleListings.reduce((earliest, listing) => 
+        listing.flashSaleEndDate! < earliest ? listing.flashSaleEndDate! : earliest, 
+        flashSaleListings[0].flashSaleEndDate!
+      )
+    : undefined;
 
   const stats = [
     { value: "+15M", label: "visiteurs par an", icon: TrendingUp },
@@ -285,7 +296,10 @@ const Index = () => {
               
               {/* Countdown Timer */}
               <div className="lg:ml-8">
-                <CountdownTimer className="w-full lg:w-auto" />
+                <CountdownTimer 
+                  targetDate={earliestEndDate} 
+                  className="w-full lg:w-auto" 
+                />
               </div>
             </div>
           </div>
@@ -345,6 +359,16 @@ const Index = () => {
                       <Zap className="w-3 h-3 mr-1" />
                       Vente Flash
                     </Badge>
+                  )}
+                  
+                  {/* Individual countdown for flash sale items */}
+                  {listing.isFlashSale && listing.flashSaleEndDate && (
+                    <div className="absolute top-16 right-4">
+                      <CountdownTimer 
+                        targetDate={listing.flashSaleEndDate} 
+                        className="text-xs scale-75 origin-top-right"
+                      />
+                    </div>
                   )}
                   
                   <div className="absolute bottom-4 right-4">
