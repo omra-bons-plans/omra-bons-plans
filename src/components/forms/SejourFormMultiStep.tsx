@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Calendar, Upload, MapPin, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,6 +49,56 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       isPromotion: false,
     }
   });
+
+  // Watch dates for automatic nights calculation
+  const departureDate = watch('departureDate');
+  const returnDate = watch('returnDate');
+  const nightsMedina = watch('nightsMedina');
+  const nightsMecca = watch('nightsMecca');
+
+  // Calculate total nights from dates
+  const calculateTotalNights = (departure: string, returnDate: string) => {
+    if (!departure || !returnDate) return 0;
+    const start = new Date(departure);
+    const end = new Date(returnDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
+  // Auto-adjust nights when dates change
+  const totalNightsFromDates = calculateTotalNights(departureDate, returnDate);
+  const totalNightsFromInputs = (nightsMedina || 0) + (nightsMecca || 0);
+
+  // Function to redistribute nights proportionally
+  const redistributeNights = (totalNights: number) => {
+    if (totalNights === 0) {
+      setValue('nightsMedina', 0);
+      setValue('nightsMecca', 0);
+      return;
+    }
+    
+    // If no previous distribution, default to 30% Medina, 70% Mecca
+    if (totalNightsFromInputs === 0) {
+      const medinaNights = Math.floor(totalNights * 0.3);
+      const meccaNights = totalNights - medinaNights;
+      setValue('nightsMedina', medinaNights);
+      setValue('nightsMecca', meccaNights);
+    } else {
+      // Maintain proportions
+      const medinaRatio = nightsMedina / totalNightsFromInputs;
+      const newMedinaNights = Math.round(totalNights * medinaRatio);
+      const newMeccaNights = totalNights - newMedinaNights;
+      setValue('nightsMedina', newMedinaNights);
+      setValue('nightsMecca', newMeccaNights);
+    }
+  };
+
+  // Auto-redistribute nights when dates change
+  useEffect(() => {
+    if (departureDate && returnDate && totalNightsFromDates > 0) {
+      redistributeNights(totalNightsFromDates);
+    }
+  }, [departureDate, returnDate]);
 
   const totalSteps = 5;
   const isPromotion = watch('isPromotion');
@@ -254,9 +304,20 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     id="nightsMedina"
                     type="number"
                     min="0"
-                    {...register("nightsMedina", { valueAsNumber: true })}
+                    max={totalNightsFromDates || 30}
+                    {...register("nightsMedina", { 
+                      valueAsNumber: true,
+                      validate: (value) => {
+                        const total = (value || 0) + (nightsMecca || 0);
+                        if (totalNightsFromDates > 0 && total !== totalNightsFromDates) {
+                          return `Le total des nuitées doit être égal à ${totalNightsFromDates} nuits`;
+                        }
+                        return true;
+                      }
+                    })}
                     placeholder="Ex: 4"
                   />
+                  {errors.nightsMedina && <p className="text-destructive text-sm">{errors.nightsMedina.message}</p>}
                 </div>
 
                 <div className="space-y-2">
@@ -265,11 +326,38 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     id="nightsMecca"
                     type="number"
                     min="0"
-                    {...register("nightsMecca", { valueAsNumber: true })}
+                    max={totalNightsFromDates || 30}
+                    {...register("nightsMecca", { 
+                      valueAsNumber: true,
+                      validate: (value) => {
+                        const total = (nightsMedina || 0) + (value || 0);
+                        if (totalNightsFromDates > 0 && total !== totalNightsFromDates) {
+                          return `Le total des nuitées doit être égal à ${totalNightsFromDates} nuits`;
+                        }
+                        return true;
+                      }
+                    })}
                     placeholder="Ex: 8"
                   />
+                  {errors.nightsMecca && <p className="text-destructive text-sm">{errors.nightsMecca.message}</p>}
                 </div>
               </div>
+
+              {totalNightsFromDates > 0 && (
+                <div className="p-4 bg-muted rounded-lg">
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Durée totale du séjour :</strong> {totalNightsFromDates} nuits
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Répartition actuelle :</strong> {nightsMedina || 0} nuits à Médine + {nightsMecca || 0} nuits à Makkah = {(nightsMedina || 0) + (nightsMecca || 0)} nuits
+                  </p>
+                  {totalNightsFromInputs !== totalNightsFromDates && (
+                    <p className="text-amber-600 text-sm mt-2">
+                      ⚠️ La répartition des nuitées ne correspond pas à la durée totale du séjour
+                    </p>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
         );
