@@ -827,150 +827,190 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
 
       case 6:
         return (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Hotel className="w-5 h-5" />
-                  <span>Récapitulatif de votre annonce</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Informations de base */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Informations générales</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Titre</Label>
-                      <p className="font-medium">{watch('title') || 'Non renseigné'}</p>
+          <div className="min-h-screen bg-background pb-20">
+            {/* Header Section */}
+            <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 px-6 py-8 text-center">
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                Vérifiez votre annonce
+              </h1>
+              <p className="text-gray-600">
+                Voici ce que les voyageurs verront. Assurez-vous que tout est correct.
+              </p>
+            </div>
+
+            {/* Preview Card */}
+            <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden mt-6 mx-6">
+              {/* Image Section */}
+              <div className="relative h-64 bg-gray-200">
+                {coverImage ? (
+                  <div className="relative h-full">
+                    <img
+                      src={URL.createObjectURL(coverImage)}
+                      alt="Photo de couverture"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Pagination dots */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      {images.map((_, index) => (
+                        <div key={index} className="w-2 h-2 bg-white/60 rounded-full"></div>
+                      ))}
                     </div>
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Ville</Label>
-                      <p className="font-medium">
-                        {watch('city') === 'makkah' ? 'Makkah (La Mecque)' : watch('city') === 'medina' ? 'Médine' : 'Non sélectionnée'}
-                      </p>
-                    </div>
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Type d'hébergement</Label>
-                      <p className="font-medium">
-                        {watch('accommodationType') === 'hotel' ? 'Hôtel' : watch('accommodationType') === 'apartment' ? 'Appartement' : 'Non sélectionné'}
-                      </p>
-                    </div>
-                    {watchedAccommodationType === 'hotel' && watch('name') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Nom de l'hôtel</Label>
-                        <p className="font-medium">{watch('name')}</p>
-                      </div>
-                    )}
                   </div>
-                  <div>
-                    <Label className="text-sm text-muted-foreground">Description</Label>
-                    <p className="font-medium">{watch('description') || 'Non renseignée'}</p>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-400">
+                    <Upload className="w-12 h-12" />
                   </div>
+                )}
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6 space-y-4">
+                {/* Title and Distance */}
+                <div className="flex justify-between items-start">
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {watch('title') || 'Titre de votre annonce'}
+                  </h2>
+                  {watch('distanceToMosque') && (
+                    <span className="text-sm text-gray-500">
+                      {watch('distanceToMosque')} mètres
+                    </span>
+                  )}
                 </div>
 
-                {/* Détails */}
-                <div className="space-y-4 border-t pt-4">
-                  <h3 className="font-semibold text-lg">Détails et disponibilités</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {watch('distanceToMosque') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">
-                          Distance jusqu'à {watchedCity === 'medina' ? 'la mosquée du Prophète' : 'la mosquée Al-Haram'}
-                        </Label>
-                        <p className="font-medium">{watch('distanceToMosque')} mètres</p>
-                      </div>
-                    )}
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Nombre de lits</Label>
-                      <p className="font-medium">{watch('bedsCount') || 'Non renseigné'}</p>
-                    </div>
-                    {watchedAccommodationType === 'apartment' && watch('roomsCount') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Nombre de chambres</Label>
-                        <p className="font-medium">{watch('roomsCount')}</p>
-                      </div>
-                    )}
-                    {watch('availableFrom') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Disponible du</Label>
-                        <p className="font-medium">{watch('availableFrom')} au {watch('availableTo') || 'Non définie'}</p>
-                      </div>
-                    )}
-                  </div>
+                {/* Price */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-2xl font-bold text-gray-900">
+                    {watch('price') || '0'}€
+                  </span>
+                  {watch('originalPrice') && watch('originalPrice') > watch('price') && (
+                    <span className="text-lg text-red-500 line-through">
+                      {watch('originalPrice')}€
+                    </span>
+                  )}
                 </div>
 
-                {/* Commodités (seulement pour appartements) */}
-                {watchedAccommodationType === 'apartment' && (
-                  <div className="space-y-4 border-t pt-4">
-                    <h3 className="font-semibold text-lg">Commodités</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                      {watch('hasLivingRoom') && <Badge variant="secondary">Salon</Badge>}
-                      {watch('hasWifi') && <Badge variant="secondary">Wi-Fi</Badge>}
-                      {watch('hasAc') && <Badge variant="secondary">Climatisation</Badge>}
-                      {watch('hasTv') && <Badge variant="secondary">Télévision</Badge>}
-                      {watch('hasFridge') && <Badge variant="secondary">Réfrigérateur</Badge>}
-                      {watch('hasWashingMachine') && <Badge variant="secondary">Lave-linge</Badge>}
+                {/* Date Section */}
+                {(watch('availableFrom') || watch('availableTo')) && (
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="w-4 h-4 text-gray-500" />
+                      <span className="font-medium text-gray-900">Date</span>
                     </div>
-                    {watch('videoUrl') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Lien vidéo</Label>
-                        <p className="font-medium">{watch('videoUrl')}</p>
-                      </div>
-                    )}
+                    <p className="text-gray-600">
+                      {watch('availableFrom') && watch('availableTo') 
+                        ? `Du ${new Date(watch('availableFrom')).toLocaleDateString('fr-FR')} au ${new Date(watch('availableTo')).toLocaleDateString('fr-FR')}`
+                        : watch('availableFrom')
+                        ? `À partir du ${new Date(watch('availableFrom')).toLocaleDateString('fr-FR')}`
+                        : watch('availableTo')
+                        ? `Jusqu'au ${new Date(watch('availableTo')).toLocaleDateString('fr-FR')}`
+                        : 'Dates à définir'
+                      }
+                      {watch('availableFrom') && watch('availableTo') && (
+                        <span className="ml-1">
+                          ({Math.ceil((new Date(watch('availableTo')).getTime() - new Date(watch('availableFrom')).getTime()) / (1000 * 3600 * 24))} Jours)
+                        </span>
+                      )}
+                    </p>
                   </div>
                 )}
 
-                {/* Prix */}
-                <div className="space-y-4 border-t pt-4">
-                  <h3 className="font-semibold text-lg">Prix et publication</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Prix de vente</Label>
-                      <p className="font-medium text-lg">{watch('price')}€</p>
-                    </div>
-                    {watch('originalPrice') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Prix original</Label>
-                        <p className="font-medium line-through">{watch('originalPrice')}€</p>
+                {/* Details Section */}
+                <div className="space-y-2">
+                  <h3 className="font-medium text-gray-900">Détails</h3>
+                  <ul className="space-y-1 text-gray-600">
+                    {watch('bedsCount') && (
+                      <li>• {watch('bedsCount')} Lit{watch('bedsCount') > 1 ? 's' : ''}</li>
+                    )}
+                    {watchedAccommodationType === 'apartment' && watch('roomsCount') && (
+                      <li>• {watch('roomsCount')} Chambre{watch('roomsCount') > 1 ? 's' : ''}</li>
+                    )}
+                    {watchedAccommodationType === 'apartment' && watch('hasLivingRoom') && (
+                      <li>• Salon</li>
+                    )}
+                    {watch('hasWifi') && <li>• Wifi</li>}
+                    {watch('hasAc') && <li>• Climatiseur</li>}
+                    {watch('hasTv') && <li>• Télévision</li>}
+                    {watch('hasFridge') && <li>• Réfrigérateur</li>}
+                    {watch('hasWashingMachine') && <li>• Lave-linge</li>}
+                  </ul>
+                </div>
+
+                {/* Contact Section */}
+                <div className="space-y-2">
+                  <h3 className="font-medium text-gray-900">Contact</h3>
+                  <div className="space-y-2">
+                    {watch('showEmail') && (
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <span className="text-sm">@ utilisateur@example.com</span>
                       </div>
                     )}
-                    <div>
-                      <Label className="text-sm text-muted-foreground">Date de fin de publication</Label>
-                      <p className="font-medium">{watch('publishEndDate')}</p>
-                    </div>
-                    {watch('isPromotion') && watch('promotionEndDate') && (
-                      <div>
-                        <Label className="text-sm text-muted-foreground">Promotion jusqu'au</Label>
-                        <p className="font-medium">{watch('promotionEndDate')}</p>
+                    {watch('showPhone') ? (
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <span className="text-sm">📱 +33 X XX XX XX XX</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2 text-gray-500">
+                        <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
+                        <span className="text-sm">Afficher votre numéro de téléphone dans votre annonce.</span>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Contact */}
-                <div className="space-y-4 border-t pt-4">
-                  <h3 className="font-semibold text-lg">Informations de contact</h3>
-                  <div className="flex gap-4">
-                    {watch('showEmail') && <Badge variant="outline">Email affiché</Badge>}
-                    {watch('showPhone') && <Badge variant="outline">Téléphone affiché</Badge>}
+                {/* Description Section */}
+                {watch('description') && (
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-gray-900">Description</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {watch('description')}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Additional Info for larger screens */}
+            <div className="hidden md:block max-w-2xl mx-auto mt-8 px-6">
+              <div className="bg-white rounded-lg border p-6 space-y-4">
+                <h3 className="font-semibold text-lg">Informations complémentaires</h3>
+                
+                <div className="grid grid-cols-2 gap-6 text-sm">
+                  <div>
+                    <span className="text-gray-500">Ville:</span>
+                    <p className="font-medium">
+                      {watch('city') === 'makkah' ? 'Makkah (La Mecque)' : watch('city') === 'medina' ? 'Médine' : 'Non sélectionnée'}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-gray-500">Type:</span>
+                    <p className="font-medium">
+                      {watch('accommodationType') === 'hotel' ? 'Hôtel' : watch('accommodationType') === 'apartment' ? 'Appartement' : 'Non sélectionné'}
+                    </p>
+                  </div>
+                  
+                  {watchedAccommodationType === 'hotel' && watch('name') && (
+                    <div>
+                      <span className="text-gray-500">Nom de l'hôtel:</span>
+                      <p className="font-medium">{watch('name')}</p>
+                    </div>
+                  )}
+                  
+                  <div>
+                    <span className="text-gray-500">Publication jusqu'au:</span>
+                    <p className="font-medium">{watch('publishEndDate')}</p>
                   </div>
                 </div>
 
-                {/* Photos */}
-                <div className="space-y-4 border-t pt-4">
-                  <h3 className="font-semibold text-lg">Photos</h3>
-                  <div className="flex items-center gap-4">
-                    <Badge variant="secondary">
-                      {coverImage ? '1 photo de couverture' : 'Aucune photo de couverture'}
-                    </Badge>
-                    <Badge variant="secondary">
-                      {images.length} photo{images.length > 1 ? 's' : ''} supplémentaire{images.length > 1 ? 's' : ''}
-                    </Badge>
+                {watch('videoUrl') && (
+                  <div className="pt-4 border-t">
+                    <span className="text-gray-500">Vidéo de présentation:</span>
+                    <p className="font-medium text-blue-600 break-all">{watch('videoUrl')}</p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                )}
+              </div>
+            </div>
           </div>
         );
 
