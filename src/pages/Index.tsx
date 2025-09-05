@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 import CountdownTimer from "@/components/ui/CountdownTimer";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -44,6 +44,10 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
+  const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
+  const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
+  const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
+  const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange } = useWeatherAndExchange();
 
   // Switch between Makkah and Madinah every 2 seconds
@@ -54,6 +58,23 @@ const Index = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Track carousel positions
+  useEffect(() => {
+    if (!flashSalesCarouselApi) return;
+
+    flashSalesCarouselApi.on("select", () => {
+      setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
+    });
+  }, [flashSalesCarouselApi]);
+
+  useEffect(() => {
+    if (!allServicesCarouselApi) return;
+
+    allServicesCarouselApi.on("select", () => {
+      setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
+    });
+  }, [allServicesCarouselApi]);
 
   const categories = [
     { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets Omra", count: 45 },
@@ -521,7 +542,10 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           <div className="block md:hidden carousel-item-peek">
-            <Carousel className="w-full">
+            <Carousel 
+              className="w-full"
+              setApi={setFlashSalesCarouselApi}
+            >
               <CarouselContent>
                 {filteredListings.map((listing) => (
                   <CarouselItem key={listing.id}>
@@ -621,9 +645,9 @@ const Index = () => {
               {filteredListings.map((_, index) => (
                 <div
                   key={index}
-                  className="w-2 h-2 rounded-full bg-muted transition-colors duration-200"
+                  className="w-2 h-2 rounded-full transition-colors duration-200"
                   style={{
-                    backgroundColor: index === 0 ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
+                    backgroundColor: index === flashSalesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
                   }}
                 />
               ))}
@@ -868,7 +892,10 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           <div className="block md:hidden carousel-item-peek mb-16">
-            <Carousel className="w-full">
+            <Carousel 
+              className="w-full"
+              setApi={setAllServicesCarouselApi}
+            >
               <CarouselContent>
                 {filteredListings.map((listing) => (
                   <CarouselItem key={listing.id}>
@@ -968,9 +995,9 @@ const Index = () => {
               {filteredListings.map((_, index) => (
                 <div
                   key={index}
-                  className="w-2 h-2 rounded-full bg-muted transition-colors duration-200"
+                  className="w-2 h-2 rounded-full transition-colors duration-200"
                   style={{
-                    backgroundColor: index === 0 ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
+                    backgroundColor: index === allServicesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
                   }}
                 />
               ))}
