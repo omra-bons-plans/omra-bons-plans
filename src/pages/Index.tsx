@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -276,8 +277,17 @@ const Index = () => {
       <section className="py-20 px-6">
         <div className="container mx-auto">
           <div className="mb-16">
-            <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
-            <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
+              <div>
+                <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
+                <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
+              </div>
+              
+              {/* Countdown Timer */}
+              <div className="lg:ml-8">
+                <CountdownTimer className="w-full lg:w-auto" />
+              </div>
+            </div>
           </div>
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
