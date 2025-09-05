@@ -615,6 +615,19 @@ const Index = () => {
               <CarouselPrevious className="hidden sm:flex" />
               <CarouselNext className="hidden sm:flex" />
             </Carousel>
+            
+            {/* Pagination dots for mobile */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {filteredListings.map((_, index) => (
+                <div
+                  key={index}
+                  className="w-2 h-2 rounded-full bg-muted transition-colors duration-200"
+                  style={{
+                    backgroundColor: index === 0 ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -949,6 +962,19 @@ const Index = () => {
               <CarouselPrevious className="hidden sm:flex" />
               <CarouselNext className="hidden sm:flex" />
             </Carousel>
+            
+            {/* Pagination dots for mobile */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {filteredListings.map((_, index) => (
+                <div
+                  key={index}
+                  className="w-2 h-2 rounded-full bg-muted transition-colors duration-200"
+                  style={{
+                    backgroundColor: index === 0 ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Categories Grid */}
