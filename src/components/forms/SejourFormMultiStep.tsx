@@ -41,6 +41,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<SejourFormData>({
     defaultValues: {
@@ -99,6 +100,28 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       redistributeNights(totalNightsFromDates);
     }
   }, [departureDate, returnDate]);
+
+  // Marquer le formulaire comme modifié dès qu'une valeur change
+  useEffect(() => {
+    const subscription = watch(() => {
+      setIsFormDirty(true);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  // Gérer la fermeture de la page/onglet avec confirmation
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isFormDirty) {
+        e.preventDefault();
+        e.returnValue = 'Voulez-vous vraiment quitter ? Vos modifications ne seront pas sauvegardées.';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isFormDirty]);
 
   const totalSteps = 5;
   const isPromotion = watch('isPromotion');
@@ -168,13 +191,35 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+      // Scroll vers le haut de la page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handlePrevious = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      // Scroll vers le haut de la page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleBack = () => {
+    if (isFormDirty) {
+      const confirmLeave = window.confirm(
+        'Voulez-vous vraiment quitter ? Vos modifications ne seront pas sauvegardées.'
+      );
+      if (confirmLeave) {
+        onBack();
+      }
+    } else {
+      onBack();
+    }
+  };
+
+  const handleSaveDraft = (data: SejourFormData) => {
+    onSubmit(data, true);
+    setIsFormDirty(false); // Marquer comme sauvegardé
   };
 
   const handleFormSubmit = (data: SejourFormData) => {
@@ -184,6 +229,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       return;
     }
     onSubmit(data, false);
+    setIsFormDirty(false); // Marquer comme sauvegardé après publication
   };
 
   const renderStep = () => {
@@ -669,7 +715,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
           <Button 
             type="button" 
             variant="outline" 
-            onClick={currentStep === 1 ? onBack : handlePrevious}
+            onClick={currentStep === 1 ? handleBack : handlePrevious}
             className="w-full sm:w-auto"
           >
             {currentStep === 1 ? 'Retour' : 'Précédent'}
@@ -680,10 +726,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
               <Button 
                 type="button" 
                 variant="secondary" 
-                onClick={() => {
-                  const data = watch();
-                  onSubmit(data, true);
-                }}
+                onClick={() => handleSaveDraft(watch())}
                 className="px-4 sm:px-6 w-full sm:w-auto"
               >
                 <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
