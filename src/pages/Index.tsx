@@ -349,7 +349,8 @@ const Index = () => {
                 >
                   Tous
                 </Button>
-                {categories.map((category) => (
+                {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
+                {categories.filter(category => ['sejours', 'vols', 'hotels'].includes(category.id)).map((category) => (
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
