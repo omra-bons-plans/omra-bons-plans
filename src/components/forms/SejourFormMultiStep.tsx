@@ -150,14 +150,16 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 <div className="space-y-2">
                   <Label htmlFor="airline">Compagnie aérienne *</Label>
                   <Select 
-                    onValueChange={(value) => setValue("airline", value)} 
-                    value={watch("airline")}
-                    {...register("airline", { required: "La compagnie aérienne est requise" })}
+                    onValueChange={(value) => {
+                      console.log("Airline selected:", value);
+                      setValue("airline", value);
+                    }} 
+                    value={watch("airline") || ""}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Choisir la compagnie" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background border-border">
+                    <SelectContent className="bg-background border-border z-50">
                       <SelectItem value="air-france">Air France</SelectItem>
                       <SelectItem value="egyptair">EgyptAir</SelectItem>
                       <SelectItem value="emirates">Emirates</SelectItem>
