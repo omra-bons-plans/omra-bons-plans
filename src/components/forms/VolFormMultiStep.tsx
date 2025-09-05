@@ -52,7 +52,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
     }
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
   const originalPrice = watch('originalPrice');
   const price = watch('price');
 
@@ -113,6 +113,9 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         break;
       case 5:
         fieldsToValidate = ['publishEndDate'];
+        break;
+      case 6:
+        // Récapitulatif - pas de validation nécessaire
         break;
     }
 
@@ -530,6 +533,86 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        );
+
+      case 6:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span>📋</span>
+                <span>Récapitulatif de votre annonce</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-lg">✈️ Informations du vol</h4>
+                  <div className="space-y-2">
+                    <p><strong>Titre :</strong> {watch('title') || 'Non renseigné'}</p>
+                    <p><strong>Compagnie :</strong> {watch('airline') || 'Non renseignée'}</p>
+                    <p><strong>Trajet :</strong> {watch('departureAirport')} → {watch('arrivalAirport')}</p>
+                    <p><strong>Départ :</strong> {watch('departureDate') ? new Date(watch('departureDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
+                    <p><strong>Retour :</strong> {watch('returnDate') ? new Date(watch('returnDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-lg">💰 Tarification</h4>
+                  <div className="space-y-2">
+                    <p><strong>Prix de vente :</strong> {watch('price')}€</p>
+                    {watch('originalPrice') && (
+                      <>
+                        <p><strong>Prix de base :</strong> {watch('originalPrice')}€</p>
+                        <p className="text-green-600"><strong>Réduction :</strong> {calculateDiscount()}%</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-semibold text-lg">📝 Description</h4>
+                <p className="text-muted-foreground bg-muted/30 p-4 rounded-lg">
+                  {watch('description') || 'Aucune description'}
+                </p>
+              </div>
+
+              {(watch('hasOutboundStopover') || watch('hasReturnStopover')) && (
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-lg">🔄 Escales</h4>
+                  <div className="space-y-2">
+                    {watch('hasOutboundStopover') && (
+                      <p><strong>Escale aller :</strong> {watch('outboundStopoverDetails') || 'Détails non renseignés'}</p>
+                    )}
+                    {watch('hasReturnStopover') && (
+                      <p><strong>Escale retour :</strong> {watch('returnStopoverDetails') || 'Détails non renseignés'}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                <h4 className="font-semibold text-lg">📞 Contact et publication</h4>
+                <div className="space-y-2">
+                  <p><strong>Email affiché :</strong> {watch('showEmail') ? 'Oui' : 'Non'}</p>
+                  <p><strong>Téléphone affiché :</strong> {watch('showPhone') ? 'Oui' : 'Non'}</p>
+                  <p><strong>Fin de publication :</strong> {watch('publishEndDate') ? new Date(watch('publishEndDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
+                </div>
+              </div>
+
+              {coverImage && (
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-lg">📸 Photo de couverture</h4>
+                  <img 
+                    src={URL.createObjectURL(coverImage)} 
+                    alt="Cover" 
+                    className="w-48 h-32 object-cover rounded-lg"
+                  />
+                </div>
+              )}
             </CardContent>
           </Card>
         );
