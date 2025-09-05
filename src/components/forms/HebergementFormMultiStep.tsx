@@ -710,7 +710,19 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                     <Input
                       type="number"
                       id="price"
-                      {...register("price", { required: "Le prix est obligatoire", min: 1 })}
+                      {...register("price", { 
+                        required: "Le prix est obligatoire", 
+                        min: { value: 1, message: "Le prix doit être supérieur à 0" },
+                        validate: {
+                          lowerThanOriginal: (value) => {
+                            const originalPrice = watch('originalPrice');
+                            if (originalPrice && value && parseFloat(String(value)) >= parseFloat(String(originalPrice))) {
+                              return "Le prix de vente doit être inférieur au prix original";
+                            }
+                            return true;
+                          }
+                        }
+                      })}
                       min="1"
                       step="0.01"
                       placeholder="150"
@@ -723,11 +735,23 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                     <Input
                       type="number"
                       id="originalPrice"
-                      {...register("originalPrice", { min: 1 })}
+                      {...register("originalPrice", { 
+                        min: { value: 1, message: "Le prix doit être supérieur à 0" },
+                        validate: {
+                          higherThanSale: (value) => {
+                            const salePrice = watch('price');
+                            if (value && salePrice && parseFloat(String(value)) <= parseFloat(String(salePrice))) {
+                              return "Le prix original doit être supérieur au prix de vente";
+                            }
+                            return true;
+                          }
+                        }
+                      })}
                       min="1"
                       step="0.01"
                       placeholder="200"
                     />
+                    {errors.originalPrice && <span className="text-destructive text-sm">{errors.originalPrice.message}</span>}
                     <p className="text-xs text-muted-foreground">
                       Optionnel - pour afficher une réduction
                     </p>
