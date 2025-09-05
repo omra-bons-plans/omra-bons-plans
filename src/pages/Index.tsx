@@ -211,26 +211,26 @@ const Index = () => {
               </div>
 
               {/* Modern Weather & Exchange Card */}
-              <div className="glass p-6 rounded-3xl border border-border/30 shadow-large max-w-md mx-auto">
+              <div className="glass-strong p-8 rounded-3xl border-2 border-primary/30 shadow-elegant max-w-lg mx-auto bg-background/80 backdrop-blur-md">
                 <div className="flex items-center space-x-6">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-medium">
-                    <span className="text-3xl">🕌</span>
+                  <div className="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center shadow-large">
+                    <span className="text-4xl">🕌</span>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground font-medium mb-1 transition-all duration-500">
+                  <div className="flex-1">
+                    <p className="text-lg font-bold text-foreground mb-2 transition-all duration-500">
                       {weatherAndExchange?.weather ? 
                         `${currentWeatherCity === 'makkah' ? 'Makkah' : 'Madinah'} aujourd'hui` : 
                         'Hajj PACK 2024'}
                     </p>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-4xl font-black gradient-text-primary transition-all duration-500">
+                    <div className="flex items-center justify-between">
+                      <span className="text-5xl font-black gradient-text-primary transition-all duration-500">
                         {currentWeatherCity === 'makkah' 
                           ? (weatherAndExchange?.weather.makkah?.temperature ?? 32)
                           : (weatherAndExchange?.weather.madinah?.temperature ?? 28)}°
                       </span>
-                      <div className="text-sm text-muted-foreground">
-                        <div>EUR → SAR</div>
-                        <div className="text-primary font-semibold">
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-muted-foreground mb-1">EUR → SAR</div>
+                        <div className="text-2xl text-primary font-bold">
                           {weatherAndExchange?.exchange.eurToSar ?? '3.95'}
                         </div>
                       </div>
