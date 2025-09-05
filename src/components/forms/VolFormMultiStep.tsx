@@ -165,12 +165,18 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                     <SelectValue placeholder="Choisir la compagnie" />
                   </SelectTrigger>
                   <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                    <SelectItem value="emirates">Emirates</SelectItem>
-                    <SelectItem value="saudia">Saudia</SelectItem>
                     <SelectItem value="air-france">Air France</SelectItem>
-                    <SelectItem value="turkish">Turkish Airlines</SelectItem>
+                    <SelectItem value="egyptair">EgyptAir</SelectItem>
+                    <SelectItem value="emirates">Emirates</SelectItem>
+                    <SelectItem value="flyadeal">Flyadeal</SelectItem>
+                    <SelectItem value="flynas">Flynas</SelectItem>
+                    <SelectItem value="pegasus">Pegasus Airlines</SelectItem>
                     <SelectItem value="qatar">Qatar Airways</SelectItem>
-                    <SelectItem value="lufthansa">Lufthansa</SelectItem>
+                    <SelectItem value="royal-jordanian">Royal Jordanian</SelectItem>
+                    <SelectItem value="saudi">Saudi Arabian Airlines</SelectItem>
+                    <SelectItem value="transavia">Transavia</SelectItem>
+                    <SelectItem value="turkish">Turkish Airlines</SelectItem>
+                    <SelectItem value="wizz-air">Wizz Air</SelectItem>
                     <SelectItem value="autre">Autre</SelectItem>
                   </SelectContent>
                 </Select>
