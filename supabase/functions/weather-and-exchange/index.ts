@@ -51,25 +51,48 @@ serve(async (req) => {
       };
     });
 
-    console.log('Fetching exchange rate using Frankfurter API (completely free, no API key)...');
+    console.log('Fetching exchange rate using multiple APIs...');
     
-    // Fetch exchange rate EUR to SAR using Frankfurter (European Central Bank data, completely free)
-    const exchangeResponse = await fetch('https://api.frankfurter.app/latest?from=EUR&to=SAR');
+    let eurToSar = 3.95; // Fallback value
     
-    if (!exchangeResponse.ok) {
-      console.error('Exchange API error:', exchangeResponse.status, exchangeResponse.statusText);
-      throw new Error(`Exchange API error: ${exchangeResponse.status}`);
+    try {
+      // Try Frankfurter API first (European Central Bank data, completely free)
+      const exchangeResponse = await fetch('https://api.frankfurter.app/latest?from=EUR&to=SAR');
+      
+      if (exchangeResponse.ok) {
+        const exchangeData = await exchangeResponse.json();
+        console.log('Frankfurter exchange data:', exchangeData);
+        
+        if (exchangeData.rates && exchangeData.rates.SAR) {
+          eurToSar = exchangeData.rates.SAR;
+          console.log('Using Frankfurter exchange rate:', eurToSar);
+        }
+      } else {
+        console.warn('Frankfurter API failed:', exchangeResponse.status, exchangeResponse.statusText);
+        throw new Error('Frankfurter API failed');
+      }
+    } catch (frankfurterError) {
+      console.warn('Frankfurter API error:', frankfurterError.message);
+      
+      try {
+        // Fallback to ExchangeRate-API (free tier)
+        const fallbackResponse = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+        
+        if (fallbackResponse.ok) {
+          const fallbackData = await fallbackResponse.json();
+          console.log('ExchangeRate-API data:', fallbackData);
+          
+          if (fallbackData.rates && fallbackData.rates.SAR) {
+            eurToSar = fallbackData.rates.SAR;
+            console.log('Using ExchangeRate-API rate:', eurToSar);
+          }
+        } else {
+          console.warn('ExchangeRate-API also failed, using fallback value');
+        }
+      } catch (fallbackError) {
+        console.warn('All exchange APIs failed, using fallback value:', eurToSar);
+      }
     }
-    
-    const exchangeData = await exchangeResponse.json();
-    console.log('Exchange data:', exchangeData);
-    
-    if (!exchangeData.rates || !exchangeData.rates.SAR) {
-      console.error('Invalid exchange data:', exchangeData);
-      throw new Error('Invalid exchange rate data received');
-    }
-    
-    const eurToSar = exchangeData.rates.SAR;
 
     const [makkahWeather, madinahWeather] = await Promise.all(weatherPromises);
     console.log('All data fetched successfully');
