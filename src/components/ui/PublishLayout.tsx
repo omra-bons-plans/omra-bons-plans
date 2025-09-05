@@ -64,7 +64,7 @@ const PublishLayout = ({
       </header>
 
       {/* Main content */}
-      <main className="flex-1 py-6 sm:py-12 px-4 sm:px-6 pb-32">
+      <main className="flex-1 py-6 sm:py-12 px-4 sm:px-6 pb-40">
         <div className="container mx-auto max-w-4xl">
           {children}
         </div>
