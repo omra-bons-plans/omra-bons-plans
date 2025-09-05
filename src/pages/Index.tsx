@@ -541,9 +541,9 @@ const Index = () => {
           </div>
 
           {/* Mobile: Carousel with 1 item */}
-          <div className="block md:hidden carousel-item-peek">
+          <div className="block md:hidden carousel-item-peek horizontal-scroll-container">
             <Carousel 
-              className="w-full"
+              className="w-full scroll-hint"
               setApi={setFlashSalesCarouselApi}
             >
               <CarouselContent>
@@ -891,9 +891,9 @@ const Index = () => {
           </div>
 
           {/* Mobile: Carousel with 1 item */}
-          <div className="block md:hidden carousel-item-peek mb-16">
+          <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container">
             <Carousel 
-              className="w-full"
+              className="w-full scroll-hint"
               setApi={setAllServicesCarouselApi}
             >
               <CarouselContent>
