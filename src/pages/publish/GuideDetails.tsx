@@ -79,7 +79,8 @@ const GuideDetails = () => {
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          publish_end_date: null, // Pas de date de fin pour guide
+          is_paused: false,
         };
 
         const categoryData = {
@@ -111,9 +112,10 @@ const GuideDetails = () => {
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate,
+          publish_end_date: null, // Pas de date de fin pour guide
           is_published: true,
           is_draft: false,
+          is_paused: false,
         })
         .select()
         .single();

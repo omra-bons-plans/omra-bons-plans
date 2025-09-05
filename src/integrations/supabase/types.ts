@@ -24,6 +24,7 @@ export type Database = {
           id: string
           images: string[] | null
           is_draft: boolean | null
+          is_paused: boolean | null
           is_promotion: boolean | null
           is_published: boolean | null
           location: string | null
@@ -46,6 +47,7 @@ export type Database = {
           id?: string
           images?: string[] | null
           is_draft?: boolean | null
+          is_paused?: boolean | null
           is_promotion?: boolean | null
           is_published?: boolean | null
           location?: string | null
@@ -68,6 +70,7 @@ export type Database = {
           id?: string
           images?: string[] | null
           is_draft?: boolean | null
+          is_paused?: boolean | null
           is_promotion?: boolean | null
           is_published?: boolean | null
           location?: string | null

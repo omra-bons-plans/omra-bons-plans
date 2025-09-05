@@ -79,7 +79,8 @@ const BabysittingDetails = () => {
           location: 'Lieux saints',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          publish_end_date: null, // Pas de date de fin pour baby-sitting
+          is_paused: false,
         };
 
         const categoryData = {
@@ -102,9 +103,10 @@ const BabysittingDetails = () => {
           location: 'Lieux saints',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate,
+          publish_end_date: null, // Pas de date de fin pour baby-sitting
           is_published: true,
           is_draft: false,
+          is_paused: false,
         })
         .select()
         .single();
@@ -133,8 +135,12 @@ const BabysittingDetails = () => {
 
   const steps = ["Catégorie", "Détails"];
 
+  // Mise à jour du nombre d'étapes pour refléter la nouvelle structure
+  const currentStepForProgress = 2; // Étape détails
+  const totalStepsForProgress = 2;
+
   return (
-    <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
+    <PublishLayout currentStep={currentStepForProgress} totalSteps={totalStepsForProgress} steps={steps}>
         <BabysittingFormMultiStep 
           onSubmit={handleBabysittingSubmit} 
           onBack={handleBack}

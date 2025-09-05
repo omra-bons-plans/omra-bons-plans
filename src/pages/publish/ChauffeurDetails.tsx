@@ -79,7 +79,8 @@ const ChauffeurDetails = () => {
           location: data.city === 'makkah' ? 'Makkah' : data.city === 'medina' ? 'Médine' : 'Jeddah',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          publish_end_date: null, // Pas de date de fin pour chauffeur
+          is_paused: false,
         };
 
         const categoryData = {
@@ -104,9 +105,10 @@ const ChauffeurDetails = () => {
           location: data.city === 'makkah' ? 'Makkah' : data.city === 'medina' ? 'Médine' : 'Jeddah',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: data.publishEndDate,
+          publish_end_date: null, // Pas de date de fin pour chauffeur
           is_published: true,
           is_draft: false,
+          is_paused: false,
         })
         .select()
         .single();

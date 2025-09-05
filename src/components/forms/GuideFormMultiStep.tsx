@@ -23,7 +23,6 @@ interface GuideFormData {
   offersWheelchairHelp: boolean;
   offersOther: boolean;
   otherServicesDescription?: string;
-  publishEndDate: string;
   showEmail: boolean;
   showPhone: boolean;
 }
@@ -53,7 +52,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 3;
   const offersOther = watch('offersOther');
 
   const availableLanguages = [
@@ -98,9 +97,6 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         break;
       case 3:
         // Languages and services - no required validation needed
-        break;
-      case 4:
-        fieldsToValidate = ['publishEndDate'];
         break;
     }
 
@@ -400,55 +396,32 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                       )}
                     </div>
                   </div>
+
+                  <div className="space-y-4 mt-8">
+                    <h4 className="font-semibold">Informations de contact affichées</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="showEmail"
+                          checked={watch("showEmail")}
+                          onCheckedChange={(checked) => setValue("showEmail", !!checked)}
+                        />
+                        <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="showPhone"
+                          checked={watch("showPhone")}
+                          onCheckedChange={(checked) => setValue("showPhone", !!checked)}
+                        />
+                        <Label htmlFor="showPhone">Afficher le téléphone</Label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </div>
-        );
-
-      case 4:
-        return (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calendar className="w-5 h-5" />
-                <span>Paramètres de publication</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="publishEndDate">Date de fin de publication *</Label>
-                <Input
-                  id="publishEndDate"
-                  type="date"
-                  {...register("publishEndDate", { required: "La date de fin est requise" })}
-                />
-                {errors.publishEndDate && <p className="text-destructive text-sm">{errors.publishEndDate.message}</p>}
-              </div>
-
-              <div className="space-y-4">
-                <h4 className="font-semibold">Informations de contact affichées</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id="showEmail"
-                      checked={watch("showEmail")}
-                      onCheckedChange={(checked) => setValue("showEmail", !!checked)}
-                    />
-                    <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id="showPhone"
-                      checked={watch("showPhone")}
-                      onCheckedChange={(checked) => setValue("showPhone", !!checked)}
-                    />
-                    <Label htmlFor="showPhone">Afficher le téléphone</Label>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         );
 
       default:
