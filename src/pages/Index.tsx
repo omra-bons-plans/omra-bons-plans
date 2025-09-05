@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy } from "lucide-react";
+import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,12 +77,12 @@ const Index = () => {
   }, [allServicesCarouselApi]);
 
   const categories = [
-    { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets Omra", count: 45 },
-    { id: "vols", name: "Vols", icon: "✈️", description: "Billets d'avion", count: 23 },
-    { id: "hotels", name: "Hébergements", icon: "🏨", description: "Hôtels et appartements", count: 67 },
-    { id: "guides", name: "Guides", icon: "👨‍🏫", description: "Guides spirituels", count: 34 },
-    { id: "chauffeurs", name: "Chauffeurs", icon: "🚗", description: "Transport privé", count: 28 },
-    { id: "babysitting", name: "Baby-sitting", icon: "👶", description: "Garde d'enfants", count: 12 }
+    { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets Omra", count: 45 },
+    { id: "vols", name: "Vols", icon: Plane, description: "Billets d'avion", count: 23 },
+    { id: "hotels", name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", count: 67 },
+    { id: "guides", name: "Guides", icon: BookOpen, description: "Guides spirituels", count: 34 },
+    { id: "chauffeurs", name: "Chauffeurs", icon: Car, description: "Transport privé", count: 28 },
+    { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: 12 }
   ];
 
   const featuredListings = [

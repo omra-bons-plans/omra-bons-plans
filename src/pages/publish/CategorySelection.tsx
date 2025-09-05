@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Building, Plane, Hotel, BookOpen, Car, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -9,12 +9,12 @@ const CategorySelection = () => {
   const navigate = useNavigate();
 
   const categories = [
-    { id: "sejours", name: "Séjours", icon: "🕌", description: "Packages complets" },
-    { id: "vols", name: "Vols", icon: "✈️", description: "Billets d'avion" },
-    { id: "hebergement", name: "Hébergement", icon: "🏨", description: "Hôtels et appartements" },
-    { id: "guides", name: "Guides", icon: "👨‍🏫", description: "Guides spirituels" },
-    { id: "chauffeurs", name: "Chauffeurs", icon: "🚗", description: "Transport privé" },
-    { id: "babysitting", name: "Baby-sitting", icon: "👶", description: "Garde d'enfants" }
+    { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets" },
+    { id: "vols", name: "Vols", icon: Plane, description: "Billets d'avion" },
+    { id: "hebergement", name: "Hébergement", icon: Hotel, description: "Hôtels et appartements" },
+    { id: "guides", name: "Guides", icon: BookOpen, description: "Guides spirituels" },
+    { id: "chauffeurs", name: "Chauffeurs", icon: Car, description: "Transport privé" },
+    { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants" }
   ];
 
   const handleNext = () => {
@@ -58,7 +58,11 @@ const CategorySelection = () => {
                 onClick={() => setSelectedCategory(category.id)}
               >
                 <CardContent className="p-4 sm:p-8 text-center space-y-4 sm:space-y-6">
-                  <div className="text-4xl sm:text-6xl mb-2 sm:mb-4">{category.icon}</div>
+                  <div className="flex justify-center mb-2 sm:mb-4">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-lg">
+                      <category.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    </div>
+                  </div>
                   <div className="space-y-1 sm:space-y-2">
                     <h3 className="text-lg sm:text-xl font-bold">{category.name}</h3>
                     <p className="text-muted-foreground text-xs sm:text-sm">{category.description}</p>
