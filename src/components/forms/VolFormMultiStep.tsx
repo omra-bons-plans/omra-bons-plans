@@ -96,6 +96,8 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
   };
 
   const handleNext = async () => {
+    console.log("handleNext called, current step:", currentStep);
+    
     let fieldsToValidate: (keyof VolFormData)[] = [];
     
     switch (currentStep) {
@@ -119,14 +121,26 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         break;
     }
 
-    const isValid = await trigger(fieldsToValidate);
-    
-    if (isValid && currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-      // Scroll vers le haut de la page avec un délai pour s'assurer que le DOM est mis à jour
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
+    console.log("Fields to validate:", fieldsToValidate);
+    const formValues = watch();
+    console.log("Current form values:", formValues);
+
+    try {
+      const isValid = await trigger(fieldsToValidate);
+      console.log("Validation result:", isValid);
+      
+      if (isValid && currentStep < totalSteps) {
+        console.log("Moving to next step:", currentStep + 1);
+        setCurrentStep(currentStep + 1);
+        // Scroll vers le haut de la page avec un délai pour s'assurer que le DOM est mis à jour
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      } else {
+        console.log("Validation failed or last step reached");
+      }
+    } catch (error) {
+      console.error("Error in handleNext:", error);
     }
   };
 
@@ -193,11 +207,19 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   control={control}
                   rules={{ required: "La compagnie aérienne est requise" }}
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} value={field.value || ""}>
+                    <Select 
+                      onValueChange={(value) => {
+                        console.log("Airline selected:", value);
+                        field.onChange(value);
+                        // Trigger validation pour s'assurer que la valeur est bien enregistrée
+                        trigger("airline");
+                      }} 
+                      value={field.value || ""}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Choisir la compagnie" />
                       </SelectTrigger>
-                      <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                      <SelectContent className="bg-background border-border z-[60] max-h-60 overflow-y-auto">
                         <SelectItem value="air-france">Air France</SelectItem>
                         <SelectItem value="egyptair">EgyptAir</SelectItem>
                         <SelectItem value="emirates">Emirates</SelectItem>
