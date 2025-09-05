@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Plane, Upload, Calendar, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,7 +42,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [isFormDirty, setIsFormDirty] = useState(false);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<VolFormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger, control } = useForm<VolFormData>({
     defaultValues: {
       showEmail: true,
       showPhone: false,
@@ -118,15 +118,6 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
 
     const isValid = await trigger(fieldsToValidate);
     
-    // Validation manuelle pour les champs Select qui n'utilisent pas register
-    if (currentStep === 2) {
-      const airline = watch("airline");
-      if (!airline) {
-        alert("Veuillez sélectionner une compagnie aérienne");
-        return;
-      }
-    }
-    
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       // Scroll vers le haut de la page avec un délai pour s'assurer que le DOM est mis à jour
@@ -194,32 +185,33 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="airline">Compagnie aérienne *</Label>
-                <Select
-                  onValueChange={(value) => {
-                    console.log("Airline selected:", value);
-                    setValue("airline", value);
-                  }}
-                  value={watch("airline") || ""}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choisir la compagnie" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                    <SelectItem value="air-france">Air France</SelectItem>
-                    <SelectItem value="egyptair">EgyptAir</SelectItem>
-                    <SelectItem value="emirates">Emirates</SelectItem>
-                    <SelectItem value="flyadeal">Flyadeal</SelectItem>
-                    <SelectItem value="flynas">Flynas</SelectItem>
-                    <SelectItem value="pegasus">Pegasus Airlines</SelectItem>
-                    <SelectItem value="qatar">Qatar Airways</SelectItem>
-                    <SelectItem value="royal-jordanian">Royal Jordanian</SelectItem>
-                    <SelectItem value="saudi">Saudi Arabian Airlines</SelectItem>
-                    <SelectItem value="transavia">Transavia</SelectItem>
-                    <SelectItem value="turkish">Turkish Airlines</SelectItem>
-                    <SelectItem value="wizz-air">Wizz Air</SelectItem>
-                    <SelectItem value="autre">Autre</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Controller
+                  name="airline"
+                  control={control}
+                  rules={{ required: "La compagnie aérienne est requise" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value || ""}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisir la compagnie" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                        <SelectItem value="air-france">Air France</SelectItem>
+                        <SelectItem value="egyptair">EgyptAir</SelectItem>
+                        <SelectItem value="emirates">Emirates</SelectItem>
+                        <SelectItem value="flyadeal">Flyadeal</SelectItem>
+                        <SelectItem value="flynas">Flynas</SelectItem>
+                        <SelectItem value="pegasus">Pegasus Airlines</SelectItem>
+                        <SelectItem value="qatar">Qatar Airways</SelectItem>
+                        <SelectItem value="royal-jordanian">Royal Jordanian</SelectItem>
+                        <SelectItem value="saudi">Saudi Arabian Airlines</SelectItem>
+                        <SelectItem value="transavia">Transavia</SelectItem>
+                        <SelectItem value="turkish">Turkish Airlines</SelectItem>
+                        <SelectItem value="wizz-air">Wizz Air</SelectItem>
+                        <SelectItem value="autre">Autre</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
                 {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
               </div>
 
