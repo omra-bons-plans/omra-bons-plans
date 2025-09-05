@@ -6,64 +6,64 @@
 
 @layer base {
   :root {
-    /* Background colors - Pure whites and creams */
-    --background: 0 0% 100%;
-    --background-soft: 45 20% 98%;
-    --foreground: 210 24% 16%;
+    /* Background colors - Warm cream tones */
+    --background: 45 30% 97%;
+    --background-soft: 45 25% 95%;
+    --foreground: 25 25% 25%;
 
     /* Card system - Elevated surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 210 24% 16%;
-    --card-elevated: 45 15% 97%;
+    --card-foreground: 25 25% 25%;
+    --card-elevated: 45 20% 98%;
 
     /* Popover system */
     --popover: 0 0% 100%;
-    --popover-foreground: 210 24% 16%;
+    --popover-foreground: 25 25% 25%;
 
-    /* Primary colors - Islamic emerald green */
-    --primary: 160 84% 39%;
-    --primary-light: 160 76% 50%;
-    --primary-dark: 160 90% 32%;
+    /* Primary colors - Rich golden brown */
+    --primary: 35 65% 45%;
+    --primary-light: 35 60% 55%;
+    --primary-dark: 35 70% 35%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary colors - Warm gold/amber */
-    --secondary: 45 93% 47%;
-    --secondary-light: 45 90% 60%;
-    --secondary-dark: 45 95% 35%;
-    --secondary-foreground: 210 24% 16%;
+    /* Secondary colors - Warm amber gold */
+    --secondary: 45 85% 60%;
+    --secondary-light: 45 80% 70%;
+    --secondary-dark: 45 90% 50%;
+    --secondary-foreground: 25 25% 25%;
 
-    /* Accent colors - Soft Islamic green */
-    --accent: 160 40% 95%;
-    --accent-foreground: 160 84% 39%;
+    /* Accent colors - Soft warm tone */
+    --accent: 45 30% 92%;
+    --accent-foreground: 35 65% 45%;
 
-    /* Muted colors - Neutral system */
-    --muted: 210 20% 96%;
-    --muted-foreground: 210 16% 46%;
+    /* Muted colors - Warm neutral system */
+    --muted: 45 20% 90%;
+    --muted-foreground: 25 15% 55%;
 
     /* Status colors */
-    --destructive: 0 84% 60%;
+    --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;
-    --success: 160 84% 39%;
+    --success: 140 70% 45%;
     --success-foreground: 0 0% 100%;
-    --warning: 45 93% 47%;
-    --warning-foreground: 210 24% 16%;
+    --warning: 35 85% 55%;
+    --warning-foreground: 25 25% 25%;
 
     /* Border and input system */
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 160 84% 39%;
+    --border: 45 25% 85%;
+    --input: 45 25% 85%;
+    --ring: 35 65% 45%;
 
-    /* Gradients - Islamic inspired */
-    --gradient-primary: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(160, 76%, 50%));
-    --gradient-secondary: linear-gradient(135deg, hsl(45, 93%, 47%), hsl(45, 90%, 60%));
-    --gradient-hero: linear-gradient(135deg, hsl(160, 84%, 39%) 0%, hsl(160, 76%, 50%) 50%, hsl(45, 93%, 47%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(160, 40%, 98%) 100%);
+    /* Gradients - Warm tones inspired */
+    --gradient-primary: linear-gradient(135deg, hsl(35, 65%, 45%), hsl(35, 60%, 55%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45, 85%, 60%), hsl(45, 80%, 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(35, 65%, 45%) 0%, hsl(45, 85%, 60%) 50%, hsl(50, 90%, 65%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(45, 30%, 97%) 0%, hsl(45, 25%, 95%) 100%);
 
-    /* Shadows - Elegant elevation */
-    --shadow-soft: 0 2px 4px -1px hsl(160, 20%, 20% / 0.06), 0 4px 8px -2px hsl(160, 20%, 20% / 0.1);
-    --shadow-medium: 0 4px 6px -1px hsl(160, 20%, 20% / 0.1), 0 10px 15px -3px hsl(160, 20%, 20% / 0.1);
-    --shadow-large: 0 10px 25px -3px hsl(160, 20%, 20% / 0.1), 0 20px 25px -5px hsl(160, 20%, 20% / 0.1);
-    --shadow-glow: 0 0 40px hsl(160, 84%, 39% / 0.15);
+    /* Shadows - Warm elegant elevation */
+    --shadow-soft: 0 2px 4px -1px hsl(35, 20%, 30% / 0.08), 0 4px 8px -2px hsl(35, 20%, 30% / 0.12);
+    --shadow-medium: 0 4px 6px -1px hsl(35, 20%, 30% / 0.12), 0 10px 15px -3px hsl(35, 20%, 30% / 0.15);
+    --shadow-large: 0 10px 25px -3px hsl(35, 20%, 30% / 0.15), 0 20px 25px -5px hsl(35, 20%, 30% / 0.18);
+    --shadow-glow: 0 0 40px hsl(35, 65%, 45% / 0.2);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
