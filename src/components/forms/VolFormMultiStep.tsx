@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AirportSelect } from "@/components/ui/AirportSelect";
 
 interface VolFormData {
   title: string;
@@ -251,20 +252,34 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="departureAirport">Aéroport de départ *</Label>
-                  <Input
-                    id="departureAirport"
-                    {...register("departureAirport", { required: "L'aéroport de départ est requis" })}
-                    placeholder="Ex: Paris CDG"
+                  <Controller
+                    name="departureAirport"
+                    control={control}
+                    rules={{ required: "L'aéroport de départ est requis" }}
+                    render={({ field }) => (
+                      <AirportSelect
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Ex: CDG - Paris"
+                      />
+                    )}
                   />
                   {errors.departureAirport && <p className="text-destructive text-sm">{errors.departureAirport.message}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="arrivalAirport">Aéroport d'arrivée *</Label>
-                  <Input
-                    id="arrivalAirport"
-                    {...register("arrivalAirport", { required: "L'aéroport d'arrivée est requis" })}
-                    placeholder="Ex: Jeddah JED"
+                  <Controller
+                    name="arrivalAirport"
+                    control={control}
+                    rules={{ required: "L'aéroport d'arrivée est requis" }}
+                    render={({ field }) => (
+                      <AirportSelect
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Ex: JED - Jeddah"
+                      />
+                    )}
                   />
                   {errors.arrivalAirport && <p className="text-destructive text-sm">{errors.arrivalAirport.message}</p>}
                 </div>
