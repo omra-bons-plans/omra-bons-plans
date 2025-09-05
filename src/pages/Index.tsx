@@ -1091,22 +1091,6 @@ const Index = () => {
               </div>
             </div>
           )}
-
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
-              <Card key={category.id} className="card-modern p-8 text-center hover:scale-105 transition-all duration-300 cursor-pointer">
-                <div className="space-y-4">
-                  <div className="text-5xl mb-4">{category.icon}</div>
-                  <h3 className="text-xl font-bold">{category.name}</h3>
-                  <p className="text-muted-foreground">{category.description}</p>
-                  <Badge className="bg-primary/10 text-primary">
-                    {category.count} disponibles
-                  </Badge>
-                </div>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
