@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Plane, Upload, Calendar, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,6 +40,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<VolFormData>({
     defaultValues: {
@@ -54,6 +55,28 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
   const totalSteps = 5;
   const originalPrice = watch('originalPrice');
   const price = watch('price');
+
+  // Marquer le formulaire comme modifié dès qu'une valeur change
+  useEffect(() => {
+    const subscription = watch(() => {
+      setIsFormDirty(true);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  // Gérer la fermeture de la page/onglet avec confirmation
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isFormDirty) {
+        e.preventDefault();
+        e.returnValue = 'Voulez-vous vraiment quitter ? Vos modifications ne seront pas sauvegardées.';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isFormDirty]);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
@@ -94,8 +117,22 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
     }
 
     const isValid = await trigger(fieldsToValidate);
+    
+    // Validation manuelle pour les champs Select qui n'utilisent pas register
+    if (currentStep === 2) {
+      const airline = watch("airline");
+      if (!airline) {
+        alert("Veuillez sélectionner une compagnie aérienne");
+        return;
+      }
+    }
+    
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+      // Scroll vers le haut de la page avec un délai pour s'assurer que le DOM est mis à jour
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }
   };
 
@@ -157,8 +194,11 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="airline">Compagnie aérienne *</Label>
-                <Select 
-                  onValueChange={(value) => setValue("airline", value)}
+                <Select
+                  onValueChange={(value) => {
+                    console.log("Airline selected:", value);
+                    setValue("airline", value);
+                  }}
                   value={watch("airline") || ""}
                 >
                   <SelectTrigger>
