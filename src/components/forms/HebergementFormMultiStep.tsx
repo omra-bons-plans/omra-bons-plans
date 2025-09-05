@@ -65,8 +65,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
   const watchedCity = watch('city');
   const watchedAccommodationType = watch('accommodationType');
 
-  const totalSteps = 5;
-  const steps = ["Informations de base", "Dates et détails", "Commodités", "Photos et médias", "Prix et publication"];
+  const totalSteps = 6;
+  const steps = ["Informations de base", "Dates et détails", "Commodités", "Photos et médias", "Prix et publication", "Récapitulatif"];
 
   const nextStep = async () => {
     let isValid = false;
@@ -105,6 +105,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
         break;
       case 5:
         isValid = await trigger(['price', 'publishEndDate']);
+        break;
+      case 6:
+        // Récapitulatif, pas de validation nécessaire
+        isValid = true;
         break;
     }
     
@@ -740,6 +744,155 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           </div>
         );
 
+      case 6:
+        return (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Hotel className="w-5 h-5" />
+                  <span>Récapitulatif de votre annonce</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Informations de base */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Informations générales</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Titre</Label>
+                      <p className="font-medium">{watch('title') || 'Non renseigné'}</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Ville</Label>
+                      <p className="font-medium">
+                        {watch('city') === 'makkah' ? 'Makkah (La Mecque)' : watch('city') === 'medina' ? 'Médine' : 'Non sélectionnée'}
+                      </p>
+                    </div>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Type d'hébergement</Label>
+                      <p className="font-medium">
+                        {watch('accommodationType') === 'hotel' ? 'Hôtel' : watch('accommodationType') === 'apartment' ? 'Appartement' : 'Non sélectionné'}
+                      </p>
+                    </div>
+                    {watchedAccommodationType === 'hotel' && watch('name') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Nom de l'hôtel</Label>
+                        <p className="font-medium">{watch('name')}</p>
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <Label className="text-sm text-muted-foreground">Description</Label>
+                    <p className="font-medium">{watch('description') || 'Non renseignée'}</p>
+                  </div>
+                </div>
+
+                {/* Détails */}
+                <div className="space-y-4 border-t pt-4">
+                  <h3 className="font-semibold text-lg">Détails et disponibilités</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {watch('distanceToMosque') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">
+                          Distance jusqu'à {watchedCity === 'medina' ? 'la mosquée du Prophète' : 'la mosquée Al-Haram'}
+                        </Label>
+                        <p className="font-medium">{watch('distanceToMosque')} mètres</p>
+                      </div>
+                    )}
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Nombre de lits</Label>
+                      <p className="font-medium">{watch('bedsCount') || 'Non renseigné'}</p>
+                    </div>
+                    {watchedAccommodationType === 'apartment' && watch('roomsCount') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Nombre de chambres</Label>
+                        <p className="font-medium">{watch('roomsCount')}</p>
+                      </div>
+                    )}
+                    {watch('availableFrom') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Disponible du</Label>
+                        <p className="font-medium">{watch('availableFrom')} au {watch('availableTo') || 'Non définie'}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Commodités (seulement pour appartements) */}
+                {watchedAccommodationType === 'apartment' && (
+                  <div className="space-y-4 border-t pt-4">
+                    <h3 className="font-semibold text-lg">Commodités</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                      {watch('hasLivingRoom') && <Badge variant="secondary">Salon</Badge>}
+                      {watch('hasWifi') && <Badge variant="secondary">Wi-Fi</Badge>}
+                      {watch('hasAc') && <Badge variant="secondary">Climatisation</Badge>}
+                      {watch('hasTv') && <Badge variant="secondary">Télévision</Badge>}
+                      {watch('hasFridge') && <Badge variant="secondary">Réfrigérateur</Badge>}
+                      {watch('hasWashingMachine') && <Badge variant="secondary">Lave-linge</Badge>}
+                    </div>
+                    {watch('videoUrl') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Lien vidéo</Label>
+                        <p className="font-medium">{watch('videoUrl')}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Prix */}
+                <div className="space-y-4 border-t pt-4">
+                  <h3 className="font-semibold text-lg">Prix et publication</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Prix de vente</Label>
+                      <p className="font-medium text-lg">{watch('price')}€</p>
+                    </div>
+                    {watch('originalPrice') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Prix original</Label>
+                        <p className="font-medium line-through">{watch('originalPrice')}€</p>
+                      </div>
+                    )}
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Date de fin de publication</Label>
+                      <p className="font-medium">{watch('publishEndDate')}</p>
+                    </div>
+                    {watch('isPromotion') && watch('promotionEndDate') && (
+                      <div>
+                        <Label className="text-sm text-muted-foreground">Promotion jusqu'au</Label>
+                        <p className="font-medium">{watch('promotionEndDate')}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Contact */}
+                <div className="space-y-4 border-t pt-4">
+                  <h3 className="font-semibold text-lg">Informations de contact</h3>
+                  <div className="flex gap-4">
+                    {watch('showEmail') && <Badge variant="outline">Email affiché</Badge>}
+                    {watch('showPhone') && <Badge variant="outline">Téléphone affiché</Badge>}
+                  </div>
+                </div>
+
+                {/* Photos */}
+                <div className="space-y-4 border-t pt-4">
+                  <h3 className="font-semibold text-lg">Photos</h3>
+                  <div className="flex items-center gap-4">
+                    <Badge variant="secondary">
+                      {coverImage ? '1 photo de couverture' : 'Aucune photo de couverture'}
+                    </Badge>
+                    <Badge variant="secondary">
+                      {images.length} photo{images.length > 1 ? 's' : ''} supplémentaire{images.length > 1 ? 's' : ''}
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+
       default:
         return null;
     }
@@ -749,18 +902,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     <div className="space-y-6 pb-24">
       {renderStep()}
       
-      <div className="flex justify-between pt-6">
-        <div className="space-x-2">
-          {currentStep > 1 && (
-            <Button onClick={prevStep} variant="outline">
-              Précédent
-            </Button>
-          )}
-          <Button onClick={onBack} variant="outline">
-            Retour
-          </Button>
-        </div>
-        
+      <div className="flex justify-end pt-6">
         <div className="space-x-2">
           {currentStep === totalSteps ? (
             <>
