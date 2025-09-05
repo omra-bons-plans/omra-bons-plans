@@ -188,11 +188,11 @@ const Index = () => {
           <div className="flex flex-col items-center justify-center text-center">
             <div className="space-y-10 max-w-4xl">
               <div className="space-y-8">
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                  <span className="text-foreground">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-8xl">OMRA 2025</span><br />
-                  <span className="text-foreground"> et partez au</span><br />
-                  <span className="text-foreground">meilleur prix !</span>
+                <h1 className="text-6xl md:text-8xl font-bold leading-tight bg-black/30 rounded-3xl p-8 backdrop-blur-sm">
+                  <span className="text-white drop-shadow-lg">Organisez votre</span><br />
+                  <span className="gradient-text-secondary font-black text-7xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
+                  <span className="text-white drop-shadow-lg"> et partez au</span><br />
+                  <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
                 
                 <p className="text-2xl text-muted-foreground leading-relaxed font-light">
@@ -249,13 +249,6 @@ const Index = () => {
                 <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
               </div>
               
-              {/* Countdown Timer */}
-              <div className="lg:ml-8">
-                <CountdownTimer 
-                  targetDate={earliestEndDate} 
-                  className="w-full lg:w-auto" 
-                />
-              </div>
             </div>
           </div>
 
@@ -321,7 +314,7 @@ const Index = () => {
                     <div className="absolute top-16 right-4">
                       <CountdownTimer 
                         targetDate={listing.flashSaleEndDate} 
-                        className="text-xs scale-75 origin-top-right"
+                        className="text-xs scale-50 origin-top-right"
                       />
                     </div>
                   )}
