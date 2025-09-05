@@ -81,12 +81,18 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
         }
         break;
       case 2:
-        // Valider lits (obligatoire) et chambres (si appartement)
+        // Valider lits (obligatoire), chambres (si appartement) et dates
+        const fieldsToValidate: (keyof HebergementFormData)[] = ['bedsCount'];
         if (watchedAccommodationType === 'apartment') {
-          isValid = await trigger(['bedsCount', 'roomsCount']);
-        } else {
-          isValid = await trigger(['bedsCount']);
+          fieldsToValidate.push('roomsCount');
         }
+        // Ajouter la validation des dates si elles sont renseignées
+        const availableFrom = watch('availableFrom');
+        const availableTo = watch('availableTo');
+        if (availableFrom || availableTo) {
+          fieldsToValidate.push('availableFrom', 'availableTo');
+        }
+        isValid = await trigger(fieldsToValidate);
         break;
       case 3:
         isValid = true; // Commodités et vidéo sont optionnelles
@@ -274,25 +280,47 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="availableFrom">Disponible à partir du</Label>
-                    <Input
-                      type="date"
-                      id="availableFrom"
-                      {...register("availableFrom")}
-                    />
-                  </div>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   <div className="space-y-2">
+                     <Label htmlFor="availableFrom">Disponible à partir du</Label>
+                     <Input
+                       type="date"
+                       id="availableFrom"
+                       {...register("availableFrom", {
+                         validate: {
+                           beforeEndDate: (value) => {
+                             const availableTo = watch('availableTo');
+                             if (value && availableTo) {
+                               return new Date(value) <= new Date(availableTo) || "La date de début doit être antérieure à la date de fin";
+                             }
+                             return true;
+                           }
+                         }
+                       })}
+                     />
+                     {errors.availableFrom && <span className="text-destructive text-sm">{errors.availableFrom.message}</span>}
+                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="availableTo">Disponible jusqu'au</Label>
-                    <Input
-                      type="date"
-                      id="availableTo"
-                      {...register("availableTo")}
-                    />
-                  </div>
-                </div>
+                   <div className="space-y-2">
+                     <Label htmlFor="availableTo">Disponible jusqu'au</Label>
+                     <Input
+                       type="date"
+                       id="availableTo"
+                       {...register("availableTo", {
+                         validate: {
+                           afterStartDate: (value) => {
+                             const availableFrom = watch('availableFrom');
+                             if (value && availableFrom) {
+                               return new Date(value) >= new Date(availableFrom) || "La date de fin doit être postérieure à la date de début";
+                             }
+                             return true;
+                           }
+                         }
+                       })}
+                     />
+                     {errors.availableTo && <span className="text-destructive text-sm">{errors.availableTo.message}</span>}
+                   </div>
+                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Chambres uniquement pour les appartements */}
