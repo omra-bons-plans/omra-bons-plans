@@ -695,149 +695,139 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       case 6:
         return (
           <div className="space-y-8">
-            {/* Header de vérification */}
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-2">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">Vérifiez votre annonce</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Voici ce que les voyageurs verront. Assurez-vous que tout est correct.
-              </p>
+              <p className="text-muted-foreground">Voici ce que les voyageurs verront. Assurez-vous que tout est correct.</p>
             </div>
 
-            {/* Preview Card - Style similaire aux images */}
-            <Card className="max-w-4xl mx-auto overflow-hidden">
-              <CardContent className="p-0">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  {/* Section Image */}
-                  <div className="relative">
-                    {coverImage ? (
-                      <div className="relative h-64 md:h-80 lg:h-full min-h-[300px]">
-                        <img 
-                          src={URL.createObjectURL(coverImage)} 
-                          alt="Photo de couverture"
-                          className="w-full h-full object-cover"
-                        />
-                        {/* Dots indicator si plusieurs images */}
-                        {images.length > 0 && (
-                          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                            <div className="w-2 h-2 bg-primary rounded-full"></div>
-                            {images.map((_, index) => (
-                              <div key={index} className="w-2 h-2 bg-white/50 rounded-full"></div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="h-64 md:h-80 lg:h-full min-h-[300px] bg-muted flex items-center justify-center">
-                        <p className="text-muted-foreground">Aucune photo de couverture</p>
-                      </div>
-                    )}
+            <div className="bg-background rounded-2xl border border-border/20 shadow-soft overflow-hidden max-w-md mx-auto">
+              {/* Photo principale */}
+              <div className="relative aspect-[4/3] bg-muted">
+                {coverImage ? (
+                  <img 
+                    src={URL.createObjectURL(coverImage)} 
+                    alt="Photo de couverture" 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-center space-y-2">
+                      <Upload className="w-12 h-12 mx-auto text-muted-foreground" />
+                      <p className="text-muted-foreground text-sm">Aucune photo</p>
+                    </div>
                   </div>
+                )}
+                
+                {/* Indicateurs de photos */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  {images.map((_, index) => (
+                    <div key={index} className="w-2 h-2 bg-white/40 rounded-full"></div>
+                  ))}
+                </div>
+              </div>
 
-                  {/* Section Informations */}
-                  <div className="p-6 lg:p-8 space-y-6">
-                    {/* Titre et prix */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-xl md:text-2xl font-bold text-foreground line-clamp-2">
-                          {watch("title") || "Titre de l'annonce"}
-                        </h3>
-                        <div className="text-right ml-4">
-                          <div className="text-2xl md:text-3xl font-bold text-foreground">
-                            {watch("price") || 0} €
-                          </div>
-                          {watch("originalPrice") && watch("originalPrice") > (watch("price") || 0) && (
-                            <div className="text-lg text-red-500 line-through">
-                              {watch("originalPrice")} €
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      {watch("airline") && (
-                        <p className="text-muted-foreground">Compagnie : {watch("airline")}</p>
-                      )}
+              {/* Contenu */}
+              <div className="p-6 space-y-6">
+                {/* Titre et formule */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold text-foreground">
+                      {formula.name}
+                    </h3>
+                    <div className="text-sm text-muted-foreground">
+                      {watch('airline')}
                     </div>
-
-                    {/* Date */}
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="w-5 h-5 text-muted-foreground" />
-                        <h4 className="font-semibold text-foreground">Date</h4>
-                      </div>
-                      <p className="text-foreground ml-7">
-                        {watch("departureDate") && watch("returnDate") 
-                          ? `Du ${new Date(watch("departureDate")).toLocaleDateString('fr-FR')} au ${new Date(watch("returnDate")).toLocaleDateString('fr-FR')}`
-                          : "Dates non renseignées"
-                        }
-                      </p>
-                    </div>
-
-                    {/* Détails */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-foreground text-lg">Détails</h4>
-                      <div className="space-y-2 text-foreground">
-                        <div className="flex items-center">
-                          <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                          <span>{(watch("nightsMedina") || 0) + (watch("nightsMecca") || 0)} nuits au total</span>
-                        </div>
-                        {watch("nightsMedina") > 0 && (
-                          <div className="flex items-center">
-                            <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                            <span>{watch("nightsMedina")} nuits à Médine</span>
-                          </div>
-                        )}
-                        {watch("nightsMecca") > 0 && (
-                          <div className="flex items-center">
-                            <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                            <span>{watch("nightsMecca")} nuits à Makkah</span>
-                          </div>
-                        )}
-                        {watch("medinaHotelName") && (
-                          <div className="flex items-center">
-                            <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                            <span>🕌 {watch("medinaHotelName")} - {watch("medinaHotelDistance")}m</span>
-                          </div>
-                        )}
-                        {watch("meccaHotelName") && (
-                          <div className="flex items-center">
-                            <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                            <span>🕋 {watch("meccaHotelName")} - {watch("meccaHotelDistance")}m</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Contact */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-foreground text-lg">Contact</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-foreground">📧 Afficher votre email dans l'annonce</span>
-                          <div className={`w-12 h-6 rounded-full ${watch("showEmail") ? 'bg-primary' : 'bg-muted'} relative transition-colors`}>
-                            <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${watch("showEmail") ? 'translate-x-6' : 'translate-x-0.5'}`}></div>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-foreground">📱 Afficher votre numéro de téléphone dans votre annonce</span>
-                          <div className={`w-12 h-6 rounded-full ${watch("showPhone") ? 'bg-primary' : 'bg-muted'} relative transition-colors`}>
-                            <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${watch("showPhone") ? 'translate-x-6' : 'translate-x-0.5'}`}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    {watch("description") && (
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-foreground text-lg">Description</h4>
-                        <p className="text-foreground leading-relaxed">
-                          {watch("description")}
-                        </p>
-                      </div>
+                  </div>
+                  
+                  {/* Prix */}
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-3xl font-bold text-foreground">{watch('price')}€</span>
+                    {watch('originalPrice') && watch('originalPrice') > watch('price') && (
+                      <span className="text-lg text-destructive line-through">{watch('originalPrice')}€</span>
                     )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+
+                {/* Dates */}
+                <div className="flex items-center space-x-3 p-4 bg-muted/30 rounded-xl">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <div>
+                    <div className="font-medium text-foreground">Date</div>
+                    <div className="text-sm text-muted-foreground">
+                      Du {watch('departureDate') ? new Date(watch('departureDate')).toLocaleDateString('fr-FR') : '--'} au {watch('returnDate') ? new Date(watch('returnDate')).toLocaleDateString('fr-FR') : '--'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Détails */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-foreground">Détails</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <span>{(watch("nightsMedina") || 0) + (watch("nightsMecca") || 0)} Nuits</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <span>{watch("nightsMedina") || 0} Nuitées à Médine</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <span>{watch("nightsMecca") || 0} Nuitées à Makkah</span>
+                    </li>
+                    {watch('medinaHotelName') && (
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span>🕌 {watch('medinaHotelName')}</span>
+                      </li>
+                    )}
+                    {watch('meccaHotelName') && (
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span>🕋 {watch('meccaHotelName')}</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+
+                {/* Contact */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-foreground">Contact</h4>
+                  <div className="space-y-3">
+                    {watch('showEmail') && (
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-primary">@</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Votre email sera affiché</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-muted/50 rounded-full flex items-center justify-center">
+                        <span className="text-muted-foreground">📞</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm text-muted-foreground">
+                          {watch('showPhone') ? 'Afficher votre numéro de téléphone' : 'Masquer votre numéro de téléphone'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                {watch('description') && (
+                  <div className="space-y-3">
+                    <h4 className="text-lg font-semibold text-foreground">Description</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {watch('description')}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         );
 

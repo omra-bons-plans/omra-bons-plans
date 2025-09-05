@@ -561,82 +561,137 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
 
       case 6:
         return (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span>📋</span>
-                <span>Récapitulatif de votre annonce</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">✈️ Informations du vol</h4>
-                  <div className="space-y-2">
-                    <p><strong>Titre :</strong> {watch('title') || 'Non renseigné'}</p>
-                    <p><strong>Compagnie :</strong> {watch('airline') || 'Non renseignée'}</p>
-                    <p><strong>Trajet :</strong> {watch('departureAirport')} → {watch('arrivalAirport')}</p>
-                    <p><strong>Départ :</strong> {watch('departureDate') ? new Date(watch('departureDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
-                    <p><strong>Retour :</strong> {watch('returnDate') ? new Date(watch('returnDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
-                  </div>
-                </div>
+          <div className="space-y-8">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Vérifiez votre annonce</h2>
+              <p className="text-muted-foreground">Voici ce que les voyageurs verront. Assurez-vous que tout est correct.</p>
+            </div>
 
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">💰 Tarification</h4>
-                  <div className="space-y-2">
-                    <p><strong>Prix de vente :</strong> {watch('price')}€</p>
-                    {watch('originalPrice') && (
-                      <>
-                        <p><strong>Prix de base :</strong> {watch('originalPrice')}€</p>
-                        <p className="text-green-600"><strong>Réduction :</strong> {calculateDiscount()}%</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h4 className="font-semibold text-lg">📝 Description</h4>
-                <p className="text-muted-foreground bg-muted/30 p-4 rounded-lg">
-                  {watch('description') || 'Aucune description'}
-                </p>
-              </div>
-
-              {(watch('hasOutboundStopover') || watch('hasReturnStopover')) && (
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">🔄 Escales</h4>
-                  <div className="space-y-2">
-                    {watch('hasOutboundStopover') && (
-                      <p><strong>Escale aller :</strong> {watch('outboundStopoverDetails') || 'Détails non renseignés'}</p>
-                    )}
-                    {watch('hasReturnStopover') && (
-                      <p><strong>Escale retour :</strong> {watch('returnStopoverDetails') || 'Détails non renseignés'}</p>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="space-y-4">
-                <h4 className="font-semibold text-lg">📞 Contact et publication</h4>
-                <div className="space-y-2">
-                  <p><strong>Email affiché :</strong> {watch('showEmail') ? 'Oui' : 'Non'}</p>
-                  <p><strong>Téléphone affiché :</strong> {watch('showPhone') ? 'Oui' : 'Non'}</p>
-                  <p><strong>Fin de publication :</strong> {watch('publishEndDate') ? new Date(watch('publishEndDate')).toLocaleDateString('fr-FR') : 'Non renseigné'}</p>
-                </div>
-              </div>
-
-              {coverImage && (
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">📸 Photo de couverture</h4>
+            <div className="bg-background rounded-2xl border border-border/20 shadow-soft overflow-hidden max-w-md mx-auto">
+              {/* Photo principale */}
+              <div className="relative aspect-[4/3] bg-muted">
+                {coverImage ? (
                   <img 
                     src={URL.createObjectURL(coverImage)} 
-                    alt="Cover" 
-                    className="w-48 h-32 object-cover rounded-lg"
+                    alt="Photo de couverture" 
+                    className="w-full h-full object-cover"
                   />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-center space-y-2">
+                      <Upload className="w-12 h-12 mx-auto text-muted-foreground" />
+                      <p className="text-muted-foreground text-sm">Aucune photo</p>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Indicateurs de photos */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  {images.map((_, index) => (
+                    <div key={index} className="w-2 h-2 bg-white/40 rounded-full"></div>
+                  ))}
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              </div>
+
+              {/* Contenu */}
+              <div className="p-6 space-y-6">
+                {/* Titre et trajet */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold text-foreground">
+                      {watch('departureAirport')} ✈️ {watch('arrivalAirport')}
+                    </h3>
+                    <div className="text-sm text-muted-foreground">
+                      {watch('airline')}
+                    </div>
+                  </div>
+                  
+                  {/* Prix */}
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-3xl font-bold text-foreground">{watch('price')}€</span>
+                    {watch('originalPrice') && watch('originalPrice') > watch('price') && (
+                      <span className="text-lg text-destructive line-through">{watch('originalPrice')}€</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Dates */}
+                <div className="flex items-center space-x-3 p-4 bg-muted/30 rounded-xl">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <div>
+                    <div className="font-medium text-foreground">Date</div>
+                    <div className="text-sm text-muted-foreground">
+                      Du {watch('departureDate') ? new Date(watch('departureDate')).toLocaleDateString('fr-FR') : '--'} au {watch('returnDate') ? new Date(watch('returnDate')).toLocaleDateString('fr-FR') : '--'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Détails */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-foreground">Détails</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <span>Compagnie: {watch('airline') || 'Non spécifiée'}</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      <span>Trajet: {watch('departureAirport')} → {watch('arrivalAirport')}</span>
+                    </li>
+                    {watch('hasOutboundStopover') && (
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span>Escale aller: {watch('outboundStopoverDetails') || 'Oui'}</span>
+                      </li>
+                    )}
+                    {watch('hasReturnStopover') && (
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <span>Escale retour: {watch('returnStopoverDetails') || 'Oui'}</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+
+                {/* Contact */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-foreground">Contact</h4>
+                  <div className="space-y-3">
+                    {watch('showEmail') && (
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-primary">@</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Votre email sera affiché</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-muted/50 rounded-full flex items-center justify-center">
+                        <span className="text-muted-foreground">📞</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm text-muted-foreground">
+                          {watch('showPhone') ? 'Afficher votre numéro de téléphone' : 'Masquer votre numéro de téléphone'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                {watch('description') && (
+                  <div className="space-y-3">
+                    <h4 className="text-lg font-semibold text-foreground">Description</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {watch('description')}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         );
 
       default:
