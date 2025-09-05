@@ -50,14 +50,10 @@ const Index = () => {
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange } = useWeatherAndExchange();
 
-  // Switch between Makkah and Madinah every 2 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // Allow manual city selection for weather
+  const toggleWeatherCity = () => {
+    setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
+  };
 
   // Track carousel positions
   useEffect(() => {
