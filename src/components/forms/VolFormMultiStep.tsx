@@ -720,19 +720,19 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         {renderStep()}
 
         {/* Navigation */}
-        <div className="sticky bottom-0 bg-background/95 backdrop-blur-sm border-t border-border/20 p-4 -mx-4 sm:-mx-6 mt-8">
+        <div className="sticky bottom-0 bg-background/98 backdrop-blur-sm border-t border-border/20 p-6 -mx-4 sm:-mx-6 mt-8 shadow-lg">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col-reverse sm:flex-row justify-between gap-3">
+            <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
               <Button 
                 type="button" 
                 variant="outline" 
                 onClick={currentStep === 1 ? onBack : handlePrevious}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto h-12 px-6"
               >
                 {currentStep === 1 ? 'Retour' : 'Précédent'}
               </Button>
               
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4">
                 {currentStep === totalSteps && (
                   <Button 
                     type="button" 
@@ -741,7 +741,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                       const data = watch();
                       onSubmit(data, true);
                     }}
-                    className="px-4 sm:px-6 w-full sm:w-auto"
+                    className="px-6 w-full sm:w-auto h-12"
                   >
                     <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
                     <span className="sm:hidden">Sauvegarder brouillon</span>
@@ -752,14 +752,14 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   <Button 
                     type="button" 
                     onClick={handleNext}
-                    className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
+                    className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
                     Suivant
                   </Button>
                 ) : (
                   <Button 
                     type="submit" 
-                    className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
+                    className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
                     Publier l'annonce
                   </Button>
