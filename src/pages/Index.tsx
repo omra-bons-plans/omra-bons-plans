@@ -445,7 +445,7 @@ const Index = () => {
                         {listing.type === 'sejours' ? 'Séjour' : 
                          listing.type === 'hotels' ? 'Hôtel' : 
                          listing.type === 'guides' ? 'Guide' : 
-                         listing.type === 'vols' ? 'Vol' :
+                         listing.type === 'vols' ? 'Vols' :
                          listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                       </Badge>
                     </div>
@@ -556,11 +556,11 @@ const Index = () => {
                         
                         <div className="absolute bottom-4 right-4">
                           <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                            {listing.type === 'sejours' ? 'Séjour' : 
-                             listing.type === 'hotels' ? 'Hôtel' : 
-                             listing.type === 'guides' ? 'Guide' : 
-                             listing.type === 'vols' ? 'Vol' :
-                             listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                             {listing.type === 'sejours' ? 'Séjour' : 
+                              listing.type === 'hotels' ? 'Hôtel' : 
+                              listing.type === 'guides' ? 'Guide' : 
+                              listing.type === 'vols' ? 'Vols' :
+                              listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                           </Badge>
                         </div>
                       </div>
@@ -664,11 +664,11 @@ const Index = () => {
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                              {listing.type === 'sejours' ? 'Séjour' : 
-                               listing.type === 'hotels' ? 'Hôtel' : 
-                               listing.type === 'guides' ? 'Guide' : 
-                               listing.type === 'vols' ? 'Vol' :
-                               listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                               {listing.type === 'sejours' ? 'Séjour' : 
+                                listing.type === 'hotels' ? 'Hôtel' : 
+                                listing.type === 'guides' ? 'Guide' : 
+                                listing.type === 'vols' ? 'Vols' :
+                                listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                             </Badge>
                           </div>
                         </div>
@@ -842,11 +842,11 @@ const Index = () => {
                     
                     <div className="absolute bottom-4 right-4">
                       <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                        {listing.type === 'sejours' ? 'Séjour' : 
-                         listing.type === 'hotels' ? 'Hôtel' : 
-                         listing.type === 'guides' ? 'Guide' : 
-                         listing.type === 'vols' ? 'Vol' :
-                         listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                         {listing.type === 'sejours' ? 'Séjour' : 
+                          listing.type === 'hotels' ? 'Hôtel' : 
+                          listing.type === 'guides' ? 'Guide' : 
+                          listing.type === 'vols' ? 'Vols' :
+                          listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                       </Badge>
                     </div>
                   </div>
@@ -957,11 +957,11 @@ const Index = () => {
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                              {listing.type === 'sejours' ? 'Séjour' : 
-                               listing.type === 'hotels' ? 'Hôtel' : 
-                               listing.type === 'guides' ? 'Guide' : 
-                               listing.type === 'vols' ? 'Vol' :
-                               listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                               {listing.type === 'sejours' ? 'Séjour' : 
+                                listing.type === 'hotels' ? 'Hôtel' : 
+                                listing.type === 'guides' ? 'Guide' : 
+                                listing.type === 'vols' ? 'Vols' :
+                                listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                             </Badge>
                           </div>
                         </div>
@@ -1080,11 +1080,11 @@ const Index = () => {
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                              {listing.type === 'sejours' ? 'Séjour' : 
-                               listing.type === 'hotels' ? 'Hôtel' : 
-                               listing.type === 'guides' ? 'Guide' : 
-                               listing.type === 'vols' ? 'Vol' :
-                               listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
+                               {listing.type === 'sejours' ? 'Séjour' : 
+                                listing.type === 'hotels' ? 'Hôtel' : 
+                                listing.type === 'guides' ? 'Guide' : 
+                                listing.type === 'vols' ? 'Vols' :
+                                listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
                             </Badge>
                           </div>
                         </div>
