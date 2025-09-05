@@ -14,7 +14,366 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ads: {
+        Row: {
+          category: string
+          cover_image: string | null
+          created_at: string
+          currency: string
+          description: string
+          id: string
+          images: string[] | null
+          is_promotion: boolean | null
+          is_published: boolean | null
+          location: string | null
+          original_price: number | null
+          price: number
+          promotion_end_date: string | null
+          publish_end_date: string
+          show_email: boolean | null
+          show_phone: boolean | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          cover_image?: string | null
+          created_at?: string
+          currency?: string
+          description: string
+          id?: string
+          images?: string[] | null
+          is_promotion?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          original_price?: number | null
+          price: number
+          promotion_end_date?: string | null
+          publish_end_date: string
+          show_email?: boolean | null
+          show_phone?: boolean | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          cover_image?: string | null
+          created_at?: string
+          currency?: string
+          description?: string
+          id?: string
+          images?: string[] | null
+          is_promotion?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          original_price?: number | null
+          price?: number
+          promotion_end_date?: string | null
+          publish_end_date?: string
+          show_email?: boolean | null
+          show_phone?: boolean | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ads_babysitting: {
+        Row: {
+          ad_id: string
+          gender: string
+          languages: string[]
+        }
+        Insert: {
+          ad_id: string
+          gender: string
+          languages?: string[]
+        }
+        Update: {
+          ad_id?: string
+          gender?: string
+          languages?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_babysitting_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ads_chauffeurs: {
+        Row: {
+          ad_id: string
+          city: string
+          gender: string
+          languages: string[]
+          vehicle_seats: number
+        }
+        Insert: {
+          ad_id: string
+          city: string
+          gender: string
+          languages?: string[]
+          vehicle_seats: number
+        }
+        Update: {
+          ad_id?: string
+          city?: string
+          gender?: string
+          languages?: string[]
+          vehicle_seats?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_chauffeurs_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ads_guides: {
+        Row: {
+          ad_id: string
+          city: string
+          gender: string
+          languages: string[]
+          offers_courses: boolean | null
+          offers_omra_badal: boolean | null
+          offers_omra_guidance: boolean | null
+          offers_other: boolean | null
+          offers_visits: boolean | null
+          offers_wheelchair_help: boolean | null
+          other_services_description: string | null
+          years_experience: number
+        }
+        Insert: {
+          ad_id: string
+          city: string
+          gender: string
+          languages?: string[]
+          offers_courses?: boolean | null
+          offers_omra_badal?: boolean | null
+          offers_omra_guidance?: boolean | null
+          offers_other?: boolean | null
+          offers_visits?: boolean | null
+          offers_wheelchair_help?: boolean | null
+          other_services_description?: string | null
+          years_experience: number
+        }
+        Update: {
+          ad_id?: string
+          city?: string
+          gender?: string
+          languages?: string[]
+          offers_courses?: boolean | null
+          offers_omra_badal?: boolean | null
+          offers_omra_guidance?: boolean | null
+          offers_other?: boolean | null
+          offers_visits?: boolean | null
+          offers_wheelchair_help?: boolean | null
+          other_services_description?: string | null
+          years_experience?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_guides_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ads_hebergements: {
+        Row: {
+          accommodation_type: string
+          ad_id: string
+          available_from: string | null
+          available_to: string | null
+          beds_count: number | null
+          city: string
+          distance_to_mosque: string | null
+          has_ac: boolean | null
+          has_fridge: boolean | null
+          has_living_room: boolean | null
+          has_tv: boolean | null
+          has_washing_machine: boolean | null
+          has_wifi: boolean | null
+          name: string
+          rooms_count: number | null
+          video_url: string | null
+        }
+        Insert: {
+          accommodation_type: string
+          ad_id: string
+          available_from?: string | null
+          available_to?: string | null
+          beds_count?: number | null
+          city: string
+          distance_to_mosque?: string | null
+          has_ac?: boolean | null
+          has_fridge?: boolean | null
+          has_living_room?: boolean | null
+          has_tv?: boolean | null
+          has_washing_machine?: boolean | null
+          has_wifi?: boolean | null
+          name: string
+          rooms_count?: number | null
+          video_url?: string | null
+        }
+        Update: {
+          accommodation_type?: string
+          ad_id?: string
+          available_from?: string | null
+          available_to?: string | null
+          beds_count?: number | null
+          city?: string
+          distance_to_mosque?: string | null
+          has_ac?: boolean | null
+          has_fridge?: boolean | null
+          has_living_room?: boolean | null
+          has_tv?: boolean | null
+          has_washing_machine?: boolean | null
+          has_wifi?: boolean | null
+          name?: string
+          rooms_count?: number | null
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_hebergements_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ads_sejours: {
+        Row: {
+          ad_id: string
+          airline: string | null
+          departure_date: string | null
+          formula_type: string
+          mecca_hotel_distance: string | null
+          mecca_hotel_name: string | null
+          medina_hotel_distance: string | null
+          medina_hotel_name: string | null
+          nights_mecca: number | null
+          nights_medina: number | null
+          return_date: string | null
+        }
+        Insert: {
+          ad_id: string
+          airline?: string | null
+          departure_date?: string | null
+          formula_type: string
+          mecca_hotel_distance?: string | null
+          mecca_hotel_name?: string | null
+          medina_hotel_distance?: string | null
+          medina_hotel_name?: string | null
+          nights_mecca?: number | null
+          nights_medina?: number | null
+          return_date?: string | null
+        }
+        Update: {
+          ad_id?: string
+          airline?: string | null
+          departure_date?: string | null
+          formula_type?: string
+          mecca_hotel_distance?: string | null
+          mecca_hotel_name?: string | null
+          medina_hotel_distance?: string | null
+          medina_hotel_name?: string | null
+          nights_mecca?: number | null
+          nights_medina?: number | null
+          return_date?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_sejours_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ads_vols: {
+        Row: {
+          ad_id: string
+          airline: string
+          arrival_airport: string | null
+          departure_airport: string | null
+          departure_date: string | null
+          has_stopover: boolean | null
+          return_date: string | null
+          stopover_details: string | null
+        }
+        Insert: {
+          ad_id: string
+          airline: string
+          arrival_airport?: string | null
+          departure_airport?: string | null
+          departure_date?: string | null
+          has_stopover?: boolean | null
+          return_date?: string | null
+          stopover_details?: string | null
+        }
+        Update: {
+          ad_id?: string
+          airline?: string
+          arrival_airport?: string | null
+          departure_airport?: string | null
+          departure_date?: string | null
+          has_stopover?: boolean | null
+          return_date?: string | null
+          stopover_details?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ads_vols_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: true
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
