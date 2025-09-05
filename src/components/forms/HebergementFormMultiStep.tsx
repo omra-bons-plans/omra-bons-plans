@@ -447,96 +447,111 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
               <CardContent className="space-y-4">
                 {watchedAccommodationType === 'apartment' && (
                   <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex items-center space-x-3">
-                        <Controller
-                          name="hasWifi"
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              id="hasWifi"
-                            />
-                          )}
-                        />
-                        <Label htmlFor="hasWifi" className="flex items-center space-x-2">
-                          <Wifi className="w-4 h-4" />
-                          <span>Wi-Fi gratuit</span>
-                        </Label>
-                      </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <Controller
+                        name="hasWifi"
+                        control={control}
+                        render={({ field }) => (
+                          <Button
+                            type="button"
+                            variant={field.value ? "default" : "outline"}
+                            className="h-20 flex-col space-y-2 relative"
+                            onClick={() => field.onChange(!field.value)}
+                          >
+                            <Wifi className="w-6 h-6" />
+                            <span className="text-sm">Wi-Fi gratuit</span>
+                            {field.value && (
+                              <div className="absolute top-2 right-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              </div>
+                            )}
+                          </Button>
+                        )}
+                      />
 
-                      <div className="flex items-center space-x-3">
-                        <Controller
-                          name="hasAc"
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              id="hasAc"
-                            />
-                          )}
-                        />
-                        <Label htmlFor="hasAc" className="flex items-center space-x-2">
-                          <Snowflake className="w-4 h-4" />
-                          <span>Climatisation</span>
-                        </Label>
-                      </div>
+                      <Controller
+                        name="hasAc"
+                        control={control}
+                        render={({ field }) => (
+                          <Button
+                            type="button"
+                            variant={field.value ? "default" : "outline"}
+                            className="h-20 flex-col space-y-2 relative"
+                            onClick={() => field.onChange(!field.value)}
+                          >
+                            <Snowflake className="w-6 h-6" />
+                            <span className="text-sm">Climatisation</span>
+                            {field.value && (
+                              <div className="absolute top-2 right-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              </div>
+                            )}
+                          </Button>
+                        )}
+                      />
 
-                      <div className="flex items-center space-x-3">
-                        <Controller
-                          name="hasTv"
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              id="hasTv"
-                            />
-                          )}
-                        />
-                        <Label htmlFor="hasTv" className="flex items-center space-x-2">
-                          <Tv className="w-4 h-4" />
-                          <span>Télévision</span>
-                        </Label>
-                      </div>
+                      <Controller
+                        name="hasTv"
+                        control={control}
+                        render={({ field }) => (
+                          <Button
+                            type="button"
+                            variant={field.value ? "default" : "outline"}
+                            className="h-20 flex-col space-y-2 relative"
+                            onClick={() => field.onChange(!field.value)}
+                          >
+                            <Tv className="w-6 h-6" />
+                            <span className="text-sm">Télévision</span>
+                            {field.value && (
+                              <div className="absolute top-2 right-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              </div>
+                            )}
+                          </Button>
+                        )}
+                      />
 
-                      <div className="flex items-center space-x-3">
-                        <Controller
-                          name="hasFridge"
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              id="hasFridge"
-                            />
-                          )}
-                        />
-                        <Label htmlFor="hasFridge" className="flex items-center space-x-2">
-                          <Refrigerator className="w-4 h-4" />
-                          <span>Réfrigérateur</span>
-                        </Label>
-                      </div>
+                      <Controller
+                        name="hasFridge"
+                        control={control}
+                        render={({ field }) => (
+                          <Button
+                            type="button"
+                            variant={field.value ? "default" : "outline"}
+                            className="h-20 flex-col space-y-2 relative"
+                            onClick={() => field.onChange(!field.value)}
+                          >
+                            <Refrigerator className="w-6 h-6" />
+                            <span className="text-sm">Réfrigérateur</span>
+                            {field.value && (
+                              <div className="absolute top-2 right-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              </div>
+                            )}
+                          </Button>
+                        )}
+                      />
 
-                      <div className="flex items-center space-x-3">
-                        <Controller
-                          name="hasWashingMachine"
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              id="hasWashingMachine"
-                            />
-                          )}
-                        />
-                        <Label htmlFor="hasWashingMachine" className="flex items-center space-x-2">
-                          <WashingMachine className="w-4 h-4" />
-                          <span>Lave-linge</span>
-                        </Label>
-                      </div>
+                      <Controller
+                        name="hasWashingMachine"
+                        control={control}
+                        render={({ field }) => (
+                          <Button
+                            type="button"
+                            variant={field.value ? "default" : "outline"}
+                            className="h-20 flex-col space-y-2 relative"
+                            onClick={() => field.onChange(!field.value)}
+                          >
+                            <WashingMachine className="w-6 h-6" />
+                            <span className="text-sm">Lave-linge</span>
+                            {field.value && (
+                              <div className="absolute top-2 right-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              </div>
+                            )}
+                          </Button>
+                        )}
+                      />
                     </div>
 
                      <div className="space-y-2 mt-6">
@@ -968,7 +983,14 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     <div className="space-y-6 pb-24">
       {renderStep()}
       
-      <div className="flex justify-end pt-6">
+      <div className="flex justify-between pt-6">
+        <div>
+          {currentStep > 1 && (
+            <Button onClick={prevStep} variant="outline">
+              Précédent
+            </Button>
+          )}
+        </div>
         <div className="space-x-2">
           {currentStep === totalSteps ? (
             <>
