@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -106,9 +107,11 @@ const Index = () => {
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Ajouter</a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Se connecter</a>
             </nav>
-            <Button className="bg-primary hover:bg-primary-dark text-primary-foreground px-6">
-              Publier une annonce
-            </Button>
+            <Link to="/publish">
+              <Button className="bg-primary hover:bg-primary-dark text-primary-foreground px-6">
+                Publier une annonce
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
