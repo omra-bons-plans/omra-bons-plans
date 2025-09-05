@@ -328,22 +328,34 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
 
                 {watch('hasOutboundStopover') && (
                   <div className="space-y-2">
-                    <Label htmlFor="outboundStopoverDetails">Détails de l'escale aller</Label>
-                    <Input
-                      id="outboundStopoverDetails"
-                      {...register("outboundStopoverDetails")}
-                      placeholder="Ex: Escale à Dubaï (2h30)"
+                    <Label htmlFor="outboundStopoverDetails">Aéroport d'escale aller</Label>
+                    <Controller
+                      name="outboundStopoverDetails"
+                      control={control}
+                      render={({ field }) => (
+                        <AirportSelect
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          placeholder="Sélectionner l'aéroport d'escale..."
+                        />
+                      )}
                     />
                   </div>
                 )}
 
                 {watch('hasReturnStopover') && (
                   <div className="space-y-2">
-                    <Label htmlFor="returnStopoverDetails">Détails de l'escale retour</Label>
-                    <Input
-                      id="returnStopoverDetails"
-                      {...register("returnStopoverDetails")}
-                      placeholder="Ex: Escale à Istanbul (3h15)"
+                    <Label htmlFor="returnStopoverDetails">Aéroport d'escale retour</Label>
+                    <Controller
+                      name="returnStopoverDetails"
+                      control={control}
+                      render={({ field }) => (
+                        <AirportSelect
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          placeholder="Sélectionner l'aéroport d'escale..."
+                        />
+                      )}
                     />
                   </div>
                 )}
