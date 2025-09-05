@@ -126,13 +126,14 @@ const Index = () => {
             </nav>
 
             {/* Right buttons */}
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground transition-all duration-300">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
                 Se connecter
               </Button>
               <Link to="/publish">
-                <Button className="btn-modern text-primary-foreground px-8 py-3 rounded-xl font-semibold">
-                  Publier une annonce
+                <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
+                  <span className="hidden sm:inline">Publier une annonce</span>
+                  <span className="sm:hidden">Publier</span>
                 </Button>
               </Link>
             </div>
