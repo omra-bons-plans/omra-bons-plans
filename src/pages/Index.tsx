@@ -299,33 +299,35 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
-          <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center">
-            <div className="flex gap-3 min-w-max md:min-w-0">
-              <Button 
-                onClick={() => setSelectedCategory("all")}
-                className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
-                  selectedCategory === "all" 
-                    ? "btn-modern text-primary-foreground" 
-                    : "glass border-2 border-primary/30 hover:bg-primary/10"
-                }`}
-                variant={selectedCategory === "all" ? "default" : "outline"}
-              >
-                Tous
-              </Button>
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
+          <div className="horizontal-scroll-container category-scroll-container">
+            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+              <div className="flex gap-3 min-w-max md:min-w-0">
+                <Button 
+                  onClick={() => setSelectedCategory("all")}
                   className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
-                    selectedCategory === category.id 
+                    selectedCategory === "all" 
                       ? "btn-modern text-primary-foreground" 
                       : "glass border-2 border-primary/30 hover:bg-primary/10"
                   }`}
-                  variant={selectedCategory === category.id ? "default" : "outline"}
+                  variant={selectedCategory === "all" ? "default" : "outline"}
                 >
-                  {category.name}
+                  Tous
                 </Button>
-              ))}
+                {categories.map((category) => (
+                  <Button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                      selectedCategory === category.id 
+                        ? "btn-modern text-primary-foreground" 
+                        : "glass border-2 border-primary/30 hover:bg-primary/10"
+                    }`}
+                    variant={selectedCategory === category.id ? "default" : "outline"}
+                  >
+                    {category.name}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -421,7 +423,7 @@ const Index = () => {
           </div>
 
           {/* Tablet: Carousel with 2 items */}
-          <div className="hidden md:block lg:hidden">
+          <div className="hidden md:block lg:hidden carousel-item-peek">
             <Carousel className="w-full">
               <CarouselContent className="-ml-4">
                 {filteredListings.map((listing) => (
@@ -519,7 +521,7 @@ const Index = () => {
           </div>
 
           {/* Mobile: Carousel with 1 item */}
-          <div className="block md:hidden">
+          <div className="block md:hidden carousel-item-peek">
             <Carousel className="w-full">
               <CarouselContent>
                 {filteredListings.map((listing) => (

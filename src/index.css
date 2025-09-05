@@ -303,4 +303,62 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-}
+
+  /* Horizontal scroll hint effect */
+  .horizontal-scroll-container {
+    position: relative;
+  }
+
+  .horizontal-scroll-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--background) / 0.8));
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .horizontal-scroll-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(270deg, transparent, hsl(var(--background) / 0.4));
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Scroll hint animation */
+  .scroll-hint {
+    animation: scrollHint 4s ease-in-out infinite;
+  }
+
+  @keyframes scrollHint {
+    0%, 100% { transform: translateX(0); }
+    15%, 25% { transform: translateX(20px); }
+    35%, 45% { transform: translateX(0); }
+  }
+
+  /* Category pills container with peek effect */
+  .category-scroll-container {
+    position: relative;
+    padding-right: 40px;
+  }
+
+  .category-scroll-container .flex {
+    padding-right: 60px;
+  }
+
+  /* Carousel improvements */
+  .carousel-item-peek .carousel-content > * {
+    padding-right: 20px;
+  }
+
+  .carousel-item-peek .carousel-content > *:last-child {
+    padding-right: 0;
+  }
