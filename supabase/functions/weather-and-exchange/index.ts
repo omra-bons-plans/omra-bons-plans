@@ -51,10 +51,10 @@ serve(async (req) => {
       };
     });
 
-    console.log('Fetching exchange rate using ExchangeRate-API (free tier)...');
+    console.log('Fetching exchange rate using Frankfurter API (completely free, no API key)...');
     
-    // Fetch exchange rate EUR to SAR using free tier
-    const exchangeResponse = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+    // Fetch exchange rate EUR to SAR using Frankfurter (European Central Bank data, completely free)
+    const exchangeResponse = await fetch('https://api.frankfurter.app/latest?from=EUR&to=SAR');
     
     if (!exchangeResponse.ok) {
       console.error('Exchange API error:', exchangeResponse.status, exchangeResponse.statusText);
