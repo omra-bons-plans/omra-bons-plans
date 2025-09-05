@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AdPreview from "@/components/ui/AdPreview";
 
 interface ChauffeurFormData {
   title: string;
@@ -39,7 +40,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
     }
   });
 
-  const totalSteps = 3;
+  const totalSteps = 4;
 
   const availableLanguages = [
     { id: 'francais', name: 'Français' },
@@ -81,8 +82,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
       case 2:
         fieldsToValidate = ['gender', 'city', 'vehicleSeats'];
         break;
-      case 3:
-        // Photos and languages - no required validation needed
+      case 4:
+        // Récapitulatif - pas de validation nécessaire
         break;
     }
 
@@ -339,6 +340,24 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
           </div>
         );
 
+      case 4:
+        return (
+          <div className="space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-bold">Récapitulatif de votre annonce</h2>
+              <p className="text-muted-foreground">
+                Vérifiez les informations avant de publier
+              </p>
+            </div>
+            
+            <AdPreview 
+              data={watch()}
+              coverImage={coverImage}
+              category="chauffeurs"
+            />
+          </div>
+        );
+
       default:
         return null;
     }
@@ -375,34 +394,36 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
           
           <div className="flex flex-col sm:flex-row gap-3">
             {currentStep === totalSteps && (
-              <Button 
-                type="button" 
-                variant="secondary" 
-                onClick={() => {
-                  const data = watch();
-                  onSubmit(data, true);
-                }}
-                className="px-4 sm:px-6 w-full sm:w-auto"
-              >
-                <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
-                <span className="sm:hidden">Sauvegarder brouillon</span>
-              </Button>
+              <>
+                <Button 
+                  type="button" 
+                  variant="secondary" 
+                  onClick={() => {
+                    const data = watch();
+                    onSubmit(data, true);
+                  }}
+                  className="px-4 sm:px-6 w-full sm:w-auto"
+                >
+                  <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
+                  <span className="sm:hidden">Sauvegarder brouillon</span>
+                </Button>
+                
+                <Button 
+                  type="submit" 
+                  className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
+                >
+                  Publier l'annonce
+                </Button>
+              </>
             )}
             
-            {currentStep < totalSteps ? (
+            {currentStep < totalSteps && (
               <Button 
                 type="button" 
                 onClick={handleNext}
                 className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
               >
                 Suivant
-              </Button>
-            ) : (
-              <Button 
-                type="submit" 
-                className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
-              >
-                Publier l'annonce
               </Button>
             )}
           </div>

@@ -135,7 +135,6 @@ const BabysittingDetails = () => {
 
   const steps = ["Catégorie", "Détails"];
 
-  // Mise à jour du nombre d'étapes pour refléter la nouvelle structure
   const currentStepForProgress = 2; // Étape détails
   const totalStepsForProgress = 2;
 
