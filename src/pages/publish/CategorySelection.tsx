@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Building, Plane, Hotel, BookOpen, Car, Heart } from "lucide-react";
+import { ArrowRight, Building, Plane, Hotel, BookOpen, Car, Heart, ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -72,11 +72,20 @@ const CategorySelection = () => {
             ))}
           </div>
 
-          <div className="flex justify-center pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 sm:pt-8">
+            <Button 
+              onClick={() => navigate('/')}
+              variant="outline"
+              className="flex items-center space-x-2 px-6 py-3 text-base w-full sm:w-auto order-2 sm:order-1"
+            >
+              <Home className="w-4 h-4" />
+              <span>Retour à l'accueil</span>
+            </Button>
+            
             <Button 
               onClick={handleNext}
               disabled={!selectedCategory}
-              className="bg-primary hover:bg-primary-dark text-primary-foreground px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-full w-full sm:w-auto max-w-xs"
+              className="bg-primary hover:bg-primary-dark text-primary-foreground px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-full w-full sm:w-auto max-w-xs order-1 sm:order-2"
             >
               Suivant
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
