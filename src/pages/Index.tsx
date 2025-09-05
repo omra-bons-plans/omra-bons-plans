@@ -14,6 +14,7 @@ import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
 import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
 import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
 import airplaneInterior from "@/assets/airplane-interior.jpg";
+import logo from "@/assets/logo.svg";
 
 // Weather icon mapping function
 const getWeatherIcon = (description: string) => {
@@ -158,8 +159,8 @@ const Index = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-large">
-                <span className="text-primary-foreground font-bold text-lg">O</span>
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img src={logo} alt="Omra Bons Plans" className="w-full h-full object-contain" />
               </div>
               <div className="text-lg font-bold text-foreground">
                 <div className="leading-tight">OMRA</div>
@@ -826,8 +827,8 @@ const Index = () => {
             {/* Logo and Description */}
             <div className="space-y-6">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">O</span>
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img src={logo} alt="Omra Bons Plans" className="w-full h-full object-contain" />
                 </div>
                 <div className="text-sm font-bold text-foreground">
                   <div>OMRA</div>
