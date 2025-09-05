@@ -11,6 +11,7 @@ import VolDetails from "./pages/publish/VolDetails";
 import GuideDetails from "./pages/publish/GuideDetails";
 import ChauffeurDetails from "./pages/publish/ChauffeurDetails";
 import BabysittingDetails from "./pages/publish/BabysittingDetails";
+import HebergementDetails from "./pages/publish/HebergementDetails";
 import PlaceholderDetails from "./pages/publish/PlaceholderDetails";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/publish/guides" element={<GuideDetails />} />
           <Route path="/publish/chauffeurs" element={<ChauffeurDetails />} />
           <Route path="/publish/babysitting" element={<BabysittingDetails />} />
+          <Route path="/publish/hebergement" element={<HebergementDetails />} />
           <Route path="/publish/placeholder" element={<PlaceholderDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
