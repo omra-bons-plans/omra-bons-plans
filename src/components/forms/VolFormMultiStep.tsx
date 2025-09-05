@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AirportSelect } from "@/components/ui/AirportSelect";
+import { AirlineSelect } from "@/components/ui/AirlineSelect";
 
 interface VolFormData {
   title: string;
@@ -208,42 +209,17 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   control={control}
                   rules={{ required: "La compagnie aérienne est requise" }}
                   render={({ field }) => (
-                    <div className="relative">
-                      <Select 
-                        onValueChange={(value) => {
-                          console.log("Airline selected:", value);
-                          field.onChange(value);
-                          // Force la validation pour s'assurer que c'est bien pris en compte
-                          setTimeout(() => {
-                            trigger("airline");
-                          }, 100);
-                        }} 
-                        value={field.value || ""}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Choisir la compagnie" />
-                        </SelectTrigger>
-                        <SelectContent 
-                          className="bg-background border-border z-[9999] max-h-60 overflow-y-auto"
-                          position="popper"
-                          sideOffset={5}
-                        >
-                          <SelectItem value="air-france">Air France</SelectItem>
-                          <SelectItem value="egyptair">EgyptAir</SelectItem>
-                          <SelectItem value="emirates">Emirates</SelectItem>
-                          <SelectItem value="flyadeal">Flyadeal</SelectItem>
-                          <SelectItem value="flynas">Flynas</SelectItem>
-                          <SelectItem value="pegasus">Pegasus Airlines</SelectItem>
-                          <SelectItem value="qatar">Qatar Airways</SelectItem>
-                          <SelectItem value="royal-jordanian">Royal Jordanian</SelectItem>
-                          <SelectItem value="saudi">Saudi Arabian Airlines</SelectItem>
-                          <SelectItem value="transavia">Transavia</SelectItem>
-                          <SelectItem value="turkish">Turkish Airlines</SelectItem>
-                          <SelectItem value="wizz-air">Wizz Air</SelectItem>
-                          <SelectItem value="autre">Autre</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <AirlineSelect
+                      value={field.value || ""}
+                      onChange={(value) => {
+                        console.log("Airline selected:", value);
+                        field.onChange(value);
+                        setTimeout(() => {
+                          trigger("airline");
+                        }, 100);
+                      }}
+                      placeholder="Sélectionner une compagnie aérienne..."
+                    />
                   )}
                 />
                 {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
