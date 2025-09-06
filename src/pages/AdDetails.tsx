@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy, User } from 'lucide-react';
+import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy, User, Globe, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -44,6 +44,8 @@ interface AdDetailsData {
     instagram?: string;
     is_professional?: boolean;
     company_name?: string;
+    company_address?: string;
+    website?: string;
   };
   categoryDetails?: any;
 }
@@ -402,6 +404,43 @@ const AdDetails = () => {
                             </Button>
                           </div>
                         )}
+
+                        {/* Professional Address */}
+                        {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.company_address && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Building className="w-5 h-5 text-muted-foreground" />
+                              <span className="text-sm">{ad.user.company_address}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(ad.user?.company_address || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        )}
+
+                        {/* Professional Website */}
+                        {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.website && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Globe className="w-5 h-5 text-muted-foreground" />
+                              <span className="text-sm text-blue-600 hover:underline cursor-pointer" 
+                                    onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}>
+                                {ad.user.website}
+                              </span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}
+                            >
+                              <ArrowLeft className="w-4 h-4 rotate-180" />
+                            </Button>
+                          </div>
+                        )}
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -581,22 +620,59 @@ const AdDetails = () => {
                            </div>
                          )}
 
-                         {ad.showProfessionalPhone && ad.user?.professional_phone && (
-                           <div className="flex items-center justify-between">
-                             <div className="flex items-center gap-3">
-                               <Phone className="w-5 h-5 text-muted-foreground" />
-                               <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
-                               <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
-                             </div>
-                             <Button 
-                               variant="ghost" 
-                               size="sm"
-                               onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
-                             >
-                               <Copy className="w-4 h-4" />
-                             </Button>
-                           </div>
-                         )}
+                          {ad.showProfessionalPhone && ad.user?.professional_phone && (
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Phone className="w-5 h-5 text-muted-foreground" />
+                                <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
+                                <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
+                              </div>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
+                              >
+                                <Copy className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          )}
+
+                          {/* Professional Address - Mobile */}
+                          {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.company_address && (
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Building className="w-5 h-5 text-muted-foreground" />
+                                <span className="text-sm">{ad.user.company_address}</span>
+                              </div>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => copyToClipboard(ad.user?.company_address || '')}
+                              >
+                                <Copy className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          )}
+
+                          {/* Professional Website - Mobile */}
+                          {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.website && (
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Globe className="w-5 h-5 text-muted-foreground" />
+                                <span className="text-sm text-blue-600 hover:underline cursor-pointer" 
+                                      onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}>
+                                  {ad.user.website}
+                                </span>
+                              </div>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}
+                              >
+                                <ArrowLeft className="w-4 h-4 rotate-180" />
+                              </Button>
+                            </div>
+                          )}
                       </div>
                     </DialogContent>
                   </Dialog>
