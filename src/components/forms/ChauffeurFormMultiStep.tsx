@@ -19,6 +19,8 @@ interface ChauffeurFormData {
   languages: string[];
   showEmail: boolean;
   showPhone: boolean;
+  showWhatsapp: boolean;
+  showProfessionalPhone: boolean;
 }
 
 interface ChauffeurFormMultiStepProps {
@@ -37,6 +39,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
     defaultValues: {
       showEmail: true,
       showPhone: false,
+      showWhatsapp: false,
+      showProfessionalPhone: false,
       languages: ['francais'],
       city: [],
     }
@@ -385,7 +389,23 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                           checked={watch("showPhone")}
                           onCheckedChange={(checked) => setValue("showPhone", !!checked)}
                         />
-                        <Label htmlFor="showPhone">Afficher le téléphone</Label>
+                        <Label htmlFor="showPhone">Afficher le téléphone portable</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="showWhatsapp"
+                          checked={watch("showWhatsapp")}
+                          onCheckedChange={(checked) => setValue("showWhatsapp", !!checked)}
+                        />
+                        <Label htmlFor="showWhatsapp">Afficher WhatsApp</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="showProfessionalPhone"
+                          checked={watch("showProfessionalPhone")}
+                          onCheckedChange={(checked) => setValue("showProfessionalPhone", !!checked)}
+                        />
+                        <Label htmlFor="showProfessionalPhone">Afficher le téléphone fixe (professionnel)</Label>
                       </div>
                     </div>
                   </div>

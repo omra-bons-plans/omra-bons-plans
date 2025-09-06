@@ -34,6 +34,8 @@ export type Database = {
           publish_end_date: string
           show_email: boolean | null
           show_phone: boolean | null
+          show_professional_phone: boolean | null
+          show_whatsapp: boolean | null
           title: string
           updated_at: string
           user_id: string
@@ -57,6 +59,8 @@ export type Database = {
           publish_end_date: string
           show_email?: boolean | null
           show_phone?: boolean | null
+          show_professional_phone?: boolean | null
+          show_whatsapp?: boolean | null
           title: string
           updated_at?: string
           user_id: string
@@ -80,6 +84,8 @@ export type Database = {
           publish_end_date?: string
           show_email?: boolean | null
           show_phone?: boolean | null
+          show_professional_phone?: boolean | null
+          show_whatsapp?: boolean | null
           title?: string
           updated_at?: string
           user_id?: string
