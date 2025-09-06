@@ -364,35 +364,63 @@ const AdDetails = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column - Image and Details */}
               <div className="lg:col-span-2 space-y-6">
-                {/* Image Gallery - Scrollable */}
+                {/* Image Gallery - Improved Scrollable */}
                 <div className="relative">
                   {allImages.length > 0 ? (
-                    <div className="overflow-x-auto scrollbar-hide">
-                      <div className="flex gap-4 pb-4">
-                        {allImages.map((image, index) => (
-                          <div 
-                            key={index}
-                            className={`flex-shrink-0 aspect-[4/3] w-80 bg-muted rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
-                              index === currentImageIndex ? 'border-primary shadow-lg' : 'border-transparent'
-                            }`}
-                            onClick={() => setCurrentImageIndex(index)}
-                          >
-                            <img 
-                              src={
-                                image.startsWith('http') 
-                                  ? image
-                                  : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${image}`
-                              } 
-                              alt={`${ad.title} - Image ${index + 1}`}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                console.error('Image failed to load:', image);
-                                e.currentTarget.src = '/ad-placeholder.jpg';
-                              }}
-                            />
+                    <div className="relative">
+                      {/* Main selected image */}
+                      <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
+                        <img 
+                          src={
+                            allImages[currentImageIndex]?.startsWith('http') 
+                              ? allImages[currentImageIndex]
+                              : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
+                          } 
+                          alt={`${ad.title} - Image ${currentImageIndex + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            console.error('Image failed to load:', allImages[currentImageIndex]);
+                            e.currentTarget.src = '/ad-placeholder.jpg';
+                          }}
+                        />
+                        {/* Image counter */}
+                        {allImages.length > 1 && (
+                          <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                            {currentImageIndex + 1} / {allImages.length}
                           </div>
-                        ))}
+                        )}
                       </div>
+                      
+                      {/* Thumbnail scroll */}
+                      {allImages.length > 1 && (
+                        <div className="overflow-x-auto scrollbar-hide">
+                          <div className="flex gap-2 pb-2" style={{width: `${allImages.length * 80 + (allImages.length - 1) * 8}px`}}>
+                            {allImages.map((image, index) => (
+                              <div 
+                                key={index}
+                                className={`flex-shrink-0 w-16 h-16 bg-muted rounded-md overflow-hidden cursor-pointer border-2 transition-all ${
+                                  index === currentImageIndex ? 'border-primary shadow-md' : 'border-border hover:border-primary/50'
+                                }`}
+                                onClick={() => setCurrentImageIndex(index)}
+                              >
+                                <img 
+                                  src={
+                                    image.startsWith('http') 
+                                      ? image
+                                      : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${image}`
+                                  } 
+                                  alt={`${ad.title} - Miniature ${index + 1}`}
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    console.error('Thumbnail failed to load:', image);
+                                    e.currentTarget.src = '/ad-placeholder.jpg';
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
@@ -544,7 +572,14 @@ const AdDetails = () => {
                   <CardContent>
                     <div className="flex items-center gap-3">
                       <MapPin className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.location || 'Non spécifiée'}</span>
+                      <span>
+                        {ad.category === 'babysitting' && ad.categoryDetails?.city 
+                          ? (ad.categoryDetails.city === 'makkah' ? 'Makkah' : 
+                             ad.categoryDetails.city === 'medina' ? 'Médine' : 
+                             ad.categoryDetails.city === 'jeddah' ? 'Jeddah' : 
+                             ad.categoryDetails.city)
+                          : (ad.location || 'Non spécifiée')}
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
