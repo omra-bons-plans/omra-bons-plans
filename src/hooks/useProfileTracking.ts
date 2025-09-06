@@ -1,6 +1,9 @@
 import { supabase } from '@/integrations/supabase/client';
+import { useNotificationEvents } from './useNotificationEvents';
 
 export const useProfileTracking = () => {
+  const { notifyProfileView } = useNotificationEvents();
+
   const trackProfileView = async (profileId: string) => {
     try {
       // Obtenir l'user agent côté client
@@ -34,6 +37,19 @@ export const useProfileTracking = () => {
           .from('profiles')
           .update({ profile_views: currentProfile.profile_views + 1 })
           .eq('id', profileId);
+      }
+
+      // Create notification if viewer is different from profile owner
+      if (user && user.id !== profileId) {
+        // Get viewer profile for name
+        const { data: viewerProfile } = await supabase
+          .from('profiles')
+          .select('full_name, first_name')
+          .eq('id', user.id)
+          .single();
+
+        const viewerName = viewerProfile?.full_name || viewerProfile?.first_name;
+        await notifyProfileView(profileId, viewerName);
       }
 
     } catch (error) {

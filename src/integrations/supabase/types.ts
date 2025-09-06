@@ -466,6 +466,45 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          related_id: string | null
+          related_type: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          related_id?: string | null
+          related_type?: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          related_id?: string | null
+          related_type?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["notification_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profile_views: {
         Row: {
           created_at: string
@@ -642,6 +681,13 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      notification_type:
+        | "profile_view"
+        | "ad_comment"
+        | "contact_request"
+        | "ad_status_change"
+        | "ad_expiring"
+        | "system"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -770,6 +816,14 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      notification_type: [
+        "profile_view",
+        "ad_comment",
+        "contact_request",
+        "ad_status_change",
+        "ad_expiring",
+        "system",
+      ],
     },
   },
 } as const
