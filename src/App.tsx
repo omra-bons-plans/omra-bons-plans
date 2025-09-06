@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
+import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CategorySelection from "./pages/publish/CategorySelection";
 import FormulaSelection from "./pages/publish/FormulaSelection";
 import SejourDetails from "./pages/publish/SejourDetails";
@@ -25,15 +27,52 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/publish" element={<CategorySelection />} />
-          <Route path="/publish/formula" element={<FormulaSelection />} />
-          <Route path="/publish/sejours" element={<SejourDetails />} />
-          <Route path="/publish/vols" element={<VolDetails />} />
-          <Route path="/publish/guides" element={<GuideDetails />} />
-          <Route path="/publish/chauffeurs" element={<ChauffeurDetails />} />
-          <Route path="/publish/babysitting" element={<BabysittingDetails />} />
-          <Route path="/publish/hebergement" element={<HebergementDetails />} />
-          <Route path="/publish/placeholder" element={<PlaceholderDetails />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/publish" element={
+            <ProtectedRoute>
+              <CategorySelection />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/formula" element={
+            <ProtectedRoute>
+              <FormulaSelection />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/sejours" element={
+            <ProtectedRoute>
+              <SejourDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/vols" element={
+            <ProtectedRoute>
+              <VolDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/guides" element={
+            <ProtectedRoute>
+              <GuideDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/chauffeurs" element={
+            <ProtectedRoute>
+              <ChauffeurDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/babysitting" element={
+            <ProtectedRoute>
+              <BabysittingDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/hebergement" element={
+            <ProtectedRoute>
+              <HebergementDetails />
+            </ProtectedRoute>
+          } />
+          <Route path="/publish/placeholder" element={
+            <ProtectedRoute>
+              <PlaceholderDetails />
+            </ProtectedRoute>
+          } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

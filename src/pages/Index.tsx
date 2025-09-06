@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
+import { useAuth } from "@/contexts/AuthContext";
 import CountdownTimer from "@/components/ui/CountdownTimer";
+import UserMenu from "@/components/ui/UserMenu";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 
 // Import images
@@ -49,6 +51,7 @@ const Index = () => {
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange } = useWeatherAndExchange();
+  const { user } = useAuth();
 
   // Allow manual city selection for weather
   const toggleWeatherCity = () => {
@@ -203,9 +206,15 @@ const Index = () => {
 
             {/* Right buttons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
-                Se connecter
-              </Button>
+              {user ? (
+                <UserMenu />
+              ) : (
+                <Link to="/auth">
+                  <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
+                    Se connecter
+                  </Button>
+                </Link>
+              )}
               <Link to="/publish">
                 <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
                   <span className="hidden sm:inline">Publier une annonce</span>
