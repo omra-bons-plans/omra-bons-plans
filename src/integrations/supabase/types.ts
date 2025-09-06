@@ -674,6 +674,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_profile_views: {
+        Args: { profile_id: string }
+        Returns: number
+      }
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
