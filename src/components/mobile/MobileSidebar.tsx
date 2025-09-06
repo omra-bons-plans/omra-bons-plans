@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/contexts/AdminContext';
 import { useNotifications } from '@/hooks/useNotifications';
 import { toast } from 'sonner';
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const { unreadCount } = useNotifications();
   const navigate = useNavigate();
 
@@ -166,6 +168,18 @@ const MobileSidebar = () => {
                   <Settings className="w-5 h-5 text-muted-foreground" />
                   <span className="font-medium">Paramètres</span>
                 </Link>
+
+                {/* Admin Section - Only visible for admins */}
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <Shield className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Administration</span>
+                  </Link>
+                )}
               </>
             )}
           </div>
