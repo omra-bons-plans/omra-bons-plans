@@ -711,9 +711,19 @@ const AdDetails = () => {
                              ad.categoryDetails.city === 'medina' ? 'Médine' : 
                              ad.categoryDetails.city === 'jeddah' ? 'Jeddah' : 
                              ad.categoryDetails.city)
+                          : ad.category === 'hebergement' && ad.categoryDetails
+                          ? `${ad.categoryDetails.city === 'makkah' ? 'Makkah' : ad.categoryDetails.city === 'medina' ? 'Médine' : ad.categoryDetails.city} - ${ad.categoryDetails.name}`
                           : (ad.location || 'Non spécifiée')}
                       </span>
                     </div>
+                    {/* Distance à la mosquée pour les hébergements */}
+                    {ad.category === 'hebergement' && ad.categoryDetails?.distance_to_mosque && (
+                      <div className="flex items-center gap-3 mt-2 pt-2 border-t">
+                        <span className="text-sm text-muted-foreground">
+                          Distance à la mosquée: {ad.categoryDetails.distance_to_mosque}m
+                        </span>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 
