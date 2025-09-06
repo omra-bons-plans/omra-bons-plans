@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
@@ -21,63 +22,65 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/publish" element={
-            <ProtectedRoute>
-              <CategorySelection />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/formula" element={
-            <ProtectedRoute>
-              <FormulaSelection />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/sejours" element={
-            <ProtectedRoute>
-              <SejourDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/vols" element={
-            <ProtectedRoute>
-              <VolDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/guides" element={
-            <ProtectedRoute>
-              <GuideDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/chauffeurs" element={
-            <ProtectedRoute>
-              <ChauffeurDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/babysitting" element={
-            <ProtectedRoute>
-              <BabysittingDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/hebergement" element={
-            <ProtectedRoute>
-              <HebergementDetails />
-            </ProtectedRoute>
-          } />
-          <Route path="/publish/placeholder" element={
-            <ProtectedRoute>
-              <PlaceholderDetails />
-            </ProtectedRoute>
-          } />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/publish" element={
+              <ProtectedRoute>
+                <CategorySelection />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/formula" element={
+              <ProtectedRoute>
+                <FormulaSelection />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/sejours" element={
+              <ProtectedRoute>
+                <SejourDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/vols" element={
+              <ProtectedRoute>
+                <VolDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/guides" element={
+              <ProtectedRoute>
+                <GuideDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/chauffeurs" element={
+              <ProtectedRoute>
+                <ChauffeurDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/babysitting" element={
+              <ProtectedRoute>
+                <BabysittingDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/hebergement" element={
+              <ProtectedRoute>
+                <HebergementDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/publish/placeholder" element={
+              <ProtectedRoute>
+                <PlaceholderDetails />
+              </ProtectedRoute>
+            } />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
