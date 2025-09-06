@@ -230,8 +230,8 @@ const Blog = () => {
                     </div>
                   )}
                   <CardHeader className="pb-3 p-4 sm:p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <Badge className={`${getCategoryColor(post.category)} text-xs px-3 py-1 rounded-full`}>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 space-y-2 sm:space-y-0">
+                      <Badge className={`${getCategoryColor(post.category)} text-xs px-3 py-1 rounded-full w-fit`}>
                         {getCategoryName(post.category)}
                       </Badge>
                       <div className="flex items-center text-xs text-muted-foreground">
