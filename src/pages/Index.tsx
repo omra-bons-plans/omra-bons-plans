@@ -127,29 +127,56 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll hint for mobile category tabs
+  // Auto-scroll hint for mobile sections - staggered animations
   useEffect(() => {
     if (isMobile) {
-      const scrollContainer = document.querySelector('.category-scroll-container');
-      if (scrollContainer) {
-        // Small auto-scroll to hint there are more categories
-        const scrollHint = () => {
-          scrollContainer.scrollTo({
+      // Flash Sales section - onglets et cartes
+      const flashSalesTabsContainer = document.querySelector('.flash-sales-tabs-container');
+      const flashSalesCardsContainer = document.querySelector('.flash-sales-cards-container');
+      
+      // All Services section - onglets et cartes  
+      const allServicesTabsContainer = document.querySelector('.all-services-tabs-container');
+      const allServicesCardsContainer = document.querySelector('.all-services-cards-container');
+      
+      const scrollHint = (container: Element, delay: number) => {
+        const timer = setTimeout(() => {
+          container.scrollTo({
             left: 100,
             behavior: 'smooth'
           });
           setTimeout(() => {
-            scrollContainer.scrollTo({
+            container.scrollTo({
               left: 0,
               behavior: 'smooth'
             });
           }, 1500);
-        };
-        
-        // Trigger scroll hint after a delay when page loads
-        const timer = setTimeout(scrollHint, 2000);
-        return () => clearTimeout(timer);
+        }, delay);
+        return timer;
+      };
+      
+      const timers: NodeJS.Timeout[] = [];
+      
+      // Flash Sales - onglets d'abord (2s)
+      if (flashSalesTabsContainer) {
+        timers.push(scrollHint(flashSalesTabsContainer, 2000));
       }
+      
+      // Flash Sales - cartes ensuite (3.5s)
+      if (flashSalesCardsContainer) {
+        timers.push(scrollHint(flashSalesCardsContainer, 3500));
+      }
+      
+      // All Services - onglets encore après (5s)
+      if (allServicesTabsContainer) {
+        timers.push(scrollHint(allServicesTabsContainer, 5000));
+      }
+      
+      // All Services - cartes en dernier (6.5s)
+      if (allServicesCardsContainer) {
+        timers.push(scrollHint(allServicesCardsContainer, 6500));
+      }
+      
+      return () => timers.forEach(timer => clearTimeout(timer));
     }
   }, [isMobile]);
 
@@ -501,7 +528,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
-          <div className="horizontal-scroll-container category-scroll-container">
+          <div className="horizontal-scroll-container flash-sales-tabs-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
@@ -771,7 +798,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {flashSalesListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek horizontal-scroll-container">
+            <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
@@ -928,7 +955,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Same as Flash Sales */}
-          <div className="horizontal-scroll-container category-scroll-container">
+          <div className="horizontal-scroll-container all-services-tabs-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
@@ -1215,7 +1242,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container">
+            <div className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setAllServicesCarouselApi}
