@@ -249,7 +249,7 @@ export const useAds = () => {
         discount: discount > 0 ? discount : undefined,
         isFlashSale,
         flashSaleEndDate: ad.promotionEndDate ? new Date(ad.promotionEndDate) : undefined,
-        image: getImageUrl(ad.coverImage) || '/ad-placeholder.jpg',
+        image: ad.coverImage ? (getImageUrl(ad.coverImage) || '/ad-placeholder.jpg') : '/ad-placeholder.jpg',
         rating: ad.rating || 4.5,
         reviews: ad.reviews || 0,
         location,
