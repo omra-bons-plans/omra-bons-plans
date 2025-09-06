@@ -154,13 +154,13 @@ const Blog = () => {
           </div>
         </header>
 
-        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="container mx-auto px-2 sm:px-6 py-4 sm:py-8">
           {/* Page Title and Description */}
-          <div className="text-center mb-6 sm:mb-8">
+          <div className="text-center mb-6 sm:mb-8 px-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 sm:mb-4">
               {getCategoryName(selectedCategory)}
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               {selectedCategory === 'general' && "Découvrez nos articles sur l'Omra, le Hajj, et la vie spirituelle"}
               {selectedCategory === 'restaurants' && "Les meilleurs restaurants halal pour votre séjour"}
               {selectedCategory === 'associations' && "Découvrez les associations qui œuvrent pour la communauté"}
@@ -170,14 +170,14 @@ const Blog = () => {
           </div>
 
           {/* Category Tabs - Mobile Optimized */}
-          <div className="mb-6 sm:mb-8">
+          <div className="mb-6 sm:mb-8 px-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-center gap-2">
               {categories.map((cat) => (
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className="flex items-center justify-between sm:justify-center text-sm w-full lg:w-auto"
+                  className="flex items-center justify-between sm:justify-center text-sm w-full lg:w-auto h-12"
                 >
                   <span className="truncate">{cat.label}</span>
                   <Badge variant="secondary" className="ml-2 text-xs">
@@ -189,12 +189,12 @@ const Blog = () => {
           </div>
 
           {/* Search */}
-          <div className="max-w-md mx-auto mb-6 sm:mb-8 px-4 sm:px-0">
+          <div className="max-w-md mx-auto mb-6 sm:mb-8 px-2 sm:px-0">
             <Input
               placeholder="Rechercher dans les articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full"
+              className="w-full h-12"
             />
           </div>
 
@@ -213,15 +213,15 @@ const Blog = () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 px-2 sm:px-0">
               {filteredPosts.map((post) => (
                 <Card 
                   key={post.id} 
-                  className="cursor-pointer hover:shadow-lg transition-shadow bg-card border"
+                  className="cursor-pointer hover:shadow-lg transition-shadow bg-card border rounded-2xl overflow-hidden"
                   onClick={() => handlePostClick(post)}
                 >
                   {post.cover_image && (
-                    <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                    <div className="aspect-video w-full overflow-hidden">
                       <img 
                         src={post.cover_image} 
                         alt={post.title}
@@ -230,8 +230,8 @@ const Blog = () => {
                     </div>
                   )}
                   <CardHeader className="pb-3 p-4 sm:p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <Badge className={`${getCategoryColor(post.category)} text-xs px-2 py-1`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <Badge className={`${getCategoryColor(post.category)} text-xs px-3 py-1 rounded-full`}>
                         {getCategoryName(post.category)}
                       </Badge>
                       <div className="flex items-center text-xs text-muted-foreground">
@@ -239,49 +239,49 @@ const Blog = () => {
                         {post.views_count}
                       </div>
                     </div>
-                    <CardTitle className="text-base sm:text-lg leading-tight line-clamp-2">
+                    <CardTitle className="text-lg sm:text-xl leading-tight line-clamp-2 font-semibold">
                       {post.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0 p-4 sm:p-6 sm:pt-0">
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
                       {post.excerpt || post.content.substring(0, 150)}...
                     </p>
                     
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground space-y-2 sm:space-y-0">
                       <div className="flex items-center">
-                        <User className="w-3 h-3 mr-1 flex-shrink-0" />
-                        <span className="truncate">{post.author?.full_name || post.author?.first_name || 'Anonyme'}</span>
+                        <User className="w-4 h-4 mr-2 flex-shrink-0" />
+                        <span className="truncate font-medium">{post.author?.full_name || post.author?.first_name || 'Anonyme'}</span>
                       </div>
                       <div className="flex items-center">
-                        <Calendar className="w-3 h-3 mr-1 flex-shrink-0" />
+                        <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
                         {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR')}
                       </div>
                     </div>
 
                     {post.location_city && (
-                      <div className="flex items-center text-xs text-muted-foreground mt-2">
-                        <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-xs text-muted-foreground mt-3">
+                        <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
                         <span className="truncate">{post.location_city}</span>
                       </div>
                     )}
 
                     {post.video_url && (
-                      <div className="flex items-center text-xs text-blue-600 mt-2">
-                        <Video className="w-3 h-3 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-xs text-blue-600 mt-3">
+                        <Video className="w-4 h-4 mr-2 flex-shrink-0" />
                         Contient une vidéo
                       </div>
                     )}
 
                     {post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-3">
+                      <div className="flex flex-wrap gap-2 mt-4">
                         {post.tags.slice(0, 2).map((tag, index) => (
-                          <Badge key={index} variant="outline" className="text-xs px-2 py-1">
+                          <Badge key={index} variant="outline" className="text-xs px-3 py-1 rounded-full">
                             {tag}
                           </Badge>
                         ))}
                         {post.tags.length > 2 && (
-                          <Badge variant="outline" className="text-xs px-2 py-1">
+                          <Badge variant="outline" className="text-xs px-3 py-1 rounded-full">
                             +{post.tags.length - 2}
                           </Badge>
                         )}
