@@ -118,6 +118,13 @@ const Index = () => {
     ? featuredListings 
     : featuredListings.filter(listing => listing.type === selectedCategory);
 
+  // Filter listings for flash sales (only sejours, vols, hebergement)
+  const flashSalesListings = selectedCategory === "all" 
+    ? featuredListings.filter(listing => ['sejours', 'vols', 'hebergement'].includes(listing.type))
+    : featuredListings.filter(listing => 
+        listing.type === selectedCategory && ['sejours', 'vols', 'hebergement'].includes(listing.type)
+      );
+
   // Show loading state
   if (adsLoading) {
     return (
@@ -363,7 +370,7 @@ const Index = () => {
                   Tous
                 </Button>
                 {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
-                {categories.filter(category => ['sejours', 'vols', 'hotels'].includes(category.id)).map((category) => (
+                {categories.filter(category => ['sejours', 'vols', 'hebergement'].includes(category.id)).map((category) => (
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
@@ -382,9 +389,9 @@ const Index = () => {
           </div>
 
           {/* Desktop: Grid Layout */}
-          {filteredListings.length > 0 ? (
+          {flashSalesListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8">
-              {filteredListings.map((listing) => (
+              {flashSalesListings.map((listing) => (
                 <Card key={listing.id} className="card-modern overflow-hidden border-border/20 bg-card/50">
                   <div className="relative group">
                     <div className="w-full h-56 overflow-hidden">
@@ -499,7 +506,7 @@ const Index = () => {
           <div className="hidden md:block lg:hidden carousel-item-peek">
             <Carousel className="w-full">
               <CarouselContent className="-ml-4">
-                {filteredListings.map((listing) => (
+                {flashSalesListings.map((listing) => (
                   <CarouselItem key={listing.id} className="pl-4 basis-1/2">
                     <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
                       <div className="relative group">
@@ -600,14 +607,14 @@ const Index = () => {
           </div>
 
           {/* Mobile: Carousel with 1 item */}
-          {filteredListings.length > 0 ? (
+          {flashSalesListings.length > 0 ? (
             <div className="block md:hidden carousel-item-peek horizontal-scroll-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
               >
                 <CarouselContent>
-                  {filteredListings.map((listing) => (
+                  {flashSalesListings.map((listing) => (
                     <CarouselItem key={listing.id}>
                       <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
                         <div className="relative group">
@@ -708,7 +715,7 @@ const Index = () => {
               
               {/* Pagination dots for mobile */}
               <div className="flex justify-center space-x-2 mt-6">
-                {filteredListings.map((_, index) => (
+                {flashSalesListings.map((_, index) => (
                   <div
                     key={index}
                     className="w-2 h-2 rounded-full transition-colors duration-200"
