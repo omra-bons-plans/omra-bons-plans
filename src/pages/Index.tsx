@@ -133,55 +133,50 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll décalé pour distinguer les sections sur mobile
+  // Auto-scroll décalé pour distinguer les sections sur mobile - Version corrigée
   useEffect(() => {
-    if (isMobile) {
-      const scrollHint = (element: HTMLDivElement, delay: number) => {
-        const timer = setTimeout(() => {
-          element.scrollTo({
-            left: 100,
-            behavior: 'smooth'
-          });
-          setTimeout(() => {
-            element.scrollTo({
-              left: 0,
-              behavior: 'smooth'
-            });
-          }, 1500);
-        }, delay);
-        return timer;
-      };
-      
-      const timers: NodeJS.Timeout[] = [];
-      
-      // Flash Sales - onglets (2s)
-      if (flashSalesTabsRef.current) {
-        timers.push(scrollHint(flashSalesTabsRef.current, 2000));
-      }
-      
-      // Flash Sales - cartes (4s)
-      if (flashSalesCardsRef.current) {
-        const scrollContainer = flashSalesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
-        if (scrollContainer) {
-          timers.push(scrollHint(scrollContainer, 4000));
-        }
-      }
-      
-      // All Services - onglets (6s)
-      if (allServicesTabsRef.current) {
-        timers.push(scrollHint(allServicesTabsRef.current, 6000));
-      }
-      
-      // All Services - cartes (8s)
-      if (allServicesCardsRef.current) {
-        const scrollContainer = allServicesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
-        if (scrollContainer) {
-          timers.push(scrollHint(scrollContainer, 8000));
-        }
-      }
-      
-      return () => timers.forEach(timer => clearTimeout(timer));
+    if (!isMobile) return;
+
+    const performScrollHint = (element: HTMLDivElement, delay: number) => {
+      return setTimeout(() => {
+        element.scrollTo({ left: 100, behavior: 'smooth' });
+        setTimeout(() => {
+          element.scrollTo({ left: 0, behavior: 'smooth' });
+        }, 1500);
+      }, delay);
+    };
+
+    const timers: NodeJS.Timeout[] = [];
+
+    // Flash Sales - onglets (2s)
+    if (flashSalesTabsRef.current) {
+      timers.push(performScrollHint(flashSalesTabsRef.current, 2000));
     }
+
+    // Flash Sales - cartes (4s)
+    if (flashSalesCardsRef.current) {
+      const emblaContainer = flashSalesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
+      if (emblaContainer) {
+        timers.push(performScrollHint(emblaContainer, 4000));
+      }
+    }
+
+    // All Services - onglets (6s)  
+    if (allServicesTabsRef.current) {
+      timers.push(performScrollHint(allServicesTabsRef.current, 6000));
+    }
+
+    // All Services - cartes (8s)
+    if (allServicesCardsRef.current) {
+      const emblaContainer = allServicesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
+      if (emblaContainer) {
+        timers.push(performScrollHint(emblaContainer, 8000));
+      }
+    }
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
   }, [isMobile]);
 
   // Use real ads from database, fallback to sample data if no ads exist
