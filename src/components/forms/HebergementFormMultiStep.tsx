@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { getImageUrl } from "@/utils/imageUtils";
 
 // Component pour l'aperçu vidéo
 const VideoPreview = ({ url }: { url: string }) => {
@@ -715,7 +716,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                         ) : initialData?.coverImageUrl ? (
                           <div className="relative">
                             <img
-                              src={initialData.coverImageUrl.startsWith('http') ? initialData.coverImageUrl : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${initialData.coverImageUrl}`}
+                              src={getImageUrl(initialData.coverImageUrl) || '/ad-placeholder.jpg'}
                               alt="Couverture existante"
                               className="mx-auto h-32 w-48 object-cover rounded-lg"
                             />
@@ -767,7 +768,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                       {existingImages.map((imageUrl, index) => (
                         <div key={`existing-${index}`} className="relative">
                           <img
-                            src={imageUrl.startsWith('http') ? imageUrl : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${imageUrl}`}
+                            src={getImageUrl(imageUrl) || '/ad-placeholder.jpg'}
                             alt={`Photo existante ${index + 1}`}
                             className="h-24 w-full object-cover rounded-lg"
                           />

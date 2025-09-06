@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface AdDetailsData {
   id: string;
@@ -401,11 +402,7 @@ const AdDetails = () => {
                       {/* Main selected image */}
                       <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
                         <img 
-                          src={
-                            allImages[currentImageIndex]?.startsWith('http') 
-                              ? allImages[currentImageIndex]
-                              : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
-                          } 
+                          src={getImageUrl(allImages[currentImageIndex]) || '/ad-placeholder.jpg'} 
                           alt={`${ad.title} - Image ${currentImageIndex + 1}`}
                           className="w-full h-full object-cover"
                           onError={(e) => {
@@ -434,11 +431,7 @@ const AdDetails = () => {
                                 onClick={() => setCurrentImageIndex(index)}
                               >
                                 <img 
-                                  src={
-                                    image.startsWith('http') 
-                                      ? image
-                                      : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${image}`
-                                  } 
+                                  src={getImageUrl(image) || '/ad-placeholder.jpg'} 
                                   alt={`${ad.title} - Miniature ${index + 1}`}
                                   className="w-full h-full object-cover"
                                   onError={(e) => {

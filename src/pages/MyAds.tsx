@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface UserAd {
   id: string;
@@ -346,7 +347,7 @@ const MyAds = () => {
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                 {ad.coverImage ? (
                                   <img 
-                                    src={ad.coverImage.startsWith('http') ? ad.coverImage : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${ad.coverImage}`} 
+                                    src={getImageUrl(ad.coverImage) || '/ad-placeholder.jpg'} 
                                     alt={ad.title}
                                     className="w-full h-full object-cover"
                                     onError={(e) => {

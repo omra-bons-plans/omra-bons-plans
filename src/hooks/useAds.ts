@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { getImageUrl } from '@/utils/imageUtils';
 
 export interface Ad {
   id: string;
@@ -234,9 +235,7 @@ export const useAds = () => {
         discount: discount > 0 ? discount : undefined,
         isFlashSale,
         flashSaleEndDate: ad.promotionEndDate ? new Date(ad.promotionEndDate) : undefined,
-        image: ad.coverImage && ad.coverImage.startsWith('http') ? ad.coverImage : 
-               ad.coverImage ? `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${ad.coverImage}` : 
-               '/ad-placeholder.jpg',
+        image: getImageUrl(ad.coverImage) || '/ad-placeholder.jpg',
         rating: ad.rating || 4.5,
         reviews: ad.reviews || 0,
         location,
