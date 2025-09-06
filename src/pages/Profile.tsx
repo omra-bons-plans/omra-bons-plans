@@ -163,6 +163,36 @@ const Profile = () => {
     }));
   };
 
+  const handleProfessionalToggle = async (checked: boolean) => {
+    setProfile(prev => ({
+      ...prev,
+      is_professional: checked
+    }));
+
+    // Sauvegarde automatique quand on toggle le statut professionnel
+    if (!user) return;
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          ...profile,
+          is_professional: checked,
+          id: user.id,
+        });
+
+      if (error) {
+        console.error('Error saving professional status:', error);
+        toast.error('Erreur lors de la sauvegarde du statut professionnel');
+      } else {
+        toast.success(checked ? 'Compte professionnel activé' : 'Compte personnel activé');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Erreur lors de la sauvegarde');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -323,7 +353,7 @@ const Profile = () => {
               <div className="flex items-center space-x-3 p-4 bg-muted/30 rounded-lg">
                 <Switch
                   checked={profile.is_professional}
-                  onCheckedChange={(checked) => handleInputChange('is_professional', checked)}
+                  onCheckedChange={handleProfessionalToggle}
                 />
                 <div>
                   <Label className="text-base font-medium">Passez à un compte professionnel</Label>
