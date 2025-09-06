@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Edit, Trash2, Pause, Play, Eye, Calendar, MapPin, Euro } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 interface UserAd {
   id: string;
@@ -39,18 +40,11 @@ const MyAds = () => {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-    fetchUserAds();
-  }, [user, navigate]);
-
-  const fetchUserAds = async () => {
+  const fetchUserAds = useCallback(async () => {
     if (!user) return;
 
     try {
+      console.log('🔄 Fetching user ads...');
       setLoading(true);
       const { data, error } = await supabase
         .from('ads')
@@ -58,7 +52,12 @@ const MyAds = () => {
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Error fetching ads:', error);
+        throw error;
+      }
+
+      console.log('✅ Fetched ads:', data?.length || 0);
 
       const mappedAds: UserAd[] = (data || []).map(ad => ({
         id: ad.id,
@@ -81,12 +80,20 @@ const MyAds = () => {
 
       setAds(mappedAds);
     } catch (error) {
-      console.error('Error fetching user ads:', error);
+      console.error('❌ Error in fetchUserAds:', error);
       toast.error('Erreur lors du chargement des annonces');
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    fetchUserAds();
+  }, [user, navigate, fetchUserAds]);
 
   const handleDeleteAd = async (adId: string) => {
     if (!user) {
@@ -268,7 +275,8 @@ const MyAds = () => {
   }
 
   return (
-    <MobileLayout>
+    <ErrorBoundary>
+      <MobileLayout>
       <div className="min-h-screen bg-background">
         {/* Desktop Header */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -490,7 +498,17 @@ const MyAds = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => handleTogglePause(ad.id, ad.isPaused)}
+                                    onClick={(e) => {
+                                      console.log('🔘 Pause button clicked', { adId: ad.id, isPaused: ad.isPaused });
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      try {
+                                        handleTogglePause(ad.id, ad.isPaused);
+                                      } catch (error) {
+                                        console.error('❌ Error in onClick handler:', error);
+                                        toast.error('Erreur lors du clic sur le bouton');
+                                      }
+                                    }}
                                     disabled={actionLoading === ad.id || ad.isDraft}
                                   >
                                     {ad.isPaused ? (
@@ -550,8 +568,9 @@ const MyAds = () => {
             </Tabs>
           </div>
         </div>
-      </div>
-    </MobileLayout>
+        </div>
+      </MobileLayout>
+    </ErrorBoundary>
   );
 };
 
