@@ -250,14 +250,14 @@ const MyAds = () => {
         </header>
 
         {/* Content */}
-        <div className="container mx-auto px-6 py-4 lg:py-12">
+        <div className="container mx-auto px-6 py-2 lg:py-12">
           <div className="max-w-6xl mx-auto">
             {/* Mobile Header */}
-            <div className="lg:hidden mb-6">
+            <div className="lg:hidden mb-3">
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/')}
-                className="text-muted-foreground hover:text-foreground mb-4"
+                className="text-muted-foreground hover:text-foreground mb-2"
               >
                 ← Retour
               </Button>
@@ -278,7 +278,7 @@ const MyAds = () => {
             </div>
 
             {/* Statistics Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4 lg:mb-8">
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-primary">{filteredAds.all.length}</div>
@@ -306,7 +306,7 @@ const MyAds = () => {
             </div>
 
             {/* Ads List */}
-            <Tabs defaultValue="all" className="space-y-6">
+            <Tabs defaultValue="all" className="space-y-3 lg:space-y-6">
               <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5">
                 <TabsTrigger value="all">Toutes ({filteredAds.all.length})</TabsTrigger>
                 <TabsTrigger value="published">Actives ({filteredAds.published.length})</TabsTrigger>
@@ -316,7 +316,7 @@ const MyAds = () => {
               </TabsList>
 
               {Object.entries(filteredAds).map(([key, adsToShow]) => (
-                <TabsContent key={key} value={key} className="space-y-4">
+                <TabsContent key={key} value={key} className="space-y-3 lg:space-y-4">
                   {adsToShow.length === 0 ? (
                     <Card>
                       <CardContent className="p-12 text-center">
@@ -337,7 +337,7 @@ const MyAds = () => {
                       </CardContent>
                     </Card>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3 lg:space-y-4">
                       {adsToShow.map((ad) => (
                         <Card key={ad.id} className="overflow-hidden">
                           <CardContent className="p-6">
