@@ -1,4 +1,4 @@
-import { User, LogOut, Settings } from 'lucide-react';
+import { User, LogOut, Settings, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,6 +43,12 @@ const UserMenu = () => {
           <p className="text-xs text-muted-foreground">Connecté</p>
         </div>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/my-ads" className="flex items-center">
+            <FileText className="mr-2 h-4 w-4" />
+            <span>Mes annonces</span>
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/profile" className="flex items-center">
             <Settings className="mr-2 h-4 w-4" />
