@@ -336,10 +336,10 @@ const Index = () => {
               </div>
 
               {/* Modern Weather & Exchange Card */}
-              <div className="bg-white/95 backdrop-blur-sm p-6 rounded-3xl shadow-soft max-w-2xl mx-auto border border-border/20">
-                <div className="flex flex-col gap-6">
+              <div className="bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-3xl shadow-soft max-w-md md:max-w-2xl mx-auto border border-border/20">
+                <div className="flex flex-col gap-4 md:gap-6">
                   {/* Weather Section */}
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-3 md:space-x-4">
                     {/* City Indicator Dots */}
                     <div className="flex flex-col space-y-2 mr-2">
                       <button
@@ -373,17 +373,17 @@ const Index = () => {
 
                     {/* Weather Info */}
                     <div className="flex-1">
-                      <div className="text-sm text-gray-600 font-medium mb-1">
+                      <div className="text-base md:text-sm text-gray-600 font-medium mb-1">
                         {(() => {
                           const today = new Date();
                           const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
                           return days[today.getDay()];
                         })()}
                       </div>
-                      <div className="text-lg font-semibold text-gray-800 mb-1">
-                        {currentWeatherCity === 'makkah' ? 'Makkah, KSA' : 'Madinah, KSA'}
+                      <div className="text-xl md:text-lg font-semibold text-gray-800 mb-1">
+                        {currentWeatherCity === 'makkah' ? 'La Mecque, Arabie saoudite' : 'Médine, Arabie saoudite'}
                       </div>
-                      <div className="text-sm text-gray-500 capitalize">
+                      <div className="text-base md:text-sm text-gray-500 capitalize">
                         {currentWeatherCity === 'makkah' 
                           ? (weatherAndExchange?.weather.makkah?.description || 'Ensoleillé')
                           : (weatherAndExchange?.weather.madinah?.description || 'Ensoleillé')}
@@ -391,7 +391,7 @@ const Index = () => {
                     </div>
 
                     {/* Temperature */}
-                    <div className="text-4xl font-bold text-amber-500">
+                    <div className="text-4xl md:text-4xl font-bold text-amber-500">
                       {currentWeatherCity === 'makkah' 
                         ? (weatherAndExchange?.weather?.makkah?.temperature ?? '--')
                         : (weatherAndExchange?.weather?.madinah?.temperature ?? '--')}°
@@ -399,9 +399,9 @@ const Index = () => {
                   </div>
 
                   {/* Exchange Rate Section - Mobile Centered */}
-                  <div className="text-center pt-4 border-t border-gray-200">
-                    <div className="text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
-                    <div className="text-2xl md:text-3xl font-bold text-gray-800">
+                  <div className="text-center pt-3 md:pt-4 border-t border-gray-200">
+                    <div className="text-base md:text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
+                    <div className="text-3xl md:text-3xl font-bold text-gray-800">
                       1€ = <span className="text-amber-500">{weatherAndExchange?.exchange?.eurToSar ?? '--'}</span> Sar
                     </div>
                   </div>
