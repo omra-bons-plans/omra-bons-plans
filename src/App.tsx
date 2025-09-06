@@ -120,7 +120,7 @@ const App = () => (
             <Route path="/ad/:id" element={<AdDetails />} />
             <Route path="/profile/:slug" element={<PublicProfile />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/blog/:category/:id" element={<BlogPost />} />
             <Route path="/admin/ads" element={
               <ProtectedRoute>
                 <AdminAds />
