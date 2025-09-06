@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,7 +75,7 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
@@ -133,46 +134,30 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll décalé - Nouvelle approche simplifiée
+  // Auto-scroll pour mobile uniquement - Version simplifiée
   useEffect(() => {
-    const isMobileCheck = window.innerWidth < 768;
-    console.log('🔍 Vérification mobile auto-scroll:', isMobileCheck);
+    if (!isMobile) return;
     
-    if (!isMobileCheck) return;
-
-    const scrollElement = (selector: string, delay: number, name: string) => {
-      setTimeout(() => {
-        console.log(`🎯 Tentative scroll ${name} avec selector: ${selector}`);
-        const element = document.querySelector(selector) as HTMLElement;
-        if (element) {
-          console.log(`✅ Élément trouvé pour ${name}:`, element);
-          element.scrollTo({ left: 100, behavior: 'smooth' });
-          setTimeout(() => {
-            element.scrollTo({ left: 0, behavior: 'smooth' });
-            console.log(`↩️ Retour scroll ${name} terminé`);
-          }, 1500);
-        } else {
-          console.log(`❌ Élément NOT FOUND pour ${name}`);
-        }
-      }, delay);
+    const performScroll = (selector: string, name: string) => {
+      const element = document.querySelector(selector) as HTMLElement;
+      if (element) {
+        console.log(`✅ Scroll ${name}:`, element);
+        element.scrollTo({ left: 150, behavior: 'smooth' });
+        setTimeout(() => {
+          element.scrollTo({ left: 0, behavior: 'smooth' });
+        }, 1000);
+      } else {
+        console.log(`❌ Element not found: ${name} - ${selector}`);
+      }
     };
 
-    // Programmer tous les scrolls
-    console.log('📅 Programmation des 4 animations de scroll...');
+    // Animation séquentielle sur mobile
+    setTimeout(() => performScroll('.flash-sales-tabs-container .overflow-x-auto', 'Flash Sales Tabs'), 2000);
+    setTimeout(() => performScroll('.flash-sales-cards-container [data-embla-scroll-container]', 'Flash Sales Cards'), 4000);
+    setTimeout(() => performScroll('.all-services-tabs-container .overflow-x-auto', 'All Services Tabs'), 6000);
+    setTimeout(() => performScroll('.all-services-cards-container [data-embla-scroll-container]', 'All Services Cards'), 8000);
     
-    // Flash Sales - onglets (2s)
-    scrollElement('.flash-sales-tabs-container .overflow-x-auto', 2000, 'Flash Sales Tabs');
-    
-    // Flash Sales - cartes (4s)
-    scrollElement('.flash-sales-cards-container [data-embla-scroll-container]', 4000, 'Flash Sales Cards');
-    
-    // All Services - onglets (6s)
-    scrollElement('.all-services-tabs-container .overflow-x-auto', 6000, 'All Services Tabs');
-    
-    // All Services - cartes (8s)
-    scrollElement('.all-services-cards-container [data-embla-scroll-container]', 8000, 'All Services Cards');
-
-  }, []);
+  }, [isMobile]);
 
   // Use real ads from database, fallback to sample data if no ads exist
   const sampleListings = [
@@ -234,18 +219,6 @@ const Index = () => {
     
     return categories;
   };
-
-  // Detect mobile screen size
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-    
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
 
   // Show loading state
   if (adsLoading) {
