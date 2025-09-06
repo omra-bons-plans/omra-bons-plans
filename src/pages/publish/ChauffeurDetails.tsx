@@ -64,9 +64,12 @@ const ChauffeurDetails = () => {
   };
 
   const handleChauffeurSubmit = async (data: any, saveAsDraft = false) => {
+    const toastId = toast.loading(saveAsDraft ? "Sauvegarde en cours..." : "Publication en cours...");
+    
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
+        toast.dismiss(toastId);
         toast.error("Vous devez être connecté pour publier une annonce");
         return;
       }
@@ -87,7 +90,9 @@ const ChauffeurDetails = () => {
 
         if (coverError) {
           console.error('Error uploading cover image:', coverError);
-          throw coverError;
+          toast.dismiss(toastId);
+          toast.error("Erreur lors de l'upload de l'image de couverture");
+          return;
         }
 
         coverImageUrl = coverPath;
@@ -97,25 +102,34 @@ const ChauffeurDetails = () => {
       // Upload additional images if provided
       if (data.images && data.images.length > 0) {
         console.log('Uploading additional images...', data.images.length);
-        for (let i = 0; i < data.images.length; i++) {
-          const image = data.images[i];
-          if (typeof image === 'object') {
-            console.log(`Uploading image ${i + 1}:`, image.name);
-            const ext = image.name.split('.').pop();
-            const imagePath = `chauffeur/${user?.id}/${Date.now()}-${i}.${ext}`;
-            
-            const { error: uploadError } = await supabase.storage
-              .from('ad-images')
-              .upload(imagePath, image);
+        try {
+          for (let i = 0; i < data.images.length; i++) {
+            const image = data.images[i];
+            if (typeof image === 'object') {
+              console.log(`Uploading image ${i + 1}:`, image.name);
+              const ext = image.name.split('.').pop();
+              const imagePath = `chauffeur/${user?.id}/${Date.now()}-${i}.${ext}`;
+              
+              const { error: uploadError } = await supabase.storage
+                .from('ad-images')
+                .upload(imagePath, image);
 
-            if (uploadError) {
-              console.error(`Error uploading image ${i + 1}:`, uploadError);
-              throw uploadError;
+              if (uploadError) {
+                console.error(`Error uploading image ${i + 1}:`, uploadError);
+                toast.dismiss(toastId);
+                toast.error(`Erreur lors de l'upload de l'image ${i + 1}`);
+                return;
+              }
+
+              imageUrls.push(imagePath);
+              console.log(`Image ${i + 1} uploaded:`, imagePath);
             }
-
-            imageUrls.push(imagePath);
-            console.log(`Image ${i + 1} uploaded:`, imagePath);
           }
+        } catch (uploadError) {
+          console.error('Error during image uploads:', uploadError);
+          toast.dismiss(toastId);
+          toast.error("Erreur lors de l'upload des images");
+          return;
         }
       }
 
@@ -125,7 +139,9 @@ const ChauffeurDetails = () => {
           title: data.title || 'Brouillon chauffeur',
           description: data.description || '',
           price: 0, // Chauffeurs sans prix
-          location: data.city === 'makkah' ? 'Makkah' : data.city === 'medina' ? 'Médine' : 'Jeddah',
+          location: data.city?.includes('makkah') ? 'Makkah' : 
+                   data.city?.includes('medina') ? 'Médine' : 
+                   data.city?.includes('jeddah') ? 'Jeddah' : 'Ville non spécifiée',
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
@@ -144,9 +160,11 @@ const ChauffeurDetails = () => {
         };
 
         await saveDraft(adData, categoryData);
+        toast.dismiss(toastId);
         return;
       }
 
+      console.log('Creating main ad entry...');
       const { data: ad, error: adError } = await supabase
         .from('ads')
         .insert({
@@ -155,7 +173,9 @@ const ChauffeurDetails = () => {
           title: data.title,
           description: data.description,
           price: 0, // Chauffeurs sans prix
-          location: data.city === 'makkah' ? 'Makkah' : data.city === 'medina' ? 'Médine' : 'Jeddah',
+          location: data.city?.includes('makkah') ? 'Makkah' : 
+                   data.city?.includes('medina') ? 'Médine' : 
+                   data.city?.includes('jeddah') ? 'Jeddah' : 'Ville non spécifiée',
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
@@ -170,8 +190,14 @@ const ChauffeurDetails = () => {
         .select()
         .single();
 
-      if (adError) throw adError;
+      if (adError) {
+        console.error('Error creating main ad:', adError);
+        toast.dismiss(toastId);
+        toast.error("Erreur lors de la création de l'annonce principale");
+        return;
+      }
 
+      console.log('Creating chauffeur details...');
       const { error: chauffeurError } = await supabase
         .from('ads_chauffeurs')
         .insert({
@@ -182,14 +208,21 @@ const ChauffeurDetails = () => {
           languages: data.languages,
         });
 
-      if (chauffeurError) throw chauffeurError;
+      if (chauffeurError) {
+        console.error('Error creating chauffeur details:', chauffeurError);
+        toast.dismiss(toastId);
+        toast.error("Erreur lors de la création des détails chauffeur");
+        return;
+      }
 
+      toast.dismiss(toastId);
       toast.success("Annonce publiée avec succès !");
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
       navigate('/');
     } catch (error) {
       console.error('Error creating ad:', error);
+      toast.dismiss(toastId);
       toast.error("Erreur lors de la publication de l'annonce");
     }
   };
