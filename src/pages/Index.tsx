@@ -153,6 +153,32 @@ const Index = () => {
     }
   }, [isMobile]);
 
+  // Auto-scroll hint for mobile announcement cards (staggered animation)
+  useEffect(() => {
+    if (isMobile) {
+      const cardsContainer = document.querySelector('.cards-scroll-container');
+      if (cardsContainer) {
+        // Small auto-scroll to hint there are more cards (starts after tabs animation)
+        const scrollHint = () => {
+          cardsContainer.scrollTo({
+            left: 120,
+            behavior: 'smooth'
+          });
+          setTimeout(() => {
+            cardsContainer.scrollTo({
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 1500);
+        };
+        
+        // Trigger scroll hint after tabs animation with 1.5s delay
+        const timer = setTimeout(scrollHint, 3500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isMobile]);
+
   // Use real ads from database, fallback to sample data if no ads exist
   const sampleListings = [
     {
@@ -771,7 +797,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {flashSalesListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek horizontal-scroll-container">
+            <div className="block md:hidden carousel-item-peek horizontal-scroll-container cards-scroll-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
@@ -1215,7 +1241,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container">
+            <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container cards-scroll-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setAllServicesCarouselApi}
