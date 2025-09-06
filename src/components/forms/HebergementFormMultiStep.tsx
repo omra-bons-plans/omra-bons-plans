@@ -250,20 +250,49 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                   <Label htmlFor="title">Titre de l'annonce *</Label>
                   <Input
                     id="title"
-                    {...register("title", { required: "Le titre est obligatoire" })}
+                    {...register("title", { 
+                      required: "Le titre est obligatoire",
+                      minLength: {
+                        value: 10,
+                        message: "Le titre doit contenir au moins 10 caractères"
+                      },
+                      maxLength: {
+                        value: 80,
+                        message: "Le titre ne peut pas dépasser 80 caractères"
+                      }
+                    })}
                     placeholder="Ex: Appartement 2 chambres proche Haram"
+                    maxLength={80}
                   />
-                  {errors.title && <span className="text-destructive text-sm">{errors.title.message}</span>}
+                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                    <span>{errors.title?.message}</span>
+                    <span>{watch('title')?.length || 0}/80</span>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="description">Description *</Label>
                   <Textarea
                     id="description"
-                    {...register("description", { required: "La description est obligatoire" })}
+                    {...register("description", { 
+                      required: "La description est obligatoire",
+                      minLength: {
+                        value: 20,
+                        message: "La description doit contenir au moins 20 caractères"
+                      },
+                      maxLength: {
+                        value: 500,
+                        message: "La description ne peut pas dépasser 500 caractères"
+                      }
+                    })}
                     placeholder="Décrivez votre hébergement en détail..."
                     rows={4}
+                    maxLength={500}
                   />
+                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                    <span>{errors.description?.message}</span>
+                    <span>{watch('description')?.length || 0}/500</span>
+                  </div>
                   {errors.description && <span className="text-destructive text-sm">{errors.description.message}</span>}
                 </div>
 

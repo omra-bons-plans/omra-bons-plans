@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
+import { validatePassword } from '@/utils/validation';
+import PasswordStrengthIndicator from '@/components/ui/PasswordStrengthIndicator';
 import { toast } from 'sonner';
 
 const Auth = () => {
@@ -71,8 +73,10 @@ const Auth = () => {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères');
+    // Validation du mot de passe sécurisé
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.isValid) {
+      setError(`Mot de passe trop faible. Requis : ${passwordValidation.errors.join(', ')}`);
       setLoading(false);
       return;
     }
@@ -210,6 +214,20 @@ const Auth = () => {
                       placeholder="••••••••"
                       required
                     />
+                    <PasswordStrengthIndicator password={password} />
+                    
+                    {/* Password requirements info */}
+                    {!password && (
+                      <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                        <p className="font-medium mb-1">Exigences de sécurité :</p>
+                        <ul className="space-y-0.5 text-xs">
+                          <li>• Au moins 8 caractères</li>
+                          <li>• Une majuscule et une minuscule</li>
+                          <li>• Au moins un chiffre</li>
+                          <li>• Un caractère spécial (!@#$%...)</li>
+                        </ul>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="space-y-2">

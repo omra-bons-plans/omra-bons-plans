@@ -254,10 +254,24 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   <Label htmlFor="title">Titre de l'annonce *</Label>
                   <Input
                     id="title"
-                    {...register("title", { required: "Le titre est requis" })}
+                    {...register("title", { 
+                      required: "Le titre est requis",
+                      minLength: {
+                        value: 10,
+                        message: "Le titre doit contenir au moins 10 caractères"
+                      },
+                      maxLength: {
+                        value: 80,
+                        message: "Le titre ne peut pas dépasser 80 caractères"
+                      }
+                    })}
                     placeholder="Ex: Omra Confort 5★ - 15 jours"
+                    maxLength={80}
                   />
-                  {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
+                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                    <span>{errors.title?.message}</span>
+                    <span>{watch('title')?.length || 0}/80</span>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -309,11 +323,25 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                 <Label htmlFor="description">Description complète *</Label>
                 <Textarea
                   id="description"
-                  {...register("description", { required: "La description est requise" })}
+                  {...register("description", { 
+                    required: "La description est requise",
+                    minLength: {
+                      value: 20,
+                      message: "La description doit contenir au moins 20 caractères"
+                    },
+                    maxLength: {
+                      value: 500,
+                      message: "La description ne peut pas dépasser 500 caractères"
+                    }
+                  })}
                   placeholder="Décrivez votre séjour Omra en détail..."
                   rows={6}
+                  maxLength={500}
                 />
-                {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
+                <div className="flex justify-between items-center text-xs text-muted-foreground">
+                  <span>{errors.description?.message}</span>
+                  <span>{watch('description')?.length || 0}/500</span>
+                </div>
               </div>
             </CardContent>
           </Card>

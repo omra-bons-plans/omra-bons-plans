@@ -134,20 +134,49 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                 <Label htmlFor="title">Titre de l'annonce *</Label>
                 <Input
                   id="title"
-                  {...register("title", { required: "Le titre est requis" })}
+                  {...register("title", { 
+                    required: "Le titre est requis",
+                    minLength: {
+                      value: 10,
+                      message: "Le titre doit contenir au moins 10 caractères"
+                    },
+                    maxLength: {
+                      value: 80,
+                      message: "Le titre ne peut pas dépasser 80 caractères"
+                    }
+                  })}
                   placeholder="Ex: Chauffeur privé - Transport Makkah/Médine"
+                  maxLength={80}
                 />
-                {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
+                <div className="flex justify-between items-center text-xs text-muted-foreground">
+                  <span>{errors.title?.message}</span>
+                  <span>{watch('title')?.length || 0}/80</span>
+                </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="description">Description de vos services *</Label>
                 <Textarea
                   id="description"
-                  {...register("description", { required: "La description est requise" })}
+                  {...register("description", { 
+                    required: "La description est requise",
+                    minLength: {
+                      value: 20,
+                      message: "La description doit contenir au moins 20 caractères"
+                    },
+                    maxLength: {
+                      value: 500,
+                      message: "La description ne peut pas dépasser 500 caractères"
+                    }
+                  })}
                   placeholder="Présentez votre expérience, votre véhicule, vos tarifs..."
                   rows={4}
+                  maxLength={500}
                 />
+                <div className="flex justify-between items-center text-xs text-muted-foreground">
+                  <span>{errors.description?.message}</span>
+                  <span>{watch('description')?.length || 0}/500</span>
+                </div>
                 {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
             </CardContent>
