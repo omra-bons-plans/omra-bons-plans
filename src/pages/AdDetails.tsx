@@ -711,21 +711,45 @@ const AdDetails = () => {
                              ad.categoryDetails.city === 'medina' ? 'Médine' : 
                              ad.categoryDetails.city === 'jeddah' ? 'Jeddah' : 
                              ad.categoryDetails.city)
-                          : ad.category === 'hebergement' && ad.categoryDetails
-                          ? `${ad.categoryDetails.city === 'makkah' ? 'Makkah' : ad.categoryDetails.city === 'medina' ? 'Médine' : ad.categoryDetails.city} - ${ad.categoryDetails.name}`
+                          : ad.category === 'hebergement' && ad.categoryDetails?.city
+                          ? (ad.categoryDetails.city === 'makkah' ? 'Makkah' : 
+                             ad.categoryDetails.city === 'medina' ? 'Médine' : 
+                             ad.categoryDetails.city)
                           : (ad.location || 'Non spécifiée')}
                       </span>
                     </div>
-                    {/* Distance à la mosquée pour les hébergements */}
-                    {ad.category === 'hebergement' && ad.categoryDetails?.distance_to_mosque && (
-                      <div className="flex items-center gap-3 mt-2 pt-2 border-t">
-                        <span className="text-sm text-muted-foreground">
-                          Distance à la mosquée: {ad.categoryDetails.distance_to_mosque}m
-                        </span>
-                      </div>
-                    )}
                   </CardContent>
                 </Card>
+
+                {/* Hôtel - Section séparée pour les hébergements */}
+                {ad.category === 'hebergement' && ad.categoryDetails?.name && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Hôtel</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <Building className="w-5 h-5 text-muted-foreground" />
+                        <span>{ad.categoryDetails.name}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Distance - Section séparée pour les hébergements */}
+                {ad.category === 'hebergement' && ad.categoryDetails?.distance_to_mosque && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Distance</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <MapPin className="w-5 h-5 text-muted-foreground" />
+                        <span>Distance à la mosquée: {ad.categoryDetails.distance_to_mosque}m</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
                 {/* Experience for guides */}
                 {ad.categoryDetails && ad.category === 'guides' && (
