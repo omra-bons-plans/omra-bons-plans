@@ -14,7 +14,7 @@ interface ChauffeurFormData {
   title: string;
   description: string;
   gender: string;
-  city: string;
+  city: string[];
   vehicleSeats: number;
   languages: string[];
   showEmail: boolean;
@@ -31,12 +31,14 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>(['francais']);
+  const [selectedCities, setSelectedCities] = useState<string[]>([]);
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<ChauffeurFormData>({
     defaultValues: {
       showEmail: true,
       showPhone: false,
       languages: ['francais'],
+      city: [],
     }
   });
 
@@ -62,6 +64,15 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
     setValue('languages', updatedLanguages);
   };
 
+  const handleCityToggle = (cityId: string) => {
+    const updatedCities = selectedCities.includes(cityId)
+      ? selectedCities.filter(city => city !== cityId)
+      : [...selectedCities, cityId];
+    
+    setSelectedCities(updatedCities);
+    setValue('city', updatedCities);
+  };
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     if (files.length > 0 && !coverImage) {
@@ -80,7 +91,12 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        fieldsToValidate = ['gender', 'city', 'vehicleSeats'];
+        fieldsToValidate = ['gender', 'vehicleSeats'];
+        // Valider qu'au moins une ville est sélectionnée
+        if (selectedCities.length === 0) {
+          alert("Veuillez sélectionner au moins une ville d'exercice");
+          return;
+        }
         break;
       case 4:
         // Récapitulatif - pas de validation nécessaire
@@ -187,22 +203,36 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="city">Ville d'exercice *</Label>
-                <Select 
-                  onValueChange={(value) => setValue("city", value)} 
-                  value={watch("city")}
-                  {...register("city", { required: "La ville est requise" })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionner la ville" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                    <SelectItem value="makkah">Makkah</SelectItem>
-                    <SelectItem value="medina">Médine</SelectItem>
-                    <SelectItem value="jeddah">Jeddah</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
+                <Label>Villes d'exercice *</Label>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="makkah"
+                      checked={selectedCities.includes('makkah')}
+                      onCheckedChange={() => handleCityToggle('makkah')}
+                    />
+                    <Label htmlFor="makkah" className="text-sm">Makkah</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="medina"
+                      checked={selectedCities.includes('medina')}
+                      onCheckedChange={() => handleCityToggle('medina')}
+                    />
+                    <Label htmlFor="medina" className="text-sm">Médine</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="jeddah"
+                      checked={selectedCities.includes('jeddah')}
+                      onCheckedChange={() => handleCityToggle('jeddah')}
+                    />
+                    <Label htmlFor="jeddah" className="text-sm">Jeddah</Label>
+                  </div>
+                </div>
+                {selectedCities.length === 0 && (
+                  <p className="text-destructive text-sm">Veuillez sélectionner au moins une ville</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -383,7 +413,17 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                     {watch('title') || 'Titre de votre annonce'}
                   </h2>
                   <span className="text-sm text-gray-500">
-                    {watch('city') === 'makkah' ? 'Makkah' : watch('city') === 'medina' ? 'Médine' : watch('city') === 'both' ? 'Makkah et Médine' : 'Ville'}
+                    {selectedCities.length > 0 
+                      ? selectedCities.map(city => {
+                          switch(city) {
+                            case 'makkah': return 'Makkah';
+                            case 'medina': return 'Médine';
+                            case 'jeddah': return 'Jeddah';
+                            default: return city;
+                          }
+                        }).join(', ')
+                      : 'Villes'
+                    }
                   </span>
                 </div>
 
@@ -458,7 +498,17 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                   <div>
                     <span className="text-gray-500">Ville d'exercice:</span>
                     <p className="font-medium">
-                      {watch('city') === 'makkah' ? 'Makkah' : watch('city') === 'medina' ? 'Médine' : watch('city') === 'both' ? 'Makkah et Médine' : 'Non renseignée'}
+                      {selectedCities.length > 0 
+                        ? selectedCities.map(city => {
+                            switch(city) {
+                              case 'makkah': return 'Makkah';
+                              case 'medina': return 'Médine';
+                              case 'jeddah': return 'Jeddah';
+                              default: return city;
+                            }
+                          }).join(', ')
+                        : 'Non renseignée'
+                      }
                     </p>
                   </div>
                   
