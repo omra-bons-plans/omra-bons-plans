@@ -49,6 +49,7 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
+  const [isMobile, setIsMobile] = useState(false);
   const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
@@ -125,6 +126,32 @@ const Index = () => {
     : featuredListings.filter(listing => 
         listing.type === selectedCategory && ['sejours', 'vols', 'hebergement'].includes(listing.type)
       );
+
+  // Filter and reorder categories for mobile - selected category first
+  const getOrderedCategories = () => {
+    const flashCategories = categories.filter(category => ['sejours', 'vols', 'hebergement'].includes(category.id));
+    
+    // On mobile, put selected category first
+    if (isMobile && selectedCategory !== "all") {
+      const selectedCat = flashCategories.find(cat => cat.id === selectedCategory);
+      const otherCats = flashCategories.filter(cat => cat.id !== selectedCategory);
+      return selectedCat ? [selectedCat, ...otherCats] : flashCategories;
+    }
+    
+    return flashCategories;
+  };
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   // Show loading state
   if (adsLoading) {
@@ -371,7 +398,7 @@ const Index = () => {
                   Tous
                 </Button>
                 {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
-                {categories.filter(category => ['sejours', 'vols', 'hebergement'].includes(category.id)).map((category) => (
+                {getOrderedCategories().map((category) => (
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
