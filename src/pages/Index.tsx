@@ -44,6 +44,30 @@ const getWeatherIcon = (description: string) => {
   return <Sun className="w-8 h-8 text-yellow-500" />;
 };
 
+// Function to translate weather descriptions
+const translateWeatherDescription = (description: string) => {
+  const desc = description.toLowerCase();
+  
+  if (desc.includes('sunny') || desc.includes('clear')) {
+    return 'Ensoleillé';
+  }
+  if (desc.includes('cloudy') || desc.includes('overcast')) {
+    return 'Nuageux';
+  }
+  if (desc.includes('partly cloudy')) {
+    return 'Partiellement nuageux';
+  }
+  if (desc.includes('rain')) {
+    return 'Pluvieux';
+  }
+  if (desc.includes('snow')) {
+    return 'Neigeux';
+  }
+  
+  // Return original if no translation found
+  return description;
+};
+
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -385,16 +409,18 @@ const Index = () => {
                       </div>
                       <div className="text-base md:text-sm text-gray-500 capitalize">
                         {currentWeatherCity === 'makkah' 
-                          ? (weatherAndExchange?.weather.makkah?.description || 'Ensoleillé')
-                          : (weatherAndExchange?.weather.madinah?.description || 'Ensoleillé')}
+                          ? translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
+                          : translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')}
                       </div>
                     </div>
 
                     {/* Temperature */}
                     <div className="text-4xl md:text-4xl font-bold text-amber-500">
-                      {currentWeatherCity === 'makkah' 
-                        ? (weatherAndExchange?.weather?.makkah?.temperature ?? '--')
-                        : (weatherAndExchange?.weather?.madinah?.temperature ?? '--')}°
+                      {weatherAndExchange?.weather 
+                        ? (currentWeatherCity === 'makkah' 
+                            ? `${weatherAndExchange.weather.makkah?.temperature || '--'}°`
+                            : `${weatherAndExchange.weather.madinah?.temperature || '--'}°`)
+                        : '--°'}
                     </div>
                   </div>
 
@@ -402,7 +428,9 @@ const Index = () => {
                   <div className="text-center pt-3 md:pt-4 border-t border-gray-200">
                     <div className="text-base md:text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
                     <div className="text-3xl md:text-3xl font-bold text-gray-800">
-                      1€ = <span className="text-amber-500">{weatherAndExchange?.exchange?.eurToSar ?? '4.39'}</span> Sar
+                      1€ = <span className="text-amber-500">
+                        {weatherAndExchange?.exchange?.eurToSar || '4.39'}
+                      </span> Sar
                     </div>
                   </div>
                 </div>
