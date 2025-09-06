@@ -381,4 +381,14 @@
   .carousel-item-peek .carousel-content > *:last-child {
     padding-right: 0;
   }
+
+  /* Styles pour cacher la scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
 }

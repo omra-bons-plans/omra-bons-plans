@@ -260,11 +260,6 @@ const AdDetails = () => {
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
               <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
-                {getAdditionalServices() && (
-                  <p className="text-muted-foreground text-lg">
-                    {getAdditionalServices()}
-                  </p>
-                )}
               </div>
               
               {/* Contact Button - Desktop */}
@@ -369,44 +364,36 @@ const AdDetails = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column - Image and Details */}
               <div className="lg:col-span-2 space-y-6">
-                {/* Image Carousel */}
+                {/* Image Gallery - Scrollable */}
                 <div className="relative">
                   {allImages.length > 0 ? (
-                    <>
-                       <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-                         <img 
-                           src={
-                             allImages[currentImageIndex].startsWith('http') 
-                               ? allImages[currentImageIndex]
-                               : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
-                           } 
-                           alt={ad.title}
-                           className="w-full h-full object-cover"
-                           onError={(e) => {
-                             console.error('Image failed to load:', allImages[currentImageIndex]);
-                             e.currentTarget.src = '/ad-placeholder.jpg';
-                           }}
-                           onLoad={() => {
-                             console.log('Image loaded successfully:', allImages[currentImageIndex]);
-                           }}
-                         />
-                      </div>
-                      
-                      {/* Image indicators */}
-                      {allImages.length > 1 && (
-                        <div className="flex justify-center gap-2 mt-4">
-                          {allImages.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
-                              }`}
+                    <div className="overflow-x-auto scrollbar-hide">
+                      <div className="flex gap-4 pb-4">
+                        {allImages.map((image, index) => (
+                          <div 
+                            key={index}
+                            className={`flex-shrink-0 aspect-[4/3] w-80 bg-muted rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+                              index === currentImageIndex ? 'border-primary shadow-lg' : 'border-transparent'
+                            }`}
+                            onClick={() => setCurrentImageIndex(index)}
+                          >
+                            <img 
+                              src={
+                                image.startsWith('http') 
+                                  ? image
+                                  : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${image}`
+                              } 
+                              alt={`${ad.title} - Image ${index + 1}`}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                console.error('Image failed to load:', image);
+                                e.currentTarget.src = '/ad-placeholder.jpg';
+                              }}
                             />
-                          ))}
-                        </div>
-                      )}
-                    </>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
                     <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
                       <img 
@@ -550,19 +537,17 @@ const AdDetails = () => {
                 )}
 
                 {/* Location */}
-                {ad.location && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Ville</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-3">
-                        <MapPin className="w-5 h-5 text-muted-foreground" />
-                        <span>{ad.location}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Ville</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-3">
+                      <MapPin className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.location || 'Non spécifiée'}</span>
+                    </div>
+                  </CardContent>
+                </Card>
 
                 {/* Experience for guides */}
                 {ad.categoryDetails && ad.category === 'guides' && (
