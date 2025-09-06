@@ -492,7 +492,7 @@ const Index = () => {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="pt-32 pb-20 px-2 md:px-6">
+      <section className="pt-32 pb-20 px-1 md:px-6">
         <div className="container mx-auto">
           {/* Tabs System */}
           <Tabs defaultValue="annonces" className="w-full">
@@ -962,7 +962,7 @@ const Index = () => {
       </section>
 
       {/* All Services Section - Now first */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-1 md:px-6">
         <div className="container mx-auto">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
