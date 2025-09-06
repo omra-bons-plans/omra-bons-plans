@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import ImageWithFallback from './ImageWithFallback';
@@ -77,6 +77,10 @@ const ClickableImage = ({
         </div>
       </DialogTrigger>
       <DialogContent className="max-w-4xl w-full h-[90vh] p-0 bg-black/95">
+        <DialogTitle className="sr-only">Aperçu de l'image</DialogTitle>
+        <DialogDescription className="sr-only">
+          {hasMultipleImages ? `Image ${currentIndex + 1} sur ${imagesList.length}` : 'Image en grand format'}
+        </DialogDescription>
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Close button */}
           <Button

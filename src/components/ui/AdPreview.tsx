@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Users, Languages, Calendar, Car, Baby, User } from "lucide-react";
-import ClickableImage from "@/components/ui/ClickableImage";
 
 interface AdPreviewProps {
   data: any;
@@ -81,7 +80,7 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
         {/* Image de couverture */}
         {coverImage && (
           <div className="w-full">
-            <ClickableImage 
+            <img 
               src={URL.createObjectURL(coverImage)} 
               alt="Couverture" 
               className="w-full h-48 object-cover rounded-lg"

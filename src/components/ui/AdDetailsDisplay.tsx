@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getImageUrl } from "@/utils/imageUtils";
@@ -336,6 +336,10 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
       {/* Image Lightbox */}
       <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
         <DialogContent className="max-w-4xl w-full h-[90vh] p-0 bg-black/95">
+          <DialogTitle className="sr-only">Galerie d'images</DialogTitle>
+          <DialogDescription className="sr-only">
+            Image {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} sur {allImages.length}
+          </DialogDescription>
           <div className="relative w-full h-full flex items-center justify-center">
             {/* Close button */}
             <Button
