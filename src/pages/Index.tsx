@@ -88,6 +88,15 @@ const Index = () => {
     setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
   };
 
+  // Auto-switch between cities every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Track carousel positions
   useEffect(() => {
     if (!flashSalesCarouselApi) return;
