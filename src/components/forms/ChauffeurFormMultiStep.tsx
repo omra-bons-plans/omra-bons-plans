@@ -104,7 +104,13 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        fieldsToValidate = ['gender', 'vehicleSeats'];
+        fieldsToValidate = ['vehicleSeats'];
+        // Validation manuelle pour gender
+        const genderValue = watch("gender");
+        if (!genderValue) {
+          alert("Veuillez sélectionner votre genre");
+          return;
+        }
         // Valider qu'au moins une ville est sélectionnée
         if (selectedCities.length === 0) {
           alert("Veuillez sélectionner au moins une ville d'exercice");
@@ -215,9 +221,11 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                 <div className="space-y-2">
                   <Label htmlFor="gender">Genre *</Label>
                   <Select 
-                    onValueChange={(value) => setValue("gender", value)} 
-                    value={watch("gender")}
-                    {...register("gender", { required: "Le genre est requis" })}
+                    onValueChange={(value) => {
+                      console.log('Gender changed to:', value);
+                      setValue("gender", value);
+                    }} 
+                    value={watch("gender") || ""}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner" />
