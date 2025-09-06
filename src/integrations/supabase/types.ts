@@ -426,7 +426,15 @@ export type Database = {
           video_url?: string | null
           views_count?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_blog_posts_author_id"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chat_messages: {
         Row: {
