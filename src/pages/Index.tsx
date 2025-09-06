@@ -130,7 +130,7 @@ const Index = () => {
   // Auto-scroll hint for mobile category tabs
   useEffect(() => {
     if (isMobile) {
-      const scrollContainer = document.querySelector('.flash-category-scroll-container');
+      const scrollContainer = document.querySelector('.category-scroll-container');
       if (scrollContainer) {
         // Small auto-scroll to hint there are more categories
         const scrollHint = () => {
@@ -148,32 +148,6 @@ const Index = () => {
         
         // Trigger scroll hint after a delay when page loads
         const timer = setTimeout(scrollHint, 2000);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [isMobile]);
-
-  // Auto-scroll hint for mobile announcement cards (staggered animation)
-  useEffect(() => {
-    if (isMobile) {
-      const cardsContainer = document.querySelector('.cards-scroll-container');
-      if (cardsContainer) {
-        // Small auto-scroll to hint there are more cards (starts after tabs animation)
-        const scrollHint = () => {
-          cardsContainer.scrollTo({
-            left: 120,
-            behavior: 'smooth'
-          });
-          setTimeout(() => {
-            cardsContainer.scrollTo({
-              left: 0,
-              behavior: 'smooth'
-            });
-          }, 1500);
-        };
-        
-        // Trigger scroll hint after tabs animation with 1.5s delay
-        const timer = setTimeout(scrollHint, 3500);
         return () => clearTimeout(timer);
       }
     }
@@ -527,7 +501,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
-          <div className="horizontal-scroll-container flash-category-scroll-container">
+          <div className="horizontal-scroll-container category-scroll-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
@@ -797,7 +771,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {flashSalesListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek horizontal-scroll-container cards-scroll-container">
+            <div className="block md:hidden carousel-item-peek horizontal-scroll-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
@@ -954,7 +928,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Same as Flash Sales */}
-          <div className="horizontal-scroll-container all-category-scroll-container">
+          <div className="horizontal-scroll-container category-scroll-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
@@ -1241,7 +1215,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container cards-scroll-container">
+            <div className="block md:hidden carousel-item-peek mb-16 horizontal-scroll-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setAllServicesCarouselApi}
