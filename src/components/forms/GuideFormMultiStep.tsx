@@ -606,7 +606,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 pb-32">
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
@@ -624,12 +624,12 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         {renderStep()}
 
         {/* Navigation */}
-        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8 bg-red-100 p-4 border-2 border-red-500">
+        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8">
           <Button 
             type="button" 
             variant="outline" 
             onClick={currentStep === 1 ? onBack : handlePrevious}
-            className="w-full sm:w-auto bg-blue-500 text-white"
+            className="w-full sm:w-auto"
           >
             {currentStep === 1 ? 'Retour' : 'Précédent'}
           </Button>
@@ -641,11 +641,10 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                   type="button" 
                   variant="secondary" 
                   onClick={() => {
-                    console.log("Sauvegarder clicked");
                     const data = watch();
                     onSubmit(data, true);
                   }}
-                  className="px-4 sm:px-6 w-full sm:w-auto bg-green-500 text-white"
+                  className="px-4 sm:px-6 w-full sm:w-auto"
                 >
                   <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
                   <span className="sm:hidden">Sauvegarder brouillon</span>
@@ -653,7 +652,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 
                 <Button 
                   type="submit" 
-                  className="btn-modern px-6 sm:px-8 w-full sm:w-auto bg-purple-500 text-white"
+                  className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
                 >
                   Publier l'annonce
                 </Button>
@@ -663,11 +662,8 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
             {currentStep < totalSteps && (
               <Button 
                 type="button" 
-                onClick={() => {
-                  console.log("Suivant clicked, currentStep:", currentStep, "totalSteps:", totalSteps);
-                  handleNext();
-                }}
-                className="btn-modern px-6 sm:px-8 w-full sm:w-auto bg-orange-500 text-white"
+                onClick={handleNext}
+                className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
               >
                 Suivant
               </Button>
