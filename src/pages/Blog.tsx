@@ -154,13 +154,13 @@ const Blog = () => {
           </div>
         </header>
 
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
           {/* Page Title and Description */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-4">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 sm:mb-4">
               {getCategoryName(selectedCategory)}
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
               {selectedCategory === 'general' && "Découvrez nos articles sur l'Omra, le Hajj, et la vie spirituelle"}
               {selectedCategory === 'restaurants' && "Les meilleurs restaurants halal pour votre séjour"}
               {selectedCategory === 'associations' && "Découvrez les associations qui œuvrent pour la communauté"}
@@ -169,25 +169,27 @@ const Blog = () => {
             </p>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {categories.map((cat) => (
-              <Button
-                key={cat.value}
-                variant={selectedCategory === cat.value ? "default" : "outline"}
-                onClick={() => setSelectedCategory(cat.value)}
-                className="flex items-center space-x-2"
-              >
-                <span>{cat.label}</span>
-                <Badge variant="secondary" className="ml-2">
-                  {cat.count}
-                </Badge>
-              </Button>
-            ))}
+          {/* Category Tabs - Mobile Optimized */}
+          <div className="mb-6 sm:mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-center gap-2">
+              {categories.map((cat) => (
+                <Button
+                  key={cat.value}
+                  variant={selectedCategory === cat.value ? "default" : "outline"}
+                  onClick={() => setSelectedCategory(cat.value)}
+                  className="flex items-center justify-between sm:justify-center text-sm w-full lg:w-auto"
+                >
+                  <span className="truncate">{cat.label}</span>
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {cat.count}
+                  </Badge>
+                </Button>
+              ))}
+            </div>
           </div>
 
           {/* Search */}
-          <div className="max-w-md mx-auto mb-8">
+          <div className="max-w-md mx-auto mb-6 sm:mb-8 px-4 sm:px-0">
             <Input
               placeholder="Rechercher dans les articles..."
               value={searchTerm}
@@ -211,11 +213,11 @@ const Blog = () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
               {filteredPosts.map((post) => (
                 <Card 
                   key={post.id} 
-                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  className="cursor-pointer hover:shadow-lg transition-shadow bg-card border"
                   onClick={() => handlePostClick(post)}
                 >
                   {post.cover_image && (
@@ -227,9 +229,9 @@ const Blog = () => {
                       />
                     </div>
                   )}
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-3 p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge className={getCategoryColor(post.category)}>
+                      <Badge className={`${getCategoryColor(post.category)} text-xs px-2 py-1`}>
                         {getCategoryName(post.category)}
                       </Badge>
                       <div className="flex items-center text-xs text-muted-foreground">
@@ -237,50 +239,50 @@ const Blog = () => {
                         {post.views_count}
                       </div>
                     </div>
-                    <CardTitle className="text-lg leading-tight line-clamp-2">
+                    <CardTitle className="text-base sm:text-lg leading-tight line-clamp-2">
                       {post.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 p-4 sm:p-6 sm:pt-0">
                     <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
                       {post.excerpt || post.content.substring(0, 150)}...
                     </p>
                     
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground space-y-2 sm:space-y-0">
                       <div className="flex items-center">
-                        <User className="w-3 h-3 mr-1" />
-                        {post.author?.full_name || post.author?.first_name || 'Anonyme'}
+                        <User className="w-3 h-3 mr-1 flex-shrink-0" />
+                        <span className="truncate">{post.author?.full_name || post.author?.first_name || 'Anonyme'}</span>
                       </div>
                       <div className="flex items-center">
-                        <Calendar className="w-3 h-3 mr-1" />
+                        <Calendar className="w-3 h-3 mr-1 flex-shrink-0" />
                         {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR')}
                       </div>
                     </div>
 
                     {post.location_city && (
                       <div className="flex items-center text-xs text-muted-foreground mt-2">
-                        <MapPin className="w-3 h-3 mr-1" />
-                        {post.location_city}
+                        <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
+                        <span className="truncate">{post.location_city}</span>
                       </div>
                     )}
 
                     {post.video_url && (
                       <div className="flex items-center text-xs text-blue-600 mt-2">
-                        <Video className="w-3 h-3 mr-1" />
+                        <Video className="w-3 h-3 mr-1 flex-shrink-0" />
                         Contient une vidéo
                       </div>
                     )}
 
                     {post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
-                        {post.tags.slice(0, 3).map((tag, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
+                        {post.tags.slice(0, 2).map((tag, index) => (
+                          <Badge key={index} variant="outline" className="text-xs px-2 py-1">
                             {tag}
                           </Badge>
                         ))}
-                        {post.tags.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{post.tags.length - 3}
+                        {post.tags.length > 2 && (
+                          <Badge variant="outline" className="text-xs px-2 py-1">
+                            +{post.tags.length - 2}
                           </Badge>
                         )}
                       </div>

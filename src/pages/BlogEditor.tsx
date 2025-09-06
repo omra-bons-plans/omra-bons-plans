@@ -203,26 +203,26 @@ const BlogEditor = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/admin/blog')}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground p-2 sm:px-4"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Retour au blog
+                <ArrowLeft className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Retour au blog</span>
               </Button>
-              <span className="text-2xl font-normal text-foreground tracking-tight">
+              <span className="text-lg sm:text-2xl font-normal text-foreground tracking-tight">
                 {isEditMode ? 'Modifier l\'article' : 'Nouvel article'}
               </span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
               <Button
                 onClick={handleSave}
                 disabled={saving}
-                className="bg-primary hover:bg-primary/90"
+                className="bg-primary hover:bg-primary/90 flex-1 sm:flex-none"
               >
                 <Save className="w-4 h-4 mr-2" />
                 {saving ? 'Sauvegarde...' : 'Sauvegarder'}
@@ -233,15 +233,15 @@ const BlogEditor = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
           {/* Basic Information */}
           <Card>
             <CardHeader>
               <CardTitle>Informations de base</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="space-y-6 p-4 sm:p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="title">Titre de l'article *</Label>
                   <Input
@@ -291,7 +291,8 @@ const BlogEditor = () => {
                   value={formData.content}
                   onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                   placeholder="Rédigez le contenu de votre article..."
-                  rows={12}
+                  rows={8}
+                  className="min-h-[200px] sm:min-h-[300px]"
                   required
                 />
               </div>
@@ -315,7 +316,7 @@ const BlogEditor = () => {
                 Médias
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 p-4 sm:p-6">
               <div className="space-y-2">
                 <Label htmlFor="cover_image">Image de couverture (URL)</Label>
                 <Input
@@ -350,8 +351,8 @@ const BlogEditor = () => {
                   Localisation
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="space-y-6 p-4 sm:p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="location_address">Adresse complète</Label>
                     <Input
@@ -383,15 +384,16 @@ const BlogEditor = () => {
                 Tags
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
+            <CardContent className="space-y-4 p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
                 <Input
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   placeholder="Ajouter un tag"
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+                  className="flex-1"
                 />
-                <Button onClick={handleAddTag} variant="outline">
+                <Button onClick={handleAddTag} variant="outline" className="w-full sm:w-auto">
                   Ajouter
                 </Button>
               </div>
@@ -400,7 +402,7 @@ const BlogEditor = () => {
                   <Badge 
                     key={index} 
                     variant="secondary"
-                    className="cursor-pointer"
+                    className="cursor-pointer text-sm px-3 py-1"
                     onClick={() => handleRemoveTag(tag)}
                   >
                     {tag} ×
@@ -418,11 +420,11 @@ const BlogEditor = () => {
                 Aperçu
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 sm:p-6">
               <div className="prose max-w-none">
-                <h1 className="text-2xl font-bold mb-2">{formData.title || 'Titre de l\'article'}</h1>
-                <div className="flex items-center space-x-4 mb-4">
-                  <Badge>{getCategoryName(formData.category)}</Badge>
+                <h1 className="text-xl sm:text-2xl font-bold mb-2">{formData.title || 'Titre de l\'article'}</h1>
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                  <Badge className="w-fit">{getCategoryName(formData.category)}</Badge>
                   {formData.location_city && (
                     <div className="flex items-center text-sm text-muted-foreground">
                       <MapPin className="w-4 h-4 mr-1" />
@@ -434,13 +436,15 @@ const BlogEditor = () => {
                   <img 
                     src={formData.cover_image} 
                     alt="Cover" 
-                    className="w-full h-48 object-cover rounded-lg mb-4"
+                    className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
                   />
                 )}
-                <p className="whitespace-pre-wrap">{formData.content || 'Contenu de l\'article...'}</p>
+                <div className="text-sm sm:text-base whitespace-pre-wrap break-words">
+                  {formData.content || 'Contenu de l\'article...'}
+                </div>
                 {formData.video_url && (
                   <div className="mt-4">
-                    <p className="text-sm text-muted-foreground">📹 Vidéo: {formData.video_url}</p>
+                    <p className="text-sm text-muted-foreground break-all">📹 Vidéo: {formData.video_url}</p>
                   </div>
                 )}
               </div>
