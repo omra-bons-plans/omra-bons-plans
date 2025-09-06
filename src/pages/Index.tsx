@@ -475,6 +475,11 @@ const Index = () => {
                         src={listing.image} 
                         alt={listing.title}
                         className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          console.log('Flash sale desktop image failed to load:', listing.image);
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/ad-placeholder.jpg';
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                     </div>
@@ -594,6 +599,11 @@ const Index = () => {
                             src={listing.image} 
                             alt={listing.title}
                             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                            onError={(e) => {
+                              console.log('Flash sale tablet image failed to load:', listing.image);
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/ad-placeholder.jpg';
+                            }}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                         </div>
@@ -705,6 +715,11 @@ const Index = () => {
                               src={listing.image} 
                               alt={listing.title}
                               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                              onError={(e) => {
+                                console.log('Flash sale mobile image failed to load:', listing.image);
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/ad-placeholder.jpg';
+                              }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                           </div>
@@ -887,6 +902,14 @@ const Index = () => {
                         src={listing.image} 
                         alt={listing.title}
                         className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          console.log('Image failed to load:', listing.image);
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/ad-placeholder.jpg';
+                        }}
+                        onLoad={() => {
+                          console.log('Image loaded successfully:', listing.image);
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                     </div>
@@ -1005,6 +1028,11 @@ const Index = () => {
                               src={listing.image} 
                               alt={listing.title}
                               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                              onError={(e) => {
+                                console.log('Tablet image failed to load:', listing.image);
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/ad-placeholder.jpg';
+                              }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                           </div>
@@ -1131,6 +1159,11 @@ const Index = () => {
                               src={listing.image} 
                               alt={listing.title}
                               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                              onError={(e) => {
+                                console.log('Mobile image failed to load:', listing.image);
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/ad-placeholder.jpg';
+                              }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                           </div>
