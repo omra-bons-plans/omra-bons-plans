@@ -42,12 +42,17 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
   };
 
   const navigateImage = (direction: 'prev' | 'next') => {
+    console.log('🔄 Navigating:', direction, 'Current index:', selectedImageIndex, 'Total images:', allImages.length);
     if (selectedImageIndex === null) return;
     
     if (direction === 'prev') {
-      setSelectedImageIndex(selectedImageIndex > 0 ? selectedImageIndex - 1 : allImages.length - 1);
+      const newIndex = selectedImageIndex > 0 ? selectedImageIndex - 1 : allImages.length - 1;
+      console.log('⬅️ Going to index:', newIndex);
+      setSelectedImageIndex(newIndex);
     } else {
-      setSelectedImageIndex(selectedImageIndex < allImages.length - 1 ? selectedImageIndex + 1 : 0);
+      const newIndex = selectedImageIndex < allImages.length - 1 ? selectedImageIndex + 1 : 0;
+      console.log('➡️ Going to index:', newIndex);
+      setSelectedImageIndex(newIndex);
     }
   };
 
@@ -71,7 +76,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isLightboxOpen, selectedImageIndex]);
+  }, [isLightboxOpen, selectedImageIndex, allImages.length]);
   const getCategoryIcon = () => {
     switch (ad.category) {
       case 'babysitting':
