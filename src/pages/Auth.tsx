@@ -111,10 +111,10 @@ const Auth = () => {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2 mb-8">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-large mx-auto">
-            <span className="text-primary-foreground font-bold text-xl">O</span>
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-large mx-auto overflow-hidden">
+            <img src="/lovable-uploads/51ece2ce-993f-4656-b73e-55303748f985.png" alt="OmraBonsPlans Logo" className="w-full h-full object-contain" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">omrabonsplans.fr</h1>
+          <h1 className="text-2xl font-bold text-foreground">OmraBonsPlans</h1>
           <p className="text-muted-foreground">Votre plateforme dédiée à l'Omra</p>
         </div>
 
