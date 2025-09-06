@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { User, Upload, MapPin, Languages, Calendar, Car } from "lucide-react";
+import { Upload, MapPin, Languages, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -539,9 +539,6 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-large">
-            <Car className="w-8 h-8 text-white" />
-          </div>
           <div>
             <h1 className="text-3xl font-bold">Services de Chauffeur</h1>
             <p className="text-muted-foreground">Transport privé professionnel</p>

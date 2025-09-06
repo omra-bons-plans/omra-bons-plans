@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Plane, Upload, Calendar, DollarSign } from "lucide-react";
+import { Upload, Calendar, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -196,8 +196,7 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         return (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Plane className="w-5 h-5" />
+              <CardTitle>
                 <span>Compagnie et aéroports</span>
               </CardTitle>
             </CardHeader>
@@ -715,9 +714,6 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-large">
-            <Plane className="w-8 h-8 text-white" />
-          </div>
           <div>
             <h1 className="text-3xl font-bold">Vol pour l'Omra</h1>
             <p className="text-muted-foreground">Billets d'avion aller-retour</p>

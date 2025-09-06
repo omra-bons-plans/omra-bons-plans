@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { User, Upload, Languages, Calendar, Baby } from "lucide-react";
+import { Upload, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -429,9 +429,6 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-large">
-            <Baby className="w-8 h-8 text-white" />
-          </div>
           <div>
             <h1 className="text-3xl font-bold">Services de Baby-sitting</h1>
             <p className="text-muted-foreground">Garde d'enfants professionnelle</p>
