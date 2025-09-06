@@ -329,15 +329,6 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Modern CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="btn-modern text-primary-foreground px-10 py-4 rounded-2xl text-lg font-semibold">
-                  Découvrir les offres
-                </Button>
-                <Button variant="outline" className="glass border-2 border-primary/30 px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-primary/10">
-                  En savoir plus
-                </Button>
-              </div>
             </div>
           </div>
         </div>
