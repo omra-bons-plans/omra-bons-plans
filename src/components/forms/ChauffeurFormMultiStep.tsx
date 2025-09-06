@@ -200,7 +200,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                 />
                 <div className="flex justify-between items-center text-xs text-muted-foreground">
                   <span>{errors.description?.message}</span>
-                  <span>{watch('description')?.length || 0}/500</span>
+                  <span>{(watch('description') || '').length}/500</span>
                 </div>
                 {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
