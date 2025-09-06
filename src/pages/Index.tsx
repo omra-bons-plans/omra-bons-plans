@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity } from "lucide-react";
+import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,8 @@ import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ChatWindow from "@/components/ui/ChatWindow";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -489,8 +491,31 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Flash Sales Section */}
+      {/* Main Content Tabs */}
       <section className="pt-32 pb-20 px-6">
+        <div className="container mx-auto">
+          {/* Tabs System */}
+          <Tabs defaultValue="annonces" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-muted/30 rounded-xl p-1 max-w-md mx-auto">
+              <TabsTrigger 
+                value="annonces" 
+                className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
+              >
+                <Building className="w-4 h-4 mr-2" />
+                Annonces
+              </TabsTrigger>
+              <TabsTrigger 
+                value="discussions" 
+                className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Discussions
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="annonces" className="space-y-0">
+              {/* Flash Sales Section */}
+              <section className="pb-20">
         <div className="container mx-auto">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
@@ -1434,6 +1459,22 @@ const Index = () => {
               <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary/30 rounded-full"></div>
             </div>
           </div>
+        </div>
+      </section>
+            </TabsContent>
+
+            <TabsContent value="discussions" className="space-y-0">
+              <div className="py-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-4xl font-bold mb-4">Discussions</h2>
+                  <p className="text-muted-foreground text-lg">Échangez avec la communauté OmraBonsPlans</p>
+                </div>
+                <div className="max-w-4xl mx-auto">
+                  <ChatWindow />
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
