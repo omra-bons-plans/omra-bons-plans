@@ -92,6 +92,8 @@ interface HebergementFormData {
   publishEndDate: string;
   showEmail: boolean;
   showPhone: boolean;
+  showWhatsapp: boolean;
+  showProfessionalPhone: boolean;
   isPromotion: boolean;
   promotionEndDate?: string;
 }
@@ -110,6 +112,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     defaultValues: {
       showEmail: true,
       showPhone: false,
+      showWhatsapp: false,
+      showProfessionalPhone: false,
       isPromotion: false,
       hasLivingRoom: false,
       hasWifi: false,
@@ -866,7 +870,37 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                           />
                         )}
                       />
-                      <Label htmlFor="showPhone">Afficher le téléphone</Label>
+                      <Label htmlFor="showPhone">Afficher le téléphone portable</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Controller
+                        name="showWhatsapp"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            id="showWhatsapp"
+                          />
+                        )}
+                      />
+                      <Label htmlFor="showWhatsapp">Afficher WhatsApp</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Controller
+                        name="showProfessionalPhone"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            id="showProfessionalPhone"
+                          />
+                        )}
+                      />
+                      <Label htmlFor="showProfessionalPhone">Afficher le téléphone fixe (professionnel)</Label>
                     </div>
                   </div>
                 </div>

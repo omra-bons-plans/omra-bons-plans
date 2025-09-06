@@ -164,6 +164,8 @@ const HebergementDetails = () => {
           images: imageUrls,
           show_email: data.showEmail,
           show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
+          show_professional_phone: data.showProfessionalPhone,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
           publish_end_date: data.publishEndDate,
