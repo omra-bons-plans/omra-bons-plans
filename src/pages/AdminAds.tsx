@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Eye, Edit, Trash2, Shield, Calendar, MapPin, User, MousePointer, Search } from 'lucide-react';
+import { ArrowLeft, Eye, Edit, Trash2, Shield, Calendar, MapPin, User, MousePointer, Search, Pause, Play } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -162,6 +162,31 @@ const AdminAds = () => {
       toast({
         title: "Erreur",
         description: "Impossible de supprimer l'annonce",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleTogglePause = async (adId: string, currentPauseStatus: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('ads')
+        .update({ is_paused: !currentPauseStatus })
+        .eq('id', adId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Succès",
+        description: `Annonce ${!currentPauseStatus ? 'mise en pause' : 'reprise'} avec succès`,
+      });
+
+      fetchAds();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour:', error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de mettre à jour l'annonce",
         variant: "destructive",
       });
     }
@@ -492,6 +517,19 @@ const AdminAds = () => {
                             >
                               {ad.is_published ? 'Dépublier' : 'Publier'}
                             </Button>
+                            {ad.is_published && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleTogglePause(ad.id, ad.is_paused)}
+                              >
+                                {ad.is_paused ? (
+                                  <Play className="w-4 h-4" />
+                                ) : (
+                                  <Pause className="w-4 h-4" />
+                                )}
+                              </Button>
+                            )}
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button variant="outline" size="sm">
