@@ -4,11 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AdminProvider } from "@/contexts/AdminContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import MyAds from "./pages/MyAds";
 import Settings from "./pages/Settings";
+import Admin from "./pages/Admin";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CategorySelection from "./pages/publish/CategorySelection";
 import FormulaSelection from "./pages/publish/FormulaSelection";
@@ -28,11 +30,12 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
+      <AdminProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={
@@ -48,6 +51,11 @@ const App = () => (
             <Route path="/settings" element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <Admin />
               </ProtectedRoute>
             } />
             <Route path="/publish" element={
@@ -103,9 +111,10 @@ const App = () => (
             <Route path="/ad/:id" element={<AdDetails />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AdminProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

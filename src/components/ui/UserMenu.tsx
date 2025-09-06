@@ -1,4 +1,4 @@
-import { User, LogOut, Settings, FileText } from 'lucide-react';
+import { User, LogOut, Settings, FileText, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,10 +9,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/contexts/AdminContext';
 import { toast } from 'sonner';
 
 const UserMenu = () => {
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
 
   const handleSignOut = async () => {
     try {
@@ -55,6 +57,14 @@ const UserMenu = () => {
             <span>Profil</span>
           </Link>
         </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem asChild>
+            <Link to="/admin" className="flex items-center">
+              <Shield className="mr-2 h-4 w-4" />
+              <span>Administration</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
           <LogOut className="mr-2 h-4 w-4" />
