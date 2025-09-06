@@ -285,7 +285,7 @@ const AdDetails = () => {
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
               <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
-                {getPublisherName() && (
+                {(ad.category === 'sejours' || ad.category === 'hebergement' || ad.category === 'vols') && getPublisherName() && (
                   <p className="text-sm text-muted-foreground mb-4">
                     {getPublisherName()}
                   </p>
