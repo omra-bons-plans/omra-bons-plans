@@ -624,12 +624,12 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         {renderStep()}
 
         {/* Navigation */}
-        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8">
+        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8 bg-red-100 p-4 border-2 border-red-500">
           <Button 
             type="button" 
             variant="outline" 
             onClick={currentStep === 1 ? onBack : handlePrevious}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto bg-blue-500 text-white"
           >
             {currentStep === 1 ? 'Retour' : 'Précédent'}
           </Button>
@@ -641,10 +641,11 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                   type="button" 
                   variant="secondary" 
                   onClick={() => {
+                    console.log("Sauvegarder clicked");
                     const data = watch();
                     onSubmit(data, true);
                   }}
-                  className="px-4 sm:px-6 w-full sm:w-auto"
+                  className="px-4 sm:px-6 w-full sm:w-auto bg-green-500 text-white"
                 >
                   <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
                   <span className="sm:hidden">Sauvegarder brouillon</span>
@@ -652,7 +653,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 
                 <Button 
                   type="submit" 
-                  className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
+                  className="btn-modern px-6 sm:px-8 w-full sm:w-auto bg-purple-500 text-white"
                 >
                   Publier l'annonce
                 </Button>
@@ -662,8 +663,11 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
             {currentStep < totalSteps && (
               <Button 
                 type="button" 
-                onClick={handleNext}
-                className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
+                onClick={() => {
+                  console.log("Suivant clicked, currentStep:", currentStep, "totalSteps:", totalSteps);
+                  handleNext();
+                }}
+                className="btn-modern px-6 sm:px-8 w-full sm:w-auto bg-orange-500 text-white"
               >
                 Suivant
               </Button>
