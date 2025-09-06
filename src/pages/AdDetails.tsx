@@ -200,234 +200,358 @@ const AdDetails = () => {
         </header>
 
         {/* Content */}
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-6 py-8">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
             <span>Accueil</span>
             <span>/</span>
-            <span>{getCategoryName(ad.category)}</span>
+            <span>{getCategoryName(ad.category)}s</span>
             <span>/</span>
             <span className="text-foreground">{ad.title}</span>
           </div>
-
-          {/* Image Carousel */}
-          {allImages.length > 0 && (
-            <div className="relative">
-              <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
-                <img 
-                  src={allImages[currentImageIndex]} 
-                  alt={ad.title}
-                  className="w-full h-full object-cover"
-                />
+          
+          {/* Content */}
+          <div className="max-w-4xl mx-auto">
+            {/* Title and Contact Button Row */}
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
+                {ad.categoryDetails && ad.category === 'guides' && (
+                  <p className="text-muted-foreground text-lg">
+                    (je suis également {ad.categoryDetails.offers_omra_guidance && 'guide'}{ad.categoryDetails.offers_visits && ', visite'}{ad.categoryDetails.offers_courses && ', cours'})
+                  </p>
+                )}
               </div>
               
-              {/* Image indicators */}
-              {allImages.length > 1 && (
-                <div className="flex justify-center gap-2 mb-6">
-                  {allImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
+              {/* Contact Button - Desktop */}
+              <div className="hidden lg:block">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-slate-600 hover:bg-slate-700 px-8">
+                      Voir contact
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Contact</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      {ad.showEmail && ad.user?.email && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Mail className="w-5 h-5 text-muted-foreground" />
+                            <span>{ad.user.email}</span>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => copyToClipboard(ad.user?.email || '')}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+
+                      {ad.user?.facebook && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Facebook className="w-5 h-5 text-muted-foreground" />
+                            <span>{ad.user.facebook}</span>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
+                          >
+                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                          </Button>
+                        </div>
+                      )}
+
+                      {ad.user?.instagram && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Instagram className="w-5 h-5 text-muted-foreground" />
+                            <span>{ad.user.instagram}</span>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
+                          >
+                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                          </Button>
+                        </div>
+                      )}
+
+                      {ad.showWhatsapp && ad.user?.whatsapp && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <MessageCircle className="w-5 h-5 text-muted-foreground" />
+                            <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+
+                      {ad.showPhone && ad.user?.phone && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Phone className="w-5 h-5 text-muted-foreground" />
+                            <span>{ad.user.phone_country}{ad.user.phone}</span>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
-          )}
 
-          {/* Title and Subtitle */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold mb-2">{ad.title}</h1>
-            {ad.categoryDetails && ad.category === 'guides' && (
-              <p className="text-muted-foreground">
-                (je suis également {ad.categoryDetails.offers_omra_guidance && 'guide'}{ad.categoryDetails.offers_visits && ', visite'}{ad.categoryDetails.offers_courses && ', cours'})
-              </p>
-            )}
-          </div>
-
-          {/* Contact Button */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="w-full mb-6 bg-slate-600 hover:bg-slate-700">
-                Voir contact
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Contact</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4">
-                {ad.showEmail && ad.user?.email && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Mail className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.user.email}</span>
+            {/* Main Layout - Desktop: Two columns, Mobile: Single column */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left Column - Image and Details */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Image Carousel */}
+                {allImages.length > 0 && (
+                  <div className="relative">
+                    <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
+                      <img 
+                        src={allImages[currentImageIndex]} 
+                        alt={ad.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => copyToClipboard(ad.user?.email || '')}
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
+                    
+                    {/* Image indicators */}
+                    {allImages.length > 1 && (
+                      <div className="flex justify-center gap-2 mt-4">
+                        {allImages.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentImageIndex(index)}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {ad.user?.facebook && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Facebook className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.user.facebook}</span>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
-                    >
-                      <ArrowLeft className="w-4 h-4 rotate-180" />
-                    </Button>
-                  </div>
-                )}
-
-                {ad.user?.instagram && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Instagram className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.user.instagram}</span>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
-                    >
-                      <ArrowLeft className="w-4 h-4 rotate-180" />
-                    </Button>
-                  </div>
-                )}
-
-                {ad.showWhatsapp && ad.user?.whatsapp && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <MessageCircle className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
-
-                {ad.showPhone && ad.user?.phone && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Phone className="w-5 h-5 text-muted-foreground" />
-                      <span>{ad.user.phone_country}{ad.user.phone}</span>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
+                {/* Description */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      {ad.category === 'guides' ? 'Informations complémentaires' : 'Description'}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="whitespace-pre-wrap leading-relaxed">{ad.description}</p>
+                  </CardContent>
+                </Card>
               </div>
-            </DialogContent>
-          </Dialog>
 
-          {/* Price */}
-          {ad.price > 0 && (
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle>Prix</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold">€ {ad.price}€</span>
-                  {ad.originalPrice && (
-                    <span className="text-lg text-muted-foreground line-through">
-                      {ad.originalPrice}€
-                    </span>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+              {/* Right Column - Info Cards */}
+              <div className="space-y-6">
+                {/* Mobile Contact Button */}
+                <div className="lg:hidden">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="w-full bg-slate-600 hover:bg-slate-700">
+                        Voir contact
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        {ad.showEmail && ad.user?.email && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Mail className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.email}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(ad.user?.email || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        )}
 
-          {/* Details */}
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Détails</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {ad.location && (
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-muted-foreground" />
-                  <span>{ad.location}</span>
+                        {ad.user?.facebook && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Facebook className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.facebook}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
+                            >
+                              <ArrowLeft className="w-4 h-4 rotate-180" />
+                            </Button>
+                          </div>
+                        )}
+
+                        {ad.user?.instagram && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Instagram className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.instagram}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
+                            >
+                              <ArrowLeft className="w-4 h-4 rotate-180" />
+                            </Button>
+                          </div>
+                        )}
+
+                        {ad.showWhatsapp && ad.user?.whatsapp && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <MessageCircle className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        )}
+
+                        {ad.showPhone && ad.user?.phone && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Phone className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.phone_country}{ad.user.phone}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
-              )}
-              
-              {ad.categoryDetails && ad.category === 'guides' && (
-                <>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-muted-foreground" />
-                    <span>{ad.categoryDetails.years_experience} ans</span>
-                  </div>
-                  
-                  {ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
-                    <div className="space-y-2">
-                      <span className="font-semibold">Langues</span>
+
+                {/* Price */}
+                {ad.price > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Prix</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold">€ {ad.price}€</span>
+                        {ad.originalPrice && (
+                          <span className="text-lg text-muted-foreground line-through">
+                            {ad.originalPrice}€
+                          </span>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Location */}
+                {ad.location && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Ville</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <MapPin className="w-5 h-5 text-muted-foreground" />
+                        <span>{ad.location}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Experience for guides */}
+                {ad.categoryDetails && ad.category === 'guides' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Expérience</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <Calendar className="w-5 h-5 text-muted-foreground" />
+                        <span>{ad.categoryDetails.years_experience} ans</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Languages */}
+                {ad.categoryDetails && ad.category === 'guides' && ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Langues</CardTitle>
+                    </CardHeader>
+                    <CardContent>
                       <div className="flex gap-2 flex-wrap">
                         {ad.categoryDetails.languages.map((lang: string, index: number) => (
-                          <Badge key={index} variant="secondary">
+                          <Badge key={index} variant="secondary" className="px-3 py-1">
                             {lang}
                           </Badge>
                         ))}
                       </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </CardContent>
-          </Card>
+                    </CardContent>
+                  </Card>
+                )}
 
-          {/* Services (for guides) */}
-          {ad.categoryDetails && ad.category === 'guides' && (
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle>Service proposé</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {ad.categoryDetails.offers_omra_guidance && <li>• Omra</li>}
-                  {ad.categoryDetails.offers_courses && <li>• Cours</li>}
-                  {ad.categoryDetails.offers_visits && <li>• Visite des lieux</li>}
-                  {ad.categoryDetails.offers_omra_badal && <li>• Omra badal</li>}
-                  {ad.categoryDetails.offers_other && <li>• Autres</li>}
-                </ul>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Description */}
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {ad.category === 'guides' ? 'Informations complémentaires' : 'Description'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="whitespace-pre-wrap">{ad.description}</p>
-            </CardContent>
-          </Card>
+                {/* Services for guides */}
+                {ad.categoryDetails && ad.category === 'guides' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Service proposé</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        {ad.categoryDetails.offers_omra_guidance && <li>• Omra</li>}
+                        {ad.categoryDetails.offers_courses && <li>• Cours</li>}
+                        {ad.categoryDetails.offers_visits && <li>• Visite des lieux</li>}
+                        {ad.categoryDetails.offers_omra_badal && <li>• Omra badel</li>}
+                        {ad.categoryDetails.offers_other && <li>• Autres</li>}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </MobileLayout>
