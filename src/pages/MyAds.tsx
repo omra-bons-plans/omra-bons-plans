@@ -89,6 +89,17 @@ const MyAds = () => {
   };
 
   const handleDeleteAd = async (adId: string) => {
+    if (!user) return;
+
+    const ad = ads.find(a => a.id === adId);
+    if (!ad) return;
+
+    // Empêcher la suppression des annonces expirées
+    if (isAdExpired(ad.publishEndDate)) {
+      toast.error("Impossible de supprimer une annonce expirée. Seul un administrateur peut le faire.");
+      return;
+    }
+
     try {
       setActionLoading(adId);
       
@@ -195,6 +206,11 @@ const MyAds = () => {
       return <Badge variant="destructive">Expiré</Badge>;
     }
     return <Badge variant="default" className="bg-green-600">Actif</Badge>;
+  };
+
+  // Fonction utilitaire pour vérifier si une annonce est expirée
+  const isAdExpired = (publishEndDate: string): boolean => {
+    return publishEndDate ? new Date(publishEndDate) <= new Date() : false;
   };
 
   const formatDate = (dateString: string) => {
@@ -467,7 +483,8 @@ const MyAds = () => {
                                       <Button 
                                         size="sm" 
                                         variant="destructive"
-                                        disabled={actionLoading === ad.id}
+                                        disabled={actionLoading === ad.id || isAdExpired(ad.publishEndDate)}
+                                        title={isAdExpired(ad.publishEndDate) ? "Impossible de supprimer une annonce expirée" : ""}
                                       >
                                         <Trash2 className="w-4 h-4 mr-1" />
                                         Supprimer

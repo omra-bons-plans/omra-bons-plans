@@ -13,6 +13,7 @@ import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
 import FeedbackForm from "@/components/ui/FeedbackForm";
+import AdCard from "@/components/ui/AdCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -566,107 +567,11 @@ const Index = () => {
           {filteredFlashSalesListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8">
               {filteredFlashSalesListings.map((listing) => (
-                <Card 
+                <AdCard 
                   key={listing.id} 
-                  className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
-                  onClick={() => navigate(`/ad/${listing.id}`)}
-                >
-                  <div className="relative group">
-                    <div className="w-full h-56 overflow-hidden">
-                      <img 
-                        src={listing.image} 
-                        alt={listing.title}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                        onError={(e) => {
-                          console.log('Flash sale desktop image failed to load:', listing.image);
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/ad-placeholder.jpg';
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                    </div>
-                    
-                    {listing.isPopular && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
-                        ⭐ Populaire
-                      </Badge>
-                    )}
-                    
-                    {listing.isFlashSale && (
-                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
-                        <Zap className="w-3 h-3 mr-1" />
-                        <span>Flash</span>
-                      </Badge>
-                    )}
-                    
-                    {/* Individual countdown for flash sale items */}
-                     {listing.isFlashSale && listing.flashSaleEndDate && (
-                       <div className="absolute top-16 right-4">
-                         <CountdownTimer 
-                           targetDate={listing.flashSaleEndDate} 
-                           className="text-xs scale-50 origin-top-right"
-                         />
-                       </div>
-                     )}
-                    
-                     <div className="absolute bottom-4 right-4">
-                       <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                         {listing.type === 'sejours' ? 'Séjour' : 
-                          listing.type === 'hebergement' ? 'Hébergement' : 
-                          listing.type === 'guides' ? 'Guide' : 
-                          listing.type === 'vols' ? 'Vols' :
-                          listing.type === 'chauffeurs' ? 'Chauffeur' : 
-                          listing.type === 'babysitting' ? 'Baby-sitting' : 'Service'}
-                       </Badge>
-                     </div>
-                  </div>
-                  
-                  <CardContent className="p-6 space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
-                      <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                         <span className="font-semibold">{listing.rating.toFixed(1)}</span>
-                      </div>
-                      <span className="text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-                      <MapPin className="w-4 h-4" />
-                      <span>{listing.location}</span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
-                        <div className="space-y-1">
-                          <div className="text-lg font-semibold text-primary">Service disponible</div>
-                        </div>
-                      ) : (
-                        <div className="space-y-1">
-                          <div className="flex items-baseline space-x-2">
-                            <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                            {listing.originalPrice && (
-                              <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                            )}
-                          </div>
-                          {listing.discount && (
-                            <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                              -{listing.discount}%
-                            </Badge>
-                          )}
-                        </div>
-                      )}
-                      <Button className="btn-modern px-6 py-2 text-sm">
-                        {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                  listing={listing}
+                  imageHeight="h-56"
+                />
               ))}
             </div>
           ) : (
@@ -823,104 +728,10 @@ const Index = () => {
                 <CarouselContent>
                   {filteredFlashSalesListings.map((listing) => (
                     <CarouselItem key={listing.id}>
-                      <Card 
-                        className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
-                        onClick={() => navigate(`/ad/${listing.id}`)}
-                      >
-                        <div className="relative group">
-                          <div className="w-full h-56 overflow-hidden">
-                            <img 
-                              src={listing.image} 
-                              alt={listing.title}
-                              className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                              onError={(e) => {
-                                console.log('Flash sale mobile image failed to load:', listing.image);
-                                const target = e.target as HTMLImageElement;
-                                target.src = '/ad-placeholder.jpg';
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                          </div>
-                          
-                          {listing.isPopular && (
-                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
-                              ⭐ Populaire
-                            </Badge>
-                          )}
-                          
-                          {listing.isFlashSale && (
-                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
-                              <Zap className="w-3 h-3 mr-1" />
-                              <span>Flash</span>
-                            </Badge>
-                          )}
-                          
-                           {listing.isFlashSale && listing.flashSaleEndDate && (
-                             <div className="absolute top-16 right-4">
-                               <CountdownTimer 
-                                 targetDate={listing.flashSaleEndDate} 
-                                 className="text-xs scale-50 origin-top-right"
-                               />
-                             </div>
-                           )}
-                          
-                          <div className="absolute bottom-4 right-4">
-                            <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                               {listing.type === 'sejours' ? 'Séjour' : 
-                                listing.type === 'hotels' ? 'Hôtel' : 
-                                listing.type === 'guides' ? 'Guide' : 
-                                listing.type === 'vols' ? 'Vols' :
-                                listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
-                            </Badge>
-                          </div>
-                        </div>
-                        
-                        <CardContent className="p-6 space-y-4">
-                          <div className="space-y-2">
-                            <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
-                            <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
-                          </div>
-                          
-                          <div className="flex items-center space-x-2">
-                            <div className="flex items-center">
-                              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                               <span className="font-semibold">{listing.rating.toFixed(1)}</span>
-                            </div>
-                            <span className="text-muted-foreground">•</span>
-                            <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
-                          </div>
-                          
-                          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-                            <MapPin className="w-4 h-4" />
-                            <span>{listing.location}</span>
-                          </div>
-                          
-                          <div className="flex items-center justify-between">
-                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
-                              <div className="space-y-1">
-                                <div className="text-lg font-semibold text-primary">Service disponible</div>
-                              </div>
-                            ) : (
-                              <div className="space-y-1">
-                                <div className="flex items-baseline space-x-2">
-                                  <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                                  {listing.originalPrice && (
-                                    <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                                  )}
-                                </div>
-                                {listing.discount && (
-                                  <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                    -{listing.discount}%
-                                  </Badge>
-                                )}
-                              </div>
-                            )}
-                            <Button className="btn-modern px-6 py-2 text-sm">
-                              {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
+                      <AdCard 
+                        listing={listing}
+                        imageHeight="h-56"
+                      />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -1009,108 +820,11 @@ const Index = () => {
           {filteredListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8 mb-16">
               {filteredListings.map((listing) => (
-                <Card 
+                <AdCard 
                   key={listing.id} 
-                  className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
-                  onClick={() => navigate(`/ad/${listing.id}`)}
-                >
-                  <div className="relative group">
-                    <div className="w-full h-56 overflow-hidden">
-                      <img 
-                        src={listing.image} 
-                        alt={listing.title}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                        onError={(e) => {
-                          console.log('Image failed to load:', listing.image);
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/ad-placeholder.jpg';
-                        }}
-                        onLoad={() => {
-                          console.log('Image loaded successfully:', listing.image);
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                    </div>
-                    
-                    {listing.isPopular && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
-                        ⭐ Populaire
-                      </Badge>
-                    )}
-                    
-                    {listing.isFlashSale && (
-                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
-                        <Zap className="w-3 h-3 mr-1" />
-                        <span>Flash</span>
-                      </Badge>
-                    )}
-                    
-                     {listing.isFlashSale && listing.flashSaleEndDate && (
-                       <div className="absolute top-16 right-4">
-                         <CountdownTimer 
-                           targetDate={listing.flashSaleEndDate} 
-                           className="text-xs scale-50 origin-top-right"
-                         />
-                       </div>
-                     )}
-                    
-                    <div className="absolute bottom-4 right-4">
-                      <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                         {listing.type === 'sejours' ? 'Séjour' : 
-                          listing.type === 'hotels' ? 'Hôtel' : 
-                          listing.type === 'guides' ? 'Guide' : 
-                          listing.type === 'vols' ? 'Vols' :
-                          listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-6 space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
-                      <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                         <span className="font-semibold">{listing.rating.toFixed(1)}</span>
-                      </div>
-                      <span className="text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-                      <MapPin className="w-4 h-4" />
-                      <span>{listing.location}</span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
-                        <div className="space-y-1">
-                          <div className="text-lg font-semibold text-primary">Service disponible</div>
-                        </div>
-                      ) : (
-                        <div className="space-y-1">
-                          <div className="flex items-baseline space-x-2">
-                            <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                            {listing.originalPrice && (
-                              <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                            )}
-                          </div>
-                          {listing.discount && (
-                            <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                              -{listing.discount}%
-                            </Badge>
-                          )}
-                        </div>
-                      )}
-                      <Button className="btn-modern px-6 py-2 text-sm">
-                        {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                  listing={listing}
+                  imageHeight="h-56"
+                />
               ))}
             </div>
           ) : (
@@ -1267,104 +981,10 @@ const Index = () => {
                 <CarouselContent>
                   {filteredListings.map((listing) => (
                     <CarouselItem key={listing.id}>
-                      <Card 
-                        className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
-                        onClick={() => navigate(`/ad/${listing.id}`)}
-                      >
-                        <div className="relative group">
-                          <div className="w-full h-56 overflow-hidden">
-                            <img 
-                              src={listing.image} 
-                              alt={listing.title}
-                              className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                              onError={(e) => {
-                                console.log('Mobile image failed to load:', listing.image);
-                                const target = e.target as HTMLImageElement;
-                                target.src = '/ad-placeholder.jpg';
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                          </div>
-                          
-                          {listing.isPopular && (
-                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
-                              ⭐ Populaire
-                            </Badge>
-                          )}
-                          
-                          {listing.isFlashSale && (
-                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
-                              <Zap className="w-3 h-3 mr-1" />
-                              <span>Flash</span>
-                            </Badge>
-                          )}
-                          
-                           {listing.isFlashSale && listing.flashSaleEndDate && (
-                             <div className="absolute top-16 right-4">
-                               <CountdownTimer 
-                                 targetDate={listing.flashSaleEndDate} 
-                                 className="text-xs scale-50 origin-top-right"
-                               />
-                             </div>
-                           )}
-                          
-                          <div className="absolute bottom-4 right-4">
-                            <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                               {listing.type === 'sejours' ? 'Séjour' : 
-                                listing.type === 'hotels' ? 'Hôtel' : 
-                                listing.type === 'guides' ? 'Guide' : 
-                                listing.type === 'vols' ? 'Vols' :
-                                listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
-                            </Badge>
-                          </div>
-                        </div>
-                        
-                        <CardContent className="p-6 space-y-4">
-                          <div className="space-y-2">
-                            <h3 className="font-bold text-xl line-clamp-1">{listing.title}</h3>
-                            <p className="text-muted-foreground line-clamp-1">{listing.subtitle}</p>
-                          </div>
-                          
-                          <div className="flex items-center space-x-2">
-                            <div className="flex items-center">
-                              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                              <span className="font-semibold">{listing.rating.toFixed(1)}</span>
-                            </div>
-                            <span className="text-muted-foreground">•</span>
-                            <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
-                          </div>
-                          
-                          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-                            <MapPin className="w-4 h-4" />
-                            <span>{listing.location}</span>
-                          </div>
-                          
-                          <div className="flex items-center justify-between">
-                            {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? (
-                              <div className="space-y-1">
-                                <div className="text-lg font-semibold text-primary">Service disponible</div>
-                              </div>
-                            ) : (
-                              <div className="space-y-1">
-                                <div className="flex items-baseline space-x-2">
-                                  <span className="text-2xl font-bold text-primary">{listing.price}</span>
-                                  {listing.originalPrice && (
-                                    <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                                  )}
-                                </div>
-                                {listing.discount && (
-                                  <Badge className="bg-green-100 text-green-800 text-xs px-2 py-1">
-                                    -{listing.discount}%
-                                  </Badge>
-                                )}
-                              </div>
-                            )}
-                            <Button className="btn-modern px-6 py-2 text-sm">
-                              {['guides', 'chauffeurs', 'babysitting'].includes(listing.type) ? 'Contacter' : 'Réserver'}
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
+                      <AdCard 
+                        listing={listing}
+                        imageHeight="h-56"
+                      />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
