@@ -130,7 +130,7 @@ const Index = () => {
   // Auto-scroll hint for mobile category tabs
   useEffect(() => {
     if (isMobile) {
-      const scrollContainer = document.querySelector('.category-scroll-container');
+      const scrollContainer = document.querySelector('.flash-category-scroll-container');
       if (scrollContainer) {
         // Small auto-scroll to hint there are more categories
         const scrollHint = () => {
@@ -527,7 +527,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
-          <div className="horizontal-scroll-container category-scroll-container">
+          <div className="horizontal-scroll-container flash-category-scroll-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
@@ -954,7 +954,7 @@ const Index = () => {
           </div>
 
           {/* Category Pills - Same as Flash Sales */}
-          <div className="horizontal-scroll-container category-scroll-container">
+          <div className="horizontal-scroll-container all-category-scroll-container">
             <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
