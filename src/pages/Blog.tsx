@@ -50,13 +50,13 @@ const Blog = () => {
         .from('blog_posts')
         .select(`
           *,
-          profiles!inner(
+          profiles(
             full_name,
             first_name
           )
         `)
         .eq('is_published', true)
-        .order('published_at', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (selectedCategory !== 'all') {
         query = query.eq('category', selectedCategory);
