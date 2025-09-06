@@ -12,7 +12,6 @@ import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
-import { invalidateAdsCache } from '@/hooks/useAds';
 
 interface UserAd {
   id: string;
@@ -147,8 +146,6 @@ const MyAds = () => {
       if (error) throw error;
 
       setAds(prev => prev.filter(ad => ad.id !== adId));
-      // Invalidate cache to refresh other pages
-      invalidateAdsCache();
       toast.success('Annonce supprimée avec succès');
     } catch (error) {
       console.error('Error deleting ad:', error);
@@ -174,8 +171,6 @@ const MyAds = () => {
         ad.id === adId ? { ...ad, isPaused: !currentPaused } : ad
       ));
       
-      // Invalidate cache to refresh other pages
-      invalidateAdsCache();
       toast.success(currentPaused ? 'Annonce réactivée' : 'Annonce mise en pause');
     } catch (error) {
       console.error('Error toggling pause:', error);

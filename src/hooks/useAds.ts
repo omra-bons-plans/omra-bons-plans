@@ -44,18 +44,10 @@ export interface FormattedListing {
   isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
 }
 
-// Global function to invalidate ads cache
-export const invalidateAdsCache = () => {
-  localStorage.setItem('adsLastUpdated', Date.now().toString());
-  // Dispatch a custom event to notify other components
-  window.dispatchEvent(new CustomEvent('adsUpdated'));
-};
-
 export const useAds = () => {
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [lastFetch, setLastFetch] = useState<number>(0);
 
   const fetchAds = useCallback(async () => {
     try {
@@ -180,7 +172,6 @@ export const useAds = () => {
       );
 
       setAds(adsWithRealRatings);
-      setLastFetch(Date.now());
     } catch (err) {
       console.error('Error fetching ads:', err);
       setError('Erreur lors du chargement des annonces');
@@ -193,30 +184,34 @@ export const useAds = () => {
     fetchAds();
   }, [fetchAds]);
 
-  // Listen for cache invalidation events
+  // Set up real-time subscription for ads table
   useEffect(() => {
-    const handleAdsUpdated = () => {
-      const adsLastUpdated = localStorage.getItem('adsLastUpdated');
-      if (adsLastUpdated && Number(adsLastUpdated) > lastFetch) {
-        console.log('🔄 Ads cache invalidated, refetching...');
-        fetchAds();
-      }
-    };
-
-    // Check on component mount
-    handleAdsUpdated();
-
-    // Listen for the custom event
-    window.addEventListener('adsUpdated', handleAdsUpdated);
+    console.log('🔔 Setting up real-time subscription for ads');
     
-    // Check periodically (every 30 seconds) in case events are missed
-    const interval = setInterval(handleAdsUpdated, 30000);
+    const channel = supabase
+      .channel('ads-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // Listen to all events (INSERT, UPDATE, DELETE)
+          schema: 'public',
+          table: 'ads'
+        },
+        (payload) => {
+          console.log('🔄 Real-time ads change detected:', payload);
+          // Refetch ads when any change occurs
+          fetchAds();
+        }
+      )
+      .subscribe((status) => {
+        console.log('📡 Real-time subscription status:', status);
+      });
 
     return () => {
-      window.removeEventListener('adsUpdated', handleAdsUpdated);
-      clearInterval(interval);
+      console.log('🔌 Cleaning up real-time subscription');
+      supabase.removeChannel(channel);
     };
-  }, [lastFetch, fetchAds]);
+  }, [fetchAds]);
 
   // Transform ads to formatted listings for display
   const getFormattedListings = (): FormattedListing[] => {
