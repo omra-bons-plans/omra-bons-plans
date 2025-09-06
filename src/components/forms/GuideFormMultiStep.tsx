@@ -435,9 +435,9 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
       case 4:
         return (
-          <div className="min-h-screen bg-background pb-20">
+          <div className="space-y-6">
             {/* Header Section */}
-            <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 px-6 py-8 text-center">
+            <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 px-6 py-8 text-center rounded-2xl">
               <h1 className="text-2xl font-bold text-gray-800 mb-2">
                 Vérifiez votre annonce
               </h1>
@@ -447,7 +447,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
             </div>
 
             {/* Preview Card */}
-            <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden mt-6 mx-6">
+            <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
               {/* Image Section */}
               <div className="relative h-64 bg-gray-200">
                 {coverImage ? (
@@ -556,7 +556,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
             </div>
 
             {/* Additional Info for larger screens */}
-            <div className="hidden md:block max-w-2xl mx-auto mt-8 px-6">
+            <div className="hidden md:block max-w-2xl mx-auto">
               <div className="bg-white rounded-lg border p-6 space-y-4">
                 <h3 className="font-semibold text-lg">Informations complémentaires</h3>
                 
