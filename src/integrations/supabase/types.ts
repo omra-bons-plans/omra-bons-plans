@@ -124,21 +124,21 @@ export type Database = {
       ads_chauffeurs: {
         Row: {
           ad_id: string
-          city: string
+          city: string[]
           gender: string
           languages: string[]
           vehicle_seats: number
         }
         Insert: {
           ad_id: string
-          city: string
+          city: string[]
           gender: string
           languages?: string[]
           vehicle_seats: number
         }
         Update: {
           ad_id?: string
-          city?: string
+          city?: string[]
           gender?: string
           languages?: string[]
           vehicle_seats?: number
