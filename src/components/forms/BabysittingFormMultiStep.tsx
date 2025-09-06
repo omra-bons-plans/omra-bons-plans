@@ -14,6 +14,7 @@ interface BabysittingFormData {
   title: string;
   description: string;
   gender: string;
+  city: string;
   languages: string[];
   showEmail: boolean;
   showPhone: boolean;
