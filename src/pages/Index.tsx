@@ -410,12 +410,12 @@ const Index = () => {
               </div>
 
               {/* Modern Weather & Exchange Card */}
-              <div className="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-soft max-w-md md:max-w-2xl mx-auto border border-border/20">
-                <div className="flex flex-col gap-6 md:gap-8">
+              <div className="bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-3xl shadow-soft max-w-md md:max-w-2xl mx-auto border border-border/20">
+                <div className="flex flex-col gap-4 md:gap-6">
                   {/* Weather Section */}
-                  <div className="flex items-center space-x-4 md:space-x-6 py-2">
+                  <div className="flex items-center space-x-3 md:space-x-4">
                     {/* City Indicator Dots */}
-                    <div className="flex flex-col space-y-3 mr-3">
+                    <div className="flex flex-col space-y-2 mr-2">
                       <button
                         onClick={() => setCurrentWeatherCity('madinah')}
                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -446,15 +446,15 @@ const Index = () => {
                     </div>
 
                     {/* Weather Info */}
-                    <div className="flex-1 py-1">
-                      <div className="text-base md:text-sm text-gray-600 font-medium mb-2">
+                    <div className="flex-1">
+                      <div className="text-base md:text-sm text-gray-600 font-medium mb-1">
                         {(() => {
                           const today = new Date();
                           const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
                           return days[today.getDay()];
                         })()}
                       </div>
-                      <div className="text-xl md:text-lg font-semibold text-gray-800 mb-2">
+                      <div className="text-xl md:text-lg font-semibold text-gray-800 mb-1">
                         {currentWeatherCity === 'makkah' ? 'La Mecque, Arabie saoudite' : 'Médine, Arabie saoudite'}
                       </div>
                       <div className="text-base md:text-sm text-gray-500 capitalize">
@@ -475,8 +475,8 @@ const Index = () => {
                   </div>
 
                   {/* Exchange Rate Section - Mobile Centered */}
-                  <div className="text-center pt-8 md:pt-10 pb-4 md:pb-6 border-t border-gray-200">
-                    <div className="text-base md:text-sm text-gray-600 font-medium mb-6">Taux du jour</div>
+                  <div className="text-center pt-3 md:pt-4 border-t border-gray-200">
+                    <div className="text-base md:text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
                     <div className="text-3xl md:text-3xl font-bold text-gray-800">
                       1€ = <span className="text-amber-500">
                         {weatherAndExchange?.exchange?.eurToSar || '4.39'}
@@ -515,12 +515,12 @@ const Index = () => {
 
             <TabsContent value="annonces" className="space-y-0">
               {/* Flash Sales Section */}
-              <section className="pb-24">
-        <div className="container mx-auto px-6">
-          <div className="mb-20">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 mb-12">
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold mb-6">Ventes Flash</h2>
+              <section className="pb-20">
+        <div className="container mx-auto">
+          <div className="mb-16">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
+              <div>
+                <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
                 <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
               </div>
               
