@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Building, Plane, Hotel, BookOpen, Car, Heart, ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,26 @@ import { Card, CardContent } from "@/components/ui/card";
 const CategorySelection = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Scroll automatique vers le bouton suivant sur mobile quand une catégorie est sélectionnée
+  useEffect(() => {
+    if (selectedCategory && nextButtonRef.current) {
+      // Vérifier si on est sur mobile (largeur d'écran < 768px)
+      const isMobile = window.innerWidth < 768;
+      
+      if (isMobile) {
+        // Attendre un peu pour que l'animation de sélection se termine
+        setTimeout(() => {
+          nextButtonRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          });
+        }, 300);
+      }
+    }
+  }, [selectedCategory]);
 
   const categories = [
     { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets" },
@@ -52,7 +72,7 @@ const CategorySelection = () => {
                 key={category.id}
                 className={`cursor-pointer transition-all duration-300 hover:shadow-large hover:-translate-y-1 ${
                   selectedCategory === category.id 
-                    ? 'ring-2 ring-primary bg-accent/50 shadow-large' 
+                    ? 'ring-4 ring-secondary shadow-glow bg-accent/50' 
                     : 'hover:bg-accent/20'
                 }`}
                 onClick={() => setSelectedCategory(category.id)}
@@ -83,6 +103,7 @@ const CategorySelection = () => {
             </Button>
             
             <Button 
+              ref={nextButtonRef}
               onClick={handleNext}
               disabled={!selectedCategory}
               className="bg-primary hover:bg-primary-dark text-primary-foreground px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-full w-full sm:w-auto max-w-xs order-1 sm:order-2"
