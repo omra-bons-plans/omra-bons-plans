@@ -24,6 +24,7 @@ import HebergementDetails from "./pages/publish/HebergementDetails";
 import PlaceholderDetails from "./pages/publish/PlaceholderDetails";
 import AdSummary from "./pages/AdSummary";
 import AdDetails from "./pages/AdDetails";
+import AdminAds from "./pages/AdminAds";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -111,6 +112,11 @@ const App = () => (
               </ProtectedRoute>
             } />
             <Route path="/ad/:id" element={<AdDetails />} />
+            <Route path="/admin/ads" element={
+              <ProtectedRoute>
+                <AdminAds />
+              </ProtectedRoute>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>
