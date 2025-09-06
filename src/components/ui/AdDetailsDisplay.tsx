@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from "lucide-react";
+import { getImageUrl } from "@/utils/imageUtils";
 
 interface AdDetailsDisplayProps {
   ad: {
@@ -72,9 +73,12 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
       {ad.cover_image && (
         <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden">
           <img
-            src={ad.cover_image}
+            src={getImageUrl(ad.cover_image) || '/ad-placeholder.jpg'}
             alt={ad.title}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = '/ad-placeholder.jpg';
+            }}
           />
         </div>
       )}
@@ -262,9 +266,12 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
               {ad.images.map((image, index) => (
                 <div key={index} className="aspect-square rounded-lg overflow-hidden">
                   <img
-                    src={image}
+                    src={getImageUrl(image) || '/ad-placeholder.jpg'}
                     alt={`Image ${index + 1}`}
                     className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
+                    onError={(e) => {
+                      e.currentTarget.src = '/ad-placeholder.jpg';
+                    }}
                   />
                 </div>
               ))}
