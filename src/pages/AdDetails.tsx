@@ -50,6 +50,7 @@ const AdDetails = () => {
   const [ad, setAd] = useState<AdDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [userCategories, setUserCategories] = useState<string[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -82,6 +83,19 @@ const AdDetails = () => {
 
       if (profileError) {
         console.error('Error fetching profile:', profileError);
+      }
+
+      // Fetch all published categories for this user to show "également" services
+      const { data: userAds, error: userAdsError } = await supabase
+        .from('ads')
+        .select('category')
+        .eq('user_id', adData.user_id)
+        .eq('is_published', true)
+        .neq('id', id); // Exclude current ad
+
+      if (!userAdsError && userAds) {
+        const categories = [...new Set(userAds.map(userAd => userAd.category))];
+        setUserCategories(categories);
       }
 
       // Fetch category-specific details
@@ -155,6 +169,26 @@ const AdDetails = () => {
     toast.success('Copié dans le presse-papier');
   };
 
+  const getAdditionalServices = () => {
+    if (!ad || userCategories.length === 0) return '';
+    
+    const categoryNames: Record<string, string> = {
+      'guides': 'guide',
+      'chauffeurs': 'chauffeur',
+      'babysitting': 'baby-sitter',
+      'sejours': 'organisateur de séjours',
+      'vols': 'spécialiste vols',
+      'hebergement': 'hébergeur'
+    };
+
+    const additionalServices = userCategories
+      .filter(cat => cat !== ad.category)
+      .map(cat => categoryNames[cat] || cat)
+      .join(', ');
+
+    return additionalServices ? `(je suis également ${additionalServices})` : '';
+  };
+
   if (loading) {
     return (
       <MobileLayout>
@@ -203,9 +237,19 @@ const AdDetails = () => {
         <div className="container mx-auto px-6 py-8">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <span>Accueil</span>
+            <button 
+              onClick={() => navigate('/')}
+              className="hover:text-foreground transition-colors cursor-pointer"
+            >
+              Accueil
+            </button>
             <span>/</span>
-            <span>{getCategoryName(ad.category)}s</span>
+            <button 
+              onClick={() => navigate(`/?category=${ad.category}`)}
+              className="hover:text-foreground transition-colors cursor-pointer"
+            >
+              {getCategoryName(ad.category)}s
+            </button>
             <span>/</span>
             <span className="text-foreground">{ad.title}</span>
           </div>
@@ -216,9 +260,9 @@ const AdDetails = () => {
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
               <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
-                {ad.categoryDetails && ad.category === 'guides' && (
+                {getAdditionalServices() && (
                   <p className="text-muted-foreground text-lg">
-                    (je suis également {ad.categoryDetails.offers_omra_guidance && 'guide'}{ad.categoryDetails.offers_visits && ', visite'}{ad.categoryDetails.offers_courses && ', cours'})
+                    {getAdditionalServices()}
                   </p>
                 )}
               </div>
