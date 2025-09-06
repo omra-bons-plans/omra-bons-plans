@@ -205,22 +205,20 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
 
               <div className="space-y-2">
                 <Label htmlFor="city">Ville d'exercice *</Label>
-                <Input
-                  id="city"
-                  {...register("city", { 
-                    required: "La ville d'exercice est requise",
-                    minLength: {
-                      value: 2,
-                      message: "La ville doit contenir au moins 2 caractères"
-                    },
-                    maxLength: {
-                      value: 50,
-                      message: "La ville ne peut pas dépasser 50 caractères"
-                    }
-                  })}
-                  placeholder="Ex: Makkah, Medina, Paris..."
-                  maxLength={50}
-                />
+                <Select 
+                  onValueChange={(value) => setValue("city", value)} 
+                  value={watch("city")}
+                  {...register("city", { required: "La ville d'exercice est requise" })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionner une ville" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                    <SelectItem value="makkah">Makkah</SelectItem>
+                    <SelectItem value="medina">Médine</SelectItem>
+                    <SelectItem value="jeddah">Jeddah</SelectItem>
+                  </SelectContent>
+                </Select>
                 {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
               </div>
             </CardContent>
@@ -425,7 +423,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <ul className="space-y-1 text-gray-600">
                     <li>• {watch('gender') === 'male' ? 'Homme' : watch('gender') === 'female' ? 'Femme' : 'Genre'}</li>
                     {watch('city') && (
-                      <li>• Ville: {watch('city')}</li>
+                      <li>• Ville: {watch('city') === 'makkah' ? 'Makkah' : watch('city') === 'medina' ? 'Médine' : watch('city') === 'jeddah' ? 'Jeddah' : watch('city')}</li>
                     )}
                     {selectedLanguages && selectedLanguages.length > 0 && (
                       <li>• Langues: {selectedLanguages.map(lang => 
