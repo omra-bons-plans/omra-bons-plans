@@ -12,13 +12,17 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // Scroll to bottom only when sending a new message, not on initial load
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest'
+      });
+    }
+  };
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +30,9 @@ const ChatWindow = () => {
 
     await sendMessage(newMessage);
     setNewMessage('');
+    
+    // Scroll to bottom only after sending a message
+    setTimeout(() => scrollToBottom(), 100);
   };
 
   const formatTime = (dateString: string) => {
