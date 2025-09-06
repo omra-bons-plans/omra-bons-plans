@@ -315,9 +315,9 @@ const Index = () => {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
-                      <DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => navigate('/blog')}>
                         <UtensilsCrossed className="w-4 h-4 mr-2" />
-                        Restaurant
+                        Blog
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <HelpingHand className="w-4 h-4 mr-2" />
@@ -1541,7 +1541,7 @@ const Index = () => {
               <ul className="space-y-4 text-muted-foreground text-sm">
                 <li><a href="#" className="hover:text-primary transition-colors">Qui sommes nous ?</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
+                <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Vip</a></li>
               </ul>
             </div>
