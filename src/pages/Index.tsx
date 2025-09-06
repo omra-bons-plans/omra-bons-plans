@@ -604,7 +604,7 @@ const Index = () => {
                     <div className="flex items-center space-x-2">
                       <div className="flex items-center">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                        <span className="font-semibold">{listing.rating}</span>
+                         <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                       </div>
                       <span className="text-muted-foreground">•</span>
                       <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
@@ -727,7 +727,7 @@ const Index = () => {
                         <div className="flex items-center space-x-2">
                           <div className="flex items-center">
                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                            <span className="font-semibold">{listing.rating}</span>
+                             <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                           </div>
                           <span className="text-muted-foreground">•</span>
                           <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
@@ -858,7 +858,7 @@ const Index = () => {
                           <div className="flex items-center space-x-2">
                             <div className="flex items-center">
                               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                              <span className="font-semibold">{listing.rating}</span>
+                               <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                             </div>
                             <span className="text-muted-foreground">•</span>
                             <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
@@ -1048,7 +1048,7 @@ const Index = () => {
                     <div className="flex items-center space-x-2">
                       <div className="flex items-center">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                        <span className="font-semibold">{listing.rating}</span>
+                         <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                       </div>
                       <span className="text-muted-foreground">•</span>
                       <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
@@ -1171,7 +1171,7 @@ const Index = () => {
                           <div className="flex items-center space-x-2">
                             <div className="flex items-center">
                               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                              <span className="font-semibold">{listing.rating}</span>
+                               <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                             </div>
                             <span className="text-muted-foreground">•</span>
                             <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
@@ -1302,7 +1302,7 @@ const Index = () => {
                           <div className="flex items-center space-x-2">
                             <div className="flex items-center">
                               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-                              <span className="font-semibold">{listing.rating}</span>
+                              <span className="font-semibold">{listing.rating.toFixed(1)}</span>
                             </div>
                             <span className="text-muted-foreground">•</span>
                             <span className="text-sm text-muted-foreground">({listing.reviews} avis)</span>
