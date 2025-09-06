@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
 import { validatePassword } from '@/utils/validation';
 import PasswordStrengthIndicator from '@/components/ui/PasswordStrengthIndicator';
+import { Mail, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const Auth = () => {
@@ -17,6 +18,7 @@ const Auth = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
 
@@ -90,7 +92,7 @@ const Auth = () => {
         setError(error.message);
       }
     } else {
-      toast.success('Inscription réussie ! Vérifiez votre email pour confirmer votre compte.');
+      setShowEmailConfirmation(true);
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -104,6 +106,7 @@ const Auth = () => {
     setPassword('');
     setConfirmPassword('');
     setError('');
+    setShowEmailConfirmation(false);
   };
 
   return (
@@ -115,11 +118,62 @@ const Auth = () => {
           <p className="text-muted-foreground">Votre plateforme dédiée à l'Omra</p>
         </div>
 
-        <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signin">Connexion</TabsTrigger>
-            <TabsTrigger value="signup">Inscription</TabsTrigger>
-          </TabsList>
+        {/* Message de confirmation email */}
+        {showEmailConfirmation && (
+          <Card className="border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-950/50">
+            <CardHeader className="text-center pb-3">
+              <div className="mx-auto mb-3 w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              </div>
+              <CardTitle className="text-green-800 dark:text-green-200 text-xl">
+                Inscription réussie !
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-300">
+                  <Mail className="w-5 h-5" />
+                  <span className="font-medium">Vérifiez votre email</span>
+                </div>
+                <p className="text-sm text-green-600 dark:text-green-400">
+                  Un email de confirmation a été envoyé à votre adresse.
+                </p>
+                <div className="bg-white/60 dark:bg-black/20 border border-green-200 dark:border-green-700 rounded-lg p-4">
+                  <p className="text-sm font-medium text-green-800 dark:text-green-200 mb-2">
+                    📧 Important : Vérifiez aussi votre dossier SPAM
+                  </p>
+                  <p className="text-xs text-green-700 dark:text-green-300">
+                    L'email de confirmation peut parfois arriver dans les spams. 
+                    Pensez à vérifier ce dossier si vous ne le trouvez pas dans votre boîte de réception.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2 pt-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowEmailConfirmation(false)}
+                  className="flex-1"
+                >
+                  Retour
+                </Button>
+                <Button 
+                  onClick={() => navigate('/')}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                >
+                  Accueil
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {!showEmailConfirmation && (
+          <>
+            <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="signin">Connexion</TabsTrigger>
+                <TabsTrigger value="signup">Inscription</TabsTrigger>
+              </TabsList>
 
           <TabsContent value="signin">
             <Card>
@@ -250,18 +304,20 @@ const Auth = () => {
               </CardContent>
             </Card>
           </TabsContent>
-        </Tabs>
+            </Tabs>
 
-        {/* Back to home */}
-        <div className="text-center">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            ← Retour à l'accueil
-          </Button>
-        </div>
+            {/* Back to home */}
+            <div className="text-center">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/')}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                ← Retour à l'accueil
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
