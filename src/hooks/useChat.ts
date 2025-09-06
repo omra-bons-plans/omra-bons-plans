@@ -8,10 +8,7 @@ export interface ChatMessage {
   user_id: string;
   message: string;
   created_at: string;
-  profiles: {
-    full_name: string;
-    first_name: string;
-  } | null;
+  user_name: string;
 }
 
 export const useChat = () => {
@@ -22,23 +19,45 @@ export const useChat = () => {
 
   const fetchMessages = async () => {
     try {
-      const { data, error } = await supabase
+      // First get chat messages
+      const { data: messagesData, error: messagesError } = await supabase
         .from('chat_messages')
-        .select(`
-          id,
-          user_id,
-          message,
-          created_at,
-          profiles!chat_messages_user_id_fkey (
-            full_name,
-            first_name
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: true })
         .limit(100);
 
-      if (error) throw error;
-      setMessages(data || []);
+      if (messagesError) throw messagesError;
+
+      if (!messagesData || messagesData.length === 0) {
+        setMessages([]);
+        return;
+      }
+
+      // Get unique user IDs
+      const userIds = [...new Set(messagesData.map(msg => msg.user_id))];
+
+      // Fetch profiles for these users
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('id, full_name, first_name')
+        .in('id', userIds);
+
+      if (profilesError) {
+        console.error('Error fetching profiles:', profilesError);
+      }
+
+      // Map messages with user names
+      const messagesWithNames = messagesData.map(msg => {
+        const profile = profilesData?.find(p => p.id === msg.user_id);
+        const userName = profile?.full_name || profile?.first_name || 'Utilisateur anonyme';
+        
+        return {
+          ...msg,
+          user_name: userName
+        };
+      });
+
+      setMessages(messagesWithNames);
     } catch (error) {
       console.error('Error fetching messages:', error);
       toast({
@@ -89,25 +108,22 @@ export const useChat = () => {
           table: 'chat_messages'
         },
         async (payload) => {
-          // Fetch the new message with profile data
-          const { data } = await supabase
-            .from('chat_messages')
-            .select(`
-              id,
-              user_id,
-              message,
-              created_at,
-              profiles!chat_messages_user_id_fkey (
-                full_name,
-                first_name
-              )
-            `)
-            .eq('id', payload.new.id)
+          // Fetch user profile for the new message
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('id, full_name, first_name')
+            .eq('id', payload.new.user_id)
             .single();
 
-          if (data) {
-            setMessages(prev => [...prev, data]);
-          }
+          const newMessage: ChatMessage = {
+            id: payload.new.id,
+            user_id: payload.new.user_id,
+            message: payload.new.message,
+            created_at: payload.new.created_at,
+            user_name: profile?.full_name || profile?.first_name || 'Utilisateur anonyme'
+          };
+
+          setMessages(prev => [...prev, newMessage]);
         }
       )
       .subscribe();

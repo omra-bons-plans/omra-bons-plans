@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useChat } from '@/hooks/useChat';
+import { useChat, ChatMessage } from '@/hooks/useChat';
 import { useAuth } from '@/contexts/AuthContext';
 import { Send, MessageCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -35,8 +35,8 @@ const ChatWindow = () => {
     setSending(false);
   };
 
-  const getDisplayName = (message: any) => {
-    return message.profiles?.full_name || message.profiles?.first_name || 'Utilisateur anonyme';
+  const getDisplayName = (message: ChatMessage) => {
+    return message.user_name || 'Utilisateur anonyme';
   };
 
   const getInitials = (name: string) => {
