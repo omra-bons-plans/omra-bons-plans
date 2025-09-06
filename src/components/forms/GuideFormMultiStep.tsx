@@ -96,12 +96,20 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
       case 2:
         fieldsToValidate = ['gender', 'city', 'yearsExperience'];
         break;
+      case 3:
+        // Vérifier qu'une photo de profil est présente (obligatoire)
+        if (!coverImage) {
+          alert("Une photo de profil est obligatoire");
+          return;
+        }
+        // Pour l'étape 3, pas d'autres validations de formulaire nécessaires
+        break;
       case 4:
         // Récapitulatif - pas de validation nécessaire
         break;
     }
 
-    const isValid = await trigger(fieldsToValidate);
+    const isValid = fieldsToValidate.length > 0 ? await trigger(fieldsToValidate) : true;
     if (isValid && currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
