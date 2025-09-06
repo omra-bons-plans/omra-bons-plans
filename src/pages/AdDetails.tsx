@@ -349,7 +349,14 @@ export default function AdDetails() {
                   )}
                   
                   {ad.show_whatsapp && ad.profile?.whatsapp && (
-                    <Button className="w-full" variant="outline">
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      onClick={() => {
+                        const phoneNumber = ad.profile?.whatsapp?.replace(/[^\d]/g, '');
+                        window.open(`https://wa.me/${phoneNumber}`, '_blank');
+                      }}
+                    >
                       <MessageCircle className="w-4 h-4 mr-2" />
                       WhatsApp
                     </Button>

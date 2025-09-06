@@ -357,9 +357,15 @@ const PublicProfile = () => {
 
                             {profile.whatsapp && (
                               <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
+                                <div 
+                                  className="flex items-center gap-3 cursor-pointer hover:text-primary transition-colors"
+                                  onClick={() => {
+                                    const fullNumber = `${profile.whatsapp_country}${profile.whatsapp}`.replace(/[^\d+]/g, '');
+                                    window.open(`https://wa.me/${fullNumber}`, '_blank');
+                                  }}
+                                >
                                   <MessageCircle className="w-5 h-5 text-muted-foreground" />
-                                  <span>{profile.whatsapp_country}{profile.whatsapp}</span>
+                                  <span className="underline">{profile.whatsapp_country}{profile.whatsapp}</span>
                                 </div>
                                 <Button 
                                   variant="ghost" 
