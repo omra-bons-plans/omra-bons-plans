@@ -127,6 +127,32 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
+  // Auto-scroll hint for mobile category tabs
+  useEffect(() => {
+    if (isMobile) {
+      const scrollContainer = document.querySelector('.category-scroll-container');
+      if (scrollContainer) {
+        // Small auto-scroll to hint there are more categories
+        const scrollHint = () => {
+          scrollContainer.scrollTo({
+            left: 100,
+            behavior: 'smooth'
+          });
+          setTimeout(() => {
+            scrollContainer.scrollTo({
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 1500);
+        };
+        
+        // Trigger scroll hint after a delay when page loads
+        const timer = setTimeout(scrollHint, 2000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isMobile]);
+
   // Use real ads from database, fallback to sample data if no ads exist
   const sampleListings = [
     {
