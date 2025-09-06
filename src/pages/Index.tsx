@@ -115,22 +115,19 @@ const Index = () => {
 
   const featuredListings = formattedListings.length > 0 ? formattedListings : sampleListings;
 
-  // Get flash sale listings first (only services with prices: sejours, vols, hebergement)
-  const flashSaleListings = featuredListings.filter(listing => 
+  // Get flash sale listings (only services with prices: sejours, vols, hebergement)
+  const flashSalesListings = featuredListings.filter(listing => 
     listing.isFlashSale && 
     listing.flashSaleEndDate && 
     ['sejours', 'vols', 'hebergement'].includes(listing.type)
   );
 
-  // Filter listings based on selected category
+  // Filter listings based on selected category - exclude flash sales
   const filteredListings = selectedCategory === "all" 
     ? featuredListings.filter(listing => !listing.isFlashSale) // Exclude flash sales from "all"
     : featuredListings.filter(listing => 
         listing.type === selectedCategory && !listing.isFlashSale // Exclude flash sales from specific categories
       );
-
-  // Flash sales listings - only show actual flash sales
-  const flashSalesListings = flashSaleListings;
 
   // Filter and reorder categories for mobile - selected category first
   const getOrderedCategories = () => {
