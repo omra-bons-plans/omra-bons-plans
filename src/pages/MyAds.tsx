@@ -427,6 +427,7 @@ const MyAds = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
+                                    onClick={() => navigate(`/publish/${ad.category}?edit=${ad.id}`)}
                                     disabled={actionLoading === ad.id}
                                   >
                                     <Edit className="w-4 h-4 mr-1" />
