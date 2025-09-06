@@ -222,15 +222,20 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                   <Label htmlFor="gender">Genre *</Label>
                   <Select 
                     onValueChange={(value) => {
-                      console.log('Gender changed to:', value);
-                      setValue("gender", value);
+                      console.log('🔄 Gender selection started, value:', value);
+                      try {
+                        setValue("gender", value);
+                        console.log('✅ Gender setValue completed successfully');
+                      } catch (error) {
+                        console.error('❌ Error in setValue:', error);
+                      }
                     }} 
                     value={watch("gender") || ""}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                    <SelectContent className="bg-popover text-popover-foreground border z-50 max-h-60 overflow-y-auto">
                       <SelectItem value="male">Homme</SelectItem>
                       <SelectItem value="female">Femme</SelectItem>
                     </SelectContent>
