@@ -335,7 +335,9 @@ export default function AdDetails() {
               <CardContent className="p-6">
                 <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-primary mb-2">
-                    {ad.price} {ad.currency}
+                    {ad.price === 0 && ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
+                      ? 'Me contacter' 
+                      : `${ad.price} ${ad.currency}`}
                   </div>
                   <RatingDisplay stats={stats} />
                 </div>
