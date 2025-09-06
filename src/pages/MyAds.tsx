@@ -89,10 +89,16 @@ const MyAds = () => {
   };
 
   const handleDeleteAd = async (adId: string) => {
-    if (!user) return;
+    if (!user) {
+      toast.error('Utilisateur non connecté');
+      return;
+    }
 
     const ad = ads.find(a => a.id === adId);
-    if (!ad) return;
+    if (!ad) {
+      toast.error('Annonce non trouvée');
+      return;
+    }
 
     // Empêcher la suppression des annonces expirées
     if (isAdExpired(ad.publishEndDate)) {
@@ -103,8 +109,9 @@ const MyAds = () => {
     try {
       setActionLoading(adId);
       
+      console.log('🗑️ Deleting ad:', adId, 'user:', user.id);
+      
       // Delete category-specific data first
-      const ad = ads.find(a => a.id === adId);
       if (ad) {
         let categoryTable = '';
         switch (ad.category) {
@@ -129,10 +136,14 @@ const MyAds = () => {
         }
         
         if (categoryTable) {
-          await supabase
+          const { error: categoryError } = await supabase
             .from(categoryTable as any)
             .delete()
             .eq('ad_id', adId);
+          
+          if (categoryError) {
+            console.error('❌ Error deleting category data:', categoryError);
+          }
         }
       }
 
@@ -141,14 +152,19 @@ const MyAds = () => {
         .from('ads')
         .delete()
         .eq('id', adId)
-        .eq('user_id', user!.id);
+        .eq('user_id', user.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Supabase error deleting ad:', error);
+        throw error;
+      }
+
+      console.log('✅ Successfully deleted ad');
 
       setAds(prev => prev.filter(ad => ad.id !== adId));
       toast.success('Annonce supprimée avec succès');
     } catch (error) {
-      console.error('Error deleting ad:', error);
+      console.error('❌ Error deleting ad:', error);
       toast.error('Erreur lors de la suppression');
     } finally {
       setActionLoading(null);
@@ -156,16 +172,28 @@ const MyAds = () => {
   };
 
   const handleTogglePause = async (adId: string, currentPaused: boolean) => {
+    if (!user) {
+      toast.error('Utilisateur non connecté');
+      return;
+    }
+
     try {
       setActionLoading(adId);
+      
+      console.log('🔄 Toggling pause for ad:', adId, 'currentPaused:', currentPaused, 'user:', user.id);
       
       const { error } = await supabase
         .from('ads')
         .update({ is_paused: !currentPaused })
         .eq('id', adId)
-        .eq('user_id', user!.id);
+        .eq('user_id', user.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Supabase error:', error);
+        throw error;
+      }
+
+      console.log('✅ Successfully updated ad pause status');
 
       setAds(prev => prev.map(ad => 
         ad.id === adId ? { ...ad, isPaused: !currentPaused } : ad
@@ -173,7 +201,7 @@ const MyAds = () => {
       
       toast.success(currentPaused ? 'Annonce réactivée' : 'Annonce mise en pause');
     } catch (error) {
-      console.error('Error toggling pause:', error);
+      console.error('❌ Error toggling pause:', error);
       toast.error('Erreur lors de la modification');
     } finally {
       setActionLoading(null);
