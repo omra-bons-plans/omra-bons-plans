@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +26,8 @@ interface UserProfile {
   created_at: string;
   role: 'admin' | 'user';
   ads_count: number;
+  ad_views: number;
+  contact_views: number;
 }
 
 const Admin = () => {
@@ -38,6 +40,11 @@ const Admin = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [accountTypeFilter, setAccountTypeFilter] = useState<string>('all');
+  const [clickStats, setClickStats] = useState({
+    totalAdViews: 0,
+    totalContactViews: 0,
+    totalClicks: 0
+  });
 
   useEffect(() => {
     if (!adminLoading && !isAdmin) {
@@ -85,15 +92,45 @@ const Admin = () => {
 
       if (adsError) throw adsError;
 
+      // Récupérer les statistiques de clics pour chaque utilisateur
+      const { data: clickStatsData, error: clickStatsError } = await supabase
+        .from('click_stats')
+        .select(`
+          click_type,
+          ads!inner(user_id)
+        `);
+
+      if (clickStatsError) throw clickStatsError;
+
+      // Calculer les statistiques globales
+      const totalAdViews = clickStatsData?.filter(stat => stat.click_type === 'ad_view').length || 0;
+      const totalContactViews = clickStatsData?.filter(stat => stat.click_type === 'contact_view').length || 0;
+      setClickStats({
+        totalAdViews,
+        totalContactViews,
+        totalClicks: totalAdViews + totalContactViews
+      });
+
       // Combiner les données
       const usersWithRoles = profilesData.map(profile => {
         const userRole = rolesData.find(role => role.user_id === profile.id);
         const userAdsCount = adsData.filter(ad => ad.user_id === profile.id).length;
         
+        // Calculer les statistiques pour cet utilisateur
+        const userAdViews = clickStatsData?.filter(stat => 
+          stat.click_type === 'ad_view' && stat.ads?.user_id === profile.id
+        ).length || 0;
+        
+        const userContactViews = clickStatsData?.filter(stat => 
+          stat.click_type === 'contact_view' && stat.ads?.user_id === profile.id
+        ).length || 0;
+        
         return {
           ...profile,
           role: userRole?.role || 'user',
-          ads_count: userAdsCount
+          ads_count: userAdsCount,
+          ad_views: userAdViews,
+          contact_views: userContactViews
         } as UserProfile;
       });
 
@@ -237,7 +274,7 @@ const Admin = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Utilisateurs</CardTitle>
@@ -275,6 +312,26 @@ const Admin = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{totalAds}</div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Vues Annonces</CardTitle>
+                <Eye className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{clickStats.totalAdViews}</div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Clics Contact</CardTitle>
+                <MousePointer className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{clickStats.totalContactViews}</div>
               </CardContent>
             </Card>
           </div>
@@ -339,6 +396,7 @@ const Admin = () => {
                       <TableHead>Type</TableHead>
                       <TableHead>Rôle</TableHead>
                       <TableHead>Annonces</TableHead>
+                      <TableHead>Statistiques</TableHead>
                       <TableHead>Inscrit le</TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
@@ -397,6 +455,18 @@ const Admin = () => {
                           <Badge variant="outline">
                             {user.ads_count} annonce{user.ads_count > 1 ? 's' : ''}
                           </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="space-y-1">
+                            <div className="text-xs flex items-center">
+                              <Eye className="w-3 h-3 mr-1" />
+                              {user.ad_views} vues
+                            </div>
+                            <div className="text-xs flex items-center text-green-600">
+                              <MousePointer className="w-3 h-3 mr-1" />
+                              {user.contact_views} contacts
+                            </div>
+                          </div>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">

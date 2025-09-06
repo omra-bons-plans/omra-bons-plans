@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
+import { useClickTracking } from '@/hooks/useClickTracking';
 
 interface AdDetailsData {
   id: string;
@@ -54,6 +55,7 @@ const AdDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { trackClick } = useClickTracking();
   const [ad, setAd] = useState<AdDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -64,6 +66,13 @@ const AdDetails = () => {
       fetchAdDetails();
     }
   }, [id]);
+
+  // Track ad view when component mounts and ad is loaded
+  useEffect(() => {
+    if (ad && id) {
+      trackClick(id, 'ad_view');
+    }
+  }, [ad, id, trackClick]);
 
   const fetchAdDetails = async () => {
     if (!id) return;
@@ -196,6 +205,12 @@ const AdDetails = () => {
     return additionalServices ? `(je suis également ${additionalServices})` : '';
   };
 
+  const handleContactClick = () => {
+    if (id) {
+      trackClick(id, 'contact_view');
+    }
+  };
+
   const getPublisherName = () => {
     if (!ad?.user) return '';
 
@@ -299,7 +314,10 @@ const AdDetails = () => {
               <div className="hidden lg:block">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="bg-slate-600 hover:bg-slate-700 px-8">
+                    <Button 
+                      className="bg-slate-600 hover:bg-slate-700 px-8"
+                      onClick={handleContactClick}
+                    >
                       Voir contact
                     </Button>
                   </DialogTrigger>
@@ -531,7 +549,10 @@ const AdDetails = () => {
                 <div className="lg:hidden">
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button className="w-full bg-slate-600 hover:bg-slate-700">
+                      <Button 
+                        className="w-full bg-slate-600 hover:bg-slate-700"
+                        onClick={handleContactClick}
+                      >
                         Voir contact
                       </Button>
                     </DialogTrigger>
