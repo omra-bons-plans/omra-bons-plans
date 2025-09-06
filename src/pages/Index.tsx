@@ -192,11 +192,8 @@ const Index = () => {
             <div className="flex items-center justify-between">
               {/* Logo */}
               <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <div className="w-12 h-12 flex items-center justify-center rounded-full overflow-hidden">
-                  <img src="/lovable-uploads/51ece2ce-993f-4656-b73e-55303748f985.png" alt="OmraBonsPlans Logo" className="w-full h-full object-contain" />
-                </div>
                 <span className="text-2xl font-normal text-foreground tracking-tight">
-                  OmraBonsPlans
+                  OmraBonsPlans.fr
                 </span>
               </div>
 
@@ -1297,11 +1294,8 @@ const Index = () => {
             {/* Logo and Description */}
             <div className="space-y-6">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden">
-                  <img src="/lovable-uploads/51ece2ce-993f-4656-b73e-55303748f985.png" alt="OmraBonsPlans Logo" className="w-full h-full object-contain" />
-                </div>
                 <span className="text-lg font-normal text-foreground tracking-tight">
-                  OmraBonsPlans
+                  OmraBonsPlans.fr
                 </span>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm">

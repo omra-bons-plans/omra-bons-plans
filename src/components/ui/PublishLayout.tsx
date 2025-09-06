@@ -32,11 +32,7 @@ const PublishLayout = ({
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 cursor-pointer" onClick={handleClose}>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shadow-soft overflow-hidden">
-                <img src="/lovable-uploads/51ece2ce-993f-4656-b73e-55303748f985.png" alt="OmraBonsPlans Logo" className="w-full h-full object-contain" />
-              </div>
-              <span className="text-lg sm:text-xl font-bold text-foreground hidden sm:block">OmraBonsPlans</span>
-              <span className="text-lg font-bold text-foreground sm:hidden">OBP</span>
+              <span className="text-lg sm:text-xl font-bold text-foreground">OmraBonsPlans.fr</span>
             </div>
             
             {/* Progress indicator - Hidden on mobile, shown on larger screens */}
