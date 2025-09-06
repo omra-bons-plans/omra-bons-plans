@@ -70,6 +70,54 @@ const GuideDetails = () => {
         return;
       }
 
+      // Handle image uploads if provided
+      let imageUrls: string[] = [];
+      let coverImageUrl = '';
+
+      // Upload cover image if provided
+      if (data.coverImage && typeof data.coverImage === 'object') {
+        console.log('Uploading cover image...', data.coverImage.name);
+        const coverExt = data.coverImage.name.split('.').pop();
+        const coverPath = `guide/${user?.id}/${Date.now()}-cover.${coverExt}`;
+        
+        const { error: coverError } = await supabase.storage
+          .from('ad-images')
+          .upload(coverPath, data.coverImage);
+
+        if (coverError) {
+          console.error('Error uploading cover image:', coverError);
+          throw coverError;
+        }
+
+        coverImageUrl = coverPath;
+        console.log('Cover image uploaded:', coverPath);
+      }
+
+      // Upload additional images if provided
+      if (data.images && data.images.length > 0) {
+        console.log('Uploading additional images...', data.images.length);
+        for (let i = 0; i < data.images.length; i++) {
+          const image = data.images[i];
+          if (typeof image === 'object') {
+            console.log(`Uploading image ${i + 1}:`, image.name);
+            const ext = image.name.split('.').pop();
+            const imagePath = `guide/${user?.id}/${Date.now()}-${i}.${ext}`;
+            
+            const { error: uploadError } = await supabase.storage
+              .from('ad-images')
+              .upload(imagePath, image);
+
+            if (uploadError) {
+              console.error(`Error uploading image ${i + 1}:`, uploadError);
+              throw uploadError;
+            }
+
+            imageUrls.push(imagePath);
+            console.log(`Image ${i + 1} uploaded:`, imagePath);
+          }
+        }
+      }
+
       if (saveAsDraft) {
         const adData = {
           category: 'guides',
@@ -77,6 +125,8 @@ const GuideDetails = () => {
           description: data.description || '',
           price: 0, // Guides sans prix
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
+          images: imageUrls,
+          cover_image: coverImageUrl,
           show_email: data.showEmail,
           show_phone: data.showPhone,
           publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
@@ -110,6 +160,8 @@ const GuideDetails = () => {
           description: data.description,
           price: 0, // Guides sans prix
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
+          images: imageUrls,
+          cover_image: coverImageUrl,
           show_email: data.showEmail,
           show_phone: data.showPhone,
           publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
