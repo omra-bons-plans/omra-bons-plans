@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import CountrySelect from '@/components/ui/CountrySelect';
+import AddressAutocomplete from '@/components/ui/AddressAutocomplete';
 
 interface Profile {
   id: string;
@@ -349,10 +350,9 @@ const Profile = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="company_address">Adresse</Label>
-                    <Input
-                      id="company_address"
+                    <AddressAutocomplete
                       value={profile.company_address || ''}
-                      onChange={(e) => handleInputChange('company_address', e.target.value)}
+                      onChange={(value) => handleInputChange('company_address', value)}
                       placeholder="Entrer l'adresse de la société"
                     />
                   </div>
