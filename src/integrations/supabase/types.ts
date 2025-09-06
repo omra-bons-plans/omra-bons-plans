@@ -368,10 +368,13 @@ export type Database = {
           is_professional: boolean | null
           kuniya: string | null
           phone: string | null
+          phone_country: string | null
           professional_phone: string | null
+          professional_phone_country: string | null
           updated_at: string
           website: string | null
           whatsapp: string | null
+          whatsapp_country: string | null
         }
         Insert: {
           company_address?: string | null
@@ -387,10 +390,13 @@ export type Database = {
           is_professional?: boolean | null
           kuniya?: string | null
           phone?: string | null
+          phone_country?: string | null
           professional_phone?: string | null
+          professional_phone_country?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
+          whatsapp_country?: string | null
         }
         Update: {
           company_address?: string | null
@@ -406,10 +412,13 @@ export type Database = {
           is_professional?: boolean | null
           kuniya?: string | null
           phone?: string | null
+          phone_country?: string | null
           professional_phone?: string | null
+          professional_phone_country?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
+          whatsapp_country?: string | null
         }
         Relationships: []
       }
