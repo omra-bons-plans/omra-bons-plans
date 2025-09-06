@@ -241,9 +241,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Hotel className="w-5 h-5" />
-                  <span>Informations de base</span>
+                <CardTitle className="text-center">
+                  Informations de base
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -334,9 +333,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Calendar className="w-5 h-5" />
-                  <span>Dates et détails</span>
+                <CardTitle className="text-center">
+                  Dates et détails
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -596,9 +594,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Upload className="w-5 h-5" />
-                  <span>Photos</span>
+                <CardTitle className="text-center">
+                  Photos
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -699,9 +696,8 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <DollarSign className="w-5 h-5" />
-                  <span>Prix et publication</span>
+                <CardTitle className="text-center">
+                  Prix et publication
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">

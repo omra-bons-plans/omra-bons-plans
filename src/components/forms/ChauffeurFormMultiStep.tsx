@@ -109,9 +109,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
         return (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span>📋</span>
-                <span>Informations de base</span>
+              <CardTitle className="text-center">
+                Informations de base
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -143,9 +142,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
         return (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
-                <span>Informations personnelles et véhicule</span>
+              <CardTitle className="text-center">
+                Informations personnelles et véhicule
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -215,9 +213,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Languages className="w-5 h-5" />
-                  <span>Langues parlées</span>
+                <CardTitle className="text-center">
+                  Langues parlées
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -238,9 +235,8 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
 
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Upload className="w-5 h-5" />
-                  <span>Photos</span>
+                <CardTitle className="text-center">
+                  Photos
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">

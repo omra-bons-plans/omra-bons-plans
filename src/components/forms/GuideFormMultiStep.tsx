@@ -129,13 +129,12 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
     switch (currentStep) {
       case 1:
         return (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span>📋</span>
-                <span>Informations de base</span>
-              </CardTitle>
-            </CardHeader>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center">
+                  Informations de base
+                </CardTitle>
+              </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="title">Titre de l'annonce *</Label>
@@ -165,9 +164,8 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         return (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
-                <span>Informations personnelles</span>
+              <CardTitle className="text-center">
+                Informations personnelles
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -241,9 +239,8 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Languages className="w-5 h-5" />
-                  <span>Langues parlées</span>
+                <CardTitle className="text-center">
+                  Langues parlées
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -264,9 +261,8 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <span>🔧</span>
-                  <span>Services proposés</span>
+                <CardTitle className="text-center">
+                  Services proposés
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -337,9 +333,8 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Upload className="w-5 h-5" />
-                  <span>Photos</span>
+                <CardTitle className="text-center">
+                  Photos
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
