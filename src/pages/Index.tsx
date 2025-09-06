@@ -261,14 +261,7 @@ const Index = () => {
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-              {/* Logo */}
-              <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <span className="text-2xl font-normal text-foreground tracking-tight">
-                  OmraBonsPlans.fr
-                </span>
-              </div>
-
-              {/* Navigation */}
+              {/* Left Navigation */}
               <nav className="hidden md:flex items-center space-x-8">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -331,6 +324,13 @@ const Index = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </nav>
+
+              {/* Centered Logo */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <span className="text-2xl font-normal text-foreground tracking-tight">
+                  OmraBonsPlans.fr
+                </span>
+              </div>
 
               {/* Right buttons */}
               <div className="flex items-center space-x-2 sm:space-x-4">

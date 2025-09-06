@@ -38,20 +38,22 @@ const MobileSidebar = () => {
             <Menu className="w-6 h-6" />
           </Button>
           
-          <div className="flex items-center space-x-2">
+          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2">
             <div className="text-lg font-bold text-foreground">
               <span className="text-primary">OMRA</span>
               <span className="text-muted-foreground text-sm ml-1">BONS PLANS</span>
             </div>
           </div>
 
-          {user && (
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-white">
-                {getInitials(user.email || 'U')}
-              </span>
-            </div>
-          )}
+          <div className="w-8 h-8 flex items-center justify-center">
+            {user && (
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-xs font-bold text-white">
+                  {getInitials(user.email || 'U')}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
