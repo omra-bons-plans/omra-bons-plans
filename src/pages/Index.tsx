@@ -9,6 +9,7 @@ import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 import { useAuth } from "@/contexts/AuthContext";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
+import MobileLayout from "@/components/mobile/MobileLayout";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 
 // Import images
@@ -175,56 +176,57 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <div className="w-10 h-10 flex items-center justify-center">
-                <img src="/lovable-uploads/65b9282b-fcad-4d0b-8167-14248d2d69af.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
+    <MobileLayout>
+      <div className="min-h-screen bg-background">
+        {/* Desktop Header - Hidden on mobile */}
+        <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <div className="w-10 h-10 flex items-center justify-center">
+                  <img src="/lovable-uploads/65b9282b-fcad-4d0b-8167-14248d2d69af.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
+                </div>
+                <div className="text-lg font-bold text-foreground">
+                  <div className="leading-tight">OMRA</div>
+                  <div className="text-sm leading-tight opacity-80">BONS PLANS</div>
+                </div>
               </div>
-              <div className="text-lg font-bold text-foreground">
-                <div className="leading-tight">OMRA</div>
-                <div className="text-sm leading-tight opacity-80">BONS PLANS</div>
-              </div>
-            </div>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-foreground font-semibold hover:text-primary transition-all duration-300">Venir Book</a>
-              <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                <span className="text-muted-foreground font-medium">Catégories</span>
-                <span className="text-muted-foreground text-xs">▼</span>
-              </div>
-              <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                <span className="text-muted-foreground font-medium">Ajouter</span>
-                <span className="text-muted-foreground text-xs">▼</span>
-              </div>
-            </nav>
+              {/* Navigation */}
+              <nav className="hidden md:flex items-center space-x-8">
+                <a href="#" className="text-foreground font-semibold hover:text-primary transition-all duration-300">Venir Book</a>
+                <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                  <span className="text-muted-foreground font-medium">Catégories</span>
+                  <span className="text-muted-foreground text-xs">▼</span>
+                </div>
+                <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                  <span className="text-muted-foreground font-medium">Ajouter</span>
+                  <span className="text-muted-foreground text-xs">▼</span>
+                </div>
+              </nav>
 
-            {/* Right buttons */}
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              {user ? (
-                <UserMenu />
-              ) : (
-                <Link to="/auth">
-                  <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
-                    Se connecter
+              {/* Right buttons */}
+              <div className="flex items-center space-x-2 sm:space-x-4">
+                {user ? (
+                  <UserMenu />
+                ) : (
+                  <Link to="/auth">
+                    <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
+                      Se connecter
+                    </Button>
+                  </Link>
+                )}
+                <Link to="/publish">
+                  <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
+                    <span className="hidden sm:inline">Publier une annonce</span>
+                    <span className="sm:hidden">Publier</span>
                   </Button>
                 </Link>
-              )}
-              <Link to="/publish">
-                <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
-                  <span className="hidden sm:inline">Publier une annonce</span>
-                  <span className="sm:hidden">Publier</span>
-                </Button>
-              </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -1345,7 +1347,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

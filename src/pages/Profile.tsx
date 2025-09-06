@@ -9,6 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import MobileLayout from '@/components/mobile/MobileLayout';
 
 interface Profile {
   id: string;
@@ -155,33 +156,45 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+    <MobileLayout>
+      <div className="min-h-screen bg-background">
+        {/* Desktop Header - Hidden on mobile */}
+        <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => navigate('/')}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  ← Accueil
+                </Button>
+                <span className="text-muted-foreground">/</span>
+                <span className="text-foreground font-medium">Profile</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div className="container mx-auto px-6 py-12">
+          <div className="max-w-4xl mx-auto">
+            {/* Mobile Header */}
+            <div className="lg:hidden mb-6">
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/')}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground mb-4"
               >
-                ← Accueil
+                ← Retour
               </Button>
-              <span className="text-muted-foreground">/</span>
-              <span className="text-foreground font-medium">Profile</span>
             </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Content */}
-      <div className="container mx-auto px-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-3xl font-bold">Profile</CardTitle>
-            </CardHeader>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-3xl font-bold">Profile</CardTitle>
+              </CardHeader>
             <CardContent className="space-y-8">
               {/* Personal Information */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -368,9 +381,10 @@ const Profile = () => {
               </div>
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </MobileLayout>
   );
 };
 
