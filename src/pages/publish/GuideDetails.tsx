@@ -79,7 +79,7 @@ const GuideDetails = () => {
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: null, // Pas de date de fin pour guide
+          publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
           is_paused: false,
         };
 
@@ -112,7 +112,7 @@ const GuideDetails = () => {
           location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
           show_email: data.showEmail,
           show_phone: data.showPhone,
-          publish_end_date: null, // Pas de date de fin pour guide
+          publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
           is_published: true,
           is_draft: false,
           is_paused: false,
