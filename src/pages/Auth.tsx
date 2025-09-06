@@ -19,9 +19,12 @@ const Auth = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
   const [error, setError] = useState('');
   const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
-  const { signIn, signUp, signInWithGoogle, user } = useAuth();
+  const [showResetConfirmation, setShowResetConfirmation] = useState(false);
+  const [showResetForm, setShowResetForm] = useState(false);
+  const { signIn, signUp, signInWithGoogle, resetPassword, user } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already authenticated
@@ -30,6 +33,29 @@ const Auth = () => {
       navigate('/');
     }
   }, [user, navigate]);
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetLoading(true);
+    setError('');
+
+    if (!email) {
+      setError('Veuillez saisir votre adresse email');
+      setResetLoading(false);
+      return;
+    }
+
+    const { error } = await resetPassword(email);
+    
+    if (error) {
+      setError('Erreur lors de l\'envoi de l\'email de réinitialisation');
+    } else {
+      setShowResetConfirmation(true);
+      setEmail('');
+    }
+    
+    setResetLoading(false);
+  };
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
@@ -126,6 +152,8 @@ const Auth = () => {
     setConfirmPassword('');
     setError('');
     setShowEmailConfirmation(false);
+    setShowResetConfirmation(false);
+    setShowResetForm(false);
     setGoogleLoading(false);
   };
 
@@ -187,7 +215,52 @@ const Auth = () => {
           </Card>
         )}
 
-        {!showEmailConfirmation && (
+        {/* Message de confirmation réinitialisation */}
+        {showResetConfirmation && (
+          <Card className="border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/50">
+            <CardHeader className="text-center pb-3">
+              <div className="mx-auto mb-3 w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                <Mail className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <CardTitle className="text-blue-800 dark:text-blue-200 text-xl">
+                Email envoyé ! 🔐
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+              <div className="space-y-3">
+                <p className="text-sm text-blue-600 dark:text-blue-400">
+                  Un email de réinitialisation a été envoyé à votre adresse.
+                </p>
+                <div className="bg-white/60 dark:bg-black/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                  <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                    ⏱️ Lien valable 1 heure
+                  </p>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                    Suivez les instructions dans l'email pour créer un nouveau mot de passe sécurisé.
+                    Vérifiez aussi vos spams !
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2 pt-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowResetConfirmation(false)}
+                  className="flex-1"
+                >
+                  Retour
+                </Button>
+                <Button 
+                  onClick={() => navigate('/')}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  Accueil
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {!showEmailConfirmation && !showResetConfirmation && !showResetForm && (
           <>
             <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
               <TabsList className="grid w-full grid-cols-2">
@@ -293,6 +366,18 @@ const Auth = () => {
                   >
                     {loading ? 'Connexion...' : 'Se connecter'}
                   </Button>
+
+                  {/* Lien mot de passe oublié */}
+                  <div className="text-center">
+                    <Button
+                      type="button"
+                      variant="link"
+                      className="text-sm text-muted-foreground hover:text-primary"
+                      onClick={() => setShowResetForm(true)}
+                    >
+                      Mot de passe oublié ?
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>
@@ -427,6 +512,59 @@ const Auth = () => {
             </Card>
           </TabsContent>
             </Tabs>
+
+            {/* Formulaire de réinitialisation de mot de passe */}
+            {showResetForm && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    🔐 Mot de passe oublié
+                  </CardTitle>
+                  <CardDescription>
+                    Saisissez votre email pour recevoir un lien de réinitialisation
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleResetPassword} className="space-y-4">
+                    {error && (
+                      <Alert variant="destructive">
+                        <AlertDescription>{error}</AlertDescription>
+                      </Alert>
+                    )}
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="reset-email">Adresse email</Label>
+                      <Input
+                        id="reset-email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="votre@email.com"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowResetForm(false)}
+                        className="flex-1"
+                      >
+                        Annuler
+                      </Button>
+                      <Button 
+                        type="submit" 
+                        className="flex-1"
+                        disabled={resetLoading}
+                      >
+                        {resetLoading ? 'Envoi...' : 'Envoyer le lien'}
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Back to home */}
             <div className="text-center">
