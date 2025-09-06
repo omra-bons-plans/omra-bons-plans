@@ -373,18 +373,23 @@ const AdDetails = () => {
                 <div className="relative">
                   {allImages.length > 0 ? (
                     <>
-                      <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-                        <img 
-                          src={allImages[currentImageIndex].startsWith('http') 
-                            ? allImages[currentImageIndex]
-                            : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
-                          } 
-                          alt={ad.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.src = '/ad-placeholder.jpg';
-                          }}
-                        />
+                       <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
+                         <img 
+                           src={
+                             allImages[currentImageIndex].startsWith('http') 
+                               ? allImages[currentImageIndex]
+                               : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
+                           } 
+                           alt={ad.title}
+                           className="w-full h-full object-cover"
+                           onError={(e) => {
+                             console.error('Image failed to load:', allImages[currentImageIndex]);
+                             e.currentTarget.src = '/ad-placeholder.jpg';
+                           }}
+                           onLoad={() => {
+                             console.log('Image loaded successfully:', allImages[currentImageIndex]);
+                           }}
+                         />
                       </div>
                       
                       {/* Image indicators */}

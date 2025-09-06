@@ -120,7 +120,13 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
   };
 
   const handleFormSubmit = (data: ChauffeurFormData) => {
-    onSubmit(data, false);
+    const formDataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage,
+    };
+    
+    onSubmit(formDataWithImages, false);
   };
 
   const renderStep = () => {
@@ -617,7 +623,12 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
                   variant="secondary" 
                   onClick={() => {
                     const data = watch();
-                    onSubmit(data, true);
+                    const formDataWithImages = {
+                      ...data,
+                      images: images,
+                      coverImage: coverImage,
+                    };
+                    onSubmit(formDataWithImages, true);
                   }}
                   className="px-4 sm:px-6 w-full sm:w-auto"
                 >
