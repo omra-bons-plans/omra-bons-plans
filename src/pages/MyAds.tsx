@@ -350,13 +350,15 @@ const MyAds = () => {
                                     alt={ad.title}
                                     className="w-full h-full object-cover"
                                     onError={(e) => {
-                                      e.currentTarget.src = '/placeholder.svg';
+                                      e.currentTarget.src = '/ad-placeholder.jpg';
                                     }}
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                                    <span className="text-2xl">📷</span>
-                                  </div>
+                                  <img 
+                                    src="/ad-placeholder.jpg" 
+                                    alt="Aucune image disponible"
+                                    className="w-full h-full object-cover"
+                                  />
                                 )}
                               </div>
 

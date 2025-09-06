@@ -375,9 +375,15 @@ const AdDetails = () => {
                     <>
                       <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
                         <img 
-                          src={allImages[currentImageIndex]} 
+                          src={allImages[currentImageIndex].startsWith('http') 
+                            ? allImages[currentImageIndex]
+                            : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${allImages[currentImageIndex]}`
+                          } 
                           alt={ad.title}
                           className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/ad-placeholder.jpg';
+                          }}
                         />
                       </div>
                       
@@ -398,10 +404,11 @@ const AdDetails = () => {
                     </>
                   ) : (
                     <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
-                      <div className="text-center text-muted-foreground">
-                        <div className="text-6xl mb-4">📷</div>
-                        <p>Aucune image disponible</p>
-                      </div>
+                      <img 
+                        src="/ad-placeholder.jpg"
+                        alt="Aucune image disponible"
+                        className="w-full h-full object-cover opacity-50"
+                      />
                     </div>
                   )}
                 </div>
