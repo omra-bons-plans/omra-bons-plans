@@ -492,7 +492,7 @@ const Index = () => {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="pt-32 pb-20 px-1 md:px-6">
+      <section className="pt-32 pb-20 px-0 md:px-6">
         <div className="container mx-auto">
           {/* Tabs System */}
           <Tabs defaultValue="annonces" className="w-full">
@@ -594,8 +594,7 @@ const Index = () => {
                     {listing.isFlashSale && (
                       <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                         <Zap className="w-3 h-3 mr-1" />
-                        <span className="hidden sm:inline">Vente Flash</span>
-                        <span className="sm:hidden">Flash</span>
+                        <span>Flash</span>
                       </Badge>
                     )}
                     
@@ -720,8 +719,7 @@ const Index = () => {
                         {listing.isFlashSale && (
                           <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                             <Zap className="w-3 h-3 mr-1" />
-                            <span className="hidden sm:inline">Vente Flash</span>
-                            <span className="sm:hidden">Flash</span>
+                            <span>Flash</span>
                           </Badge>
                         )}
                         
@@ -852,8 +850,7 @@ const Index = () => {
                           {listing.isFlashSale && (
                             <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              <span className="hidden sm:inline">Vente Flash</span>
-                              <span className="sm:hidden">Flash</span>
+                              <span>Flash</span>
                             </Badge>
                           )}
                           
@@ -962,7 +959,7 @@ const Index = () => {
       </section>
 
       {/* All Services Section - Now first */}
-      <section className="py-20 px-1 md:px-6">
+      <section className="py-20 px-0 md:px-6">
         <div className="container mx-auto">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
@@ -1043,8 +1040,7 @@ const Index = () => {
                     {listing.isFlashSale && (
                       <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                         <Zap className="w-3 h-3 mr-1" />
-                        <span className="hidden sm:inline">Vente Flash</span>
-                        <span className="sm:hidden">Flash</span>
+                        <span>Flash</span>
                       </Badge>
                     )}
                     
@@ -1167,8 +1163,7 @@ const Index = () => {
                           {listing.isFlashSale && (
                             <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              <span className="hidden sm:inline">Vente Flash</span>
-                              <span className="sm:hidden">Flash</span>
+                              <span>Flash</span>
                             </Badge>
                           )}
                           
@@ -1299,8 +1294,7 @@ const Index = () => {
                           {listing.isFlashSale && (
                             <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              <span className="hidden sm:inline">Vente Flash</span>
-                              <span className="sm:hidden">Flash</span>
+                              <span>Flash</span>
                             </Badge>
                           )}
                           
