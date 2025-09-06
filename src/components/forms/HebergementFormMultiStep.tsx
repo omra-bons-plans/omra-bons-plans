@@ -170,14 +170,24 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
         break;
     }
     
-    if (isValid && currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+    if (isValid) {
+      // Pour les hôtels, passer de l'étape 2 directement à l'étape 4 (photos)
+      if (currentStep === 2 && watchedAccommodationType === 'hotel') {
+        setCurrentStep(4);
+      } else if (currentStep < totalSteps) {
+        setCurrentStep(currentStep + 1);
+      }
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      // Pour les hôtels, passer de l'étape 4 directement à l'étape 2 (sauter l'étape 3)
+      if (currentStep === 4 && watchedAccommodationType === 'hotel') {
+        setCurrentStep(2);
+      } else {
+        setCurrentStep(currentStep - 1);
+      }
     }
   };
 
@@ -436,155 +446,146 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
         );
 
       case 3:
+        // Afficher l'étape commodités seulement pour les appartements
+        if (watchedAccommodationType !== 'apartment') {
+          return null; // Ne rien afficher si ce n'est pas un appartement
+        }
         return (
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>
-                  {watchedAccommodationType === 'apartment' ? 'Commodités disponibles' : 'Informations supplémentaires'}
-                </CardTitle>
+                <CardTitle>Commodités disponibles</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {watchedAccommodationType === 'apartment' && (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <Controller
-                        name="hasWifi"
-                        control={control}
-                        render={({ field }) => (
-                          <Button
-                            type="button"
-                            variant={field.value ? "default" : "outline"}
-                            className="h-20 flex-col space-y-2 relative"
-                            onClick={() => field.onChange(!field.value)}
-                          >
-                            <Wifi className="w-6 h-6" />
-                            <span className="text-sm">Wi-Fi gratuit</span>
-                            {field.value && (
-                              <div className="absolute top-2 right-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              </div>
-                            )}
-                          </Button>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Controller
+                    name="hasWifi"
+                    control={control}
+                    render={({ field }) => (
+                      <Button
+                        type="button"
+                        variant={field.value ? "default" : "outline"}
+                        className="h-20 flex-col space-y-2 relative"
+                        onClick={() => field.onChange(!field.value)}
+                      >
+                        <Wifi className="w-6 h-6" />
+                        <span className="text-sm">Wi-Fi gratuit</span>
+                        {field.value && (
+                          <div className="absolute top-2 right-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          </div>
                         )}
-                      />
+                      </Button>
+                    )}
+                  />
 
-                      <Controller
-                        name="hasAc"
-                        control={control}
-                        render={({ field }) => (
-                          <Button
-                            type="button"
-                            variant={field.value ? "default" : "outline"}
-                            className="h-20 flex-col space-y-2 relative"
-                            onClick={() => field.onChange(!field.value)}
-                          >
-                            <Snowflake className="w-6 h-6" />
-                            <span className="text-sm">Climatisation</span>
-                            {field.value && (
-                              <div className="absolute top-2 right-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              </div>
-                            )}
-                          </Button>
+                  <Controller
+                    name="hasAc"
+                    control={control}
+                    render={({ field }) => (
+                      <Button
+                        type="button"
+                        variant={field.value ? "default" : "outline"}
+                        className="h-20 flex-col space-y-2 relative"
+                        onClick={() => field.onChange(!field.value)}
+                      >
+                        <Snowflake className="w-6 h-6" />
+                        <span className="text-sm">Climatisation</span>
+                        {field.value && (
+                          <div className="absolute top-2 right-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          </div>
                         )}
-                      />
+                      </Button>
+                    )}
+                  />
 
-                      <Controller
-                        name="hasTv"
-                        control={control}
-                        render={({ field }) => (
-                          <Button
-                            type="button"
-                            variant={field.value ? "default" : "outline"}
-                            className="h-20 flex-col space-y-2 relative"
-                            onClick={() => field.onChange(!field.value)}
-                          >
-                            <Tv className="w-6 h-6" />
-                            <span className="text-sm">Télévision</span>
-                            {field.value && (
-                              <div className="absolute top-2 right-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              </div>
-                            )}
-                          </Button>
+                  <Controller
+                    name="hasTv"
+                    control={control}
+                    render={({ field }) => (
+                      <Button
+                        type="button"
+                        variant={field.value ? "default" : "outline"}
+                        className="h-20 flex-col space-y-2 relative"
+                        onClick={() => field.onChange(!field.value)}
+                      >
+                        <Tv className="w-6 h-6" />
+                        <span className="text-sm">Télévision</span>
+                        {field.value && (
+                          <div className="absolute top-2 right-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          </div>
                         )}
-                      />
+                      </Button>
+                    )}
+                  />
 
-                      <Controller
-                        name="hasFridge"
-                        control={control}
-                        render={({ field }) => (
-                          <Button
-                            type="button"
-                            variant={field.value ? "default" : "outline"}
-                            className="h-20 flex-col space-y-2 relative"
-                            onClick={() => field.onChange(!field.value)}
-                          >
-                            <Refrigerator className="w-6 h-6" />
-                            <span className="text-sm">Réfrigérateur</span>
-                            {field.value && (
-                              <div className="absolute top-2 right-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              </div>
-                            )}
-                          </Button>
+                  <Controller
+                    name="hasFridge"
+                    control={control}
+                    render={({ field }) => (
+                      <Button
+                        type="button"
+                        variant={field.value ? "default" : "outline"}
+                        className="h-20 flex-col space-y-2 relative"
+                        onClick={() => field.onChange(!field.value)}
+                      >
+                        <Refrigerator className="w-6 h-6" />
+                        <span className="text-sm">Réfrigérateur</span>
+                        {field.value && (
+                          <div className="absolute top-2 right-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          </div>
                         )}
-                      />
+                      </Button>
+                    )}
+                  />
 
-                      <Controller
-                        name="hasWashingMachine"
-                        control={control}
-                        render={({ field }) => (
-                          <Button
-                            type="button"
-                            variant={field.value ? "default" : "outline"}
-                            className="h-20 flex-col space-y-2 relative"
-                            onClick={() => field.onChange(!field.value)}
-                          >
-                            <WashingMachine className="w-6 h-6" />
-                            <span className="text-sm">Lave-linge</span>
-                            {field.value && (
-                              <div className="absolute top-2 right-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              </div>
-                            )}
-                          </Button>
+                  <Controller
+                    name="hasWashingMachine"
+                    control={control}
+                    render={({ field }) => (
+                      <Button
+                        type="button"
+                        variant={field.value ? "default" : "outline"}
+                        className="h-20 flex-col space-y-2 relative"
+                        onClick={() => field.onChange(!field.value)}
+                      >
+                        <WashingMachine className="w-6 h-6" />
+                        <span className="text-sm">Lave-linge</span>
+                        {field.value && (
+                          <div className="absolute top-2 right-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          </div>
                         )}
-                      />
+                      </Button>
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2 mt-6">
+                  <Label htmlFor="videoUrl" className="flex items-center space-x-2">
+                    <Video className="w-4 h-4" />
+                    <span>Lien vidéo (YouTube/Vimeo)</span>
+                  </Label>
+                  <Input
+                    id="videoUrl"
+                    {...register("videoUrl")}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Ajoutez un lien vers une vidéo de présentation de votre appartement
+                  </p>
+                  
+                  {/* Video Preview */}
+                  {watch('videoUrl') && (
+                    <div className="mt-4">
+                      <Label className="text-sm text-muted-foreground">Aperçu de la vidéo</Label>
+                      <VideoPreview url={watch('videoUrl')} />
                     </div>
-
-                     <div className="space-y-2 mt-6">
-                       <Label htmlFor="videoUrl" className="flex items-center space-x-2">
-                         <Video className="w-4 h-4" />
-                         <span>Lien vidéo (YouTube/Vimeo)</span>
-                       </Label>
-                       <Input
-                         id="videoUrl"
-                         {...register("videoUrl")}
-                         placeholder="https://www.youtube.com/watch?v=..."
-                       />
-                       <p className="text-sm text-muted-foreground">
-                         Ajoutez un lien vers une vidéo de présentation de votre appartement
-                       </p>
-                       
-                       {/* Video Preview */}
-                       {watch('videoUrl') && (
-                         <div className="mt-4">
-                           <Label className="text-sm text-muted-foreground">Aperçu de la vidéo</Label>
-                           <VideoPreview url={watch('videoUrl')} />
-                         </div>
-                       )}
-                     </div>
-                  </>
-                )}
-
-                {watchedAccommodationType === 'hotel' && (
-                  <div className="text-center text-muted-foreground py-8">
-                    <p>Aucune information supplémentaire n'est requise pour les hôtels.</p>
-                    <p>Cliquez sur "Suivant" pour continuer.</p>
-                  </div>
-                )}
+                  )}
+                </div>
               </CardContent>
             </Card>
           </div>
