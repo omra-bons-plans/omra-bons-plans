@@ -475,8 +475,8 @@ const Index = () => {
                   </div>
 
                   {/* Exchange Rate Section - Mobile Centered */}
-                  <div className="text-center pt-3 md:pt-4 border-t border-gray-200">
-                    <div className="text-base md:text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
+                  <div className="text-center pt-6 md:pt-8 pb-2 md:pb-4 border-t border-gray-200">
+                    <div className="text-base md:text-sm text-gray-600 font-medium mb-4">Taux du jour</div>
                     <div className="text-3xl md:text-3xl font-bold text-gray-800">
                       1€ = <span className="text-amber-500">
                         {weatherAndExchange?.exchange?.eurToSar || '4.39'}
