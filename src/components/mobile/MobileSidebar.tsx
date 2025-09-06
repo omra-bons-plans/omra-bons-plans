@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNotifications } from '@/hooks/useNotifications';
 import { toast } from 'sonner';
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { unreadCount } = useNotifications();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -44,13 +47,31 @@ const MobileSidebar = () => {
             </div>
           </div>
 
-          <div className="w-8 h-8 flex items-center justify-center">
+          <div className="flex items-center space-x-2">
             {user && (
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold text-white">
-                  {getInitials(user.email || 'U')}
-                </span>
-              </div>
+              <>
+                {/* Notification Bell */}
+                <Link to="/notifications" className="relative">
+                  <Button variant="ghost" size="sm" className="p-2">
+                    <Bell className="w-5 h-5" />
+                    {unreadCount > 0 && (
+                      <Badge 
+                        variant="destructive" 
+                        className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs"
+                      >
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </Link>
+
+                {/* User Avatar */}
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <span className="text-xs font-bold text-white">
+                    {getInitials(user.email || 'U')}
+                  </span>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -102,6 +123,23 @@ const MobileSidebar = () => {
           <div className="space-y-2">
             {user && (
               <>
+                <Link
+                  to="/notifications"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors relative"
+                >
+                  <Bell className="w-5 h-5 text-muted-foreground" />
+                  <span className="font-medium">Notifications</span>
+                  {unreadCount > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="ml-auto h-5 w-5 flex items-center justify-center p-0 text-xs"
+                    >
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </Badge>
+                  )}
+                </Link>
+
                 <Link
                   to="/profile"
                   onClick={() => setIsOpen(false)}
