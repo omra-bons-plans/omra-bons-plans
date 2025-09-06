@@ -171,8 +171,8 @@ const MobileSidebar = () => {
       </div>
 
       {/* Mobile Content Padding */}
-      <div className="lg:hidden h-16" /> {/* Top padding for fixed header */}
-      <div className="lg:hidden h-20" /> {/* Bottom padding for fixed button */}
+      {/* Bottom padding for fixed button */}
+      <div className="lg:hidden h-20" />
     </>
   );
 };

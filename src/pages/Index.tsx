@@ -236,7 +236,7 @@ const Index = () => {
         </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
         {/* Background Image - Desktop */}
         <div 
           className="absolute inset-0 z-0 hidden md:block"
