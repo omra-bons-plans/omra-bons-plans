@@ -414,7 +414,7 @@ const Index = () => {
       </section>
 
       {/* Flash Sales Section */}
-      <section className="py-20 px-6">
+      <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
