@@ -191,14 +191,13 @@ const Index = () => {
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Logo */}
-              <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <div className="w-16 h-16 flex items-center justify-center glass-strong rounded-xl p-3">
-                  <img src="/lovable-uploads/5918566f-ff7c-4389-9910-1902eba8f5d6.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
+              <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <div className="w-12 h-12 flex items-center justify-center bg-primary rounded-full">
+                  <span className="text-white font-bold text-xl">O</span>
                 </div>
-                <div className="text-lg font-bold text-foreground text-center">
-                  <div className="leading-tight">OMRA</div>
-                  <div className="text-sm leading-tight opacity-80">bons plans</div>
-                </div>
+                <span className="text-2xl font-normal text-foreground tracking-tight">
+                  omrabonsplans.fr
+                </span>
               </div>
 
               {/* Navigation */}
@@ -1297,14 +1296,13 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* Logo and Description */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-2">
-                <div className="w-14 h-14 flex items-center justify-center glass-strong rounded-xl p-3">
-                  <img src="/lovable-uploads/5918566f-ff7c-4389-9910-1902eba8f5d6.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 flex items-center justify-center bg-primary rounded-full">
+                  <span className="text-white font-bold text-sm">O</span>
                 </div>
-                <div className="text-sm font-bold text-foreground text-center">
-                  <div>OMRA</div>
-                  <div className="text-xs">bons plans</div>
-                </div>
+                <span className="text-lg font-normal text-foreground tracking-tight">
+                  omrabonsplans.fr
+                </span>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm">
                 Omra Bons Plans est la première plateforme de voyages
