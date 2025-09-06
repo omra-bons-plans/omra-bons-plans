@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import BabysittingFormMultiStep from "@/components/forms/BabysittingFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const BabysittingDetails = () => {
   const navigate = useNavigate();
@@ -197,12 +198,14 @@ const BabysittingDetails = () => {
   const totalStepsForProgress = 2;
 
   return (
-    <PublishLayout currentStep={currentStepForProgress} totalSteps={totalStepsForProgress} steps={steps}>
-        <BabysittingFormMultiStep 
-          onSubmit={handleBabysittingSubmit} 
-          onBack={handleBack}
-        />
-    </PublishLayout>
+    <RequiredProfileGuard>
+      <PublishLayout currentStep={currentStepForProgress} totalSteps={totalStepsForProgress} steps={steps}>
+          <BabysittingFormMultiStep 
+            onSubmit={handleBabysittingSubmit} 
+            onBack={handleBack}
+          />
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 

@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import ChauffeurFormMultiStep from "@/components/forms/ChauffeurFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const ChauffeurDetails = () => {
   const navigate = useNavigate();
@@ -196,12 +197,14 @@ const ChauffeurDetails = () => {
   const steps = ["Catégorie", "Détails"];
 
   return (
-    <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
-        <ChauffeurFormMultiStep 
-          onSubmit={handleChauffeurSubmit} 
-          onBack={handleBack}
-        />
-    </PublishLayout>
+    <RequiredProfileGuard>
+      <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
+          <ChauffeurFormMultiStep 
+            onSubmit={handleChauffeurSubmit} 
+            onBack={handleBack}
+          />
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 

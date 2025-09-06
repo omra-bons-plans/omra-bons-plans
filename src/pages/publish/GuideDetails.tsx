@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import GuideFormMultiStep from "@/components/forms/GuideFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const GuideDetails = () => {
   const navigate = useNavigate();
@@ -210,12 +211,14 @@ const GuideDetails = () => {
   const steps = ["Catégorie", "Détails"];
 
   return (
-    <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
-        <GuideFormMultiStep 
-          onSubmit={handleGuideSubmit} 
-          onBack={handleBack}
-        />
-    </PublishLayout>
+    <RequiredProfileGuard>
+      <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
+          <GuideFormMultiStep 
+            onSubmit={handleGuideSubmit} 
+            onBack={handleBack}
+          />
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 

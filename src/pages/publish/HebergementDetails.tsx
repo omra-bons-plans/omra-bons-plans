@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import HebergementFormMultiStep from "@/components/forms/HebergementFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const HebergementDetails = () => {
   const navigate = useNavigate();
@@ -387,32 +388,34 @@ const HebergementDetails = () => {
   const steps = ["Catégorie", "Détails"];
   
   return (
-    <PublishLayout 
-      currentStep={2} 
-      totalSteps={2} 
-      steps={steps}
-      onClose={() => navigate('/')}
-    >
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="space-y-6">
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-foreground">
-              {isEditing ? "Modifier l'hébergement" : "Publier un hébergement"}
-            </h1>
-            <p className="text-muted-foreground">
-              {isEditing ? "Modifiez les détails de votre hébergement" : "Partagez votre hébergement à La Mecque ou Médine"}
-            </p>
-          </div>
+    <RequiredProfileGuard>
+      <PublishLayout 
+        currentStep={2} 
+        totalSteps={2} 
+        steps={steps}
+        onClose={() => navigate('/')}
+      >
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="space-y-6">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-bold text-foreground">
+                {isEditing ? "Modifier l'hébergement" : "Publier un hébergement"}
+              </h1>
+              <p className="text-muted-foreground">
+                {isEditing ? "Modifiez les détails de votre hébergement" : "Partagez votre hébergement à La Mecque ou Médine"}
+              </p>
+            </div>
 
-          <HebergementFormMultiStep 
-            onSubmit={handleHebergementSubmit}
-            onBack={handleBack}
-            initialData={editData}
-            isEditing={!!isEditing}
-          />
+            <HebergementFormMultiStep 
+              onSubmit={handleHebergementSubmit}
+              onBack={handleBack}
+              initialData={editData}
+              isEditing={!!isEditing}
+            />
+          </div>
         </div>
-      </div>
-    </PublishLayout>
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 

@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import VolFormMultiStep from "@/components/forms/VolFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const VolDetails = () => {
   const navigate = useNavigate();
@@ -150,12 +151,14 @@ const VolDetails = () => {
   const steps = ["Catégorie", "Infos générales", "Compagnie", "Dates", "Photos/Prix", "Publication", "Récapitulatif"];
 
   return (
-    <PublishLayout currentStep={2} totalSteps={7} steps={steps}>
-        <VolFormMultiStep 
-          onSubmit={handleVolSubmit} 
-          onBack={handleBack}
-        />
-    </PublishLayout>
+    <RequiredProfileGuard>
+      <PublishLayout currentStep={2} totalSteps={7} steps={steps}>
+          <VolFormMultiStep 
+            onSubmit={handleVolSubmit} 
+            onBack={handleBack}
+          />
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 

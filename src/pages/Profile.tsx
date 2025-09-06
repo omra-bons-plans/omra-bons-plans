@@ -147,6 +147,21 @@ const Profile = () => {
         toast.error('Erreur lors de la sauvegarde');
       } else {
         toast.success('Profil sauvegardé avec succès');
+        
+        // Check if profile is now complete with required fields
+        const requiredFields = ['first_name', 'gender', 'phone'];
+        const isComplete = requiredFields.every(field => {
+          const value = profile[field as keyof typeof profile];
+          return value && value.toString().trim() !== '';
+        });
+
+        // If profile is complete, suggest going back to what they were doing
+        if (isComplete) {
+          // Small delay to show the success message, then redirect
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        }
       }
     } catch (error) {
       console.error('Error:', error);

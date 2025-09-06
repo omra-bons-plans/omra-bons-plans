@@ -4,11 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useChat } from '@/hooks/useChat';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { Link } from 'react-router-dom';
 
 const ChatWindow = () => {
   const { messages, loading, sendMessage } = useChat();
   const { user } = useAuth();
+  const { isComplete: profileComplete } = useProfileCompletion();
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -161,23 +163,36 @@ const ChatWindow = () => {
       {/* Message Input */}
       <div className="border-t border-border/20 bg-card p-4">
         {user ? (
-          <form onSubmit={handleSendMessage} className="flex gap-2">
-            <Input
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Tapez votre message..."
-              className="flex-1 border-border/30 focus-visible:ring-primary/50"
-              maxLength={500}
-            />
-            <Button 
-              type="submit" 
-              size="icon"
-              className="btn-modern text-primary-foreground"
-              disabled={!newMessage.trim()}
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </form>
+          profileComplete ? (
+            <form onSubmit={handleSendMessage} className="flex gap-2">
+              <Input
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                placeholder="Tapez votre message..."
+                className="flex-1 border-border/30 focus-visible:ring-primary/50"
+                maxLength={500}
+              />
+              <Button 
+                type="submit" 
+                size="icon"
+                className="btn-modern text-primary-foreground"
+                disabled={!newMessage.trim()}
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </form>
+          ) : (
+            <div className="text-center space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Complétez votre profil pour participer à la discussion
+              </p>
+              <Link to="/profile">
+                <Button variant="outline" size="sm" className="w-full">
+                  Compléter mon profil
+                </Button>
+              </Link>
+            </div>
+          )
         ) : (
           <div className="text-center space-y-3">
             <p className="text-sm text-muted-foreground">

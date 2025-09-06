@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import SejourFormMultiStep from "@/components/forms/SejourFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const SejourDetails = () => {
   const navigate = useNavigate();
@@ -166,13 +167,15 @@ const SejourDetails = () => {
   const currentStep = 3; // We're on "Détails" which now includes multiple sub-steps
 
   return (
-    <PublishLayout currentStep={currentStep} totalSteps={7} steps={steps}>
-      <SejourFormMultiStep 
-        formulaType={formulaType}
-        onSubmit={handleSejourSubmit}
-        onBack={handleBack}
-      />
-    </PublishLayout>
+    <RequiredProfileGuard>
+      <PublishLayout currentStep={currentStep} totalSteps={7} steps={steps}>
+        <SejourFormMultiStep 
+          formulaType={formulaType}
+          onSubmit={handleSejourSubmit}
+          onBack={handleBack}
+        />
+      </PublishLayout>
+    </RequiredProfileGuard>
   );
 };
 
