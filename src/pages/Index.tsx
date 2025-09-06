@@ -188,6 +188,11 @@ const Index = () => {
     ['sejours', 'vols', 'hebergement'].includes(listing.type)
   );
 
+  // Filter flash sales based on selected category
+  const filteredFlashSalesListings = selectedCategory === "all" 
+    ? flashSalesListings
+    : flashSalesListings.filter(listing => listing.type === selectedCategory);
+
   // Filter listings based on selected category - exclude flash sales
   const filteredListings = selectedCategory === "all" 
     ? featuredListings.filter(listing => !listing.isFlashSale) // Exclude flash sales from "all"
@@ -234,10 +239,10 @@ const Index = () => {
     );
   }
 
-  const earliestEndDate = flashSalesListings.length > 0 
-    ? flashSalesListings.reduce((earliest, listing) => 
+  const earliestEndDate = filteredFlashSalesListings.length > 0 
+    ? filteredFlashSalesListings.reduce((earliest, listing) => 
         listing.flashSaleEndDate! < earliest ? listing.flashSaleEndDate! : earliest, 
-        flashSalesListings[0].flashSaleEndDate!
+        filteredFlashSalesListings[0].flashSaleEndDate!
       )
     : undefined;
 
@@ -532,9 +537,9 @@ const Index = () => {
           </div>
 
           {/* Desktop: Grid Layout */}
-          {flashSalesListings.length > 0 ? (
+          {filteredFlashSalesListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8">
-              {flashSalesListings.map((listing) => (
+              {filteredFlashSalesListings.map((listing) => (
                 <Card 
                   key={listing.id} 
                   className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
@@ -655,10 +660,11 @@ const Index = () => {
           )}
 
           {/* Tablet: Carousel with 2 items */}
-          <div className="hidden md:block lg:hidden carousel-item-peek">
-            <Carousel className="w-full">
-              <CarouselContent className="-ml-4">
-                {flashSalesListings.map((listing) => (
+          {filteredFlashSalesListings.length > 0 ? (
+            <div className="hidden md:block lg:hidden carousel-item-peek">
+              <Carousel className="w-full">
+                <CarouselContent className="-ml-4">
+                  {filteredFlashSalesListings.map((listing) => (
                   <CarouselItem key={listing.id} className="pl-4 basis-1/2">
                     <Card 
                       className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
@@ -765,16 +771,31 @@ const Index = () => {
               <CarouselNext className="hidden sm:flex" />
             </Carousel>
           </div>
+          ) : (
+            <div className="hidden md:block lg:hidden flex flex-col items-center justify-center py-20 space-y-6">
+              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                <span className="text-3xl">✏️</span>
+              </div>
+              <div className="text-center space-y-3 max-w-md">
+                <h3 className="text-2xl font-bold text-foreground">
+                  Aucune annonce n'est disponible pour cette recherche pour le moment
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Mobile: Carousel with 1 item */}
-          {flashSalesListings.length > 0 ? (
+          {filteredFlashSalesListings.length > 0 ? (
             <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
               >
                 <CarouselContent>
-                  {flashSalesListings.map((listing) => (
+                  {filteredFlashSalesListings.map((listing) => (
                     <CarouselItem key={listing.id}>
                       <Card 
                         className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
@@ -883,7 +904,7 @@ const Index = () => {
               
               {/* Pagination dots for mobile */}
               <div className="flex justify-center space-x-2 mt-6">
-                {flashSalesListings.map((_, index) => (
+                {filteredFlashSalesListings.map((_, index) => (
                   <div
                     key={index}
                     className="w-2 h-2 rounded-full transition-colors duration-200"
