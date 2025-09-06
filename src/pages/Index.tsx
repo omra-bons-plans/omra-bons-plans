@@ -503,7 +503,7 @@ const Index = () => {
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
-                  className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                  className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
                     selectedCategory === "all" 
                       ? "btn-modern text-primary-foreground" 
                       : "glass border-2 border-primary/30 hover:bg-primary/10"
@@ -517,7 +517,7 @@ const Index = () => {
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                    className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
                       selectedCategory === category.id 
                         ? "btn-modern text-primary-foreground" 
                         : "glass border-2 border-primary/30 hover:bg-primary/10"
@@ -930,7 +930,7 @@ const Index = () => {
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
-                  className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                  className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
                     selectedCategory === "all" 
                       ? "btn-modern text-primary-foreground" 
                       : "glass border-2 border-primary/30 hover:bg-primary/10"
@@ -943,7 +943,7 @@ const Index = () => {
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`rounded-full px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 ${
+                    className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
                       selectedCategory === category.id 
                         ? "btn-modern text-primary-foreground" 
                         : "glass border-2 border-primary/30 hover:bg-primary/10"
