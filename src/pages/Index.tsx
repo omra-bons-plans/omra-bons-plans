@@ -161,12 +161,12 @@ const Index = () => {
             <div className="flex items-center justify-between">
               {/* Logo */}
               <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <div className="w-14 h-14 flex items-center justify-center glass-strong rounded-xl p-2">
+                <div className="w-16 h-16 flex items-center justify-center glass-strong rounded-xl p-3">
                   <img src="/lovable-uploads/5918566f-ff7c-4389-9910-1902eba8f5d6.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
                 </div>
-                <div className="text-lg font-bold text-foreground">
+                <div className="text-lg font-bold text-foreground text-center">
                   <div className="leading-tight">OMRA</div>
-                  <div className="text-sm leading-tight opacity-80">BONS PLANS</div>
+                  <div className="text-sm leading-tight opacity-80">bons plans</div>
                 </div>
               </div>
 
@@ -1247,12 +1247,12 @@ const Index = () => {
             {/* Logo and Description */}
             <div className="space-y-6">
               <div className="flex items-center space-x-2">
-                <div className="w-12 h-12 flex items-center justify-center glass-strong rounded-xl p-2">
+                <div className="w-14 h-14 flex items-center justify-center glass-strong rounded-xl p-3">
                   <img src="/lovable-uploads/5918566f-ff7c-4389-9910-1902eba8f5d6.png" alt="Omra Bons Plans" className="w-full h-full object-contain" />
                 </div>
-                <div className="text-sm font-bold text-foreground">
+                <div className="text-sm font-bold text-foreground text-center">
                   <div>OMRA</div>
-                  <div className="text-xs">BONS PLANS</div>
+                  <div className="text-xs">bons plans</div>
                 </div>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm">
