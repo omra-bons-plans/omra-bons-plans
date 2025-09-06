@@ -355,28 +355,61 @@ export type Database = {
       }
       profiles: {
         Row: {
+          company_address: string | null
+          company_name: string | null
           created_at: string
           email: string | null
+          facebook: string | null
+          first_name: string | null
           full_name: string | null
+          gender: string | null
           id: string
+          instagram: string | null
+          is_professional: boolean | null
+          kuniya: string | null
           phone: string | null
+          professional_phone: string | null
           updated_at: string
+          website: string | null
+          whatsapp: string | null
         }
         Insert: {
+          company_address?: string | null
+          company_name?: string | null
           created_at?: string
           email?: string | null
+          facebook?: string | null
+          first_name?: string | null
           full_name?: string | null
+          gender?: string | null
           id: string
+          instagram?: string | null
+          is_professional?: boolean | null
+          kuniya?: string | null
           phone?: string | null
+          professional_phone?: string | null
           updated_at?: string
+          website?: string | null
+          whatsapp?: string | null
         }
         Update: {
+          company_address?: string | null
+          company_name?: string | null
           created_at?: string
           email?: string | null
+          facebook?: string | null
+          first_name?: string | null
           full_name?: string | null
+          gender?: string | null
           id?: string
+          instagram?: string | null
+          is_professional?: boolean | null
+          kuniya?: string | null
           phone?: string | null
+          professional_phone?: string | null
           updated_at?: string
+          website?: string | null
+          whatsapp?: string | null
         }
         Relationships: []
       }

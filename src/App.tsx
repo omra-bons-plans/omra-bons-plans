@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CategorySelection from "./pages/publish/CategorySelection";
 import FormulaSelection from "./pages/publish/FormulaSelection";
@@ -30,6 +31,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
             <Route path="/publish" element={
               <ProtectedRoute>
                 <CategorySelection />

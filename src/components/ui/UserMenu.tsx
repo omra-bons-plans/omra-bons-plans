@@ -1,4 +1,5 @@
 import { User, LogOut, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -42,9 +43,11 @@ const UserMenu = () => {
           <p className="text-xs text-muted-foreground">Connecté</p>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Paramètres</span>
+        <DropdownMenuItem asChild>
+          <Link to="/profile" className="flex items-center">
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Profil</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
