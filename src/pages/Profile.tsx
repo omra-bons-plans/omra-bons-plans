@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import CountrySelect from '@/components/ui/CountrySelect';
 
 interface Profile {
   id: string;
@@ -18,7 +19,9 @@ interface Profile {
   gender: string | null;
   email: string | null;
   phone: string | null;
+  phone_country: string | null;
   whatsapp: string | null;
+  whatsapp_country: string | null;
   facebook: string | null;
   instagram: string | null;
   is_professional: boolean;
@@ -26,6 +29,7 @@ interface Profile {
   company_address: string | null;
   website: string | null;
   professional_phone: string | null;
+  professional_phone_country: string | null;
 }
 
 const Profile = () => {
@@ -40,7 +44,9 @@ const Profile = () => {
     gender: '',
     email: '',
     phone: '',
+    phone_country: '+33',
     whatsapp: '',
+    whatsapp_country: '+33',
     facebook: '',
     instagram: '',
     is_professional: false,
@@ -48,6 +54,7 @@ const Profile = () => {
     company_address: '',
     website: '',
     professional_phone: '',
+    professional_phone_country: '+33',
   });
 
   useEffect(() => {
@@ -85,7 +92,9 @@ const Profile = () => {
           kuniya: '',
           gender: null,
           phone: '',
+          phone_country: '+33',
           whatsapp: '',
+          whatsapp_country: '+33',
           facebook: '',
           instagram: '',
           is_professional: false,
@@ -93,6 +102,7 @@ const Profile = () => {
           company_address: '',
           website: '',
           professional_phone: '',
+          professional_phone_country: '+33',
         };
         
         const { error: insertError } = await supabase
@@ -249,31 +259,33 @@ const Profile = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Numéro de téléphone</Label>
-                  <div className="flex">
-                    <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md">
-                      <span className="text-sm">🇫🇷 +33</span>
-                    </div>
+                  <div className="flex space-x-2">
+                    <CountrySelect
+                      value={profile.phone_country || '+33'}
+                      onValueChange={(value) => handleInputChange('phone_country', value)}
+                    />
                     <Input
                       id="phone"
                       value={profile.phone || ''}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
                       placeholder="555 55 55 55"
-                      className="rounded-l-none"
+                      className="flex-1"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp">Numéro WhatsApp</Label>
-                  <div className="flex">
-                    <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md">
-                      <span className="text-sm">🇫🇷 +33</span>
-                    </div>
+                  <div className="flex space-x-2">
+                    <CountrySelect
+                      value={profile.whatsapp_country || '+33'}
+                      onValueChange={(value) => handleInputChange('whatsapp_country', value)}
+                    />
                     <Input
                       id="whatsapp"
                       value={profile.whatsapp || ''}
                       onChange={(e) => handleInputChange('whatsapp', e.target.value)}
                       placeholder="555 55 55 55"
-                      className="rounded-l-none"
+                      className="flex-1"
                     />
                   </div>
                 </div>
@@ -352,16 +364,17 @@ const Profile = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="professional_phone">Numéro de téléphone</Label>
-                      <div className="flex">
-                        <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md">
-                          <span className="text-sm">🇫🇷 +33</span>
-                        </div>
+                      <div className="flex space-x-2">
+                        <CountrySelect
+                          value={profile.professional_phone_country || '+33'}
+                          onValueChange={(value) => handleInputChange('professional_phone_country', value)}
+                        />
                         <Input
                           id="professional_phone"
                           value={profile.professional_phone || ''}
                           onChange={(e) => handleInputChange('professional_phone', e.target.value)}
                           placeholder="555 55 55 55"
-                          className="rounded-l-none"
+                          className="flex-1"
                         />
                       </div>
                     </div>
