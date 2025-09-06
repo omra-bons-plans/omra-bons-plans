@@ -119,13 +119,13 @@ const HebergementDetails = () => {
         const coverPath = `hebergement/${user.id}/${Date.now()}-cover.${coverExt}`;
         
         const { error: coverError } = await supabase.storage
-          .from('ads-images')
+          .from('ad-images')
           .upload(coverPath, data.coverImage);
 
         if (coverError) throw coverError;
 
         const { data: { publicUrl: coverUrl } } = supabase.storage
-          .from('ads-images')
+          .from('ad-images')
           .getPublicUrl(coverPath);
 
         coverImageUrl = coverUrl;
@@ -139,13 +139,13 @@ const HebergementDetails = () => {
           const imagePath = `hebergement/${user.id}/${Date.now()}-${i}.${ext}`;
           
           const { error: uploadError } = await supabase.storage
-            .from('ads-images')
+            .from('ad-images')
             .upload(imagePath, image);
 
           if (uploadError) throw uploadError;
 
           const { data: { publicUrl } } = supabase.storage
-            .from('ads-images')
+            .from('ad-images')
             .getPublicUrl(imagePath);
 
           imageUrls.push(publicUrl);

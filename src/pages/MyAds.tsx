@@ -409,10 +409,19 @@ const MyAds = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
+                                    onClick={() => {
+                                      if (ad.isPublished && !ad.isPaused && !ad.isDraft) {
+                                        // Annonce active : aller vers l'annonce en ligne
+                                        window.open(`/?category=${ad.category}&highlight=${ad.id}`, '_blank');
+                                      } else {
+                                        // Annonce en pause ou brouillon : aller vers la page récap
+                                        navigate(`/ad-summary/${ad.id}`);
+                                      }
+                                    }}
                                     disabled={actionLoading === ad.id}
                                   >
                                     <Eye className="w-4 h-4 mr-1" />
-                                    Voir
+                                    {ad.isPublished && !ad.isPaused && !ad.isDraft ? 'Voir en ligne' : 'Voir le récap'}
                                   </Button>
                                   
                                   <Button 

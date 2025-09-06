@@ -19,6 +19,7 @@ import ChauffeurDetails from "./pages/publish/ChauffeurDetails";
 import BabysittingDetails from "./pages/publish/BabysittingDetails";
 import HebergementDetails from "./pages/publish/HebergementDetails";
 import PlaceholderDetails from "./pages/publish/PlaceholderDetails";
+import AdSummary from "./pages/AdSummary";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -91,6 +92,11 @@ const App = () => (
             <Route path="/publish/placeholder" element={
               <ProtectedRoute>
                 <PlaceholderDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="/ad-summary/:id" element={
+              <ProtectedRoute>
+                <AdSummary />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
