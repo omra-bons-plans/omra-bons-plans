@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, MessageCircle } from 'lucide-react';
+import { Send, MessageCircle, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useChat } from '@/hooks/useChat';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { Link } from 'react-router-dom';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 const ChatWindow = () => {
-  const { messages, loading, sendMessage } = useChat();
+  const { messages, loading, sendMessage, deleteMessage } = useChat();
   const { user } = useAuth();
   const { isComplete: profileComplete } = useProfileCompletion();
   const [newMessage, setNewMessage] = useState('');
@@ -43,6 +44,28 @@ const ChatWindow = () => {
       hour: '2-digit', 
       minute: '2-digit' 
     });
+  };
+
+  const getUserDisplayInfo = (message: any) => {
+    const parts = [];
+    
+    if (message.kuniya) {
+      parts.push(message.kuniya);
+    }
+    
+    if (message.user_name && message.user_name !== message.kuniya) {
+      parts.push(message.user_name);
+    }
+    
+    if (message.is_professional && message.company_name) {
+      parts.push(`(${message.company_name})`);
+    }
+    
+    return parts.join(' - ') || 'Utilisateur';
+  };
+
+  const handleDeleteMessage = (messageId: string) => {
+    deleteMessage(messageId);
   };
 
   const formatDate = (dateString: string) => {
@@ -118,9 +141,9 @@ const ChatWindow = () => {
             <div key={date} className="space-y-3">
               {/* Date separator */}
               <div className="flex items-center justify-center">
-                <div className="bg-muted px-3 py-1 rounded-full text-xs font-medium text-muted-foreground">
-                  {formatDate(dayMessages[0].created_at)}
-                </div>
+                 <div className="bg-muted px-3 py-1 rounded-full text-xs font-medium text-muted-foreground">
+                   {formatDate(dayMessages[0].created_at)}
+                 </div>
               </div>
               
               {/* Messages for this date */}
@@ -132,7 +155,7 @@ const ChatWindow = () => {
                   }`}
                 >
                   <div
-                    className={`max-w-[70%] rounded-lg p-3 shadow-soft ${
+                    className={`max-w-[70%] rounded-lg p-3 shadow-soft relative group ${
                       message.user_id === user?.id
                         ? 'bg-gradient-primary text-primary-foreground ml-auto'
                         : 'bg-card text-card-foreground'
@@ -140,17 +163,51 @@ const ChatWindow = () => {
                   >
                     {message.user_id !== user?.id && (
                       <p className="text-xs font-medium text-primary mb-1">
-                        {message.user_name}
+                        {getUserDisplayInfo(message)}
                       </p>
                     )}
                     <p className="text-sm leading-relaxed break-words">
                       {message.message}
                     </p>
-                    <p className={`text-xs mt-2 opacity-70 ${
-                      message.user_id === user?.id ? 'text-right' : 'text-left'
+                    <div className={`flex items-center justify-between mt-2 ${
+                      message.user_id === user?.id ? 'flex-row-reverse' : 'flex-row'
                     }`}>
-                      {formatTime(message.created_at)}
-                    </p>
+                      <p className={`text-xs opacity-70`}>
+                        {formatTime(message.created_at)}
+                      </p>
+                      
+                      {/* Bouton de suppression pour l'auteur */}
+                      {message.user_id === user?.id && (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 p-1 h-auto text-primary-foreground hover:bg-primary-foreground/20"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Supprimer le message</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Annuler</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDeleteMessage(message.id)}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                Supprimer
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

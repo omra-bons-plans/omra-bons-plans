@@ -10,12 +10,18 @@ interface ChatMessage {
   created_at: string;
   updated_at: string;
   user_name?: string;
+  kuniya?: string;
+  company_name?: string;
+  is_professional?: boolean;
 }
 
 interface Profile {
   id: string;
   full_name: string | null;
   first_name: string | null;
+  kuniya: string | null;
+  company_name: string | null;
+  is_professional: boolean | null;
 }
 
 export const useChat = () => {
@@ -44,21 +50,30 @@ export const useChat = () => {
         // Get user profiles
         const { data: profilesData, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, full_name, first_name')
+          .select('id, full_name, first_name, kuniya, company_name, is_professional')
           .in('id', userIds);
 
         if (profilesError) throw profilesError;
 
         // Create user lookup map
         const userLookup = (profilesData as Profile[])?.reduce((acc, profile) => {
-          acc[profile.id] = profile.full_name || profile.first_name || 'Utilisateur';
+          const displayName = profile.kuniya || profile.full_name || profile.first_name || 'Utilisateur';
+          acc[profile.id] = {
+            name: displayName,
+            kuniya: profile.kuniya,
+            company_name: profile.company_name,
+            is_professional: profile.is_professional
+          };
           return acc;
-        }, {} as Record<string, string>) || {};
+        }, {} as Record<string, any>) || {};
 
-        // Combine messages with user names
+        // Combine messages with user info
         const messagesWithNames = messagesData.map(msg => ({
           ...msg,
-          user_name: userLookup[msg.user_id] || 'Utilisateur'
+          user_name: userLookup[msg.user_id]?.name || 'Utilisateur',
+          kuniya: userLookup[msg.user_id]?.kuniya,
+          company_name: userLookup[msg.user_id]?.company_name,
+          is_professional: userLookup[msg.user_id]?.is_professional
         }));
 
         setMessages(messagesWithNames);
@@ -70,6 +85,26 @@ export const useChat = () => {
       setError('Erreur lors du chargement des messages');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Delete message
+  const deleteMessage = async (messageId: string) => {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase
+        .from('chat_messages')
+        .delete()
+        .eq('id', messageId)
+        .eq('user_id', user.id); // S'assurer que seul l'auteur peut supprimer
+
+      if (error) throw error;
+      
+      toast.success('Message supprimé');
+    } catch (err) {
+      console.error('Error deleting message:', err);
+      toast.error('Erreur lors de la suppression du message');
     }
   };
 
@@ -122,6 +157,7 @@ export const useChat = () => {
     messages,
     loading,
     error,
-    sendMessage
+    sendMessage,
+    deleteMessage
   };
 };
