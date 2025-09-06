@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 import { useAuth } from "@/contexts/AuthContext";
+import { useAds } from "@/hooks/useAds";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
@@ -53,6 +54,7 @@ const Index = () => {
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange } = useWeatherAndExchange();
   const { user } = useAuth();
+  const { formattedListings, loading: adsLoading, error: adsError } = useAds();
 
   // Allow manual city selection for weather
   const toggleWeatherCity = () => {
@@ -76,90 +78,65 @@ const Index = () => {
     });
   }, [allServicesCarouselApi]);
 
+  const getCategoryCount = (categoryId: string) => {
+    return formattedListings.filter(listing => listing.type === categoryId).length;
+  };
+
   const categories = [
-    { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets Omra", count: 45 },
-    { id: "vols", name: "Vols", icon: Plane, description: "Billets d'avion", count: 23 },
-    { id: "hotels", name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", count: 67 },
-    { id: "guides", name: "Guides", icon: BookOpen, description: "Guides spirituels", count: 34 },
-    { id: "chauffeurs", name: "Chauffeurs", icon: Car, description: "Transport privé", count: 28 },
-    { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: 12 }
+    { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets Omra", count: getCategoryCount("sejours") },
+    { id: "vols", name: "Vols", icon: Plane, description: "Billets d'avion", count: getCategoryCount("vols") },
+    { id: "hebergement", name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", count: getCategoryCount("hebergement") },
+    { id: "guides", name: "Guides", icon: BookOpen, description: "Guides spirituels", count: getCategoryCount("guides") },
+    { id: "chauffeurs", name: "Chauffeurs", icon: Car, description: "Transport privé", count: getCategoryCount("chauffeurs") },
+    { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  const featuredListings = [
+  // Use real ads from database, fallback to sample data if no ads exist
+  const sampleListings = [
     {
-      id: 1,
+      id: "sample-1",
       type: "sejours",
-      title: "Saciet abou yahya",
+      title: "Exemple - Séjour Omra Confort",
       subtitle: "15 jours avec hôtel 5 étoiles",
       price: "1450€",
       originalPrice: "1890€",
       discount: 23,
-      isFlashSale: true,
-      flashSaleEndDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 jours
+      isFlashSale: false,
+      flashSaleEndDate: undefined,
       image: luxuryHotelMecca,
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",
       isPopular: true
-    },
-    {
-      id: 2,
-      type: "hotels", 
-      title: "ALBATT",
-      subtitle: "Hôtel proche Masjid Al Haram",
-      price: "1690€",
-      originalPrice: "2100€", 
-      discount: 19,
-      isFlashSale: false,
-      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png",
-      rating: 4.6,
-      reviews: 89,
-      location: "Makkah",
-      isPopular: false
-    },
-    {
-      id: 3,
-      type: "guides",
-      title: "Omra Pour Tous", 
-      subtitle: "Guide expérimenté - Français/Arabe",
-      price: "990€",
-      originalPrice: "1250€",
-      discount: 21,
-      isFlashSale: false,
-      image: tourGuideMecca,
-      rating: 4.9,
-      reviews: 67,
-      location: "Makkah - Médine",
-      isPopular: false
-    },
-    {
-      id: 4,
-      type: "vols",
-      title: "Ouasis tours",
-      subtitle: "Vol direct avec Emirates",
-      price: "80€",
-      originalPrice: "120€",
-      discount: 33,
-      isFlashSale: true,
-      flashSaleEndDate: new Date(Date.now() + 6 * 60 * 60 * 1000), // 6 heures
-      image: airplaneInterior,
-      rating: 4.7,
-      reviews: 95,
-      location: "Médine",
-      isPopular: false
     }
   ];
+
+  const featuredListings = formattedListings.length > 0 ? formattedListings : sampleListings;
 
   // Filter listings based on selected category
   const filteredListings = selectedCategory === "all" 
     ? featuredListings 
     : featuredListings.filter(listing => listing.type === selectedCategory);
 
+  // Show loading state
+  if (adsLoading) {
+    return (
+      <MobileLayout>
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="text-muted-foreground">Chargement des annonces...</p>
+          </div>
+        </div>
+      </MobileLayout>
+    );
+  }
+
   // Get flash sale listings (only services with prices: sejours, vols, hebergement)
   const flashSaleListings = featuredListings.filter(listing => 
     listing.isFlashSale && 
     listing.flashSaleEndDate && 
-    ['sejours', 'vols', 'hotels'].includes(listing.type)
+    ['sejours', 'vols', 'hebergement'].includes(listing.type)
   );
   const earliestEndDate = flashSaleListings.length > 0 
     ? flashSaleListings.reduce((earliest, listing) => 
@@ -442,24 +419,25 @@ const Index = () => {
                     )}
                     
                     {/* Individual countdown for flash sale items */}
-                    {listing.isFlashSale && listing.flashSaleEndDate && (
-                      <div className="absolute top-16 right-4">
-                        <CountdownTimer 
-                          targetDate={listing.flashSaleEndDate} 
-                          className="text-xs scale-50 origin-top-right"
-                        />
-                      </div>
-                    )}
+                     {listing.isFlashSale && listing.flashSaleEndDate && (
+                       <div className="absolute top-16 right-4">
+                         <CountdownTimer 
+                           targetDate={listing.flashSaleEndDate} 
+                           className="text-xs scale-50 origin-top-right"
+                         />
+                       </div>
+                     )}
                     
-                    <div className="absolute bottom-4 right-4">
-                      <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
-                        {listing.type === 'sejours' ? 'Séjour' : 
-                         listing.type === 'hotels' ? 'Hôtel' : 
-                         listing.type === 'guides' ? 'Guide' : 
-                         listing.type === 'vols' ? 'Vols' :
-                         listing.type === 'chauffeurs' ? 'Chauffeur' : 'Service'}
-                      </Badge>
-                    </div>
+                     <div className="absolute bottom-4 right-4">
+                       <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
+                         {listing.type === 'sejours' ? 'Séjour' : 
+                          listing.type === 'hebergement' ? 'Hébergement' : 
+                          listing.type === 'guides' ? 'Guide' : 
+                          listing.type === 'vols' ? 'Vols' :
+                          listing.type === 'chauffeurs' ? 'Chauffeur' : 
+                          listing.type === 'babysitting' ? 'Baby-sitting' : 'Service'}
+                       </Badge>
+                     </div>
                   </div>
                   
                   <CardContent className="p-6 space-y-4">
@@ -556,14 +534,14 @@ const Index = () => {
                           </Badge>
                         )}
                         
-                        {listing.isFlashSale && listing.flashSaleEndDate && (
-                          <div className="absolute top-16 right-4">
-                            <CountdownTimer 
-                              targetDate={listing.flashSaleEndDate} 
-                              className="text-xs scale-50 origin-top-right"
-                            />
-                          </div>
-                        )}
+                         {listing.isFlashSale && listing.flashSaleEndDate && (
+                           <div className="absolute top-16 right-4">
+                             <CountdownTimer 
+                               targetDate={listing.flashSaleEndDate} 
+                               className="text-xs scale-50 origin-top-right"
+                             />
+                           </div>
+                         )}
                         
                         <div className="absolute bottom-4 right-4">
                           <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
@@ -664,14 +642,14 @@ const Index = () => {
                             </Badge>
                           )}
                           
-                          {listing.isFlashSale && listing.flashSaleEndDate && (
-                            <div className="absolute top-16 right-4">
-                              <CountdownTimer 
-                                targetDate={listing.flashSaleEndDate} 
-                                className="text-xs scale-50 origin-top-right"
-                              />
-                            </div>
-                          )}
+                           {listing.isFlashSale && listing.flashSaleEndDate && (
+                             <div className="absolute top-16 right-4">
+                               <CountdownTimer 
+                                 targetDate={listing.flashSaleEndDate} 
+                                 className="text-xs scale-50 origin-top-right"
+                               />
+                             </div>
+                           )}
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
@@ -842,14 +820,14 @@ const Index = () => {
                       </Badge>
                     )}
                     
-                    {listing.isFlashSale && listing.flashSaleEndDate && (
-                      <div className="absolute top-16 right-4">
-                        <CountdownTimer 
-                          targetDate={listing.flashSaleEndDate} 
-                          className="text-xs scale-50 origin-top-right"
-                        />
-                      </div>
-                    )}
+                     {listing.isFlashSale && listing.flashSaleEndDate && (
+                       <div className="absolute top-16 right-4">
+                         <CountdownTimer 
+                           targetDate={listing.flashSaleEndDate} 
+                           className="text-xs scale-50 origin-top-right"
+                         />
+                       </div>
+                     )}
                     
                     <div className="absolute bottom-4 right-4">
                       <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
@@ -957,14 +935,14 @@ const Index = () => {
                             </Badge>
                           )}
                           
-                          {listing.isFlashSale && listing.flashSaleEndDate && (
-                            <div className="absolute top-16 right-4">
-                              <CountdownTimer 
-                                targetDate={listing.flashSaleEndDate} 
-                                className="text-xs scale-50 origin-top-right"
-                              />
-                            </div>
-                          )}
+                           {listing.isFlashSale && listing.flashSaleEndDate && (
+                             <div className="absolute top-16 right-4">
+                               <CountdownTimer 
+                                 targetDate={listing.flashSaleEndDate} 
+                                 className="text-xs scale-50 origin-top-right"
+                               />
+                             </div>
+                           )}
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
@@ -1080,14 +1058,14 @@ const Index = () => {
                             </Badge>
                           )}
                           
-                          {listing.isFlashSale && listing.flashSaleEndDate && (
-                            <div className="absolute top-16 right-4">
-                              <CountdownTimer 
-                                targetDate={listing.flashSaleEndDate} 
-                                className="text-xs scale-50 origin-top-right"
-                              />
-                            </div>
-                          )}
+                           {listing.isFlashSale && listing.flashSaleEndDate && (
+                             <div className="absolute top-16 right-4">
+                               <CountdownTimer 
+                                 targetDate={listing.flashSaleEndDate} 
+                                 className="text-xs scale-50 origin-top-right"
+                               />
+                             </div>
+                           )}
                           
                           <div className="absolute bottom-4 right-4">
                             <Badge className="glass text-xs px-3 py-2 rounded-full font-semibold">
