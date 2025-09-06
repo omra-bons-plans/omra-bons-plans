@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy } from 'lucide-react';
+import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -580,18 +580,33 @@ const AdDetails = () => {
                 )}
 
                 {/* Languages */}
-                {ad.categoryDetails && ad.category === 'guides' && ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
+                {ad.categoryDetails && (ad.category === 'guides' || ad.category === 'babysitting' || ad.category === 'chauffeurs') && ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
                   <Card>
                     <CardHeader>
-                      <CardTitle>Langues</CardTitle>
+                      <CardTitle>Langues parlées</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="flex gap-2 flex-wrap">
                         {ad.categoryDetails.languages.map((lang: string, index: number) => (
                           <Badge key={index} variant="secondary" className="px-3 py-1">
-                            {lang}
+                            {lang.charAt(0).toUpperCase() + lang.slice(1)}
                           </Badge>
                         ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Gender */}
+                {ad.categoryDetails && (ad.category === 'babysitting' || ad.category === 'chauffeurs' || ad.category === 'guides') && ad.categoryDetails.gender && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Genre</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <User className="w-5 h-5 text-muted-foreground" />
+                        <span>{ad.categoryDetails.gender === 'male' ? 'Homme' : ad.categoryDetails.gender === 'female' ? 'Femme' : ad.categoryDetails.gender}</span>
                       </div>
                     </CardContent>
                   </Card>

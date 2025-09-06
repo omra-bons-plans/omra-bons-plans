@@ -129,6 +129,8 @@ const ChauffeurDetails = () => {
           cover_image: coverImageUrl,
           show_email: data.showEmail,
           show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
+          show_professional_phone: data.showProfessionalPhone,
           publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
           is_paused: false,
         };
@@ -157,6 +159,8 @@ const ChauffeurDetails = () => {
           cover_image: coverImageUrl,
           show_email: data.showEmail,
           show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
+          show_professional_phone: data.showProfessionalPhone,
           publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
           is_published: true,
           is_draft: false,
