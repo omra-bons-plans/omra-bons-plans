@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import MyAds from "./pages/MyAds";
 import Settings from "./pages/Settings";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CategorySelection from "./pages/publish/CategorySelection";
@@ -35,6 +36,11 @@ const App = () => (
             <Route path="/profile" element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/my-ads" element={
+              <ProtectedRoute>
+                <MyAds />
               </ProtectedRoute>
             } />
             <Route path="/settings" element={

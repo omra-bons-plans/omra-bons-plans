@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
@@ -108,6 +108,15 @@ const MobileSidebar = () => {
                 >
                   <User className="w-5 h-5 text-muted-foreground" />
                   <span className="font-medium">Profile</span>
+                </Link>
+
+                <Link
+                  to="/my-ads"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <FileText className="w-5 h-5 text-muted-foreground" />
+                  <span className="font-medium">Mes annonces</span>
                 </Link>
 
                 <Link
