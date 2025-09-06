@@ -1,4 +1,4 @@
-import { User, LogOut, Settings, FileText, Shield } from 'lucide-react';
+import { User, LogOut, Settings, FileText, Shield, Bell as BellIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -52,6 +52,12 @@ const UserMenu = () => {
             <Link to="/my-ads" className="flex items-center">
               <FileText className="mr-2 h-4 w-4" />
               <span>Mes annonces</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/notifications" className="flex items-center">
+              <BellIcon className="mr-2 h-4 w-4" />
+              <span>Notifications</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>

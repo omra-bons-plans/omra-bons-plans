@@ -26,17 +26,11 @@ export const useProfileTracking = () => {
       }
 
       // Incrémenter le compteur de vues du profil
-      const { data: currentProfile } = await supabase
-        .from('profiles')
-        .select('profile_views')
-        .eq('id', profileId)
-        .single();
+      const { data } = await supabase
+        .rpc('increment_profile_views', { profile_id: profileId });
 
-      if (currentProfile) {
-        await supabase
-          .from('profiles')
-          .update({ profile_views: currentProfile.profile_views + 1 })
-          .eq('id', profileId);
+      if (data !== null) {
+        console.log(`Profile views incremented to: ${data}`);
       }
 
       // Create notification if viewer is different from profile owner

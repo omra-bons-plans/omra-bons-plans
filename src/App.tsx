@@ -30,6 +30,7 @@ import BlogEditor from "./pages/BlogEditor";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import PublicProfile from "./pages/PublicProfile";
+import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -141,6 +142,11 @@ const App = () => (
             <Route path="/blog/:category" element={<Blog />} />
             <Route path="/blog/:category/:id" element={<BlogPost />} />
             <Route path="/profile/:slug" element={<PublicProfile />} />
+            <Route path="/notifications" element={
+              <ProtectedRoute>
+                <Notifications />
+              </ProtectedRoute>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>
