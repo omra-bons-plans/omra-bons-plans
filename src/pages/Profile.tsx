@@ -82,7 +82,12 @@ const Profile = () => {
       }
 
       if (data) {
-        setProfile(data);
+        setProfile({
+          ...data,
+          phone_country: (data as any).phone_country || '+33',
+          whatsapp_country: (data as any).whatsapp_country || '+33',
+          professional_phone_country: (data as any).professional_phone_country || '+33'
+        });
       } else {
         // Create profile if it doesn't exist
         const newProfile = {
