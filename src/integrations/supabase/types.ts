@@ -755,8 +755,16 @@ export type Database = {
         Args: { profile_id: string }
         Returns: number
       }
+      is_ad_expired: {
+        Args: { publish_end_date: string }
+        Returns: boolean
+      }
       is_admin: {
         Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      should_auto_delete_ad: {
+        Args: { publish_end_date: string }
         Returns: boolean
       }
     }

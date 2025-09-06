@@ -41,6 +41,7 @@ export interface FormattedListing {
   reviews: number;
   location: string;
   isPopular: boolean;
+  isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
 }
 
 export const useAds = () => {
@@ -237,6 +238,8 @@ export const useAds = () => {
         ? new Date(ad.promotionEndDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         : false;
 
+      const isExpired = ad.publishEndDate ? new Date(ad.publishEndDate) <= new Date() : false;
+
       return {
         id: ad.id,
         type: ad.category,
@@ -254,6 +257,7 @@ export const useAds = () => {
         reviews: ad.reviews || 0,
         location,
         isPopular: ad.isPromotion || discount > 20, // Popular if promoted or big discount
+        isExpired, // Nouvelle propriété pour indiquer si l'annonce est expirée
       };
     });
   };
