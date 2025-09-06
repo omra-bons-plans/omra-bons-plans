@@ -88,20 +88,20 @@ export const useChat = () => {
     }
   };
 
-  // Delete message
+  // Delete message (admin only)
   const deleteMessage = async (messageId: string) => {
     if (!user) return;
 
     try {
+      // Admin peut supprimer n'importe quel message
       const { error } = await supabase
         .from('chat_messages')
         .delete()
-        .eq('id', messageId)
-        .eq('user_id', user.id); // S'assurer que seul l'auteur peut supprimer
+        .eq('id', messageId);
 
       if (error) throw error;
       
-      toast.success('Message supprimé');
+      toast.success('Message supprimé par l\'administrateur');
     } catch (err) {
       console.error('Error deleting message:', err);
       toast.error('Erreur lors de la suppression du message');

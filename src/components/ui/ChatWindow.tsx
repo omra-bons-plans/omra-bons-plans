@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useChat } from '@/hooks/useChat';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
+import { useAdmin } from '@/contexts/AdminContext';
 import { Link } from 'react-router-dom';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
@@ -12,6 +13,7 @@ const ChatWindow = () => {
   const { messages, loading, sendMessage, deleteMessage } = useChat();
   const { user } = useAuth();
   const { isComplete: profileComplete } = useProfileCompletion();
+  const { isAdmin } = useAdmin();
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -176,14 +178,14 @@ const ChatWindow = () => {
                         {formatTime(message.created_at)}
                       </p>
                       
-                      {/* Bouton de suppression pour l'auteur */}
-                      {message.user_id === user?.id && (
+                      {/* Bouton de suppression pour l'administrateur uniquement */}
+                      {isAdmin && (
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 p-1 h-auto text-primary-foreground hover:bg-primary-foreground/20"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 p-1 h-auto text-destructive hover:bg-destructive/20"
                             >
                               <Trash2 className="w-3 h-3" />
                             </Button>
@@ -192,7 +194,7 @@ const ChatWindow = () => {
                             <AlertDialogHeader>
                               <AlertDialogTitle>Supprimer le message</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible.
+                                En tant qu'administrateur, êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
