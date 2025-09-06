@@ -535,7 +535,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 pb-32">
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
@@ -553,7 +553,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
         {renderStep()}
 
         {/* Navigation */}
-        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8">
+        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8 bg-background/95 backdrop-blur-sm border-t border-border/40 p-4 rounded-lg">
           <Button 
             type="button" 
             variant="outline" 
