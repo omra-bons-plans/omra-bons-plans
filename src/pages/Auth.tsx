@@ -163,7 +163,7 @@ const Auth = () => {
         {/* Header */}
         <div className="text-center space-y-2 mb-8">
           <h1 className="text-2xl font-bold text-foreground">OmraBonsPlans.fr</h1>
-          <p className="text-muted-foreground">Votre plateforme dédiée à l'Omra</p>
+          <p className="text-muted-foreground">Votre plateforme dédiée à la Omra</p>
         </div>
 
         {/* Message de confirmation email */}
