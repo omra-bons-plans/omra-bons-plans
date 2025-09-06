@@ -28,6 +28,7 @@ interface UserProfile {
   ads_count: number;
   ad_views: number;
   contact_views: number;
+  slug?: string;
 }
 
 const Admin = () => {
@@ -73,7 +74,8 @@ const Admin = () => {
           whatsapp,
           company_name,
           is_professional,
-          created_at
+          created_at,
+          slug
         `);
 
       if (profilesError) throw profilesError;
@@ -492,7 +494,7 @@ const Admin = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => navigate(`/profile?user=${user.id}`)}
+                              onClick={() => navigate(`/profile/${user.slug || user.id}`)}
                             >
                               <Eye className="w-4 h-4" />
                             </Button>

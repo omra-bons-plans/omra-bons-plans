@@ -47,6 +47,7 @@ interface AdDetailsData {
     company_name?: string;
     company_address?: string;
     website?: string;
+    slug?: string;
   };
   categoryDetails?: any;
 }
@@ -306,6 +307,15 @@ const AdDetails = () => {
                 {(ad.category === 'sejours' || ad.category === 'hebergement' || ad.category === 'vols') && getPublisherName() && (
                   <p className="text-sm text-muted-foreground mb-4">
                     {getPublisherName()}
+                    {ad.user?.slug && (
+                      <Button
+                        variant="link"
+                        className="p-0 h-auto ml-2 text-blue-600 hover:underline"
+                        onClick={() => navigate(`/profile/${ad.user.slug}`)}
+                      >
+                        Voir le profil complet
+                      </Button>
+                    )}
                   </p>
                 )}
               </div>
@@ -324,6 +334,17 @@ const AdDetails = () => {
                   <DialogContent className="sm:max-w-md">
                     <DialogHeader>
                       <DialogTitle>Contact</DialogTitle>
+                      {ad.user?.slug && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => navigate(`/profile/${ad.user.slug}`)}
+                          className="mt-2"
+                        >
+                          <User className="w-4 h-4 mr-2" />
+                          Voir le profil complet
+                        </Button>
+                      )}
                     </DialogHeader>
                     <div className="space-y-4">
                       {ad.showEmail && ad.user?.email && (
@@ -559,6 +580,17 @@ const AdDetails = () => {
                     <DialogContent className="sm:max-w-md">
                       <DialogHeader>
                         <DialogTitle>Contact</DialogTitle>
+                        {ad.user?.slug && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => navigate(`/profile/${ad.user.slug}`)}
+                            className="mt-2"
+                          >
+                            <User className="w-4 h-4 mr-2" />
+                            Voir le profil complet
+                          </Button>
+                        )}
                       </DialogHeader>
                       <div className="space-y-4">
                         {ad.showEmail && ad.user?.email && (

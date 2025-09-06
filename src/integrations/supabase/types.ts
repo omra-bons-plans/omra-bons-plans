@@ -466,12 +466,49 @@ export type Database = {
           },
         ]
       }
+      profile_views: {
+        Row: {
+          created_at: string
+          id: string
+          ip_address: unknown | null
+          profile_id: string
+          user_agent: string | null
+          viewer_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          profile_id: string
+          user_agent?: string | null
+          viewer_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          profile_id?: string
+          user_agent?: string | null
+          viewer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_views_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
+          bio: string | null
           company_address: string | null
           company_name: string | null
           created_at: string
           email: string | null
+          experience_years: number | null
           facebook: string | null
           first_name: string | null
           full_name: string | null
@@ -480,20 +517,28 @@ export type Database = {
           instagram: string | null
           is_professional: boolean | null
           kuniya: string | null
+          languages_spoken: string[] | null
           phone: string | null
           phone_country: string | null
           professional_phone: string | null
           professional_phone_country: string | null
+          profile_image: string | null
+          profile_views: number | null
+          public_profile: boolean | null
+          slug: string | null
+          specialties: string[] | null
           updated_at: string
           website: string | null
           whatsapp: string | null
           whatsapp_country: string | null
         }
         Insert: {
+          bio?: string | null
           company_address?: string | null
           company_name?: string | null
           created_at?: string
           email?: string | null
+          experience_years?: number | null
           facebook?: string | null
           first_name?: string | null
           full_name?: string | null
@@ -502,20 +547,28 @@ export type Database = {
           instagram?: string | null
           is_professional?: boolean | null
           kuniya?: string | null
+          languages_spoken?: string[] | null
           phone?: string | null
           phone_country?: string | null
           professional_phone?: string | null
           professional_phone_country?: string | null
+          profile_image?: string | null
+          profile_views?: number | null
+          public_profile?: boolean | null
+          slug?: string | null
+          specialties?: string[] | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
           whatsapp_country?: string | null
         }
         Update: {
+          bio?: string | null
           company_address?: string | null
           company_name?: string | null
           created_at?: string
           email?: string | null
+          experience_years?: number | null
           facebook?: string | null
           first_name?: string | null
           full_name?: string | null
@@ -524,10 +577,16 @@ export type Database = {
           instagram?: string | null
           is_professional?: boolean | null
           kuniya?: string | null
+          languages_spoken?: string[] | null
           phone?: string | null
           phone_country?: string | null
           professional_phone?: string | null
           professional_phone_country?: string | null
+          profile_image?: string | null
+          profile_views?: number | null
+          public_profile?: boolean | null
+          slug?: string | null
+          specialties?: string[] | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
@@ -561,6 +620,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_profile_slug: {
+        Args: {
+          user_first_name: string
+          user_full_name: string
+          user_id: string
+        }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
