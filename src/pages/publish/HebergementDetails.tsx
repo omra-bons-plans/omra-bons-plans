@@ -1,23 +1,50 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import HebergementFormMultiStep from "@/components/forms/HebergementFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 
 const HebergementDetails = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [editData, setEditData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isEditing = searchParams.get('edit');
 
-  // Check if user came from category selection
+  // Check if user came from category selection or is editing
   useEffect(() => {
     const selectedCategory = sessionStorage.getItem('selectedCategory');
-    if (!selectedCategory || selectedCategory !== 'hebergement') {
+    if (!isEditing && (!selectedCategory || selectedCategory !== 'hebergement')) {
       navigate('/publish');
+      return;
     }
-  }, [navigate]);
+
+    // If editing, fetch the ad data
+    if (isEditing) {
+      const fetchEditData = async () => {
+        setLoading(true);
+        const data = await fetchAdForEdit(isEditing);
+        if (data) {
+          const formData = convertAdDataToFormData(data.adData, data.categoryData, 'hebergement');
+          setEditData(formData);
+        } else {
+          toast.error("Erreur lors du chargement de l'annonce");
+          navigate('/my-ads');
+        }
+        setLoading(false);
+      };
+      fetchEditData();
+    }
+  }, [navigate, isEditing]);
 
   const handleBack = () => {
-    navigate('/publish');
+    if (isEditing) {
+      navigate('/my-ads');
+    } else {
+      navigate('/publish');
+    }
   };
 
   const saveDraft = async (adData: any, categoryData?: any) => {
@@ -62,6 +89,115 @@ const HebergementDetails = () => {
     }
   };
 
+  const updateExistingAd = async (data: any, saveAsDraft = false) => {
+    try {
+      // Handle image uploads if new images are provided
+      let imageUrls: string[] = [...(data.existingImages || [])];
+      let coverImageUrl = data.coverImageUrl || '';
+
+      // Upload new cover image if provided
+      if (data.coverImage && typeof data.coverImage === 'object') {
+        const { data: { user } } = await supabase.auth.getUser();
+        const coverExt = data.coverImage.name.split('.').pop();
+        const coverPath = `hebergement/${user?.id}/${Date.now()}-cover.${coverExt}`;
+        
+        const { error: coverError } = await supabase.storage
+          .from('ad-images')
+          .upload(coverPath, data.coverImage);
+
+        if (coverError) throw coverError;
+
+        const { data: { publicUrl: coverUrl } } = supabase.storage
+          .from('ad-images')
+          .getPublicUrl(coverPath);
+
+        coverImageUrl = coverUrl;
+      }
+
+      // Upload new additional images if provided
+      if (data.images && data.images.length > 0) {
+        const { data: { user } } = await supabase.auth.getUser();
+        for (let i = 0; i < data.images.length; i++) {
+          const image = data.images[i];
+          if (typeof image === 'object') {
+            const ext = image.name.split('.').pop();
+            const imagePath = `hebergement/${user?.id}/${Date.now()}-${i}.${ext}`;
+            
+            const { error: uploadError } = await supabase.storage
+              .from('ad-images')
+              .upload(imagePath, image);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+              .from('ad-images')
+              .getPublicUrl(imagePath);
+
+            imageUrls.push(publicUrl);
+          }
+        }
+      }
+
+      // Update the main ad
+      const { error: adError } = await supabase
+        .from('ads')
+        .update({
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          original_price: data.originalPrice,
+          location: `${data.city} - ${data.name}`,
+          cover_image: coverImageUrl,
+          images: imageUrls,
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
+          show_professional_phone: data.showProfessionalPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate,
+          is_published: !saveAsDraft,
+          is_draft: saveAsDraft,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', isEditing);
+
+      if (adError) throw adError;
+
+      // Update category-specific data
+      const { error: categoryError } = await supabase
+        .from('ads_hebergements')
+        .update({
+          city: data.city,
+          accommodation_type: data.accommodationType,
+          name: data.name,
+          distance_to_mosque: data.distanceToMosque,
+          available_from: data.availableFrom,
+          available_to: data.availableTo,
+          rooms_count: data.roomsCount,
+          beds_count: data.bedsCount,
+          has_living_room: data.hasLivingRoom,
+          has_wifi: data.hasWifi,
+          has_ac: data.hasAc,
+          has_tv: data.hasTv,
+          has_fridge: data.hasFridge,
+          has_washing_machine: data.hasWashingMachine,
+          video_url: data.videoUrl,
+        })
+        .eq('ad_id', isEditing);
+
+      if (categoryError) throw categoryError;
+
+      toast.success(saveAsDraft ? "Brouillon mis à jour avec succès !" : "Annonce mise à jour avec succès !");
+      sessionStorage.removeItem('selectedCategory');
+      sessionStorage.removeItem('editingAdId');
+      navigate('/my-ads');
+    } catch (error) {
+      console.error('Error updating ad:', error);
+      toast.error("Erreur lors de la mise à jour de l'annonce");
+    }
+  };
+
   const handleHebergementSubmit = async (data: any, saveAsDraft = false) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -70,7 +206,10 @@ const HebergementDetails = () => {
         return;
       }
 
-      if (saveAsDraft) {
+      if (isEditing) {
+        // Update existing ad
+        await updateExistingAd(data, saveAsDraft);
+      } else if (saveAsDraft) {
         const adData = {
           category: 'hebergement',
           title: data.title || 'Brouillon hébergement',
@@ -164,6 +303,7 @@ const HebergementDetails = () => {
           location: `${data.city} - ${data.name}`,
           cover_image: coverImageUrl,
           images: imageUrls,
+          user_id: user.id,
           show_email: data.showEmail,
           show_phone: data.showPhone,
           show_whatsapp: data.showWhatsapp,
@@ -173,7 +313,6 @@ const HebergementDetails = () => {
           publish_end_date: data.publishEndDate,
           is_published: true,
           is_draft: false,
-          user_id: user.id,
         })
         .select()
         .single();
@@ -204,17 +343,24 @@ const HebergementDetails = () => {
 
       if (hebergementError) throw hebergementError;
 
-      toast.success("Annonce d'hébergement publiée avec succès !");
+      toast.success("Annonce publiée avec succès !");
       
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
-      navigate('/');
-      
+      navigate(`/ad-summary/${ad.id}`);
     } catch (error) {
       console.error('Error publishing hebergement ad:', error);
       toast.error("Erreur lors de la publication de l'annonce");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   const steps = ["Catégorie", "Détails"];
   
@@ -229,16 +375,18 @@ const HebergementDetails = () => {
         <div className="space-y-6">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-foreground">
-              Publier un hébergement
+              {isEditing ? "Modifier l'hébergement" : "Publier un hébergement"}
             </h1>
             <p className="text-muted-foreground">
-              Partagez votre hébergement à La Mecque ou Médine
+              {isEditing ? "Modifiez les détails de votre hébergement" : "Partagez votre hébergement à La Mecque ou Médine"}
             </p>
           </div>
 
           <HebergementFormMultiStep 
             onSubmit={handleHebergementSubmit}
             onBack={handleBack}
+            initialData={editData}
+            isEditing={!!isEditing}
           />
         </div>
       </div>

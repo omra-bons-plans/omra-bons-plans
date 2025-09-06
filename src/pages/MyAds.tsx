@@ -346,9 +346,12 @@ const MyAds = () => {
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                 {ad.coverImage ? (
                                   <img 
-                                    src={ad.coverImage} 
+                                    src={ad.coverImage.startsWith('http') ? ad.coverImage : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${ad.coverImage}`} 
                                     alt={ad.title}
                                     className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      e.currentTarget.src = '/placeholder.svg';
+                                    }}
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-primary/10">
@@ -427,7 +430,12 @@ const MyAds = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={() => navigate(`/publish/${ad.category}?edit=${ad.id}`)}
+                                    onClick={() => {
+                                      // Set edit mode in session storage
+                                      sessionStorage.setItem('editingAdId', ad.id);
+                                      sessionStorage.setItem('selectedCategory', ad.category);
+                                      navigate(`/publish/${ad.category}?edit=${ad.id}`);
+                                    }}
                                     disabled={actionLoading === ad.id}
                                   >
                                     <Edit className="w-4 h-4 mr-1" />

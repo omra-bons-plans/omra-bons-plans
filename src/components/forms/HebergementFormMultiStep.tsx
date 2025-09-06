@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Hotel, Upload, Calendar, DollarSign, MapPin, Bed, Wifi, Snowflake, Tv, Refrigerator, WashingMachine, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -101,14 +101,17 @@ interface HebergementFormData {
 interface HebergementFormMultiStepProps {
   onSubmit: (data: HebergementFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
+  initialData?: any;
+  isEditing?: boolean;
 }
 
-const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStepProps) => {
+const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: HebergementFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger, control } = useForm<HebergementFormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger, control, reset } = useForm<HebergementFormData>({
     defaultValues: {
       showEmail: true,
       showPhone: false,
@@ -121,8 +124,39 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
       hasTv: false,
       hasFridge: false,
       hasWashingMachine: false,
+      accommodationType: 'hotel',
+      roomsCount: 1,
+      bedsCount: 1,
+      ...initialData
     }
   });
+
+  // Handle initial data for editing
+  useEffect(() => {
+    if (initialData && isEditing) {
+      reset({
+        showEmail: true,
+        showPhone: false,
+        showWhatsapp: false,
+        showProfessionalPhone: false,
+        isPromotion: false,
+        hasLivingRoom: false,
+        hasWifi: false,
+        hasAc: false,
+        hasTv: false,
+        hasFridge: false,
+        hasWashingMachine: false,
+        accommodationType: 'hotel',
+        roomsCount: 1,
+        bedsCount: 1,
+        ...initialData
+      });
+      
+      if (initialData.existingImages) {
+        setExistingImages(initialData.existingImages);
+      }
+    }
+  }, [initialData, isEditing, reset]);
 
   const watchedCity = watch('city');
   const watchedAccommodationType = watch('accommodationType');
@@ -212,6 +246,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     }
   };
 
+  const removeExistingImage = (index: number) => {
+    setExistingImages(existingImages.filter((_, i) => i !== index));
+  };
+
   const removeImage = (index: number, isCover: boolean = false) => {
     if (isCover) {
       setCoverImage(null);
@@ -233,7 +271,9 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
     const formDataWithImages = {
       ...data,
       images: images,
-      coverImage: coverImage
+      coverImage: coverImage,
+      existingImages: existingImages,
+      coverImageUrl: initialData?.coverImageUrl
     };
     onSubmit(formDataWithImages, saveAsDraft);
   };
@@ -653,6 +693,29 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                               ×
                             </Button>
                           </div>
+                        ) : initialData?.coverImageUrl ? (
+                          <div className="relative">
+                            <img
+                              src={initialData.coverImageUrl.startsWith('http') ? initialData.coverImageUrl : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${initialData.coverImageUrl}`}
+                              alt="Couverture existante"
+                              className="mx-auto h-32 w-48 object-cover rounded-lg"
+                            />
+                            <div className="mt-2">
+                              <label
+                                htmlFor="cover-upload-replace"
+                                className="inline-flex cursor-pointer rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                              >
+                                <span>Remplacer</span>
+                                <input
+                                  id="cover-upload-replace"
+                                  type="file"
+                                  className="sr-only"
+                                  accept="image/*"
+                                  onChange={(e) => handleImageUpload(e, true)}
+                                />
+                              </label>
+                            </div>
+                          </div>
                         ) : (
                           <>
                             <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
@@ -681,11 +744,34 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                   <div>
                     <Label className="text-base font-medium">Photos supplémentaires (maximum 6)</Label>
                     <div className="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {/* Existing images from database */}
+                      {existingImages.map((imageUrl, index) => (
+                        <div key={`existing-${index}`} className="relative">
+                          <img
+                            src={imageUrl.startsWith('http') ? imageUrl : `https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/object/public/ad-images/${imageUrl}`}
+                            alt={`Photo existante ${index + 1}`}
+                            className="h-24 w-full object-cover rounded-lg"
+                          />
+                          <Button
+                            onClick={() => removeExistingImage(index)}
+                            variant="destructive"
+                            size="sm"
+                            className="absolute top-1 right-1 h-6 w-6 p-0"
+                          >
+                            ×
+                          </Button>
+                          <Badge className="absolute bottom-1 left-1 text-xs">
+                            Existante
+                          </Badge>
+                        </div>
+                      ))}
+                      
+                      {/* New images to upload */}
                       {images.map((image, index) => (
-                        <div key={index} className="relative">
+                        <div key={`new-${index}`} className="relative">
                           <img
                             src={URL.createObjectURL(image)}
-                            alt={`Photo ${index + 1}`}
+                            alt={`Nouvelle photo ${index + 1}`}
                             className="h-24 w-full object-cover rounded-lg"
                           />
                           <Button
@@ -696,9 +782,13 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                           >
                             ×
                           </Button>
+                          <Badge className="absolute bottom-1 left-1 text-xs bg-green-500">
+                            Nouvelle
+                          </Badge>
                         </div>
                       ))}
-                      {images.length < 6 && (
+                      
+                      {(existingImages.length + images.length) < 6 && (
                         <label className="flex h-24 cursor-pointer items-center justify-center rounded-lg border border-dashed border-border hover:border-primary">
                           <div className="text-center">
                             <Upload className="mx-auto h-6 w-6 text-muted-foreground" />
