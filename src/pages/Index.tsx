@@ -586,15 +586,16 @@ const Index = () => {
                     </div>
                     
                     {listing.isPopular && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                         ⭐ Populaire
                       </Badge>
                     )}
                     
                     {listing.isFlashSale && (
-                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                         <Zap className="w-3 h-3 mr-1" />
-                        Vente Flash
+                        <span className="hidden sm:inline">Vente Flash</span>
+                        <span className="sm:hidden">Flash</span>
                       </Badge>
                     )}
                     
@@ -711,15 +712,16 @@ const Index = () => {
                         </div>
                         
                         {listing.isPopular && (
-                          <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                          <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                             ⭐ Populaire
                           </Badge>
                         )}
                         
                         {listing.isFlashSale && (
-                          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                             <Zap className="w-3 h-3 mr-1" />
-                            Vente Flash
+                            <span className="hidden sm:inline">Vente Flash</span>
+                            <span className="sm:hidden">Flash</span>
                           </Badge>
                         )}
                         
@@ -842,15 +844,16 @@ const Index = () => {
                           </div>
                           
                           {listing.isPopular && (
-                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                               ⭐ Populaire
                             </Badge>
                           )}
                           
                           {listing.isFlashSale && (
-                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              Vente Flash
+                              <span className="hidden sm:inline">Vente Flash</span>
+                              <span className="sm:hidden">Flash</span>
                             </Badge>
                           )}
                           
@@ -1032,15 +1035,16 @@ const Index = () => {
                     </div>
                     
                     {listing.isPopular && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                      <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                         ⭐ Populaire
                       </Badge>
                     )}
                     
                     {listing.isFlashSale && (
-                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                         <Zap className="w-3 h-3 mr-1" />
-                        Vente Flash
+                        <span className="hidden sm:inline">Vente Flash</span>
+                        <span className="sm:hidden">Flash</span>
                       </Badge>
                     )}
                     
@@ -1155,15 +1159,16 @@ const Index = () => {
                           </div>
                           
                           {listing.isPopular && (
-                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                               ⭐ Populaire
                             </Badge>
                           )}
                           
                           {listing.isFlashSale && (
-                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              Vente Flash
+                              <span className="hidden sm:inline">Vente Flash</span>
+                              <span className="sm:hidden">Flash</span>
                             </Badge>
                           )}
                           
@@ -1286,15 +1291,16 @@ const Index = () => {
                           </div>
                           
                           {listing.isPopular && (
-                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-semibold shadow-medium">
+                            <Badge className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-medium">
                               ⭐ Populaire
                             </Badge>
                           )}
                           
                           {listing.isFlashSale && (
-                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-3 py-2 rounded-full font-semibold flash-pulse">
+                            <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
                               <Zap className="w-3 h-3 mr-1" />
-                              Vente Flash
+                              <span className="hidden sm:inline">Vente Flash</span>
+                              <span className="sm:hidden">Flash</span>
                             </Badge>
                           )}
                           
