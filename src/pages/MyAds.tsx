@@ -417,7 +417,7 @@ const MyAds = () => {
                                     onClick={() => {
                                       if (ad.isPublished && !ad.isPaused && !ad.isDraft) {
                                         // Annonce active : aller vers l'annonce en ligne
-                                        window.open(`/?category=${ad.category}&highlight=${ad.id}`, '_blank');
+                                        navigate(`/ad/${ad.id}`);
                                       } else {
                                         // Annonce en pause ou brouillon : aller vers la page récap
                                         navigate(`/ad-summary/${ad.id}`);
