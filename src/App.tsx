@@ -20,6 +20,7 @@ import BabysittingDetails from "./pages/publish/BabysittingDetails";
 import HebergementDetails from "./pages/publish/HebergementDetails";
 import PlaceholderDetails from "./pages/publish/PlaceholderDetails";
 import AdSummary from "./pages/AdSummary";
+import AdDetails from "./pages/AdDetails";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -99,6 +100,7 @@ const App = () => (
                 <AdSummary />
               </ProtectedRoute>
             } />
+            <Route path="/ad/:id" element={<AdDetails />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

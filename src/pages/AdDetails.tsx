@@ -1,0 +1,437 @@
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import MobileLayout from '@/components/mobile/MobileLayout';
+
+interface AdDetailsData {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  category: string;
+  location?: string;
+  coverImage?: string;
+  images: string[];
+  isPublished: boolean;
+  publishEndDate: string;
+  promotionEndDate?: string;
+  createdAt: string;
+  showEmail: boolean;
+  showPhone: boolean;
+  showWhatsapp: boolean;
+  showProfessionalPhone: boolean;
+  user?: {
+    email?: string;
+    full_name?: string;
+    phone?: string;
+    phone_country?: string;
+    whatsapp?: string;
+    whatsapp_country?: string;
+    professional_phone?: string;
+    professional_phone_country?: string;
+    facebook?: string;
+    instagram?: string;
+  };
+  categoryDetails?: any;
+}
+
+const AdDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [ad, setAd] = useState<AdDetailsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (id) {
+      fetchAdDetails();
+    }
+  }, [id]);
+
+  const fetchAdDetails = async () => {
+    if (!id) return;
+
+    try {
+      setLoading(true);
+      
+      // Fetch ad details with user profile
+      const { data: adData, error: adError } = await supabase
+        .from('ads')
+        .select('*')
+        .eq('id', id)
+        .eq('is_published', true)
+        .single();
+
+      if (adError) throw adError;
+
+      // Fetch user profile separately
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', adData.user_id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching profile:', profileError);
+      }
+
+      // Fetch category-specific details
+      let categoryDetails = null;
+      const tableMap: Record<string, string> = {
+        'sejours': 'ads_sejours',
+        'vols': 'ads_vols',
+        'guides': 'ads_guides',
+        'chauffeurs': 'ads_chauffeurs',
+        'babysitting': 'ads_babysitting',
+        'hebergement': 'ads_hebergements'
+      };
+
+      const categoryTable = tableMap[adData.category];
+      if (categoryTable) {
+        const { data: details, error: detailsError } = await supabase
+          .from(categoryTable as any)
+          .select('*')
+          .eq('ad_id', id)
+          .single();
+
+        if (!detailsError) {
+          categoryDetails = details;
+        }
+      }
+
+      setAd({
+        id: adData.id,
+        title: adData.title,
+        description: adData.description,
+        price: adData.price,
+        originalPrice: adData.original_price,
+        category: adData.category,
+        location: adData.location,
+        coverImage: adData.cover_image,
+        images: adData.images || [],
+        isPublished: adData.is_published,
+        publishEndDate: adData.publish_end_date,
+        promotionEndDate: adData.promotion_end_date,
+        createdAt: adData.created_at,
+        showEmail: adData.show_email,
+        showPhone: adData.show_phone,
+        showWhatsapp: adData.show_whatsapp,
+        showProfessionalPhone: adData.show_professional_phone,
+        user: profile,
+        categoryDetails
+      });
+    } catch (error) {
+      console.error('Error fetching ad details:', error);
+      toast.error('Erreur lors du chargement de l\'annonce');
+      navigate('/');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCategoryName = (category: string) => {
+    const categories = {
+      sejours: 'Séjour',
+      vols: 'Vol',
+      guides: 'Guide',
+      chauffeurs: 'Chauffeur',
+      babysitting: 'Baby-sitting',
+      hebergement: 'Hébergement'
+    };
+    return categories[category as keyof typeof categories] || category;
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success('Copié dans le presse-papier');
+  };
+
+  if (loading) {
+    return (
+      <MobileLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+        </div>
+      </MobileLayout>
+    );
+  }
+
+  if (!ad) {
+    return (
+      <MobileLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold mb-2">Annonce non trouvée</h2>
+            <Button onClick={() => navigate('/')}>Retour à l'accueil</Button>
+          </div>
+        </div>
+      </MobileLayout>
+    );
+  }
+
+  const allImages = ad.coverImage ? [ad.coverImage, ...ad.images] : ad.images;
+
+  return (
+    <MobileLayout>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/')}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Accueil
+              </Button>
+            </div>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 py-6">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+            <span>Accueil</span>
+            <span>/</span>
+            <span>{getCategoryName(ad.category)}</span>
+            <span>/</span>
+            <span className="text-foreground">{ad.title}</span>
+          </div>
+
+          {/* Image Carousel */}
+          {allImages.length > 0 && (
+            <div className="relative">
+              <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
+                <img 
+                  src={allImages[currentImageIndex]} 
+                  alt={ad.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Image indicators */}
+              {allImages.length > 1 && (
+                <div className="flex justify-center gap-2 mb-6">
+                  {allImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Title and Subtitle */}
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold mb-2">{ad.title}</h1>
+            {ad.categoryDetails && ad.category === 'guides' && (
+              <p className="text-muted-foreground">
+                (je suis également {ad.categoryDetails.offers_omra_guidance && 'guide'}{ad.categoryDetails.offers_visits && ', visite'}{ad.categoryDetails.offers_courses && ', cours'})
+              </p>
+            )}
+          </div>
+
+          {/* Contact Button */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="w-full mb-6 bg-slate-600 hover:bg-slate-700">
+                Voir contact
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Contact</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                {ad.showEmail && ad.user?.email && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Mail className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.user.email}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => copyToClipboard(ad.user?.email || '')}
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+
+                {ad.user?.facebook && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Facebook className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.user.facebook}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
+                    >
+                      <ArrowLeft className="w-4 h-4 rotate-180" />
+                    </Button>
+                  </div>
+                )}
+
+                {ad.user?.instagram && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Instagram className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.user.instagram}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
+                    >
+                      <ArrowLeft className="w-4 h-4 rotate-180" />
+                    </Button>
+                  </div>
+                )}
+
+                {ad.showWhatsapp && ad.user?.whatsapp && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <MessageCircle className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+
+                {ad.showPhone && ad.user?.phone && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-5 h-5 text-muted-foreground" />
+                      <span>{ad.user.phone_country}{ad.user.phone}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Price */}
+          {ad.price > 0 && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Prix</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl font-bold">€ {ad.price}€</span>
+                  {ad.originalPrice && (
+                    <span className="text-lg text-muted-foreground line-through">
+                      {ad.originalPrice}€
+                    </span>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Details */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Détails</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {ad.location && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-muted-foreground" />
+                  <span>{ad.location}</span>
+                </div>
+              )}
+              
+              {ad.categoryDetails && ad.category === 'guides' && (
+                <>
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-muted-foreground" />
+                    <span>{ad.categoryDetails.years_experience} ans</span>
+                  </div>
+                  
+                  {ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
+                    <div className="space-y-2">
+                      <span className="font-semibold">Langues</span>
+                      <div className="flex gap-2 flex-wrap">
+                        {ad.categoryDetails.languages.map((lang: string, index: number) => (
+                          <Badge key={index} variant="secondary">
+                            {lang}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Services (for guides) */}
+          {ad.categoryDetails && ad.category === 'guides' && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Service proposé</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {ad.categoryDetails.offers_omra_guidance && <li>• Omra</li>}
+                  {ad.categoryDetails.offers_courses && <li>• Cours</li>}
+                  {ad.categoryDetails.offers_visits && <li>• Visite des lieux</li>}
+                  {ad.categoryDetails.offers_omra_badal && <li>• Omra badal</li>}
+                  {ad.categoryDetails.offers_other && <li>• Autres</li>}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Description */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                {ad.category === 'guides' ? 'Informations complémentaires' : 'Description'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="whitespace-pre-wrap">{ad.description}</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </MobileLayout>
+  );
+};
+
+export default AdDetails;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,6 +44,7 @@ const getWeatherIcon = (description: string) => {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -392,7 +393,11 @@ const Index = () => {
           {flashSalesListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8">
               {flashSalesListings.map((listing) => (
-                <Card key={listing.id} className="card-modern overflow-hidden border-border/20 bg-card/50">
+                <Card 
+                  key={listing.id} 
+                  className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                  onClick={() => navigate(`/ad/${listing.id}`)}
+                >
                   <div className="relative group">
                     <div className="w-full h-56 overflow-hidden">
                       <img 
@@ -508,7 +513,10 @@ const Index = () => {
               <CarouselContent className="-ml-4">
                 {flashSalesListings.map((listing) => (
                   <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                    <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                    <Card 
+                      className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                      onClick={() => navigate(`/ad/${listing.id}`)}
+                    >
                       <div className="relative group">
                         <div className="w-full h-56 overflow-hidden">
                           <img 
@@ -616,7 +624,10 @@ const Index = () => {
                 <CarouselContent>
                   {flashSalesListings.map((listing) => (
                     <CarouselItem key={listing.id}>
-                      <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                      <Card 
+                        className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                        onClick={() => navigate(`/ad/${listing.id}`)}
+                      >
                         <div className="relative group">
                           <div className="w-full h-56 overflow-hidden">
                             <img 
@@ -794,7 +805,11 @@ const Index = () => {
           {filteredListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8 mb-16">
               {filteredListings.map((listing) => (
-                <Card key={listing.id} className="card-modern overflow-hidden border-border/20 bg-card/50">
+                <Card 
+                  key={listing.id} 
+                  className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                  onClick={() => navigate(`/ad/${listing.id}`)}
+                >
                   <div className="relative group">
                     <div className="w-full h-56 overflow-hidden">
                       <img 
@@ -909,7 +924,10 @@ const Index = () => {
                 <CarouselContent className="-ml-4">
                   {filteredListings.map((listing) => (
                     <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                      <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                      <Card 
+                        className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                        onClick={() => navigate(`/ad/${listing.id}`)}
+                      >
                         <div className="relative group">
                           <div className="w-full h-56 overflow-hidden">
                             <img 
@@ -1032,7 +1050,10 @@ const Index = () => {
                 <CarouselContent>
                   {filteredListings.map((listing) => (
                     <CarouselItem key={listing.id}>
-                      <Card className="card-modern overflow-hidden border-border/20 bg-card/50">
+                      <Card 
+                        className="card-modern overflow-hidden border-border/20 bg-card/50 cursor-pointer transition-transform hover:scale-105"
+                        onClick={() => navigate(`/ad/${listing.id}`)}
+                      >
                         <div className="relative group">
                           <div className="w-full h-56 overflow-hidden">
                             <img 
