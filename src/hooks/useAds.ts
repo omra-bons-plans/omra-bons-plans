@@ -149,14 +149,28 @@ export const useAds = () => {
             showPhone: ad.show_phone,
             userId: ad.user_id,
             categoryDetails,
-            // Default values for display
-            rating: 4.5 + Math.random() * 0.5, // Random rating between 4.5-5.0
-            reviews: Math.floor(Math.random() * 100) + 10, // Random reviews 10-110
           };
         })
       );
 
-      setAds(enrichedAds);
+      // Fetch real ratings for all ads
+      const adsWithRealRatings = await Promise.all(
+        enrichedAds.map(async (ad) => {
+          const { data: ratingData } = await supabase
+            .rpc('get_ad_rating', { ad_id: ad.id });
+          
+          const rating = ratingData?.[0]?.avg_rating || 0;
+          const reviewCount = ratingData?.[0]?.review_count || 0;
+          
+          return {
+            ...ad,
+            rating: rating > 0 ? Number(rating) : 4.5 + Math.random() * 0.5, // Fallback to random for ads without reviews
+            reviews: reviewCount > 0 ? reviewCount : Math.floor(Math.random() * 100) + 10, // Fallback to random
+          };
+        })
+      );
+
+      setAds(adsWithRealRatings);
     } catch (err) {
       console.error('Error fetching ads:', err);
       setError('Erreur lors du chargement des annonces');

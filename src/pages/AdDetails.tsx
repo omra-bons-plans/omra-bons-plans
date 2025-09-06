@@ -1,999 +1,413 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Calendar, Star, Phone, Mail, MessageCircle, Facebook, Instagram, Copy, User, Globe, Building } from 'lucide-react';
+import { ArrowLeft, MapPin, Calendar, Eye, Phone, MessageCircle, Star, User, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useAuth } from '@/contexts/AuthContext';
+import { ReviewsList } from '@/components/ui/ReviewsList';
+import { ReviewForm } from '@/components/ui/ReviewForm';
+import { RatingDisplay } from '@/components/ui/RatingDisplay';
+import AdDetailsDisplay from '@/components/ui/AdDetailsDisplay';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useReviews } from '@/hooks/useReviews';
 import { toast } from 'sonner';
-import MobileLayout from '@/components/mobile/MobileLayout';
-import { getImageUrl } from '@/utils/imageUtils';
-import { useClickTracking } from '@/hooks/useClickTracking';
+import { formatDistanceToNow } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
-interface AdDetailsData {
+interface AdData {
   id: string;
   title: string;
   description: string;
   price: number;
-  originalPrice?: number;
+  currency: string;
+  location: string;
   category: string;
-  location?: string;
-  coverImage?: string;
   images: string[];
-  isPublished: boolean;
-  publishEndDate: string;
-  promotionEndDate?: string;
-  createdAt: string;
-  showEmail: boolean;
-  showPhone: boolean;
-  showWhatsapp: boolean;
-  showProfessionalPhone: boolean;
-  user?: {
-    email?: string;
-    full_name?: string;
-    first_name?: string;
-    kuniya?: string;
-    phone?: string;
-    phone_country?: string;
-    whatsapp?: string;
-    whatsapp_country?: string;
-    professional_phone?: string;
-    professional_phone_country?: string;
-    facebook?: string;
-    instagram?: string;
-    is_professional?: boolean;
-    company_name?: string;
-    company_address?: string;
-    website?: string;
-    slug?: string;
-  };
+  cover_image: string | null;
+  created_at: string;
+  user_id: string;
+  is_published: boolean;
+  publish_end_date: string;
+  show_phone: boolean;
+  show_whatsapp: boolean;
+  show_email: boolean;
   categoryDetails?: any;
+  profile?: {
+    full_name: string;
+    first_name: string;
+    phone: string;
+    whatsapp: string;
+    email: string;
+  };
 }
 
-const AdDetails = () => {
-  const { id } = useParams();
+export default function AdDetails() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { trackClick } = useClickTracking();
-  const [ad, setAd] = useState<AdDetailsData | null>(null);
+  const [ad, setAd] = useState<AdData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [userCategories, setUserCategories] = useState<string[]>([]);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [editingReview, setEditingReview] = useState(false);
+
+  const {
+    reviews,
+    stats,
+    loading: reviewsLoading,
+    submitReview,
+    updateReview,
+    deleteReview,
+    getUserReview
+  } = useReviews(id);
 
   useEffect(() => {
-    if (id) {
-      fetchAdDetails();
-    }
+    fetchAdDetails();
   }, [id]);
-
-  // Track ad view when component mounts and ad is loaded
-  useEffect(() => {
-    if (ad && id) {
-      trackClick(id, 'ad_view');
-    }
-  }, [ad, id, trackClick]);
 
   const fetchAdDetails = async () => {
     if (!id) return;
 
     try {
       setLoading(true);
-      
-      // Fetch ad details with user profile
+
+      // Fetch ad first
       const { data: adData, error: adError } = await supabase
         .from('ads')
         .select('*')
         .eq('id', id)
-        .eq('is_published', true)
         .single();
 
       if (adError) throw adError;
 
-      // Fetch user profile separately
-      const { data: profile, error: profileError } = await supabase
+      if (!adData.is_published) {
+        throw new Error('Cette annonce n\'est plus disponible');
+      }
+
+      // Fetch profile separately
+      const { data: profileData } = await supabase
         .from('profiles')
-        .select('*')
+        .select('full_name, first_name, phone, whatsapp, email')
         .eq('id', adData.user_id)
         .single();
 
-      if (profileError) {
-        console.error('Error fetching profile:', profileError);
-      }
-
-      // Fetch all published categories for this user to show "également" services
-      const { data: userAds, error: userAdsError } = await supabase
-        .from('ads')
-        .select('category')
-        .eq('user_id', adData.user_id)
-        .eq('is_published', true)
-        .neq('id', id); // Exclude current ad
-
-      if (!userAdsError && userAds) {
-        const categories = [...new Set(userAds.map(userAd => userAd.category))];
-        setUserCategories(categories);
-      }
-
       // Fetch category-specific details
       let categoryDetails = null;
-      const tableMap: Record<string, string> = {
-        'sejours': 'ads_sejours',
-        'vols': 'ads_vols',
-        'guides': 'ads_guides',
-        'chauffeurs': 'ads_chauffeurs',
-        'babysitting': 'ads_babysitting',
-        'hebergement': 'ads_hebergements'
-      };
-
-      const categoryTable = tableMap[adData.category];
-      if (categoryTable) {
-        const { data: details, error: detailsError } = await supabase
-          .from(categoryTable as any)
-          .select('*')
-          .eq('ad_id', id)
-          .single();
-
-        if (!detailsError) {
-          categoryDetails = details;
+      
+      try {
+        if (adData.category === 'sejours') {
+          const { data } = await supabase
+            .from('ads_sejours')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
+        } else if (adData.category === 'vols') {
+          const { data } = await supabase
+            .from('ads_vols')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
+        } else if (adData.category === 'hebergements') {
+          const { data } = await supabase
+            .from('ads_hebergements')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
+        } else if (adData.category === 'guides') {
+          const { data } = await supabase
+            .from('ads_guides')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
+        } else if (adData.category === 'chauffeurs') {
+          const { data } = await supabase
+            .from('ads_chauffeurs')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
+        } else if (adData.category === 'babysitting') {
+          const { data } = await supabase
+            .from('ads_babysitting')
+            .select('*')
+            .eq('ad_id', id)
+            .single();
+          categoryDetails = data;
         }
+      } catch (err) {
+        console.log('No category details found');
       }
 
       setAd({
-        id: adData.id,
-        title: adData.title,
-        description: adData.description,
-        price: adData.price,
-        originalPrice: adData.original_price,
-        category: adData.category,
-        location: adData.location,
-        coverImage: adData.cover_image,
-        images: adData.images || [],
-        isPublished: adData.is_published,
-        publishEndDate: adData.publish_end_date,
-        promotionEndDate: adData.promotion_end_date,
-        createdAt: adData.created_at,
-        showEmail: adData.show_email,
-        showPhone: adData.show_phone,
-        showWhatsapp: adData.show_whatsapp,
-        showProfessionalPhone: adData.show_professional_phone,
-        user: profile,
-        categoryDetails
+        ...adData,
+        categoryDetails,
+        profile: profileData
       });
-    } catch (error) {
+
+      // Track view (optional - you can implement this later)
+      // trackAdView(id);
+
+    } catch (error: any) {
       console.error('Error fetching ad details:', error);
-      toast.error('Erreur lors du chargement de l\'annonce');
+      toast.error(error.message || 'Erreur lors du chargement de l\'annonce');
       navigate('/');
     } finally {
       setLoading(false);
     }
   };
 
-  const getCategoryName = (category: string) => {
-    const categories = {
-      sejours: 'Séjour',
-      vols: 'Vol',
-      guides: 'Guide',
-      chauffeurs: 'Chauffeur',
-      babysitting: 'Baby-sitting',
-      hebergement: 'Hébergement'
-    };
-    return categories[category as keyof typeof categories] || category;
-  };
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast.success('Copié dans le presse-papier');
-  };
-
-  const getAdditionalServices = () => {
-    if (!ad || userCategories.length === 0) return '';
+  const handleReviewSubmit = async (rating: number, comment: string) => {
+    const userReview = getUserReview();
     
-    const categoryNames: Record<string, string> = {
-      'guides': 'guide',
-      'chauffeurs': 'chauffeur',
-      'babysitting': 'baby-sitter',
-      'sejours': 'organisateur de séjours',
-      'vols': 'spécialiste vols',
-      'hebergement': 'hébergeur'
-    };
-
-    const additionalServices = userCategories
-      .filter(cat => cat !== ad.category)
-      .map(cat => categoryNames[cat] || cat)
-      .join(', ');
-
-    return additionalServices ? `(je suis également ${additionalServices})` : '';
-  };
-
-  const handleContactClick = () => {
-    if (id) {
-      trackClick(id, 'contact_view');
+    if (userReview) {
+      // Update existing review
+      const success = await updateReview(userReview.id, rating, comment);
+      if (success) {
+        setEditingReview(false);
+        setShowReviewForm(false);
+      }
+      return success;
+    } else {
+      // Create new review
+      const success = await submitReview(rating, comment);
+      if (success) {
+        setShowReviewForm(false);
+      }
+      return success;
     }
   };
 
-  const getPublisherName = () => {
-    if (!ad?.user) return '';
+  const handleEditReview = () => {
+    setEditingReview(true);
+    setShowReviewForm(true);
+  };
 
-    // Si c'est un compte professionnel et qu'il y a un nom de société
-    if (ad.user.is_professional && ad.user.company_name) {
-      return `Cette annonce a été publiée par ${ad.user.company_name}`;
+  const handleDeleteReview = async (reviewId: string) => {
+    await deleteReview(reviewId);
+  };
+
+  const handleShareAd = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: ad?.title,
+        text: ad?.description,
+        url: window.location.href,
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success('Lien copié dans le presse-papiers');
     }
-
-    // Si il y a une kuniya
-    if (ad.user.kuniya) {
-      return `Cette annonce a été publiée par ${ad.user.kuniya}`;
-    }
-
-    // Si il y a un prénom
-    if (ad.user.first_name) {
-      return `Cette annonce a été publiée par ${ad.user.first_name}`;
-    }
-
-    return '';
   };
 
   if (loading) {
     return (
-      <MobileLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="animate-pulse space-y-6">
+            <div className="h-8 bg-muted rounded w-32" />
+            <div className="h-96 bg-muted rounded" />
+            <div className="h-32 bg-muted rounded" />
+          </div>
         </div>
-      </MobileLayout>
+      </div>
     );
   }
 
   if (!ad) {
     return (
-      <MobileLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-xl font-semibold mb-2">Annonce non trouvée</h2>
-            <Button onClick={() => navigate('/')}>Retour à l'accueil</Button>
-          </div>
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Annonce introuvable</h1>
+          <Button onClick={() => navigate('/')}>
+            Retour à l'accueil
+          </Button>
         </div>
-      </MobileLayout>
+      </div>
     );
   }
 
-  const allImages = ad.coverImage ? [ad.coverImage, ...ad.images] : ad.images;
+  const userReview = getUserReview();
+  const canReview = user && user.id !== ad.user_id && !userReview;
+  const canEditReview = user && userReview;
 
   return (
-    <MobileLayout>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/')}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Accueil
-              </Button>
-            </div>
-          </div>
-        </header>
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            className="flex items-center space-x-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Retour</span>
+          </Button>
 
-        {/* Content */}
-        <div className="container mx-auto px-6 py-8">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <button 
-              onClick={() => navigate('/')}
-              className="hover:text-foreground transition-colors cursor-pointer"
-            >
-              Accueil
-            </button>
-            <span>/</span>
-            <button 
-              onClick={() => navigate(`/?category=${ad.category}`)}
-              className="hover:text-foreground transition-colors cursor-pointer"
-            >
-              {getCategoryName(ad.category)}s
-            </button>
-            <span>/</span>
-            <span className="text-foreground">{ad.title}</span>
-          </div>
-          
-          {/* Content */}
-          <div className="max-w-4xl mx-auto">
-            {/* Title and Contact Button Row */}
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
-                {(ad.category === 'sejours' || ad.category === 'hebergement' || ad.category === 'vols') && getPublisherName() && (
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {getPublisherName()}
-                    {ad.user?.slug && (
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto ml-2 text-blue-600 hover:underline"
-                        onClick={() => navigate(`/profile/${ad.user.slug}`)}
-                      >
-                        Voir le profil complet
-                      </Button>
-                    )}
-                  </p>
-                )}
-              </div>
-              
-              {/* Contact Button - Desktop */}
-              <div className="hidden lg:block">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button 
-                      className="bg-slate-600 hover:bg-slate-700 px-8"
-                      onClick={handleContactClick}
-                    >
-                      Voir contact
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                      <DialogTitle>Contact</DialogTitle>
-                      {ad.user?.slug && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => navigate(`/profile/${ad.user.slug}`)}
-                          className="mt-2"
-                        >
-                          <User className="w-4 h-4 mr-2" />
-                          Voir le profil complet
-                        </Button>
-                      )}
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      {ad.showEmail && ad.user?.email && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <Mail className="w-5 h-5 text-muted-foreground" />
-                            <span>{ad.user.email}</span>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => copyToClipboard(ad.user?.email || '')}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      )}
+          <Button
+            variant="outline"
+            onClick={handleShareAd}
+            className="flex items-center space-x-2"
+          >
+            <Share2 className="w-4 h-4" />
+            <span>Partager</span>
+          </Button>
+        </div>
 
-                      {ad.user?.facebook && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <Facebook className="w-5 h-5 text-muted-foreground" />
-                            <span>{ad.user.facebook}</span>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
-                          >
-                            <ArrowLeft className="w-4 h-4 rotate-180" />
-                          </Button>
-                        </div>
-                      )}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Ad Preview */}
+            <Card>
+              <CardContent className="p-6">
+                <AdDetailsDisplay ad={ad} />
+              </CardContent>
+            </Card>
 
-                      {ad.user?.instagram && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <Instagram className="w-5 h-5 text-muted-foreground" />
-                            <span>{ad.user.instagram}</span>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
-                          >
-                            <ArrowLeft className="w-4 h-4 rotate-180" />
-                          </Button>
-                        </div>
-                      )}
+            {/* Reviews Section */}
+            <Card>
+              <CardContent className="p-6">
+                <Tabs defaultValue="reviews" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="reviews">
+                      Avis ({stats.totalReviews})
+                    </TabsTrigger>
+                    <TabsTrigger value="leave-review">
+                      {canEditReview ? 'Modifier mon avis' : 'Laisser un avis'}
+                    </TabsTrigger>
+                  </TabsList>
 
-                      {ad.showWhatsapp && ad.user?.whatsapp && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <MessageCircle className="w-5 h-5 text-muted-foreground" />
-                            <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      )}
-
-                        {ad.showPhone && ad.user?.phone && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Phone className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.phone_country}{ad.user.phone}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {ad.showProfessionalPhone && ad.user?.professional_phone && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Phone className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
-                              <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {/* Professional Address */}
-                        {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.company_address && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Building className="w-5 h-5 text-muted-foreground" />
-                              <span className="text-sm">{ad.user.company_address}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(ad.user?.company_address || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {/* Professional Website */}
-                        {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.website && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Globe className="w-5 h-5 text-muted-foreground" />
-                              <span className="text-sm text-blue-600 hover:underline cursor-pointer" 
-                                    onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}>
-                                {ad.user.website}
-                              </span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}
-                            >
-                              <ArrowLeft className="w-4 h-4 rotate-180" />
-                            </Button>
-                          </div>
-                        )}
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </div>
-
-            {/* Main Layout - Desktop: Two columns, Mobile: Single column */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Left Column - Image and Details */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Image Gallery - Improved Scrollable */}
-                <div className="relative">
-                  {allImages.length > 0 ? (
-                    <div className="relative">
-                      {/* Main selected image */}
-                      <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
-                        <img 
-                          src={getImageUrl(allImages[currentImageIndex]) || '/ad-placeholder.jpg'} 
-                          alt={`${ad.title} - Image ${currentImageIndex + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            console.error('Image failed to load:', allImages[currentImageIndex]);
-                            e.currentTarget.src = '/ad-placeholder.jpg';
-                          }}
-                        />
-                        {/* Image counter */}
-                        {allImages.length > 1 && (
-                          <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-sm">
-                            {currentImageIndex + 1} / {allImages.length}
-                          </div>
-                        )}
+                  <TabsContent value="reviews" className="mt-6">
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">
+                          Avis des utilisateurs
+                        </h3>
+                        <RatingDisplay stats={stats} size="lg" />
                       </div>
-                      
-                      {/* Thumbnail scroll */}
-                      {allImages.length > 1 && (
-                        <div className="overflow-x-auto scrollbar-hide">
-                          <div className="flex gap-2 pb-2" style={{width: `${allImages.length * 80 + (allImages.length - 1) * 8}px`}}>
-                            {allImages.map((image, index) => (
-                              <div 
-                                key={index}
-                                className={`flex-shrink-0 w-16 h-16 bg-muted rounded-md overflow-hidden cursor-pointer border-2 transition-all ${
-                                  index === currentImageIndex ? 'border-primary shadow-md' : 'border-border hover:border-primary/50'
-                                }`}
-                                onClick={() => setCurrentImageIndex(index)}
-                              >
-                                <img 
-                                  src={getImageUrl(image) || '/ad-placeholder.jpg'} 
-                                  alt={`${ad.title} - Miniature ${index + 1}`}
-                                  className="w-full h-full object-cover"
-                                  onError={(e) => {
-                                    console.error('Thumbnail failed to load:', image);
-                                    e.currentTarget.src = '/ad-placeholder.jpg';
-                                  }}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
-                      <img 
-                        src="/ad-placeholder.jpg"
-                        alt="Aucune image disponible"
-                        className="w-full h-full object-cover opacity-50"
+
+                      <ReviewsList
+                        reviews={reviews}
+                        loading={reviewsLoading}
+                        onEditReview={handleEditReview}
+                        onDeleteReview={handleDeleteReview}
                       />
                     </div>
+                  </TabsContent>
+
+                  <TabsContent value="leave-review" className="mt-6">
+                    {user && user.id === ad.user_id ? (
+                      <Card>
+                        <CardContent className="p-6 text-center">
+                          <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                          <h3 className="text-lg font-medium mb-2">
+                            Vous ne pouvez pas laisser d'avis
+                          </h3>
+                          <p className="text-muted-foreground">
+                            Vous ne pouvez pas laisser un avis sur votre propre annonce.
+                          </p>
+                        </CardContent>
+                      </Card>
+                    ) : (
+                      <ReviewForm
+                        onSubmit={handleReviewSubmit}
+                        existingReview={userReview}
+                        loading={reviewsLoading}
+                      />
+                    )}
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Price & Actions */}
+            <Card>
+              <CardContent className="p-6">
+                <div className="text-center mb-6">
+                  <div className="text-3xl font-bold text-primary mb-2">
+                    {ad.price} {ad.currency}
+                  </div>
+                  <RatingDisplay stats={stats} />
+                </div>
+
+                <div className="space-y-3">
+                  {ad.show_phone && ad.profile?.phone && (
+                    <Button className="w-full" variant="default">
+                      <Phone className="w-4 h-4 mr-2" />
+                      Appeler
+                    </Button>
+                  )}
+                  
+                  {ad.show_whatsapp && ad.profile?.whatsapp && (
+                    <Button className="w-full" variant="outline">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      WhatsApp
+                    </Button>
                   )}
                 </div>
+              </CardContent>
+            </Card>
 
-                {/* Description */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>
-                      {ad.category === 'guides' ? 'Informations complémentaires' : 'Description'}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="whitespace-pre-wrap leading-relaxed">{ad.description}</p>
-                  </CardContent>
-                </Card>
-              </div>
+            {/* Ad Info */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Informations</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="w-4 h-4 text-muted-foreground" />
+                    <span>{ad.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span>
+                      Publié {formatDistanceToNow(new Date(ad.created_at), {
+                        addSuffix: true,
+                        locale: fr
+                      })}
+                    </span>
+                  </div>
 
-              {/* Right Column - Info Cards */}
-              <div className="space-y-6">
-                {/* Mobile Contact Button */}
-                <div className="lg:hidden">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button 
-                        className="w-full bg-slate-600 hover:bg-slate-700"
-                        onClick={handleContactClick}
-                      >
-                        Voir contact
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-md">
-                      <DialogHeader>
-                        <DialogTitle>Contact</DialogTitle>
-                        {ad.user?.slug && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => navigate(`/profile/${ad.user.slug}`)}
-                            className="mt-2"
-                          >
-                            <User className="w-4 h-4 mr-2" />
-                            Voir le profil complet
-                          </Button>
-                        )}
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        {ad.showEmail && ad.user?.email && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Mail className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.email}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(ad.user?.email || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {ad.user?.facebook && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Facebook className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.facebook}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => window.open(`https://facebook.com/${ad.user?.facebook}`, '_blank')}
-                            >
-                              <ArrowLeft className="w-4 h-4 rotate-180" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {ad.user?.instagram && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Instagram className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.instagram}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => window.open(`https://instagram.com/${ad.user?.instagram}`, '_blank')}
-                            >
-                              <ArrowLeft className="w-4 h-4 rotate-180" />
-                            </Button>
-                          </div>
-                        )}
-
-                        {ad.showWhatsapp && ad.user?.whatsapp && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <MessageCircle className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.whatsapp_country}{ad.user.whatsapp}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(`${ad.user?.whatsapp_country}${ad.user?.whatsapp}` || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
-
-                         {ad.showPhone && ad.user?.phone && (
-                           <div className="flex items-center justify-between">
-                             <div className="flex items-center gap-3">
-                               <Phone className="w-5 h-5 text-muted-foreground" />
-                               <span>{ad.user.phone_country}{ad.user.phone}</span>
-                             </div>
-                             <Button 
-                               variant="ghost" 
-                               size="sm"
-                               onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
-                             >
-                               <Copy className="w-4 h-4" />
-                             </Button>
-                           </div>
-                         )}
-
-                          {ad.showProfessionalPhone && ad.user?.professional_phone && (
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <Phone className="w-5 h-5 text-muted-foreground" />
-                                <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
-                                <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
-                              </div>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
-                              >
-                                <Copy className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          )}
-
-                          {/* Professional Address - Mobile */}
-                          {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.company_address && (
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <Building className="w-5 h-5 text-muted-foreground" />
-                                <span className="text-sm">{ad.user.company_address}</span>
-                              </div>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => copyToClipboard(ad.user?.company_address || '')}
-                              >
-                                <Copy className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          )}
-
-                          {/* Professional Website - Mobile */}
-                          {ad.showProfessionalPhone && ad.user?.is_professional && ad.user?.website && (
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <Globe className="w-5 h-5 text-muted-foreground" />
-                                <span className="text-sm text-blue-600 hover:underline cursor-pointer" 
-                                      onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}>
-                                  {ad.user.website}
-                                </span>
-                              </div>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => window.open(ad.user?.website?.startsWith('http') ? ad.user.website : `https://${ad.user.website}`, '_blank')}
-                              >
-                                <ArrowLeft className="w-4 h-4 rotate-180" />
-                              </Button>
-                            </div>
-                          )}
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <div className="flex items-center space-x-2">
+                    <Eye className="w-4 h-4 text-muted-foreground" />
+                    <span>Expire le {new Date(ad.publish_end_date).toLocaleDateString('fr-FR')}</span>
+                  </div>
                 </div>
+              </CardContent>
+            </Card>
 
-                {/* Price */}
-                {ad.price > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Prix</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl font-bold">€ {ad.price}€</span>
-                        {ad.originalPrice && (
-                          <span className="text-lg text-muted-foreground line-through">
-                            {ad.originalPrice}€
-                          </span>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Location */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Ville</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-5 h-5 text-muted-foreground" />
-                      <span>
-                        {ad.category === 'babysitting' && ad.categoryDetails?.city 
-                          ? (ad.categoryDetails.city === 'makkah' ? 'Makkah' : 
-                             ad.categoryDetails.city === 'medina' ? 'Médine' : 
-                             ad.categoryDetails.city === 'jeddah' ? 'Jeddah' : 
-                             ad.categoryDetails.city)
-                          : ad.category === 'hebergement' && ad.categoryDetails?.city
-                          ? (ad.categoryDetails.city === 'makkah' ? 'Makkah' : 
-                             ad.categoryDetails.city === 'medina' ? 'Médine' : 
-                             ad.categoryDetails.city)
-                          : (ad.location || 'Non spécifiée')}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Hôtel - Section séparée pour les hébergements */}
-                {ad.category === 'hebergement' && ad.categoryDetails?.name && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Hôtel</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-3">
-                        <Building className="w-5 h-5 text-muted-foreground" />
-                        <span>{ad.categoryDetails.name}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Distance - Section séparée pour les hébergements */}
-                {ad.category === 'hebergement' && ad.categoryDetails?.distance_to_mosque && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Distance</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-3">
-                        <MapPin className="w-5 h-5 text-muted-foreground" />
-                        <span>Distance à la mosquée: {ad.categoryDetails.distance_to_mosque}m</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Experience for guides */}
-                {ad.categoryDetails && ad.category === 'guides' && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Expérience</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-muted-foreground" />
-                        <span>{ad.categoryDetails.years_experience} ans</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Languages */}
-                {ad.categoryDetails && (ad.category === 'guides' || ad.category === 'babysitting' || ad.category === 'chauffeurs') && ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Langues parlées</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex gap-2 flex-wrap">
-                        {ad.categoryDetails.languages.map((lang: string, index: number) => (
-                          <Badge key={index} variant="secondary" className="px-3 py-1">
-                            {lang.charAt(0).toUpperCase() + lang.slice(1)}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Gender */}
-                {ad.categoryDetails && (ad.category === 'babysitting' || ad.category === 'chauffeurs' || ad.category === 'guides') && ad.categoryDetails.gender && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Genre</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-3">
-                        <User className="w-5 h-5 text-muted-foreground" />
-                        <span>{ad.categoryDetails.gender === 'male' ? 'Homme' : ad.categoryDetails.gender === 'female' ? 'Femme' : ad.categoryDetails.gender}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Services for guides */}
-                {ad.categoryDetails && ad.category === 'guides' && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Service proposé</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {ad.categoryDetails.offers_omra_guidance && <li>• Omra</li>}
-                        {ad.categoryDetails.offers_courses && <li>• Cours</li>}
-                        {ad.categoryDetails.offers_visits && <li>• Visite des lieux</li>}
-                        {ad.categoryDetails.offers_omra_badal && <li>• Omra badel</li>}
-                        {ad.categoryDetails.offers_other && <li>• Autres</li>}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Details for sejours */}
-                {ad.categoryDetails && ad.category === 'sejours' && (
-                  <>
-                    {/* Dates de séjour */}
-                    {(ad.categoryDetails.departure_date || ad.categoryDetails.return_date) && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Dates</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            {ad.categoryDetails.departure_date && (
-                              <div className="flex items-center gap-3">
-                                <Calendar className="w-5 h-5 text-muted-foreground" />
-                                <span>Départ: {new Date(ad.categoryDetails.departure_date).toLocaleDateString('fr-FR')}</span>
-                              </div>
-                            )}
-                            {ad.categoryDetails.return_date && (
-                              <div className="flex items-center gap-3">
-                                <Calendar className="w-5 h-5 text-muted-foreground" />
-                                <span>Retour: {new Date(ad.categoryDetails.return_date).toLocaleDateString('fr-FR')}</span>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Compagnie aérienne */}
-                    {ad.categoryDetails.airline && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Vol</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex items-center gap-3">
-                            <span className="text-2xl">✈️</span>
-                            <span>{ad.categoryDetails.airline}</span>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Nuitées */}
-                    {(ad.categoryDetails.nights_medina || ad.categoryDetails.nights_mecca) && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Hébergement</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            {ad.categoryDetails.nights_medina > 0 && (
-                              <div className="flex items-center gap-3">
-                                <MapPin className="w-5 h-5 text-muted-foreground" />
-                                <span>Médine: {ad.categoryDetails.nights_medina} nuit{ad.categoryDetails.nights_medina > 1 ? 's' : ''}</span>
-                              </div>
-                            )}
-                            {ad.categoryDetails.nights_mecca > 0 && (
-                              <div className="flex items-center gap-3">
-                                <MapPin className="w-5 h-5 text-muted-foreground" />
-                                <span>Makkah: {ad.categoryDetails.nights_mecca} nuit{ad.categoryDetails.nights_mecca > 1 ? 's' : ''}</span>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Hôtels */}
-                    {(ad.categoryDetails.medina_hotel_name || ad.categoryDetails.mecca_hotel_name) && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Hôtels</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            {ad.categoryDetails.medina_hotel_name && (
-                              <div>
-                                <div className="font-medium">Médine</div>
-                                <div className="text-sm text-muted-foreground">{ad.categoryDetails.medina_hotel_name}</div>
-                                {ad.categoryDetails.medina_hotel_distance && (
-                                  <div className="text-sm text-muted-foreground">Distance: {ad.categoryDetails.medina_hotel_distance}m</div>
-                                )}
-                              </div>
-                            )}
-                            {ad.categoryDetails.mecca_hotel_name && (
-                              <div>
-                                <div className="font-medium">Makkah</div>
-                                <div className="text-sm text-muted-foreground">{ad.categoryDetails.mecca_hotel_name}</div>
-                                {ad.categoryDetails.mecca_hotel_distance && (
-                                  <div className="text-sm text-muted-foreground">Distance: {ad.categoryDetails.mecca_hotel_distance}m</div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Formule */}
-                    {ad.categoryDetails.formula_type && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Formule</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <Badge variant="outline" className="text-lg px-3 py-1">
-                            {ad.categoryDetails.formula_type === '3' ? 'Éco' :
-                             ad.categoryDetails.formula_type === '4' ? 'Essentiel' :
-                             ad.categoryDetails.formula_type === '5' ? 'Confort' :
-                             ad.categoryDetails.formula_type}
-                          </Badge>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
+            {/* Seller Info */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Annonceur</h3>
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-medium">
+                      {ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Membre depuis {formatDistanceToNow(new Date(ad.created_at), { locale: fr })}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
-    </MobileLayout>
+    </div>
   );
-};
-
-export default AdDetails;
+}

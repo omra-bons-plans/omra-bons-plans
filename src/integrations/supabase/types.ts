@@ -633,6 +633,36 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          ad_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          reviewer_id: string
+          updated_at: string
+        }
+        Insert: {
+          ad_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          reviewer_id: string
+          updated_at?: string
+        }
+        Update: {
+          ad_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          reviewer_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -666,6 +696,13 @@ export type Database = {
           user_id: string
         }
         Returns: string
+      }
+      get_ad_rating: {
+        Args: { ad_id: string }
+        Returns: {
+          avg_rating: number
+          review_count: number
+        }[]
       }
       has_role: {
         Args: {
