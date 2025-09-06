@@ -732,7 +732,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price">Prix de vente (€) *</Label>
+                    <Label htmlFor="price">Prix de la location (€) *</Label>
                     <Input
                       type="number"
                       id="price"
@@ -743,7 +743,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                           lowerThanOriginal: (value) => {
                             const originalPrice = watch('originalPrice');
                             if (originalPrice && value && parseFloat(String(value)) >= parseFloat(String(originalPrice))) {
-                              return "Le prix de vente doit être inférieur au prix original";
+                              return "Le prix de location doit être inférieur au prix original";
                             }
                             return true;
                           }
@@ -767,7 +767,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack }: HebergementFormMultiStep
                           higherThanSale: (value) => {
                             const salePrice = watch('price');
                             if (value && salePrice && parseFloat(String(value)) <= parseFloat(String(salePrice))) {
-                              return "Le prix original doit être supérieur au prix de vente";
+                              return "Le prix original doit être supérieur au prix de location";
                             }
                             return true;
                           }
