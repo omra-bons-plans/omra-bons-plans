@@ -20,6 +20,11 @@ interface AdDetailsDisplayProps {
 }
 
 const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
+  // Combine cover image and gallery images
+  const allImages = [
+    ...(ad.cover_image ? [ad.cover_image] : []),
+    ...(ad.images || [])
+  ];
   const getCategoryIcon = () => {
     switch (ad.category) {
       case 'babysitting':
@@ -78,6 +83,8 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
              src={getImageUrl(ad.cover_image)}
              alt={ad.title}
              className="w-full h-full object-cover hover:scale-105 transition-transform"
+             images={allImages.map(img => getImageUrl(img))}
+             initialIndex={0}
            />
         </div>
       )}
@@ -270,6 +277,8 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                        src={getImageUrl(image)}
                        alt={`Image ${index + 1}`}
                        className="w-full h-full object-cover hover:scale-105 transition-transform"
+                       images={allImages.map(img => getImageUrl(img))}
+                       initialIndex={imageIndex}
                      />
                   </div>
                 );
