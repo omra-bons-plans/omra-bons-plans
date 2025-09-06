@@ -115,17 +115,22 @@ const Index = () => {
 
   const featuredListings = formattedListings.length > 0 ? formattedListings : sampleListings;
 
+  // Get flash sale listings first (only services with prices: sejours, vols, hebergement)
+  const flashSaleListings = featuredListings.filter(listing => 
+    listing.isFlashSale && 
+    listing.flashSaleEndDate && 
+    ['sejours', 'vols', 'hebergement'].includes(listing.type)
+  );
+
   // Filter listings based on selected category
   const filteredListings = selectedCategory === "all" 
-    ? featuredListings 
-    : featuredListings.filter(listing => listing.type === selectedCategory);
-
-  // Filter listings for flash sales (only sejours, vols, hebergement)
-  const flashSalesListings = selectedCategory === "all" 
-    ? featuredListings.filter(listing => ['sejours', 'vols', 'hebergement'].includes(listing.type))
+    ? featuredListings.filter(listing => !listing.isFlashSale) // Exclude flash sales from "all"
     : featuredListings.filter(listing => 
-        listing.type === selectedCategory && ['sejours', 'vols', 'hebergement'].includes(listing.type)
+        listing.type === selectedCategory && !listing.isFlashSale // Exclude flash sales from specific categories
       );
+
+  // Flash sales listings - only show actual flash sales
+  const flashSalesListings = flashSaleListings;
 
   // Filter and reorder categories for mobile - selected category first
   const getOrderedCategories = () => {
@@ -167,16 +172,10 @@ const Index = () => {
     );
   }
 
-  // Get flash sale listings (only services with prices: sejours, vols, hebergement)
-  const flashSaleListings = featuredListings.filter(listing => 
-    listing.isFlashSale && 
-    listing.flashSaleEndDate && 
-    ['sejours', 'vols', 'hebergement'].includes(listing.type)
-  );
-  const earliestEndDate = flashSaleListings.length > 0 
-    ? flashSaleListings.reduce((earliest, listing) => 
+  const earliestEndDate = flashSalesListings.length > 0 
+    ? flashSalesListings.reduce((earliest, listing) => 
         listing.flashSaleEndDate! < earliest ? listing.flashSaleEndDate! : earliest, 
-        flashSaleListings[0].flashSaleEndDate!
+        flashSalesListings[0].flashSaleEndDate!
       )
     : undefined;
 
