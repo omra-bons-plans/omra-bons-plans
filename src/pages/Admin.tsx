@@ -456,7 +456,7 @@ const Admin = () => {
                           <Select
                             value={user.role}
                             onValueChange={(value: 'admin' | 'user') => handleRoleChange(user.id, value)}
-                            disabled={user.id === user?.id} // Empêcher l'admin de changer son propre rôle
+                            disabled={false} // Tous les admins peuvent changer les rôles
                           >
                             <SelectTrigger className="w-32">
                               <SelectValue />
