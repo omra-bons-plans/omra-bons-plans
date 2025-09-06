@@ -31,6 +31,8 @@ interface AdDetailsData {
   user?: {
     email?: string;
     full_name?: string;
+    first_name?: string;
+    kuniya?: string;
     phone?: string;
     phone_country?: string;
     whatsapp?: string;
@@ -39,6 +41,8 @@ interface AdDetailsData {
     professional_phone_country?: string;
     facebook?: string;
     instagram?: string;
+    is_professional?: boolean;
+    company_name?: string;
   };
   categoryDetails?: any;
 }
@@ -189,6 +193,27 @@ const AdDetails = () => {
     return additionalServices ? `(je suis également ${additionalServices})` : '';
   };
 
+  const getPublisherName = () => {
+    if (!ad?.user) return '';
+
+    // Si c'est un compte professionnel et qu'il y a un nom de société
+    if (ad.user.is_professional && ad.user.company_name) {
+      return `Cette annonce a été publiée par ${ad.user.company_name}`;
+    }
+
+    // Si il y a une kuniya
+    if (ad.user.kuniya) {
+      return `Cette annonce a été publiée par ${ad.user.kuniya}`;
+    }
+
+    // Si il y a un prénom
+    if (ad.user.first_name) {
+      return `Cette annonce a été publiée par ${ad.user.first_name}`;
+    }
+
+    return '';
+  };
+
   if (loading) {
     return (
       <MobileLayout>
@@ -260,6 +285,11 @@ const AdDetails = () => {
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
               <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">{ad.title}</h1>
+                {getPublisherName() && (
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {getPublisherName()}
+                  </p>
+                )}
               </div>
               
               {/* Contact Button - Desktop */}
