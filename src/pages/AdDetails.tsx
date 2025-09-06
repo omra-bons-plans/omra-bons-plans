@@ -326,32 +326,41 @@ const AdDetails = () => {
               {/* Left Column - Image and Details */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Image Carousel */}
-                {allImages.length > 0 && (
-                  <div className="relative">
-                    <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-                      <img 
-                        src={allImages[currentImageIndex]} 
-                        alt={ad.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    
-                    {/* Image indicators */}
-                    {allImages.length > 1 && (
-                      <div className="flex justify-center gap-2 mt-4">
-                        {allImages.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentImageIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-colors ${
-                              index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
-                            }`}
-                          />
-                        ))}
+                <div className="relative">
+                  {allImages.length > 0 ? (
+                    <>
+                      <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
+                        <img 
+                          src={allImages[currentImageIndex]} 
+                          alt={ad.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    )}
-                  </div>
-                )}
+                      
+                      {/* Image indicators */}
+                      {allImages.length > 1 && (
+                        <div className="flex justify-center gap-2 mt-4">
+                          {allImages.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrentImageIndex(index)}
+                              className={`w-2 h-2 rounded-full transition-colors ${
+                                index === currentImageIndex ? 'bg-primary' : 'bg-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
+                      <div className="text-center text-muted-foreground">
+                        <div className="text-6xl mb-4">📷</div>
+                        <p>Aucune image disponible</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 {/* Description */}
                 <Card>
