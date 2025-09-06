@@ -72,7 +72,7 @@ const CategorySelection = () => {
                 key={category.id}
                 className={`cursor-pointer transition-all duration-300 hover:shadow-large hover:-translate-y-1 ${
                   selectedCategory === category.id 
-                    ? 'ring-4 ring-secondary shadow-glow bg-accent/50' 
+                    ? 'ring-4 ring-yellow-500 shadow-xl bg-amber-50/80 border-2 border-yellow-400' 
                     : 'hover:bg-accent/20'
                 }`}
                 onClick={() => setSelectedCategory(category.id)}
