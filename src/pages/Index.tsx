@@ -323,14 +323,14 @@ const Index = () => {
           <div className="flex flex-col items-center justify-center text-center min-h-screen">
             <div className="space-y-6 md:space-y-10 max-w-4xl">
               <div className="space-y-4 md:space-y-8">
-                <h1 className="text-4xl md:text-8xl font-bold leading-tight p-2 md:p-8">
+                <h1 className="text-5xl md:text-8xl font-bold leading-tight p-2 md:p-8">
                   <span className="text-white drop-shadow-lg">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-5xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
                   <span className="text-white drop-shadow-lg"> et partez au</span><br />
                   <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
                 
-                <p className="text-lg md:text-3xl font-bold leading-relaxed px-2 md:px-8 py-2 md:py-4">
+                <p className="text-xl md:text-3xl font-bold leading-relaxed px-2 md:px-8 py-2 md:py-4">
                   <span className="text-white drop-shadow-lg">Réduisez vos coûts, pas vos rêves</span>
                 </p>
               </div>
