@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAirlines } from "@/hooks/useAirlines";
 
 interface SejourFormData {
   title: string;
@@ -44,6 +45,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [isFormDirty, setIsFormDirty] = useState(false);
+  
+  // Hook pour les compagnies aériennes
+  const { airlines, loading: airlinesLoading, error: airlinesError } = useAirlines();
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<SejourFormData>({
     defaultValues: {
@@ -288,22 +292,23 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     value={watch("airline") || ""}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Choisir la compagnie" />
+                      <SelectValue placeholder={airlinesLoading ? "Chargement..." : "Choisir la compagnie"} />
                     </SelectTrigger>
                     <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                      <SelectItem value="air-france">Air France</SelectItem>
-                      <SelectItem value="egyptair">EgyptAir</SelectItem>
-                      <SelectItem value="emirates">Emirates</SelectItem>
-                      <SelectItem value="flyadeal">Flyadeal</SelectItem>
-                      <SelectItem value="flynas">Flynas</SelectItem>
-                      <SelectItem value="pegasus">Pegasus Airlines</SelectItem>
-                      <SelectItem value="qatar">Qatar Airways</SelectItem>
-                      <SelectItem value="royal-jordanian">Royal Jordanian</SelectItem>
-                      <SelectItem value="saudi">Saudi Arabian Airlines</SelectItem>
-                      <SelectItem value="transavia">Transavia</SelectItem>
-                      <SelectItem value="turkish">Turkish Airlines</SelectItem>
-                      <SelectItem value="wizz-air">Wizz Air</SelectItem>
-                      <SelectItem value="autre">Autre</SelectItem>
+                      {airlinesLoading ? (
+                        <SelectItem value="loading" disabled>Chargement des compagnies...</SelectItem>
+                      ) : airlinesError ? (
+                        <SelectItem value="error" disabled>Erreur de chargement</SelectItem>
+                      ) : (
+                        <>
+                          {airlines.map((airline) => (
+                            <SelectItem key={airline.iata} value={airline.iata}>
+                              {airline.name} ({airline.iata})
+                            </SelectItem>
+                          ))}
+                          <SelectItem value="autre">Autre</SelectItem>
+                        </>
+                      )}
                     </SelectContent>
                   </Select>
                   {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
