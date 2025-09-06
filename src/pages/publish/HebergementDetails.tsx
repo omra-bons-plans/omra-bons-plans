@@ -77,7 +77,7 @@ const HebergementDetails = () => {
           description: data.description || '',
           price: data.price || 0,
           original_price: data.originalPrice,
-          location: `${data.city} - ${data.name}`,
+          location: `${data.city || 'Non spécifié'} - ${data.name || 'Brouillon hébergement'}`,
           show_email: data.showEmail,
           show_phone: data.showPhone,
           show_whatsapp: data.showWhatsapp,
@@ -88,9 +88,9 @@ const HebergementDetails = () => {
         };
 
         const categoryData = {
-          city: data.city,
-          accommodation_type: data.accommodationType,
-          name: data.name,
+          city: data.city || 'Non spécifié',
+          accommodation_type: data.accommodationType || 'hotel',
+          name: data.name || 'Brouillon hébergement',
           distance_to_mosque: data.distanceToMosque,
           available_from: data.availableFrom,
           available_to: data.availableTo,
