@@ -492,7 +492,7 @@ const Index = () => {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-32 pb-20 px-2 md:px-6">
         <div className="container mx-auto">
           {/* Tabs System */}
           <Tabs defaultValue="annonces" className="w-full">
