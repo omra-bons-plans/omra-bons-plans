@@ -163,18 +163,29 @@ const Index = () => {
         listing.type === selectedCategory && !listing.isFlashSale // Exclude flash sales from specific categories
       );
 
-  // Filter and reorder categories for mobile - selected category first
+  // Filter and reorder categories - selected category first
   const getOrderedCategories = () => {
     const flashCategories = categories.filter(category => ['sejours', 'vols', 'hebergement'].includes(category.id));
     
-    // On mobile, put selected category first
-    if (isMobile && selectedCategory !== "all") {
+    // Put selected category first for all screen sizes
+    if (selectedCategory !== "all") {
       const selectedCat = flashCategories.find(cat => cat.id === selectedCategory);
       const otherCats = flashCategories.filter(cat => cat.id !== selectedCategory);
       return selectedCat ? [selectedCat, ...otherCats] : flashCategories;
     }
     
     return flashCategories;
+  };
+
+  // Reorder all categories - selected category first
+  const getAllOrderedCategories = () => {
+    if (selectedCategory !== "all") {
+      const selectedCat = categories.find(cat => cat.id === selectedCategory);
+      const otherCats = categories.filter(cat => cat.id !== selectedCategory);
+      return selectedCat ? [selectedCat, ...otherCats] : categories;
+    }
+    
+    return categories;
   };
 
   // Detect mobile screen size
@@ -905,7 +916,7 @@ const Index = () => {
                 >
                   Tous
                 </Button>
-                {categories.map((category) => (
+                {getAllOrderedCategories().map((category) => (
                   <Button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
