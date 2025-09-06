@@ -60,18 +60,8 @@ export const useWeatherAndExchange = () => {
       console.error('💥 Error fetching weather and exchange data:', err);
       setError(err.message || 'Une erreur est survenue');
       
-      // Set fallback data if API fails
-      console.log('🔄 Using fallback data');
-      setData({
-        weather: {
-          makkah: { city: 'makkah', temperature: 32, description: 'ensoleillé', icon: '01d' },
-          madinah: { city: 'madinah', temperature: 28, description: 'ensoleillé', icon: '01d' }
-        },
-        exchange: {
-          eurToSar: 3.95,
-          lastUpdated: new Date().toISOString()
-        }
-      });
+      // Don't set fallback data - let the component handle the null state
+      console.log('🔄 API failed, component will show loading or error state');
     } finally {
       setLoading(false);
     }

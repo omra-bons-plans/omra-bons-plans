@@ -393,8 +393,8 @@ const Index = () => {
                     {/* Temperature */}
                     <div className="text-4xl font-bold text-amber-500">
                       {currentWeatherCity === 'makkah' 
-                        ? (weatherAndExchange?.weather.makkah?.temperature ?? 32)
-                        : (weatherAndExchange?.weather.madinah?.temperature ?? 28)}°
+                        ? (weatherAndExchange?.weather?.makkah?.temperature ?? '--')
+                        : (weatherAndExchange?.weather?.madinah?.temperature ?? '--')}°
                     </div>
                   </div>
 
@@ -402,7 +402,7 @@ const Index = () => {
                   <div className="text-center pt-4 border-t border-gray-200">
                     <div className="text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
                     <div className="text-2xl md:text-3xl font-bold text-gray-800">
-                      1€ = <span className="text-amber-500">{weatherAndExchange?.exchange.eurToSar ?? '3.95'}</span> Sar
+                      1€ = <span className="text-amber-500">{weatherAndExchange?.exchange?.eurToSar ?? '--'}</span> Sar
                     </div>
                   </div>
                 </div>
