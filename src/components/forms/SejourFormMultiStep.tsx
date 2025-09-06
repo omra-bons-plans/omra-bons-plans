@@ -917,7 +917,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
         {renderStep()}
 
         {/* Navigation */}
-        <div className="sticky bottom-24 sm:bottom-32 bg-background/95 backdrop-blur-md border-t border-border/40 p-4 sm:p-6 -mx-4 sm:-mx-6 mt-8 mb-8 shadow-xl z-50">
+        <div className="sticky bottom-32 sm:bottom-40 bg-background/95 backdrop-blur-md border-t border-border/40 p-4 sm:p-6 -mx-4 sm:-mx-6 mt-8 mb-12 shadow-xl z-50">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
               <Button 
