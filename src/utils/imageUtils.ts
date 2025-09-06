@@ -6,10 +6,16 @@ import { supabase } from '@/integrations/supabase/client';
  * @returns The public URL or null if invalid
  */
 export const getImageUrl = (imagePath: string | null | undefined): string | null => {
-  if (!imagePath) return null;
+  console.log('getImageUrl called with:', imagePath);
+  
+  if (!imagePath) {
+    console.log('No image path provided');
+    return null;
+  }
   
   // If it's already a full URL, return as is
   if (imagePath.startsWith('http')) {
+    console.log('Already full URL:', imagePath);
     return imagePath;
   }
   
@@ -18,6 +24,7 @@ export const getImageUrl = (imagePath: string | null | undefined): string | null
       .from('ad-images')
       .getPublicUrl(imagePath);
     
+    console.log('Generated URL:', data.publicUrl);
     return data.publicUrl;
   } catch (error) {
     console.error('Error getting image URL:', error);

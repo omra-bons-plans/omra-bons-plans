@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface AdDetails {
   id: string;
@@ -330,9 +331,13 @@ const AdSummary = () => {
                       {ad.coverImage && (
                         <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                           <img 
-                            src={ad.coverImage} 
+                            src={getImageUrl(ad.coverImage) || '/ad-placeholder.jpg'} 
                             alt="Image de couverture"
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              console.error('Cover image failed to load:', ad.coverImage);
+                              e.currentTarget.src = '/ad-placeholder.jpg';
+                            }}
                           />
                         </div>
                       )}
@@ -343,9 +348,13 @@ const AdSummary = () => {
                           {ad.images.map((image, index) => (
                             <div key={index} className="aspect-square bg-muted rounded-lg overflow-hidden">
                               <img 
-                                src={image} 
+                                src={getImageUrl(image) || '/ad-placeholder.jpg'} 
                                 alt={`Image ${index + 1}`}
                                 className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  console.error('Image failed to load:', image);
+                                  e.currentTarget.src = '/ad-placeholder.jpg';
+                                }}
                               />
                             </div>
                           ))}
