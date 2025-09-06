@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { User, Upload, MapPin, Languages, DollarSign, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +39,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>(['francais']);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<GuideFormData>({
+  const { register, handleSubmit, watch, setValue, control, formState: { errors }, trigger } = useForm<GuideFormData>({
     defaultValues: {
       showEmail: true,
       showPhone: false,
@@ -174,19 +174,22 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="gender">Genre *</Label>
-                  <Select 
-                    onValueChange={(value) => setValue("gender", value)} 
-                    value={watch("gender")}
-                    {...register("gender", { required: "Le genre est requis" })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionner" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                      <SelectItem value="male">Homme</SelectItem>
-                      <SelectItem value="female">Femme</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Controller
+                    name="gender"
+                    control={control}
+                    rules={{ required: "Le genre est requis" }}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                          <SelectItem value="male">Homme</SelectItem>
+                          <SelectItem value="female">Femme</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                   {errors.gender && <p className="text-destructive text-sm">{errors.gender.message}</p>}
                 </div>
 
@@ -208,24 +211,27 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="city">Ville d'exercice *</Label>
-                <Select 
-                  onValueChange={(value) => setValue("city", value)} 
-                  value={watch("city")}
-                  {...register("city", { required: "La ville est requise" })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionner la ville" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                    <SelectItem value="makkah">Makkah</SelectItem>
-                    <SelectItem value="medina">Médine</SelectItem>
-                    <SelectItem value="both">Makkah et Médine</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="city">Ville d'exercice *</Label>
+                  <Controller
+                    name="city"
+                    control={control}
+                    rules={{ required: "La ville est requise" }}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner la ville" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
+                          <SelectItem value="makkah">Makkah</SelectItem>
+                          <SelectItem value="medina">Médine</SelectItem>
+                          <SelectItem value="both">Makkah et Médine</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
+                </div>
             </CardContent>
           </Card>
         );
