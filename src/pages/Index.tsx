@@ -133,14 +133,22 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll décalé pour distinguer les sections sur mobile - Version corrigée
+  // Auto-scroll décalé pour distinguer les sections sur mobile - Avec débogage
   useEffect(() => {
-    if (!isMobile) return;
+    console.log('🔧 Débogage scroll automatique - isMobile:', isMobile);
+    
+    if (!isMobile) {
+      console.log('❌ Pas en mode mobile, skip scroll automatique');
+      return;
+    }
 
-    const performScrollHint = (element: HTMLDivElement, delay: number) => {
+    const performScrollHint = (element: HTMLDivElement, delay: number, name: string) => {
+      console.log(`⏰ Programmation scroll ${name} dans ${delay}ms`);
       return setTimeout(() => {
+        console.log(`🎯 Début scroll ${name}`);
         element.scrollTo({ left: 100, behavior: 'smooth' });
         setTimeout(() => {
+          console.log(`↩️ Retour scroll ${name}`);
           element.scrollTo({ left: 0, behavior: 'smooth' });
         }, 1500);
       }, delay);
@@ -150,31 +158,52 @@ const Index = () => {
 
     // Flash Sales - onglets (2s)
     if (flashSalesTabsRef.current) {
-      timers.push(performScrollHint(flashSalesTabsRef.current, 2000));
+      console.log('✅ Flash Sales tabs ref trouvée:', flashSalesTabsRef.current);
+      timers.push(performScrollHint(flashSalesTabsRef.current, 2000, 'Flash Sales Tabs'));
+    } else {
+      console.log('❌ Flash Sales tabs ref NOT FOUND');
     }
 
     // Flash Sales - cartes (4s)
     if (flashSalesCardsRef.current) {
+      console.log('✅ Flash Sales cards ref trouvée:', flashSalesCardsRef.current);
       const emblaContainer = flashSalesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
       if (emblaContainer) {
-        timers.push(performScrollHint(emblaContainer, 4000));
+        console.log('✅ Embla container Flash Sales trouvé:', emblaContainer);
+        timers.push(performScrollHint(emblaContainer, 4000, 'Flash Sales Cards'));
+      } else {
+        console.log('❌ Embla container Flash Sales NOT FOUND');
       }
+    } else {
+      console.log('❌ Flash Sales cards ref NOT FOUND');
     }
 
     // All Services - onglets (6s)  
     if (allServicesTabsRef.current) {
-      timers.push(performScrollHint(allServicesTabsRef.current, 6000));
+      console.log('✅ All Services tabs ref trouvée:', allServicesTabsRef.current);
+      timers.push(performScrollHint(allServicesTabsRef.current, 6000, 'All Services Tabs'));
+    } else {
+      console.log('❌ All Services tabs ref NOT FOUND');
     }
 
     // All Services - cartes (8s)
     if (allServicesCardsRef.current) {
+      console.log('✅ All Services cards ref trouvée:', allServicesCardsRef.current);
       const emblaContainer = allServicesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
       if (emblaContainer) {
-        timers.push(performScrollHint(emblaContainer, 8000));
+        console.log('✅ Embla container All Services trouvé:', emblaContainer);
+        timers.push(performScrollHint(emblaContainer, 8000, 'All Services Cards'));
+      } else {
+        console.log('❌ Embla container All Services NOT FOUND');
       }
+    } else {
+      console.log('❌ All Services cards ref NOT FOUND');
     }
 
+    console.log('📊 Total timers programmés:', timers.length);
+
     return () => {
+      console.log('🧹 Nettoyage des timers');
       timers.forEach(timer => clearTimeout(timer));
     };
   }, [isMobile]);
