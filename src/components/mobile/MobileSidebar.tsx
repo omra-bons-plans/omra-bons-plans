@@ -38,10 +38,9 @@ const MobileSidebar = () => {
             <Menu className="w-6 h-6" />
           </Button>
           
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2">
-            <div className="text-lg font-bold text-foreground">
-              <span className="text-primary">OMRA</span>
-              <span className="text-muted-foreground text-sm ml-1">BONS PLANS</span>
+          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
+            <div className="text-lg font-normal text-foreground">
+              OmraBonsPlans.fr
             </div>
           </div>
 
