@@ -60,6 +60,14 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
     checkAdminStatus();
   }, [user]);
 
+  // Force re-check admin status every 5 seconds to ensure it's up to date
+  useEffect(() => {
+    if (user) {
+      const interval = setInterval(checkAdminStatus, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [user]);
+
   return (
     <AdminContext.Provider value={{ isAdmin, loading, checkAdminStatus }}>
       {children}
