@@ -137,6 +137,7 @@ const BabysittingDetails = () => {
 
         const categoryData = {
           gender: data.gender,
+          city: data.city,
           languages: data.languages || [],
         };
 
@@ -174,6 +175,7 @@ const BabysittingDetails = () => {
         .insert({
           ad_id: ad.id,
           gender: data.gender,
+          city: data.city,
           languages: data.languages,
         });
 

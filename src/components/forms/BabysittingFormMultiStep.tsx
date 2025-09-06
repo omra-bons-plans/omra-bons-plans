@@ -83,7 +83,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        fieldsToValidate = ['gender'];
+        fieldsToValidate = ['gender', 'city'];
         break;
       case 4:
         // Récapitulatif - pas de validation nécessaire
@@ -201,6 +201,27 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                     </SelectContent>
                 </Select>
                 {errors.gender && <p className="text-destructive text-sm">{errors.gender.message}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="city">Ville d'exercice *</Label>
+                <Input
+                  id="city"
+                  {...register("city", { 
+                    required: "La ville d'exercice est requise",
+                    minLength: {
+                      value: 2,
+                      message: "La ville doit contenir au moins 2 caractères"
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "La ville ne peut pas dépasser 50 caractères"
+                    }
+                  })}
+                  placeholder="Ex: Makkah, Medina, Paris..."
+                  maxLength={50}
+                />
+                {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
               </div>
             </CardContent>
           </Card>
@@ -403,6 +424,9 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <h3 className="font-medium text-gray-900">Détails</h3>
                   <ul className="space-y-1 text-gray-600">
                     <li>• {watch('gender') === 'male' ? 'Homme' : watch('gender') === 'female' ? 'Femme' : 'Genre'}</li>
+                    {watch('city') && (
+                      <li>• Ville: {watch('city')}</li>
+                    )}
                     {selectedLanguages && selectedLanguages.length > 0 && (
                       <li>• Langues: {selectedLanguages.map(lang => 
                         availableLanguages.find(l => l.id === lang)?.name

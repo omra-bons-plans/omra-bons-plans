@@ -95,16 +95,19 @@ export type Database = {
       ads_babysitting: {
         Row: {
           ad_id: string
+          city: string
           gender: string
           languages: string[]
         }
         Insert: {
           ad_id: string
+          city: string
           gender: string
           languages?: string[]
         }
         Update: {
           ad_id?: string
+          city?: string
           gender?: string
           languages?: string[]
         }
