@@ -342,19 +342,144 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
 
       case 4:
         return (
-          <div className="space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl font-bold">Récapitulatif de votre annonce</h2>
-              <p className="text-muted-foreground">
-                Vérifiez les informations avant de publier
+          <div className="min-h-screen bg-background pb-20">
+            {/* Header Section */}
+            <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 px-6 py-8 text-center">
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                Vérifiez votre annonce
+              </h1>
+              <p className="text-gray-600">
+                Voici ce que les voyageurs verront. Assurez-vous que tout est correct.
               </p>
             </div>
-            
-            <AdPreview 
-              data={watch()}
-              coverImage={coverImage}
-              category="chauffeurs"
-            />
+
+            {/* Preview Card */}
+            <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden mt-6 mx-6">
+              {/* Image Section */}
+              <div className="relative h-64 bg-gray-200">
+                {coverImage ? (
+                  <div className="relative h-full">
+                    <img
+                      src={URL.createObjectURL(coverImage)}
+                      alt="Photo de profil"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Pagination dots */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      {images.map((_, index) => (
+                        <div key={index} className="w-2 h-2 bg-white/60 rounded-full"></div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-400">
+                    <Upload className="w-12 h-12" />
+                  </div>
+                )}
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6 space-y-4">
+                {/* Title and City */}
+                <div className="flex justify-between items-start">
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {watch('title') || 'Titre de votre annonce'}
+                  </h2>
+                  <span className="text-sm text-gray-500">
+                    {watch('city') === 'makkah' ? 'Makkah' : watch('city') === 'medina' ? 'Médine' : watch('city') === 'both' ? 'Makkah et Médine' : 'Ville'}
+                  </span>
+                </div>
+
+                {/* Details Section */}
+                <div className="space-y-2">
+                  <h3 className="font-medium text-gray-900">Détails</h3>
+                  <ul className="space-y-1 text-gray-600">
+                    <li>• {watch('gender') === 'male' ? 'Homme' : watch('gender') === 'female' ? 'Femme' : 'Genre'}</li>
+                    <li>• Véhicule {watch('vehicleSeats') || 4} places</li>
+                    {selectedLanguages && selectedLanguages.length > 0 && (
+                      <li>• Langues: {selectedLanguages.map(lang => 
+                        availableLanguages.find(l => l.id === lang)?.name
+                      ).join(', ')}</li>
+                    )}
+                  </ul>
+                </div>
+
+                {/* Contact Section */}
+                <div className="space-y-2">
+                  <h3 className="font-medium text-gray-900">Contact</h3>
+                  <div className="space-y-2">
+                    {watch('showEmail') && (
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <span className="text-sm">@ utilisateur@example.com</span>
+                      </div>
+                    )}
+                    {watch('showPhone') ? (
+                      <div className="flex items-center space-x-2 text-gray-600">
+                        <span className="text-sm">📱 +33 X XX XX XX XX</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2 text-gray-500">
+                        <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
+                        <span className="text-sm">Afficher votre numéro de téléphone dans votre annonce.</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description Section */}
+                {watch('description') && (
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-gray-900">Description</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {watch('description')}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Additional Info for larger screens */}
+            <div className="hidden md:block max-w-2xl mx-auto mt-8 px-6">
+              <div className="bg-white rounded-lg border p-6 space-y-4">
+                <h3 className="font-semibold text-lg">Informations complémentaires</h3>
+                
+                <div className="grid grid-cols-2 gap-6 text-sm">
+                  <div>
+                    <span className="text-gray-500">Genre:</span>
+                    <p className="font-medium">
+                      {watch('gender') === 'male' ? 'Homme' : watch('gender') === 'female' ? 'Femme' : 'Non renseigné'}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-gray-500">Véhicule:</span>
+                    <p className="font-medium">
+                      {watch('vehicleSeats') || 4} places
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-gray-500">Ville d'exercice:</span>
+                    <p className="font-medium">
+                      {watch('city') === 'makkah' ? 'Makkah' : watch('city') === 'medina' ? 'Médine' : watch('city') === 'both' ? 'Makkah et Médine' : 'Non renseignée'}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-gray-500">Langues parlées:</span>
+                    <p className="font-medium">
+                      {selectedLanguages && selectedLanguages.length > 0 
+                        ? selectedLanguages.map(lang => 
+                            availableLanguages.find(l => l.id === lang)?.name
+                          ).join(', ')
+                        : 'Français'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
 
