@@ -74,6 +74,18 @@ const ChauffeurDetails = () => {
         return;
       }
 
+      // Helper function to get primary city for location display
+      const getPrimaryCity = (cities: string[]) => {
+        if (!cities || cities.length === 0) return 'Ville non spécifiée';
+        // Use the first selected city as primary location
+        const cityMap: Record<string, string> = {
+          'makkah': 'Makkah',
+          'medina': 'Médine', 
+          'jeddah': 'Jeddah'
+        };
+        return cityMap[cities[0]] || 'Ville non spécifiée';
+      };
+
       // Handle image uploads if provided
       let imageUrls: string[] = [];
       let coverImageUrl = '';
@@ -139,9 +151,7 @@ const ChauffeurDetails = () => {
           title: data.title || 'Brouillon chauffeur',
           description: data.description || '',
           price: 0, // Chauffeurs sans prix
-          location: data.city?.includes('makkah') ? 'Makkah' : 
-                   data.city?.includes('medina') ? 'Médine' : 
-                   data.city?.includes('jeddah') ? 'Jeddah' : 'Ville non spécifiée',
+          location: getPrimaryCity(data.city),
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
@@ -165,6 +175,9 @@ const ChauffeurDetails = () => {
       }
 
       console.log('Creating main ad entry...');
+      console.log('Cities selected:', data.city);
+      console.log('Primary city:', getPrimaryCity(data.city));
+      
       const { data: ad, error: adError } = await supabase
         .from('ads')
         .insert({
@@ -173,9 +186,7 @@ const ChauffeurDetails = () => {
           title: data.title,
           description: data.description,
           price: 0, // Chauffeurs sans prix
-          location: data.city?.includes('makkah') ? 'Makkah' : 
-                   data.city?.includes('medina') ? 'Médine' : 
-                   data.city?.includes('jeddah') ? 'Jeddah' : 'Ville non spécifiée',
+          location: getPrimaryCity(data.city),
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
