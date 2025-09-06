@@ -12,6 +12,7 @@ import { useAds } from "@/hooks/useAds";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
+import FeedbackForm from "@/components/ui/FeedbackForm";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1478,29 +1479,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
+      {/* Feedback Section */}
       <section className="py-20 px-6 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 islamic-pattern-modern opacity-20"></div>
         <div className="container mx-auto text-center relative z-10">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <div className="space-y-4">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="space-y-4 mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
-                S'abonner à notre newsletter
+                Aidez-nous à nous améliorer
               </h2>
               <p className="text-primary-foreground/90 text-xl leading-relaxed">
-                Vous serez toujours informé. Inscrivez-vous à notre mailing et obtenez des offres exclusives
+                Vos idées et conseils sont précieux ! Partagez vos suggestions pour améliorer notre plateforme
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-              <Input 
-                placeholder="Votre email ici"
-                className="glass text-foreground border-0 flex-1 py-4 px-6 text-lg rounded-2xl"
-              />
-              <Button className="bg-secondary hover:bg-secondary-dark text-secondary-foreground px-10 py-4 text-lg font-semibold rounded-2xl shadow-large">
-                S'abonner
-              </Button>
-            </div>
+            <FeedbackForm />
           </div>
         </div>
       </section>
