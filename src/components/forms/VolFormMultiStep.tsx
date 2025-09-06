@@ -84,6 +84,15 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isFormDirty]);
 
+  // Scroll vers le haut quand l'étape change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [currentStep]);
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     if (files.length > 0 && !coverImage) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Upload, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,15 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
   });
 
   const totalSteps = 4;
+
+  // Scroll vers le haut quand l'étape change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [currentStep]);
 
   const availableLanguages = [
     { id: 'francais', name: 'Français' },

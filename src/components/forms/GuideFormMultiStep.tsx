@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Upload, MapPin, Languages, DollarSign, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -59,6 +59,15 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
   const totalSteps = 4;
   const offersOther = watch('offersOther');
+
+  // Scroll vers le haut quand l'étape change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [currentStep]);
 
   const availableLanguages = [
     { id: 'francais', name: 'Français' },

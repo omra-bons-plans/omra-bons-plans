@@ -165,6 +165,15 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
   const totalSteps = 6;
   const steps = ["Informations de base", "Dates et détails", "Commodités", "Photos et médias", "Prix et publication", "Récapitulatif"];
 
+  // Scroll vers le haut quand l'étape change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [currentStep]);
+
   const nextStep = async () => {
     let isValid = false;
     

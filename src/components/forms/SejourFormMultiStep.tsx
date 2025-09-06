@@ -109,6 +109,15 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     }
   }, [departureDate, returnDate]);
 
+  // Scroll vers le haut quand l'étape change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [currentStep]);
+
   // Marquer le formulaire comme modifié dès qu'une valeur change
   useEffect(() => {
     const subscription = watch(() => {
