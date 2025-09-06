@@ -120,6 +120,61 @@ const AdSummary = () => {
     }
   };
 
+  const handlePublish = async () => {
+    if (!ad) return;
+
+    try {
+      setActionLoading(true);
+      const publishEndDate = new Date();
+      publishEndDate.setDate(publishEndDate.getDate() + 30); // 30 jours par défaut
+
+      const { error } = await supabase
+        .from('ads')
+        .update({ 
+          is_published: true, 
+          is_draft: false,
+          publish_end_date: publishEndDate.toISOString()
+        })
+        .eq('id', ad.id);
+
+      if (error) throw error;
+
+      setAd({ 
+        ...ad, 
+        isPublished: true, 
+        isDraft: false,
+        publishEndDate: publishEndDate.toISOString()
+      });
+      toast.success('Annonce publiée avec succès');
+    } catch (error) {
+      console.error('Error publishing ad:', error);
+      toast.error('Erreur lors de la publication');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleSaveDraft = async () => {
+    if (!ad) return;
+
+    try {
+      setActionLoading(true);
+      const { error } = await supabase
+        .from('ads')
+        .update({ updated_at: new Date().toISOString() })
+        .eq('id', ad.id);
+
+      if (error) throw error;
+
+      toast.success('Brouillon enregistré');
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      toast.error('Erreur lors de la sauvegarde');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   const getCategoryName = (category: string) => {
     const categories = {
       sejours: 'Séjours',
@@ -212,25 +267,48 @@ const AdSummary = () => {
                 
                 {/* Actions */}
                 <div className="flex gap-2">
+                  {ad.isDraft ? (
+                    <>
+                      <Button 
+                        onClick={handlePublish}
+                        disabled={actionLoading}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        <Play className="w-4 h-4 mr-1" />
+                        Publier
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={handleSaveDraft}
+                        disabled={actionLoading}
+                      >
+                        Enregistrer
+                      </Button>
+                    </>
+                  ) : (
+                    <Button 
+                      variant="outline"
+                      onClick={handleTogglePause}
+                      disabled={actionLoading}
+                    >
+                      {ad.isPaused ? (
+                        <>
+                          <Play className="w-4 h-4 mr-1" />
+                          Activer
+                        </>
+                      ) : (
+                        <>
+                          <Pause className="w-4 h-4 mr-1" />
+                          Mettre en pause
+                        </>
+                      )}
+                    </Button>
+                  )}
+                  
                   <Button 
                     variant="outline"
-                    onClick={handleTogglePause}
-                    disabled={actionLoading || ad.isDraft}
+                    onClick={() => navigate(`/publish/${ad.category}?edit=${ad.id}`)}
                   >
-                    {ad.isPaused ? (
-                      <>
-                        <Play className="w-4 h-4 mr-1" />
-                        Réactiver
-                      </>
-                    ) : (
-                      <>
-                        <Pause className="w-4 h-4 mr-1" />
-                        Mettre en pause
-                      </>
-                    )}
-                  </Button>
-                  
-                  <Button variant="outline">
                     <Edit className="w-4 h-4 mr-1" />
                     Modifier
                   </Button>
