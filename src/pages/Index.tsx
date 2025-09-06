@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart } from "lucide-react";
+import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -199,15 +200,66 @@ const Index = () => {
 
               {/* Navigation */}
               <nav className="hidden md:flex items-center space-x-8">
-                <a href="#" className="text-foreground font-semibold hover:text-primary transition-all duration-300">Venir Book</a>
-                <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                  <span className="text-muted-foreground font-medium">Catégories</span>
-                  <span className="text-muted-foreground text-xs">▼</span>
-                </div>
-                <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                  <span className="text-muted-foreground font-medium">Ajouter</span>
-                  <span className="text-muted-foreground text-xs">▼</span>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                      <span className="text-muted-foreground font-medium">Catégories</span>
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuItem onClick={() => navigate('/?category=sejours')}>
+                      <Building className="w-4 h-4 mr-2" />
+                      Séjours
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/?category=vols')}>
+                      <Plane className="w-4 h-4 mr-2" />
+                      Vols
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/?category=hebergement')}>
+                      <Hotel className="w-4 h-4 mr-2" />
+                      Hébergements
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/?category=guides')}>
+                      <BookOpen className="w-4 h-4 mr-2" />
+                      Guides
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/?category=chauffeurs')}>
+                      <Car className="w-4 h-4 mr-2" />
+                      Chauffeurs
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/?category=babysitting')}>
+                      <Heart className="w-4 h-4 mr-2" />
+                      Baby-sitting
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                      <span className="text-muted-foreground font-medium">Services</span>
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuItem>
+                      <UtensilsCrossed className="w-4 h-4 mr-2" />
+                      Restaurant
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <HelpingHand className="w-4 h-4 mr-2" />
+                      Association
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Leaf className="w-4 h-4 mr-2" />
+                      Produit naturel
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Activity className="w-4 h-4 mr-2" />
+                      Activité
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </nav>
 
               {/* Right buttons */}
