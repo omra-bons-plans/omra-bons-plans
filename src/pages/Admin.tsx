@@ -266,6 +266,13 @@ const Admin = () => {
               >
                 Gérer les annonces
               </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate('/admin/blog')}
+                className="text-sm"
+              >
+                Gérer le blog
+              </Button>
               <UserMenu />
             </div>
           </div>

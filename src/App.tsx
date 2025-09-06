@@ -25,6 +25,10 @@ import PlaceholderDetails from "./pages/publish/PlaceholderDetails";
 import AdSummary from "./pages/AdSummary";
 import AdDetails from "./pages/AdDetails";
 import AdminAds from "./pages/AdminAds";
+import AdminBlog from "./pages/AdminBlog";
+import BlogEditor from "./pages/BlogEditor";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -117,6 +121,24 @@ const App = () => (
                 <AdminAds />
               </ProtectedRoute>
             } />
+            <Route path="/admin/blog" element={
+              <ProtectedRoute>
+                <AdminBlog />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/blog/new" element={
+              <ProtectedRoute>
+                <BlogEditor />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/blog/edit/:id" element={
+              <ProtectedRoute>
+                <BlogEditor />
+              </ProtectedRoute>
+            } />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:category" element={<Blog />} />
+            <Route path="/blog/:category/:id" element={<BlogPost />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>

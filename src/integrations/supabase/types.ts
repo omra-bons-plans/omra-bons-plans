@@ -362,6 +362,72 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          author_id: string
+          category: string
+          content: string
+          cover_image: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          images: string[] | null
+          is_published: boolean | null
+          location_address: string | null
+          location_city: string | null
+          location_latitude: number | null
+          location_longitude: number | null
+          published_at: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          video_url: string | null
+          views_count: number | null
+        }
+        Insert: {
+          author_id: string
+          category: string
+          content: string
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          images?: string[] | null
+          is_published?: boolean | null
+          location_address?: string | null
+          location_city?: string | null
+          location_latitude?: number | null
+          location_longitude?: number | null
+          published_at?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+          views_count?: number | null
+        }
+        Update: {
+          author_id?: string
+          category?: string
+          content?: string
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          images?: string[] | null
+          is_published?: boolean | null
+          location_address?: string | null
+          location_city?: string | null
+          location_latitude?: number | null
+          location_longitude?: number | null
+          published_at?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+          views_count?: number | null
+        }
+        Relationships: []
+      }
       click_stats: {
         Row: {
           ad_id: string

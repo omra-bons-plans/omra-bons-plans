@@ -1,0 +1,455 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Save, Eye, MapPin, Image, Video, Tag } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useAdmin } from '@/contexts/AdminContext';
+import { useAuth } from '@/contexts/AuthContext';
+import UserMenu from '@/components/ui/UserMenu';
+
+interface BlogPostFormData {
+  title: string;
+  content: string;
+  excerpt: string;
+  cover_image: string;
+  video_url: string;
+  category: 'general' | 'restaurants' | 'associations' | 'vendeurs';
+  is_published: boolean;
+  location_address: string;
+  location_city: string;
+  tags: string[];
+}
+
+const BlogEditor = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { user } = useAuth();
+  const { isAdmin, loading: adminLoading } = useAdmin();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [tagInput, setTagInput] = useState('');
+  
+  const [formData, setFormData] = useState<BlogPostFormData>({
+    title: '',
+    content: '',
+    excerpt: '',
+    cover_image: '',
+    video_url: '',
+    category: 'general',
+    is_published: false,
+    location_address: '',
+    location_city: '',
+    tags: []
+  });
+
+  const isEditMode = !!id;
+
+  useEffect(() => {
+    if (!adminLoading && !isAdmin) {
+      navigate('/');
+      return;
+    }
+    
+    if (isAdmin && isEditMode) {
+      fetchPost();
+    }
+  }, [isAdmin, adminLoading, navigate, id]);
+
+  const fetchPost = async () => {
+    if (!id) return;
+    
+    try {
+      setLoading(true);
+      
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      setFormData({
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.excerpt || '',
+        cover_image: data.cover_image || '',
+        video_url: data.video_url || '',
+        category: (data.category as 'general' | 'restaurants' | 'associations' | 'vendeurs') || 'general',
+        is_published: data.is_published || false,
+        location_address: data.location_address || '',
+        location_city: data.location_city || '',
+        tags: data.tags || []
+      });
+    } catch (error) {
+      console.error('Erreur lors du chargement de l\'article:', error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de charger l'article",
+        variant: "destructive",
+      });
+      navigate('/admin/blog');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!formData.title.trim() || !formData.content.trim()) {
+      toast({
+        title: "Erreur",
+        description: "Le titre et le contenu sont obligatoires",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setSaving(true);
+      
+      const postData = {
+        ...formData,
+        author_id: user?.id,
+        excerpt: formData.excerpt || formData.content.substring(0, 200)
+      };
+
+      let error;
+      
+      if (isEditMode) {
+        const { error: updateError } = await supabase
+          .from('blog_posts')
+          .update(postData)
+          .eq('id', id);
+        error = updateError;
+      } else {
+        const { error: insertError } = await supabase
+          .from('blog_posts')
+          .insert([postData]);
+        error = insertError;
+      }
+
+      if (error) throw error;
+
+      toast({
+        title: "Succès",
+        description: `Article ${isEditMode ? 'mis à jour' : 'créé'} avec succès`,
+      });
+
+      navigate('/admin/blog');
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de sauvegarder l'article",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleAddTag = () => {
+    if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
+      setFormData(prev => ({
+        ...prev,
+        tags: [...prev.tags, tagInput.trim()]
+      }));
+      setTagInput('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setFormData(prev => ({
+      ...prev,
+      tags: prev.tags.filter(tag => tag !== tagToRemove)
+    }));
+  };
+
+  const getCategoryName = (category: string) => {
+    const categories = {
+      general: 'Blog général',
+      restaurants: 'Restaurants',
+      associations: 'Associations',
+      vendeurs: 'Vendeurs'
+    };
+    return categories[category as keyof typeof categories] || category;
+  };
+
+  if (adminLoading || loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="text-muted-foreground">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/admin/blog')}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Retour au blog
+              </Button>
+              <span className="text-2xl font-normal text-foreground tracking-tight">
+                {isEditMode ? 'Modifier l\'article' : 'Nouvel article'}
+              </span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button
+                onClick={handleSave}
+                disabled={saving}
+                className="bg-primary hover:bg-primary/90"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              </Button>
+              <UserMenu />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-6 py-8">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Basic Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Informations de base</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Titre de l'article *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Entrez le titre de l'article"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category">Section *</Label>
+                  <Select 
+                    value={formData.category} 
+                    onValueChange={(value: 'general' | 'restaurants' | 'associations' | 'vendeurs') => 
+                      setFormData(prev => ({ ...prev, category: value }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionnez une section" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="general">Blog général</SelectItem>
+                      <SelectItem value="restaurants">Restaurants</SelectItem>
+                      <SelectItem value="associations">Associations</SelectItem>
+                      <SelectItem value="vendeurs">Vendeurs</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="excerpt">Résumé/Extrait</Label>
+                <Textarea
+                  id="excerpt"
+                  value={formData.excerpt}
+                  onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                  placeholder="Entrez un résumé de l'article (optionnel, sera généré automatiquement si vide)"
+                  rows={3}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="content">Contenu de l'article *</Label>
+                <Textarea
+                  id="content"
+                  value={formData.content}
+                  onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                  placeholder="Rédigez le contenu de votre article..."
+                  rows={12}
+                  required
+                />
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="is_published"
+                  checked={formData.is_published}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
+                />
+                <Label htmlFor="is_published">Publier immédiatement</Label>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Media */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Image className="w-5 h-5 mr-2" />
+                Médias
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="cover_image">Image de couverture (URL)</Label>
+                <Input
+                  id="cover_image"
+                  value={formData.cover_image}
+                  onChange={(e) => setFormData(prev => ({ ...prev, cover_image: e.target.value }))}
+                  placeholder="Entrez l'URL de l'image de couverture"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="video_url" className="flex items-center">
+                  <Video className="w-4 h-4 mr-2" />
+                  URL de la vidéo (YouTube, Vimeo, etc.)
+                </Label>
+                <Input
+                  id="video_url"
+                  value={formData.video_url}
+                  onChange={(e) => setFormData(prev => ({ ...prev, video_url: e.target.value }))}
+                  placeholder="Entrez l'URL de la vidéo"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Location (for restaurants, associations, vendeurs) */}
+          {(['restaurants', 'associations', 'vendeurs'].includes(formData.category)) && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <MapPin className="w-5 h-5 mr-2" />
+                  Localisation
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="location_address">Adresse complète</Label>
+                    <Input
+                      id="location_address"
+                      value={formData.location_address}
+                      onChange={(e) => setFormData(prev => ({ ...prev, location_address: e.target.value }))}
+                      placeholder="123 Rue de la Paix, 75001 Paris"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="location_city">Ville</Label>
+                    <Input
+                      id="location_city"
+                      value={formData.location_city}
+                      onChange={(e) => setFormData(prev => ({ ...prev, location_city: e.target.value }))}
+                      placeholder="Paris"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Tags */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Tag className="w-5 h-5 mr-2" />
+                Tags
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Input
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  placeholder="Ajouter un tag"
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+                />
+                <Button onClick={handleAddTag} variant="outline">
+                  Ajouter
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {formData.tags.map((tag, index) => (
+                  <Badge 
+                    key={index} 
+                    variant="secondary"
+                    className="cursor-pointer"
+                    onClick={() => handleRemoveTag(tag)}
+                  >
+                    {tag} ×
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Preview */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Eye className="w-5 h-5 mr-2" />
+                Aperçu
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose max-w-none">
+                <h1 className="text-2xl font-bold mb-2">{formData.title || 'Titre de l\'article'}</h1>
+                <div className="flex items-center space-x-4 mb-4">
+                  <Badge>{getCategoryName(formData.category)}</Badge>
+                  {formData.location_city && (
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <MapPin className="w-4 h-4 mr-1" />
+                      {formData.location_city}
+                    </div>
+                  )}
+                </div>
+                {formData.cover_image && (
+                  <img 
+                    src={formData.cover_image} 
+                    alt="Cover" 
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                )}
+                <p className="whitespace-pre-wrap">{formData.content || 'Contenu de l\'article...'}</p>
+                {formData.video_url && (
+                  <div className="mt-4">
+                    <p className="text-sm text-muted-foreground">📹 Vidéo: {formData.video_url}</p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogEditor;
