@@ -28,13 +28,16 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
   const { user } = useAuth();
 
   const checkAdminStatus = async () => {
+    console.log('🔍 Checking admin status for user:', user?.id);
     if (!user) {
+      console.log('❌ No user found, setting isAdmin to false');
       setIsAdmin(false);
       setLoading(false);
       return;
     }
 
     try {
+      console.log('📡 Querying user_roles for user:', user.id);
       const { data, error } = await supabase
         .from('user_roles')
         .select('role')
@@ -42,14 +45,18 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
         .eq('role', 'admin')
         .maybeSingle();
 
+      console.log('📊 Query result - data:', data, 'error:', error);
+
       if (error) {
-        console.error('Erreur lors de la vérification du rôle admin:', error);
+        console.error('❌ Erreur lors de la vérification du rôle admin:', error);
         setIsAdmin(false);
       } else {
-        setIsAdmin(!!data);
+        const isAdminUser = !!data;
+        console.log('✅ Setting isAdmin to:', isAdminUser);
+        setIsAdmin(isAdminUser);
       }
     } catch (error) {
-      console.error('Erreur lors de la vérification du rôle admin:', error);
+      console.error('💥 Erreur lors de la vérification du rôle admin:', error);
       setIsAdmin(false);
     } finally {
       setLoading(false);
