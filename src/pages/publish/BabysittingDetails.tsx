@@ -124,7 +124,7 @@ const BabysittingDetails = () => {
           title: data.title || 'Brouillon baby-sitting',
           description: data.description || '',
           price: 0, // Baby-sitting sans prix
-          location: 'Lieux saints',
+          location: data.city,
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
@@ -153,7 +153,7 @@ const BabysittingDetails = () => {
           title: data.title,
           description: data.description,
           price: 0, // Baby-sitting sans prix
-          location: 'Lieux saints',
+          location: data.city,
           images: imageUrls,
           cover_image: coverImageUrl,
           show_email: data.showEmail,
