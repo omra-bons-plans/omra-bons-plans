@@ -370,21 +370,38 @@ const AdDetails = () => {
                         </div>
                       )}
 
-                      {ad.showPhone && ad.user?.phone && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <Phone className="w-5 h-5 text-muted-foreground" />
-                            <span>{ad.user.phone_country}{ad.user.phone}</span>
+                        {ad.showPhone && ad.user?.phone && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Phone className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.phone_country}{ad.user.phone}</span>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
                           </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      )}
+                        )}
+
+                        {ad.showProfessionalPhone && ad.user?.professional_phone && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Phone className="w-5 h-5 text-muted-foreground" />
+                              <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
+                              <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        )}
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -548,21 +565,38 @@ const AdDetails = () => {
                           </div>
                         )}
 
-                        {ad.showPhone && ad.user?.phone && (
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Phone className="w-5 h-5 text-muted-foreground" />
-                              <span>{ad.user.phone_country}{ad.user.phone}</span>
-                            </div>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
-                            >
-                              <Copy className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        )}
+                         {ad.showPhone && ad.user?.phone && (
+                           <div className="flex items-center justify-between">
+                             <div className="flex items-center gap-3">
+                               <Phone className="w-5 h-5 text-muted-foreground" />
+                               <span>{ad.user.phone_country}{ad.user.phone}</span>
+                             </div>
+                             <Button 
+                               variant="ghost" 
+                               size="sm"
+                               onClick={() => copyToClipboard(`${ad.user?.phone_country}${ad.user?.phone}` || '')}
+                             >
+                               <Copy className="w-4 h-4" />
+                             </Button>
+                           </div>
+                         )}
+
+                         {ad.showProfessionalPhone && ad.user?.professional_phone && (
+                           <div className="flex items-center justify-between">
+                             <div className="flex items-center gap-3">
+                               <Phone className="w-5 h-5 text-muted-foreground" />
+                               <span>{ad.user.professional_phone_country}{ad.user.professional_phone}</span>
+                               <Badge variant="outline" className="ml-2 text-xs">Pro</Badge>
+                             </div>
+                             <Button 
+                               variant="ghost" 
+                               size="sm"
+                               onClick={() => copyToClipboard(`${ad.user?.professional_phone_country}${ad.user?.professional_phone}` || '')}
+                             >
+                               <Copy className="w-4 h-4" />
+                             </Button>
+                           </div>
+                         )}
                       </div>
                     </DialogContent>
                   </Dialog>
@@ -671,6 +705,124 @@ const AdDetails = () => {
                       </ul>
                     </CardContent>
                   </Card>
+                )}
+
+                {/* Details for sejours */}
+                {ad.categoryDetails && ad.category === 'sejours' && (
+                  <>
+                    {/* Dates de séjour */}
+                    {(ad.categoryDetails.departure_date || ad.categoryDetails.return_date) && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Dates</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-2">
+                            {ad.categoryDetails.departure_date && (
+                              <div className="flex items-center gap-3">
+                                <Calendar className="w-5 h-5 text-muted-foreground" />
+                                <span>Départ: {new Date(ad.categoryDetails.departure_date).toLocaleDateString('fr-FR')}</span>
+                              </div>
+                            )}
+                            {ad.categoryDetails.return_date && (
+                              <div className="flex items-center gap-3">
+                                <Calendar className="w-5 h-5 text-muted-foreground" />
+                                <span>Retour: {new Date(ad.categoryDetails.return_date).toLocaleDateString('fr-FR')}</span>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Compagnie aérienne */}
+                    {ad.categoryDetails.airline && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Vol</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="flex items-center gap-3">
+                            <span className="text-2xl">✈️</span>
+                            <span>{ad.categoryDetails.airline}</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Nuitées */}
+                    {(ad.categoryDetails.nights_medina || ad.categoryDetails.nights_mecca) && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Hébergement</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-2">
+                            {ad.categoryDetails.nights_medina > 0 && (
+                              <div className="flex items-center gap-3">
+                                <MapPin className="w-5 h-5 text-muted-foreground" />
+                                <span>Médine: {ad.categoryDetails.nights_medina} nuit{ad.categoryDetails.nights_medina > 1 ? 's' : ''}</span>
+                              </div>
+                            )}
+                            {ad.categoryDetails.nights_mecca > 0 && (
+                              <div className="flex items-center gap-3">
+                                <MapPin className="w-5 h-5 text-muted-foreground" />
+                                <span>Makkah: {ad.categoryDetails.nights_mecca} nuit{ad.categoryDetails.nights_mecca > 1 ? 's' : ''}</span>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Hôtels */}
+                    {(ad.categoryDetails.medina_hotel_name || ad.categoryDetails.mecca_hotel_name) && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Hôtels</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {ad.categoryDetails.medina_hotel_name && (
+                              <div>
+                                <div className="font-medium">Médine</div>
+                                <div className="text-sm text-muted-foreground">{ad.categoryDetails.medina_hotel_name}</div>
+                                {ad.categoryDetails.medina_hotel_distance && (
+                                  <div className="text-sm text-muted-foreground">Distance: {ad.categoryDetails.medina_hotel_distance}m</div>
+                                )}
+                              </div>
+                            )}
+                            {ad.categoryDetails.mecca_hotel_name && (
+                              <div>
+                                <div className="font-medium">Makkah</div>
+                                <div className="text-sm text-muted-foreground">{ad.categoryDetails.mecca_hotel_name}</div>
+                                {ad.categoryDetails.mecca_hotel_distance && (
+                                  <div className="text-sm text-muted-foreground">Distance: {ad.categoryDetails.mecca_hotel_distance}m</div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Formule */}
+                    {ad.categoryDetails.formula_type && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Formule</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <Badge variant="outline" className="text-lg px-3 py-1">
+                            {ad.categoryDetails.formula_type === '3' ? 'Éco' :
+                             ad.categoryDetails.formula_type === '4' ? 'Essentiel' :
+                             ad.categoryDetails.formula_type === '5' ? 'Confort' :
+                             ad.categoryDetails.formula_type}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </>
                 )}
               </div>
             </div>
