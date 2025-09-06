@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
 
 interface UserAd {
   id: string;
@@ -346,20 +347,17 @@ const MyAds = () => {
                               {/* Image */}
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                 {ad.coverImage ? (
-                                  <img 
-                                    src={getImageUrl(ad.coverImage) || '/ad-placeholder.jpg'} 
-                                    alt={ad.title}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                      e.currentTarget.src = '/ad-placeholder.jpg';
-                                    }}
-                                  />
+                                   <ImageWithFallback 
+                                     src={getImageUrl(ad.coverImage)} 
+                                     alt={ad.title}
+                                     className="w-full h-full object-cover"
+                                   />
                                 ) : (
-                                  <img 
-                                    src="/ad-placeholder.jpg" 
-                                    alt="Aucune image disponible"
-                                    className="w-full h-full object-cover"
-                                  />
+                                   <ImageWithFallback 
+                                     src="/ad-placeholder.jpg" 
+                                     alt="Aucune image disponible"
+                                     className="w-full h-full object-cover"
+                                   />
                                 )}
                               </div>
 

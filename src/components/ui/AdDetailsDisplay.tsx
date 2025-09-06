@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getImageUrl } from "@/utils/imageUtils";
+import ImageWithFallback from "./ImageWithFallback";
 import { useState, useEffect } from "react";
 
 interface AdDetailsDisplayProps {
@@ -125,15 +126,11 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
       {/* Cover Image */}
       {ad.cover_image && (
         <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden">
-          <img
-            src={getImageUrl(ad.cover_image) || '/ad-placeholder.jpg'}
-            alt={ad.title}
-            className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => openLightbox(0)}
-            onError={(e) => {
-              e.currentTarget.src = '/ad-placeholder.jpg';
-            }}
-          />
+           <ImageWithFallback
+             src={getImageUrl(ad.cover_image)}
+             alt={ad.title}
+             className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
+           />
         </div>
       )}
 
@@ -321,15 +318,11 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                 const imageIndex = ad.cover_image ? index + 1 : index; // Adjust index if cover image exists
                 return (
                   <div key={index} className="aspect-square rounded-lg overflow-hidden">
-                    <img
-                      src={getImageUrl(image) || '/ad-placeholder.jpg'}
-                      alt={`Image ${index + 1}`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
-                      onClick={() => openLightbox(imageIndex)}
-                      onError={(e) => {
-                        e.currentTarget.src = '/ad-placeholder.jpg';
-                      }}
-                    />
+                     <ImageWithFallback
+                       src={getImageUrl(image)}
+                       alt={`Image ${index + 1}`}
+                       className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
+                     />
                   </div>
                 );
               })}
@@ -378,13 +371,10 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
             {/* Current image */}
             {selectedImageIndex !== null && allImages[selectedImageIndex] && (
               <div className="w-full h-full p-8 flex items-center justify-center">
-                <img
-                  src={getImageUrl(allImages[selectedImageIndex]) || '/ad-placeholder.jpg'}
+                <ImageWithFallback
+                  src={getImageUrl(allImages[selectedImageIndex])}
                   alt={`Image ${selectedImageIndex + 1}`}
                   className="max-w-full max-h-full object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = '/ad-placeholder.jpg';
-                  }}
                 />
               </div>
             )}

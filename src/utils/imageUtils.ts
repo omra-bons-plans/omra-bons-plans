@@ -3,14 +3,14 @@ import { supabase } from '@/integrations/supabase/client';
 /**
  * Get the public URL for an image in the ad-images bucket
  * @param imagePath - The path of the image in the bucket
- * @returns The public URL or null if invalid
+ * @returns The public URL or placeholder image
  */
-export const getImageUrl = (imagePath: string | null | undefined): string | null => {
+export const getImageUrl = (imagePath: string | null | undefined): string => {
   console.log('🖼️ getImageUrl called with:', imagePath);
   
   if (!imagePath) {
-    console.log('❌ No image path provided');
-    return null;
+    console.log('❌ No image path provided, returning placeholder');
+    return '/ad-placeholder.jpg';
   }
   
   // If it's already a full URL, return as is
@@ -28,15 +28,15 @@ export const getImageUrl = (imagePath: string | null | undefined): string | null
     return data.publicUrl;
   } catch (error) {
     console.error('💥 Error getting image URL:', error);
-    return null;
+    return '/ad-placeholder.jpg';
   }
 };
 
 /**
  * Get multiple image URLs
  * @param imagePaths - Array of image paths
- * @returns Array of public URLs (null for invalid paths)
+ * @returns Array of public URLs
  */
-export const getImageUrls = (imagePaths: string[]): (string | null)[] => {
+export const getImageUrls = (imagePaths: string[]): string[] => {
   return imagePaths.map(path => getImageUrl(path));
 };

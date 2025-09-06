@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
 
 interface AdDetails {
   id: string;
@@ -330,14 +331,10 @@ const AdSummary = () => {
                       {/* Cover Image */}
                       {ad.coverImage && (
                         <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                          <img 
-                            src={getImageUrl(ad.coverImage) || '/ad-placeholder.jpg'} 
+                          <ImageWithFallback 
+                            src={getImageUrl(ad.coverImage)} 
                             alt="Image de couverture"
                             className="w-full h-full object-cover"
-                            onError={(e) => {
-                              console.error('Cover image failed to load:', ad.coverImage);
-                              e.currentTarget.src = '/ad-placeholder.jpg';
-                            }}
                           />
                         </div>
                       )}
@@ -347,14 +344,10 @@ const AdSummary = () => {
                         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                           {ad.images.map((image, index) => (
                             <div key={index} className="aspect-square bg-muted rounded-lg overflow-hidden">
-                              <img 
-                                src={getImageUrl(image) || '/ad-placeholder.jpg'} 
+                              <ImageWithFallback 
+                                src={getImageUrl(image)} 
                                 alt={`Image ${index + 1}`}
                                 className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  console.error('Image failed to load:', image);
-                                  e.currentTarget.src = '/ad-placeholder.jpg';
-                                }}
                               />
                             </div>
                           ))}
