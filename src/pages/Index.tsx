@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -83,6 +83,12 @@ const Index = () => {
   const { user } = useAuth();
   const { formattedListings, loading: adsLoading, error: adsError } = useAds();
 
+  // Refs pour les sections de scroll
+  const flashSalesTabsRef = useRef<HTMLDivElement>(null);
+  const flashSalesCardsRef = useRef<HTMLDivElement>(null);
+  const allServicesTabsRef = useRef<HTMLDivElement>(null);
+  const allServicesCardsRef = useRef<HTMLDivElement>(null);
+
   // Allow manual city selection for weather
   const toggleWeatherCity = () => {
     setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
@@ -127,25 +133,17 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll hint for mobile sections - staggered animations
+  // Auto-scroll décalé pour distinguer les sections sur mobile
   useEffect(() => {
     if (isMobile) {
-      // Flash Sales section - onglets et cartes
-      const flashSalesTabsContainer = document.querySelector('.flash-sales-tabs-container');
-      const flashSalesCardsContainer = document.querySelector('.flash-sales-cards-container');
-      
-      // All Services section - onglets et cartes  
-      const allServicesTabsContainer = document.querySelector('.all-services-tabs-container');
-      const allServicesCardsContainer = document.querySelector('.all-services-cards-container');
-      
-      const scrollHint = (container: Element, delay: number) => {
+      const scrollHint = (element: HTMLDivElement, delay: number) => {
         const timer = setTimeout(() => {
-          container.scrollTo({
+          element.scrollTo({
             left: 100,
             behavior: 'smooth'
           });
           setTimeout(() => {
-            container.scrollTo({
+            element.scrollTo({
               left: 0,
               behavior: 'smooth'
             });
@@ -156,24 +154,30 @@ const Index = () => {
       
       const timers: NodeJS.Timeout[] = [];
       
-      // Flash Sales - onglets d'abord (2s)
-      if (flashSalesTabsContainer) {
-        timers.push(scrollHint(flashSalesTabsContainer, 2000));
+      // Flash Sales - onglets (2s)
+      if (flashSalesTabsRef.current) {
+        timers.push(scrollHint(flashSalesTabsRef.current, 2000));
       }
       
-      // Flash Sales - cartes ensuite (3.5s)
-      if (flashSalesCardsContainer) {
-        timers.push(scrollHint(flashSalesCardsContainer, 3500));
+      // Flash Sales - cartes (4s)
+      if (flashSalesCardsRef.current) {
+        const scrollContainer = flashSalesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
+        if (scrollContainer) {
+          timers.push(scrollHint(scrollContainer, 4000));
+        }
       }
       
-      // All Services - onglets encore après (5s)
-      if (allServicesTabsContainer) {
-        timers.push(scrollHint(allServicesTabsContainer, 5000));
+      // All Services - onglets (6s)
+      if (allServicesTabsRef.current) {
+        timers.push(scrollHint(allServicesTabsRef.current, 6000));
       }
       
-      // All Services - cartes en dernier (6.5s)
-      if (allServicesCardsContainer) {
-        timers.push(scrollHint(allServicesCardsContainer, 6500));
+      // All Services - cartes (8s)
+      if (allServicesCardsRef.current) {
+        const scrollContainer = allServicesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
+        if (scrollContainer) {
+          timers.push(scrollHint(scrollContainer, 8000));
+        }
       }
       
       return () => timers.forEach(timer => clearTimeout(timer));
@@ -529,7 +533,7 @@ const Index = () => {
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
           <div className="horizontal-scroll-container flash-sales-tabs-container">
-            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+            <div ref={flashSalesTabsRef} className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
@@ -798,7 +802,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {flashSalesListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
+            <div ref={flashSalesCardsRef} className="block md:hidden carousel-item-peek flash-sales-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
@@ -956,7 +960,7 @@ const Index = () => {
 
           {/* Category Pills - Same as Flash Sales */}
           <div className="horizontal-scroll-container all-services-tabs-container">
-            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+            <div ref={allServicesTabsRef} className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
@@ -1242,7 +1246,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
+            <div ref={allServicesCardsRef} className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setAllServicesCarouselApi}
