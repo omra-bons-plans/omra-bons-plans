@@ -133,80 +133,46 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll décalé pour distinguer les sections sur mobile - Avec débogage
+  // Auto-scroll décalé - Nouvelle approche simplifiée
   useEffect(() => {
-    console.log('🔧 Débogage scroll automatique - isMobile:', isMobile);
+    const isMobileCheck = window.innerWidth < 768;
+    console.log('🔍 Vérification mobile auto-scroll:', isMobileCheck);
     
-    if (!isMobile) {
-      console.log('❌ Pas en mode mobile, skip scroll automatique');
-      return;
-    }
+    if (!isMobileCheck) return;
 
-    const performScrollHint = (element: HTMLDivElement, delay: number, name: string) => {
-      console.log(`⏰ Programmation scroll ${name} dans ${delay}ms`);
-      return setTimeout(() => {
-        console.log(`🎯 Début scroll ${name}`);
-        element.scrollTo({ left: 100, behavior: 'smooth' });
-        setTimeout(() => {
-          console.log(`↩️ Retour scroll ${name}`);
-          element.scrollTo({ left: 0, behavior: 'smooth' });
-        }, 1500);
+    const scrollElement = (selector: string, delay: number, name: string) => {
+      setTimeout(() => {
+        console.log(`🎯 Tentative scroll ${name} avec selector: ${selector}`);
+        const element = document.querySelector(selector) as HTMLElement;
+        if (element) {
+          console.log(`✅ Élément trouvé pour ${name}:`, element);
+          element.scrollTo({ left: 100, behavior: 'smooth' });
+          setTimeout(() => {
+            element.scrollTo({ left: 0, behavior: 'smooth' });
+            console.log(`↩️ Retour scroll ${name} terminé`);
+          }, 1500);
+        } else {
+          console.log(`❌ Élément NOT FOUND pour ${name}`);
+        }
       }, delay);
     };
 
-    const timers: NodeJS.Timeout[] = [];
-
+    // Programmer tous les scrolls
+    console.log('📅 Programmation des 4 animations de scroll...');
+    
     // Flash Sales - onglets (2s)
-    if (flashSalesTabsRef.current) {
-      console.log('✅ Flash Sales tabs ref trouvée:', flashSalesTabsRef.current);
-      timers.push(performScrollHint(flashSalesTabsRef.current, 2000, 'Flash Sales Tabs'));
-    } else {
-      console.log('❌ Flash Sales tabs ref NOT FOUND');
-    }
-
+    scrollElement('.flash-sales-tabs-container .overflow-x-auto', 2000, 'Flash Sales Tabs');
+    
     // Flash Sales - cartes (4s)
-    if (flashSalesCardsRef.current) {
-      console.log('✅ Flash Sales cards ref trouvée:', flashSalesCardsRef.current);
-      const emblaContainer = flashSalesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
-      if (emblaContainer) {
-        console.log('✅ Embla container Flash Sales trouvé:', emblaContainer);
-        timers.push(performScrollHint(emblaContainer, 4000, 'Flash Sales Cards'));
-      } else {
-        console.log('❌ Embla container Flash Sales NOT FOUND');
-      }
-    } else {
-      console.log('❌ Flash Sales cards ref NOT FOUND');
-    }
-
-    // All Services - onglets (6s)  
-    if (allServicesTabsRef.current) {
-      console.log('✅ All Services tabs ref trouvée:', allServicesTabsRef.current);
-      timers.push(performScrollHint(allServicesTabsRef.current, 6000, 'All Services Tabs'));
-    } else {
-      console.log('❌ All Services tabs ref NOT FOUND');
-    }
-
+    scrollElement('.flash-sales-cards-container [data-embla-scroll-container]', 4000, 'Flash Sales Cards');
+    
+    // All Services - onglets (6s)
+    scrollElement('.all-services-tabs-container .overflow-x-auto', 6000, 'All Services Tabs');
+    
     // All Services - cartes (8s)
-    if (allServicesCardsRef.current) {
-      console.log('✅ All Services cards ref trouvée:', allServicesCardsRef.current);
-      const emblaContainer = allServicesCardsRef.current.querySelector('[data-embla-scroll-container]') as HTMLDivElement;
-      if (emblaContainer) {
-        console.log('✅ Embla container All Services trouvé:', emblaContainer);
-        timers.push(performScrollHint(emblaContainer, 8000, 'All Services Cards'));
-      } else {
-        console.log('❌ Embla container All Services NOT FOUND');
-      }
-    } else {
-      console.log('❌ All Services cards ref NOT FOUND');
-    }
+    scrollElement('.all-services-cards-container [data-embla-scroll-container]', 8000, 'All Services Cards');
 
-    console.log('📊 Total timers programmés:', timers.length);
-
-    return () => {
-      console.log('🧹 Nettoyage des timers');
-      timers.forEach(timer => clearTimeout(timer));
-    };
-  }, [isMobile]);
+  }, []);
 
   // Use real ads from database, fallback to sample data if no ads exist
   const sampleListings = [
@@ -557,7 +523,7 @@ const Index = () => {
 
           {/* Category Pills - Horizontal Scroll on Mobile */}
           <div className="horizontal-scroll-container flash-sales-tabs-container">
-            <div ref={flashSalesTabsRef} className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
@@ -826,7 +792,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {flashSalesListings.length > 0 ? (
-            <div ref={flashSalesCardsRef} className="block md:hidden carousel-item-peek flash-sales-cards-container">
+            <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setFlashSalesCarouselApi}
@@ -984,7 +950,7 @@ const Index = () => {
 
           {/* Category Pills - Same as Flash Sales */}
           <div className="horizontal-scroll-container all-services-tabs-container">
-            <div ref={allServicesTabsRef} className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
               <div className="flex gap-3 min-w-max md:min-w-0">
                 <Button 
                   onClick={() => setSelectedCategory("all")}
@@ -1270,7 +1236,7 @@ const Index = () => {
 
           {/* Mobile: Carousel with 1 item */}
           {filteredListings.length > 0 ? (
-            <div ref={allServicesCardsRef} className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
+            <div className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
               <Carousel 
                 className="w-full scroll-hint"
                 setApi={setAllServicesCarouselApi}
