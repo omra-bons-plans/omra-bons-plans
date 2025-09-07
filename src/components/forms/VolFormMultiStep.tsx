@@ -613,55 +613,67 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
 
       {/* Navigation */}
       <div className="fixed bottom-0 left-0 right-0 md:relative bg-background border-t md:border-t-0 p-4 md:p-0 z-50">
-        <div className="flex justify-between items-center max-w-4xl mx-auto">
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              onClick={onBack}
-              className="flex items-center space-x-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Annuler</span>
-            </Button>
-            
-            <Button
-              variant="outline"
-              onClick={handleSaveDraft}
-              className="flex items-center space-x-2"
-            >
-              <Save className="w-4 h-4" />
-              <span>Brouillon</span>
-            </Button>
-          </div>
-
-          <div className="flex space-x-2">
-            {step > 1 && (
-              <Button
-                variant="outline"
-                onClick={handlePrevious}
-              >
-                Précédent
-              </Button>
-            )}
-            
-            {step < totalSteps ? (
+        <div className="max-w-4xl mx-auto">
+          {step === totalSteps ? (
+            /* Étape récapitulatif - Choix final */
+            <div className="space-y-4">
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
+                <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
+              </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={handlePrevious}
+                  className="w-full sm:w-auto h-12 px-6"
+                >
+                  ← Modifier
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  variant="secondary" 
+                  onClick={handleSaveDraft}
+                  className="px-6 w-full sm:w-auto h-12"
+                >
+                  💾 Sauvegarder comme brouillon
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  onClick={handlePublish}
+                  disabled={!validateStep()}
+                  className="btn-modern px-8 w-full sm:w-auto h-12"
+                >
+                  🚀 Publier maintenant
+                </Button>
+              </div>
+            </div>
+          ) : (
+            /* Étapes normales */
+            <div className="flex justify-between items-center">
+              <div>
+                {step > 1 && (
+                  <Button
+                    variant="outline"
+                    onClick={handlePrevious}
+                    className="w-full sm:w-auto"
+                  >
+                    Précédent
+                  </Button>
+                )}
+              </div>
+              
               <Button 
                 onClick={handleNext}
                 disabled={!validateStep()}
+                className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
               >
                 Suivant
               </Button>
-            ) : (
-              <Button 
-                onClick={handlePublish}
-                disabled={!validateStep()}
-                className="flex items-center space-x-2"
-              >
-                <Eye className="w-4 h-4" />
-                <span>Publier</span>
-              </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
