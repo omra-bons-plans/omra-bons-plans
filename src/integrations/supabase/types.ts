@@ -518,6 +518,33 @@ export type Database = {
           },
         ]
       }
+      exchange_rates: {
+        Row: {
+          base_currency: string
+          created_at: string
+          id: string
+          last_updated: string
+          rate: number
+          target_currency: string
+        }
+        Insert: {
+          base_currency?: string
+          created_at?: string
+          id?: string
+          last_updated?: string
+          rate: number
+          target_currency?: string
+        }
+        Update: {
+          base_currency?: string
+          created_at?: string
+          id?: string
+          last_updated?: string
+          rate?: number
+          target_currency?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
@@ -754,6 +781,50 @@ export type Database = {
         Returns: {
           avg_rating: number
           review_count: number
+        }[]
+      }
+      get_public_profile: {
+        Args: { profile_id: string }
+        Returns: {
+          bio: string
+          company_name: string
+          created_at: string
+          experience_years: number
+          facebook: string
+          first_name: string
+          full_name: string
+          id: string
+          instagram: string
+          is_professional: boolean
+          languages_spoken: string[]
+          profile_image: string
+          profile_views: number
+          slug: string
+          specialties: string[]
+          updated_at: string
+          website: string
+        }[]
+      }
+      get_public_profiles: {
+        Args: { limit_count?: number; offset_count?: number }
+        Returns: {
+          bio: string
+          company_name: string
+          created_at: string
+          experience_years: number
+          facebook: string
+          first_name: string
+          full_name: string
+          id: string
+          instagram: string
+          is_professional: boolean
+          languages_spoken: string[]
+          profile_image: string
+          profile_views: number
+          slug: string
+          specialties: string[]
+          updated_at: string
+          website: string
         }[]
       }
       has_role: {
