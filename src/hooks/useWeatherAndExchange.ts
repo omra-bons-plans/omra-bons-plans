@@ -71,8 +71,8 @@ export const useWeatherAndExchange = () => {
     // Fetch data immediately
     fetchData();
 
-    // Set up interval to refresh every 24 hours (86400000 ms)
-    const interval = setInterval(fetchData, 24 * 60 * 60 * 1000);
+    // Set up interval to refresh every 30 minutes (1800000 ms)
+    const interval = setInterval(fetchData, 30 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle } from "lucide-react";
+import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle, RefreshCw } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -84,7 +84,7 @@ const Index = () => {
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
-  const { data: weatherAndExchange } = useWeatherAndExchange();
+  const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
   const { user } = useAuth();
   const { formattedListings, loading: adsLoading, error: adsError } = useAds();
 
@@ -414,6 +414,20 @@ const Index = () => {
               {/* Modern Weather & Exchange Card */}
               <div className="bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-3xl shadow-soft max-w-md md:max-w-2xl mx-auto border border-border/20">
                 <div className="flex flex-col gap-4 md:gap-6">
+                  {/* Header with refresh button */}
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm text-gray-500">
+                      Données en temps réel
+                    </div>
+                    <button
+                      onClick={refetchWeather}
+                      disabled={weatherLoading}
+                      className="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
+                      title="Actualiser les données"
+                    >
+                      <RefreshCw className={`w-4 h-4 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
+                    </button>
+                  </div>
                   {/* Weather Section */}
                   <div className="flex items-center space-x-3 md:space-x-4">
                     {/* City Indicator Dots */}
