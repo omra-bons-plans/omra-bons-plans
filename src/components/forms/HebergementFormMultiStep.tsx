@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ProgressBar from "@/components/ui/ProgressBar";
 import { getImageUrl } from "@/utils/imageUtils";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import { compressImage, isImageFile, formatFileSize } from "@/utils/imageCompression";
+import { toast } from "sonner";
 
 // Component pour l'aperçu vidéo
 const VideoPreview = ({ url }: { url: string }) => {
@@ -240,34 +242,71 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
     }
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, isCover: boolean = false) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>, isCover: boolean = false) => {
     const files = event.target.files;
     
-    if (files) {
+    if (!files || files.length === 0) return;
+    
+    try {
       if (isCover) {
         const file = files[0];
-        // Vérifier la taille du fichier (max 5MB)
-        if (file.size > 5 * 1024 * 1024) {
-          alert('La taille de l\'image ne doit pas dépasser 5MB');
-          return;
-        }
-        setCoverImage(file);
-      } else {
-        const newImages = Array.from(files);
-        // Vérifier la taille de chaque fichier
-        const oversizedFiles = newImages.filter(file => file.size > 5 * 1024 * 1024);
-        if (oversizedFiles.length > 0) {
-          alert('Certaines images dépassent la limite de 5MB');
+        if (!isImageFile(file)) {
+          toast.error('Veuillez sélectionner un fichier image valide');
           return;
         }
         
-        const totalImages = images.length + newImages.length;
-        if (totalImages <= 6) {
-          setImages([...images, ...newImages]);
-        } else {
-          alert(`Vous ne pouvez ajouter que ${6 - images.length} photo(s) supplémentaire(s)`);
+        toast.loading('Compression de l\'image en cours...');
+        const compressedFile = await compressImage(file, {
+          maxWidth: 1920,
+          maxHeight: 1920,
+          quality: 0.8,
+          maxSizeKB: 1024
+        });
+        
+        toast.dismiss();
+        toast.success(`Image compressée : ${formatFileSize(file.size)} → ${formatFileSize(compressedFile.size)}`);
+        setCoverImage(compressedFile);
+      } else {
+        const newFiles = Array.from(files);
+        const totalImages = images.length + newFiles.length;
+        
+        if (totalImages > 6) {
+          toast.error(`Vous ne pouvez ajouter que ${6 - images.length} photo(s) supplémentaire(s)`);
+          return;
         }
+        
+        // Vérifier que tous les fichiers sont des images
+        const invalidFiles = newFiles.filter(file => !isImageFile(file));
+        if (invalidFiles.length > 0) {
+          toast.error('Certains fichiers ne sont pas des images valides');
+          return;
+        }
+        
+        toast.loading(`Compression de ${newFiles.length} image(s) en cours...`);
+        
+        const compressedFiles = await Promise.all(
+          newFiles.map(file => 
+            compressImage(file, {
+              maxWidth: 1920,
+              maxHeight: 1920,
+              quality: 0.8,
+              maxSizeKB: 1024
+            })
+          )
+        );
+        
+        toast.dismiss();
+        
+        const originalSize = newFiles.reduce((sum, file) => sum + file.size, 0);
+        const compressedSize = compressedFiles.reduce((sum, file) => sum + file.size, 0);
+        
+        toast.success(`${newFiles.length} image(s) compressée(s) : ${formatFileSize(originalSize)} → ${formatFileSize(compressedSize)}`);
+        setImages([...images, ...compressedFiles]);
       }
+    } catch (error) {
+      toast.dismiss();
+      toast.error('Erreur lors de la compression de l\'image');
+      console.error('Erreur de compression:', error);
     }
   };
 
