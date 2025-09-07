@@ -283,27 +283,27 @@ const Index = () => {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
-                      <DropdownMenuItem onClick={() => navigate('/?category=sejours')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/sejours')}>
                         <Building className="w-4 h-4 mr-2" />
                         Séjours
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/?category=vols')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/vols')}>
                         <Plane className="w-4 h-4 mr-2" />
                         Vols
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/?category=hebergement')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/hebergements')}>
                         <Hotel className="w-4 h-4 mr-2" />
                         Hébergements
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/?category=guides')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/guides')}>
                         <BookOpen className="w-4 h-4 mr-2" />
                         Guides
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/?category=chauffeurs')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/chauffeurs')}>
                         <Car className="w-4 h-4 mr-2" />
                         Chauffeurs
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/?category=babysitting')}>
+                      <DropdownMenuItem onClick={() => navigate('/category/babysitting')}>
                         <Heart className="w-4 h-4 mr-2" />
                         Baby-sitting
                       </DropdownMenuItem>

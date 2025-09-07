@@ -32,6 +32,7 @@ import BlogPost from "./pages/BlogPost";
 import PublicProfile from "./pages/PublicProfile";
 import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
+import CategoryPage from "./pages/CategoryPage";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ const App = () => (
               </ProtectedRoute>
             } />
             <Route path="/ad/:id" element={<AdDetails />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/profile/:slug" element={<PublicProfile />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:category/:id" element={<BlogPost />} />

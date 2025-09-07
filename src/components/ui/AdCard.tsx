@@ -17,7 +17,12 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
   const handleClick = () => {
     // Ne pas permettre le clic si l'annonce est expirée
     if (!listing.isExpired) {
-      navigate(`/ad/${listing.id}`);
+      // Pass the category as state to know where to return
+      navigate(`/ad/${listing.id}`, { 
+        state: { 
+          fromCategory: listing.type === 'hebergement' ? 'hebergements' : listing.type 
+        } 
+      });
     }
   };
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, MapPin, Calendar, Eye, Phone, MessageCircle, Star, User, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -48,6 +48,7 @@ interface AdData {
 export default function AdDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const [ad, setAd] = useState<AdData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -244,7 +245,14 @@ export default function AdDetails() {
         <div className="flex items-center justify-between mb-8">
           <Button
             variant="ghost"
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              const fromCategory = location.state?.fromCategory;
+              if (fromCategory) {
+                navigate(`/category/${fromCategory}`);
+              } else {
+                navigate('/');
+              }
+            }}
             className="flex items-center space-x-2"
           >
             <ArrowLeft className="w-4 h-4" />
