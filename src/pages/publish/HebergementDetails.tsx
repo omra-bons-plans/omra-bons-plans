@@ -82,7 +82,7 @@ const HebergementDetails = () => {
       toast.success("Brouillon sauvegardé avec succès !");
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
-      navigate('/');
+      navigate('/my-ads');
       return ad.id;
     } catch (error) {
       console.error('Error saving draft:', error);
@@ -367,7 +367,7 @@ const HebergementDetails = () => {
         currentStep={2} 
         totalSteps={2} 
         steps={steps}
-        onClose={() => navigate('/')}
+        onClose={() => navigate('/my-ads')}
       >
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="space-y-6">

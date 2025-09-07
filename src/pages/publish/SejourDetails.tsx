@@ -58,7 +58,7 @@ const SejourDetails = () => {
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
       sessionStorage.removeItem('selectedFormula');
-      navigate('/');
+      navigate('/my-ads');
       return ad.id;
     } catch (error) {
       console.error('Error saving draft:', error);
@@ -214,7 +214,7 @@ const SejourDetails = () => {
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
       sessionStorage.removeItem('selectedFormula');
-      navigate('/');
+      navigate('/my-ads');
     } catch (error) {
       console.error('Error creating ad:', error);
       toast.error("Erreur lors de la publication de l'annonce");

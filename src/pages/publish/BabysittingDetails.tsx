@@ -55,7 +55,7 @@ const BabysittingDetails = () => {
       toast.success("Brouillon sauvegardé avec succès !");
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
-      navigate('/');
+      navigate('/my-ads');
       return ad.id;
     } catch (error) {
       console.error('Error saving draft:', error);
@@ -185,7 +185,7 @@ const BabysittingDetails = () => {
       toast.success("Annonce publiée avec succès !");
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
-      navigate('/');
+      navigate('/my-ads');
     } catch (error) {
       console.error('Error creating ad:', error);
       toast.error("Erreur lors de la publication de l'annonce");
