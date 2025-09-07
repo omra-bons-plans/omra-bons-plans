@@ -273,7 +273,7 @@ const Index = () => {
               <div className="flex items-center space-x-8">
                 {/* Logo - Left aligned on desktop */}
                 <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  <Logo size={40} className="text-primary" />
+                  <Logo size={60} className="text-primary" />
                   <span className="text-2xl font-normal text-foreground tracking-tight">
                     Omra Bons Plans
                   </span>
@@ -1182,7 +1182,7 @@ const Index = () => {
             {/* Logo and Description */}
             <div className="space-y-6">
               <div className="flex items-center space-x-3">
-                <Logo size={32} className="text-primary" />
+                <Logo size={48} className="text-primary" />
                 <span className="text-lg font-normal text-foreground tracking-tight">
                   Omra Bons Plans
                 </span>
