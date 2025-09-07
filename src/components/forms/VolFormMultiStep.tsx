@@ -351,117 +351,119 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label>Date de départ *</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !formData.departureDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.departureDate ? (
-                            format(formData.departureDate, "dd MMMM yyyy", { locale: fr })
-                          ) : (
-                            <span>Choisir une date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={formData.departureDate}
-                          onSelect={(date) => updateFormData('departureDate', date)}
-                          initialFocus
-                          disabled={(date) => date < new Date()}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Date de retour *</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !formData.returnDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.returnDate ? (
-                            format(formData.returnDate, "dd MMMM yyyy", { locale: fr })
-                          ) : (
-                            <span>Choisir une date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={formData.returnDate}
-                          onSelect={(date) => updateFormData('returnDate', date)}
-                          initialFocus
-                          disabled={(date) => 
-                            date < new Date() || 
-                            (formData.departureDate && date <= formData.departureDate)
-                          }
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
                   <div className="space-y-4">
-                    <h4 className="font-medium">Escales vol aller</h4>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="hasOutboundStopover"
-                        checked={formData.hasOutboundStopover}
-                        onCheckedChange={(checked) => updateFormData('hasOutboundStopover', checked)}
-                      />
-                      <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
+                    <div className="space-y-2">
+                      <Label>Date de départ *</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !formData.departureDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {formData.departureDate ? (
+                              format(formData.departureDate, "dd MMMM yyyy", { locale: fr })
+                            ) : (
+                              <span>Choisir une date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={formData.departureDate}
+                            onSelect={(date) => updateFormData('departureDate', date)}
+                            initialFocus
+                            disabled={(date) => date < new Date()}
+                          />
+                        </PopoverContent>
+                      </Popover>
                     </div>
 
-                    {formData.hasOutboundStopover && (
-                      <div className="space-y-2">
-                        <Label>Détails de l'escale aller</Label>
-                        <Input
-                          value={formData.outboundStopoverDetails}
-                          onChange={(e) => updateFormData('outboundStopoverDetails', e.target.value)}
-                          placeholder="Ex: Escale à Istanbul (IST) - 2h"
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Escales vol aller</h4>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="hasOutboundStopover"
+                          checked={formData.hasOutboundStopover}
+                          onCheckedChange={(checked) => updateFormData('hasOutboundStopover', checked)}
                         />
+                        <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
                       </div>
-                    )}
+
+                      {formData.hasOutboundStopover && (
+                        <div className="space-y-2">
+                          <Label>Détails de l'escale aller</Label>
+                          <Input
+                            value={formData.outboundStopoverDetails}
+                            onChange={(e) => updateFormData('outboundStopoverDetails', e.target.value)}
+                            placeholder="Ex: Escale à Istanbul (IST) - 2h"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="font-medium">Escales vol retour</h4>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="hasReturnStopover"
-                        checked={formData.hasReturnStopover}
-                        onCheckedChange={(checked) => updateFormData('hasReturnStopover', checked)}
-                      />
-                      <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
+                    <div className="space-y-2">
+                      <Label>Date de retour *</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !formData.returnDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {formData.returnDate ? (
+                              format(formData.returnDate, "dd MMMM yyyy", { locale: fr })
+                            ) : (
+                              <span>Choisir une date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={formData.returnDate}
+                            onSelect={(date) => updateFormData('returnDate', date)}
+                            initialFocus
+                            disabled={(date) => 
+                              date < new Date() || 
+                              (formData.departureDate && date <= formData.departureDate)
+                            }
+                          />
+                        </PopoverContent>
+                      </Popover>
                     </div>
 
-                    {formData.hasReturnStopover && (
-                      <div className="space-y-2">
-                        <Label>Détails de l'escale retour</Label>
-                        <Input
-                          value={formData.returnStopoverDetails}
-                          onChange={(e) => updateFormData('returnStopoverDetails', e.target.value)}
-                          placeholder="Ex: Escale à Doha (DOH) - 1h30"
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Escales vol retour</h4>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="hasReturnStopover"
+                          checked={formData.hasReturnStopover}
+                          onCheckedChange={(checked) => updateFormData('hasReturnStopover', checked)}
                         />
+                        <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
                       </div>
-                    )}
+
+                      {formData.hasReturnStopover && (
+                        <div className="space-y-2">
+                          <Label>Détails de l'escale retour</Label>
+                          <Input
+                            value={formData.returnStopoverDetails}
+                            onChange={(e) => updateFormData('returnStopoverDetails', e.target.value)}
+                            placeholder="Ex: Escale à Doha (DOH) - 1h30"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </CardContent>
