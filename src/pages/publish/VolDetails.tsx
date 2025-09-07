@@ -94,6 +94,8 @@ const VolDetails = () => {
           return_date: data.returnDate,
           has_stopover: data.hasStopover,
           stopover_details: data.stopoverDetails,
+          checked_bags_count: data.checkedBagsCount || 0,
+          checked_bags_weight: data.checkedBagsWeight || 20,
         };
 
         await saveDraft(adData, categoryData);
@@ -134,6 +136,8 @@ const VolDetails = () => {
           return_date: data.returnDate,
           has_stopover: data.hasStopover,
           stopover_details: data.stopoverDetails,
+          checked_bags_count: data.checkedBagsCount || 0,
+          checked_bags_weight: data.checkedBagsWeight || 20,
         });
 
       if (volError) throw volError;

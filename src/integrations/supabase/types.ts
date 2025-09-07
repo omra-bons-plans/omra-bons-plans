@@ -275,6 +275,8 @@ export type Database = {
         Row: {
           ad_id: string
           airline: string | null
+          checked_bags_count: number | null
+          checked_bags_weight: number | null
           departure_date: string | null
           formula_type: string
           mecca_hotel_distance: string | null
@@ -288,6 +290,8 @@ export type Database = {
         Insert: {
           ad_id: string
           airline?: string | null
+          checked_bags_count?: number | null
+          checked_bags_weight?: number | null
           departure_date?: string | null
           formula_type: string
           mecca_hotel_distance?: string | null
@@ -301,6 +305,8 @@ export type Database = {
         Update: {
           ad_id?: string
           airline?: string | null
+          checked_bags_count?: number | null
+          checked_bags_weight?: number | null
           departure_date?: string | null
           formula_type?: string
           mecca_hotel_distance?: string | null
@@ -326,6 +332,8 @@ export type Database = {
           ad_id: string
           airline: string
           arrival_airport: string | null
+          checked_bags_count: number | null
+          checked_bags_weight: number | null
           departure_airport: string | null
           departure_date: string | null
           has_stopover: boolean | null
@@ -336,6 +344,8 @@ export type Database = {
           ad_id: string
           airline: string
           arrival_airport?: string | null
+          checked_bags_count?: number | null
+          checked_bags_weight?: number | null
           departure_airport?: string | null
           departure_date?: string | null
           has_stopover?: boolean | null
@@ -346,6 +356,8 @@ export type Database = {
           ad_id?: string
           airline?: string
           arrival_airport?: string | null
+          checked_bags_count?: number | null
+          checked_bags_weight?: number | null
           departure_airport?: string | null
           departure_date?: string | null
           has_stopover?: boolean | null

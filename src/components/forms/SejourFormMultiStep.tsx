@@ -32,6 +32,8 @@ interface SejourFormData {
   showProfessionalPhone: boolean;
   isPromotion: boolean;
   promotionEndDate?: string;
+  checkedBagsCount?: number;
+  checkedBagsWeight?: number;
 }
 
 interface SejourFormMultiStepProps {
@@ -56,6 +58,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       showWhatsapp: false,
       showProfessionalPhone: false,
       isPromotion: false,
+      checkedBagsCount: 0,
+      checkedBagsWeight: 20,
     }
   });
 
@@ -336,6 +340,44 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     </SelectContent>
                   </Select>
                   {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
+                </div>
+              </div>
+
+              {/* Section bagages */}
+              <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                <h4 className="font-semibold mb-4">Bagages en soute inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="checkedBagsCount">Nombre de bagages en soute</Label>
+                    <Input
+                      id="checkedBagsCount"
+                      type="number"
+                      min="0"
+                      max="10"
+                      {...register("checkedBagsCount", { 
+                        valueAsNumber: true,
+                        min: { value: 0, message: "Le nombre doit être positif" }
+                      })}
+                      placeholder="Ex: 1"
+                    />
+                    {errors.checkedBagsCount && <p className="text-destructive text-sm">{errors.checkedBagsCount.message}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="checkedBagsWeight">Kilos pour chaque bagages</Label>
+                    <Input
+                      id="checkedBagsWeight"
+                      type="number"
+                      min="0"
+                      max="50"
+                      {...register("checkedBagsWeight", { 
+                        valueAsNumber: true,
+                        min: { value: 0, message: "Le poids doit être positif" }
+                      })}
+                      placeholder="Ex: 23"
+                    />
+                    {errors.checkedBagsWeight && <p className="text-destructive text-sm">{errors.checkedBagsWeight.message}</p>}
+                  </div>
                 </div>
               </div>
             </CardContent>

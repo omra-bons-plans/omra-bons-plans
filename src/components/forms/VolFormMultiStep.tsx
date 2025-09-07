@@ -44,6 +44,8 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
     returnDate: undefined as Date | undefined,
     hasStopover: false,
     stopoverDetails: '',
+    checkedBagsCount: 0,
+    checkedBagsWeight: 20,
     showPhone: true,
     showWhatsapp: false,
     showEmail: true,
@@ -132,7 +134,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
         departure_date: formData.departureDate?.toISOString().split('T')[0],
         return_date: formData.returnDate?.toISOString().split('T')[0],
         has_stopover: formData.hasStopover,
-        stopover_details: formData.stopoverDetails || null
+        stopover_details: formData.stopoverDetails || null,
+        checked_bags_count: formData.checkedBagsCount,
+        checked_bags_weight: formData.checkedBagsWeight
       };
 
       const { error: flightError } = await supabase
@@ -196,7 +200,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
           departure_date: formData.departureDate?.toISOString().split('T')[0] || null,
           return_date: formData.returnDate?.toISOString().split('T')[0] || null,
           has_stopover: formData.hasStopover,
-          stopover_details: formData.stopoverDetails || null
+          stopover_details: formData.stopoverDetails || null,
+          checked_bags_count: formData.checkedBagsCount,
+          checked_bags_weight: formData.checkedBagsWeight
         };
 
         const { error: flightError } = await supabase
@@ -290,6 +296,38 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                     onValueChange={(value) => updateFormData('arrivalAirport', value)}
                     placeholder="Ex: JED - Jeddah"
                   />
+                </div>
+              </div>
+
+              {/* Section bagages */}
+              <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                <h4 className="font-semibold mb-4">Bagages en soute inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="checkedBagsCount">Nombre de bagages en soute</Label>
+                    <Input
+                      id="checkedBagsCount"
+                      type="number"
+                      min="0"
+                      max="10"
+                      value={formData.checkedBagsCount}
+                      onChange={(e) => updateFormData('checkedBagsCount', parseInt(e.target.value) || 0)}
+                      placeholder="Ex: 1"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="checkedBagsWeight">Kilos pour chaque bagages</Label>
+                    <Input
+                      id="checkedBagsWeight"
+                      type="number"
+                      min="0"
+                      max="50"
+                      value={formData.checkedBagsWeight}
+                      onChange={(e) => updateFormData('checkedBagsWeight', parseInt(e.target.value) || 20)}
+                      placeholder="Ex: 23"
+                    />
+                  </div>
                 </div>
               </div>
             </CardContent>

@@ -141,6 +141,8 @@ const SejourDetails = () => {
           medina_hotel_distance: data.medinaHotelDistance,
           mecca_hotel_name: data.meccaHotelName,
           mecca_hotel_distance: data.meccaHotelDistance,
+          checked_bags_count: data.checkedBagsCount || 0,
+          checked_bags_weight: data.checkedBagsWeight || 20,
         };
 
         await saveDraft(adData, categoryData);
@@ -202,6 +204,8 @@ const SejourDetails = () => {
           medina_hotel_distance: data.medinaHotelDistance,
           mecca_hotel_name: data.meccaHotelName,
           mecca_hotel_distance: data.meccaHotelDistance,
+          checked_bags_count: data.checkedBagsCount || 0,
+          checked_bags_weight: data.checkedBagsWeight || 20,
         });
 
       if (sejourError) throw sejourError;
