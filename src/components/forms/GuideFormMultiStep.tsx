@@ -176,12 +176,12 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                       message: "Le titre doit contenir au moins 10 caractères"
                     },
                     maxLength: {
-                      value: 80,
-                      message: "Le titre ne peut pas dépasser 80 caractères"
+                      value: 20,
+                      message: "Le titre ne peut pas dépasser 20 caractères"
                     }
                   })}
-                  placeholder="Ex: Guide expérimenté - Français/Arabe"
-                  maxLength={80}
+                  placeholder="Ex: Guide Français"
+                  maxLength={20}
                   onChange={(e) => {
                     const upperValue = e.target.value.toUpperCase();
                     setValue('title', upperValue);
@@ -189,7 +189,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                 />
                 <div className="flex justify-between items-center text-xs text-muted-foreground">
                   <span>{errors.title?.message}</span>
-                  <span>{watch('title')?.length || 0}/80</span>
+                  <span>{watch('title')?.length || 0}/20</span>
                 </div>
               </div>
 

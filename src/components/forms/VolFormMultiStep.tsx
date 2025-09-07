@@ -284,12 +284,12 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   id="title"
                   value={formData.title}
                   onChange={(e) => updateFormData('title', e.target.value.toUpperCase())}
-                  placeholder="Ex: Vol direct Paris-Jeddah avec Turkish Airlines"
-                  maxLength={80}
+                  placeholder="Ex: Vol direct Paris"
+                  maxLength={20}
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
                   <span>Minimum 10 caractères</span>
-                  <span>{formData.title.length}/80</span>
+                  <span>{formData.title.length}/20</span>
                 </div>
               </div>
 

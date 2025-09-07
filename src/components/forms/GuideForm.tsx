@@ -118,11 +118,12 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
               <Input
                 id="title"
                 {...register("title", { required: "Le titre est requis" })}
-                placeholder="Ex: Guide expérimenté - Français/Arabe"
+                placeholder="Ex: Guide Français"
                 onChange={(e) => {
                   const upperValue = e.target.value.toUpperCase();
                   setValue('title', upperValue);
                 }}
+                maxLength={20}
               />
               {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
             </div>

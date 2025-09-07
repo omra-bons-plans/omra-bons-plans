@@ -104,11 +104,12 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
               <Input
                 id="title"
                 {...register("title", { required: "Le titre est requis" })}
-                placeholder="Ex: Vol direct Paris-Jeddah avec Emirates"
+                placeholder="Ex: Vol direct Paris"
                 onChange={(e) => {
                   const upperValue = e.target.value.toUpperCase();
                   setValue('title', upperValue);
                 }}
+                maxLength={20}
               />
               {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
             </div>
