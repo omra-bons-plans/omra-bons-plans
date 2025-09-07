@@ -14,11 +14,10 @@ const ImageGallery = ({ images, title, coverImage }: ImageGalleryProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  // Combine cover image and gallery images
-  const allImages = [
-    ...(coverImage ? [coverImage] : []),
-    ...(images || [])
-  ];
+  // Combine cover image and gallery images, avoiding duplicates
+  const allImages = coverImage 
+    ? [coverImage, ...(images || []).filter(img => img !== coverImage)]
+    : (images || []);
 
   const openLightbox = (index: number) => {
     setSelectedImageIndex(index);
@@ -83,19 +82,23 @@ const ImageGallery = ({ images, title, coverImage }: ImageGalleryProps) => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Photos</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {images.map((image, index) => {
-              const imageIndex = coverImage ? index + 1 : index;
-              return (
-                <div key={index} className="aspect-square rounded-lg overflow-hidden">
-                  <ImageWithFallback
-                    src={getImageUrl(image)}
-                    alt={`${title} - Image ${index + 1}`}
-                    className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
-                    onClick={() => openLightbox(imageIndex)}
-                  />
-                </div>
-              );
-            })}
+            {images
+              .filter(img => !coverImage || img !== coverImage) // Filter out cover image
+              .map((image, filteredIndex) => {
+                // Find the correct index in allImages
+                const imageIndex = allImages.indexOf(image);
+                return (
+                  <div key={image} className="aspect-square rounded-lg overflow-hidden">
+                    <ImageWithFallback
+                      src={getImageUrl(image)}
+                      alt={`${title} - Image ${filteredIndex + 1}`}
+                      className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => openLightbox(imageIndex)}
+                    />
+                  </div>
+                );
+              })
+            }
           </div>
         </div>
       )}
