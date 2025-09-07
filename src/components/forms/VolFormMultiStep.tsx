@@ -714,42 +714,142 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                 <CardTitle>Prévisualisation de votre annonce</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="p-6 bg-muted/20 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-4">Aperçu de votre annonce</h3>
+                <div className="p-6 bg-muted/20 rounded-lg space-y-6">
+                  <h3 className="text-lg font-semibold">Aperçu de votre annonce</h3>
+                  
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium">{formData.title || 'Titre de votre annonce'}</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <h4 className="font-bold text-xl">{formData.title || 'Titre de votre annonce'}</h4>
+                      <p className="text-muted-foreground">
                         {formData.departureAirport} → {formData.arrivalAirport}
                       </p>
-                      <p className="text-lg font-bold">{formData.price}€</p>
+                      <p className="text-2xl font-bold text-primary">{formData.price}€</p>
+                      {formData.originalPrice && parseFloat(formData.originalPrice) > parseFloat(formData.price || '0') && (
+                        <p className="text-sm text-muted-foreground">
+                          <span className="line-through">{formData.originalPrice}€</span>
+                          <span className="ml-2 text-green-600 font-medium">
+                            Économie : {parseFloat(formData.originalPrice) - parseFloat(formData.price || '0')}€
+                          </span>
+                        </p>
+                      )}
                     </div>
+
+                    {/* Description */}
+                    {formData.description && (
+                      <div>
+                        <h5 className="font-medium mb-2">Description</h5>
+                        <p className="text-sm text-muted-foreground">{formData.description}</p>
+                      </div>
+                    )}
+
+                    {/* Détails du vol */}
+                    <div className="bg-white/50 p-4 rounded-lg space-y-3">
+                      <h5 className="font-medium">Détails du vol</h5>
+                      
+                      {formData.airline && (
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium">Compagnie:</span>
+                          <span>{formData.airline}</span>
+                        </div>
+                      )}
+                      
+                      {formData.departureDate && (
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium">Départ:</span>
+                          <span>{formData.departureDate.toLocaleDateString('fr-FR')}</span>
+                        </div>
+                      )}
+                      
+                      {formData.returnDate && (
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium">Retour:</span>
+                          <span>{formData.returnDate.toLocaleDateString('fr-FR')}</span>
+                        </div>
+                      )}
+
+                      {/* Escales */}
+                      <div>
+                        <span className="font-medium">Escales:</span>
+                        <div className="ml-4 space-y-1">
+                          {formData.hasOutboundStopover ? (
+                            <div className="text-sm">
+                              <span className="font-medium">Aller:</span> Avec escale
+                              {formData.outboundStopoverDetails && (
+                                <span className="text-muted-foreground"> - {formData.outboundStopoverDetails}</span>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="text-sm">
+                              <span className="font-medium">Aller:</span> Vol direct
+                            </div>
+                          )}
+                          
+                          {formData.hasReturnStopover ? (
+                            <div className="text-sm">
+                              <span className="font-medium">Retour:</span> Avec escale
+                              {formData.returnStopoverDetails && (
+                                <span className="text-muted-foreground"> - {formData.returnStopoverDetails}</span>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="text-sm">
+                              <span className="font-medium">Retour:</span> Vol direct
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Bagages */}
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium">Bagages en soute:</span>
+                        <span>{formData.checkedBagsCount || 0} bagage(s) de {formData.checkedBagsWeight || 20}kg chacun</span>
+                      </div>
+                    </div>
+
+                    {/* Images */}
                     {coverImage && (
-                      <div className="w-full h-40 rounded overflow-hidden">
-                        <img 
-                          src={URL.createObjectURL(coverImage)} 
-                          alt="Photo de couverture" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    {images.length > 0 && (
-                      <div className="grid grid-cols-3 gap-2">
-                        {images.slice(0, 3).map((image, index) => (
+                      <div>
+                        <h5 className="font-medium mb-2">Photo de couverture</h5>
+                        <div className="w-full h-40 rounded overflow-hidden">
                           <img 
-                            key={index}
-                            src={URL.createObjectURL(image)} 
-                            alt={`Image ${index + 1}`}
-                            className="w-full h-16 object-cover rounded"
+                            src={URL.createObjectURL(coverImage)} 
+                            alt="Photo de couverture" 
+                            className="w-full h-full object-cover"
                           />
-                        ))}
-                        {images.length > 3 && (
-                          <div className="col-span-3 text-center text-sm text-muted-foreground">
-                            +{images.length - 3} image(s) supplémentaire(s)
-                          </div>
-                        )}
+                        </div>
                       </div>
                     )}
+                    
+                    {images.length > 0 && (
+                      <div>
+                        <h5 className="font-medium mb-2">Photos supplémentaires</h5>
+                        <div className="grid grid-cols-3 gap-2">
+                          {images.slice(0, 3).map((image, index) => (
+                            <img 
+                              key={index}
+                              src={URL.createObjectURL(image)} 
+                              alt={`Image ${index + 1}`}
+                              className="w-full h-16 object-cover rounded"
+                            />
+                          ))}
+                          {images.length > 3 && (
+                            <div className="col-span-3 text-center text-xs text-muted-foreground">
+                              +{images.length - 3} image(s) supplémentaire(s)
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Informations de contact */}
+                    <div className="bg-white/50 p-4 rounded-lg">
+                      <h5 className="font-medium mb-2">Contact</h5>
+                      <div className="space-y-1 text-sm">
+                        {formData.showEmail && <div>✓ Email affiché</div>}
+                        {formData.showPhone && <div>✓ Téléphone affiché</div>}
+                        {formData.showWhatsapp && <div>✓ WhatsApp affiché</div>}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
