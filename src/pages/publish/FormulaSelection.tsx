@@ -66,9 +66,9 @@ const FormulaSelection = () => {
             {formulas.map((formula) => (
               <Card 
                 key={formula.id}
-                className={`cursor-pointer transition-all duration-300 hover:shadow-large hover:-translate-y-1 ${
+                className={`cursor-pointer transition-all duration-150 hover:shadow-large hover:-translate-y-1 ${
                   selectedFormula === formula.id 
-                    ? 'ring-2 ring-primary bg-accent/50 shadow-large' 
+                    ? 'ring-2 ring-primary bg-accent/50 shadow-large transform-gpu' 
                     : 'hover:bg-accent/20'
                 }`}
                 onClick={() => setSelectedFormula(formula.id)}
