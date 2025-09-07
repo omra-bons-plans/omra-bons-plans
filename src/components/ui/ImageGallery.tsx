@@ -32,11 +32,15 @@ const ImageGallery = ({ images, title, coverImage }: ImageGalleryProps) => {
   const navigateImage = (direction: 'prev' | 'next') => {
     if (selectedImageIndex === null) return;
     
+    console.log('🔄 Navigating:', direction, 'Current index:', selectedImageIndex, 'Total images:', allImages.length);
+    
     if (direction === 'prev') {
       const newIndex = selectedImageIndex > 0 ? selectedImageIndex - 1 : allImages.length - 1;
+      console.log('⬅️ Going to index:', newIndex);
       setSelectedImageIndex(newIndex);
     } else {
       const newIndex = selectedImageIndex < allImages.length - 1 ? selectedImageIndex + 1 : 0;
+      console.log('➡️ Going to index:', newIndex);
       setSelectedImageIndex(newIndex);
     }
   };
@@ -112,7 +116,12 @@ const ImageGallery = ({ images, title, coverImage }: ImageGalleryProps) => {
               <>
                 <button
                   className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 rounded-full p-3 transition-all"
-                  onClick={() => navigateImage('prev')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('⬅️ Previous button clicked');
+                    navigateImage('prev');
+                  }}
                   aria-label="Image précédente"
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -120,7 +129,12 @@ const ImageGallery = ({ images, title, coverImage }: ImageGalleryProps) => {
                 
                 <button
                   className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 rounded-full p-3 transition-all"
-                  onClick={() => navigateImage('next')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('➡️ Next button clicked');
+                    navigateImage('next');
+                  }}
                   aria-label="Image suivante"
                 >
                   <ChevronRight className="w-6 h-6" />
