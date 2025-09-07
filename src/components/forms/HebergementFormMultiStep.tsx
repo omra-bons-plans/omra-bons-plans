@@ -1256,13 +1256,13 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
   };
 
   return (
-    <div className="space-y-6 pb-24">
+    <div className="space-y-6 pb-32 md:pb-8">
       {renderStep()}
       
       <div className="flex justify-between pt-6">
         {currentStep === totalSteps ? (
           /* Étape récapitulatif - Choix final */
-          <div className="w-full space-y-4">
+          <div className="fixed bottom-0 left-0 right-0 md:relative md:bottom-auto md:left-auto md:right-auto bg-background border-t md:border-t-0 p-4 md:p-0 w-full space-y-4 z-50 md:z-auto">
             <div className="text-center space-y-2">
               <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
               <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>

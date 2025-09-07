@@ -682,7 +682,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-32">
+    <div className="max-w-4xl mx-auto space-y-8 pb-32 md:pb-8">
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
@@ -701,7 +701,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
           <div className="max-w-4xl mx-auto">
             {currentStep === totalSteps ? (
               /* Étape récapitulatif - Choix final */
-              <div className="space-y-4">
+              <div className="fixed bottom-0 left-0 right-0 md:relative md:bottom-auto md:left-auto md:right-auto bg-background border-t md:border-t-0 p-4 md:p-0 space-y-4 z-50 md:z-auto">
                 <div className="text-center space-y-2">
                   <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
                   <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
