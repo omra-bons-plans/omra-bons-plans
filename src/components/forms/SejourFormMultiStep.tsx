@@ -40,9 +40,11 @@ interface SejourFormMultiStepProps {
   formulaType: string;
   onSubmit: (data: SejourFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
+  initialData?: any;
+  isEditMode?: boolean;
 }
 
-const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiStepProps) => {
+const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEditMode }: SejourFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -51,7 +53,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
   // Hook pour les compagnies aériennes
   const { airlines, loading: airlinesLoading, error: airlinesError } = useAirlines();
 
-  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<SejourFormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors }, trigger, reset } = useForm<SejourFormData>({
     defaultValues: {
       showEmail: true,
       showPhone: false,
@@ -62,6 +64,37 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       checkedBagsWeight: 20,
     }
   });
+
+  // Pré-remplir le formulaire avec les données existantes en mode édition
+  useEffect(() => {
+    if (initialData && isEditMode) {
+      console.log('🔄 Pre-filling form with initial data:', initialData);
+      reset({
+        title: initialData.title || '',
+        description: initialData.description || '',
+        price: initialData.price || 0,
+        originalPrice: initialData.originalPrice || 0,
+        airline: initialData.airline || '',
+        departureDate: initialData.departureDate || '',
+        returnDate: initialData.returnDate || '',
+        nightsMedina: initialData.nightsMedina || 0,
+        nightsMecca: initialData.nightsMecca || 0,
+        medinaHotelName: initialData.medinaHotelName || '',
+        medinaHotelDistance: initialData.medinaHotelDistance || '',
+        meccaHotelName: initialData.meccaHotelName || '',
+        meccaHotelDistance: initialData.meccaHotelDistance || '',
+        publishEndDate: initialData.publishEndDate || '',
+        showEmail: initialData.showEmail !== undefined ? initialData.showEmail : true,
+        showPhone: initialData.showPhone !== undefined ? initialData.showPhone : false,
+        showWhatsapp: initialData.showWhatsapp !== undefined ? initialData.showWhatsapp : false,
+        showProfessionalPhone: initialData.showProfessionalPhone !== undefined ? initialData.showProfessionalPhone : false,
+        isPromotion: initialData.isPromotion !== undefined ? initialData.isPromotion : false,
+        promotionEndDate: initialData.promotionEndDate || '',
+        checkedBagsCount: initialData.checkedBagsCount || 0,
+        checkedBagsWeight: initialData.checkedBagsWeight || 20,
+      });
+    }
+  }, [initialData, isEditMode, reset]);
 
   // Watch dates for automatic nights calculation
   const departureDate = watch('departureDate');
