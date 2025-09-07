@@ -103,9 +103,14 @@ const CategoryPage = () => {
   });
 
   // Get unique cities for filter
-  const cities = [...new Set(categoryListings.map(listing => 
-    listing.location.split(' - ')[0].split(',')[0].trim()
-  ))].sort();
+  const cities = [...new Set(categoryListings.map(listing => {
+    // S'assurer que location est une string avant d'utiliser split
+    if (typeof listing.location === 'string') {
+      return listing.location.split(' - ')[0].split(',')[0].trim();
+    }
+    // Si location n'est pas une string, retourner une valeur par défaut
+    return 'Non spécifié';
+  }))].sort();
 
   if (!categoryInfo) {
     return (

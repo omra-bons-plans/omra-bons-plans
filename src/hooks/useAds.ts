@@ -215,7 +215,10 @@ export const useAds = () => {
         case 'chauffeurs':
           if (ad.categoryDetails) {
             subtitle = `${ad.categoryDetails.vehicle_seats} places • ${ad.categoryDetails.languages?.join(', ') || 'Français'}`;
-            location = ad.categoryDetails.city || location;
+            // S'assurer que location est une string en joignant le tableau de villes
+            location = Array.isArray(ad.categoryDetails.city) 
+              ? ad.categoryDetails.city.join(', ') 
+              : (ad.categoryDetails.city || location);
           }
           break;
         case 'babysitting':
