@@ -274,7 +274,7 @@ const Index = () => {
                 {/* Logo - Left aligned on desktop */}
                 <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                   <div className="h-16 flex items-center">
-                    <Logo size={280} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
+                    <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
                   </div>
                   <span className="text-2xl font-normal text-foreground tracking-tight">
                     Omra Bons Plans
