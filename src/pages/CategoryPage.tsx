@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Search, Filter, MapPin, Building, Plane, Hotel, BookOpen, Car, Heart, Grid, List, SlidersHorizontal } from "lucide-react";
+import { Search, Filter, MapPin, Building, Plane, Hotel, BookOpen, Car, Heart, Grid, List, SlidersHorizontal, ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -159,6 +159,18 @@ const CategoryPage = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
+          {/* Header with back button */}
+          <div className="flex items-center justify-between mb-6">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="flex items-center space-x-2"
+            >
+              <Home className="w-4 h-4" />
+              <span>Retour à l'accueil</span>
+            </Button>
+          </div>
+          
           {/* Filters */}
           <Card className="mb-8">
             <CardHeader>
