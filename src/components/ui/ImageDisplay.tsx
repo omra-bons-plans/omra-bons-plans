@@ -112,8 +112,8 @@ export const ImageDisplay = ({
 
       {/* Image Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-5xl w-full h-full max-h-[90vh] p-0 bg-black">
-          <div className="relative w-full h-full flex items-center justify-center">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black">
+          <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
             {/* Close Button */}
             <Button
               variant="ghost"
@@ -133,7 +133,7 @@ export const ImageDisplay = ({
             <img
               src={allImages[currentImageIndex]}
               alt={`${title} - Image ${currentImageIndex + 1}`}
-              className="max-w-full max-h-full object-contain"
+              className="max-w-[90vw] max-h-[85vh] object-contain"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
                 img.src = '/ad-placeholder.jpg';
