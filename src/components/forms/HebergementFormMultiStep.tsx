@@ -878,7 +878,9 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price">Prix de la location (€) *</Label>
+                    <Label htmlFor="price">
+                      {watchedAccommodationType === 'apartment' ? 'Prix à la nuitée (€) *' : 'Prix de la location (€) *'}
+                    </Label>
                     <Input
                       type="number"
                       id="price"
