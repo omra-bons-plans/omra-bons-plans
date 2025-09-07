@@ -240,6 +240,17 @@ export const useAds = () => {
 
       const isExpired = ad.publishEndDate ? new Date(ad.publishEndDate) <= new Date() : false;
 
+      // Détermine l'image de couverture : cover_image ou première image avec "cover-" ou première image disponible
+      let coverImageUrl = '/ad-placeholder.jpg';
+      if (ad.coverImage) {
+        coverImageUrl = getImageUrl(ad.coverImage);
+      } else if (ad.images && ad.images.length > 0) {
+        // Cherche une image qui commence par "cover-" dans le nom
+        const coverImage = ad.images.find(img => img.includes('/cover-'));
+        const imageToUse = coverImage || ad.images[0];
+        coverImageUrl = getImageUrl(imageToUse);
+      }
+
       return {
         id: ad.id,
         type: ad.category,
@@ -252,7 +263,7 @@ export const useAds = () => {
         discount: discount > 0 ? discount : undefined,
         isFlashSale,
         flashSaleEndDate: ad.promotionEndDate ? new Date(ad.promotionEndDate) : undefined,
-        image: ad.coverImage ? getImageUrl(ad.coverImage) : '/ad-placeholder.jpg',
+        image: coverImageUrl,
         rating: ad.rating || 4.5,
         reviews: ad.reviews || 0,
         location,
