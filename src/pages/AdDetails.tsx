@@ -47,6 +47,9 @@ interface AdData {
     whatsapp: string;
     professional_phone: string;
     email: string;
+    phone_country: string;
+    whatsapp_country: string;
+    professional_phone_country: string;
   };
 }
 
@@ -96,7 +99,7 @@ export default function AdDetails() {
       // Fetch profile separately
       const { data: profileData } = await supabase
         .from('profiles')
-        .select('full_name, first_name, phone, whatsapp, professional_phone, email')
+        .select('full_name, first_name, phone, whatsapp, professional_phone, email, phone_country, whatsapp_country, professional_phone_country')
         .eq('id', adData.user_id)
         .single();
 
@@ -199,7 +202,26 @@ export default function AdDetails() {
     await deleteReview(reviewId);
   };
 
-  const handleShareAd = () => {
+  // Helper functions for phone formatting
+  const formatPhoneForCall = (phone: string, countryCode: string) => {
+    if (!phone || !countryCode) return '';
+    // Remove leading zero from French numbers when adding country code
+    const cleanPhone = phone.startsWith('0') && countryCode === '+33' 
+      ? phone.slice(1) 
+      : phone;
+    return `${countryCode}${cleanPhone}`;
+  };
+
+  const formatPhoneForWhatsApp = (phone: string, countryCode: string) => {
+    if (!phone || !countryCode) return '';
+    // Clean phone number (remove all non-digits)
+    const cleanPhone = phone.replace(/[^\d]/g, '');
+    // Remove leading zero for most country codes
+    const phoneWithoutZero = cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone;
+    // Remove + from country code for WhatsApp
+    const cleanCountryCode = countryCode.replace('+', '');
+    return `${cleanCountryCode}${phoneWithoutZero}`;
+  };
     if (navigator.share) {
       navigator.share({
         title: ad?.title,
@@ -210,7 +232,7 @@ export default function AdDetails() {
       navigator.clipboard.writeText(window.location.href);
       toast.success('Lien copié dans le presse-papiers');
     }
-  };
+  const handleShareAd = () => {
 
   if (loading) {
     return (
@@ -391,7 +413,7 @@ export default function AdDetails() {
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      Email: {ad.profile?.email}
+                      📧 Envoyer un email
                     </Button>
                   )}
                   
@@ -400,11 +422,12 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        window.location.href = `tel:${ad.profile?.phone}`;
+                        const phoneNumber = formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33');
+                        window.location.href = `tel:${phoneNumber}`;
                       }}
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      Téléphone: {ad.profile?.phone}
+                      📞 Appeler {formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33')}
                     </Button>
                   )}
                   
@@ -413,12 +436,12 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        const phoneNumber = ad.profile?.whatsapp?.replace(/[^\d]/g, '');
-                        window.open(`https://wa.me/${phoneNumber}`, '_blank');
+                        const whatsappNumber = formatPhoneForWhatsApp(ad.profile.whatsapp, ad.profile.whatsapp_country || '+33');
+                        window.open(`https://wa.me/${whatsappNumber}`, '_blank');
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      WhatsApp: {ad.profile?.whatsapp}
+                      💬 WhatsApp {ad.profile.whatsapp_country || '+33'} {ad.profile.whatsapp}
                     </Button>
                   )}
                   
@@ -427,11 +450,12 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        window.location.href = `tel:${ad.profile?.professional_phone}`;
+                        const phoneNumber = formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33');
+                        window.location.href = `tel:${phoneNumber}`;
                       }}
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      Téléphone professionnel: {ad.profile?.professional_phone}
+                      📞 Appeler pro {formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33')}
                     </Button>
                   )}
                 </div>
@@ -570,3 +594,5 @@ export default function AdDetails() {
     </div>
   );
 }
+
+export default AdDetails;
