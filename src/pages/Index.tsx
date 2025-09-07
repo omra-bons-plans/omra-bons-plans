@@ -479,7 +479,7 @@ const Index = () => {
                         })()}
                       </div>
                       <div className="text-xs sm:text-sm font-semibold text-gray-800 truncate">
-                        {currentWeatherCity === 'makkah' ? 'Médine, Arabie saoudite' : 'Médine, Arabie saoudite'}
+                        {currentWeatherCity === 'makkah' ? 'Makkah, Arabie saoudite' : 'Médine, Arabie saoudite'}
                       </div>
                       <div className="text-[9px] sm:text-xs text-gray-500 capitalize truncate">
                         {currentWeatherCity === 'makkah' 
