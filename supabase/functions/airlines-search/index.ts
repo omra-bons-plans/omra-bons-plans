@@ -141,7 +141,10 @@ serve(async (req) => {
 
     console.log(`Returning ${sortedAirlines.length} unique airlines`);
 
-    return new Response(JSON.stringify(sortedAirlines), {
+    return new Response(JSON.stringify({
+      airlines: sortedAirlines,
+      source: 'api-ninjas'
+    }), {
       headers: {
         ...corsHeaders,
         'Content-Type': 'application/json',
@@ -150,8 +153,27 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
+    
+    // Return fallback airlines even in case of error
+    const staticAirlines = [
+      { icao: 'AFR', iata: 'AF', name: 'Air France', country: 'France' },
+      { icao: 'SVA', iata: 'SV', name: 'Saudia', country: 'Saudi Arabia' },
+      { icao: 'UAE', iata: 'EK', name: 'Emirates', country: 'United Arab Emirates' },
+      { icao: 'QTR', iata: 'QR', name: 'Qatar Airways', country: 'Qatar' },
+      { icao: 'THY', iata: 'TK', name: 'Turkish Airlines', country: 'Turkey' },
+      { icao: 'DLH', iata: 'LH', name: 'Lufthansa', country: 'Germany' },
+      { icao: 'KLM', iata: 'KL', name: 'KLM Royal Dutch Airlines', country: 'Netherlands' },
+      { icao: 'BAW', iata: 'BA', name: 'British Airways', country: 'United Kingdom' },
+      { icao: 'ETD', iata: 'EY', name: 'Etihad Airways', country: 'United Arab Emirates' },
+      { icao: 'RJA', iata: 'RJ', name: 'Royal Jordanian', country: 'Jordan' }
+    ];
+
+    return new Response(JSON.stringify({
+      airlines: staticAirlines,
+      source: 'fallback',
+      error: error.message
+    }), {
+      status: 200, // Return 200 with fallback data instead of 500
       headers: {
         ...corsHeaders,
         'Content-Type': 'application/json',
