@@ -302,6 +302,149 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
             )}
 
             {/* Add other categories as needed */}
+            
+            {/* Vols */}
+            {ad.category === 'vols' && (
+              <>
+                {ad.categoryDetails.airline && (
+                  <div className="flex items-center space-x-2">
+                    <Plane className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Compagnie aérienne:</span>
+                    <span>{ad.categoryDetails.airline}</span>
+                  </div>
+                )}
+                
+                {ad.categoryDetails.departure_airport && ad.categoryDetails.arrival_airport && (
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Trajet:</span>
+                    <span>{ad.categoryDetails.departure_airport} → {ad.categoryDetails.arrival_airport}</span>
+                  </div>
+                )}
+
+                {ad.categoryDetails.departure_date && (
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Date de départ:</span>
+                    <span>{new Date(ad.categoryDetails.departure_date).toLocaleDateString('fr-FR')}</span>
+                  </div>
+                )}
+
+                {ad.categoryDetails.return_date && (
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Date de retour:</span>
+                    <span>{new Date(ad.categoryDetails.return_date).toLocaleDateString('fr-FR')}</span>
+                  </div>
+                )}
+
+                <div className="flex items-center space-x-2">
+                  <Clock className="w-4 h-4 text-muted-foreground" />
+                  <span className="font-medium">Escale:</span>
+                  <span>{ad.categoryDetails.has_stopover ? 'Avec escale' : 'Sans escale'}</span>
+                </div>
+
+                {ad.categoryDetails.has_stopover && ad.categoryDetails.stopover_details && (
+                  <div className="flex items-start space-x-2">
+                    <MapPin className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <div>
+                      <span className="font-medium">Détails de l'escale:</span>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {ad.categoryDetails.stopover_details}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Séjours */}
+            {ad.category === 'sejours' && (
+              <>
+                {ad.categoryDetails.formula_type && (
+                  <div className="flex items-center space-x-2">
+                    <Badge className="bg-primary/10 text-primary hover:bg-primary/20">
+                      Formule {ad.categoryDetails.formula_type}
+                    </Badge>
+                  </div>
+                )}
+                
+                {ad.categoryDetails.airline && (
+                  <div className="flex items-center space-x-2">
+                    <Plane className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Compagnie aérienne:</span>
+                    <span>{ad.categoryDetails.airline}</span>
+                  </div>
+                )}
+
+                {ad.categoryDetails.departure_date && (
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Date de départ:</span>
+                    <span>{new Date(ad.categoryDetails.departure_date).toLocaleDateString('fr-FR')}</span>
+                  </div>
+                )}
+
+                {ad.categoryDetails.return_date && (
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Date de retour:</span>
+                    <span>{new Date(ad.categoryDetails.return_date).toLocaleDateString('fr-FR')}</span>
+                  </div>
+                )}
+
+                {(ad.categoryDetails.nights_mecca || ad.categoryDetails.nights_medina) && (
+                  <div className="space-y-2">
+                    <span className="font-medium">Durée du séjour:</span>
+                    {ad.categoryDetails.nights_mecca && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.nights_mecca} nuits à La Mecque</span>
+                      </div>
+                    )}
+                    {ad.categoryDetails.nights_medina && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.nights_medina} nuits à Médine</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Hôtels */}
+                {(ad.categoryDetails.mecca_hotel_name || ad.categoryDetails.medina_hotel_name) && (
+                  <div className="space-y-2">
+                    <span className="font-medium">Hébergements:</span>
+                    {ad.categoryDetails.mecca_hotel_name && (
+                      <div className="ml-4 space-y-1">
+                        <div className="flex items-center space-x-2">
+                          <Home className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm font-medium">La Mecque:</span>
+                          <span className="text-sm">{ad.categoryDetails.mecca_hotel_name}</span>
+                        </div>
+                        {ad.categoryDetails.mecca_hotel_distance && (
+                          <div className="text-xs text-muted-foreground ml-6">
+                            Distance: {ad.categoryDetails.mecca_hotel_distance}m du Haram
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {ad.categoryDetails.medina_hotel_name && (
+                      <div className="ml-4 space-y-1">
+                        <div className="flex items-center space-x-2">
+                          <Home className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm font-medium">Médine:</span>
+                          <span className="text-sm">{ad.categoryDetails.medina_hotel_name}</span>
+                        </div>
+                        {ad.categoryDetails.medina_hotel_distance && (
+                          <div className="text-xs text-muted-foreground ml-6">
+                            Distance: {ad.categoryDetails.medina_hotel_distance}m de la Mosquée du Prophète
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
           </CardContent>
         </Card>
       )}

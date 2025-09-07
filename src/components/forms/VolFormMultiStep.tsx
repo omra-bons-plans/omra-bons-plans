@@ -166,13 +166,33 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
   };
 
   const handlePublish = () => {
+    // Vérifier que la photo de couverture est présente
+    if (!coverImage) {
+      alert("La photo de couverture est obligatoire");
+      return;
+    }
+    
+    // Ajouter les images aux données du formulaire
     const data = watch();
-    onSubmit(data, false);
+    const dataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage
+    };
+    
+    onSubmit(dataWithImages, false);
   };
 
   const handleSaveDraft = () => {
+    // Ajouter les images aux données du formulaire
     const data = watch();
-    onSubmit(data, true);
+    const dataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage
+    };
+    
+    onSubmit(dataWithImages, true);
   };
 
   const renderStep = () => {
