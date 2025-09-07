@@ -323,7 +323,17 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   <Input
                     id="departureDate"
                     type="date"
-                    {...register("departureDate", { required: "La date de départ est requise" })}
+                    min={new Date().toISOString().split('T')[0]}
+                    {...register("departureDate", { 
+                      required: "La date de départ est requise",
+                      validate: (value) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        if (value && value < today) {
+                          return "La date de départ ne peut pas être antérieure à aujourd'hui";
+                        }
+                        return true;
+                      }
+                    })}
                   />
                   {errors.departureDate && <p className="text-destructive text-sm">{errors.departureDate.message}</p>}
                 </div>
@@ -333,9 +343,14 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                   <Input
                     id="returnDate"
                     type="date"
+                    min={watch("departureDate") || new Date().toISOString().split('T')[0]}
                     {...register("returnDate", { 
                       required: "La date de retour est requise",
                       validate: (value) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        if (value && value < today) {
+                          return "La date de retour ne peut pas être antérieure à aujourd'hui";
+                        }
                         const departureDate = watch("departureDate");
                         if (departureDate && value && new Date(value) <= new Date(departureDate)) {
                           return "La date de retour doit être après la date de départ";
@@ -583,7 +598,17 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
                 <Input
                   id="publishEndDate"
                   type="date"
-                  {...register("publishEndDate", { required: "La date de fin est requise" })}
+                  min={new Date().toISOString().split('T')[0]}
+                  {...register("publishEndDate", { 
+                    required: "La date de fin est requise",
+                    validate: (value) => {
+                      const today = new Date().toISOString().split('T')[0];
+                      if (value && value < today) {
+                        return "La date de fin de publication ne peut pas être antérieure à aujourd'hui";
+                      }
+                      return true;
+                    }
+                  })}
                 />
                 {errors.publishEndDate && <p className="text-destructive text-sm">{errors.publishEndDate.message}</p>}
               </div>

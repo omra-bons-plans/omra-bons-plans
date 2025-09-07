@@ -458,41 +458,61 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                    <div className="space-y-2">
                      <Label htmlFor="availableFrom">Disponible à partir du</Label>
-                     <Input
-                       type="date"
-                       id="availableFrom"
-                       {...register("availableFrom", {
-                         validate: {
-                           beforeEndDate: (value) => {
-                             const availableTo = watch('availableTo');
-                             if (value && availableTo) {
-                               return new Date(value) <= new Date(availableTo) || "La date de début doit être antérieure à la date de fin";
-                             }
-                             return true;
-                           }
-                         }
-                       })}
-                     />
+                      <Input
+                        type="date"
+                        id="availableFrom"
+                        min={new Date().toISOString().split('T')[0]}
+                        {...register("availableFrom", {
+                          validate: {
+                            notInPast: (value) => {
+                              if (value) {
+                                const today = new Date().toISOString().split('T')[0];
+                                if (value < today) {
+                                  return "La date ne peut pas être antérieure à aujourd'hui";
+                                }
+                              }
+                              return true;
+                            },
+                            beforeEndDate: (value) => {
+                              const availableTo = watch('availableTo');
+                              if (value && availableTo) {
+                                return new Date(value) <= new Date(availableTo) || "La date de début doit être antérieure à la date de fin";
+                              }
+                              return true;
+                            }
+                          }
+                        })}
+                      />
                      {errors.availableFrom && <span className="text-destructive text-sm">{errors.availableFrom.message}</span>}
                    </div>
 
                    <div className="space-y-2">
                      <Label htmlFor="availableTo">Disponible jusqu'au</Label>
-                     <Input
-                       type="date"
-                       id="availableTo"
-                       {...register("availableTo", {
-                         validate: {
-                           afterStartDate: (value) => {
-                             const availableFrom = watch('availableFrom');
-                             if (value && availableFrom) {
-                               return new Date(value) >= new Date(availableFrom) || "La date de fin doit être postérieure à la date de début";
-                             }
-                             return true;
-                           }
-                         }
-                       })}
-                     />
+                      <Input
+                        type="date"
+                        id="availableTo"
+                        min={watch('availableFrom') || new Date().toISOString().split('T')[0]}
+                        {...register("availableTo", {
+                          validate: {
+                            notInPast: (value) => {
+                              if (value) {
+                                const today = new Date().toISOString().split('T')[0];
+                                if (value < today) {
+                                  return "La date ne peut pas être antérieure à aujourd'hui";
+                                }
+                              }
+                              return true;
+                            },
+                            afterStartDate: (value) => {
+                              const availableFrom = watch('availableFrom');
+                              if (value && availableFrom) {
+                                return new Date(value) >= new Date(availableFrom) || "La date de fin doit être postérieure à la date de début";
+                              }
+                              return true;
+                            }
+                          }
+                        })}
+                      />
                      {errors.availableTo && <span className="text-destructive text-sm">{errors.availableTo.message}</span>}
                    </div>
                  </div>
@@ -954,7 +974,17 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                   <Input
                     type="date"
                     id="publishEndDate"
-                    {...register("publishEndDate", { required: "La date de fin est obligatoire" })}
+                    min={new Date().toISOString().split('T')[0]}
+                    {...register("publishEndDate", { 
+                      required: "La date de fin est obligatoire",
+                      validate: (value) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        if (value && value < today) {
+                          return "La date de fin de publication ne peut pas être antérieure à aujourd'hui";
+                        }
+                        return true;
+                      }
+                    })}
                   />
                   <p className="text-xs text-muted-foreground">
                     L'annonce sera automatiquement supprimée après cette date

@@ -383,7 +383,17 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   <Input
                     id="departureDate"
                     type="date"
-                    {...register("departureDate", { required: "La date de départ est requise" })}
+                    min={new Date().toISOString().split('T')[0]}
+                    {...register("departureDate", { 
+                      required: "La date de départ est requise",
+                      validate: (value) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        if (value && value < today) {
+                          return "La date de départ ne peut pas être antérieure à aujourd'hui";
+                        }
+                        return true;
+                      }
+                    })}
                   />
                   {errors.departureDate && <p className="text-destructive text-sm">{errors.departureDate.message}</p>}
                 </div>
@@ -393,9 +403,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   <Input
                     id="returnDate"
                     type="date"
+                    min={watch("departureDate") || new Date().toISOString().split('T')[0]}
                     {...register("returnDate", { 
                       required: "La date de retour est requise",
                       validate: (value) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        if (value && value < today) {
+                          return "La date de retour ne peut pas être antérieure à aujourd'hui";
+                        }
                         const departureDate = watch("departureDate");
                         if (departureDate && value && new Date(value) <= new Date(departureDate)) {
                           return "La date de retour doit être après la date de départ";
