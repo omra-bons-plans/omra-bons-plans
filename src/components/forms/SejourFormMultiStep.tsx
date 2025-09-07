@@ -186,7 +186,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     
     switch (currentStep) {
       case 1:
-        fieldsToValidate = ['title', 'airline'];
+        // Validation manuelle pour airline car il utilise setValue au lieu de register
+        const currentAirline = watch('airline');
+        if (!currentAirline) {
+          alert("Veuillez sélectionner une compagnie aérienne");
+          return;
+        }
+        fieldsToValidate = ['title'];
         break;
       case 2:
         fieldsToValidate = ['description'];
@@ -343,7 +349,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                       )}
                     </SelectContent>
                   </Select>
-                  {errors.airline && <p className="text-destructive text-sm">{errors.airline.message}</p>}
+                  {!watch("airline") && <p className="text-destructive text-sm">La compagnie aérienne est requise</p>}
                 </div>
               </div>
 
