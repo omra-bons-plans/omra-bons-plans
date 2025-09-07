@@ -298,15 +298,6 @@ const BlogEditor = () => {
                   required
                 />
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="is_published"
-                  checked={formData.is_published}
-                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
-                />
-                <Label htmlFor="is_published">Publier immédiatement</Label>
-              </div>
             </CardContent>
           </Card>
 
@@ -450,6 +441,33 @@ const BlogEditor = () => {
                     <p className="text-sm text-muted-foreground break-all">📹 Vidéo: {formData.video_url}</p>
                   </div>
                 )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Publication Settings */}
+          <Card>
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="is_published"
+                    checked={formData.is_published}
+                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
+                  />
+                  <Label htmlFor="is_published" className="text-base font-medium">
+                    Publier immédiatement
+                  </Label>
+                </div>
+                <Button
+                  onClick={handleSave}
+                  disabled={saving}
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  {saving ? 'Sauvegarde...' : isEditMode ? 'Mettre à jour' : 'Publier l\'article'}
+                </Button>
               </div>
             </CardContent>
           </Card>
