@@ -972,14 +972,17 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                 </div>
 
                 {calculateDiscount() > 0 && (
-                  <div className="p-4 bg-accent/50 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                        -{calculateDiscount()}%
+                  <div className="p-4 bg-accent rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold">Réduction calculée</p>
+                        <p className="text-sm text-muted-foreground">
+                          {calculateDiscount()}% de réduction
+                        </p>
+                      </div>
+                      <Badge className={calculateDiscount() >= 30 ? "bg-destructive" : "bg-success"}>
+                        {calculateDiscount() >= 30 ? "⚡ Vente Flash" : "🏷️ Promotion"}
                       </Badge>
-                      <span className="text-sm font-medium">
-                        Réduction de {calculateDiscount()}% affichée
-                      </span>
                     </div>
                   </div>
                 )}
