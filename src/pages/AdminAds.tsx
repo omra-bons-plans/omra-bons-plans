@@ -74,22 +74,22 @@ const AdminAds = () => {
     try {
       setLoading(true);
       
-      // Récupérer toutes les annonces avec les profils utilisateurs
+      // Récupérer toutes les annonces
       const { data: adsData, error: adsError } = await supabase
         .from('ads')
-        .select(`
-          *,
-          profiles!inner(
-            full_name,
-            first_name,
-            email,
-            company_name,
-            is_professional
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (adsError) throw adsError;
+
+      // Récupérer les profils des utilisateurs
+      const userIds = adsData?.map(ad => ad.user_id) || [];
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('id, full_name, first_name, email, company_name, is_professional')
+        .in('id', userIds);
+
+      if (profilesError) throw profilesError;
 
       // Récupérer les statistiques de clics pour chaque annonce
       const { data: clickStatsData, error: clickStatsError } = await supabase
@@ -98,8 +98,10 @@ const AdminAds = () => {
 
       if (clickStatsError) throw clickStatsError;
 
-      // Calculer les statistiques par annonce
+      // Calculer les statistiques par annonce et mapper les profils
       const adsWithStats = adsData.map(ad => {
+        const userProfile = profilesData?.find(profile => profile.id === ad.user_id);
+        
         const adViews = clickStatsData?.filter(stat => 
           stat.ad_id === ad.id && stat.click_type === 'ad_view'
         ).length || 0;
@@ -110,7 +112,7 @@ const AdminAds = () => {
 
         return {
           ...ad,
-          user: ad.profiles,
+          user: userProfile,
           ad_views: adViews,
           contact_views: contactViews
         } as AdData;
