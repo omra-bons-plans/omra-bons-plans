@@ -14,86 +14,57 @@ serve(async (req) => {
   try {
     console.log('Starting weather and exchange data fetch...');
     
-    const weatherApiKey = Deno.env.get('WEATHERAPI_KEY');
-    if (!weatherApiKey) {
-      console.error('WEATHERAPI_KEY not found in environment');
-      throw new Error('WeatherAPI key not configured');
+    const accuWeatherApiKey = Deno.env.get('ACCUWEATHER_API_KEY');
+    if (!accuWeatherApiKey) {
+      console.error('ACCUWEATHER_API_KEY not found in environment');
+      throw new Error('AccuWeather API key not configured');
     }
     
-    // More precise coordinates for Makkah and Madinah (near the mosques)
+    // AccuWeather location keys for Makkah and Madinah
     const cities = {
-      makkah: { lat: 21.422487, lon: 39.826206, name: "Makkah" },
-      madinah: { lat: 24.468661, lon: 39.611146, name: "Madinah" }
+      makkah: { locationKey: "212667", name: "Makkah" },
+      madinah: { locationKey: "215074", name: "Madinah" }
     };
 
-    console.log('Fetching weather data using WeatherAPI.com...');
+    console.log('Fetching weather data using AccuWeather API...');
     
-    // Fetch weather data for both cities using WeatherAPI.com
-    const weatherPromises = Object.entries(cities).map(async ([city, coords]) => {
-      console.log(`Fetching weather for ${coords.name}...`);
+    // Fetch weather data for both cities using AccuWeather API
+    const weatherPromises = Object.entries(cities).map(async ([city, cityData]) => {
+      console.log(`Fetching weather for ${cityData.name}...`);
       
-      // Add cache-busting parameter and try forecast endpoint for more recent data
+      // AccuWeather current conditions endpoint
       const cacheBuster = Date.now();
-      let weatherResponse = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${coords.lat},${coords.lon}&aqi=no&cb=${cacheBuster}`
+      const weatherResponse = await fetch(
+        `https://dataservice.accuweather.com/currentconditions/v1/${cityData.locationKey}?apikey=${accuWeatherApiKey}&details=true&_=${cacheBuster}`
       );
       
-      // If current data is too old (more than 30 minutes), try forecast endpoint
-      if (weatherResponse.ok) {
-        const preliminaryData = await weatherResponse.json();
-        const lastUpdated = new Date(preliminaryData.current.last_updated_epoch * 1000);
-        const now = new Date();
-        const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
-        
-        if (lastUpdated < thirtyMinutesAgo) {
-          console.log(`⚠️ Current data for ${city} is ${Math.round((now.getTime() - lastUpdated.getTime()) / 1000 / 60)} minutes old, trying forecast...`);
-          weatherResponse = await fetch(
-            `https://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${coords.lat},${coords.lon}&days=1&aqi=no&cb=${cacheBuster}`
-          );
-        } else {
-          // Use the already fetched data
-          weatherResponse = new Response(JSON.stringify(preliminaryData), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          });
-        }
-      }
-      
       if (!weatherResponse.ok) {
-        console.error(`Weather API error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
-        throw new Error(`Weather API error for ${city}: ${weatherResponse.status}`);
+        console.error(`AccuWeather API error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
+        throw new Error(`AccuWeather API error for ${city}: ${weatherResponse.status}`);
       }
       
       const weatherData = await weatherResponse.json();
       console.log(`Weather data for ${city}:`, JSON.stringify(weatherData, null, 2));
       
-      // Handle both current and forecast endpoints
-      let currentWeather;
-      if (weatherData.current) {
-        currentWeather = weatherData.current;
-      } else if (weatherData.forecast && weatherData.forecast.forecastday[0]?.hour) {
-        // Use the most recent hour from forecast
-        const currentHour = new Date().getHours();
-        currentWeather = weatherData.forecast.forecastday[0].hour[currentHour] || weatherData.forecast.forecastday[0].hour[weatherData.forecast.forecastday[0].hour.length - 1];
-        console.log(`📈 Using forecast data for ${city} at hour ${currentHour}`);
-      } else {
+      if (!weatherData || !Array.isArray(weatherData) || weatherData.length === 0) {
         console.error(`Invalid weather data for ${city}:`, weatherData);
         throw new Error(`Invalid weather data received for ${city}`);
       }
       
-      const temperature = Math.round(currentWeather.temp_c);
-      console.log(`🌡️ Exact temperature for ${coords.name}: ${currentWeather.temp_c}°C (rounded: ${temperature}°C)`);
-      console.log(`📍 Location confirmed: ${weatherData.location.name}, ${weatherData.location.country}`);
-      console.log(`🕐 Data timestamp: ${currentWeather.last_updated || 'forecast data'}`);
+      const currentWeather = weatherData[0];
+      const temperature = Math.round(currentWeather.Temperature.Metric.Value);
+      console.log(`🌡️ Exact temperature for ${cityData.name}: ${currentWeather.Temperature.Metric.Value}°C (rounded: ${temperature}°C)`);
+      console.log(`📍 Location confirmed: ${cityData.name}, Saudi Arabia`);
+      console.log(`🕐 Data timestamp: ${currentWeather.LocalObservationDateTime}`);
       
       return {
         city,
         temperature,
-        description: currentWeather.condition.text,
-        icon: currentWeather.condition.icon.split('/').pop()?.replace('.png', '') || '01d',
-        humidity: currentWeather.humidity,
-        windSpeed: currentWeather.wind_kph,
-        tempMax: null, // WeatherAPI current endpoint doesn't provide daily min/max
+        description: currentWeather.WeatherText || 'Sunny',
+        icon: currentWeather.WeatherIcon?.toString().padStart(2, '0') || '01',
+        humidity: currentWeather.RelativeHumidity || null,
+        windSpeed: currentWeather.Wind?.Speed?.Metric?.Value || null,
+        tempMax: null, // AccuWeather current endpoint doesn't provide daily min/max
         tempMin: null
       };
     });
