@@ -11,6 +11,7 @@ import { ReviewsList } from '@/components/ui/ReviewsList';
 import { ReviewForm } from '@/components/ui/ReviewForm';
 import { RatingDisplay } from '@/components/ui/RatingDisplay';
 import AdDetailsDisplay from '@/components/ui/AdDetailsDisplay';
+import { ContactModal } from '@/components/ui/ContactModal';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useReviews } from '@/hooks/useReviews';
@@ -422,60 +423,25 @@ export default function AdDetails() {
                 </div>
 
                 <div className="space-y-3">
-                  {ad.show_email && ad.profile?.email && (
-                    <Button 
-                      className="w-full" 
-                      variant="default"
-                      onClick={() => {
-                        const emailUrl = `mailto:${ad.profile?.email}`;
-                        window.open(emailUrl, '_blank');
-                      }}
-                    >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Envoyer un email
-                    </Button>
-                  )}
-                  
-                  {ad.show_phone && ad.profile?.phone && (
-                    <Button 
-                      className="w-full" 
-                      variant="outline"
-                      onClick={() => {
-                        const phoneNumber = formatPhoneForCall(ad.profile!.phone, ad.profile!.phone_country || '+33');
-                        window.location.href = `tel:${phoneNumber}`;
-                      }}
-                    >
-                      <Phone className="w-4 h-4 mr-2" />
-                      {formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33')}
-                    </Button>
-                  )}
-                  
-                  {ad.show_whatsapp && ad.profile?.whatsapp && (
-                    <Button 
-                      className="w-full bg-green-500 hover:bg-green-600 text-white border-green-500 hover:border-green-600"
-                      onClick={() => {
-                        const whatsappNumber = formatPhoneForWhatsApp(ad.profile!.whatsapp, ad.profile!.whatsapp_country || '+33');
-                        window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-                      }}
-                    >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      {ad.profile.whatsapp_country || '+33'} {ad.profile.whatsapp}
-                    </Button>
-                  )}
-                  
-                  {ad.show_professional_phone && ad.profile?.professional_phone && (
-                    <Button 
-                      className="w-full" 
-                      variant="outline"
-                      onClick={() => {
-                        const phoneNumber = formatPhoneForCall(ad.profile!.professional_phone, ad.profile!.professional_phone_country || '+33');
-                        window.location.href = `tel:${phoneNumber}`;
-                      }}
-                    >
-                      <Phone className="w-4 h-4 mr-2" />
-                      {formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33')}
-                    </Button>
-                  )}
+                  <ContactModal
+                    contactInfo={{
+                      email: ad.profile?.email,
+                      phone: ad.profile?.phone,
+                      whatsapp: ad.profile?.whatsapp,
+                      professional_phone: ad.profile?.professional_phone,
+                      phone_country: ad.profile?.phone_country,
+                      whatsapp_country: ad.profile?.whatsapp_country,
+                      professional_phone_country: ad.profile?.professional_phone_country,
+                    }}
+                    showOptions={{
+                      show_email: ad.show_email,
+                      show_phone: ad.show_phone,
+                      show_whatsapp: ad.show_whatsapp,
+                      show_professional_phone: ad.show_professional_phone,
+                    }}
+                    ownerName={ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
+                    isAuthenticated={!!user}
+                  />
                 </div>
               </CardContent>
             </Card>
