@@ -3,6 +3,28 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageDisplay } from './ImageDisplay';
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from 'lucide-react';
 
+// Function to convert airline IATA code to full name
+const getAirlineName = (code: string): string => {
+  const airlines: { [key: string]: string } = {
+    'AF': 'Air France',
+    'SV': 'Saudia',
+    'EK': 'Emirates',
+    'QR': 'Qatar Airways',
+    'TK': 'Turkish Airlines',
+    'LH': 'Lufthansa',
+    'KL': 'KLM Royal Dutch Airlines',
+    'BA': 'British Airways',
+    'EY': 'Etihad Airways',
+    'RJ': 'Royal Jordanian',
+    'MS': 'EgyptAir',
+    'HV': 'Transavia',
+    'W6': 'Wizz Air',
+    'VF': 'Ajet'
+  };
+  
+  return airlines[code] || code;
+};
+
 interface AdDetailsDisplayProps {
   ad: {
     title: string;
@@ -253,7 +275,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   <div className="flex items-center space-x-2">
                     <Plane className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Compagnie aérienne:</span>
-                    <span>{ad.categoryDetails.airline}</span>
+                    <span>{getAirlineName(ad.categoryDetails.airline)}</span>
                   </div>
                 )}
                 
@@ -335,7 +357,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   <div className="flex items-center space-x-2">
                     <Plane className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Compagnie aérienne:</span>
-                    <span>{ad.categoryDetails.airline}</span>
+                    <span>{getAirlineName(ad.categoryDetails.airline)}</span>
                   </div>
                 )}
 
