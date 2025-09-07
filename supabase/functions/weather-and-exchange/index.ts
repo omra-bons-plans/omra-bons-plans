@@ -31,8 +31,11 @@ serve(async (req) => {
     // Fetch weather data for both cities using WeatherAPI.com
     const weatherPromises = Object.entries(cities).map(async ([city, coords]) => {
       console.log(`Fetching weather for ${coords.name}...`);
+      
+      // Add cache-busting parameter to ensure fresh data
+      const cacheBuster = Date.now();
       const weatherResponse = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${coords.lat},${coords.lon}&aqi=no`
+        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${coords.lat},${coords.lon}&aqi=no&cb=${cacheBuster}`
       );
       
       if (!weatherResponse.ok) {
@@ -41,7 +44,7 @@ serve(async (req) => {
       }
       
       const weatherData = await weatherResponse.json();
-      console.log(`Weather data for ${city}:`, weatherData);
+      console.log(`Weather data for ${city}:`, JSON.stringify(weatherData, null, 2));
       
       // Check if weather data is valid
       if (!weatherData.current) {
@@ -49,9 +52,14 @@ serve(async (req) => {
         throw new Error(`Invalid weather data received for ${city}`);
       }
       
+      const temperature = Math.round(weatherData.current.temp_c);
+      console.log(`🌡️ Exact temperature for ${coords.name}: ${weatherData.current.temp_c}°C (rounded: ${temperature}°C)`);
+      console.log(`📍 Location confirmed: ${weatherData.location.name}, ${weatherData.location.country}`);
+      console.log(`🕐 Data timestamp: ${weatherData.current.last_updated}`);
+      
       return {
         city,
-        temperature: Math.round(weatherData.current.temp_c),
+        temperature,
         description: weatherData.current.condition.text,
         icon: weatherData.current.condition.icon.split('/').pop()?.replace('.png', '') || '01d',
         humidity: weatherData.current.humidity,
@@ -136,6 +144,10 @@ serve(async (req) => {
     }
 
     const [makkahWeather, madinahWeather] = await Promise.all(weatherPromises);
+    
+    console.log('🎯 Final weather results:');
+    console.log(`🕋 Makkah: ${makkahWeather.temperature}°C`);
+    console.log(`🏛️ Madinah: ${madinahWeather.temperature}°C`);
     console.log('All data fetched successfully');
 
     return new Response(JSON.stringify({
