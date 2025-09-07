@@ -237,8 +237,8 @@ export const useAds = () => {
       }
 
       // Determine if it's a flash sale (30% discount minimum + ends within 7 days)
-      const isFlashSale = discount >= 30 && ad.promotionEndDate 
-        ? new Date(ad.promotionEndDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      const isFlashSale = discount >= 30 && ad.publishEndDate 
+        ? new Date(ad.publishEndDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         : false;
 
       const isExpired = ad.publishEndDate ? new Date(ad.publishEndDate) <= new Date() : false;
@@ -265,7 +265,7 @@ export const useAds = () => {
         originalPrice: ad.originalPrice ? `${ad.originalPrice}€` : undefined,
         discount: discount > 0 ? discount : undefined,
         isFlashSale,
-        flashSaleEndDate: ad.promotionEndDate ? new Date(ad.promotionEndDate) : undefined,
+        flashSaleEndDate: isFlashSale ? new Date(ad.publishEndDate) : undefined,
         image: coverImageUrl,
         rating: ad.rating || 4.5,
         reviews: ad.reviews || 0,
