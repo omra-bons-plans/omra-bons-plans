@@ -236,8 +236,8 @@ export const useAds = () => {
           subtitle = ad.description.length > 50 ? ad.description.substring(0, 50) + '...' : ad.description;
       }
 
-      // Determine if it's a flash sale (promotion ending within 7 days)
-      const isFlashSale = ad.isPromotion && ad.promotionEndDate 
+      // Determine if it's a flash sale (30% discount minimum + ends within 7 days)
+      const isFlashSale = discount >= 30 && ad.promotionEndDate 
         ? new Date(ad.promotionEndDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         : false;
 
