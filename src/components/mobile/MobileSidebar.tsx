@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useNotifications } from '@/hooks/useNotifications';
+import Logo from '@/components/ui/Logo';
 import { toast } from 'sonner';
 
 const MobileSidebar = () => {
@@ -43,10 +44,8 @@ const MobileSidebar = () => {
             <Menu className="w-6 h-6" />
           </Button>
           
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
-            <div className="text-lg font-normal text-foreground">
-              OmraBonsPlans.fr
-            </div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center cursor-pointer" onClick={() => navigate('/')}>
+            <Logo size={48} className="text-primary object-contain" />
           </div>
 
           <div className="flex items-center space-x-2">
