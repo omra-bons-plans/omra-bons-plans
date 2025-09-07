@@ -244,7 +244,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     setIsFormDirty(false); // Marquer comme sauvegardé
   };
 
-  const handleFormSubmit = (data: SejourFormData) => {
+  const handlePublish = (data: SejourFormData) => {
     // Vérifier que la photo de couverture est présente
     if (!coverImage) {
       alert("La photo de couverture est obligatoire");
@@ -930,7 +930,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
+      <div className="space-y-8">
         {/* Progress indicator */}
         <div className="w-full bg-muted rounded-full h-2 mb-8">
           <div 
@@ -950,50 +950,65 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
         {/* Navigation */}
 <div className="sticky bottom-0 bg-background/95 backdrop-blur-md border-t border-border/40 p-4 sm:p-6 -mx-4 sm:-mx-6 mt-8 shadow-xl z-50">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={currentStep === 1 ? handleBack : handlePrevious}
-                className="w-full sm:w-auto h-12 px-6 border-2 hover:border-primary transition-colors"
-              >
-                {currentStep === 1 ? 'Retour' : 'Précédent'}
-              </Button>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                {currentStep === totalSteps && (
+            {currentStep === totalSteps ? (
+              /* Étape récapitulatif - Choix final */
+              <div className="space-y-4">
+                <div className="text-center space-y-2">
+                  <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
+                  <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
+                </div>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={handlePrevious}
+                    className="w-full sm:w-auto h-12 px-6"
+                  >
+                    ← Modifier
+                  </Button>
+                  
                   <Button 
                     type="button" 
                     variant="secondary" 
                     onClick={() => handleSaveDraft(watch())}
-                    className="px-6 w-full sm:w-auto h-12 bg-secondary hover:bg-secondary/80"
+                    className="px-6 w-full sm:w-auto h-12"
                   >
-                    <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
-                    <span className="sm:hidden">Sauvegarder brouillon</span>
+                    💾 Sauvegarder comme brouillon
                   </Button>
-                )}
-                
-                {currentStep < totalSteps ? (
+                  
                   <Button 
                     type="button" 
-                    onClick={handleNext}
-                    className="btn-modern px-8 w-full sm:w-auto h-12 shadow-lg"
+                    onClick={() => handlePublish(watch())}
+                    className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
-                    Suivant
+                    🚀 Publier maintenant
                   </Button>
-                ) : (
-                  <Button 
-                    type="submit" 
-                    className="btn-modern px-8 w-full sm:w-auto h-12 shadow-lg"
-                  >
-                    Publier l'annonce
-                  </Button>
-                )}
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Étapes normales */
+              <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={currentStep === 1 ? handleBack : handlePrevious}
+                  className="w-full sm:w-auto h-12 px-6 border-2 hover:border-primary transition-colors"
+                >
+                  {currentStep === 1 ? 'Retour' : 'Précédent'}
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  onClick={handleNext}
+                  className="btn-modern px-8 w-full sm:w-auto h-12 shadow-lg"
+                >
+                  Suivant
+                </Button>
+              </div>
+            )}
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

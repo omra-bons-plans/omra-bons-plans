@@ -1260,32 +1260,56 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
       {renderStep()}
       
       <div className="flex justify-between pt-6">
-        <div>
-          {currentStep > 1 && (
-            <Button onClick={prevStep} variant="outline">
-              Précédent
-            </Button>
-          )}
-        </div>
-        <div className="space-x-2">
-          {currentStep === totalSteps ? (
-            <>
+        {currentStep === totalSteps ? (
+          /* Étape récapitulatif - Choix final */
+          <div className="w-full space-y-4">
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
+              <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button 
+                type="button"
+                onClick={prevStep} 
+                variant="outline"
+                className="w-full sm:w-auto h-12 px-6"
+              >
+                ← Modifier
+              </Button>
+              
               <Button 
                 onClick={handleSubmit((data) => onSubmitForm(data, true))} 
-                variant="outline"
+                variant="secondary"
+                className="px-6 w-full sm:w-auto h-12"
               >
-                Sauvegarder brouillon
+                💾 Sauvegarder comme brouillon
               </Button>
-              <Button onClick={handleSubmit((data) => onSubmitForm(data, false))}>
-                Publier l'annonce
+              
+              <Button 
+                onClick={handleSubmit((data) => onSubmitForm(data, false))}
+                className="btn-modern px-8 w-full sm:w-auto h-12"
+              >
+                🚀 Publier maintenant
               </Button>
-            </>
-          ) : (
-            <Button onClick={nextStep}>
-              Suivant
-            </Button>
-          )}
-        </div>
+            </div>
+          </div>
+        ) : (
+          /* Étapes normales */
+          <>
+            <div>
+              {currentStep > 1 && (
+                <Button onClick={prevStep} variant="outline">
+                  Précédent
+                </Button>
+              )}
+            </div>
+            <div className="space-x-2">
+              <Button onClick={nextStep}>
+                Suivant
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
       <ProgressBar 

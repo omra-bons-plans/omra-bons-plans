@@ -165,8 +165,14 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
     }
   };
 
-  const handleFormSubmit = (data: VolFormData) => {
+  const handlePublish = () => {
+    const data = watch();
     onSubmit(data, false);
+  };
+
+  const handleSaveDraft = () => {
+    const data = watch();
+    onSubmit(data, true);
   };
 
   const renderStep = () => {
@@ -806,59 +812,71 @@ const VolFormMultiStep = ({ onSubmit, onBack }: VolFormMultiStepProps) => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8 pb-8">
+      <div className="space-y-8 pb-8">
         {renderStep()}
 
         {/* Navigation */}
         <div className="sticky bottom-0 bg-background/98 backdrop-blur-sm border-t border-border/20 p-6 -mx-4 sm:-mx-6 mt-8 shadow-lg">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={currentStep === 1 ? onBack : handlePrevious}
-                className="w-full sm:w-auto h-12 px-6"
-              >
-                {currentStep === 1 ? 'Retour' : 'Précédent'}
-              </Button>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                {currentStep === totalSteps && (
+            {currentStep === totalSteps ? (
+              /* Étape récapitulatif - Choix final */
+              <div className="space-y-4">
+                <div className="text-center space-y-2">
+                  <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
+                  <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
+                </div>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={handlePrevious}
+                    className="w-full sm:w-auto h-12 px-6"
+                  >
+                    ← Modifier
+                  </Button>
+                  
                   <Button 
                     type="button" 
                     variant="secondary" 
-                    onClick={() => {
-                      const data = watch();
-                      onSubmit(data, true);
-                    }}
+                    onClick={handleSaveDraft}
                     className="px-6 w-full sm:w-auto h-12"
                   >
-                    <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
-                    <span className="sm:hidden">Sauvegarder brouillon</span>
+                    💾 Sauvegarder comme brouillon
                   </Button>
-                )}
-                
-                {currentStep < totalSteps ? (
+                  
                   <Button 
                     type="button" 
-                    onClick={handleNext}
+                    onClick={handlePublish}
                     className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
-                    Suivant
+                    🚀 Publier maintenant
                   </Button>
-                ) : (
-                  <Button 
-                    type="submit" 
-                    className="btn-modern px-8 w-full sm:w-auto h-12"
-                  >
-                    Publier l'annonce
-                  </Button>
-                )}
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Étapes normales */
+              <div className="flex flex-col-reverse sm:flex-row justify-between gap-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={currentStep === 1 ? onBack : handlePrevious}
+                  className="w-full sm:w-auto h-12 px-6"
+                >
+                  {currentStep === 1 ? 'Retour' : 'Précédent'}
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  onClick={handleNext}
+                  className="btn-modern px-8 w-full sm:w-auto h-12"
+                >
+                  Suivant
+                </Button>
+              </div>
+            )}
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

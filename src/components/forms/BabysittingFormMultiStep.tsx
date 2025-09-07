@@ -111,7 +111,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
     }
   };
 
-  const handleFormSubmit = (data: BabysittingFormData) => {
+  const handlePublish = (data: BabysittingFormData) => {
     const formDataWithImages = {
       ...data,
       images: images,
@@ -119,6 +119,16 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
     };
     
     onSubmit(formDataWithImages, false);
+  };
+
+  const handleSaveDraft = (data: BabysittingFormData) => {
+    const formDataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage,
+    };
+    
+    onSubmit(formDataWithImages, true);
   };
 
   const renderStep = () => {
@@ -525,62 +535,71 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
+      <div className="space-y-8">
         {renderStep()}
 
         {/* Navigation */}
-        <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8 bg-background/95 backdrop-blur-sm border-t border-border/40 p-4 rounded-lg">
-          <Button 
-            type="button" 
-            variant="outline" 
-            onClick={currentStep === 1 ? onBack : handlePrevious}
-            className="w-full sm:w-auto"
-          >
-            {currentStep === 1 ? 'Retour' : 'Précédent'}
-          </Button>
-          
-          <div className="flex flex-col sm:flex-row gap-3">
-            {currentStep === totalSteps && (
-              <>
+        <div className="sticky bottom-0 bg-background/98 backdrop-blur-sm border-t border-border/20 p-6 -mx-4 sm:-mx-6 mt-8 shadow-lg">
+          <div className="max-w-4xl mx-auto">
+            {currentStep === totalSteps ? (
+              /* Étape récapitulatif - Choix final */
+              <div className="space-y-4">
+                <div className="text-center space-y-2">
+                  <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
+                  <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
+                </div>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={handlePrevious}
+                    className="w-full sm:w-auto h-12 px-6"
+                  >
+                    ← Modifier
+                  </Button>
+                  
+                  <Button 
+                    type="button" 
+                    variant="secondary" 
+                    onClick={() => handleSaveDraft(watch())}
+                    className="px-6 w-full sm:w-auto h-12"
+                  >
+                    💾 Sauvegarder comme brouillon
+                  </Button>
+                  
+                  <Button 
+                    type="button" 
+                    onClick={() => handlePublish(watch())}
+                    className="btn-modern px-8 w-full sm:w-auto h-12"
+                  >
+                    🚀 Publier maintenant
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              /* Étapes normales */
+              <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 pt-6 sm:pt-8 bg-background/95 backdrop-blur-sm border-t border-border/40 p-4 rounded-lg">
                 <Button 
                   type="button" 
-                  variant="secondary" 
-                  onClick={() => {
-                    const data = watch();
-                    const formDataWithImages = {
-                      ...data,
-                      images: images,
-                      coverImage: coverImage,
-                    };
-                    onSubmit(formDataWithImages, true);
-                  }}
-                  className="px-4 sm:px-6 w-full sm:w-auto"
+                  variant="outline" 
+                  onClick={currentStep === 1 ? onBack : handlePrevious}
+                  className="w-full sm:w-auto"
                 >
-                  <span className="hidden sm:inline">Enregistrer et continuer plus tard</span>
-                  <span className="sm:hidden">Sauvegarder brouillon</span>
+                  {currentStep === 1 ? 'Retour' : 'Précédent'}
                 </Button>
                 
                 <Button 
-                  type="submit" 
+                  type="button" 
+                  onClick={handleNext}
                   className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
                 >
-                  Publier l'annonce
+                  Suivant
                 </Button>
-              </>
-            )}
-            
-            {currentStep < totalSteps && (
-              <Button 
-                type="button" 
-                onClick={handleNext}
-                className="btn-modern px-6 sm:px-8 w-full sm:w-auto"
-              >
-                Suivant
-              </Button>
+              </div>
             )}
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
