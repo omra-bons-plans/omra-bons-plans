@@ -110,6 +110,7 @@ const Index = () => {
 
   // Track carousel positions
   useEffect(() => {
+    console.log('💡 Index page: Setting up flash sales carousel');
     if (!flashSalesCarouselApi) return;
 
     flashSalesCarouselApi.on("select", () => {
@@ -231,6 +232,7 @@ const Index = () => {
 
   // Show loading state
   if (adsLoading) {
+    console.log('⏳ Index page: Loading ads...');
     return (
       <MobileLayout>
         <div className="min-h-screen bg-background flex items-center justify-center">
@@ -242,6 +244,8 @@ const Index = () => {
       </MobileLayout>
     );
   }
+
+  console.log('✅ Index page: Rendering with', formattedListings.length, 'ads');
 
   const earliestEndDate = filteredFlashSalesListings.length > 0 
     ? filteredFlashSalesListings.reduce((earliest, listing) => 
@@ -1166,10 +1170,10 @@ const Index = () => {
             <div>
               <h4 className="font-bold text-lg mb-6">A propos</h4>
               <ul className="space-y-4 text-muted-foreground text-sm">
-                <li><a href="#" className="hover:text-primary transition-colors">Qui sommes nous ?</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Qui sommes nous ?</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Contact</Link></li>
                 <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Vip</a></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Vip</Link></li>
               </ul>
             </div>
             
@@ -1177,10 +1181,10 @@ const Index = () => {
             <div>
               <h4 className="font-bold text-lg mb-6">Service</h4>
               <ul className="space-y-4 text-muted-foreground text-sm">
-                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Nous que Voir</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Comment</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Vous</a></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Contact</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Nous que Voir</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Comment</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Vous</Link></li>
               </ul>
             </div>
             
@@ -1188,10 +1192,10 @@ const Index = () => {
             <div>
               <h4 className="font-bold text-lg mb-6">Autre</h4>
               <ul className="space-y-4 text-muted-foreground text-sm">
-                <li><a href="#" className="hover:text-primary transition-colors">Voyage</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Restauration</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Activité</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Hôtels</a></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Voyage</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Restauration</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Activité</Link></li>
+                <li><Link to="#" className="hover:text-primary transition-colors">Hôtels</Link></li>
               </ul>
             </div>
           </div>

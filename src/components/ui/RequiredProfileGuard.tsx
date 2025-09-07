@@ -16,14 +16,18 @@ const RequiredProfileGuard = ({ children, redirectPath = '/profile' }: RequiredP
   const navigate = useNavigate();
   const { isComplete, loading, missingFields } = useProfileCompletion();
 
+  console.log('🛡️ RequiredProfileGuard: user:', !!user, 'loading:', loading, 'isComplete:', isComplete);
+
   useEffect(() => {
     if (!user) {
+      console.log('❌ RequiredProfileGuard: No user, redirecting to auth');
       navigate('/auth');
       return;
     }
   }, [user, navigate]);
 
   if (loading) {
+    console.log('⏳ RequiredProfileGuard: Loading profile...');
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
@@ -32,10 +36,12 @@ const RequiredProfileGuard = ({ children, redirectPath = '/profile' }: RequiredP
   }
 
   if (!user) {
+    console.log('❌ RequiredProfileGuard: No user found');
     return null;
   }
 
   if (!isComplete) {
+    console.log('⚠️ RequiredProfileGuard: Profile incomplete, missing:', missingFields);
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -95,6 +101,7 @@ const RequiredProfileGuard = ({ children, redirectPath = '/profile' }: RequiredP
     );
   }
 
+  console.log('✅ RequiredProfileGuard: Profile complete, rendering children');
   return <>{children}</>;
 };
 
