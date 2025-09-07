@@ -411,7 +411,8 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="default"
                       onClick={() => {
-                        window.location.href = `mailto:${ad.profile?.email}`;
+                        const emailUrl = `mailto:${ad.profile?.email}`;
+                        window.open(emailUrl, '_self');
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
