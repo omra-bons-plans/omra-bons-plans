@@ -429,11 +429,38 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   </div>
                 )}
 
+                {ad.categoryDetails.name && ad.categoryDetails.name !== ad.title && (
+                  <div className="flex items-center space-x-2">
+                    <Home className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Nom de l'établissement:</span>
+                    <span>{ad.categoryDetails.name}</span>
+                  </div>
+                )}
+
                 {ad.categoryDetails.city && (
                   <div className="flex items-center space-x-2">
                     <MapPin className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Ville:</span>
                     <span>{formatCity(ad.categoryDetails.city)}</span>
+                  </div>
+                )}
+
+                {/* Dates de disponibilité */}
+                {(ad.categoryDetails.available_from || ad.categoryDetails.available_to) && (
+                  <div className="space-y-2">
+                    <span className="font-medium">Disponibilité:</span>
+                    {ad.categoryDetails.available_from && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm">Du {new Date(ad.categoryDetails.available_from).toLocaleDateString('fr-FR')}</span>
+                      </div>
+                    )}
+                    {ad.categoryDetails.available_to && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm">Jusqu'au {new Date(ad.categoryDetails.available_to).toLocaleDateString('fr-FR')}</span>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -463,29 +490,48 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                 )}
 
                 {/* Équipements */}
-                <div>
-                  <h4 className="font-medium mb-2">Équipements:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {ad.categoryDetails.has_wifi && (
-                      <Badge variant="outline">WiFi</Badge>
-                    )}
-                    {ad.categoryDetails.has_ac && (
-                      <Badge variant="outline">Climatisation</Badge>
-                    )}
-                    {ad.categoryDetails.has_tv && (
-                      <Badge variant="outline">Télévision</Badge>
-                    )}
-                    {ad.categoryDetails.has_fridge && (
-                      <Badge variant="outline">Réfrigérateur</Badge>
-                    )}
-                    {ad.categoryDetails.has_washing_machine && (
-                      <Badge variant="outline">Lave-linge</Badge>
-                    )}
-                    {ad.categoryDetails.has_living_room && (
-                      <Badge variant="outline">Salon</Badge>
-                    )}
+                {(ad.categoryDetails.has_wifi || ad.categoryDetails.has_ac || ad.categoryDetails.has_tv || 
+                  ad.categoryDetails.has_fridge || ad.categoryDetails.has_washing_machine || ad.categoryDetails.has_living_room) && (
+                  <div>
+                    <h4 className="font-medium mb-2">Équipements:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {ad.categoryDetails.has_wifi && (
+                        <Badge variant="outline">WiFi</Badge>
+                      )}
+                      {ad.categoryDetails.has_ac && (
+                        <Badge variant="outline">Climatisation</Badge>
+                      )}
+                      {ad.categoryDetails.has_tv && (
+                        <Badge variant="outline">Télévision</Badge>
+                      )}
+                      {ad.categoryDetails.has_fridge && (
+                        <Badge variant="outline">Réfrigérateur</Badge>
+                      )}
+                      {ad.categoryDetails.has_washing_machine && (
+                        <Badge variant="outline">Lave-linge</Badge>
+                      )}
+                      {ad.categoryDetails.has_living_room && (
+                        <Badge variant="outline">Salon</Badge>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* Vidéo */}
+                {ad.categoryDetails.video_url && (
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Visite virtuelle:</h4>
+                    <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                      <iframe
+                        src={ad.categoryDetails.video_url}
+                        title="Visite virtuelle de l'hébergement"
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </CardContent>
