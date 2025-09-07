@@ -35,6 +35,9 @@ interface AdData {
   show_phone: boolean;
   show_whatsapp: boolean;
   show_email: boolean;
+  original_price: number | null;
+  is_promotion: boolean | null;
+  promotion_end_date: string | null;
   categoryDetails?: any;
   profile?: {
     full_name: string;
@@ -342,12 +345,38 @@ export default function AdDetails() {
             <Card>
               <CardContent className="p-6">
                 <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-primary mb-2">
-                    {ad.price === 0 && ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
-                      ? 'Me contacter' 
-                      : `${ad.price} ${ad.currency}`}
+                  <div className="space-y-2">
+                    {/* Prix original barré si promotion */}
+                    {ad.original_price && ad.original_price > ad.price && (
+                      <div className="text-lg text-muted-foreground line-through">
+                        {ad.original_price} {ad.currency}
+                      </div>
+                    )}
+                    
+                    {/* Prix actuel */}
+                    <div className="text-3xl font-bold text-primary">
+                      {ad.price === 0 && ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
+                        ? 'Me contacter' 
+                        : `${ad.price} ${ad.currency}`}
+                    </div>
+                    
+                    {/* Badge de réduction */}
+                    {ad.original_price && ad.original_price > ad.price && (
+                      <Badge variant="outline" className="text-green-600 border-green-600">
+                        -{Math.round(((ad.original_price - ad.price) / ad.original_price) * 100)}%
+                      </Badge>
+                    )}
+                    
+                    {/* Badge de promotion flash */}
+                    {ad.is_promotion && ad.promotion_end_date && new Date(ad.promotion_end_date) > new Date() && (
+                      <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
+                        ⚡ Promotion Flash
+                      </Badge>
+                    )}
                   </div>
-                  <RatingDisplay stats={stats} />
+                  <div className="mt-4">
+                    <RatingDisplay stats={stats} />
+                  </div>
                 </div>
 
                 <div className="space-y-3">
