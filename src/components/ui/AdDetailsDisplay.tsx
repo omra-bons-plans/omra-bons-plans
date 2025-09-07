@@ -190,7 +190,12 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   <div className="flex items-center space-x-2">
                     <MapPin className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Ville:</span>
-                    <span>{formatCity(ad.categoryDetails.city)}</span>
+                    <span>
+                      {Array.isArray(ad.categoryDetails.city) 
+                        ? ad.categoryDetails.city.map(formatCity).join(', ')
+                        : formatCity(ad.categoryDetails.city)
+                      }
+                    </span>
                   </div>
                 )}
 
