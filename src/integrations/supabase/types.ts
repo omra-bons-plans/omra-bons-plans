@@ -446,6 +446,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_blog_posts_author_id"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
         ]
       }
       chat_messages: {
@@ -476,6 +483,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_messages_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -588,6 +602,13 @@ export type Database = {
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_views_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -738,7 +759,69 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_profiles: {
+        Row: {
+          bio: string | null
+          company_name: string | null
+          created_at: string | null
+          experience_years: number | null
+          facebook: string | null
+          first_name: string | null
+          full_name: string | null
+          id: string | null
+          instagram: string | null
+          is_professional: boolean | null
+          languages_spoken: string[] | null
+          profile_image: string | null
+          profile_views: number | null
+          public_profile: boolean | null
+          slug: string | null
+          specialties: string[] | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          bio?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          facebook?: string | null
+          first_name?: string | null
+          full_name?: string | null
+          id?: string | null
+          instagram?: string | null
+          is_professional?: boolean | null
+          languages_spoken?: string[] | null
+          profile_image?: string | null
+          profile_views?: number | null
+          public_profile?: boolean | null
+          slug?: string | null
+          specialties?: string[] | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          bio?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          experience_years?: number | null
+          facebook?: string | null
+          first_name?: string | null
+          full_name?: string | null
+          id?: string | null
+          instagram?: string | null
+          is_professional?: boolean | null
+          languages_spoken?: string[] | null
+          profile_image?: string | null
+          profile_views?: number | null
+          public_profile?: boolean | null
+          slug?: string | null
+          specialties?: string[] | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       generate_profile_slug: {
@@ -754,6 +837,50 @@ export type Database = {
         Returns: {
           avg_rating: number
           review_count: number
+        }[]
+      }
+      get_public_profile: {
+        Args: { profile_id: string }
+        Returns: {
+          bio: string
+          company_name: string
+          created_at: string
+          experience_years: number
+          facebook: string
+          first_name: string
+          full_name: string
+          id: string
+          instagram: string
+          is_professional: boolean
+          languages_spoken: string[]
+          profile_image: string
+          profile_views: number
+          slug: string
+          specialties: string[]
+          updated_at: string
+          website: string
+        }[]
+      }
+      get_public_profiles: {
+        Args: { limit_count?: number; offset_count?: number }
+        Returns: {
+          bio: string
+          company_name: string
+          created_at: string
+          experience_years: number
+          facebook: string
+          first_name: string
+          full_name: string
+          id: string
+          instagram: string
+          is_professional: boolean
+          languages_spoken: string[]
+          profile_image: string
+          profile_views: number
+          slug: string
+          specialties: string[]
+          updated_at: string
+          website: string
         }[]
       }
       has_role: {
