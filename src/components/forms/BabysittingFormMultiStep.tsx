@@ -32,6 +32,8 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>(['francais']);
+  const [genderError, setGenderError] = useState<string>("");
+  const [cityError, setCityError] = useState<string>("");
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<BabysittingFormData>({
     defaultValues: {
@@ -87,12 +89,31 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
   const handleNext = async () => {
     let fieldsToValidate: (keyof BabysittingFormData)[] = [];
     
+    // Reset error states
+    setGenderError("");
+    setCityError("");
+    
     switch (currentStep) {
       case 1:
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
-        fieldsToValidate = ['gender', 'city'];
+        // Validation manuelle pour les Select components
+        const gender = watch("gender");
+        const city = watch("city");
+        
+        let hasError = false;
+        
+        if (!gender) {
+          setGenderError("Le genre est requis");
+          hasError = true;
+        }
+        if (!city) {
+          setCityError("La ville d'exercice est requise");
+          hasError = true;
+        }
+        
+        if (hasError) return;
         break;
       case 4:
         // Récapitulatif - pas de validation nécessaire
@@ -214,8 +235,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                 <Label htmlFor="gender">Genre *</Label>
                 <Select 
                   onValueChange={(value) => setValue("gender", value)} 
-                  value={watch("gender")}
-                  {...register("gender", { required: "Le genre est requis" })}
+                  value={watch("gender") || ""}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner" />
@@ -225,15 +245,14 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                       <SelectItem value="female">Femme</SelectItem>
                     </SelectContent>
                 </Select>
-                {errors.gender && <p className="text-destructive text-sm">{errors.gender.message}</p>}
+                {genderError && <p className="text-destructive text-sm">{genderError}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="city">Ville d'exercice *</Label>
                 <Select 
                   onValueChange={(value) => setValue("city", value)} 
-                  value={watch("city")}
-                  {...register("city", { required: "La ville d'exercice est requise" })}
+                  value={watch("city") || ""}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner une ville" />
@@ -244,7 +263,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                     <SelectItem value="jeddah">Jeddah</SelectItem>
                   </SelectContent>
                 </Select>
-                {errors.city && <p className="text-destructive text-sm">{errors.city.message}</p>}
+                {cityError && <p className="text-destructive text-sm">{cityError}</p>}
               </div>
             </CardContent>
           </Card>
