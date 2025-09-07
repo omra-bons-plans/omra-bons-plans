@@ -280,7 +280,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Photo de profil (obligatoire)</Label>
+                    <Label>Photo de couverture (obligatoire)</Label>
                     <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                       <input
                         type="file"
@@ -411,7 +411,7 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <div className="relative h-full">
                     <img
                       src={URL.createObjectURL(coverImage)}
-                      alt="Photo de profil"
+                      alt="Photo de couverture"
                       className="w-full h-full object-cover"
                     />
                     {/* Pagination dots */}

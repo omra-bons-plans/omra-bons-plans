@@ -110,9 +110,9 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
         fieldsToValidate = ['gender', 'city', 'yearsExperience'];
         break;
       case 3:
-        // Vérifier qu'une photo de profil est présente (obligatoire)
+        // Vérifier qu'une photo de couverture est présente (obligatoire)
         if (!coverImage) {
-          alert("Une photo de profil est obligatoire");
+          alert("Une photo de couverture est obligatoire");
           return;
         }
         // Pour l'étape 3, pas d'autres validations de formulaire nécessaires
@@ -400,7 +400,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Photo de profil (obligatoire)</Label>
+                    <Label>Photo de couverture (obligatoire)</Label>
                     <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                       <input
                         type="file"
@@ -531,7 +531,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                   <div className="relative h-full">
                     <img
                       src={URL.createObjectURL(coverImage)}
-                      alt="Photo de profil"
+                      alt="Photo de couverture"
                       className="w-full h-full object-cover"
                     />
                     {/* Pagination dots */}

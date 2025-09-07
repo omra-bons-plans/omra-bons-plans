@@ -11,7 +11,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { AirlineSelect } from '@/components/ui/AirlineSelect';
 import { AirportSelect } from '@/components/ui/AirportSelect';
-import { ImageUpload } from '@/components/ui/ImageUpload';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
