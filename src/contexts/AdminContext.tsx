@@ -28,7 +28,7 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
   const { user } = useAuth();
 
   const checkAdminStatus = async () => {
-    console.log('🔍 Checking admin status for user:', user?.id);
+    console.log('🔍 Checking admin status for user:', user?.id, 'email:', user?.email);
     if (!user) {
       console.log('❌ No user found, setting isAdmin to false');
       setIsAdmin(false);
@@ -53,6 +53,9 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
       } else {
         const isAdminUser = !!data;
         console.log('✅ Setting isAdmin to:', isAdminUser);
+        if (!isAdminUser) {
+          console.log('ℹ️ User is not admin. Current user:', user.email, 'Admin user: fafaland@hotmail.fr');
+        }
         setIsAdmin(isAdminUser);
       }
     } catch (error) {
