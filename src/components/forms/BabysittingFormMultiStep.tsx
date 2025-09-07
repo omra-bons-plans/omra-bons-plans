@@ -87,6 +87,8 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
   };
 
   const handleNext = async () => {
+    console.log('🔄 BabysittingForm: handleNext called, currentStep:', currentStep);
+    
     let fieldsToValidate: (keyof BabysittingFormData)[] = [];
     
     // Reset error states
@@ -95,34 +97,49 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
     
     switch (currentStep) {
       case 1:
+        console.log('📝 Validating step 1: title and description');
         fieldsToValidate = ['title', 'description'];
         break;
       case 2:
+        console.log('📝 Validating step 2: gender and city');
         // Validation manuelle pour les Select components
         const gender = watch("gender");
         const city = watch("city");
         
+        console.log('Gender:', gender, 'City:', city);
+        
         let hasError = false;
         
         if (!gender) {
+          console.log('❌ Gender validation failed');
           setGenderError("Le genre est requis");
           hasError = true;
         }
         if (!city) {
+          console.log('❌ City validation failed');
           setCityError("La ville d'exercice est requise");
           hasError = true;
         }
         
-        if (hasError) return;
+        if (hasError) {
+          console.log('❌ Validation failed, staying on step 2');
+          return;
+        }
+        console.log('✅ Step 2 validation passed');
         break;
-      case 4:
-        // Récapitulatif - pas de validation nécessaire
+      case 3:
+        console.log('📝 Step 3: no specific validation needed');
         break;
     }
 
     const isValid = await trigger(fieldsToValidate);
+    console.log('Form validation result:', isValid);
+    
     if (isValid && currentStep < totalSteps) {
+      console.log('✅ Moving to next step:', currentStep + 1);
       setCurrentStep(currentStep + 1);
+    } else if (!isValid) {
+      console.log('❌ Form validation failed');
     }
   };
 
@@ -240,10 +257,10 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner" />
                   </SelectTrigger>
-                    <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                      <SelectItem value="male">Homme</SelectItem>
-                      <SelectItem value="female">Femme</SelectItem>
-                    </SelectContent>
+                     <SelectContent className="bg-card border-border z-[100] max-h-60 overflow-y-auto shadow-lg">
+                       <SelectItem value="male">Homme</SelectItem>
+                       <SelectItem value="female">Femme</SelectItem>
+                     </SelectContent>
                 </Select>
                 {genderError && <p className="text-destructive text-sm">{genderError}</p>}
               </div>
@@ -257,11 +274,11 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner une ville" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
-                    <SelectItem value="makkah">Makkah</SelectItem>
-                    <SelectItem value="medina">Médine</SelectItem>
-                    <SelectItem value="jeddah">Jeddah</SelectItem>
-                  </SelectContent>
+                   <SelectContent className="bg-card border-border z-[100] max-h-60 overflow-y-auto shadow-lg">
+                     <SelectItem value="makkah">Makkah</SelectItem>
+                     <SelectItem value="medina">Médine</SelectItem>
+                     <SelectItem value="jeddah">Jeddah</SelectItem>
+                   </SelectContent>
                 </Select>
                 {cityError && <p className="text-destructive text-sm">{cityError}</p>}
               </div>
@@ -562,11 +579,11 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
         {renderStep()}
 
         {/* Navigation */}
-        <div className="sticky bottom-0 bg-background/98 backdrop-blur-sm border-t border-border/20 p-6 -mx-4 sm:-mx-6 mt-8 shadow-lg">
+        <div className="sticky bottom-0 bg-background/98 backdrop-blur-sm border-t border-border/20 p-6 -mx-4 sm:-mx-6 mt-8 shadow-lg z-40">
           <div className="max-w-4xl mx-auto">
             {currentStep === totalSteps ? (
               /* Étape récapitulatif - Choix final */
-              <div className="fixed bottom-0 left-0 right-0 md:relative md:bottom-auto md:left-auto md:right-auto bg-background border-t md:border-t-0 p-4 md:p-0 space-y-4 z-50 md:z-auto">
+              <div className="space-y-4">
                 <div className="text-center space-y-2">
                   <h3 className="text-lg font-semibold">Que souhaitez-vous faire ?</h3>
                   <p className="text-sm text-muted-foreground">Choisissez une action pour votre annonce</p>
