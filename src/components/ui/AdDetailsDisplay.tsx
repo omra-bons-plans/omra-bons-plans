@@ -295,6 +295,23 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                     </div>
                   </div>
                 )}
+
+                {/* Informations bagages */}
+                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
+                  <div className="space-y-2">
+                    <span className="font-medium">Bagages en soute:</span>
+                    {ad.categoryDetails.checked_bags_count && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                      </div>
+                    )}
+                    {ad.categoryDetails.checked_bags_weight && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </>
             )}
 
@@ -379,6 +396,23 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                             Distance: {ad.categoryDetails.medina_hotel_distance}m de la Mosquée du Prophète
                           </div>
                         )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Informations bagages */}
+                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
+                  <div className="space-y-2">
+                    <span className="font-medium">Bagages en soute:</span>
+                    {ad.categoryDetails.checked_bags_count && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                      </div>
+                    )}
+                    {ad.categoryDetails.checked_bags_weight && (
+                      <div className="flex items-center space-x-2 ml-4">
+                        <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
                       </div>
                     )}
                   </div>
