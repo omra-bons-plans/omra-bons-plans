@@ -43,12 +43,13 @@ export const useWeatherAndExchange = () => {
       setLoading(true);
       setError(null);
       
-      console.log('🌤️ Fetching weather and exchange data...');
+      console.log('🌤️ Fetching weather and exchange data with new API key...');
 
-      // Add timestamp to force fresh data
+      // Force fresh data with timestamp and cache busting
       const timestamp = Date.now();
+      const cacheBreaker = Math.random().toString(36).substring(7);
       const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange', {
-        body: { timestamp }
+        body: { timestamp, cacheBreaker, forceRefresh: true }
       });
 
       console.log('📡 Function response:', { functionData, functionError, timestamp });
@@ -77,13 +78,13 @@ export const useWeatherAndExchange = () => {
   };
 
   useEffect(() => {
-    // Force immediate data fetch with timestamp and clear any cached data
-    console.log('🚀 Forcing fresh weather data fetch with improved coordinates...');
+    // Force immediate data fetch with new API key and clear any cached data
+    console.log('🚀 Forcing fresh weather data fetch with new API key...');
     setData(null); // Clear existing data to force fresh fetch
     fetchData();
 
-    // Set up interval to refresh every 3 minutes (180000 ms) for more frequent updates
-    const interval = setInterval(fetchData, 3 * 60 * 1000);
+    // Set up interval to refresh every 1 minute for testing the new API key
+    const interval = setInterval(fetchData, 1 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
