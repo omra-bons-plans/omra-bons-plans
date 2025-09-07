@@ -376,17 +376,27 @@ const HebergementDetails = () => {
         steps={steps}
         onClose={() => navigate('/my-ads')}
       >
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
-          <div className="space-y-6">
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-foreground">
+        {/* Hero Section */}
+        <div 
+          className="relative h-64 lg:h-80 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/99da99b1-3ed7-4747-8aa5-c46709eda3e8.png')`
+          }}
+        >
+          <div className="container mx-auto px-4 relative z-10 h-full flex items-center justify-center">
+            <div className="text-center space-y-4 text-white">
+              <h1 className="text-3xl lg:text-4xl font-bold">
                 {isEditing ? "Modifier l'hébergement" : "Publier un hébergement"}
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-white/80 text-lg">
                 {isEditing ? "Modifiez les détails de votre hébergement" : "Partagez votre hébergement à La Mecque ou Médine"}
               </p>
             </div>
+          </div>
+        </div>
 
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="space-y-6">
             <HebergementFormMultiStep 
               onSubmit={handleHebergementSubmit}
               onBack={handleBack}
