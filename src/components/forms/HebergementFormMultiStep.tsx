@@ -241,29 +241,34 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, isCover: boolean = false) => {
-    console.log('=== IMAGE UPLOAD EVENT ===');
-    console.log('isCover:', isCover);
-    
     const files = event.target.files;
-    console.log('Files selected:', files);
     
     if (files) {
       if (isCover) {
-        console.log('Setting cover image:', files[0]);
-        setCoverImage(files[0]);
+        const file = files[0];
+        // Vérifier la taille du fichier (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('La taille de l\'image ne doit pas dépasser 5MB');
+          return;
+        }
+        setCoverImage(file);
       } else {
         const newImages = Array.from(files);
-        console.log('Adding images:', newImages);
+        // Vérifier la taille de chaque fichier
+        const oversizedFiles = newImages.filter(file => file.size > 5 * 1024 * 1024);
+        if (oversizedFiles.length > 0) {
+          alert('Certaines images dépassent la limite de 5MB');
+          return;
+        }
+        
         const totalImages = images.length + newImages.length;
         if (totalImages <= 6) {
           setImages([...images, ...newImages]);
-          console.log('Images updated:', [...images, ...newImages]);
         } else {
           alert(`Vous ne pouvez ajouter que ${6 - images.length} photo(s) supplémentaire(s)`);
         }
       }
     }
-    console.log('=== END IMAGE UPLOAD EVENT ===');
   };
 
   const removeExistingImage = (index: number) => {
@@ -288,12 +293,6 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
   };
 
   const onSubmitForm = (data: HebergementFormData, saveAsDraft = false) => {
-    console.log('=== FORM SUBMISSION ===');
-    console.log('Form data received:', data);
-    console.log('coverImage state:', coverImage);
-    console.log('images state:', images);
-    console.log('existingImages state:', existingImages);
-    
     const formDataWithImages = {
       ...data,
       images: images,
@@ -301,9 +300,6 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
       existingImages: existingImages,
       coverImageUrl: initialData?.coverImageUrl
     };
-    
-    console.log('Final data sent to submit:', formDataWithImages);
-    console.log('=== END FORM SUBMISSION ===');
     
     onSubmit(formDataWithImages, saveAsDraft);
   };

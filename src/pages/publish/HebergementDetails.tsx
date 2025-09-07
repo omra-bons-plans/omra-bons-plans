@@ -98,7 +98,6 @@ const HebergementDetails = () => {
 
       // Upload new cover image if provided
       if (data.coverImage && typeof data.coverImage === 'object') {
-        console.log('Updating cover image...', data.coverImage.name);
         const { data: { user } } = await supabase.auth.getUser();
         const coverExt = data.coverImage.name.split('.').pop();
         const coverPath = `hebergement/${user?.id}/${Date.now()}-cover.${coverExt}`;
@@ -112,19 +111,15 @@ const HebergementDetails = () => {
           throw coverError;
         }
 
-        // Sauvegarder seulement le path
         coverImageUrl = coverPath;
-        console.log('New cover image uploaded:', coverPath);
       }
 
       // Upload new additional images if provided
       if (data.images && data.images.length > 0) {
-        console.log('Updating additional images...', data.images.length);
         const { data: { user } } = await supabase.auth.getUser();
         for (let i = 0; i < data.images.length; i++) {
           const image = data.images[i];
           if (typeof image === 'object') {
-            console.log(`Uploading new image ${i + 1}:`, image.name);
             const ext = image.name.split('.').pop();
             const imagePath = `hebergement/${user?.id}/${Date.now()}-${i}.${ext}`;
             
@@ -137,9 +132,7 @@ const HebergementDetails = () => {
               throw uploadError;
             }
 
-            // Sauvegarder seulement le path
             imageUrls.push(imagePath);
-            console.log(`New image ${i + 1} uploaded:`, imagePath);
           }
         }
       }
@@ -258,13 +251,8 @@ const HebergementDetails = () => {
       let imageUrls: string[] = [];
       let coverImageUrl = '';
 
-      console.log('=== DEBUT UPLOAD IMAGES ===');
-      console.log('data.coverImage:', data.coverImage);
-      console.log('data.images:', data.images);
-
       // Upload cover image
       if (data.coverImage) {
-        console.log('Uploading cover image...', data.coverImage.name);
         const coverExt = data.coverImage.name.split('.').pop();
         const coverPath = `hebergement/${user.id}/${Date.now()}-cover.${coverExt}`;
         
@@ -277,19 +265,13 @@ const HebergementDetails = () => {
           throw coverError;
         }
 
-        // Sauvegarder seulement le path, pas l'URL complète
         coverImageUrl = coverPath;
-        console.log('Cover image uploaded successfully:', coverPath);
-      } else {
-        console.log('No cover image provided');
       }
 
       // Upload additional images
       if (data.images && data.images.length > 0) {
-        console.log('Uploading additional images...', data.images.length);
         for (let i = 0; i < data.images.length; i++) {
           const image = data.images[i];
-          console.log(`Uploading image ${i + 1}:`, image.name);
           const ext = image.name.split('.').pop();
           const imagePath = `hebergement/${user.id}/${Date.now()}-${i}.${ext}`;
           
@@ -302,17 +284,9 @@ const HebergementDetails = () => {
             throw uploadError;
           }
 
-          // Sauvegarder seulement le path, pas l'URL complète
           imageUrls.push(imagePath);
-          console.log(`Image ${i + 1} uploaded successfully:`, imagePath);
         }
-      } else {
-        console.log('No additional images provided');
       }
-
-      console.log('Final coverImageUrl:', coverImageUrl);
-      console.log('Final imageUrls:', imageUrls);
-      console.log('=== FIN UPLOAD IMAGES ===');
 
       // Create the main ad
       const { data: ad, error: adError } = await supabase
