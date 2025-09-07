@@ -734,7 +734,42 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       )}
                     </div>
 
-                    {/* Description */}
+                    {/* Images en premier */}
+                    {coverImage && (
+                      <div>
+                        <h5 className="font-medium mb-2">Photo de couverture</h5>
+                        <div className="w-full h-40 rounded overflow-hidden">
+                          <img 
+                            src={URL.createObjectURL(coverImage)} 
+                            alt="Photo de couverture" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    
+                    {images.length > 0 && (
+                      <div>
+                        <h5 className="font-medium mb-2">Photos supplémentaires</h5>
+                        <div className="grid grid-cols-3 gap-2">
+                          {images.slice(0, 3).map((image, index) => (
+                            <img 
+                              key={index}
+                              src={URL.createObjectURL(image)} 
+                              alt={`Image ${index + 1}`}
+                              className="w-full h-16 object-cover rounded"
+                            />
+                          ))}
+                          {images.length > 3 && (
+                            <div className="col-span-3 text-center text-xs text-muted-foreground">
+                              +{images.length - 3} image(s) supplémentaire(s)
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Description après les images */}
                     {formData.description && (
                       <div>
                         <h5 className="font-medium mb-2">Description</h5>
@@ -805,41 +840,6 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                         <span>{formData.checkedBagsCount || 0} bagage(s) de {formData.checkedBagsWeight || 20}kg chacun</span>
                       </div>
                     </div>
-
-                    {/* Images */}
-                    {coverImage && (
-                      <div>
-                        <h5 className="font-medium mb-2">Photo de couverture</h5>
-                        <div className="w-full h-40 rounded overflow-hidden">
-                          <img 
-                            src={URL.createObjectURL(coverImage)} 
-                            alt="Photo de couverture" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    
-                    {images.length > 0 && (
-                      <div>
-                        <h5 className="font-medium mb-2">Photos supplémentaires</h5>
-                        <div className="grid grid-cols-3 gap-2">
-                          {images.slice(0, 3).map((image, index) => (
-                            <img 
-                              key={index}
-                              src={URL.createObjectURL(image)} 
-                              alt={`Image ${index + 1}`}
-                              className="w-full h-16 object-cover rounded"
-                            />
-                          ))}
-                          {images.length > 3 && (
-                            <div className="col-span-3 text-center text-xs text-muted-foreground">
-                              +{images.length - 3} image(s) supplémentaire(s)
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
 
                     {/* Informations de contact */}
                     <div className="bg-white/50 p-4 rounded-lg">
