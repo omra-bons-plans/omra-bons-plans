@@ -42,6 +42,7 @@ interface AdData {
   categoryDetails?: any;
   profile?: {
     id: string;
+    slug?: string;
     full_name: string;
     first_name: string;
     phone?: string;
@@ -492,11 +493,11 @@ export default function AdDetails() {
                   )}
 
                   {/* Si les informations de contact ne sont pas disponibles publiquement, afficher un bouton alternatif */}
-                  {(!ad.profile?.phone && ad.show_phone) || (!ad.profile?.whatsapp && ad.show_whatsapp) || (!ad.profile?.professional_phone && ad.show_professional_phone) ? (
+                  {((!ad.profile?.phone && ad.show_phone) || (!ad.profile?.whatsapp && ad.show_whatsapp) || (!ad.profile?.professional_phone && ad.show_professional_phone)) && ad.profile?.slug ? (
                     <Button 
                       className="w-full" 
                       onClick={() => {
-                        navigate(`/profile/${ad.profile?.id || ad.user_id}?contact=true`);
+                        navigate(`/profile/${ad.profile?.slug}?contact=true`);
                       }}
                     >
                       <User className="w-4 h-4 mr-2" />
