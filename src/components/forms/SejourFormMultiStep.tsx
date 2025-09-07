@@ -303,6 +303,10 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     })}
                     placeholder="Ex: Omra Confort 5★ - 15 jours"
                     maxLength={80}
+                    onChange={(e) => {
+                      const upperValue = e.target.value.toUpperCase();
+                      setValue('title', upperValue);
+                    }}
                   />
                   <div className="flex justify-between items-center text-xs text-muted-foreground">
                     <span>{errors.title?.message}</span>

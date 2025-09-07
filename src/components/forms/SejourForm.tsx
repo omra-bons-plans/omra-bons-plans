@@ -121,6 +121,10 @@ const SejourForm = ({ formulaType, onSubmit, onBack }: SejourFormProps) => {
                   id="title"
                   {...register("title", { required: "Le titre est requis" })}
                   placeholder="Ex: Omra Confort 5★ - 15 jours"
+                  onChange={(e) => {
+                    const upperValue = e.target.value.toUpperCase();
+                    setValue('title', upperValue);
+                  }}
                 />
                 {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
               </div>

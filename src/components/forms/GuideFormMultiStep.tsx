@@ -182,6 +182,10 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
                   })}
                   placeholder="Ex: Guide expérimenté - Français/Arabe"
                   maxLength={80}
+                  onChange={(e) => {
+                    const upperValue = e.target.value.toUpperCase();
+                    setValue('title', upperValue);
+                  }}
                 />
                 <div className="flex justify-between items-center text-xs text-muted-foreground">
                   <span>{errors.title?.message}</span>

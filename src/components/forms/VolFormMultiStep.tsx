@@ -283,7 +283,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                 <Input
                   id="title"
                   value={formData.title}
-                  onChange={(e) => updateFormData('title', e.target.value)}
+                  onChange={(e) => updateFormData('title', e.target.value.toUpperCase())}
                   placeholder="Ex: Vol direct Paris-Jeddah avec Turkish Airlines"
                   maxLength={80}
                 />
