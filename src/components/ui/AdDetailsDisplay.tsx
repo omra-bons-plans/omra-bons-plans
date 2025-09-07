@@ -276,18 +276,20 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
 
                 <div className="flex items-center space-x-2">
                   <Clock className="w-4 h-4 text-muted-foreground" />
-                  <span className="font-medium">Escale:</span>
-                  <span>{ad.categoryDetails.has_stopover ? 'Avec escale' : 'Sans escale'}</span>
+                  <span className="font-medium">Escales:</span>
+                  <span>{ad.categoryDetails.has_stopover ? 'Avec escale(s)' : 'Sans escale'}</span>
                 </div>
 
                 {ad.categoryDetails.has_stopover && ad.categoryDetails.stopover_details && (
                   <div className="flex items-start space-x-2">
                     <MapPin className="w-4 h-4 text-muted-foreground mt-0.5" />
-                    <div>
-                      <span className="font-medium">Détails de l'escale:</span>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {ad.categoryDetails.stopover_details}
-                      </p>
+                    <div className="space-y-1">
+                      <span className="font-medium">Détails des escales:</span>
+                      {ad.categoryDetails.stopover_details.split(' | ').map((detail: string, index: number) => (
+                        <p key={index} className="text-sm text-muted-foreground">
+                          {detail}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 )}
