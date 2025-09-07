@@ -14,33 +14,33 @@ serve(async (req) => {
   try {
     console.log('Starting weather and exchange data fetch...');
     
-    const weatherstackApiKey = Deno.env.get('WEATHERSTACK_API_KEY');
-    if (!weatherstackApiKey) {
-      console.error('WEATHERSTACK_API_KEY not found in environment');
-      throw new Error('Weatherstack API key not configured');
+    const weatherApiKey = Deno.env.get('WEATHERAPI_KEY');
+    if (!weatherApiKey) {
+      console.error('WEATHERAPI_KEY not found in environment');
+      throw new Error('WeatherAPI key not configured');
     }
     
-    // Weatherstack queries for Makkah and Madinah
+    // WeatherAPI queries for Makkah and Madinah
     const cities = {
       makkah: { query: "Mecca,Saudi Arabia", name: "Makkah" },
       madinah: { query: "Medina,Saudi Arabia", name: "Madinah" }
     };
 
-    console.log('Fetching weather data using Weatherstack API...');
+    console.log('Fetching weather data using WeatherAPI...');
     
-    // Fetch weather data for both cities using Weatherstack API
+    // Fetch weather data for both cities using WeatherAPI
     const weatherPromises = Object.entries(cities).map(async ([city, cityData]) => {
       console.log(`Fetching weather for ${cityData.name}...`);
       
-      // Weatherstack current conditions endpoint
+      // WeatherAPI current conditions endpoint
       const cacheBuster = Date.now();
       const weatherResponse = await fetch(
-        `http://api.weatherstack.com/current?access_key=${weatherstackApiKey}&query=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`
+        `http://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`
       );
       
       if (!weatherResponse.ok) {
-        console.error(`Weatherstack API error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
-        throw new Error(`Weatherstack API error for ${city}: ${weatherResponse.status}`);
+        console.error(`WeatherAPI error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
+        throw new Error(`WeatherAPI error for ${city}: ${weatherResponse.status}`);
       }
       
       const weatherData = await weatherResponse.json();
@@ -52,19 +52,19 @@ serve(async (req) => {
       }
       
       const currentWeather = weatherData.current;
-      const temperature = Math.round(currentWeather.temperature);
-      console.log(`🌡️ Exact temperature for ${cityData.name}: ${currentWeather.temperature}°C (rounded: ${temperature}°C)`);
+      const temperature = Math.round(currentWeather.temp_c);
+      console.log(`🌡️ Exact temperature for ${cityData.name}: ${currentWeather.temp_c}°C (rounded: ${temperature}°C)`);
       console.log(`📍 Location confirmed: ${cityData.name}, Saudi Arabia`);
       console.log(`🕐 Data timestamp: ${weatherData.location.localtime}`);
       
       return {
         city,
         temperature,
-        description: currentWeather.weather_descriptions?.[0] || 'Sunny',
-        icon: currentWeather.weather_icons?.[0] || '',
+        description: currentWeather.condition?.text || 'Sunny',
+        icon: currentWeather.condition?.icon || '',
         humidity: currentWeather.humidity || null,
-        windSpeed: currentWeather.wind_speed || null,
-        tempMax: null, // Weatherstack current endpoint doesn't provide daily min/max
+        windSpeed: currentWeather.wind_kph || null,
+        tempMax: null, // WeatherAPI current endpoint doesn't provide daily min/max
         tempMin: null
       };
     });
