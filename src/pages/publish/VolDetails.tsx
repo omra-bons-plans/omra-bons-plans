@@ -92,8 +92,11 @@ const VolDetails = () => {
           arrival_airport: data.arrivalAirport,
           departure_date: data.departureDate,
           return_date: data.returnDate,
-          has_stopover: data.hasStopover,
-          stopover_details: data.stopoverDetails,
+          has_stopover: data.hasOutboundStopover || data.hasReturnStopover,
+          stopover_details: [
+            data.hasOutboundStopover ? `Aller: ${data.outboundStopoverDetails}` : '',
+            data.hasReturnStopover ? `Retour: ${data.returnStopoverDetails}` : ''
+          ].filter(Boolean).join(' | ') || null,
           checked_bags_count: data.checkedBagsCount || 0,
           checked_bags_weight: data.checkedBagsWeight || 20,
         };
@@ -134,8 +137,11 @@ const VolDetails = () => {
           arrival_airport: data.arrivalAirport,
           departure_date: data.departureDate,
           return_date: data.returnDate,
-          has_stopover: data.hasStopover,
-          stopover_details: data.stopoverDetails,
+          has_stopover: data.hasOutboundStopover || data.hasReturnStopover,
+          stopover_details: [
+            data.hasOutboundStopover ? `Aller: ${data.outboundStopoverDetails}` : '',
+            data.hasReturnStopover ? `Retour: ${data.returnStopoverDetails}` : ''
+          ].filter(Boolean).join(' | ') || null,
           checked_bags_count: data.checkedBagsCount || 0,
           checked_bags_weight: data.checkedBagsWeight || 20,
         });

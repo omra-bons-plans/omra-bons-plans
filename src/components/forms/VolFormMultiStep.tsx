@@ -42,8 +42,10 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
     arrivalAirport: '',
     departureDate: undefined as Date | undefined,
     returnDate: undefined as Date | undefined,
-    hasStopover: false,
-    stopoverDetails: '',
+    hasOutboundStopover: false,
+    outboundStopoverDetails: '',
+    hasReturnStopover: false,
+    returnStopoverDetails: '',
     checkedBagsCount: 0,
     checkedBagsWeight: 20,
     showPhone: true,
@@ -133,8 +135,11 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
         arrival_airport: formData.arrivalAirport,
         departure_date: formData.departureDate?.toISOString().split('T')[0],
         return_date: formData.returnDate?.toISOString().split('T')[0],
-        has_stopover: formData.hasStopover,
-        stopover_details: formData.stopoverDetails || null,
+        has_stopover: formData.hasOutboundStopover || formData.hasReturnStopover,
+        stopover_details: [
+          formData.hasOutboundStopover ? `Aller: ${formData.outboundStopoverDetails}` : '',
+          formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
+        ].filter(Boolean).join(' | ') || null,
         checked_bags_count: formData.checkedBagsCount,
         checked_bags_weight: formData.checkedBagsWeight
       };
@@ -199,8 +204,11 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
           arrival_airport: formData.arrivalAirport || '',
           departure_date: formData.departureDate?.toISOString().split('T')[0] || null,
           return_date: formData.returnDate?.toISOString().split('T')[0] || null,
-          has_stopover: formData.hasStopover,
-          stopover_details: formData.stopoverDetails || null,
+          has_stopover: formData.hasOutboundStopover || formData.hasReturnStopover,
+          stopover_details: [
+            formData.hasOutboundStopover ? `Aller: ${formData.outboundStopoverDetails}` : '',
+            formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
+          ].filter(Boolean).join(' | ') || null,
           checked_bags_count: formData.checkedBagsCount,
           checked_bags_weight: formData.checkedBagsWeight
         };
@@ -409,26 +417,52 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="hasStopover"
-                      checked={formData.hasStopover}
-                      onCheckedChange={(checked) => updateFormData('hasStopover', checked)}
-                    />
-                    <Label htmlFor="hasStopover">Vol avec escale</Label>
+                <div className="space-y-6">
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Escales vol aller</h4>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="hasOutboundStopover"
+                        checked={formData.hasOutboundStopover}
+                        onCheckedChange={(checked) => updateFormData('hasOutboundStopover', checked)}
+                      />
+                      <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
+                    </div>
+
+                    {formData.hasOutboundStopover && (
+                      <div className="space-y-2">
+                        <Label>Détails de l'escale aller</Label>
+                        <Input
+                          value={formData.outboundStopoverDetails}
+                          onChange={(e) => updateFormData('outboundStopoverDetails', e.target.value)}
+                          placeholder="Ex: Escale à Istanbul (IST) - 2h"
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  {formData.hasStopover && (
-                    <div className="space-y-2">
-                      <Label>Détails de l'escale</Label>
-                      <Input
-                        value={formData.stopoverDetails}
-                        onChange={(e) => updateFormData('stopoverDetails', e.target.value)}
-                        placeholder="Ex: Escale à Istanbul (IST) - 2h"
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Escales vol retour</h4>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="hasReturnStopover"
+                        checked={formData.hasReturnStopover}
+                        onCheckedChange={(checked) => updateFormData('hasReturnStopover', checked)}
                       />
+                      <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
                     </div>
-                  )}
+
+                    {formData.hasReturnStopover && (
+                      <div className="space-y-2">
+                        <Label>Détails de l'escale retour</Label>
+                        <Input
+                          value={formData.returnStopoverDetails}
+                          onChange={(e) => updateFormData('returnStopoverDetails', e.target.value)}
+                          placeholder="Ex: Escale à Doha (DOH) - 1h30"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>
