@@ -356,9 +356,11 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                   rows={6}
                   maxLength={500}
                 />
-                <div className="flex justify-between items-center text-xs text-muted-foreground">
-                  <span>{errors.description?.message}</span>
-                  <span>{watch('description')?.length || 0}/500</span>
+                <div className="flex justify-between items-center text-xs">
+                  <span className={errors.description ? "text-red-500" : "text-muted-foreground"}>
+                    {errors.description?.message || "La description doit contenir au moins 20 caractères"}
+                  </span>
+                  <span className="text-muted-foreground">{watch('description')?.length || 0}/500</span>
                 </div>
               </div>
             </CardContent>
