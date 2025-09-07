@@ -444,17 +444,42 @@ const MyAds = () => {
                                     {ad.isPublished && !ad.isPaused && !ad.isDraft ? 'Voir en ligne' : 'Voir le récap'}
                                   </Button>
                                   
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    onClick={() => {
-                                      // Set edit mode in session storage
-                                      sessionStorage.setItem('editingAdId', ad.id);
-                                      sessionStorage.setItem('selectedCategory', ad.category);
-                                      navigate(`/publish/${ad.category}?edit=${ad.id}`);
-                                    }}
-                                    disabled={actionLoading === ad.id}
-                                  >
+                                   <Button 
+                                     size="sm" 
+                                     variant="outline"
+                                     onClick={() => {
+                                       // Set edit mode in session storage
+                                       sessionStorage.setItem('editingAdId', ad.id);
+                                       sessionStorage.setItem('selectedCategory', ad.category);
+                                       
+                                       // Route vers la bonne page selon la catégorie
+                                       let route = '';
+                                       switch (ad.category) {
+                                         case 'sejours':
+                                           route = '/publish/sejours-details';
+                                           break;
+                                         case 'vols':
+                                           route = '/publish/vols-details';
+                                           break;
+                                         case 'guides':
+                                           route = '/publish/guides-details';
+                                           break;
+                                         case 'chauffeurs':
+                                           route = '/publish/chauffeurs-details';
+                                           break;
+                                         case 'babysitting':
+                                           route = '/publish/babysitting-details';
+                                           break;
+                                         case 'hebergement':
+                                           route = '/publish/hebergements-details';
+                                           break;
+                                         default:
+                                           route = `/publish/${ad.category}`;
+                                       }
+                                       navigate(`${route}?edit=${ad.id}`);
+                                     }}
+                                     disabled={actionLoading === ad.id}
+                                   >
                                     <Edit className="w-4 h-4 mr-1" />
                                     Modifier
                                   </Button>
