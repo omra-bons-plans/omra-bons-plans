@@ -19,9 +19,9 @@ const CategoryPage = () => {
   const { formattedListings, loading } = useAds();
   
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
-  const [priceRange, setPriceRange] = useState("");
+  const [priceRange, setPriceRange] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Get category info
@@ -56,12 +56,12 @@ const CategoryPage = () => {
     }
 
     // City filter
-    if (selectedCity && !listing.location.toLowerCase().includes(selectedCity.toLowerCase())) {
+    if (selectedCity && selectedCity !== "all" && !listing.location.toLowerCase().includes(selectedCity.toLowerCase())) {
       return false;
     }
 
     // Price range filter
-    if (priceRange) {
+    if (priceRange && priceRange !== "all") {
       const price = typeof listing.price === 'string' ? 
         parseFloat(listing.price.replace(/[€\s]/g, '')) : listing.price;
       
@@ -191,7 +191,7 @@ const CategoryPage = () => {
                       <SelectValue placeholder="Toutes les villes" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Toutes les villes</SelectItem>
+                      <SelectItem value="all">Toutes les villes</SelectItem>
                       {cities.map(city => (
                         <SelectItem key={city} value={city}>{city}</SelectItem>
                       ))}
@@ -208,7 +208,7 @@ const CategoryPage = () => {
                         <SelectValue placeholder="Tous les prix" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Tous les prix</SelectItem>
+                        <SelectItem value="all">Tous les prix</SelectItem>
                         <SelectItem value="0-500">0€ - 500€</SelectItem>
                         <SelectItem value="500-1000">500€ - 1000€</SelectItem>
                         <SelectItem value="1000-2000">1000€ - 2000€</SelectItem>
@@ -241,15 +241,15 @@ const CategoryPage = () => {
               </div>
 
               {/* Clear filters */}
-              {(searchQuery || selectedCity || priceRange || sortBy !== "recent") && (
+              {(searchQuery || (selectedCity && selectedCity !== "all") || (priceRange && priceRange !== "all") || sortBy !== "recent") && (
                 <div className="mt-4 pt-4 border-t">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => {
                       setSearchQuery("");
-                      setSelectedCity("");
-                      setPriceRange("");
+                      setSelectedCity("all");
+                      setPriceRange("all");
                       setSortBy("recent");
                     }}
                   >
@@ -299,8 +299,8 @@ const CategoryPage = () => {
                   variant="outline"
                   onClick={() => {
                     setSearchQuery("");
-                    setSelectedCity("");
-                    setPriceRange("");
+                    setSelectedCity("all");
+                    setPriceRange("all");
                     setSortBy("recent");
                   }}
                 >
