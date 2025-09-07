@@ -205,10 +205,16 @@ const HebergementDetails = () => {
         return;
       }
 
+      console.log('🔍 handleHebergementSubmit - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       if (isEditing) {
         // Update existing ad
+        console.log('📝 Updating existing ad');
         await updateExistingAd(data, saveAsDraft);
-      } else if (saveAsDraft) {
+        return; // Important: return here to avoid falling through to create new ad
+      } 
+      
+      if (saveAsDraft) {
         const adData = {
           category: 'hebergement',
           title: data.title || 'Brouillon hébergement',
@@ -247,6 +253,7 @@ const HebergementDetails = () => {
         return;
       }
 
+      console.log('✨ Creating new published ad');
       // Handle image uploads for published ad
       let imageUrls: string[] = [];
       let coverImageUrl = '';
