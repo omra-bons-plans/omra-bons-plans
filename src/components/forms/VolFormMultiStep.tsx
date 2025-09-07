@@ -12,9 +12,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { AirlineSelect } from '@/components/ui/AirlineSelect';
 import { AirportSelect } from '@/components/ui/AirportSelect';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { useImageUpload } from '@/hooks/useImageUpload';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, ArrowLeft, ArrowRight, Save, Eye } from 'lucide-react';
+import { CalendarIcon, ArrowLeft, ArrowRight, Save, Eye, Upload, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
@@ -28,6 +29,7 @@ interface VolFormMultiStepProps {
 
 export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolFormMultiStepProps) {
   const { user } = useAuth();
+  const { uploadImage } = useImageUpload();
   const [step, setStep] = useState(1);
   const totalSteps = 5;
 
@@ -50,14 +52,26 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
     checkedBagsWeight: 20,
     showPhone: true,
     showWhatsapp: false,
-    showEmail: true,
-    images: [] as string[]
+    showEmail: true
   });
+
+  const [images, setImages] = useState<File[]>([]);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
 
   const [publishEndDate, setPublishEndDate] = useState<Date | undefined>(undefined);
 
   const updateFormData = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0 && !coverImage) {
+      setCoverImage(files[0]);
+      setImages(Array.from(files).slice(1, 7));
+    } else if (files && files.length > 0) {
+      setImages(prev => [...prev, ...Array.from(files)].slice(0, 6));
+    }
   };
 
   const validateStep = () => {
@@ -67,7 +81,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
       case 2:
         return formData.airline && formData.departureAirport && formData.arrivalAirport;
       case 3:
-        return formData.departureDate && formData.returnDate && formData.price;
+        return formData.departureDate && formData.returnDate && formData.price && coverImage;
       case 4:
         return publishEndDate;
       default:
@@ -101,6 +115,20 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
     try {
       const location = `${formData.departureAirport} → ${formData.arrivalAirport}`;
       
+      // Upload images
+      let coverImageUrl = '';
+      let imageUrls: string[] = [];
+
+      if (coverImage) {
+        const coverResult = await uploadImage(coverImage, 'ads');
+        if (coverResult) coverImageUrl = coverResult.url;
+      }
+
+      for (const image of images) {
+        const result = await uploadImage(image, 'ads');
+        if (result) imageUrls.push(result.url);
+      }
+      
       const adData = {
         title: formData.title,
         description: formData.description,
@@ -109,8 +137,8 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
         category: 'vols',
         currency: 'EUR',
         location: location,
-        images: formData.images,
-        cover_image: formData.images[0] || null,
+        images: imageUrls,
+        cover_image: coverImageUrl || null,
         show_phone: formData.showPhone,
         show_whatsapp: formData.showWhatsapp,
         show_email: formData.showEmail,
@@ -169,6 +197,20 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
         ? `${formData.departureAirport} → ${formData.arrivalAirport}` 
         : '';
 
+      // Upload images if any
+      let coverImageUrl = '';
+      let imageUrls: string[] = [];
+
+      if (coverImage) {
+        const coverResult = await uploadImage(coverImage, 'ads');
+        if (coverResult) coverImageUrl = coverResult.url;
+      }
+
+      for (const image of images) {
+        const result = await uploadImage(image, 'ads');
+        if (result) imageUrls.push(result.url);
+      }
+
       const adData = {
         title: formData.title || 'Brouillon - Vol',
         description: formData.description || '',
@@ -177,8 +219,8 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
         category: 'vols',
         currency: 'EUR',
         location: location,
-        images: formData.images,
-        cover_image: formData.images[0] || null,
+        images: imageUrls,
+        cover_image: coverImageUrl || null,
         is_draft: true,
         publish_end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
         show_phone: formData.showPhone,
@@ -517,14 +559,75 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   <CardHeader>
                     <CardTitle className="text-lg">Images</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <ImageUpload
-                      images={formData.images}
-                      onImagesChange={(images) => updateFormData('images', images)}
-                      maxImages={6}
-                    />
-                    <p className="text-xs text-muted-foreground mt-2">
-                      La première image sera utilisée comme image principale
+                  <CardContent className="space-y-6">
+                    <div>
+                      <Label>Photo de couverture (obligatoire) *</Label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        style={{ display: 'none' }}
+                        id="cover-upload"
+                      />
+                      <label htmlFor="cover-upload" className="cursor-pointer">
+                        {coverImage ? (
+                          <div className="mt-2 text-center">
+                            <img 
+                              src={URL.createObjectURL(coverImage)} 
+                              alt="Cover" 
+                              className="w-32 h-24 object-cover rounded-lg mx-auto"
+                            />
+                            <p className="text-sm text-muted-foreground">{coverImage.name}</p>
+                          </div>
+                        ) : (
+                          <div className="mt-2 p-4 border-2 border-dashed border-muted-foreground rounded-lg text-center hover:border-primary">
+                            <Upload className="w-8 h-8 mx-auto text-muted-foreground" />
+                            <p className="text-sm text-muted-foreground">Cliquez pour ajouter une photo de couverture *</p>
+                          </div>
+                        )}
+                      </label>
+                    </div>
+
+                    <div>
+                      <Label>Images supplémentaires (max 6)</Label>
+                      <div className="grid grid-cols-3 gap-4 mt-2">
+                        {images.map((image, index) => (
+                          <div key={index} className="relative">
+                            <img 
+                              src={URL.createObjectURL(image)} 
+                              alt={`Image ${index + 1}`}
+                              className="w-full h-20 object-cover rounded-lg"
+                            />
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => setImages(prev => prev.filter((_, i) => i !== index))}
+                              className="absolute -top-2 -right-2 w-6 h-6 rounded-full p-0"
+                            >
+                              <X className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        ))}
+                        {images.length < 6 && (
+                          <label htmlFor="additional-upload" className="cursor-pointer">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              multiple
+                              onChange={handleImageUpload}
+                              style={{ display: 'none' }}
+                              id="additional-upload"
+                            />
+                            <div className="w-full h-20 border-2 border-dashed border-muted-foreground rounded-lg flex items-center justify-center hover:border-primary">
+                              <Upload className="w-6 h-6 text-muted-foreground" />
+                            </div>
+                          </label>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      La photo de couverture sera utilisée comme image principale
                     </p>
                   </CardContent>
                 </Card>
@@ -622,16 +725,30 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       </p>
                       <p className="text-lg font-bold">{formData.price}€</p>
                     </div>
-                    {formData.images.length > 0 && (
+                    {coverImage && (
+                      <div className="w-full h-40 rounded overflow-hidden">
+                        <img 
+                          src={URL.createObjectURL(coverImage)} 
+                          alt="Photo de couverture" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    {images.length > 0 && (
                       <div className="grid grid-cols-3 gap-2">
-                        {formData.images.slice(0, 3).map((image, index) => (
+                        {images.slice(0, 3).map((image, index) => (
                           <img 
                             key={index}
-                            src={image} 
+                            src={URL.createObjectURL(image)} 
                             alt={`Image ${index + 1}`}
-                            className="w-full h-20 object-cover rounded"
+                            className="w-full h-16 object-cover rounded"
                           />
                         ))}
+                        {images.length > 3 && (
+                          <div className="col-span-3 text-center text-sm text-muted-foreground">
+                            +{images.length - 3} image(s) supplémentaire(s)
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
