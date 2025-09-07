@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageDisplay } from './ImageDisplay';
+import VideoPlayer from './VideoPlayer';
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from 'lucide-react';
 
 // Function to convert airline IATA code to full name
@@ -448,7 +449,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
             )}
 
             {/* Hébergements */}
-            {ad.category === 'hebergements' && (
+            {(ad.category === 'hebergements' || ad.category === 'hebergement') && (
               <>
                 {ad.categoryDetails.accommodation_type && (
                   <div className="flex items-center space-x-2">
@@ -550,26 +551,10 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                 {ad.categoryDetails.video_url && (
                   <div className="space-y-2">
                     <h4 className="font-medium">Visite virtuelle:</h4>
-                    <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                      <iframe
-                        src={(() => {
-                          const url = ad.categoryDetails.video_url;
-                          // Convertir l'URL YouTube en format embed
-                          if (url.includes('youtube.com/watch?v=')) {
-                            const videoId = url.split('v=')[1].split('&')[0];
-                            return `https://www.youtube.com/embed/${videoId}`;
-                          } else if (url.includes('youtu.be/')) {
-                            const videoId = url.split('youtu.be/')[1].split('?')[0];
-                            return `https://www.youtube.com/embed/${videoId}`;
-                          }
-                          return url;
-                        })()}
-                        title="Visite virtuelle de l'hébergement"
-                        className="w-full h-full"
-                        frameBorder="0"
-                        allowFullScreen
-                      />
-                    </div>
+                    <VideoPlayer 
+                      videoUrl={ad.categoryDetails.video_url}
+                      title="Visite virtuelle de l'hébergement"
+                    />
                   </div>
                 )}
               </>

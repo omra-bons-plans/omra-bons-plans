@@ -142,7 +142,7 @@ export default function AdDetails() {
             .eq('ad_id', id)
             .single();
           categoryDetails = data;
-        } else if (adData.category === 'hebergements') {
+        } else if (adData.category === 'hebergement' || adData.category === 'hebergements') {
           const { data } = await supabase
             .from('ads_hebergements')
             .select('*')
