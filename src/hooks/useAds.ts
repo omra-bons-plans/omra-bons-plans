@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageUtils';
 
@@ -49,7 +49,7 @@ export const useAds = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchAds = useCallback(async () => {
+  const fetchAds = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -178,40 +178,11 @@ export const useAds = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchAds();
-  }, [fetchAds]);
-
-  // Set up real-time subscription for ads table
-  useEffect(() => {
-    console.log('🔔 Setting up real-time subscription for ads');
-    
-    const channel = supabase
-      .channel('ads-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*', // Listen to all events (INSERT, UPDATE, DELETE)
-          schema: 'public',
-          table: 'ads'
-        },
-        (payload) => {
-          console.log('🔄 Real-time ads change detected:', payload);
-          // Refetch ads when any change occurs
-          fetchAds();
-        }
-      )
-      .subscribe((status) => {
-        console.log('📡 Real-time subscription status:', status);
-      });
-
-    return () => {
-      console.log('🔌 Cleaning up real-time subscription');
-      supabase.removeChannel(channel);
-    };
-  }, [fetchAds]);
+  }, []);
 
   // Transform ads to formatted listings for display
   const getFormattedListings = (): FormattedListing[] => {

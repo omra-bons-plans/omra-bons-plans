@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
-import { getBlogImageUrl } from '@/utils/blogImageUtils';
 
 interface BlogPost {
   id: string;
@@ -224,14 +223,9 @@ const Blog = () => {
                   {post.cover_image && (
                     <div className="aspect-video w-full overflow-hidden">
                       <img 
-                        src={getBlogImageUrl(post.cover_image)} 
+                        src={post.cover_image} 
                         alt={post.title}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          console.log('❌ Blog image failed to load:', post.cover_image);
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/ad-placeholder.jpg';
-                        }}
                       />
                     </div>
                   )}

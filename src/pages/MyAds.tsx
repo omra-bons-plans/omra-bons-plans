@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Edit, Trash2, Pause, Play, Eye, Calendar, MapPin, Euro } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,6 @@ import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 interface UserAd {
   id: string;
@@ -40,11 +39,18 @@ const MyAds = () => {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  const fetchUserAds = useCallback(async () => {
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    fetchUserAds();
+  }, [user, navigate]);
+
+  const fetchUserAds = async () => {
     if (!user) return;
 
     try {
-      console.log('🔄 Fetching user ads...');
       setLoading(true);
       const { data, error } = await supabase
         .from('ads')
@@ -52,12 +58,7 @@ const MyAds = () => {
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      if (error) {
-        console.error('❌ Error fetching ads:', error);
-        throw error;
-      }
-
-      console.log('✅ Fetched ads:', data?.length || 0);
+      if (error) throw error;
 
       const mappedAds: UserAd[] = (data || []).map(ad => ({
         id: ad.id,
@@ -80,32 +81,18 @@ const MyAds = () => {
 
       setAds(mappedAds);
     } catch (error) {
-      console.error('❌ Error in fetchUserAds:', error);
+      console.error('Error fetching user ads:', error);
       toast.error('Erreur lors du chargement des annonces');
     } finally {
       setLoading(false);
     }
-  }, [user]);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-    fetchUserAds();
-  }, [user, navigate, fetchUserAds]);
+  };
 
   const handleDeleteAd = async (adId: string) => {
-    if (!user) {
-      toast.error('Utilisateur non connecté');
-      return;
-    }
+    if (!user) return;
 
     const ad = ads.find(a => a.id === adId);
-    if (!ad) {
-      toast.error('Annonce non trouvée');
-      return;
-    }
+    if (!ad) return;
 
     // Empêcher la suppression des annonces expirées
     if (isAdExpired(ad.publishEndDate)) {
@@ -116,9 +103,8 @@ const MyAds = () => {
     try {
       setActionLoading(adId);
       
-      console.log('🗑️ Deleting ad:', adId, 'user:', user.id);
-      
       // Delete category-specific data first
+      const ad = ads.find(a => a.id === adId);
       if (ad) {
         let categoryTable = '';
         switch (ad.category) {
@@ -143,14 +129,10 @@ const MyAds = () => {
         }
         
         if (categoryTable) {
-          const { error: categoryError } = await supabase
+          await supabase
             .from(categoryTable as any)
             .delete()
             .eq('ad_id', adId);
-          
-          if (categoryError) {
-            console.error('❌ Error deleting category data:', categoryError);
-          }
         }
       }
 
@@ -159,19 +141,14 @@ const MyAds = () => {
         .from('ads')
         .delete()
         .eq('id', adId)
-        .eq('user_id', user.id);
+        .eq('user_id', user!.id);
 
-      if (error) {
-        console.error('❌ Supabase error deleting ad:', error);
-        throw error;
-      }
-
-      console.log('✅ Successfully deleted ad');
+      if (error) throw error;
 
       setAds(prev => prev.filter(ad => ad.id !== adId));
       toast.success('Annonce supprimée avec succès');
     } catch (error) {
-      console.error('❌ Error deleting ad:', error);
+      console.error('Error deleting ad:', error);
       toast.error('Erreur lors de la suppression');
     } finally {
       setActionLoading(null);
@@ -179,28 +156,16 @@ const MyAds = () => {
   };
 
   const handleTogglePause = async (adId: string, currentPaused: boolean) => {
-    if (!user) {
-      toast.error('Utilisateur non connecté');
-      return;
-    }
-
     try {
       setActionLoading(adId);
-      
-      console.log('🔄 Toggling pause for ad:', adId, 'currentPaused:', currentPaused, 'user:', user.id);
       
       const { error } = await supabase
         .from('ads')
         .update({ is_paused: !currentPaused })
         .eq('id', adId)
-        .eq('user_id', user.id);
+        .eq('user_id', user!.id);
 
-      if (error) {
-        console.error('❌ Supabase error:', error);
-        throw error;
-      }
-
-      console.log('✅ Successfully updated ad pause status');
+      if (error) throw error;
 
       setAds(prev => prev.map(ad => 
         ad.id === adId ? { ...ad, isPaused: !currentPaused } : ad
@@ -208,7 +173,7 @@ const MyAds = () => {
       
       toast.success(currentPaused ? 'Annonce réactivée' : 'Annonce mise en pause');
     } catch (error) {
-      console.error('❌ Error toggling pause:', error);
+      console.error('Error toggling pause:', error);
       toast.error('Erreur lors de la modification');
     } finally {
       setActionLoading(null);
@@ -275,8 +240,7 @@ const MyAds = () => {
   }
 
   return (
-    <ErrorBoundary>
-      <MobileLayout>
+    <MobileLayout>
       <div className="min-h-screen bg-background">
         {/* Desktop Header */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -498,17 +462,7 @@ const MyAds = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    onClick={(e) => {
-                                      console.log('🔘 Pause button clicked', { adId: ad.id, isPaused: ad.isPaused });
-                                      e.preventDefault();
-                                      e.stopPropagation();
-                                      try {
-                                        handleTogglePause(ad.id, ad.isPaused);
-                                      } catch (error) {
-                                        console.error('❌ Error in onClick handler:', error);
-                                        toast.error('Erreur lors du clic sur le bouton');
-                                      }
-                                    }}
+                                    onClick={() => handleTogglePause(ad.id, ad.isPaused)}
                                     disabled={actionLoading === ad.id || ad.isDraft}
                                   >
                                     {ad.isPaused ? (
@@ -568,9 +522,8 @@ const MyAds = () => {
             </Tabs>
           </div>
         </div>
-        </div>
-      </MobileLayout>
-    </ErrorBoundary>
+      </div>
+    </MobileLayout>
   );
 };
 

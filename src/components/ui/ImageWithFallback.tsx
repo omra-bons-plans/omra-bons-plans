@@ -5,15 +5,13 @@ interface ImageWithFallbackProps {
   alt: string;
   className?: string;
   fallbackSrc?: string;
-  onClick?: () => void;
 }
 
 const ImageWithFallback = ({ 
   src, 
   alt, 
   className = '', 
-  fallbackSrc = '/ad-placeholder.jpg',
-  onClick
+  fallbackSrc = '/ad-placeholder.jpg' 
 }: ImageWithFallbackProps) => {
   const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
@@ -37,7 +35,6 @@ const ImageWithFallback = ({
       className={className}
       onError={handleError}
       onLoad={handleLoad}
-      onClick={onClick}
       loading="lazy"
     />
   );

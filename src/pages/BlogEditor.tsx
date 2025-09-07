@@ -14,8 +14,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
-import BlogImageUpload from '@/components/ui/BlogImageUpload';
-import { getBlogImageUrl } from '@/utils/blogImageUtils';
 
 interface BlogPostFormData {
   title: string;
@@ -298,6 +296,15 @@ const BlogEditor = () => {
                   required
                 />
               </div>
+
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="is_published"
+                  checked={formData.is_published}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
+                />
+                <Label htmlFor="is_published">Publier immédiatement</Label>
+              </div>
             </CardContent>
           </Card>
 
@@ -310,11 +317,15 @@ const BlogEditor = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6 p-4 sm:p-6">
-              <BlogImageUpload
-                value={formData.cover_image}
-                onChange={(url) => setFormData(prev => ({ ...prev, cover_image: url }))}
-                label="Image de couverture"
-              />
+              <div className="space-y-2">
+                <Label htmlFor="cover_image">Image de couverture (URL)</Label>
+                <Input
+                  id="cover_image"
+                  value={formData.cover_image}
+                  onChange={(e) => setFormData(prev => ({ ...prev, cover_image: e.target.value }))}
+                  placeholder="Entrez l'URL de l'image de couverture"
+                />
+              </div>
 
               <div className="space-y-2">
                 <Label htmlFor="video_url" className="flex items-center">
@@ -423,14 +434,9 @@ const BlogEditor = () => {
                 </div>
                 {formData.cover_image && (
                   <img 
-                    src={getBlogImageUrl(formData.cover_image)} 
+                    src={formData.cover_image} 
                     alt="Cover" 
                     className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
-                    onError={(e) => {
-                      console.log('❌ Blog preview image failed to load:', formData.cover_image);
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/ad-placeholder.jpg';
-                    }}
                   />
                 )}
                 <div className="text-sm sm:text-base whitespace-pre-wrap break-words">
@@ -441,33 +447,6 @@ const BlogEditor = () => {
                     <p className="text-sm text-muted-foreground break-all">📹 Vidéo: {formData.video_url}</p>
                   </div>
                 )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Publication Settings */}
-          <Card>
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="is_published"
-                    checked={formData.is_published}
-                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
-                  />
-                  <Label htmlFor="is_published" className="text-base font-medium">
-                    Publier immédiatement
-                  </Label>
-                </div>
-                <Button
-                  onClick={handleSave}
-                  disabled={saving}
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90"
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  {saving ? 'Sauvegarde...' : isEditMode ? 'Mettre à jour' : 'Publier l\'article'}
-                </Button>
               </div>
             </CardContent>
           </Card>

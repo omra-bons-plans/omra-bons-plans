@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ProgressBar from "@/components/ui/ProgressBar";
 
@@ -18,13 +17,11 @@ const PublishLayout = ({
   steps, 
   onClose 
 }: PublishLayoutProps) => {
-  const navigate = useNavigate();
-  
   const handleClose = () => {
     if (onClose) {
       onClose();
     } else {
-      navigate('/');
+      window.location.href = '/';
     }
   };
 

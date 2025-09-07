@@ -1,7 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from "lucide-react";
-import ImageGallery from "./ImageGallery";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { getImageUrl } from "@/utils/imageUtils";
+import ImageWithFallback from "./ImageWithFallback";
+import { useState, useEffect } from "react";
 
 interface AdDetailsDisplayProps {
   ad: {
@@ -18,6 +22,56 @@ interface AdDetailsDisplayProps {
 }
 
 const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  // Combine cover image and gallery images
+  const allImages = [
+    ...(ad.cover_image ? [ad.cover_image] : []),
+    ...(ad.images || [])
+  ];
+
+  const openLightbox = (index: number) => {
+    setSelectedImageIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    setSelectedImageIndex(null);
+  };
+
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (selectedImageIndex === null) return;
+    
+    if (direction === 'prev') {
+      setSelectedImageIndex(selectedImageIndex > 0 ? selectedImageIndex - 1 : allImages.length - 1);
+    } else {
+      setSelectedImageIndex(selectedImageIndex < allImages.length - 1 ? selectedImageIndex + 1 : 0);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isLightboxOpen) return;
+      
+      switch (event.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          navigateImage('prev');
+          break;
+        case 'ArrowRight':
+          navigateImage('next');
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isLightboxOpen, selectedImageIndex]);
   const getCategoryIcon = () => {
     switch (ad.category) {
       case 'babysitting':
@@ -69,6 +123,17 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
 
   return (
     <div className="space-y-6">
+      {/* Cover Image */}
+      {ad.cover_image && (
+        <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden">
+           <ImageWithFallback
+             src={getImageUrl(ad.cover_image)}
+             alt={ad.title}
+             className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
+           />
+        </div>
+      )}
+
       {/* Title and Category */}
       <div className="space-y-4">
         <div className="flex items-center space-x-3">
@@ -96,19 +161,6 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
         </CardContent>
       </Card>
 
-      {/* Images Gallery */}
-      <ImageGallery
-        images={ad.images || []}
-        title={ad.title}
-        coverImage={ad.cover_image}
-      />
-      {/* Cover Image and Gallery */}
-      <ImageGallery
-        images={ad.images || []}
-        title={ad.title}
-        coverImage={ad.cover_image}
-      />
-
       {/* Category Specific Details */}
       {ad.categoryDetails && (
         <Card>
@@ -116,7 +168,6 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
             <CardTitle>Détails</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* ... keep existing code (category details) */}
             {/* Guides */}
             {ad.category === 'guides' && (
               <>
@@ -255,6 +306,88 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
         </Card>
       )}
 
+      {/* Images Gallery */}
+      {ad.images && ad.images.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Photos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {ad.images.map((image, index) => {
+                const imageIndex = ad.cover_image ? index + 1 : index; // Adjust index if cover image exists
+                return (
+                  <div key={index} className="aspect-square rounded-lg overflow-hidden">
+                     <ImageWithFallback
+                       src={getImageUrl(image)}
+                       alt={`Image ${index + 1}`}
+                       className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
+                     />
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Image Lightbox */}
+      <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
+        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 bg-black/95">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Close button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
+              onClick={closeLightbox}
+            >
+              <X className="w-6 h-6" />
+            </Button>
+
+            {/* Navigation buttons */}
+            {allImages.length > 1 && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                  onClick={() => navigateImage('prev')}
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </Button>
+                
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                  onClick={() => navigateImage('next')}
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </Button>
+              </>
+            )}
+
+            {/* Current image */}
+            {selectedImageIndex !== null && allImages[selectedImageIndex] && (
+              <div className="w-full h-full p-8 flex items-center justify-center">
+                <ImageWithFallback
+                  src={getImageUrl(allImages[selectedImageIndex])}
+                  alt={`Image ${selectedImageIndex + 1}`}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            )}
+
+            {/* Image counter */}
+            {allImages.length > 1 && selectedImageIndex !== null && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                {selectedImageIndex + 1} / {allImages.length}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
