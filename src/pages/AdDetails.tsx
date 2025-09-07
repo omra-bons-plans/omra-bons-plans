@@ -279,8 +279,8 @@ export default function AdDetails() {
               </CardContent>
             </Card>
 
-            {/* Reviews Section */}
-            <Card>
+            {/* Reviews Section - Hidden on mobile, shown on desktop */}
+            <Card className="hidden lg:block">
               <CardContent className="p-6">
                 <Tabs defaultValue="reviews" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
@@ -336,8 +336,8 @@ export default function AdDetails() {
             </Card>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
+          {/* Sidebar - Mobile: shows after ad preview, Desktop: shows on right */}
+          <div className="lg:col-span-1 space-y-6">
             {/* Price & Actions */}
             <Card>
               <CardContent className="p-6">
@@ -403,8 +403,8 @@ export default function AdDetails() {
               </CardContent>
             </Card>
 
-            {/* Seller Info */}
-            <Card>
+            {/* Desktop Seller Info - Only visible on desktop */}
+            <Card className="hidden lg:block">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Annonceur</h3>
                 <div className="flex items-center space-x-3">
@@ -423,6 +423,85 @@ export default function AdDetails() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Mobile Reviews Section - Shows at bottom on mobile only */}
+        <div className="lg:hidden mt-8 space-y-6">
+          {/* Reviews Section */}
+          <Card>
+            <CardContent className="p-6">
+              <Tabs defaultValue="reviews" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="reviews">
+                    Avis ({stats.totalReviews})
+                  </TabsTrigger>
+                  <TabsTrigger value="leave-review">
+                    {canEditReview ? 'Modifier mon avis' : 'Laisser un avis'}
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="reviews" className="mt-6">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold">
+                        Avis des utilisateurs
+                      </h3>
+                      <RatingDisplay stats={stats} size="lg" />
+                    </div>
+
+                    <ReviewsList
+                      reviews={reviews}
+                      loading={reviewsLoading}
+                      onEditReview={handleEditReview}
+                      onDeleteReview={handleDeleteReview}
+                    />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="leave-review" className="mt-6">
+                  {user && user.id === ad.user_id ? (
+                    <Card>
+                      <CardContent className="p-6 text-center">
+                        <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-lg font-medium mb-2">
+                          Vous ne pouvez pas laisser d'avis
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Vous ne pouvez pas laisser un avis sur votre propre annonce.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <ReviewForm
+                      onSubmit={handleReviewSubmit}
+                      existingReview={userReview}
+                      loading={reviewsLoading}
+                    />
+                  )}
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          {/* Mobile Seller Info - Shows at very bottom on mobile */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="font-semibold mb-4">Annonceur</h3>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                  <User className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="font-medium">
+                    {ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Membre depuis {formatDistanceToNow(new Date(ad.created_at), { locale: fr })}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
