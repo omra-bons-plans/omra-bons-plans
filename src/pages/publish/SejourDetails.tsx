@@ -66,6 +66,44 @@ const SejourDetails = () => {
     }
   };
 
+  const uploadImages = async (images: File[], coverImage: File | null, userId: string, adId: string) => {
+    const uploadedPaths: string[] = [];
+    
+    try {
+      // Upload cover image first
+      if (coverImage) {
+        const coverFileName = `cover-${Date.now()}.${coverImage.name.split('.').pop()}`;
+        const coverPath = `sejours/${userId}/${coverFileName}`;
+        
+        const { error: coverError } = await supabase.storage
+          .from('ad-images')
+          .upload(coverPath, coverImage);
+          
+        if (coverError) throw coverError;
+        uploadedPaths.push(coverPath);
+      }
+      
+      // Upload additional images
+      for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+        const fileName = `${i}-${Date.now()}.${image.name.split('.').pop()}`;
+        const imagePath = `sejours/${userId}/${fileName}`;
+        
+        const { error: imageError } = await supabase.storage
+          .from('ad-images')
+          .upload(imagePath, image);
+          
+        if (imageError) throw imageError;
+        uploadedPaths.push(imagePath);
+      }
+      
+      return uploadedPaths;
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      throw error;
+    }
+  };
+
   const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -89,6 +127,7 @@ const SejourDetails = () => {
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
           publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          images: [], // Initialize empty for drafts, will be updated after upload
         };
 
         const categoryData = {
@@ -131,6 +170,22 @@ const SejourDetails = () => {
         .single();
 
       if (adError) throw adError;
+
+      // Upload images if provided
+      let uploadedImagePaths: string[] = [];
+      if (data.images && data.images.length > 0 || data.coverImage) {
+        uploadedImagePaths = await uploadImages(data.images || [], data.coverImage, user.id, ad.id);
+      }
+
+      // Update ad with image paths
+      if (uploadedImagePaths.length > 0) {
+        const { error: updateError } = await supabase
+          .from('ads')
+          .update({ images: uploadedImagePaths })
+          .eq('id', ad.id);
+          
+        if (updateError) throw updateError;
+      }
 
       // Create the sejour details
       const { error: sejourError } = await supabase

@@ -240,7 +240,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
   };
 
   const handleSaveDraft = (data: SejourFormData) => {
-    onSubmit(data, true);
+    // Ajouter les images aux données du formulaire
+    const dataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage
+    };
+    
+    onSubmit(dataWithImages, true);
     setIsFormDirty(false); // Marquer comme sauvegardé
   };
 
@@ -250,7 +257,15 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       alert("La photo de couverture est obligatoire");
       return;
     }
-    onSubmit(data, false);
+    
+    // Ajouter les images aux données du formulaire
+    const dataWithImages = {
+      ...data,
+      images: images,
+      coverImage: coverImage
+    };
+    
+    onSubmit(dataWithImages, false);
     setIsFormDirty(false); // Marquer comme sauvegardé après publication
   };
 
