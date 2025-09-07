@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Dialog, DialogContent } from './dialog';
 import { Button } from './button';
 import { Card } from './card';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface ImageDisplayProps {
   images: string[];
@@ -20,10 +21,12 @@ export const ImageDisplay = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Combine cover image and additional images
-  const allImages = coverImage 
+  // Combine cover image and additional images, converting paths to URLs
+  const allImagePaths = coverImage 
     ? [coverImage, ...images.filter(img => img !== coverImage)]
     : images;
+  
+  const allImages = allImagePaths.map(path => getImageUrl(path));
 
   if (allImages.length === 0) {
     return (
