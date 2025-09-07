@@ -69,20 +69,25 @@ const Profile = () => {
   const fetchProfile = async () => {
     if (!user) return;
     
+    console.log('Fetching profile for user:', user.id);
+    
     try {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      console.log('Profile fetch result:', { data, error });
+
+      if (error) {
         console.error('Error fetching profile:', error);
         toast.error('Erreur lors du chargement du profil');
         return;
       }
 
       if (data) {
+        console.log('Profile data found, setting profile:', data);
         setProfile({
           ...data,
           phone_country: (data as any).phone_country || '+33',
@@ -90,6 +95,7 @@ const Profile = () => {
           professional_phone_country: (data as any).professional_phone_country || '+33'
         });
       } else {
+        console.log('No profile data found, creating new profile');
         // Create profile if it doesn't exist
         const newProfile = {
           id: user.id,
@@ -119,11 +125,12 @@ const Profile = () => {
           console.error('Error creating profile:', insertError);
           toast.error('Erreur lors de la création du profil');
         } else {
+          console.log('New profile created successfully');
           setProfile(newProfile);
         }
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Unexpected error:', error);
       toast.error('Erreur lors du chargement du profil');
     } finally {
       setLoading(false);
