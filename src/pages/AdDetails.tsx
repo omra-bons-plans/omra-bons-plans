@@ -416,7 +416,7 @@ export default function AdDetails() {
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      📧 Envoyer un email
+                      Envoyer un email
                     </Button>
                   )}
                   
@@ -430,21 +430,20 @@ export default function AdDetails() {
                       }}
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      📞 Appeler {formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33')}
+                      {formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33')}
                     </Button>
                   )}
                   
                   {ad.show_whatsapp && ad.profile?.whatsapp && (
                     <Button 
-                      className="w-full" 
-                      variant="outline"
+                      className="w-full bg-green-500 hover:bg-green-600 text-white border-green-500 hover:border-green-600"
                       onClick={() => {
                         const whatsappNumber = formatPhoneForWhatsApp(ad.profile!.whatsapp, ad.profile!.whatsapp_country || '+33');
                         window.open(`https://wa.me/${whatsappNumber}`, '_blank');
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      💬 WhatsApp {ad.profile.whatsapp_country || '+33'} {ad.profile.whatsapp}
+                      {ad.profile.whatsapp_country || '+33'} {ad.profile.whatsapp}
                     </Button>
                   )}
                   
@@ -458,7 +457,7 @@ export default function AdDetails() {
                       }}
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      📞 Appeler pro {formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33')}
+                      {formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33')}
                     </Button>
                   )}
                 </div>
