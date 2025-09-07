@@ -299,8 +299,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     {...register("title", { 
                       required: "Le titre est requis",
                       minLength: {
-                        value: 5,
-                        message: "Le titre doit contenir au moins 5 caractères"
+                        value: 10,
+                        message: "Le titre doit contenir au moins 10 caractères"
                       },
                       maxLength: {
                         value: 20,
@@ -315,9 +315,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
                     }}
                   />
                   <div className="flex justify-between items-center text-xs text-muted-foreground">
-                    <span className={errors.title ? "text-red-500" : "text-muted-foreground"}>
-                      {errors.title?.message || "Le titre doit contenir au moins 5 caractères"}
-                    </span>
+                    <span>{errors.title?.message}</span>
                     <span>{watch('title')?.length || 0}/20</span>
                   </div>
                 </div>
