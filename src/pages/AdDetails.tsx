@@ -35,6 +35,7 @@ interface AdData {
   show_phone: boolean;
   show_whatsapp: boolean;
   show_email: boolean;
+  show_professional_phone: boolean;
   original_price: number | null;
   is_promotion: boolean | null;
   promotion_end_date: string | null;
@@ -44,6 +45,7 @@ interface AdData {
     first_name: string;
     phone: string;
     whatsapp: string;
+    professional_phone: string;
     email: string;
   };
 }
@@ -94,7 +96,7 @@ export default function AdDetails() {
       // Fetch profile separately
       const { data: profileData } = await supabase
         .from('profiles')
-        .select('full_name, first_name, phone, whatsapp, email')
+        .select('full_name, first_name, phone, whatsapp, professional_phone, email')
         .eq('id', adData.user_id)
         .single();
 
@@ -417,6 +419,19 @@ export default function AdDetails() {
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
                       WhatsApp: {ad.profile?.whatsapp}
+                    </Button>
+                  )}
+                  
+                  {ad.show_professional_phone && ad.profile?.professional_phone && (
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = `tel:${ad.profile?.professional_phone}`;
+                      }}
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      Téléphone professionnel: {ad.profile?.professional_phone}
                     </Button>
                   )}
                 </div>
