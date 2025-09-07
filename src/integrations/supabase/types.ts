@@ -756,50 +756,6 @@ export type Database = {
           review_count: number
         }[]
       }
-      get_public_profile: {
-        Args: { profile_id: string }
-        Returns: {
-          bio: string
-          company_name: string
-          created_at: string
-          experience_years: number
-          facebook: string
-          first_name: string
-          full_name: string
-          id: string
-          instagram: string
-          is_professional: boolean
-          languages_spoken: string[]
-          profile_image: string
-          profile_views: number
-          slug: string
-          specialties: string[]
-          updated_at: string
-          website: string
-        }[]
-      }
-      get_public_profiles: {
-        Args: { limit_count?: number; offset_count?: number }
-        Returns: {
-          bio: string
-          company_name: string
-          created_at: string
-          experience_years: number
-          facebook: string
-          first_name: string
-          full_name: string
-          id: string
-          instagram: string
-          is_professional: boolean
-          languages_spoken: string[]
-          profile_image: string
-          profile_views: number
-          slug: string
-          specialties: string[]
-          updated_at: string
-          website: string
-        }[]
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

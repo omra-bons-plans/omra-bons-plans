@@ -30,7 +30,7 @@ interface UserProfile {
   facebook?: string;
   instagram?: string;
   is_professional?: boolean;
-  public_profile?: boolean;
+  public_profile: boolean;
   bio?: string;
   specialties: string[];
   experience_years?: number;
@@ -117,22 +117,13 @@ const PublicProfile = () => {
     try {
       setLoading(true);
       
-      // D'abord récupérer l'ID du profil par slug
-      const { data: profileLookup, error: lookupError } = await supabase
+      // Récupérer le profil par slug
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('id')
+        .select('*')
         .eq('slug', slug)
         .eq('public_profile', true)
         .single();
-
-      if (lookupError) throw lookupError;
-
-      // Ensuite récupérer le profil public sécurisé
-      const { data: profileData, error: profileError } = await supabase
-        .rpc('get_public_profile', { profile_id: profileLookup.id })
-        .single();
-
-      if (profileError) throw profileError;
 
       if (profileError) throw profileError;
 
@@ -162,7 +153,7 @@ const PublicProfile = () => {
       if (clickStatsError) throw clickStatsError;
 
       // Calculer les statistiques par annonce
-      const adsWithStats = (adsData || []).map(ad => {
+      const adsWithStats = adsData.map(ad => {
         const adViews = clickStatsData?.filter(stat => 
           stat.click_type === 'ad_view' && stat.ads?.user_id === profileData.id
         ).length || 0;
@@ -183,10 +174,10 @@ const PublicProfile = () => {
       // Calculer les statistiques globales
       const totalViews = clickStatsData?.filter(stat => stat.click_type === 'ad_view').length || 0;
       const totalContacts = clickStatsData?.filter(stat => stat.click_type === 'contact_view').length || 0;
-      const categories = [...new Set((adsData || []).map(ad => ad.category))];
+      const categories = [...new Set(adsData.map(ad => ad.category))];
 
       setStats({
-        totalAds: (adsData || []).length,
+        totalAds: adsData.length,
         totalViews,
         totalContacts,
         categories
@@ -493,7 +484,7 @@ const PublicProfile = () => {
                     )}
 
                     {/* Specialties */}
-                    {profile.specialties && profile.specialties.length > 0 && (
+                    {profile.specialties.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {profile.specialties.map((specialty, index) => (
                           <Badge key={index} variant="secondary">
@@ -504,7 +495,7 @@ const PublicProfile = () => {
                     )}
 
                     {/* Languages */}
-                    {profile.languages_spoken && profile.languages_spoken.length > 0 && (
+                    {profile.languages_spoken.length > 0 && (
                       <div className="flex items-center gap-2 mb-4">
                         <Languages className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">
@@ -556,7 +547,7 @@ const PublicProfile = () => {
             </div>
 
             {/* Services */}
-            {stats.categories && stats.categories.length > 0 && (
+            {stats.categories.length > 0 && (
               <Card className="mb-8">
                 <CardHeader>
                   <CardTitle>Services proposés</CardTitle>
@@ -578,11 +569,11 @@ const PublicProfile = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
-                  <span>Annonces ({userAds?.length || 0})</span>
+                  <span>Annonces ({userAds.length})</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {!userAds || userAds.length === 0 ? (
+                {userAds.length === 0 ? (
                   <div className="text-center py-12">
                     <p className="text-muted-foreground">Aucune annonce active pour le moment</p>
                   </div>
