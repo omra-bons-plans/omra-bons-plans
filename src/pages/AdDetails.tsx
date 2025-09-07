@@ -77,6 +77,27 @@ export default function AdDetails() {
     fetchAdDetails();
   }, [id]);
 
+  // Helper functions for phone formatting
+  const formatPhoneForCall = (phone: string, countryCode: string) => {
+    if (!phone || !countryCode) return '';
+    // Remove leading zero from French numbers when adding country code
+    const cleanPhone = phone.startsWith('0') && countryCode === '+33' 
+      ? phone.slice(1) 
+      : phone;
+    return `${countryCode}${cleanPhone}`;
+  };
+
+  const formatPhoneForWhatsApp = (phone: string, countryCode: string) => {
+    if (!phone || !countryCode) return '';
+    // Clean phone number (remove all non-digits)
+    const cleanPhone = phone.replace(/[^\d]/g, '');
+    // Remove leading zero for most country codes
+    const phoneWithoutZero = cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone;
+    // Remove + from country code for WhatsApp
+    const cleanCountryCode = countryCode.replace('+', '');
+    return `${cleanCountryCode}${phoneWithoutZero}`;
+  };
+
   const fetchAdDetails = async () => {
     if (!id) return;
 
@@ -202,26 +223,7 @@ export default function AdDetails() {
     await deleteReview(reviewId);
   };
 
-  // Helper functions for phone formatting
-  const formatPhoneForCall = (phone: string, countryCode: string) => {
-    if (!phone || !countryCode) return '';
-    // Remove leading zero from French numbers when adding country code
-    const cleanPhone = phone.startsWith('0') && countryCode === '+33' 
-      ? phone.slice(1) 
-      : phone;
-    return `${countryCode}${cleanPhone}`;
-  };
-
-  const formatPhoneForWhatsApp = (phone: string, countryCode: string) => {
-    if (!phone || !countryCode) return '';
-    // Clean phone number (remove all non-digits)
-    const cleanPhone = phone.replace(/[^\d]/g, '');
-    // Remove leading zero for most country codes
-    const phoneWithoutZero = cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone;
-    // Remove + from country code for WhatsApp
-    const cleanCountryCode = countryCode.replace('+', '');
-    return `${cleanCountryCode}${phoneWithoutZero}`;
-  };
+  const handleShareAd = () => {
     if (navigator.share) {
       navigator.share({
         title: ad?.title,
@@ -232,7 +234,7 @@ export default function AdDetails() {
       navigator.clipboard.writeText(window.location.href);
       toast.success('Lien copié dans le presse-papiers');
     }
-  const handleShareAd = () => {
+  };
 
   if (loading) {
     return (
@@ -422,7 +424,7 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        const phoneNumber = formatPhoneForCall(ad.profile.phone, ad.profile.phone_country || '+33');
+                        const phoneNumber = formatPhoneForCall(ad.profile!.phone, ad.profile!.phone_country || '+33');
                         window.location.href = `tel:${phoneNumber}`;
                       }}
                     >
@@ -436,7 +438,7 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        const whatsappNumber = formatPhoneForWhatsApp(ad.profile.whatsapp, ad.profile.whatsapp_country || '+33');
+                        const whatsappNumber = formatPhoneForWhatsApp(ad.profile!.whatsapp, ad.profile!.whatsapp_country || '+33');
                         window.open(`https://wa.me/${whatsappNumber}`, '_blank');
                       }}
                     >
@@ -450,7 +452,7 @@ export default function AdDetails() {
                       className="w-full" 
                       variant="outline"
                       onClick={() => {
-                        const phoneNumber = formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33');
+                        const phoneNumber = formatPhoneForCall(ad.profile!.professional_phone, ad.profile!.professional_phone_country || '+33');
                         window.location.href = `tel:${phoneNumber}`;
                       }}
                     >
@@ -594,5 +596,3 @@ export default function AdDetails() {
     </div>
   );
 }
-
-export default AdDetails;
