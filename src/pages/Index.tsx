@@ -269,79 +269,77 @@ const Index = () => {
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-              {/* Left Navigation and Logo */}
-              <div className="flex items-center space-x-8">
-                {/* Logo - Left aligned on desktop */}
-                <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  <div className="h-16 flex items-center">
-                    <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
-                  </div>
+            <div className="flex items-center justify-between w-full">
+              {/* Logo - Left aligned on desktop */}
+              <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <div className="h-16 flex items-center">
+                  <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
                 </div>
-                
-                {/* Navigation Menu */}
-                <nav className="hidden lg:flex items-center space-x-8">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                        <span className="text-muted-foreground font-medium">Catégories</span>
-                        <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuItem onClick={() => navigate('/category/sejours')}>
-                        <Building className="w-4 h-4 mr-2" />
-                        Séjours
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/category/vols')}>
-                        <Plane className="w-4 h-4 mr-2" />
-                        Vols
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/category/hebergements')}>
-                        <Hotel className="w-4 h-4 mr-2" />
-                        Hébergements
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/category/guides')}>
-                        <BookOpen className="w-4 h-4 mr-2" />
-                        Guides
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/category/chauffeurs')}>
-                        <Car className="w-4 h-4 mr-2" />
-                        Chauffeurs
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/category/babysitting')}>
-                        <Heart className="w-4 h-4 mr-2" />
-                        Baby-sitting
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
-                        <span className="text-muted-foreground font-medium">Services</span>
-                        <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuItem onClick={() => navigate('/blog')}>
-                        <UtensilsCrossed className="w-4 h-4 mr-2" />
-                        Blog
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <HelpingHand className="w-4 h-4 mr-2" />
-                        Association
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Leaf className="w-4 h-4 mr-2" />
-                        Produit naturel
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Activity className="w-4 h-4 mr-2" />
-                        Activité
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </nav>
               </div>
+              
+              {/* Navigation Menu - Centered */}
+              <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                      <span className="text-muted-foreground font-medium">Catégories</span>
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuItem onClick={() => navigate('/category/sejours')}>
+                      <Building className="w-4 h-4 mr-2" />
+                      Séjours
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/category/vols')}>
+                      <Plane className="w-4 h-4 mr-2" />
+                      Vols
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/category/hebergements')}>
+                      <Hotel className="w-4 h-4 mr-2" />
+                      Hébergements
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/category/guides')}>
+                      <BookOpen className="w-4 h-4 mr-2" />
+                      Guides
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/category/chauffeurs')}>
+                      <Car className="w-4 h-4 mr-2" />
+                      Chauffeurs
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/category/babysitting')}>
+                      <Heart className="w-4 h-4 mr-2" />
+                      Baby-sitting
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex items-center space-x-1 cursor-pointer hover:text-primary transition-all duration-300">
+                      <span className="text-muted-foreground font-medium">Services</span>
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuItem onClick={() => navigate('/blog')}>
+                      <UtensilsCrossed className="w-4 h-4 mr-2" />
+                      Blog
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <HelpingHand className="w-4 h-4 mr-2" />
+                      Association
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Leaf className="w-4 h-4 mr-2" />
+                      Produit naturel
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Activity className="w-4 h-4 mr-2" />
+                      Activité
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </nav>
 
               {/* Right buttons */}
               <div className="flex items-center space-x-2 sm:space-x-4">
@@ -361,6 +359,7 @@ const Index = () => {
                   </Button>
                 </Link>
               </div>
+            </div>
             </div>
           </div>
         </header>
