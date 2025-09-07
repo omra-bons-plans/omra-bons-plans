@@ -339,52 +339,36 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
       )}
 
       {/* Image Lightbox */}
-      <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
-        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 bg-black/95">
-          <DialogTitle className="sr-only">Galerie d'images</DialogTitle>
-          <DialogDescription className="sr-only">
-            Image {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} sur {allImages.length}
-          </DialogDescription>
+      <Dialog open={isLightboxOpen} onOpenChange={closeLightbox}>
+        <DialogContent className="max-w-screen-lg w-[95vw] h-[95vh] p-0 bg-black border-0 overflow-hidden">
           <div className="relative w-full h-full flex items-center justify-center">
-            {/* Close button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
-              onClick={closeLightbox}
-            >
-              <X className="w-6 h-6" />
-            </Button>
-
-            {/* Navigation buttons */}
-            {allImages.length > 1 && (
+            {/* Navigation buttons - only show if multiple images */}
+            {allImages.length > 1 && selectedImageIndex !== null && (
               <>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                <button
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 rounded-full p-3 transition-all"
                   onClick={() => navigateImage('prev')}
+                  aria-label="Image précédente"
                 >
-                  <ChevronLeft className="w-8 h-8" />
-                </Button>
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
                 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-16 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                <button
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 rounded-full p-3 transition-all"
                   onClick={() => navigateImage('next')}
+                  aria-label="Image suivante"
                 >
-                  <ChevronRight className="w-8 h-8" />
-                </Button>
+                  <ChevronRight className="w-6 h-6" />
+                </button>
               </>
             )}
 
             {/* Current image */}
             {selectedImageIndex !== null && allImages[selectedImageIndex] && (
-              <div className="w-full h-full p-8 flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center p-4 overflow-auto">
                 <ImageWithFallback
                   src={getImageUrl(allImages[selectedImageIndex])}
-                  alt={`Image ${selectedImageIndex + 1}`}
+                  alt={`${ad.title} - Image ${selectedImageIndex + 1}`}
                   className="max-w-full max-h-full object-contain"
                 />
               </div>
@@ -392,7 +376,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
 
             {/* Image counter */}
             {allImages.length > 1 && selectedImageIndex !== null && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium">
                 {selectedImageIndex + 1} / {allImages.length}
               </div>
             )}
