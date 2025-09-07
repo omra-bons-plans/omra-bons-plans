@@ -380,10 +380,29 @@ export default function AdDetails() {
                 </div>
 
                 <div className="space-y-3">
+                  {ad.show_email && ad.profile?.email && (
+                    <Button 
+                      className="w-full" 
+                      variant="default"
+                      onClick={() => {
+                        window.location.href = `mailto:${ad.profile?.email}`;
+                      }}
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Email: {ad.profile?.email}
+                    </Button>
+                  )}
+                  
                   {ad.show_phone && ad.profile?.phone && (
-                    <Button className="w-full" variant="default">
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = `tel:${ad.profile?.phone}`;
+                      }}
+                    >
                       <Phone className="w-4 h-4 mr-2" />
-                      Appeler
+                      Téléphone: {ad.profile?.phone}
                     </Button>
                   )}
                   
@@ -397,7 +416,7 @@ export default function AdDetails() {
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      WhatsApp
+                      WhatsApp: {ad.profile?.whatsapp}
                     </Button>
                   )}
                 </div>
