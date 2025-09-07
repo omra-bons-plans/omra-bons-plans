@@ -41,15 +41,30 @@ interface AdData {
   promotion_end_date: string | null;
   categoryDetails?: any;
   profile?: {
+    id: string;
     full_name: string;
     first_name: string;
-    phone: string;
-    whatsapp: string;
-    professional_phone: string;
-    email: string;
-    phone_country: string;
-    whatsapp_country: string;
-    professional_phone_country: string;
+    phone?: string;
+    whatsapp?: string;
+    professional_phone?: string;
+    email?: string;
+    phone_country?: string;
+    whatsapp_country?: string;
+    professional_phone_country?: string;
+    // Ajout des propriétés disponibles dans get_public_profile
+    bio?: string;
+    profile_image?: string;
+    is_professional?: boolean;
+    company_name?: string;
+    website?: string;
+    instagram?: string;
+    facebook?: string;
+    languages_spoken?: string[];
+    specialties?: string[];
+    experience_years?: number;
+    profile_views?: number;
+    created_at?: string;
+    updated_at?: string;
   };
 }
 
@@ -117,11 +132,9 @@ export default function AdDetails() {
         throw new Error('Cette annonce n\'est plus disponible');
       }
 
-      // Fetch profile separately
+      // Fetch profile separately - seulement les infos de base pour éviter l'exposition des données sensibles
       const { data: profileData } = await supabase
-        .from('profiles')
-        .select('full_name, first_name, phone, whatsapp, professional_phone, email, phone_country, whatsapp_country, professional_phone_country')
-        .eq('id', adData.user_id)
+        .rpc('get_public_profile', { profile_id: adData.user_id })
         .single();
 
       // Fetch category-specific details
@@ -436,6 +449,7 @@ export default function AdDetails() {
                     </Button>
                   )}
                   
+                  {/* Afficher les boutons de contact seulement si les informations sont disponibles (utilisateur connecté propriétaire ou admin) */}
                   {ad.show_phone && ad.profile?.phone && (
                     <Button 
                       className="w-full" 
@@ -476,6 +490,19 @@ export default function AdDetails() {
                       {formatPhoneForCall(ad.profile.professional_phone, ad.profile.professional_phone_country || '+33')}
                     </Button>
                   )}
+
+                  {/* Si les informations de contact ne sont pas disponibles publiquement, afficher un bouton alternatif */}
+                  {(!ad.profile?.phone && ad.show_phone) || (!ad.profile?.whatsapp && ad.show_whatsapp) || (!ad.profile?.professional_phone && ad.show_professional_phone) ? (
+                    <Button 
+                      className="w-full" 
+                      onClick={() => {
+                        navigate(`/profile/${ad.profile?.id || ad.user_id}?contact=true`);
+                      }}
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      Voir le profil pour contacter
+                    </Button>
+                  ) : null}
                 </div>
               </CardContent>
             </Card>

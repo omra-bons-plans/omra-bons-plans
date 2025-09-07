@@ -30,7 +30,7 @@ interface UserProfile {
   facebook?: string;
   instagram?: string;
   is_professional?: boolean;
-  public_profile: boolean;
+  public_profile?: boolean;
   bio?: string;
   specialties: string[];
   experience_years?: number;
@@ -117,13 +117,22 @@ const PublicProfile = () => {
     try {
       setLoading(true);
       
-      // Récupérer le profil par slug
-      const { data: profileData, error: profileError } = await supabase
+      // D'abord récupérer l'ID du profil par slug
+      const { data: profileLookup, error: lookupError } = await supabase
         .from('profiles')
-        .select('*')
+        .select('id')
         .eq('slug', slug)
         .eq('public_profile', true)
         .single();
+
+      if (lookupError) throw lookupError;
+
+      // Ensuite récupérer le profil public sécurisé
+      const { data: profileData, error: profileError } = await supabase
+        .rpc('get_public_profile', { profile_id: profileLookup.id })
+        .single();
+
+      if (profileError) throw profileError;
 
       if (profileError) throw profileError;
 
