@@ -351,7 +351,7 @@ const HebergementDetails = () => {
       
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
-      navigate(`/ad-summary/${ad.id}`);
+      navigate('/my-ads');
     } catch (error) {
       console.error('Error publishing hebergement ad:', error);
       toast.error("Erreur lors de la publication de l'annonce");
