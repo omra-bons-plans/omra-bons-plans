@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import { getBlogImageUrl } from '@/utils/blogImageUtils';
 
 interface BlogPost {
   id: string;
@@ -298,9 +299,14 @@ const BlogPost = () => {
             {post.cover_image && (
               <div className="mb-8">
                 <img 
-                  src={post.cover_image} 
+                  src={getBlogImageUrl(post.cover_image)} 
                   alt={post.title}
                   className="w-full h-64 md:h-96 object-cover rounded-lg"
+                  onError={(e) => {
+                    console.log('❌ Blog image failed to load:', post.cover_image);
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/ad-placeholder.jpg';
+                  }}
                 />
               </div>
             )}
@@ -372,9 +378,14 @@ const BlogPost = () => {
                       {relatedPost.cover_image && (
                         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
                           <img 
-                            src={relatedPost.cover_image} 
+                            src={getBlogImageUrl(relatedPost.cover_image)} 
                             alt={relatedPost.title}
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              console.log('❌ Related blog image failed to load:', relatedPost.cover_image);
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/ad-placeholder.jpg';
+                            }}
                           />
                         </div>
                       )}

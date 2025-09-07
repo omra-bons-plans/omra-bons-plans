@@ -14,6 +14,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
+import BlogImageUpload from '@/components/ui/BlogImageUpload';
+import { getBlogImageUrl } from '@/utils/blogImageUtils';
 
 interface BlogPostFormData {
   title: string;
@@ -317,15 +319,11 @@ const BlogEditor = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6 p-4 sm:p-6">
-              <div className="space-y-2">
-                <Label htmlFor="cover_image">Image de couverture (URL)</Label>
-                <Input
-                  id="cover_image"
-                  value={formData.cover_image}
-                  onChange={(e) => setFormData(prev => ({ ...prev, cover_image: e.target.value }))}
-                  placeholder="Entrez l'URL de l'image de couverture"
-                />
-              </div>
+              <BlogImageUpload
+                value={formData.cover_image}
+                onChange={(url) => setFormData(prev => ({ ...prev, cover_image: url }))}
+                label="Image de couverture"
+              />
 
               <div className="space-y-2">
                 <Label htmlFor="video_url" className="flex items-center">
@@ -434,9 +432,14 @@ const BlogEditor = () => {
                 </div>
                 {formData.cover_image && (
                   <img 
-                    src={formData.cover_image} 
+                    src={getBlogImageUrl(formData.cover_image)} 
                     alt="Cover" 
                     className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
+                    onError={(e) => {
+                      console.log('❌ Blog preview image failed to load:', formData.cover_image);
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/ad-placeholder.jpg';
+                    }}
                   />
                 )}
                 <div className="text-sm sm:text-base whitespace-pre-wrap break-words">
