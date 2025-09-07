@@ -24,25 +24,38 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
       return;
     }
 
-    const checkProfileCompletion = async () => {
+    const checkProfileCompletion = async (retryCount = 0) => {
       try {
+        console.log('🔍 Checking profile completion for user:', user.id);
+        
         const { data, error } = await supabase
           .from('profiles')
           .select('first_name, gender, phone')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') {
+        if (error) {
           console.error('Error checking profile completion:', error);
-          setStatus({ isComplete: false, loading: false, missingFields: REQUIRED_FIELDS as any });
+          
+          // Si c'est une erreur réseau et qu'on a encore des tentatives
+          if (retryCount < 2 && (error.message?.includes('Failed to fetch') || error.message?.includes('fetch'))) {
+            console.log(`🔄 Retrying profile completion check (attempt ${retryCount + 1}/2)`);
+            setTimeout(() => checkProfileCompletion(retryCount + 1), 1000);
+            return;
+          }
+          
+          // Après les tentatives, on considère le profil comme potentiellement incomplet
+          setStatus({ isComplete: false, loading: false, missingFields: [...REQUIRED_FIELDS] });
           return;
         }
+
+        console.log('✅ Profile data retrieved:', data);
 
         const missingFields: string[] = [];
         
         if (data) {
           REQUIRED_FIELDS.forEach(field => {
-            if (!data[field] || data[field].trim() === '') {
+            if (!data[field] || data[field].toString().trim() === '') {
               missingFields.push(field);
             }
           });
@@ -51,6 +64,11 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
           missingFields.push(...REQUIRED_FIELDS);
         }
 
+        console.log('📊 Profile completion status:', {
+          isComplete: missingFields.length === 0,
+          missingFields
+        });
+
         setStatus({
           isComplete: missingFields.length === 0,
           loading: false,
@@ -58,8 +76,16 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
         });
 
       } catch (error) {
-        console.error('Error:', error);
-        setStatus({ isComplete: false, loading: false, missingFields: REQUIRED_FIELDS as any });
+        console.error('Unexpected error checking profile:', error);
+        
+        // Retry logic pour les erreurs inattendues aussi
+        if (retryCount < 2) {
+          console.log(`🔄 Retrying after unexpected error (attempt ${retryCount + 1}/2)`);
+          setTimeout(() => checkProfileCompletion(retryCount + 1), 1000);
+          return;
+        }
+        
+        setStatus({ isComplete: false, loading: false, missingFields: [...REQUIRED_FIELDS] });
       }
     };
 
