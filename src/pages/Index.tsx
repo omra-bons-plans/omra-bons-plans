@@ -73,11 +73,6 @@ const translateWeatherDescription = (description: string) => {
   return description;
 };
 
-// Function to convert Celsius to Fahrenheit
-const celsiusToFahrenheit = (celsius: number) => {
-  return Math.round((celsius * 9/5) + 32);
-};
-
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -489,9 +484,9 @@ const Index = () => {
                     <div className="text-4xl md:text-4xl font-bold text-amber-500">
                       {weatherAndExchange?.weather 
                         ? (currentWeatherCity === 'makkah' 
-                            ? `${celsiusToFahrenheit(weatherAndExchange.weather.makkah?.temperature || 0)}°F`
-                            : `${celsiusToFahrenheit(weatherAndExchange.weather.madinah?.temperature || 0)}°F`)
-                        : '--°F'}
+                            ? `${weatherAndExchange.weather.makkah?.temperature || '--'}°`
+                            : `${weatherAndExchange.weather.madinah?.temperature || '--'}°`)
+                        : '--°'}
                     </div>
                   </div>
 
