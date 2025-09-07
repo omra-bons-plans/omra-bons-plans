@@ -77,7 +77,7 @@ const FormulaSelection = () => {
                   <div className="space-y-3 sm:space-y-4">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-primary rounded-2xl mx-auto flex items-center justify-center shadow-soft">
                       <span className="text-lg sm:text-2xl text-primary-foreground font-bold">
-                        {formula.rating.charAt(0)}
+                        {formula.rating && typeof formula.rating === 'string' ? formula.rating.charAt(0) : '★'}
                       </span>
                     </div>
                     <div className="space-y-1 sm:space-y-2">

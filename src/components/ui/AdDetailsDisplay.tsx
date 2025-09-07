@@ -59,12 +59,14 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
   const formatLanguages = (languages: string[]) => {
     if (!languages || languages.length === 0) return '';
     return languages
+      .filter(lang => lang && typeof lang === 'string') // S'assurer que lang est une string
       .map(lang => lang.charAt(0).toUpperCase() + lang.slice(1))
       .join(', ');
   };
 
   const formatCity = (city: string) => {
-    return city?.charAt(0).toUpperCase() + city?.slice(1);
+    if (!city || typeof city !== 'string') return '';
+    return city.charAt(0).toUpperCase() + city.slice(1);
   };
 
   return (

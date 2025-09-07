@@ -982,7 +982,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-4">
           <div className={`w-16 h-16 ${formula.color} rounded-2xl flex items-center justify-center shadow-large`}>
-            <span className="text-2xl text-white font-bold">{formula.rating.charAt(0)}</span>
+            <span className="text-2xl text-white font-bold">
+              {formula.rating && typeof formula.rating === 'string' ? formula.rating.charAt(0) : '★'}
+            </span>
           </div>
           <div>
             <h1 className="text-3xl font-bold">Séjour Omra {formula.name}</h1>
