@@ -85,10 +85,6 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
         
         <h1 className="text-2xl md:text-3xl font-bold">{ad.title}</h1>
         
-        <div className="flex items-center space-x-2 text-muted-foreground">
-          <MapPin className="w-4 h-4" />
-          <span>{ad.location}</span>
-        </div>
       </div>
 
       {/* Description */}

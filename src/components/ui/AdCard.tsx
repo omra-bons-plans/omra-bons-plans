@@ -119,12 +119,6 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
           </div>
         )}
         
-        <div className={`flex items-center space-x-1 text-sm ${
-          listing.isExpired ? 'text-muted-foreground/60' : 'text-muted-foreground'
-        }`}>
-          <MapPin className="w-4 h-4" />
-          <span className="line-clamp-1">{listing.location}</span>
-        </div>
         
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
