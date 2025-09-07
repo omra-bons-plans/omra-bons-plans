@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle, RefreshCw } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
@@ -415,77 +415,80 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Modern Weather & Exchange Card */}
-              <div className="bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-3xl shadow-soft max-w-md md:max-w-2xl mx-auto border border-border/20">
-                <div className="flex flex-col gap-4 md:gap-6">
+              {/* Compact Weather & Exchange Widget */}
+              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft max-w-xs mx-auto border border-border/20">
+                <div className="flex flex-col gap-2">
                   {/* Header with refresh button */}
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-500">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="text-xs text-gray-500">
                       Données en temps réel
                     </div>
                     <button
                       onClick={refetchWeather}
                       disabled={weatherLoading}
-                      className="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
+                      className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
                       title="Actualiser les données"
                     >
-                      <RefreshCw className={`w-4 h-4 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
+                      <RefreshCw className={`w-3 h-3 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
                     </button>
                   </div>
-                  {/* Weather Section */}
-                  <div className="flex items-center space-x-3 md:space-x-4">
+                  
+                  {/* Weather Section - Compact */}
+                  <div className="flex items-center space-x-2">
                     {/* City Indicator Dots */}
-                    <div className="flex flex-col space-y-2 mr-2">
+                    <div className="flex flex-col space-y-1">
                       <button
                         onClick={() => setCurrentWeatherCity('madinah')}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
                           currentWeatherCity === 'madinah' 
-                            ? 'bg-amber-500 shadow-md' 
+                            ? 'bg-amber-500 shadow-sm' 
                             : 'bg-gray-300 hover:bg-gray-400'
                         }`}
                       />
                       <button
                         onClick={() => setCurrentWeatherCity('makkah')}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
                           currentWeatherCity === 'makkah' 
-                            ? 'bg-amber-500 shadow-md' 
+                            ? 'bg-amber-500 shadow-sm' 
                             : 'bg-gray-300 hover:bg-gray-400'
                         }`}
                       />
                     </div>
 
-                    {/* Weather Icon */}
+                    {/* Weather Icon - Smaller */}
                     <div className="flex items-center justify-center">
-                      {weatherAndExchange?.weather && 
-                        getWeatherIcon(
-                          currentWeatherCity === 'makkah' 
-                            ? (weatherAndExchange.weather.makkah?.description || 'Sunny')
-                            : (weatherAndExchange.weather.madinah?.description || 'Sunny')
-                        )
-                      }
+                      <div className="w-4 h-4">
+                        {weatherAndExchange?.weather && 
+                          getWeatherIcon(
+                            currentWeatherCity === 'makkah' 
+                              ? (weatherAndExchange.weather.makkah?.description || 'Sunny')
+                              : (weatherAndExchange.weather.madinah?.description || 'Sunny')
+                          )
+                        }
+                      </div>
                     </div>
 
-                    {/* Weather Info */}
-                    <div className="flex-1">
-                      <div className="text-base md:text-sm text-gray-600 font-medium mb-1">
+                    {/* Weather Info - Compact */}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs text-gray-600 font-medium">
                         {(() => {
                           const today = new Date();
-                          const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                          const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
                           return days[today.getDay()];
                         })()}
                       </div>
-                      <div className="text-xl md:text-lg font-semibold text-gray-800 mb-1">
-                        {currentWeatherCity === 'makkah' ? 'La Mecque, Arabie saoudite' : 'Médine, Arabie saoudite'}
+                      <div className="text-sm font-semibold text-gray-800 truncate">
+                        {currentWeatherCity === 'makkah' ? 'Médine, Arabie saoudite' : 'Médine, Arabie saoudite'}
                       </div>
-                      <div className="text-base md:text-sm text-gray-500 capitalize">
+                      <div className="text-xs text-gray-500 capitalize truncate">
                         {currentWeatherCity === 'makkah' 
                           ? translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
                           : translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')}
                       </div>
                     </div>
 
-                    {/* Temperature */}
-                    <div className="text-4xl md:text-4xl font-bold text-amber-500">
+                    {/* Temperature - Compact */}
+                    <div className="text-2xl font-bold text-amber-500">
                       {weatherAndExchange?.weather 
                         ? (currentWeatherCity === 'makkah' 
                             ? `${weatherAndExchange.weather.makkah?.temperature || '--'}°`
@@ -494,10 +497,10 @@ const Index = () => {
                     </div>
                   </div>
 
-                  {/* Exchange Rate Section - Mobile Centered */}
-                  <div className="text-center pt-3 md:pt-4 border-t border-gray-200">
-                    <div className="text-base md:text-sm text-gray-600 font-medium mb-2">Taux du jour</div>
-                    <div className="text-3xl md:text-3xl font-bold text-gray-800">
+                  {/* Exchange Rate Section - Compact */}
+                  <div className="text-center pt-2 border-t border-gray-200">
+                    <div className="text-xs text-gray-600 font-medium mb-1">Taux du jour</div>
+                    <div className="text-lg font-bold text-gray-800">
                       1€ = <span className="text-amber-500">
                         {weatherAndExchange?.exchange?.eurToSar || '4.39'}
                       </span> Sar
