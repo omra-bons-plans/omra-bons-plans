@@ -113,6 +113,26 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack }: SejourFormMultiS
     }
   }, [departureDate, returnDate]);
 
+  // Auto-adjust Mecca nights when Medina nights change
+  useEffect(() => {
+    if (totalNightsFromDates > 0 && nightsMedina !== undefined) {
+      const calculatedMeccaNights = totalNightsFromDates - nightsMedina;
+      if (calculatedMeccaNights >= 0 && calculatedMeccaNights !== nightsMecca) {
+        setValue('nightsMecca', calculatedMeccaNights);
+      }
+    }
+  }, [nightsMedina, totalNightsFromDates]);
+
+  // Auto-adjust Medina nights when Mecca nights change
+  useEffect(() => {
+    if (totalNightsFromDates > 0 && nightsMecca !== undefined) {
+      const calculatedMedinaNights = totalNightsFromDates - nightsMecca;
+      if (calculatedMedinaNights >= 0 && calculatedMedinaNights !== nightsMedina) {
+        setValue('nightsMedina', calculatedMedinaNights);
+      }
+    }
+  }, [nightsMecca, totalNightsFromDates]);
+
   // Scroll vers le haut quand l'étape change
   useEffect(() => {
     window.scrollTo({
