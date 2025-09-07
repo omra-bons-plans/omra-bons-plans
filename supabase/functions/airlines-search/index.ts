@@ -35,7 +35,8 @@ serve(async (req) => {
     const popularAirlines = [
       'Air France', 'Saudia', 'Emirates', 'Qatar Airways', 
       'Turkish Airlines', 'Lufthansa', 'KLM', 'British Airways',
-      'Etihad Airways', 'Royal Jordanian', 'EgyptAir'
+      'Etihad Airways', 'Royal Jordanian', 'EgyptAir',
+      'Transavia', 'Wizz Air', 'Ajet'
     ];
 
     let allAirlines: Airline[] = [];
@@ -104,7 +105,10 @@ serve(async (req) => {
         { icao: 'BAW', iata: 'BA', name: 'British Airways', country: 'United Kingdom' },
         { icao: 'ETD', iata: 'EY', name: 'Etihad Airways', country: 'United Arab Emirates' },
         { icao: 'RJA', iata: 'RJ', name: 'Royal Jordanian', country: 'Jordan' },
-        { icao: 'MSR', iata: 'MS', name: 'EgyptAir', country: 'Egypt' }
+        { icao: 'MSR', iata: 'MS', name: 'EgyptAir', country: 'Egypt' },
+        { icao: 'TRA', iata: 'HV', name: 'Transavia', country: 'Netherlands' },
+        { icao: 'WZZ', iata: 'W6', name: 'Wizz Air', country: 'Hungary' },
+        { icao: 'VJT', iata: 'VF', name: 'Ajet', country: 'Turkey' }
       ];
 
       allAirlines = staticAirlines.filter(airline =>
