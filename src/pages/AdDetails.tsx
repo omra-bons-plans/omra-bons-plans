@@ -425,7 +425,7 @@ export default function AdDetails() {
                       variant="default"
                       onClick={() => {
                         const emailUrl = `mailto:${ad.profile?.email}`;
-                        window.open(emailUrl, '_self');
+                        window.open(emailUrl, '_blank');
                       }}
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
