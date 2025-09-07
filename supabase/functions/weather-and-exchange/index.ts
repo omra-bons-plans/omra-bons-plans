@@ -14,57 +14,57 @@ serve(async (req) => {
   try {
     console.log('Starting weather and exchange data fetch...');
     
-    const accuWeatherApiKey = Deno.env.get('ACCUWEATHER_API_KEY');
-    if (!accuWeatherApiKey) {
-      console.error('ACCUWEATHER_API_KEY not found in environment');
-      throw new Error('AccuWeather API key not configured');
+    const weatherstackApiKey = Deno.env.get('WEATHERSTACK_API_KEY');
+    if (!weatherstackApiKey) {
+      console.error('WEATHERSTACK_API_KEY not found in environment');
+      throw new Error('Weatherstack API key not configured');
     }
     
-    // AccuWeather location keys for Makkah and Madinah
+    // Weatherstack queries for Makkah and Madinah
     const cities = {
-      makkah: { locationKey: "212667", name: "Makkah" },
-      madinah: { locationKey: "215074", name: "Madinah" }
+      makkah: { query: "Mecca,Saudi Arabia", name: "Makkah" },
+      madinah: { query: "Medina,Saudi Arabia", name: "Madinah" }
     };
 
-    console.log('Fetching weather data using AccuWeather API...');
+    console.log('Fetching weather data using Weatherstack API...');
     
-    // Fetch weather data for both cities using AccuWeather API
+    // Fetch weather data for both cities using Weatherstack API
     const weatherPromises = Object.entries(cities).map(async ([city, cityData]) => {
       console.log(`Fetching weather for ${cityData.name}...`);
       
-      // AccuWeather current conditions endpoint
+      // Weatherstack current conditions endpoint
       const cacheBuster = Date.now();
       const weatherResponse = await fetch(
-        `https://dataservice.accuweather.com/currentconditions/v1/${cityData.locationKey}?apikey=${accuWeatherApiKey}&details=true&_=${cacheBuster}`
+        `http://api.weatherstack.com/current?access_key=${weatherstackApiKey}&query=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`
       );
       
       if (!weatherResponse.ok) {
-        console.error(`AccuWeather API error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
-        throw new Error(`AccuWeather API error for ${city}: ${weatherResponse.status}`);
+        console.error(`Weatherstack API error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
+        throw new Error(`Weatherstack API error for ${city}: ${weatherResponse.status}`);
       }
       
       const weatherData = await weatherResponse.json();
       console.log(`Weather data for ${city}:`, JSON.stringify(weatherData, null, 2));
       
-      if (!weatherData || !Array.isArray(weatherData) || weatherData.length === 0) {
+      if (!weatherData || !weatherData.current) {
         console.error(`Invalid weather data for ${city}:`, weatherData);
         throw new Error(`Invalid weather data received for ${city}`);
       }
       
-      const currentWeather = weatherData[0];
-      const temperature = Math.round(currentWeather.Temperature.Metric.Value);
-      console.log(`🌡️ Exact temperature for ${cityData.name}: ${currentWeather.Temperature.Metric.Value}°C (rounded: ${temperature}°C)`);
+      const currentWeather = weatherData.current;
+      const temperature = Math.round(currentWeather.temperature);
+      console.log(`🌡️ Exact temperature for ${cityData.name}: ${currentWeather.temperature}°C (rounded: ${temperature}°C)`);
       console.log(`📍 Location confirmed: ${cityData.name}, Saudi Arabia`);
-      console.log(`🕐 Data timestamp: ${currentWeather.LocalObservationDateTime}`);
+      console.log(`🕐 Data timestamp: ${weatherData.location.localtime}`);
       
       return {
         city,
         temperature,
-        description: currentWeather.WeatherText || 'Sunny',
-        icon: currentWeather.WeatherIcon?.toString().padStart(2, '0') || '01',
-        humidity: currentWeather.RelativeHumidity || null,
-        windSpeed: currentWeather.Wind?.Speed?.Metric?.Value || null,
-        tempMax: null, // AccuWeather current endpoint doesn't provide daily min/max
+        description: currentWeather.weather_descriptions?.[0] || 'Sunny',
+        icon: currentWeather.weather_icons?.[0] || '',
+        humidity: currentWeather.humidity || null,
+        windSpeed: currentWeather.wind_speed || null,
+        tempMax: null, // Weatherstack current endpoint doesn't provide daily min/max
         tempMin: null
       };
     });
