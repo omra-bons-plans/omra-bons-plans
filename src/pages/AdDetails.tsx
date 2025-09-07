@@ -276,7 +276,10 @@ export default function AdDetails() {
             variant="ghost"
             onClick={() => {
               const fromCategory = location.state?.fromCategory;
-              if (fromCategory) {
+              const fromAdmin = location.state?.fromAdmin;
+              if (fromAdmin) {
+                navigate('/admin/ads');
+              } else if (fromCategory) {
                 navigate(`/category/${fromCategory}`);
               } else {
                 navigate('/');

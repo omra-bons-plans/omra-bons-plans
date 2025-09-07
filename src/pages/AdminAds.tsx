@@ -508,7 +508,7 @@ const AdminAds = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => navigate(`/ad/${ad.id}`)}
+                              onClick={() => navigate(`/ad/${ad.id}`, { state: { fromAdmin: true } })}
                             >
                               <Eye className="w-4 h-4" />
                             </Button>
