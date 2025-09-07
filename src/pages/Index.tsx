@@ -14,6 +14,7 @@ import UserMenu from "@/components/ui/UserMenu";
 import MobileLayout from "@/components/mobile/MobileLayout";
 import FeedbackForm from "@/components/ui/FeedbackForm";
 import AdCard from "@/components/ui/AdCard";
+import Logo from "@/components/ui/Logo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -272,8 +273,9 @@ const Index = () => {
               <div className="flex items-center space-x-8">
                 {/* Logo - Left aligned on desktop */}
                 <div className="flex items-center space-x-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                  <Logo className="h-10 w-10" />
                   <span className="text-2xl font-normal text-foreground tracking-tight">
-                    OmraBonsPlans.fr
+                    Qibla-voyages
                   </span>
                 </div>
                 
@@ -1180,6 +1182,7 @@ const Index = () => {
             {/* Logo and Description */}
             <div className="space-y-6">
               <div className="flex items-center space-x-3">
+                <Logo className="h-8 w-8" />
                 <span className="text-lg font-normal text-foreground tracking-tight">
                   OmraBonsPlans.fr
                 </span>

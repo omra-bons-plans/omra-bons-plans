@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <title>OmraBonsPlans – Favicon</title>
-  <defs>
-    <style>
-      .ink{fill:#0B1E3A}   /* bleu nuit */
-      .gold{fill:#D4AF37}  /* doré */
-      .bg{fill:#ffffff}    /* fond blanc */
-    </style>
-  </defs>
-
-  <!-- Fond blanc arrondi -->
-  <rect class="bg" width="128" height="128" rx="24"/>
-
-  <!-- Croissant -->
-  <path class="ink" fill-rule="evenodd"
-        d="M64 12a44 44 0 1 0 0 104a36 36 0 1 1 0-72z"/>
-
-  <!-- Kaaba stylisée -->
-  <g transform="translate(36,36)">
-    <rect width="56" height="56" rx="5" class="ink"/>
-    <rect y="16" width="56" height="8" class="gold"/>
-    <rect x="6" y="16" width="8" height="8" class="ink" opacity="0.3"/>
-    <rect x="20" y="16" width="16" height="8" class="ink" opacity="0.3"/>
-  </g>
+  <title>Qibla-voyages – Favicon</title>
+  
+  <!-- Logo Qibla-voyages -->
+  <path d="M64 12a44 44 0 1 0 0 104a36 36 0 1 1 0-72z" fill="#0B1E3A"/>
+  <rect x="36" y="36" width="56" height="56" rx="5" fill="#0B1E3A"/>
+  <rect x="36" y="52" width="56" height="8" fill="#D4AF37"/>
 </svg>
