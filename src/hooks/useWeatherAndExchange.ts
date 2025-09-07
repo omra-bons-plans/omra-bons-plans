@@ -45,9 +45,13 @@ export const useWeatherAndExchange = () => {
       
       console.log('🌤️ Fetching weather and exchange data...');
 
-      const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange');
+      // Add timestamp to force fresh data
+      const timestamp = Date.now();
+      const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange', {
+        body: { timestamp }
+      });
 
-      console.log('📡 Function response:', { functionData, functionError });
+      console.log('📡 Function response:', { functionData, functionError, timestamp });
 
       if (functionError) {
         console.error('❌ Function error:', functionError);
@@ -55,6 +59,11 @@ export const useWeatherAndExchange = () => {
       }
 
       console.log('✅ Weather and exchange data received:', functionData);
+      console.log('🌡️ Temperature data:', {
+        makkah: functionData?.weather?.makkah?.temperature,
+        madinah: functionData?.weather?.madinah?.temperature,
+        fetchTime: new Date().toLocaleTimeString()
+      });
       setData(functionData);
     } catch (err: any) {
       console.error('💥 Error fetching weather and exchange data:', err);
@@ -71,8 +80,8 @@ export const useWeatherAndExchange = () => {
     // Fetch data immediately
     fetchData();
 
-    // Set up interval to refresh every 30 minutes (1800000 ms)
-    const interval = setInterval(fetchData, 30 * 60 * 1000);
+    // Set up interval to refresh every 5 minutes (300000 ms) for more frequent updates
+    const interval = setInterval(fetchData, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
