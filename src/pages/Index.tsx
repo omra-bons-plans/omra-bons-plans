@@ -416,8 +416,8 @@ const Index = () => {
               </div>
 
               {/* Compact Weather & Exchange Widget */}
-              <div className="bg-white/95 backdrop-blur-sm p-2 rounded-2xl shadow-soft max-w-[200px] mx-auto border border-border/20 
-                             scale-[0.67] sm:scale-100 sm:p-3 sm:max-w-xs">
+              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft max-w-[280px] mx-auto border border-border/20 
+                             scale-110 sm:scale-100 sm:p-3 sm:max-w-xs">
                 <div className="flex flex-col gap-1 sm:gap-2">
                   {/* Header with refresh button */}
                   <div className="flex items-center justify-between mb-1">
