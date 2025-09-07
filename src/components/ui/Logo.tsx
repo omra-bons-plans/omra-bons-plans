@@ -7,7 +7,7 @@ interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export default function Logo({ size = 48, className, alt = "Omra Bons Plans", ...props }: LogoProps) {
   return (
     <img
-      src="/lovable-uploads/3c50d8af-60ac-440c-8d0e-00a3fa82d43e.png"
+      src="/lovable-uploads/f3eee9aa-6ad2-4c1d-bda5-2dadff68a39d.png"
       alt={alt}
       width={size}
       height={size}
