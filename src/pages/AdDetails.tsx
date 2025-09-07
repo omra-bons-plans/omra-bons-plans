@@ -394,10 +394,23 @@ export default function AdDetails() {
                     )}
                     
                     {/* Badge de promotion flash */}
-                    {ad.is_promotion && ad.promotion_end_date && new Date(ad.promotion_end_date) > new Date() && (
-                      <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
-                        ⚡ Promotion Flash
-                      </Badge>
+                    {ad.original_price && ad.original_price > ad.price && (
+                      (() => {
+                        const discount = Math.round(((ad.original_price - ad.price) / ad.original_price) * 100);
+                        const endDate = new Date(ad.publish_end_date);
+                        const now = new Date();
+                        const daysLeft = Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+                        
+                        // Badge flash si réduction >= 30% et se termine dans 7 jours ou moins
+                        if (discount >= 30 && daysLeft <= 7 && daysLeft > 0) {
+                          return (
+                            <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
+                              ⚡ Flash Sale - {discount}%
+                            </Badge>
+                          );
+                        }
+                        return null;
+                      })()
                     )}
                   </div>
                   <div className="mt-4">

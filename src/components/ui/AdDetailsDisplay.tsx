@@ -552,7 +552,18 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                     <h4 className="font-medium">Visite virtuelle:</h4>
                     <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                       <iframe
-                        src={ad.categoryDetails.video_url}
+                        src={(() => {
+                          const url = ad.categoryDetails.video_url;
+                          // Convertir l'URL YouTube en format embed
+                          if (url.includes('youtube.com/watch?v=')) {
+                            const videoId = url.split('v=')[1].split('&')[0];
+                            return `https://www.youtube.com/embed/${videoId}`;
+                          } else if (url.includes('youtu.be/')) {
+                            const videoId = url.split('youtu.be/')[1].split('?')[0];
+                            return `https://www.youtube.com/embed/${videoId}`;
+                          }
+                          return url;
+                        })()}
                         title="Visite virtuelle de l'hébergement"
                         className="w-full h-full"
                         frameBorder="0"
