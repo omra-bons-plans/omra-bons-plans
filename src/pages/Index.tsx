@@ -18,6 +18,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatWindow from "@/components/ui/ChatWindow";
+import { WeatherWidget } from "@/components/ui/WeatherWidget";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -415,98 +416,14 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Compact Weather & Exchange Widget */}
-              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft max-w-xs mx-auto border border-border/20">
-                <div className="flex flex-col gap-2">
-                  {/* Header with refresh button */}
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="text-xs text-gray-500">
-                      Données en temps réel
-                    </div>
-                    <button
-                      onClick={refetchWeather}
-                      disabled={weatherLoading}
-                      className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
-                      title="Actualiser les données"
-                    >
-                      <RefreshCw className={`w-3 h-3 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
-                    </button>
-                  </div>
-                  
-                  {/* Weather Section - Compact */}
-                  <div className="flex items-center space-x-2">
-                    {/* City Indicator Dots */}
-                    <div className="flex flex-col space-y-1">
-                      <button
-                        onClick={() => setCurrentWeatherCity('madinah')}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          currentWeatherCity === 'madinah' 
-                            ? 'bg-amber-500 shadow-sm' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                      />
-                      <button
-                        onClick={() => setCurrentWeatherCity('makkah')}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          currentWeatherCity === 'makkah' 
-                            ? 'bg-amber-500 shadow-sm' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                      />
-                    </div>
-
-                    {/* Weather Icon - Smaller */}
-                    <div className="flex items-center justify-center">
-                      <div className="w-4 h-4">
-                        {weatherAndExchange?.weather && 
-                          getWeatherIcon(
-                            currentWeatherCity === 'makkah' 
-                              ? (weatherAndExchange.weather.makkah?.description || 'Sunny')
-                              : (weatherAndExchange.weather.madinah?.description || 'Sunny')
-                          )
-                        }
-                      </div>
-                    </div>
-
-                    {/* Weather Info - Compact */}
-                    <div className="flex-1 min-w-0">
-                      <div className="text-xs text-gray-600 font-medium">
-                        {(() => {
-                          const today = new Date();
-                          const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-                          return days[today.getDay()];
-                        })()}
-                      </div>
-                      <div className="text-sm font-semibold text-gray-800 truncate">
-                        {currentWeatherCity === 'makkah' ? 'Médine, Arabie saoudite' : 'Médine, Arabie saoudite'}
-                      </div>
-                      <div className="text-xs text-gray-500 capitalize truncate">
-                        {currentWeatherCity === 'makkah' 
-                          ? translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
-                          : translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')}
-                      </div>
-                    </div>
-
-                    {/* Temperature - Compact */}
-                    <div className="text-2xl font-bold text-amber-500">
-                      {weatherAndExchange?.weather 
-                        ? (currentWeatherCity === 'makkah' 
-                            ? `${weatherAndExchange.weather.makkah?.temperature || '--'}°`
-                            : `${weatherAndExchange.weather.madinah?.temperature || '--'}°`)
-                        : '--°'}
-                    </div>
-                  </div>
-
-                  {/* Exchange Rate Section - Compact */}
-                  <div className="text-center pt-2 border-t border-gray-200">
-                    <div className="text-xs text-gray-600 font-medium mb-1">Taux du jour</div>
-                    <div className="text-lg font-bold text-gray-800">
-                      1€ = <span className="text-amber-500">
-                        {weatherAndExchange?.exchange?.eurToSar || '4.39'}
-                      </span> Sar
-                    </div>
-                  </div>
-                </div>
+              {/* Modern Weather Widget */}
+              <div className="flex justify-center">
+                <WeatherWidget
+                  makkahWeather={weatherAndExchange?.weather?.makkah}
+                  madinahWeather={weatherAndExchange?.weather?.madinah}
+                  eurToSar={weatherAndExchange?.exchange?.eurToSar}
+                  loading={weatherLoading}
+                />
               </div>
 
             </div>
