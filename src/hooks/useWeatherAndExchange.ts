@@ -77,12 +77,13 @@ export const useWeatherAndExchange = () => {
   };
 
   useEffect(() => {
-    // Force immediate data fetch with timestamp
-    console.log('🚀 Forcing fresh weather data fetch...');
+    // Force immediate data fetch with timestamp and clear any cached data
+    console.log('🚀 Forcing fresh weather data fetch with improved coordinates...');
+    setData(null); // Clear existing data to force fresh fetch
     fetchData();
 
-    // Set up interval to refresh every 5 minutes (300000 ms) for more frequent updates
-    const interval = setInterval(fetchData, 5 * 60 * 1000);
+    // Set up interval to refresh every 3 minutes (180000 ms) for more frequent updates
+    const interval = setInterval(fetchData, 3 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
