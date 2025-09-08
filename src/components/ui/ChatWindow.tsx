@@ -163,9 +163,14 @@ const ChatWindow = () => {
                         : 'bg-card text-card-foreground'
                     }`}
                   >
-                    {message.user_id !== user?.id && (
+                    {message.user_id !== user?.id && user && (
                       <p className="text-xs font-medium text-primary mb-1">
                         {getUserDisplayInfo(message)}
+                      </p>
+                    )}
+                    {message.user_id !== user?.id && !user && (
+                      <p className="text-xs font-medium text-primary mb-1">
+                        Utilisateur anonyme
                       </p>
                     )}
                     <p className="text-sm leading-relaxed break-words">
