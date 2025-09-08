@@ -38,6 +38,8 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>(category || 'all');
 
+  console.log('📖 Blog component loaded, category:', category, 'selectedCategory:', selectedCategory);
+
   useEffect(() => {
     fetchPosts();
   }, [selectedCategory]);
@@ -45,6 +47,7 @@ const Blog = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
+      console.log('📖 Fetching posts for category:', selectedCategory);
       
       let query = supabase
         .from('blog_posts')
@@ -72,6 +75,7 @@ const Blog = () => {
       })) as BlogPost[];
 
       setPosts(postsWithAuthors);
+      console.log('📖 Posts loaded:', postsWithAuthors.length, 'posts');
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
       toast.error('Erreur lors du chargement des articles');

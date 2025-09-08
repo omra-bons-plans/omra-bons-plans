@@ -206,7 +206,10 @@ const MobileSidebar = () => {
               <div className="space-y-1">
                 <Link
                   to="/blog"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    console.log('📱 Mobile blog link clicked');
+                    setIsOpen(false);
+                  }}
                   className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
