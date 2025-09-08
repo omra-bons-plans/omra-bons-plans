@@ -91,15 +91,18 @@ serve(async (req) => {
       }
     }
 
-    // Update the exchange rate in the database
+    // Update the exchange rate in the database using upsert
     const { error: updateError } = await supabase
       .from('exchange_rates')
-      .update({ 
+      .upsert({ 
+        base_currency: 'EUR',
+        target_currency: 'SAR',
         rate: Number(eurToSar.toFixed(4)), 
         last_updated: new Date().toISOString() 
-      })
-      .eq('base_currency', 'EUR')
-      .eq('target_currency', 'SAR');
+      }, { 
+        onConflict: 'base_currency,target_currency',
+        ignoreDuplicates: false 
+      });
 
     if (updateError) {
       console.error('Error updating exchange rate in database:', updateError);

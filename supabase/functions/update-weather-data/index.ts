@@ -88,6 +88,9 @@ serve(async (req) => {
           temp_max: weather.temp_max,
           temp_min: weather.temp_min,
           last_updated: new Date().toISOString() 
+        }, { 
+          onConflict: 'city',
+          ignoreDuplicates: false 
         });
 
       if (updateError) {
