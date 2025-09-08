@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -122,6 +122,134 @@ const MobileSidebar = () => {
 
           {/* Menu Items */}
           <div className="space-y-2">
+            {/* Categories Section - Always visible */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">Catégories</h3>
+              <div className="space-y-1">
+                <Link
+                  to="/category/sejours"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Building className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Séjours</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <Link
+                  to="/category/vols"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Plane className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Vols</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <Link
+                  to="/category/hebergements"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Hotel className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Hébergements</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <Link
+                  to="/category/guides"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <BookOpen className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Guides</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <Link
+                  to="/category/chauffeurs"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Car className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Chauffeurs</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <Link
+                  to="/category/babysitting"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Heart className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Baby-sitting</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Services Section - Always visible */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">Services</h3>
+              <div className="space-y-1">
+                <Link
+                  to="/blog"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    <UtensilsCrossed className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Blog</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+
+                <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-3">
+                    <HelpingHand className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Association</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </div>
+
+                <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-3">
+                    <Leaf className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Produit naturel</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </div>
+
+                <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-3">
+                    <Activity className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Activité</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </div>
+              </div>
+            </div>
+
+            {/* User Section - Only for authenticated users */}
+            {user && (
+              <>
+                <div className="border-t border-border pt-4 mb-4"></div>
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">Mon compte</h3>
+              </>
+            )}
+
             {user && (
               <>
                 <Link
