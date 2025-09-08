@@ -16,6 +16,9 @@ const MobileSidebar = () => {
   const { unreadCount } = useNotifications();
   const navigate = useNavigate();
 
+  // Debug logs pour vérifier l'état d'authentification
+  console.log('📱 MobileSidebar - User:', user?.email, 'isAdmin:', isAdmin);
+
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -249,7 +252,9 @@ const MobileSidebar = () => {
             {user && (
               <>
                 <div className="border-t border-border pt-4 mb-4"></div>
-                <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">Mon compte</h3>
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">
+                  Mon compte (User: {user.email} | Admin: {isAdmin ? 'Oui' : 'Non'})
+                </h3>
               </>
             )}
 
