@@ -409,7 +409,7 @@ export default function AdDetails() {
                         if (discount >= 30 && daysLeft <= 7 && daysLeft > 0) {
                           return (
                             <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
-                              ⚡ Flash Sale - {discount}%
+                              ⚡ Flash - {discount}%
                             </Badge>
                           );
                         }
