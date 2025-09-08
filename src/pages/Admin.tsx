@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,10 +8,12 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import UserMenu from '@/components/ui/UserMenu';
 
 interface UserProfile {
@@ -36,6 +38,7 @@ const Admin = () => {
   const { user } = useAuth();
   const { isAdmin, loading: adminLoading } = useAdmin();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -245,109 +248,175 @@ const Admin = () => {
   const professionalUsers = users.filter(u => u.is_professional).length;
   const totalAds = users.reduce((sum, user) => sum + user.ads_count, 0);
 
+  // Mobile Navigation Component
+  const MobileNavigation = () => (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="icon" className="md:hidden">
+          <Menu className="h-4 w-4" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="right">
+        <SheetHeader>
+          <SheetTitle>Administration</SheetTitle>
+          <SheetDescription>
+            Gérer les différentes sections
+          </SheetDescription>
+        </SheetHeader>
+        <div className="flex flex-col space-y-4 mt-4">
+          <Button
+            variant="outline"
+            onClick={() => {
+              navigate('/admin/ads');
+            }}
+            className="justify-start"
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Gérer les annonces
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              navigate('/admin/blog');
+            }}
+            className="justify-start"
+          >
+            <Settings className="w-4 h-4 mr-2" />
+            Gérer le blog
+          </Button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <span className="text-2xl font-normal text-foreground tracking-tight cursor-pointer" onClick={() => navigate('/')}>
-                OmraBonsPlans.fr
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <span 
+                className="text-lg md:text-2xl font-normal text-foreground tracking-tight cursor-pointer" 
+                onClick={() => navigate('/')}
+              >
+                {isMobile ? 'OBP.fr' : 'OmraBonsPlans.fr'}
               </span>
-              <Badge variant="outline" className="ml-2">
+              <Badge variant="outline" className="text-xs md:text-sm">
                 <Shield className="w-3 h-3 mr-1" />
-                Administration
+                {isMobile ? 'Admin' : 'Administration'}
               </Badge>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                onClick={() => navigate('/admin/ads')}
-                className="text-sm"
-              >
-                Gérer les annonces
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => navigate('/admin/blog')}
-                className="text-sm"
-              >
-                Gérer le blog
-              </Button>
+            <div className="flex items-center space-x-2 md:space-x-4">
+              {isMobile ? (
+                <MobileNavigation />
+              ) : (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin/ads')}
+                    className="text-sm"
+                  >
+                    Gérer les annonces
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin/blog')}
+                    className="text-sm"
+                  >
+                    Gérer le blog
+                  </Button>
+                </>
+              )}
               <UserMenu />
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="space-y-8">
+      <div className="container mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="space-y-6 md:space-y-8">
           {/* Page Title */}
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Gestion des comptes clients</h1>
-            <p className="text-muted-foreground mt-2">Gérez les utilisateurs, leurs rôles et leurs annonces</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+              {isMobile ? 'Gestion clients' : 'Gestion des comptes clients'}
+            </h1>
+            <p className="text-muted-foreground mt-2 text-sm md:text-base">
+              {isMobile ? 'Gérez les utilisateurs et leurs annonces' : 'Gérez les utilisateurs, leurs rôles et leurs annonces'}
+            </p>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Utilisateurs</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Utilisateurs' : 'Total Utilisateurs'}
+                </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalUsers}</div>
+                <div className="text-xl md:text-2xl font-bold">{totalUsers}</div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Administrateurs</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Admins' : 'Administrateurs'}
+                </CardTitle>
                 <UserCheck className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{adminUsers}</div>
+                <div className="text-xl md:text-2xl font-bold">{adminUsers}</div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Comptes Pro</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Pro' : 'Comptes Pro'}
+                </CardTitle>
                 <Building className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{professionalUsers}</div>
+                <div className="text-xl md:text-2xl font-bold">{professionalUsers}</div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Annonces</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Annonces' : 'Total Annonces'}
+                </CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalAds}</div>
+                <div className="text-xl md:text-2xl font-bold">{totalAds}</div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Vues Annonces</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Vues' : 'Vues Annonces'}
+                </CardTitle>
                 <Eye className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{clickStats.totalAdViews}</div>
+                <div className="text-xl md:text-2xl font-bold">{clickStats.totalAdViews}</div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Clics Contact</CardTitle>
+                <CardTitle className="text-xs md:text-sm font-medium">
+                  {isMobile ? 'Clics' : 'Clics Contact'}
+                </CardTitle>
                 <MousePointer className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{clickStats.totalContactViews}</div>
+                <div className="text-xl md:text-2xl font-bold">{clickStats.totalContactViews}</div>
               </CardContent>
             </Card>
           </div>
@@ -355,21 +424,22 @@ const Admin = () => {
           {/* Filters */}
           <Card>
             <CardHeader>
-              <CardTitle>Filtres</CardTitle>
+              <CardTitle className="text-lg md:text-xl">Filtres</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                 <div>
                   <Input
-                    placeholder="Rechercher par nom, email ou entreprise..."
+                    placeholder={isMobile ? "Rechercher..." : "Rechercher par nom, email ou entreprise..."}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full"
                   />
                 </div>
                 <div>
                   <Select value={roleFilter} onValueChange={setRoleFilter}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Filtrer par rôle" />
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={isMobile ? "Rôle" : "Filtrer par rôle"} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Tous les rôles</SelectItem>
@@ -380,8 +450,8 @@ const Admin = () => {
                 </div>
                 <div>
                   <Select value={accountTypeFilter} onValueChange={setAccountTypeFilter}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Type de compte" />
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={isMobile ? "Type" : "Type de compte"} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Tous les comptes</SelectItem>
@@ -397,13 +467,123 @@ const Admin = () => {
           {/* Users Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Liste des utilisateurs</CardTitle>
+              <CardTitle className="text-lg md:text-xl">Liste des utilisateurs</CardTitle>
               <CardDescription>
                 {filteredUsers.length} utilisateur(s) trouvé(s)
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
+              {isMobile ? (
+                // Mobile Card Layout
+                <div className="space-y-4">
+                  {filteredUsers.map((user) => (
+                    <Card key={user.id} className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="font-medium text-sm">
+                              {user.full_name || user.first_name || 'Sans nom'}
+                            </div>
+                            <div className="text-xs text-muted-foreground break-all">
+                              {user.email}
+                            </div>
+                            {user.company_name && (
+                              <div className="text-xs text-muted-foreground flex items-center mt-1">
+                                <Building className="w-3 h-3 mr-1 flex-shrink-0" />
+                                {user.company_name}
+                              </div>
+                            )}
+                          </div>
+                          <Badge variant={user.is_professional ? "default" : "secondary"} className="text-xs">
+                            {user.is_professional ? "Pro" : "Part."}
+                          </Badge>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">Rôle:</span>
+                            <Select
+                              value={user.role}
+                              onValueChange={(value: 'admin' | 'user') => handleRoleChange(user.id, value)}
+                            >
+                              <SelectTrigger className="w-full h-8 text-xs mt-1">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="admin">Admin</SelectItem>
+                                <SelectItem value="user">User</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Annonces:</span>
+                            <div className="font-medium mt-1">{user.ads_count}</div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">Vues:</span>
+                            <div className="font-medium">{user.ad_views}</div>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Contacts:</span>
+                            <div className="font-medium">{user.contact_views}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2 border-t">
+                          <div className="text-xs text-muted-foreground">
+                            {new Date(user.created_at).toLocaleDateString('fr-FR')}
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            {user.slug && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => navigate(`/profile/${user.slug}`)}
+                                className="h-8 px-2 text-xs"
+                              >
+                                <Eye className="w-3 h-3" />
+                              </Button>
+                            )}
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="h-8 px-2 text-xs text-destructive border-destructive/20 hover:bg-destructive/10"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Supprimer l'utilisateur</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogAction 
+                                    onClick={() => handleDeleteUser(user.id)}
+                                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                  >
+                                    Supprimer
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                // Desktop Table Layout
+                <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -530,7 +710,8 @@ const Admin = () => {
                     ))}
                   </TableBody>
                 </Table>
-              </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
