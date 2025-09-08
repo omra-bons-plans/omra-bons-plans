@@ -29,26 +29,35 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email to admin
     const adminEmailResponse = await resend.emails.send({
-      from: "OmraBonsPlans <onboarding@resend.dev>",
-      to: ["admin@omrabonsplans.fr"], // Remplacez par votre vraie adresse email
+      from: "OmraBonsPlans <feedback@omrabonsplans.fr>",
+      to: ["fafaland@hotmail.fr"],
+      reply_to: email,
       subject: `Nouveau feedback de ${firstName} ${lastName}`,
       html: `
-        <h1>Nouveau message de feedback</h1>
-        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3>Informations de contact :</h3>
-          <p><strong>Nom :</strong> ${firstName} ${lastName}</p>
-          <p><strong>Email :</strong> ${email}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">
+            Nouveau feedback reçu
+          </h2>
+          
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p><strong>Prénom :</strong> ${firstName}</p>
+            <p><strong>Nom :</strong> ${lastName}</p>
+            <p><strong>Email :</strong> <a href="mailto:${email}">${email}</a></p>
+          </div>
+          
+          <div style="margin: 20px 0;">
+            <h3 style="color: #333;">Message :</h3>
+            <div style="background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+              ${message.replace(/\n/g, '<br>')}
+            </div>
+          </div>
+          
+          <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+          
+          <p style="font-size: 12px; color: #666;">
+            Ce message a été envoyé depuis le formulaire "Aidez-nous à nous améliorer" d'OmraBonsPlans.fr
+          </p>
         </div>
-        
-        <div style="background: #fff; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff;">
-          <h3>Message :</h3>
-          <p style="white-space: pre-wrap;">${message}</p>
-        </div>
-        
-        <hr style="margin: 30px 0;">
-        <p style="color: #666; font-size: 14px;">
-          Ce message a été envoyé depuis le formulaire de feedback d'OmraBonsPlans.fr
-        </p>
       `,
     });
 

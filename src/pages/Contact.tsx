@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import MobileLayout from '@/components/mobile/MobileLayout';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -42,9 +43,14 @@ const Contact = () => {
     setIsLoading(true);
     
     try {
-      // Ici vous pourrez intégrer l'envoi d'email via Supabase Edge Function
-      // Pour l'instant, on simule l'envoi
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) {
+        console.error('Error sending contact email:', error);
+        throw error;
+      }
       
       toast({
         title: "Message envoyé",
