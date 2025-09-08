@@ -402,11 +402,11 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                     rows={4}
                     maxLength={500}
                   />
-                  <div className="flex justify-between items-center text-xs">
-                    <span className={errors.description ? "text-red-500" : "text-muted-foreground"}>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                    <span className={errors.description ? "text-destructive font-medium" : "text-muted-foreground"}>
                       {errors.description?.message || "La description doit contenir au moins 20 caractères"}
                     </span>
-                    <span className="text-muted-foreground">{watch('description')?.length || 0}/500</span>
+                    <span className="text-muted-foreground text-right">{watch('description')?.length || 0}/500</span>
                   </div>
                   {errors.description && <span className="text-destructive text-sm">{errors.description.message}</span>}
                 </div>

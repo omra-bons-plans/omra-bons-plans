@@ -367,11 +367,11 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       setValue('title', upperValue);
                     }}
                   />
-                  <div className="flex justify-between items-center text-xs text-muted-foreground">
-                    <span className={errors.title ? "text-red-500" : "text-muted-foreground"}>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                    <span className={errors.title ? "text-destructive font-medium" : "text-muted-foreground"}>
                       {errors.title?.message || "Le titre doit contenir au moins 5 caractères"}
                     </span>
-                    <span>{watch('title')?.length || 0}/20</span>
+                    <span className="text-muted-foreground text-right">{watch('title')?.length || 0}/20</span>
                   </div>
                 </div>
 
@@ -478,11 +478,11 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   rows={6}
                   maxLength={500}
                 />
-                <div className="flex justify-between items-center text-xs">
-                  <span className={errors.description ? "text-red-500" : "text-muted-foreground"}>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                  <span className={errors.description ? "text-destructive font-medium" : "text-muted-foreground"}>
                     {errors.description?.message || "La description doit contenir au moins 20 caractères"}
                   </span>
-                  <span className="text-muted-foreground">{watch('description')?.length || 0}/500</span>
+                  <span className="text-muted-foreground text-right">{watch('description')?.length || 0}/500</span>
                 </div>
               </div>
             </CardContent>

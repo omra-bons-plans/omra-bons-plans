@@ -287,9 +287,11 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   placeholder="Ex: Vol direct Paris"
                   maxLength={20}
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>Minimum 10 caractères</span>
-                  <span>{formData.title.length}/20</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                  <span className={formData.title.length < 10 ? "text-destructive font-medium" : "text-muted-foreground"}>
+                    {formData.title.length < 10 ? "Le titre doit contenir au moins 10 caractères" : "Minimum 10 caractères"}
+                  </span>
+                  <span className="text-muted-foreground text-right">{formData.title.length}/20</span>
                 </div>
               </div>
 
@@ -303,9 +305,11 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   rows={4}
                   maxLength={500}
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>Minimum 20 caractères</span>
-                  <span>{formData.description.length}/500</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                  <span className={formData.description.length < 20 ? "text-destructive font-medium" : "text-muted-foreground"}>
+                    {formData.description.length < 20 ? "La description doit contenir au moins 20 caractères" : "Minimum 20 caractères"}
+                  </span>
+                  <span className="text-muted-foreground text-right">{formData.description.length}/500</span>
                 </div>
               </div>
             </CardContent>
