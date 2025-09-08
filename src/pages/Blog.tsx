@@ -77,11 +77,12 @@ const Blog = () => {
 
       const postsWithAuthors = data.map(post => ({
         ...post,
-        author: post.profiles
+        author: post.profiles || { full_name: 'Auteur anonyme', first_name: 'Anonyme' },
+        tags: post.tags || []
       })) as BlogPost[];
 
       setPosts(postsWithAuthors);
-      console.log('📖 Posts loaded:', postsWithAuthors.length, 'posts');
+      console.log('📖 Posts loaded:', postsWithAuthors.length, 'posts', postsWithAuthors);
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
       toast.error('Erreur lors du chargement des articles');
@@ -225,6 +226,9 @@ const Blog = () => {
               </h3>
               <p className="text-muted-foreground">
                 {searchTerm ? 'Essayez avec d\'autres mots-clés' : 'Aucun article publié pour le moment'}
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Debug: posts={posts.length}, filteredPosts={filteredPosts.length}, loading={loading ? 'true' : 'false'}
               </p>
             </div>
           ) : (
