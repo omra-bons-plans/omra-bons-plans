@@ -549,11 +549,11 @@ const Index = () => {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="pt-32 pb-20 px-0 md:px-6">
+      <section className="pt-16 md:pt-32 pb-20 px-0 md:px-6">
         <div className="container mx-auto">
           {/* Tabs System */}
           <Tabs defaultValue="annonces" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-muted/30 rounded-xl p-1 max-w-md mx-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-muted/30 rounded-xl p-1 max-w-md mx-auto sticky top-20 z-40 backdrop-blur-md">
               <TabsTrigger 
                 value="annonces" 
                 className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
