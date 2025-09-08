@@ -235,14 +235,14 @@ const Index = () => {
   if (adsLoading) {
     console.log('⏳ Index page: Loading ads...');
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen bg-background flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
             <p className="text-muted-foreground">Chargement des annonces...</p>
           </div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
@@ -263,7 +263,7 @@ const Index = () => {
   ];
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -1247,7 +1247,7 @@ const Index = () => {
         </div>
       </footer>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

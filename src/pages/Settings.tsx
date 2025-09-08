@@ -7,7 +7,7 @@ const Settings = () => {
   const navigate = useNavigate();
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">
@@ -32,7 +32,7 @@ const Settings = () => {
           </Card>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

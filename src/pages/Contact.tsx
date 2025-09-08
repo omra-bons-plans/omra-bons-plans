@@ -77,7 +77,7 @@ const Contact = () => {
   };
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">
@@ -166,7 +166,7 @@ const Contact = () => {
           </Card>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

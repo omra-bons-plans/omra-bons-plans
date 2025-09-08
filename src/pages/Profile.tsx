@@ -236,7 +236,7 @@ const Profile = () => {
   }
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -477,7 +477,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

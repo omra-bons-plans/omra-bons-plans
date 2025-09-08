@@ -231,16 +231,16 @@ const MyAds = () => {
 
   if (loading) {
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Desktop Header */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -523,7 +523,7 @@ const MyAds = () => {
           </div>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

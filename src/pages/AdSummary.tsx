@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import MobileLayout from '@/components/ResponsiveLayout';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 
@@ -206,17 +206,17 @@ const AdSummary = () => {
 
   if (loading) {
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
   if (!ad) {
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-2">Annonce non trouvée</h2>
@@ -225,12 +225,12 @@ const AdSummary = () => {
             </Link>
           </div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -467,7 +467,7 @@ const AdSummary = () => {
           </div>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

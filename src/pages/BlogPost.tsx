@@ -185,29 +185,29 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
   if (!post) {
     return (
-      <MobileLayout>
+      <ResponsiveLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-2">Article non trouvé</h2>
             <Button onClick={() => navigate('/blog')}>Retour au blog</Button>
           </div>
         </div>
-      </MobileLayout>
+      </ResponsiveLayout>
     );
   }
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -417,7 +417,7 @@ const BlogPost = () => {
           </div>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 

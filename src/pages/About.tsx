@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import MobileLayout from '@/components/ResponsiveLayout';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 const About = () => {
   const navigate = useNavigate();
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">
@@ -50,7 +50,7 @@ const About = () => {
           </Card>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 };
 
