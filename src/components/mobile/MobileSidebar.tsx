@@ -268,21 +268,6 @@ const MobileSidebar = () => {
 
             {/* User Section - Only for authenticated users */}
             <div className="border-t border-border pt-4 mb-4"></div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">
-              TOUJOURS VISIBLE - User: {user?.email || 'Non connecté'} | Admin: {isAdmin ? 'Oui' : 'Non'}
-            </h3>
-            
-            {user && (
-              <div className="bg-green-100 p-2 rounded mb-2">
-                <p className="text-xs text-green-800">✅ Section utilisateur connecté visible</p>
-              </div>
-            )}
-            
-            {!user && (
-              <div className="bg-red-100 p-2 rounded mb-2">
-                <p className="text-xs text-red-800">❌ Utilisateur non connecté</p>
-              </div>
-            )}
 
             {user && (
               <>
