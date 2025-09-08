@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
+import ErrorBoundary from "./components/ui/ErrorBoundary";
 import ScrollToTop from "./components/ui/ScrollToTop";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import Index from "./pages/Index";
@@ -41,15 +42,16 @@ import CategoryPage from "./pages/CategoryPage";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <AdminProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <AdminProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={
@@ -157,13 +159,14 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-            </Routes>
-            <BackToTopButton />
-          </BrowserRouter>
-        </TooltipProvider>
-      </AdminProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+              </Routes>
+              <BackToTopButton />
+            </BrowserRouter>
+          </TooltipProvider>
+        </AdminProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
