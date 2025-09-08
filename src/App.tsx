@@ -124,6 +124,7 @@ const App = () => (
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/profile/:slug" element={<PublicProfile />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:category" element={<Blog />} />
             <Route path="/blog/:category/:id" element={<BlogPost />} />
             <Route path="/admin/ads" element={
               <ProtectedRoute>
