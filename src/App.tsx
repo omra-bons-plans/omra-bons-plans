@@ -34,6 +34,7 @@ import BlogPost from "./pages/BlogPost";
 import PublicProfile from "./pages/PublicProfile";
 import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
+import About from "./pages/About";
 import CategoryPage from "./pages/CategoryPage";
 
 const queryClient = new QueryClient();
@@ -151,6 +152,7 @@ const App = () => (
                 <Notifications />
               </ProtectedRoute>
             } />
+            <Route path="/about" element={<About />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>

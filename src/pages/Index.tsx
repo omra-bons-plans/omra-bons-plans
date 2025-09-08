@@ -1208,7 +1208,7 @@ const Index = () => {
             <div>
               <h4 className="font-bold text-lg mb-6">A propos</h4>
               <ul className="space-y-4 text-muted-foreground text-sm">
-                <li><Link to="#" className="hover:text-primary transition-colors">Qui sommes nous ?</Link></li>
+                <li><Link to="/about" className="hover:text-primary transition-colors">Qui sommes nous ?</Link></li>
                 <li><Link to="#" className="hover:text-primary transition-colors">Contact</Link></li>
                 <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
                 <li><Link to="#" className="hover:text-primary transition-colors">Vip</Link></li>
