@@ -79,6 +79,7 @@ const Blog = () => {
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
       toast.error('Erreur lors du chargement des articles');
+      setPosts([]); // S'assurer que posts est un tableau vide en cas d'erreur
     } finally {
       setLoading(false);
     }
@@ -120,13 +121,17 @@ const Blog = () => {
   };
 
   const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = searchTerm === '' || 
+                         post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
+    console.log('🔍 Filtering post:', post.title, 'matches search:', matchesSearch, 'searchTerm:', searchTerm);
     return matchesSearch;
   });
+
+  console.log('📖 Blog render - posts:', posts.length, 'filteredPosts:', filteredPosts.length, 'loading:', loading);
 
   const categories = [
     { value: 'all', label: 'Toutes les sections', count: posts.length },
