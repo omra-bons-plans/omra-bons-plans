@@ -29,6 +29,7 @@ interface Profile {
   company_name: string | null;
   company_address: string | null;
   website: string | null;
+  professional_email: string | null;
   professional_phone: string | null;
   professional_phone_country: string | null;
 }
@@ -54,6 +55,7 @@ const Profile = () => {
     company_name: '',
     company_address: '',
     website: '',
+    professional_email: '',
     professional_phone: '',
     professional_phone_country: '+33',
   });
@@ -113,6 +115,7 @@ const Profile = () => {
           company_name: '',
           company_address: '',
           website: '',
+          professional_email: '',
           professional_phone: '',
           professional_phone_country: '+33',
         };
@@ -155,8 +158,16 @@ const Profile = () => {
       } else {
         toast.success('Profil sauvegardé avec succès');
         
-        // Check if profile is now complete with required fields
-        const requiredFields = ['first_name', 'gender', 'phone'];
+        // Check if profile is now complete with required fields based on account type
+        let requiredFields: string[];
+        if (profile.is_professional) {
+          // Only professional fields are required
+          requiredFields = ['company_name', 'company_address', 'professional_email', 'professional_phone'];
+        } else {
+          // All personal fields except instagram and facebook
+          requiredFields = ['first_name', 'kuniya', 'gender', 'email', 'phone', 'whatsapp'];
+        }
+        
         const isComplete = requiredFields.every(field => {
           const value = profile[field as keyof typeof profile];
           return value && value.toString().trim() !== '';
@@ -409,33 +420,44 @@ const Profile = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="website">Site web</Label>
-                      <Input
-                        id="website"
-                        value={profile.website || ''}
-                        onChange={(e) => handleInputChange('website', e.target.value)}
-                        placeholder="https://www.exemple.com"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="professional_phone">Numéro de téléphone</Label>
-                      <div className="flex space-x-2">
-                        <CountrySelect
-                          value={profile.professional_phone_country || '+33'}
-                          onValueChange={(value) => handleInputChange('professional_phone_country', value)}
-                        />
-                        <Input
-                          id="professional_phone"
-                          value={profile.professional_phone || ''}
-                          onChange={(e) => handleInputChange('professional_phone', e.target.value)}
-                          placeholder="555 55 55 55"
-                          className="flex-1"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                   <div className="space-y-2">
+                     <Label htmlFor="professional_email">Adresse e-mail professionnelle</Label>
+                     <Input
+                       id="professional_email"
+                       type="email"
+                       value={profile.professional_email || ''}
+                       onChange={(e) => handleInputChange('professional_email', e.target.value)}
+                       placeholder="contact@entreprise.com"
+                     />
+                   </div>
+
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div className="space-y-2">
+                       <Label htmlFor="website">Site web</Label>
+                       <Input
+                         id="website"
+                         value={profile.website || ''}
+                         onChange={(e) => handleInputChange('website', e.target.value)}
+                         placeholder="https://www.exemple.com"
+                       />
+                     </div>
+                     <div className="space-y-2">
+                       <Label htmlFor="professional_phone">Numéro de téléphone</Label>
+                       <div className="flex space-x-2">
+                         <CountrySelect
+                           value={profile.professional_phone_country || '+33'}
+                           onValueChange={(value) => handleInputChange('professional_phone_country', value)}
+                         />
+                         <Input
+                           id="professional_phone"
+                           value={profile.professional_phone || ''}
+                           onChange={(e) => handleInputChange('professional_phone', e.target.value)}
+                           placeholder="555 55 55 55"
+                           className="flex-1"
+                         />
+                       </div>
+                     </div>
+                   </div>
                 </div>
               )}
 

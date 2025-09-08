@@ -8,7 +8,8 @@ interface ProfileCompletionStatus {
   missingFields: string[];
 }
 
-const REQUIRED_FIELDS = ['first_name', 'gender', 'phone'] as const;
+const PERSONAL_REQUIRED_FIELDS = ['first_name', 'kuniya', 'gender', 'email', 'phone', 'whatsapp'] as const;
+const PROFESSIONAL_REQUIRED_FIELDS = ['company_name', 'company_address', 'professional_email', 'professional_phone'] as const;
 
 export const useProfileCompletion = (): ProfileCompletionStatus => {
   const { user } = useAuth();
@@ -30,7 +31,7 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
         
         const { data, error } = await supabase
           .from('profiles')
-          .select('first_name, gender, phone')
+          .select('first_name, kuniya, gender, email, phone, whatsapp, is_professional, company_name, company_address, professional_email, professional_phone')
           .eq('id', user.id)
           .maybeSingle();
 
@@ -45,7 +46,7 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
           }
           
           // Après les tentatives, on considère le profil comme potentiellement incomplet
-          setStatus({ isComplete: false, loading: false, missingFields: [...REQUIRED_FIELDS] });
+          setStatus({ isComplete: false, loading: false, missingFields: [...PERSONAL_REQUIRED_FIELDS] });
           return;
         }
 
@@ -54,14 +55,17 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
         const missingFields: string[] = [];
         
         if (data) {
-          REQUIRED_FIELDS.forEach(field => {
+          // Determine required fields based on professional status
+          const requiredFields = data.is_professional ? PROFESSIONAL_REQUIRED_FIELDS : PERSONAL_REQUIRED_FIELDS;
+          
+          requiredFields.forEach(field => {
             if (!data[field] || data[field].toString().trim() === '') {
               missingFields.push(field);
             }
           });
         } else {
-          // Profile doesn't exist, all fields are missing
-          missingFields.push(...REQUIRED_FIELDS);
+          // Profile doesn't exist, assume personal account and all personal fields are missing
+          missingFields.push(...PERSONAL_REQUIRED_FIELDS);
         }
 
         console.log('📊 Profile completion status:', {
@@ -85,7 +89,7 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
           return;
         }
         
-        setStatus({ isComplete: false, loading: false, missingFields: [...REQUIRED_FIELDS] });
+        setStatus({ isComplete: false, loading: false, missingFields: [...PERSONAL_REQUIRED_FIELDS] });
       }
     };
 
