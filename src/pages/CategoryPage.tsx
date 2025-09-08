@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAds } from "@/hooks/useAds";
 import AdCard from "@/components/ui/AdCard";
-import MobileLayout from "@/components/mobile/MobileLayout";
+import ResponsiveLayout from "@/components/ResponsiveLayout";
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();

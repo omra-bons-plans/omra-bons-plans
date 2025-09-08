@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import MobileLayout from '@/components/mobile/MobileLayout';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {

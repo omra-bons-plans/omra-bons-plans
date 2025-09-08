@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import MobileLayout from '@/components/mobile/MobileLayout';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 interface BlogPost {
   id: string;

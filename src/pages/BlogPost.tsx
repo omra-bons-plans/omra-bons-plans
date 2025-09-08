@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import MobileLayout from '@/components/mobile/MobileLayout';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 interface BlogPost {
   id: string;

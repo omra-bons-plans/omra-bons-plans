@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import MobileLayout from '@/components/mobile/MobileLayout';
+import MobileLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import MobileLayout from '@/components/mobile/MobileLayout';
+import MobileLayout from '@/components/ResponsiveLayout';
 
 const About = () => {
   const navigate = useNavigate();

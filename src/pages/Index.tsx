@@ -11,7 +11,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useAds } from "@/hooks/useAds";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
-import MobileLayout from "@/components/mobile/MobileLayout";
+import ResponsiveLayout from "@/components/ResponsiveLayout";
 import FeedbackForm from "@/components/ui/FeedbackForm";
 import AdCard from "@/components/ui/AdCard";
 import Logo from "@/components/ui/Logo";
