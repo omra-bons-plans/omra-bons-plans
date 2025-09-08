@@ -61,11 +61,17 @@ const Blog = () => {
         .eq('is_published', true)
         .order('created_at', { ascending: false });
 
+      console.log('📖 Query built, selectedCategory:', selectedCategory);
+
       if (selectedCategory !== 'all') {
         query = query.eq('category', selectedCategory);
+        console.log('📖 Added category filter:', selectedCategory);
       }
 
+      console.log('📖 Executing query...');
       const { data, error } = await query;
+
+      console.log('📖 Query result - data:', data, 'error:', error);
 
       if (error) throw error;
 

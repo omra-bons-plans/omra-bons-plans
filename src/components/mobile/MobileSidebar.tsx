@@ -204,20 +204,20 @@ const MobileSidebar = () => {
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-muted-foreground mb-3 px-3">Services</h3>
               <div className="space-y-1">
-                <Link
-                  to="/blog"
+                <button
                   onClick={() => {
-                    console.log('📱 Mobile blog link clicked');
+                    console.log('📱 Mobile blog button clicked, navigating to /blog');
+                    navigate('/blog');
                     setIsOpen(false);
                   }}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors w-full"
                 >
                   <div className="flex items-center space-x-3">
                     <UtensilsCrossed className="w-5 h-5 text-muted-foreground" />
                     <span className="font-medium">Blog</span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                </Link>
+                </button>
 
                 <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
                   <div className="flex items-center space-x-3">
