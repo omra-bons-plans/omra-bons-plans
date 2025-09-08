@@ -638,6 +638,7 @@ export type Database = {
           languages_spoken: string[] | null
           phone: string | null
           phone_country: string | null
+          professional_email: string | null
           professional_phone: string | null
           professional_phone_country: string | null
           profile_image: string | null
@@ -668,6 +669,7 @@ export type Database = {
           languages_spoken?: string[] | null
           phone?: string | null
           phone_country?: string | null
+          professional_email?: string | null
           professional_phone?: string | null
           professional_phone_country?: string | null
           profile_image?: string | null
@@ -698,6 +700,7 @@ export type Database = {
           languages_spoken?: string[] | null
           phone?: string | null
           phone_country?: string | null
+          professional_email?: string | null
           professional_phone?: string | null
           professional_phone_country?: string | null
           profile_image?: string | null

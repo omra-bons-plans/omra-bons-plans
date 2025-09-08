@@ -59,7 +59,8 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
           const requiredFields = data.is_professional ? PROFESSIONAL_REQUIRED_FIELDS : PERSONAL_REQUIRED_FIELDS;
           
           requiredFields.forEach(field => {
-            if (!data[field] || data[field].toString().trim() === '') {
+            const value = (data as any)[field];
+            if (!value || value.toString().trim() === '') {
               missingFields.push(field);
             }
           });

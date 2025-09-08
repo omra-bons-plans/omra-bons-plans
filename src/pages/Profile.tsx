@@ -94,7 +94,8 @@ const Profile = () => {
           ...data,
           phone_country: (data as any).phone_country || '+33',
           whatsapp_country: (data as any).whatsapp_country || '+33',
-          professional_phone_country: (data as any).professional_phone_country || '+33'
+          professional_phone_country: (data as any).professional_phone_country || '+33',
+          professional_email: (data as any).professional_email || ''
         });
       } else {
         console.log('No profile data found, creating new profile');
