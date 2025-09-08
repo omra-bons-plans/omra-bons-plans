@@ -52,11 +52,24 @@ const Blog = () => {
       let query = supabase
         .from('blog_posts')
         .select(`
-          *,
-          profiles(
-            full_name,
-            first_name
-          )
+          id,
+          title,
+          content,
+          excerpt,
+          cover_image,
+          images,
+          video_url,
+          category,
+          location_address,
+          location_city,
+          location_latitude,
+          location_longitude,
+          tags,
+          views_count,
+          created_at,
+          updated_at,
+          published_at,
+          author_id
         `)
         .eq('is_published', true)
         .order('created_at', { ascending: false });
@@ -77,7 +90,7 @@ const Blog = () => {
 
       const postsWithAuthors = data.map(post => ({
         ...post,
-        author: post.profiles || { full_name: 'Auteur anonyme', first_name: 'Anonyme' },
+        author: { full_name: 'Auteur', first_name: 'Auteur' },
         tags: post.tags || []
       })) as BlogPost[];
 
