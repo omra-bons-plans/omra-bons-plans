@@ -54,12 +54,24 @@ const BlogPost = () => {
       const { data: postData, error: postError } = await supabase
         .from('blog_posts')
         .select(`
-          *,
-          profiles!inner(
-            full_name,
-            first_name,
-            email
-          )
+          id,
+          title,
+          content,
+          excerpt,
+          cover_image,
+          images,
+          video_url,
+          category,
+          location_address,
+          location_city,
+          location_latitude,
+          location_longitude,
+          tags,
+          views_count,
+          created_at,
+          updated_at,
+          published_at,
+          author_id
         `)
         .eq('id', id)
         .eq('is_published', true)
@@ -69,7 +81,7 @@ const BlogPost = () => {
 
       const postWithAuthor = {
         ...postData,
-        author: postData.profiles
+        author: { full_name: 'Auteur', first_name: 'Auteur' }
       } as BlogPost;
 
       setPost(postWithAuthor);
@@ -95,10 +107,7 @@ const BlogPost = () => {
           published_at,
           created_at,
           views_count,
-          profiles!inner(
-            full_name,
-            first_name
-          )
+          author_id
         `)
         .eq('is_published', true)
         .eq('category', postWithAuthor.category)
@@ -109,7 +118,7 @@ const BlogPost = () => {
       if (!relatedError && relatedData) {
         const relatedWithAuthors = relatedData.map(related => ({
           ...related,
-          author: related.profiles
+          author: { full_name: 'Auteur', first_name: 'Auteur' }
         })) as BlogPost[];
         setRelatedPosts(relatedWithAuthors);
       }
