@@ -763,6 +763,48 @@ export type Database = {
         }
         Relationships: []
       }
+      weather_data: {
+        Row: {
+          city: string
+          created_at: string
+          description: string
+          humidity: number | null
+          icon: string | null
+          id: string
+          last_updated: string
+          temp_max: number | null
+          temp_min: number | null
+          temperature: number
+          wind_speed: number | null
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          description: string
+          humidity?: number | null
+          icon?: string | null
+          id?: string
+          last_updated?: string
+          temp_max?: number | null
+          temp_min?: number | null
+          temperature: number
+          wind_speed?: number | null
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          description?: string
+          humidity?: number | null
+          icon?: string | null
+          id?: string
+          last_updated?: string
+          temp_max?: number | null
+          temp_min?: number | null
+          temperature?: number
+          wind_speed?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
