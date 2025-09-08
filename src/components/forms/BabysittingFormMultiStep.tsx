@@ -202,9 +202,11 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                     setValue('title', upperValue);
                   }}
                 />
-                <div className="flex justify-between items-center text-xs text-muted-foreground">
-                  <span>{errors.title?.message}</span>
-                  <span>{watch('title')?.length || 0}/20</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                  <span className={errors.title ? "text-destructive font-medium" : "text-muted-foreground"}>
+                    {errors.title?.message}
+                  </span>
+                  <span className="text-muted-foreground text-right">{watch('title')?.length || 0}/20</span>
                 </div>
               </div>
 
@@ -233,7 +235,6 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
                   </span>
                   <span className="text-muted-foreground text-right">{watch('description')?.length || 0}/500</span>
                 </div>
-                {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
             </CardContent>
           </Card>
