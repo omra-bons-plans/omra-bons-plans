@@ -170,7 +170,7 @@ const Blog = () => {
             <div className="flex items-center justify-between">
               <Button 
                 variant="ghost" 
-                onClick={() => navigate('/')}
+                onClick={() => window.location.href = '/'}
                 className="text-muted-foreground hover:text-foreground"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />

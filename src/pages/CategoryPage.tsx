@@ -118,7 +118,7 @@ const CategoryPage = () => {
         <div className="min-h-screen bg-background flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Catégorie introuvable</h1>
-            <Button onClick={() => navigate('/')}>
+            <Button onClick={() => window.location.href = '/'}>
               Retour à l'accueil
             </Button>
           </div>
@@ -302,7 +302,7 @@ const CategoryPage = () => {
           <div className="flex items-center justify-between mb-6">
             <Button
               variant="outline"
-              onClick={() => navigate('/')}
+              onClick={() => window.location.href = '/'}
               className="flex items-center space-x-2 bg-background hover:bg-muted border-2"
             >
               <Home className="w-4 h-4" />

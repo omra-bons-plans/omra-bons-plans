@@ -256,7 +256,7 @@ export default function AdDetails() {
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Annonce introuvable</h1>
-          <Button onClick={() => navigate('/')}>
+          <Button onClick={() => window.location.href = '/'}>
             Retour à l'accueil
           </Button>
         </div>

@@ -13,7 +13,7 @@ const About = () => {
           <div className="flex items-center space-x-4 mb-8">
             <Button 
               variant="ghost" 
-              onClick={() => navigate('/')}
+              onClick={() => window.location.href = '/'}
               className="text-muted-foreground hover:text-foreground"
             >
               ← Retour
