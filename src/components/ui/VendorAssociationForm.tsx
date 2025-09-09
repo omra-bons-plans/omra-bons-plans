@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface VendorAssociationFormData {
   prenom: string;
@@ -26,6 +28,7 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -71,84 +74,99 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
     : 'Vous souhaitez apparaître sur notre site en tant qu\'association ? Contactez-nous !';
 
   return (
-    <div className="max-w-xl mx-auto px-4">
-      <Card className="border-dashed border rounded-2xl shadow-sm bg-muted/20">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-lg font-semibold text-foreground mb-2">
-            Vous souhaitez apparaître sur notre site ?
-          </CardTitle>
-          <p className="text-sm text-muted-foreground">
-            Envoyez-nous un message pour rejoindre notre réseau de {type === 'vendeur' ? 'vendeurs' : 'associations'} de confiance
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <Label htmlFor="prenom" className="text-xs">Prénom *</Label>
-                <Input
-                  id="prenom"
-                  name="prenom"
-                  type="text"
-                  value={formData.prenom}
-                  onChange={handleInputChange}
-                  placeholder="Votre prénom"
-                  className="h-9"
-                  required
-                />
+    <div className="w-full max-w-4xl mx-auto px-4">
+      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+        <Card className="border-dashed border rounded-2xl shadow-sm bg-muted/20 overflow-hidden">
+          <CollapsibleTrigger asChild>
+            <CardHeader className="text-center pb-4 cursor-pointer hover:bg-muted/30 transition-colors">
+              <div className="flex items-center justify-center gap-3">
+                <CardTitle className="text-lg font-semibold text-foreground">
+                  Vous souhaitez apparaître sur notre site ?
+                </CardTitle>
+                {isOpen ? (
+                  <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                )}
               </div>
-              <div className="space-y-1">
-                <Label htmlFor="nom" className="text-xs">Nom *</Label>
-                <Input
-                  id="nom"
-                  name="nom"
-                  type="text"
-                  value={formData.nom}
-                  onChange={handleInputChange}
-                  placeholder="Votre nom"
-                  className="h-9"
-                  required
-                />
-              </div>
-            </div>
-            
-            <div className="space-y-1">
-              <Label htmlFor="mail" className="text-xs">Email *</Label>
-              <Input
-                id="mail"
-                name="mail"
-                type="email"
-                value={formData.mail}
-                onChange={handleInputChange}
-                placeholder="votre@email.com"
-                className="h-9"
-                required
-              />
-            </div>
-            
-            <div className="space-y-1">
-              <Label htmlFor="message" className="text-xs">Message *</Label>
-              <Textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder={`Décrivez votre ${type} et pourquoi vous souhaitez apparaître sur notre site...`}
-                className="min-h-[80px] resize-none"
-                required
-              />
-            </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full h-9 text-sm"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma candidature'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+              <p className="text-sm text-muted-foreground mt-2">
+                Envoyez-nous un message pour rejoindre notre réseau de {type === 'vendeur' ? 'vendeurs' : 'associations'} de confiance
+              </p>
+            </CardHeader>
+          </CollapsibleTrigger>
+          
+          <CollapsibleContent className="animate-accordion-down data-[state=closed]:animate-accordion-up">
+            <CardContent className="pt-0">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <Label htmlFor="prenom" className="text-xs">Prénom *</Label>
+                    <Input
+                      id="prenom"
+                      name="prenom"
+                      type="text"
+                      value={formData.prenom}
+                      onChange={handleInputChange}
+                      placeholder="Votre prénom"
+                      className="h-9"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="nom" className="text-xs">Nom *</Label>
+                    <Input
+                      id="nom"
+                      name="nom"
+                      type="text"
+                      value={formData.nom}
+                      onChange={handleInputChange}
+                      placeholder="Votre nom"
+                      className="h-9"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="mail" className="text-xs">Email *</Label>
+                    <Input
+                      id="mail"
+                      name="mail"
+                      type="email"
+                      value={formData.mail}
+                      onChange={handleInputChange}
+                      placeholder="votre@email.com"
+                      className="h-9"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-1">
+                  <Label htmlFor="message" className="text-xs">Message *</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder={`Décrivez votre ${type} et pourquoi vous souhaitez apparaître sur notre site...`}
+                    className="min-h-[80px] resize-none"
+                    required
+                  />
+                </div>
+                
+                <div className="flex justify-center">
+                  <Button 
+                    type="submit" 
+                    className="w-full max-w-md h-9 text-sm"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma candidature'}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </CollapsibleContent>
+        </Card>
+      </Collapsible>
     </div>
   );
 };
