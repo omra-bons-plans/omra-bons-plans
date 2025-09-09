@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, MapPin, Calendar, Eye, Phone, MessageCircle, Star, User, Share2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { ReviewsList } from '@/components/ui/ReviewsList';
-import { ReviewForm } from '@/components/ui/ReviewForm';
-import { RatingDisplay } from '@/components/ui/RatingDisplay';
-import AdDetailsDisplay from '@/components/ui/AdDetailsDisplay';
-import { ContactModal } from '@/components/ui/ContactModal';
+import { useParams } from 'react-router-dom';
+import { Baby, Car, User, Plane, Home, Calendar } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useReviews } from '@/hooks/useReviews';
 import { toast } from 'sonner';
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
+
+// Import new components
+import { AdHeader } from '@/components/ui/AdHeader';
+import { AdImageGallery } from '@/components/ui/AdImageGallery';
+import { AdMainInfo } from '@/components/ui/AdMainInfo';
+import { AdInfoTabs } from '@/components/ui/AdInfoTabs';
+import { AdPriceAction } from '@/components/ui/AdPriceAction';
+import { AdSecondaryInfo } from '@/components/ui/AdSecondaryInfo';
 
 interface AdData {
   id: string;
@@ -56,8 +51,6 @@ interface AdData {
 
 export default function AdDetails() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const location = useLocation();
   const { user } = useAuth();
   const [ad, setAd] = useState<AdData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -77,27 +70,6 @@ export default function AdDetails() {
   useEffect(() => {
     fetchAdDetails();
   }, [id]);
-
-  // Helper functions for phone formatting
-  const formatPhoneForCall = (phone: string, countryCode: string) => {
-    if (!phone || !countryCode) return '';
-    // Remove leading zero from French numbers when adding country code
-    const cleanPhone = phone.startsWith('0') && countryCode === '+33' 
-      ? phone.slice(1) 
-      : phone;
-    return `${countryCode}${cleanPhone}`;
-  };
-
-  const formatPhoneForWhatsApp = (phone: string, countryCode: string) => {
-    if (!phone || !countryCode) return '';
-    // Clean phone number (remove all non-digits)
-    const cleanPhone = phone.replace(/[^\d]/g, '');
-    // Remove leading zero for most country codes
-    const phoneWithoutZero = cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone;
-    // Remove + from country code for WhatsApp
-    const cleanCountryCode = countryCode.replace('+', '');
-    return `${cleanCountryCode}${phoneWithoutZero}`;
-  };
 
   const fetchAdDetails = async () => {
     if (!id) return;
@@ -182,13 +154,10 @@ export default function AdDetails() {
         profile: profileData
       });
 
-      // Track view (optional - you can implement this later)
-      // trackAdView(id);
-
     } catch (error: any) {
       console.error('Error fetching ad details:', error);
       toast.error(error.message || 'Erreur lors du chargement de l\'annonce');
-      navigate('/');
+      window.location.href = '/';
     } finally {
       setLoading(false);
     }
@@ -224,357 +193,183 @@ export default function AdDetails() {
     await deleteReview(reviewId);
   };
 
-  const handleShareAd = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: ad?.title,
-        text: ad?.description,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      toast.success('Lien copié dans le presse-papiers');
+  // Helper functions for category icons and names
+  const getCategoryIcon = () => {
+    if (!ad) return <User className="w-5 h-5" />;
+    
+    switch (ad.category) {
+      case 'babysitting':
+        return <Baby className="w-5 h-5" />;
+      case 'chauffeurs':
+        return <Car className="w-5 h-5" />;
+      case 'guides':
+        return <User className="w-5 h-5" />;
+      case 'vols':
+        return <Plane className="w-5 h-5" />;
+      case 'hebergements':
+        return <Home className="w-5 h-5" />;
+      case 'sejours':
+        return <Calendar className="w-5 h-5" />;
+      default:
+        return <User className="w-5 h-5" />;
     }
   };
 
+  const getCategoryName = () => {
+    if (!ad) return 'Service';
+    
+    switch (ad.category) {
+      case 'babysitting':
+        return 'Baby-sitting';
+      case 'chauffeurs':
+        return 'Chauffeur';
+      case 'guides':
+        return 'Guide';
+      case 'vols':
+        return 'Vol';
+      case 'hebergements':
+        return 'Hébergement';
+      case 'sejours':
+        return 'Séjour';
+      default:
+        return 'Service';
+    }
+  };
+
+  // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-muted rounded w-32" />
-            <div className="h-96 bg-muted rounded" />
-            <div className="h-32 bg-muted rounded" />
+      <div className="min-h-screen bg-background">
+        <div className="pt-20 pb-24 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <div className="animate-pulse space-y-6">
+              <div className="h-64 bg-muted rounded-2xl" />
+              <div className="h-32 bg-muted rounded-2xl" />
+              <div className="h-64 bg-muted rounded-2xl" />
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
+  // Not found state
   if (!ad) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center px-4">
           <h1 className="text-2xl font-bold mb-4">Annonce introuvable</h1>
-          <Button onClick={() => window.location.href = '/'}>
+          <p className="text-muted-foreground mb-6">
+            Cette annonce n'existe pas ou a été supprimée.
+          </p>
+          <button 
+            onClick={() => window.location.href = '/'}
+            className="bg-primary text-primary-foreground px-6 py-3 rounded-lg"
+          >
             Retour à l'accueil
-          </Button>
+          </button>
         </div>
       </div>
     );
   }
+
+  // Calculate discount and flash status
+  const hasDiscount = ad.original_price && ad.original_price > ad.price;
+  const discountPercent = hasDiscount 
+    ? Math.round(((ad.original_price - ad.price) / ad.original_price) * 100) 
+    : 0;
+  const daysLeft = Math.ceil((new Date(ad.publish_end_date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+  const isFlash = hasDiscount && discountPercent >= 30 && daysLeft <= 7 && daysLeft > 0;
 
   const userReview = getUserReview();
   const canReview = user && user.id !== ad.user_id && !userReview;
-  const canEditReview = user && userReview;
+  const canEditReview = user && !!userReview;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              const fromCategory = location.state?.fromCategory;
-              const fromAdmin = location.state?.fromAdmin;
-              if (fromAdmin) {
-                navigate('/admin/ads');
-              } else if (fromCategory) {
-                navigate(`/category/${fromCategory}`);
-              } else {
-                navigate('/');
-              }
+    <div className="min-h-screen bg-background">
+      {/* Fixed Header */}
+      <AdHeader 
+        title={ad.title} 
+        description={ad.description} 
+      />
+
+      {/* Main Content */}
+      <div className="pt-20 pb-24 px-4">
+        <div className="container mx-auto max-w-4xl space-y-8">
+          {/* Image Gallery */}
+          <AdImageGallery
+            images={ad.images || []}
+            coverImage={ad.cover_image}
+            title={ad.title}
+            isPromotion={hasDiscount}
+            discountPercent={discountPercent}
+            isFlash={isFlash}
+          />
+
+          {/* Main Info */}
+          <AdMainInfo
+            title={ad.title}
+            location={ad.location}
+            category={ad.category}
+            rating={{
+              average: stats.averageRating,
+              count: stats.totalReviews
             }}
-            className="flex items-center space-x-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Retour</span>
-          </Button>
+            getCategoryIcon={getCategoryIcon}
+            getCategoryName={getCategoryName}
+          />
 
-          <Button
-            variant="outline"
-            onClick={handleShareAd}
-            className="flex items-center space-x-2"
-          >
-            <Share2 className="w-4 h-4" />
-            <span>Partager</span>
-          </Button>
-        </div>
+          {/* Description & Details Tabs */}
+          <AdInfoTabs
+            description={ad.description}
+            category={ad.category}
+            categoryDetails={ad.categoryDetails}
+          />
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Ad Preview */}
-            <Card>
-              <CardContent className="p-6">
-                <AdDetailsDisplay ad={ad} />
-              </CardContent>
-            </Card>
-
-            {/* Reviews Section - Hidden on mobile, shown on desktop */}
-            <Card className="hidden lg:block">
-              <CardContent className="p-6">
-                <Tabs defaultValue="reviews" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="reviews">
-                      Avis ({stats.totalReviews})
-                    </TabsTrigger>
-                    <TabsTrigger value="leave-review">
-                      {canEditReview ? 'Modifier mon avis' : 'Laisser un avis'}
-                    </TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="reviews" className="mt-6">
-                    <div className="space-y-6">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold">
-                          Avis des utilisateurs
-                        </h3>
-                        <RatingDisplay stats={stats} size="lg" />
-                      </div>
-
-                      <ReviewsList
-                        reviews={reviews}
-                        loading={reviewsLoading}
-                        onEditReview={handleEditReview}
-                        onDeleteReview={handleDeleteReview}
-                      />
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="leave-review" className="mt-6">
-                    {user && user.id === ad.user_id ? (
-                      <Card>
-                        <CardContent className="p-6 text-center">
-                          <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                          <h3 className="text-lg font-medium mb-2">
-                            Vous ne pouvez pas laisser d'avis
-                          </h3>
-                          <p className="text-muted-foreground">
-                            Vous ne pouvez pas laisser un avis sur votre propre annonce.
-                          </p>
-                        </CardContent>
-                      </Card>
-                    ) : (
-                      <ReviewForm
-                        onSubmit={handleReviewSubmit}
-                        existingReview={userReview}
-                        loading={reviewsLoading}
-                      />
-                    )}
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar - Mobile: shows after ad preview, Desktop: shows on right */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Price & Actions */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center mb-6">
-                  <div className="space-y-2">
-                    {/* Prix original barré si promotion */}
-                    {ad.original_price && ad.original_price > ad.price && (
-                      <div className="text-lg text-muted-foreground line-through">
-                        {ad.original_price} {ad.currency}
-                      </div>
-                    )}
-                    
-                    {/* Prix actuel */}
-                    <div className="text-3xl font-bold text-primary">
-                      {ad.price === 0 && ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
-                        ? 'Me contacter' 
-                        : `${ad.price} ${ad.currency}`}
-                    </div>
-                    
-                    {/* Badge de réduction */}
-                    {ad.original_price && ad.original_price > ad.price && (
-                      <Badge variant="outline" className="text-green-600 border-green-600">
-                        -{Math.round(((ad.original_price - ad.price) / ad.original_price) * 100)}%
-                      </Badge>
-                    )}
-                    
-                    {/* Badge de promotion flash */}
-                    {ad.original_price && ad.original_price > ad.price && (
-                      (() => {
-                        const discount = Math.round(((ad.original_price - ad.price) / ad.original_price) * 100);
-                        const endDate = new Date(ad.publish_end_date);
-                        const now = new Date();
-                        const daysLeft = Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-                        
-                        // Badge flash si réduction >= 30% et se termine dans 7 jours ou moins
-                        if (discount >= 30 && daysLeft <= 7 && daysLeft > 0) {
-                          return (
-                            <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
-                              ⚡ Flash - {discount}%
-                            </Badge>
-                          );
-                        }
-                        return null;
-                      })()
-                    )}
-                  </div>
-                  <div className="mt-4">
-                    <RatingDisplay stats={stats} />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <ContactModal
-                    contactInfo={{
-                      email: ad.profile?.email,
-                      phone: ad.profile?.phone,
-                      whatsapp: ad.profile?.whatsapp,
-                      professional_phone: ad.profile?.professional_phone,
-                      phone_country: ad.profile?.phone_country,
-                      whatsapp_country: ad.profile?.whatsapp_country,
-                      professional_phone_country: ad.profile?.professional_phone_country,
-                    }}
-                    showOptions={{
-                      show_email: ad.show_email,
-                      show_phone: ad.show_phone,
-                      show_whatsapp: ad.show_whatsapp,
-                      show_professional_phone: ad.show_professional_phone,
-                    }}
-                    ownerName={ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
-                    isAuthenticated={!!user}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Ad Info */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Informations</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-4 h-4 text-muted-foreground" />
-                    <span>{ad.location}</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    <span>
-                      Publié {formatDistanceToNow(new Date(ad.created_at), {
-                        addSuffix: true,
-                        locale: fr
-                      })}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Eye className="w-4 h-4 text-muted-foreground" />
-                    <span>Expire le {new Date(ad.publish_end_date).toLocaleDateString('fr-FR')}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Desktop Seller Info - Only visible on desktop */}
-            <Card className="hidden lg:block">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Annonceur</h3>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                    <User className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-medium">
-                      {ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis {formatDistanceToNow(new Date(ad.created_at), { locale: fr })}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Mobile Reviews Section - Shows at bottom on mobile only */}
-        <div className="lg:hidden mt-8 space-y-6">
-          {/* Reviews Section */}
-          <Card>
-            <CardContent className="p-6">
-              <Tabs defaultValue="reviews" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="reviews">
-                    Avis ({stats.totalReviews})
-                  </TabsTrigger>
-                  <TabsTrigger value="leave-review">
-                    {canEditReview ? 'Modifier mon avis' : 'Laisser un avis'}
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="reviews" className="mt-6">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold">
-                        Avis des utilisateurs
-                      </h3>
-                      <RatingDisplay stats={stats} size="lg" />
-                    </div>
-
-                    <ReviewsList
-                      reviews={reviews}
-                      loading={reviewsLoading}
-                      onEditReview={handleEditReview}
-                      onDeleteReview={handleDeleteReview}
-                    />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="leave-review" className="mt-6">
-                  {user && user.id === ad.user_id ? (
-                    <Card>
-                      <CardContent className="p-6 text-center">
-                        <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <h3 className="text-lg font-medium mb-2">
-                          Vous ne pouvez pas laisser d'avis
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Vous ne pouvez pas laisser un avis sur votre propre annonce.
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <ReviewForm
-                      onSubmit={handleReviewSubmit}
-                      existingReview={userReview}
-                      loading={reviewsLoading}
-                    />
-                  )}
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-
-          {/* Mobile Seller Info - Shows at very bottom on mobile */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Annonceur</h3>
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="font-medium">
-                    {ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Membre depuis {formatDistanceToNow(new Date(ad.created_at), { locale: fr })}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Secondary Information */}
+          <AdSecondaryInfo
+            ad={ad}
+            reviews={reviews}
+            stats={stats}
+            reviewsLoading={reviewsLoading}
+            user={user}
+            canReview={canReview}
+            canEditReview={canEditReview}
+            userReview={userReview}
+            onSubmitReview={handleReviewSubmit}
+            onEditReview={handleEditReview}
+            onDeleteReview={handleDeleteReview}
+            showReviewForm={showReviewForm}
+            setShowReviewForm={setShowReviewForm}
+          />
         </div>
       </div>
+
+      {/* Fixed Bottom Action Bar */}
+      <AdPriceAction
+        price={ad.price}
+        currency={ad.currency}
+        originalPrice={ad.original_price}
+        category={ad.category}
+        contactInfo={{
+          email: ad.profile?.email,
+          phone: ad.profile?.phone,
+          whatsapp: ad.profile?.whatsapp,
+          professional_phone: ad.profile?.professional_phone,
+          phone_country: ad.profile?.phone_country,
+          whatsapp_country: ad.profile?.whatsapp_country,
+          professional_phone_country: ad.profile?.professional_phone_country,
+        }}
+        showOptions={{
+          show_email: ad.show_email,
+          show_phone: ad.show_phone,
+          show_whatsapp: ad.show_whatsapp,
+          show_professional_phone: ad.show_professional_phone,
+        }}
+        ownerName={ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
+        isAuthenticated={!!user}
+        endDate={ad.publish_end_date}
+      />
     </div>
   );
 }
