@@ -509,7 +509,7 @@ const Index = () => {
             <TabsContent value="annonces" className="space-y-0">
               {/* Flash Sales Section */}
               <section className="pb-20">
-        <div className="container mx-auto">
+        <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
@@ -763,7 +763,7 @@ const Index = () => {
 
       {/* All Services Section - Now first */}
       <section className="py-20 px-0 md:px-6">
-        <div className="container mx-auto">
+        <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
