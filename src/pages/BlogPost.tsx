@@ -463,7 +463,7 @@ const BlogPost = () => {
             </div>
 
             {/* Table of Contents - Desktop only */}
-            <div className="hidden xl:block w-64 flex-shrink-0">
+            <div className="hidden lg:block w-64 flex-shrink-0">
               <TableOfContents content={post.content} />
             </div>
           </div>
