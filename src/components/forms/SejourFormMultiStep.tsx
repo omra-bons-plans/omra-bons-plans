@@ -24,10 +24,8 @@ interface SejourFormData {
   nightsMecca: number;
   medinaHotelName: string;
   medinaHotelDistance: string;
-  medinaHotelWalkingMinutes?: string;
   meccaHotelName: string;
   meccaHotelDistance: string;
-  meccaHotelWalkingMinutes?: string;
   publishEndDate: string;
   showEmail: boolean;
   showPhone: boolean;
@@ -637,28 +635,16 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     />
                     {errors.medinaHotelName && <p className="text-destructive text-sm">{errors.medinaHotelName.message}</p>}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres) *</Label>
-                      <Input
-                        id="medinaHotelDistance"
-                        type="number"
-                        min="0"
-                        {...register("medinaHotelDistance", { required: "La distance est requise" })}
-                        placeholder="200"
-                      />
-                      {errors.medinaHotelDistance && <p className="text-destructive text-sm">{errors.medinaHotelDistance.message}</p>}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="medinaHotelWalkingMinutes">Combien de minutes à pied ?</Label>
-                      <Input
-                        id="medinaHotelWalkingMinutes"
-                        type="number"
-                        min="0"
-                        {...register("medinaHotelWalkingMinutes")}
-                        placeholder="3"
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="medinaHotelDistance">Distance de la mosquée (en mètres) *</Label>
+                    <Input
+                      id="medinaHotelDistance"
+                      type="number"
+                      min="0"
+                      {...register("medinaHotelDistance", { required: "La distance est requise" })}
+                      placeholder="200"
+                    />
+                    {errors.medinaHotelDistance && <p className="text-destructive text-sm">{errors.medinaHotelDistance.message}</p>}
                   </div>
                 </div>
 
@@ -673,28 +659,16 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     />
                     {errors.meccaHotelName && <p className="text-destructive text-sm">{errors.meccaHotelName.message}</p>}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres) *</Label>
-                      <Input
-                        id="meccaHotelDistance"
-                        type="number"
-                        min="0"
-                        {...register("meccaHotelDistance", { required: "La distance est requise" })}
-                        placeholder="50"
-                      />
-                      {errors.meccaHotelDistance && <p className="text-destructive text-sm">{errors.meccaHotelDistance.message}</p>}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="meccaHotelWalkingMinutes">Combien de minutes à pied ?</Label>
-                      <Input
-                        id="meccaHotelWalkingMinutes"
-                        type="number"
-                        min="0"
-                        {...register("meccaHotelWalkingMinutes")}
-                        placeholder="1"
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="meccaHotelDistance">Distance de la mosquée (en mètres) *</Label>
+                    <Input
+                      id="meccaHotelDistance"
+                      type="number"
+                      min="0"
+                      {...register("meccaHotelDistance", { required: "La distance est requise" })}
+                      placeholder="50"
+                    />
+                    {errors.meccaHotelDistance && <p className="text-destructive text-sm">{errors.meccaHotelDistance.message}</p>}
                   </div>
                 </div>
               </div>
