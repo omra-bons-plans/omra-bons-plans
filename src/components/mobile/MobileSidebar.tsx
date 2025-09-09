@@ -319,7 +319,10 @@ const MobileSidebar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      console.log('📱 Admin link clicked - isAdmin:', isAdmin, 'user:', user?.email);
+                      setIsOpen(false);
+                    }}
                     className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
                   >
                     <Shield className="w-5 h-5 text-muted-foreground" />

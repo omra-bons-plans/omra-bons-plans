@@ -51,12 +51,16 @@ const Admin = () => {
   });
 
   useEffect(() => {
+    console.log('🔧 Admin page - adminLoading:', adminLoading, 'isAdmin:', isAdmin, 'user:', user?.email);
+    
     if (!adminLoading && !isAdmin) {
+      console.log('❌ Admin access denied, redirecting to home');
       navigate('/');
       return;
     }
     
     if (isAdmin) {
+      console.log('✅ Admin access granted, fetching users');
       fetchUsers();
     }
   }, [isAdmin, adminLoading, navigate]);
