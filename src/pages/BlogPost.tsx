@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2 } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
@@ -15,6 +16,7 @@ interface BlogPost {
   content: string;
   excerpt?: string;
   cover_image?: string;
+  images?: string[];
   video_url?: string;
   category: 'general' | 'restaurants' | 'associations' | 'vendeurs';
   location_address?: string;
@@ -311,6 +313,42 @@ const BlogPost = () => {
                 alt={post.title}
                 className="w-full h-64 md:h-96 object-cover rounded-lg"
               />
+            </div>
+          )}
+
+          {/* Additional Images Carousel */}
+          {post.images && post.images.length > 0 && (
+            <div className="mb-8 max-w-4xl">
+              <h3 className="text-lg font-semibold mb-4">Images</h3>
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {post.images.map((image, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                      <div className="p-1">
+                        <Card>
+                          <CardContent className="flex aspect-video items-center justify-center p-2">
+                            <img 
+                              src={image} 
+                              alt={`Image ${index + 1} - ${post.title}`}
+                              className="w-full h-full object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                              onClick={() => window.open(image, '_blank')}
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden sm:flex" />
+                <CarouselNext className="hidden sm:flex" />
+              </Carousel>
+              
+              {/* Mobile: Show image count and scroll hint */}
+              <div className="sm:hidden text-center mt-2">
+                <p className="text-xs text-muted-foreground">
+                  {post.images.length} image{post.images.length > 1 ? 's' : ''} • Balayez pour naviguer
+                </p>
+              </div>
             </div>
           )}
 
