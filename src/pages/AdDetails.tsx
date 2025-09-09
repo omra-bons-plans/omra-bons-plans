@@ -294,54 +294,58 @@ export default function AdDetails() {
       />
 
       {/* Main Content */}
-      <div className="pt-20 pb-24 px-4">
-        <div className="container mx-auto max-w-4xl space-y-8">
+      <div className="pt-20 pb-24">
+        <div className="max-w-4xl mx-auto">
           {/* Image Gallery */}
-          <AdImageGallery
-            images={ad.images || []}
-            coverImage={ad.cover_image}
-            title={ad.title}
-            isPromotion={hasDiscount}
-            discountPercent={discountPercent}
-            isFlash={isFlash}
-          />
+          <div className="px-0">
+            <AdImageGallery
+              images={ad.images || []}
+              coverImage={ad.cover_image}
+              title={ad.title}
+              isPromotion={hasDiscount}
+              discountPercent={discountPercent}
+              isFlash={isFlash}
+            />
+          </div>
 
-          {/* Main Info */}
-          <AdMainInfo
-            title={ad.title}
-            location={ad.location}
-            category={ad.category}
-            rating={{
-              average: stats.averageRating,
-              count: stats.totalReviews
-            }}
-            getCategoryIcon={getCategoryIcon}
-            getCategoryName={getCategoryName}
-          />
+          <div className="px-4 space-y-4 mt-4">
+            {/* Main Info */}
+            <AdMainInfo
+              title={ad.title}
+              location={ad.location}
+              category={ad.category}
+              rating={{
+                average: stats.averageRating,
+                count: stats.totalReviews
+              }}
+              getCategoryIcon={getCategoryIcon}
+              getCategoryName={getCategoryName}
+            />
 
-          {/* Description & Details Tabs */}
-          <AdInfoTabs
-            description={ad.description}
-            category={ad.category}
-            categoryDetails={ad.categoryDetails}
-          />
+            {/* Description & Details Tabs */}
+            <AdInfoTabs
+              description={ad.description}
+              category={ad.category}
+              categoryDetails={ad.categoryDetails}
+            />
 
-          {/* Secondary Information */}
-          <AdSecondaryInfo
-            ad={ad}
-            reviews={reviews}
-            stats={stats}
-            reviewsLoading={reviewsLoading}
-            user={user}
-            canReview={canReview}
-            canEditReview={canEditReview}
-            userReview={userReview}
-            onSubmitReview={handleReviewSubmit}
-            onEditReview={handleEditReview}
-            onDeleteReview={handleDeleteReview}
-            showReviewForm={showReviewForm}
-            setShowReviewForm={setShowReviewForm}
-          />
+            {/* Secondary Information */}
+            <AdSecondaryInfo
+              ad={ad}
+              reviews={reviews}
+              stats={stats}
+              reviewsLoading={reviewsLoading}
+              user={user}
+              canReview={canReview}
+              canEditReview={canEditReview}
+              userReview={userReview}
+              onSubmitReview={handleReviewSubmit}
+              onEditReview={handleEditReview}
+              onDeleteReview={handleDeleteReview}
+              showReviewForm={showReviewForm}
+              setShowReviewForm={setShowReviewForm}
+            />
+          </div>
         </div>
       </div>
 

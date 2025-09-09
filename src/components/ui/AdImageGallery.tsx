@@ -78,9 +78,9 @@ export const AdImageGallery = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Main Image */}
-      <Card className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg group">
+      <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md group">
         <img
           src={allImages[currentIndex]}
           alt={`${title} - Image ${currentIndex + 1}`}
@@ -93,14 +93,14 @@ export const AdImageGallery = ({
         />
         
         {/* Badges */}
-        <div className="absolute top-4 left-4 space-y-2">
+        <div className="absolute top-3 left-3 space-y-1.5">
           {isFlash && (
-            <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg">
+            <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg text-xs">
               ⚡ FLASH
             </Badge>
           )}
           {isPromotion && discountPercent > 0 && (
-            <Badge className="bg-green-600 text-white shadow-lg">
+            <Badge className="bg-green-600 text-white shadow-lg text-xs">
               -{discountPercent}%
             </Badge>
           )}
@@ -112,40 +112,40 @@ export const AdImageGallery = ({
             <Button
               variant="ghost"
               size="icon"
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm h-12 w-12 rounded-full"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm h-10 w-10 rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
                 prevImage();
               }}
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm h-12 w-12 rounded-full"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm h-10 w-10 rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
                 nextImage();
               }}
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5" />
             </Button>
           </>
         )}
 
         {/* Image Counter */}
-        <div className="absolute bottom-4 right-4 bg-black/40 text-white text-sm px-3 py-1 rounded-full backdrop-blur-sm">
+        <div className="absolute bottom-3 right-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm">
           {currentIndex + 1}/{allImages.length}
         </div>
-      </Card>
+      </div>
 
       {/* Thumbnails Slider */}
       {allImages.length > 1 && (
-        <div className="relative">
+        <div className="px-4">
           <div 
             ref={scrollRef}
-            className="flex gap-2 overflow-x-auto scrollbar-hide pb-2"
+            className="flex gap-2 overflow-x-auto scrollbar-hide pb-1"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {allImages.map((image, index) => (
@@ -153,9 +153,9 @@ export const AdImageGallery = ({
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`
-                  relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all
+                  relative flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all
                   ${currentIndex === index 
-                    ? 'border-primary shadow-lg scale-105' 
+                    ? 'border-primary shadow-md scale-105' 
                     : 'border-transparent hover:border-muted-foreground/20'
                   }
                 `}

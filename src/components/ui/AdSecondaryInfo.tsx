@@ -51,19 +51,19 @@ export const AdSecondaryInfo = ({
   setShowReviewForm
 }: AdSecondaryInfoProps) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Ad Information */}
-      <Card className="rounded-2xl shadow-sm">
-        <CardHeader className="pb-4">
-          <CardTitle className="flex items-center text-lg">
-            <Eye className="w-5 h-5 mr-2 text-primary" />
+      <Card className="rounded-xl shadow-sm">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center text-base">
+            <Eye className="w-4 h-4 mr-2 text-primary" />
             Informations
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between py-3 border-b border-border/20">
-            <div className="flex items-center space-x-3">
-              <Calendar className="w-5 h-5 text-muted-foreground" />
+        <CardContent className="space-y-3">
+          <div className="flex items-center justify-between py-2 border-b border-border/20">
+            <div className="flex items-center space-x-2">
+              <Calendar className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm">Publié</span>
             </div>
             <span className="text-sm font-medium">
@@ -74,9 +74,9 @@ export const AdSecondaryInfo = ({
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-3">
-            <div className="flex items-center space-x-3">
-              <Eye className="w-5 h-5 text-muted-foreground" />
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center space-x-2">
+              <Eye className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm">Expire le</span>
             </div>
             <span className="text-sm font-medium">
@@ -87,11 +87,11 @@ export const AdSecondaryInfo = ({
       </Card>
 
       {/* Reviews Section */}
-      <Card className="rounded-2xl shadow-sm">
-        <CardHeader className="pb-4">
+      <Card className="rounded-xl shadow-sm">
+        <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center text-lg">
-              <Star className="w-5 h-5 mr-2 text-primary" />
+            <CardTitle className="flex items-center text-base">
+              <Star className="w-4 h-4 mr-2 text-primary" />
               Avis des utilisateurs
             </CardTitle>
             <RatingDisplay stats={stats} size="sm" />
@@ -99,7 +99,7 @@ export const AdSecondaryInfo = ({
         </CardHeader>
         <CardContent>
           {stats.totalReviews > 0 ? (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <ReviewsList
                 reviews={reviews}
                 loading={reviewsLoading}
@@ -108,19 +108,20 @@ export const AdSecondaryInfo = ({
               />
               
               {(canReview || canEditReview) && (
-                <div className="border-t border-border/20 pt-6">
+                <div className="border-t border-border/20 pt-4">
                   {!showReviewForm ? (
                     <Button
                       onClick={() => setShowReviewForm(true)}
-                      className="w-full rounded-xl h-12"
+                      className="w-full rounded-xl h-10"
+                      size="sm"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       {canEditReview ? 'Modifier mon avis' : 'Laisser un avis'}
                     </Button>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-sm">
                           {canEditReview ? 'Modifier votre avis' : 'Laisser un avis'}
                         </h4>
                         <Button
@@ -142,10 +143,10 @@ export const AdSecondaryInfo = ({
               )}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <Star className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-              <h4 className="text-lg font-medium mb-2">Aucun avis pour le moment</h4>
-              <p className="text-muted-foreground mb-6">
+            <div className="text-center py-8">
+              <Star className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+              <h4 className="text-base font-medium mb-2">Aucun avis pour le moment</h4>
+              <p className="text-muted-foreground text-sm mb-4">
                 Soyez le premier à laisser un avis sur cette annonce !
               </p>
               
@@ -153,6 +154,7 @@ export const AdSecondaryInfo = ({
                 <Button
                   onClick={() => setShowReviewForm(true)}
                   className="rounded-xl"
+                  size="sm"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Laisser le premier avis
@@ -160,9 +162,9 @@ export const AdSecondaryInfo = ({
               )}
               
               {showReviewForm && canReview && (
-                <div className="mt-6 text-left">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-medium">Laisser un avis</h4>
+                <div className="mt-4 text-left">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-medium text-sm">Laisser un avis</h4>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -184,26 +186,26 @@ export const AdSecondaryInfo = ({
       </Card>
 
       {/* Seller Information */}
-      <Card className="rounded-2xl shadow-sm">
-        <CardHeader className="pb-4">
-          <CardTitle className="flex items-center text-lg">
-            <User className="w-5 h-5 mr-2 text-primary" />
+      <Card className="rounded-xl shadow-sm">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center text-base">
+            <User className="w-4 h-4 mr-2 text-primary" />
             Annonceur
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center shadow-lg">
-              <User className="w-7 h-7 text-white" />
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center shadow-md">
+              <User className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-lg">
+              <h4 className="font-semibold text-base">
                 {ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
               </h4>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Membre depuis {formatDistanceToNow(new Date(ad.created_at), { locale: fr })}
               </p>
-              <Badge variant="outline" className="mt-2 text-xs">
+              <Badge variant="outline" className="mt-1 text-xs">
                 Membre vérifié ✓
               </Badge>
             </div>
