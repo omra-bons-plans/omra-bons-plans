@@ -83,6 +83,7 @@ interface HebergementFormData {
   accommodationType: string;
   name: string;
   distanceToMosque?: string;
+  walkingMinutes?: number;
   availableFrom?: string;
   availableTo?: string;
   roomsCount?: number;
@@ -484,16 +485,30 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="distanceToMosque">
-                    Distance en mètres jusqu'à {watchedCity === 'medina' ? 'la mosquée du Prophète' : 'la mosquée Al-Haram'}
-                  </Label>
-                  <Input
-                    id="distanceToMosque"
-                    {...register("distanceToMosque")}
-                    placeholder="Ex: 500"
-                    type="number"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="distanceToMosque">
+                      Distance en mètres jusqu'à {watchedCity === 'medina' ? 'la mosquée du Prophète' : 'la mosquée Al-Haram'}
+                    </Label>
+                    <Input
+                      id="distanceToMosque"
+                      {...register("distanceToMosque")}
+                      placeholder="Ex: 500"
+                      type="number"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="walkingMinutes">
+                      Combien de minutes à pied
+                    </Label>
+                    <Input
+                      id="walkingMinutes"
+                      {...register("walkingMinutes")}
+                      placeholder="Ex: 10"
+                      type="number"
+                    />
+                  </div>
                 </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
