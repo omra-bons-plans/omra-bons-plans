@@ -296,7 +296,7 @@ const Blog = () => {
                     <div className="aspect-video w-full overflow-hidden">
                       <img 
                         src={post.cover_image} 
-                        alt={`${post.title} - Article blog Omra Hajj pèlerinage`}
+                        alt={post.title}
                         className="w-full h-full object-cover"
                       />
                     </div>

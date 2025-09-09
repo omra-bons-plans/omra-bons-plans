@@ -84,7 +84,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
             <Plane className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">Vol pour l'Omra</h1>
+            <h1 className="text-3xl font-bold">Vols pour l'Omra</h1>
             <p className="text-muted-foreground">Billets d'avion aller-retour</p>
           </div>
         </div>
@@ -105,7 +105,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
               <Input
                 id="title"
                 {...register("title", { required: "Le titre est requis" })}
-                placeholder="Ex: Vol direct Paris"
+                placeholder="Ex: Vols direct Paris"
                 onChange={(e) => {
                   const upperValue = e.target.value.toUpperCase();
                   setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
@@ -133,7 +133,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Plane className="w-5 h-5" />
-              <span>Détails du vol</span>
+              <span>Détails des vols</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -207,7 +207,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
                     checked={watch('hasOutboundStopover')}
                     onCheckedChange={(checked) => setValue("hasOutboundStopover", !!checked)}
                   />
-                  <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
+                  <Label htmlFor="hasOutboundStopover">Vols aller avec escale</Label>
                 </div>
 
                 <div className="flex items-center space-x-2">
@@ -216,7 +216,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
                     checked={watch('hasReturnStopover')}
                     onCheckedChange={(checked) => setValue("hasReturnStopover", !!checked)}
                   />
-                  <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
+                  <Label htmlFor="hasReturnStopover">Vols retour avec escale</Label>
                 </div>
               </div>
 

@@ -39,7 +39,7 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
         <div className={`w-full ${imageHeight} overflow-hidden`}>
           <img 
             src={listing.image} 
-            alt={`${listing.title} - Pèlerinage Omra Hajj ${listing.location}`}
+            alt={listing.title}
             className={`w-full h-full object-cover transition-all duration-500 ${
               !listing.isExpired ? 'group-hover:scale-110' : ''
             }`}

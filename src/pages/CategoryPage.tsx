@@ -27,60 +27,17 @@ const CategoryPage = () => {
   // Get category info
   const getCategoryInfo = (categoryId: string) => {
     const categoryMap = {
-      sejours: { 
-        name: "Séjours Omra & Hajj", 
-        icon: Building, 
-        description: "Packages complets Omra pas chère - Pèlerinage Mecque Médine",
-        seoTitle: "Séjours Omra Pas Cher 2025 | Packages Hajj Mecque Médine"
-      },
-      vols: { 
-        name: "Vols Omra & Hajj", 
-        icon: Plane, 
-        description: "Billets d'avion pour pèlerinage - Vol Mecque pas cher",
-        seoTitle: "Vol Mecque Pas Cher | Billets Avion Omra Hajj 2025"
-      },
-      hebergements: { 
-        name: "Hébergements Mecque Médine", 
-        icon: Hotel, 
-        description: "Hôtels face Haram - Hébergement pèlerinage Mecque Médine",
-        seoTitle: "Hôtel Mecque Médine | Hébergement Omra Face Haram"
-      },
-      guides: { 
-        name: "Guides Spirituels Omra", 
-        icon: BookOpen, 
-        description: "Guides expérimentés pèlerinage - Accompagnement Omra Hajj",
-        seoTitle: "Guide Spirituel Omra | Accompagnement Pèlerinage Mecque"
-      },
-      chauffeurs: { 
-        name: "Transport Privé Mecque", 
-        icon: Car, 
-        description: "Chauffeurs pèlerinage - Transport Mecque Médine Aéroport",
-        seoTitle: "Chauffeur Mecque Médine | Transport Privé Pèlerinage"
-      },
-      babysitting: { 
-        name: "Garde Enfants Omra", 
-        icon: Heart, 
-        description: "Baby-sitting pendant pèlerinage - Garde enfants Omra",
-        seoTitle: "Baby-sitting Omra | Garde Enfants Pendant Pèlerinage"
-      }
+      sejours: { name: "Séjours", icon: Building, description: "Packages complets Omra" },
+      vols: { name: "Vols", icon: Plane, description: "Billets d'avion" },
+      hebergements: { name: "Hébergements", icon: Hotel, description: "Hôtels et appartements" },
+      guides: { name: "Guides", icon: BookOpen, description: "Guides spirituels" },
+      chauffeurs: { name: "Chauffeurs", icon: Car, description: "Transport privé" },
+      babysitting: { name: "Baby-sitting", icon: Heart, description: "Garde d'enfants" }
     };
     return categoryMap[categoryId as keyof typeof categoryMap];
   };
 
   const categoryInfo = getCategoryInfo(category || "");
-
-  // Set dynamic page title for SEO
-  useEffect(() => {
-    if (categoryInfo?.seoTitle) {
-      document.title = `${categoryInfo.seoTitle} - Omra Bons Plans`;
-      
-      // Update meta description
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', `${categoryInfo.description} | Comparateur N°1 Omra Hajj - Devis gratuit`);
-      }
-    }
-  }, [categoryInfo]);
 
   // Filter ads by category
   const categoryListings = formattedListings.filter(listing => {
