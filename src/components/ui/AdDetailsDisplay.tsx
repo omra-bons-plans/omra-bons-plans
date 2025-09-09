@@ -69,7 +69,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
       case 'guides':
         return 'Guide';
       case 'vols':
-        return 'Vol';
+        return 'Vols';
       case 'hebergements':
         return 'Hébergement';
       case 'sejours':

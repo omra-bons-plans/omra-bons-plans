@@ -294,7 +294,7 @@ const Hajj2026 = () => {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-sm">
                           <CheckCircle className="w-4 h-4 text-green-600" />
-                          <span>Vol direct Paris-Jeddah A/R</span>
+                          <span>Vols direct Paris-Jeddah A/R</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                           <CheckCircle className="w-4 h-4 text-green-600" />
@@ -349,7 +349,7 @@ const Hajj2026 = () => {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-sm">
                           <CheckCircle className="w-4 h-4 text-green-600" />
-                          <span><strong>Vol direct</strong> + surclassement possible</span>
+                          <span><strong>Vols direct</strong> + surclassement possible</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                           <CheckCircle className="w-4 h-4 text-green-600" />

@@ -212,7 +212,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
       }
 
       const adData = {
-        title: formData.title || 'Brouillon - Vol',
+        title: formData.title || 'Brouillon - Vols',
         description: formData.description || '',
         price: formData.price ? parseFloat(formData.price) : 0,
         original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
@@ -285,7 +285,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   id="title"
                   value={formData.title}
                   onChange={(e) => updateFormData('title', e.target.value.toUpperCase())}
-                  placeholder="Ex: Vol direct Paris"
+                  placeholder="Ex: Vols direct Paris"
                   maxLength={20}
                 />
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
@@ -302,7 +302,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   id="description"
                   value={formData.description}
                   onChange={(e) => updateFormData('description', e.target.value)}
-                  placeholder="Décrivez les détails du vol, services inclus, conditions..."
+                  placeholder="Décrivez les détails des vols, services inclus, conditions..."
                   rows={4}
                   maxLength={500}
                 />
@@ -430,14 +430,14 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                     </div>
 
                     <div className="space-y-4">
-                      <h4 className="font-medium">Escales vol aller</h4>
+                      <h4 className="font-medium">Escales vols aller</h4>
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="hasOutboundStopover"
                           checked={formData.hasOutboundStopover}
                           onCheckedChange={(checked) => updateFormData('hasOutboundStopover', checked)}
                         />
-                        <Label htmlFor="hasOutboundStopover">Vol aller avec escale</Label>
+                        <Label htmlFor="hasOutboundStopover">Vols aller avec escale</Label>
                       </div>
 
                       {formData.hasOutboundStopover && (
@@ -489,14 +489,14 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                     </div>
 
                     <div className="space-y-4">
-                      <h4 className="font-medium">Escales vol retour</h4>
+                      <h4 className="font-medium">Escales vols retour</h4>
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="hasReturnStopover"
                           checked={formData.hasReturnStopover}
                           onCheckedChange={(checked) => updateFormData('hasReturnStopover', checked)}
                         />
-                        <Label htmlFor="hasReturnStopover">Vol retour avec escale</Label>
+                        <Label htmlFor="hasReturnStopover">Vols retour avec escale</Label>
                       </div>
 
                       {formData.hasReturnStopover && (
@@ -782,9 +782,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       </div>
                     )}
 
-                    {/* Détails du vol */}
+                    {/* Détails des vols */}
                     <div className="bg-white/50 p-4 rounded-lg space-y-3">
-                      <h5 className="font-medium">Détails du vol</h5>
+                      <h5 className="font-medium">Détails des vols</h5>
                       
                       {formData.airline && (
                         <div className="flex items-center space-x-2">
@@ -820,7 +820,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                             </div>
                           ) : (
                             <div className="text-sm">
-                              <span className="font-medium">Aller:</span> Vol direct
+                              <span className="font-medium">Aller:</span> Vols direct
                             </div>
                           )}
                           
@@ -833,7 +833,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                             </div>
                           ) : (
                             <div className="text-sm">
-                              <span className="font-medium">Retour:</span> Vol direct
+                              <span className="font-medium">Retour:</span> Vols direct
                             </div>
                           )}
                         </div>
@@ -870,7 +870,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
   const getStepTitle = () => {
     switch (step) {
       case 1: return 'Informations générales';
-      case 2: return 'Vol et aéroports';
+      case 2: return 'Vols et aéroports';
       case 3: return 'Dates et prix';
       case 4: return 'Publication';
       case 5: return 'Prévisualisation';
@@ -883,7 +883,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">Publier un vol</h1>
+          <h1 className="text-2xl font-bold">Publier des vols</h1>
           <span className="text-sm text-muted-foreground">
             Étape {step} sur {totalSteps}
           </span>

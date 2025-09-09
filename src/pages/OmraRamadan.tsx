@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { Star, MapPin, Calendar, Users, Mosque, Heart, Clock, Shield } from 'lucide-react';
+import { Star, MapPin, Calendar, Users, Building, Heart, Clock, Shield } from 'lucide-react';
 
 const OmraRamadan = () => {
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ const OmraRamadan = () => {
                   {/* Colonne 1: Avantages spirituels */}
                   <div>
                     <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
-                      <Mosque className="w-8 h-8" />
+                      <Building className="w-8 h-8" />
                       L'Atmosphère Unique du Ramadan
                     </h3>
                     
