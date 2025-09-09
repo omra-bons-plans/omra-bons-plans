@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
@@ -679,32 +680,32 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
 
               <div className="space-y-4">
                 <h4 className="font-semibold">Informations de contact affichées</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="showEmail"
-                      checked={formData.showEmail}
-                      onCheckedChange={(checked) => updateFormData('showEmail', checked)}
-                    />
-                    <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="showPhone"
-                      checked={formData.showPhone}
-                      onCheckedChange={(checked) => updateFormData('showPhone', checked)}
-                    />
-                    <Label htmlFor="showPhone">Afficher le téléphone</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="showWhatsapp"
-                      checked={formData.showWhatsapp}
-                      onCheckedChange={(checked) => updateFormData('showWhatsapp', checked)}
-                    />
-                    <Label htmlFor="showWhatsapp">Afficher WhatsApp</Label>
-                  </div>
-                </div>
+                <div className="space-y-6">
+                   <div className="flex items-center justify-between">
+                     <Label htmlFor="showEmail" className="text-sm font-medium">Afficher l'email (recommandé)</Label>
+                     <Switch
+                       id="showEmail"
+                       checked={formData.showEmail}
+                       onCheckedChange={(checked) => updateFormData('showEmail', checked)}
+                     />
+                   </div>
+                   <div className="flex items-center justify-between">
+                     <Label htmlFor="showPhone" className="text-sm font-medium">Afficher le téléphone</Label>
+                     <Switch
+                       id="showPhone"
+                       checked={formData.showPhone}
+                       onCheckedChange={(checked) => updateFormData('showPhone', checked)}
+                     />
+                   </div>
+                   <div className="flex items-center justify-between">
+                     <Label htmlFor="showWhatsapp" className="text-sm font-medium">Afficher WhatsApp</Label>
+                     <Switch
+                       id="showWhatsapp"
+                       checked={formData.showWhatsapp}
+                       onCheckedChange={(checked) => updateFormData('showWhatsapp', checked)}
+                     />
+                   </div>
+                 </div>
               </div>
             </CardContent>
           </Card>

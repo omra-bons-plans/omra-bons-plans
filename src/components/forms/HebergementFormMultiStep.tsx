@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -1039,67 +1040,67 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
 
                 <div className="space-y-4">
                   <h4 className="font-medium">Informations de contact</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <Controller
-                        name="showEmail"
-                        control={control}
-                        render={({ field }) => (
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            id="showEmail"
-                          />
-                        )}
-                      />
-                      <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
-                    </div>
+                   <div className="space-y-6">
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showEmail" className="text-sm font-medium">Afficher l'email (recommandé)</Label>
+                       <Controller
+                         name="showEmail"
+                         control={control}
+                         render={({ field }) => (
+                           <Switch
+                             checked={field.value}
+                             onCheckedChange={field.onChange}
+                             id="showEmail"
+                           />
+                         )}
+                       />
+                     </div>
 
-                    <div className="flex items-center space-x-2">
-                      <Controller
-                        name="showPhone"
-                        control={control}
-                        render={({ field }) => (
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            id="showPhone"
-                          />
-                        )}
-                      />
-                      <Label htmlFor="showPhone">Afficher le téléphone portable</Label>
-                    </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showPhone" className="text-sm font-medium">Afficher le téléphone portable</Label>
+                       <Controller
+                         name="showPhone"
+                         control={control}
+                         render={({ field }) => (
+                           <Switch
+                             checked={field.value}
+                             onCheckedChange={field.onChange}
+                             id="showPhone"
+                           />
+                         )}
+                       />
+                     </div>
 
-                    <div className="flex items-center space-x-2">
-                      <Controller
-                        name="showWhatsapp"
-                        control={control}
-                        render={({ field }) => (
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            id="showWhatsapp"
-                          />
-                        )}
-                      />
-                      <Label htmlFor="showWhatsapp">Afficher WhatsApp</Label>
-                    </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showWhatsapp" className="text-sm font-medium">Afficher WhatsApp</Label>
+                       <Controller
+                         name="showWhatsapp"
+                         control={control}
+                         render={({ field }) => (
+                           <Switch
+                             checked={field.value}
+                             onCheckedChange={field.onChange}
+                             id="showWhatsapp"
+                           />
+                         )}
+                       />
+                     </div>
 
-                    <div className="flex items-center space-x-2">
-                      <Controller
-                        name="showProfessionalPhone"
-                        control={control}
-                        render={({ field }) => (
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            id="showProfessionalPhone"
-                          />
-                        )}
-                      />
-                      <Label htmlFor="showProfessionalPhone">Afficher le téléphone fixe (professionnel)</Label>
-                    </div>
-                  </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showProfessionalPhone" className="text-sm font-medium">Afficher le téléphone fixe (professionnel)</Label>
+                       <Controller
+                         name="showProfessionalPhone"
+                         control={control}
+                         render={({ field }) => (
+                           <Switch
+                             checked={field.value}
+                             onCheckedChange={field.onChange}
+                             id="showProfessionalPhone"
+                           />
+                         )}
+                       />
+                     </div>
+                   </div>
                 </div>
               </CardContent>
             </Card>

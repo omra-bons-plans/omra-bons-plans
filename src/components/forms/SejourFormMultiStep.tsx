@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAirlines } from "@/hooks/useAirlines";
@@ -877,40 +878,40 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Informations de contact affichées</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="showEmail"
-                        checked={watch("showEmail")}
-                        onCheckedChange={(checked) => setValue("showEmail", !!checked)}
-                      />
-                      <Label htmlFor="showEmail">Afficher l'email (recommandé)</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="showPhone"
-                        checked={watch("showPhone")}
-                        onCheckedChange={(checked) => setValue("showPhone", !!checked)}
-                      />
-                      <Label htmlFor="showPhone">Afficher le téléphone portable</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="showWhatsapp"
-                        checked={watch("showWhatsapp")}
-                        onCheckedChange={(checked) => setValue("showWhatsapp", !!checked)}
-                      />
-                      <Label htmlFor="showWhatsapp">Afficher WhatsApp</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="showProfessionalPhone"
-                        checked={watch("showProfessionalPhone")}
-                        onCheckedChange={(checked) => setValue("showProfessionalPhone", !!checked)}
-                      />
-                      <Label htmlFor="showProfessionalPhone">Afficher le téléphone fixe (professionnel)</Label>
-                    </div>
-                  </div>
+                   <div className="space-y-6">
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showEmail" className="text-sm font-medium">Afficher l'email (recommandé)</Label>
+                       <Switch
+                         id="showEmail"
+                         checked={watch("showEmail")}
+                         onCheckedChange={(checked) => setValue("showEmail", checked)}
+                       />
+                     </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showPhone" className="text-sm font-medium">Afficher le téléphone portable</Label>
+                       <Switch
+                         id="showPhone"
+                         checked={watch("showPhone")}
+                         onCheckedChange={(checked) => setValue("showPhone", checked)}
+                       />
+                     </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showWhatsapp" className="text-sm font-medium">Afficher WhatsApp</Label>
+                       <Switch
+                         id="showWhatsapp"
+                         checked={watch("showWhatsapp")}
+                         onCheckedChange={(checked) => setValue("showWhatsapp", checked)}
+                       />
+                     </div>
+                     <div className="flex items-center justify-between">
+                       <Label htmlFor="showProfessionalPhone" className="text-sm font-medium">Afficher le téléphone fixe (professionnel)</Label>
+                       <Switch
+                         id="showProfessionalPhone"
+                         checked={watch("showProfessionalPhone")}
+                         onCheckedChange={(checked) => setValue("showProfessionalPhone", checked)}
+                       />
+                     </div>
+                   </div>
                 </div>
               </CardContent>
             </Card>
