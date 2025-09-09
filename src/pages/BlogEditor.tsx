@@ -15,6 +15,8 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
 import { ImageUpload } from '@/components/ui/ImageUpload';
+import { RichTextEditor } from '@/components/ui/RichTextEditor';
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 interface BlogPostFormData {
   title: string;
@@ -290,14 +292,12 @@ const BlogEditor = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="content">Contenu de l'article *</Label>
-                <Textarea
-                  id="content"
+                <RichTextEditor
                   value={formData.content}
-                  onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                  onChange={(content) => setFormData(prev => ({ ...prev, content }))}
                   placeholder="Rédigez le contenu de votre article..."
-                  rows={8}
-                  className="min-h-[200px] sm:min-h-[300px]"
-                  required
+                  rows={10}
+                  className="min-h-[300px]"
                 />
               </div>
 
@@ -460,9 +460,10 @@ const BlogEditor = () => {
                     className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
                   />
                 )}
-                <div className="text-sm sm:text-base whitespace-pre-wrap break-words">
-                  {formData.content || 'Contenu de l\'article...'}
-                </div>
+                <MarkdownRenderer 
+                  content={formData.content || 'Contenu de l\'article...'} 
+                  className="text-sm sm:text-base break-words"
+                />
                 {formData.video_url && (
                   <div className="mt-4">
                     <p className="text-sm text-muted-foreground break-all">📹 Vidéo: {formData.video_url}</p>
