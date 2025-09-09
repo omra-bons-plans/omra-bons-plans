@@ -85,7 +85,10 @@ export const AdImageGallery = ({
           src={allImages[currentIndex]}
           alt={`${title} - Image ${currentIndex + 1}`}
           className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
-          onClick={() => openModal(currentIndex)}
+          onClick={(e) => {
+            e.preventDefault();
+            openModal(currentIndex);
+          }}
           onError={(e) => {
             const img = e.target as HTMLImageElement;
             img.src = '/ad-placeholder.jpg';
@@ -93,7 +96,7 @@ export const AdImageGallery = ({
         />
         
         {/* Badges */}
-        <div className="absolute top-3 left-3 space-y-1.5">
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-1.5">
           {isFlash && (
             <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg text-xs">
               ⚡ FLASH

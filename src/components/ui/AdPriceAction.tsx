@@ -65,7 +65,7 @@ export const AdPriceAction = ({
           <div className="flex items-center justify-between space-x-4">
             {/* Price Section */}
             <div className="flex-1">
-              <div className="space-y-1">
+              <div className="text-center space-y-1">
                 {/* Original price if discounted */}
                 {hasDiscount && (
                   <div className="text-sm text-muted-foreground line-through">
@@ -82,15 +82,17 @@ export const AdPriceAction = ({
                 
                 {/* Discount badge */}
                 {hasDiscount && (
-                  <Badge 
-                    className={`text-xs px-2 py-1 ${
-                      isFlash 
-                        ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white' 
-                        : 'bg-green-100 text-green-700'
-                    }`}
-                  >
-                    {isFlash ? `⚡ -${discountPercent}%` : `-${discountPercent}%`}
-                  </Badge>
+                  <div className="flex justify-center">
+                    <Badge 
+                      className={`text-xs px-2 py-1 ${
+                        isFlash 
+                          ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white' 
+                          : 'bg-green-100 text-green-700'
+                      }`}
+                    >
+                      {isFlash ? `⚡ -${discountPercent}%` : `-${discountPercent}%`}
+                    </Badge>
+                  </div>
                 )}
               </div>
             </div>
