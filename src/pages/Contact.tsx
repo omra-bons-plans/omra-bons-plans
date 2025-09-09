@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { updatePageSEO, SEO_DATA } from "@/utils/seoUtils";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,11 @@ const Contact = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  
+  // SEO optimization
+  useEffect(() => {
+    updatePageSEO(SEO_DATA.contact);
+  }, []);
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',

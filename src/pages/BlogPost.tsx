@@ -315,7 +315,7 @@ const BlogPost = () => {
             <div className="mb-8 max-w-4xl">
               <img 
                 src={post.cover_image} 
-                alt={post.title}
+                alt={`${post.title} - Guide Omra Hajj pèlerinage Mecque`}
                 className="w-full h-64 md:h-96 object-cover rounded-lg"
               />
             </div>
@@ -334,7 +334,7 @@ const BlogPost = () => {
                           <CardContent className="flex aspect-video items-center justify-center p-2">
                             <img 
                               src={image} 
-                              alt={`Image ${index + 1} - ${post.title}`}
+                              alt={`Photo ${index + 1} - ${post.title} - Guide pèlerinage Omra`}
                               className="w-full h-full object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
                               onClick={() => window.open(image, '_blank')}
                             />
@@ -466,7 +466,7 @@ const BlogPost = () => {
                         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
                           <img 
                             src={relatedPost.cover_image} 
-                            alt={relatedPost.title}
+                            alt={`${relatedPost.title} - Article Omra Hajj pèlerinage`}
                             className="w-full h-full object-cover"
                           />
                         </div>

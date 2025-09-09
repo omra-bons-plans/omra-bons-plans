@@ -1,10 +1,17 @@
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { updatePageSEO, SEO_DATA } from '@/utils/seoUtils';
 
 const About = () => {
   const navigate = useNavigate();
+  
+  // SEO optimization
+  useEffect(() => {
+    updatePageSEO(SEO_DATA.about);
+  }, []);
 
   return (
     <ResponsiveLayout>

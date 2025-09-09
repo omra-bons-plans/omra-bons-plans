@@ -19,6 +19,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatWindow from "@/components/ui/ChatWindow";
+import { updatePageSEO, SEO_DATA } from "@/utils/seoUtils";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -107,6 +108,11 @@ const Index = () => {
     }, 3000);
 
     return () => clearInterval(interval);
+  }, []);
+  
+  // SEO optimization for home page
+  useEffect(() => {
+    updatePageSEO(SEO_DATA.home);
   }, []);
 
   // Track carousel positions
@@ -341,13 +347,13 @@ const Index = () => {
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
                   <span className="text-white drop-shadow-lg">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
-                  <span className="text-white drop-shadow-lg"> et partez au</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA PAS CHÈRE 2025</span><br />
+                  <span className="text-white drop-shadow-lg">et partez au</span><br />
                   <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
-                  <span className="text-white drop-shadow-lg">Réduisez vos coûts, pas vos rêves</span>
+                  <span className="text-white drop-shadow-lg">Comparateur N°1 Omra Ramadan & Hajj - Séjours dès 899€</span>
                 </p>
               </div>
 
@@ -513,8 +519,8 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
-                <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
+                <h2 className="text-4xl font-bold mb-4">⚡ Ventes Flash Omra & Hajj</h2>
+                <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement - Omra pas chère</p>
               </div>
               
             </div>
@@ -596,7 +602,7 @@ const Index = () => {
                         <div className="w-full h-56 overflow-hidden">
                           <img 
                             src={listing.image} 
-                            alt={listing.title}
+                            alt={`${listing.title} - Séjour Omra Hajj ${listing.location} pas cher`}
                             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                             onError={(e) => {
                               console.log('Flash sale tablet image failed to load:', listing.image);
@@ -767,8 +773,8 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Votre plateforme de services pour le hajj et la omra</h2>
-                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
+                <h2 className="text-4xl font-bold mb-4">🕋 Services Pèlerinage Mecque Médine</h2>
+                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage Omra & Hajj parfait</p>
               </div>
             </div>
           </div>
@@ -849,7 +855,7 @@ const Index = () => {
                           <div className="w-full h-56 overflow-hidden">
                             <img 
                               src={listing.image} 
-                              alt={listing.title}
+                              alt={`${listing.title} - Offre Omra Hajj ${listing.location} - Pèlerinage Mecque`}
                               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                               onError={(e) => {
                                 console.log('Tablet image failed to load:', listing.image);

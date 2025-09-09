@@ -59,7 +59,7 @@ export const ImageDisplay = ({
           <div className="aspect-video relative">
             <img
               src={allImages[0]}
-              alt={`${title} - Image principale`}
+              alt={`${title} - Images pèlerinage Omra Hajj - ${title}`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
@@ -87,7 +87,7 @@ export const ImageDisplay = ({
                 <div className="aspect-square relative">
                   <img
                     src={image}
-                    alt={`${title} - Image ${index + 2}`}
+                    alt={`${title} - Photo séjour Omra ${index + 2}`}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                     onError={(e) => {
                       const img = e.target as HTMLImageElement;
@@ -132,7 +132,7 @@ export const ImageDisplay = ({
             {/* Main Image */}
             <img
               src={allImages[currentImageIndex]}
-              alt={`${title} - Image ${currentImageIndex + 1}`}
+              alt={`${title} - Photo pèlerinage ${currentImageIndex + 1}`}
               className="max-w-[90vw] max-h-[85vh] object-contain"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
