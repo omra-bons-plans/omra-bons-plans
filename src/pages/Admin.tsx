@@ -249,8 +249,10 @@ const Admin = () => {
   const totalAds = users.reduce((sum, user) => sum + user.ads_count, 0);
 
   // Mobile Navigation Component
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+
   const MobileNavigation = () => (
-    <Sheet>
+    <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="md:hidden">
           <Menu className="h-4 w-4" />
@@ -267,6 +269,8 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
+              console.log('📱 Navigating to /admin/ads from mobile menu');
+              setMobileSheetOpen(false);
               navigate('/admin/ads');
             }}
             className="justify-start"
@@ -277,6 +281,8 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
+              console.log('📱 Navigating to /admin/blog from mobile menu');
+              setMobileSheetOpen(false);
               navigate('/admin/blog');
             }}
             className="justify-start"
