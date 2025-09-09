@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Menu } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
@@ -199,18 +200,50 @@ const Blog = () => {
             </p>
           </div>
 
-          {/* Category Tabs - Horizontal scroll on mobile */}
+          {/* Category Selection - Hamburger on mobile, tabs on desktop */}
           <div className="mb-4 sm:mb-8">
-            <div className="flex overflow-x-auto scrollbar-hide gap-2 px-2 sm:px-0 sm:grid sm:grid-cols-2 lg:flex lg:justify-center lg:gap-4">
+            {/* Mobile hamburger menu */}
+            <div className="sm:hidden px-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="w-full justify-between h-10">
+                    <span className="flex items-center">
+                      <Menu className="h-4 w-4 mr-2" />
+                      {getCategoryName(selectedCategory)}
+                    </span>
+                    <Badge variant="secondary" className="ml-2 text-xs">
+                      {categories.find(cat => cat.value === selectedCategory)?.count || 0}
+                    </Badge>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  {categories.map((cat) => (
+                    <DropdownMenuItem
+                      key={cat.value}
+                      onClick={() => setSelectedCategory(cat.value)}
+                      className={selectedCategory === cat.value ? "bg-muted" : ""}
+                    >
+                      <span className="flex-1">{cat.label}</span>
+                      <Badge variant="secondary" className="ml-2 text-xs">
+                        {cat.count}
+                      </Badge>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Desktop tabs */}
+            <div className="hidden sm:grid sm:grid-cols-2 lg:flex lg:justify-center lg:gap-4">
               {categories.map((cat) => (
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className="flex items-center justify-center text-xs sm:text-sm min-w-fit whitespace-nowrap px-3 sm:px-4 h-8 sm:h-12 w-auto sm:w-full lg:w-auto"
+                  className="flex items-center justify-center text-sm h-12 w-full lg:w-auto"
                 >
                   <span className="truncate">{cat.label}</span>
-                  <Badge variant="secondary" className="ml-1 sm:ml-2 text-xs px-1 sm:px-2">
+                  <Badge variant="secondary" className="ml-2 text-xs">
                     {cat.count}
                   </Badge>
                 </Button>
