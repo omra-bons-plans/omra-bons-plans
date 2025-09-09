@@ -14,12 +14,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
+import { ImageUpload } from '@/components/ui/ImageUpload';
 
 interface BlogPostFormData {
   title: string;
   content: string;
   excerpt: string;
   cover_image: string;
+  images: string[];
   video_url: string;
   category: 'general' | 'restaurants' | 'associations' | 'vendeurs';
   is_published: boolean;
@@ -43,6 +45,7 @@ const BlogEditor = () => {
     content: '',
     excerpt: '',
     cover_image: '',
+    images: [],
     video_url: '',
     category: 'general',
     is_published: false,
@@ -83,6 +86,7 @@ const BlogEditor = () => {
         content: data.content || '',
         excerpt: data.excerpt || '',
         cover_image: data.cover_image || '',
+        images: data.images || [],
         video_url: data.video_url || '',
         category: (data.category as 'general' | 'restaurants' | 'associations' | 'vendeurs') || 'general',
         is_published: data.is_published || false,
@@ -318,12 +322,29 @@ const BlogEditor = () => {
             </CardHeader>
             <CardContent className="space-y-6 p-4 sm:p-6">
               <div className="space-y-2">
-                <Label htmlFor="cover_image">Image de couverture (URL)</Label>
-                <Input
-                  id="cover_image"
-                  value={formData.cover_image}
-                  onChange={(e) => setFormData(prev => ({ ...prev, cover_image: e.target.value }))}
-                  placeholder="Entrez l'URL de l'image de couverture"
+                <Label>Image de couverture</Label>
+                <ImageUpload
+                  images={formData.cover_image ? [formData.cover_image] : []}
+                  onImagesChange={(images) => setFormData(prev => ({ 
+                    ...prev, 
+                    cover_image: images[0] || '' 
+                  }))}
+                  maxImages={1}
+                  bucketName="blog-images"
+                  className="mb-4"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Images supplémentaires</Label>
+                <ImageUpload
+                  images={formData.images}
+                  onImagesChange={(images) => setFormData(prev => ({ 
+                    ...prev, 
+                    images 
+                  }))}
+                  maxImages={10}
+                  bucketName="blog-images"
                 />
               </div>
 

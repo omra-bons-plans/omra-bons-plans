@@ -10,16 +10,18 @@ interface ImageUploadProps {
   onImagesChange: (images: string[]) => void;
   maxImages?: number;
   className?: string;
+  bucketName?: string;
 }
 
 export const ImageUpload = ({ 
   images, 
   onImagesChange, 
   maxImages = 5, 
-  className = '' 
+  className = '',
+  bucketName = 'ad-images'
 }: ImageUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { uploadImage, deleteImage, uploading } = useImageUpload();
+  const { uploadImage, deleteImage, uploading } = useImageUpload(bucketName);
   const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +38,8 @@ export const ImageUpload = ({
     const newImages: string[] = [];
 
     for (const file of filesToUpload) {
-      const result = await uploadImage(file, 'ads');
+      const folder = bucketName === 'blog-images' ? 'blog' : 'ads';
+      const result = await uploadImage(file, folder);
       if (result) {
         newImages.push(result.url);
       }
@@ -58,7 +61,7 @@ export const ImageUpload = ({
       const imageUrl = images[index];
       // Extract path from URL for deletion
       const urlParts = imageUrl.split('/');
-      const bucketIndex = urlParts.findIndex(part => part === 'ad-images');
+      const bucketIndex = urlParts.findIndex(part => part === bucketName);
       const path = urlParts.slice(bucketIndex + 1).join('/');
       
       await deleteImage(path);

@@ -7,7 +7,7 @@ export interface ImageUploadResult {
   path: string;
 }
 
-export const useImageUpload = () => {
+export const useImageUpload = (bucketName: string = 'ad-images') => {
   const [uploading, setUploading] = useState(false);
 
   const uploadImage = async (file: File, folder: string = ''): Promise<ImageUploadResult | null> => {
@@ -33,7 +33,7 @@ export const useImageUpload = () => {
 
       // Upload to Supabase Storage
       const { error: uploadError } = await supabase.storage
-        .from('ad-images')
+        .from(bucketName)
         .upload(filePath, file);
 
       if (uploadError) {
@@ -44,7 +44,7 @@ export const useImageUpload = () => {
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('ad-images')
+        .from(bucketName)
         .getPublicUrl(filePath);
 
       return {
@@ -63,7 +63,7 @@ export const useImageUpload = () => {
   const deleteImage = async (path: string): Promise<boolean> => {
     try {
       const { error } = await supabase.storage
-        .from('ad-images')
+        .from(bucketName)
         .remove([path]);
 
       if (error) {
