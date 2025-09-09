@@ -183,7 +183,7 @@ const MyAds = () => {
   const getCategoryName = (category: string) => {
     const names: Record<string, string> = {
       'sejours': 'Séjour',
-      'vols': 'Vols',
+      'vols': 'Vol',
       'guides': 'Guide',
       'chauffeurs': 'Chauffeur',
       'babysitting': 'Baby-sitting',
