@@ -226,50 +226,54 @@ const AdminBlog = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+      <header className="glass-strong sticky top-0 z-50 border-b border-border/20 pt-16 lg:pt-0">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/admin')}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground p-2 sm:px-4"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Retour admin
+                <ArrowLeft className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Retour admin</span>
               </Button>
-              <span className="text-2xl font-normal text-foreground tracking-tight">
+              <span className="text-lg sm:text-2xl font-normal text-foreground tracking-tight">
                 Gestion du blog
               </span>
-              <Badge variant="outline" className="ml-2">
+              <Badge variant="outline" className="ml-2 text-xs sm:text-sm">
                 <Shield className="w-3 h-3 mr-1" />
-                Administration
+                <span className="hidden sm:inline">Administration</span>
+                <span className="sm:hidden">Admin</span>
               </Badge>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
               <Button
                 onClick={() => navigate('/admin/blog/new')}
-                className="bg-primary hover:bg-primary/90"
+                className="bg-primary hover:bg-primary/90 flex-1 sm:flex-initial"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Nouvel article
+                <span className="sm:hidden">Nouvel article</span>
+                <span className="hidden sm:inline">Nouvel article</span>
               </Button>
-              <UserMenu />
+              <div className="hidden sm:block">
+                <UserMenu />
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="space-y-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Page Title */}
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Gestion du blog</h1>
-            <p className="text-muted-foreground mt-2">Gérez tous les articles de blog des 4 sections</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Gestion du blog</h1>
+            <p className="text-muted-foreground mt-2 text-sm sm:text-base">Gérez tous les articles de blog des 4 sections</p>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Articles</CardTitle>
@@ -326,7 +330,7 @@ const AdminBlog = () => {
               <CardTitle>Filtres</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 <div>
                   <Input
                     placeholder="Rechercher par titre, contenu, auteur..."
