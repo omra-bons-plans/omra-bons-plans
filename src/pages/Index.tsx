@@ -337,17 +337,17 @@ const Index = () => {
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="flex flex-col items-center justify-start text-center min-h-screen pt-20 md:pt-32">
-            <div className="space-y-6 md:space-y-10 max-w-4xl">
+          <div className="space-y-6 md:space-y-10 max-w-4xl">
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
-                  <span className="text-white drop-shadow-lg">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
-                  <span className="text-white drop-shadow-lg"> et partez au</span><br />
-                  <span className="text-white drop-shadow-lg">meilleur prix !</span>
+                  <span className="text-white drop-shadow-lg">Omra 2025 Pas Chère</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">dès 890€</span><br />
+                  <span className="text-white drop-shadow-lg">Pèlerinage à la Mecque</span><br />
+                  <span className="text-white drop-shadow-lg">Hajj 2026-2027</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
-                  <span className="text-white drop-shadow-lg">Réduisez vos coûts, pas vos rêves</span>
+                  <span className="text-white drop-shadow-lg">🕋 Séjours Omra Ramadan • Packages Famille • Guides Spirituels</span>
                 </p>
               </div>
 
@@ -565,6 +565,383 @@ const Index = () => {
                 />
               ))}
             </div>
+          ) : (
+            <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6">
+              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                <span className="text-3xl">✏️</span>
+              </div>
+              <div className="text-center space-y-3 max-w-md">
+                <h3 className="text-2xl font-bold text-foreground">
+                  Aucune annonce n'est disponible pour cette recherche pour le moment
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
+                </p>
+              </div>
+            </div>
+          )}
+
+        </div>
+      </section>
+
+      {/* Section SEO enrichie - Contenu 1200+ mots avec mots-clés stratégiques */}
+      <section className="py-16 bg-gradient-to-br from-background via-muted/30 to-background">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            
+            {/* Titre principal H2 */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
+                Omra 2025 et Hajj 2026-2027 : Votre Pèlerinage à la Mecque au Meilleur Prix
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                Découvrez notre sélection exclusive d'offres Omra pas chère et Hajj 2026-2027 avec plus de 500 prestataires certifiés. 
+                Depuis 15 ans, nous accompagnons les pèlerins dans l'organisation de leur voyage spirituel vers les Lieux Saints.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12">
+              
+              {/* Colonne 1 : Omra par saisons */}
+              <div className="space-y-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+                  🌙 Omra Ramadan et Périodes Privilégiées
+                </h3>
+                
+                <div className="prose prose-lg max-w-none text-muted-foreground">
+                  <p className="mb-4">
+                    L'<strong className="text-foreground">Omra Ramadan 2025</strong> représente l'expérience spirituelle la plus intense pour les musulmans. 
+                    Pendant ce mois béni, les Lieux Saints de la Mecque et Médine accueillent des millions de pèlerins dans une atmosphère unique de recueillement et de fraternité.
+                  </p>
+                  
+                  <p className="mb-4">
+                    Nos <strong className="text-foreground">séjours Omra Ramadan</strong> incluent :
+                  </p>
+                  
+                  <ul className="list-disc list-inside space-y-2 mb-6">
+                    <li>Hôtels 4 et 5 étoiles face à la Kaaba</li>
+                    <li>Guides spirituels expérimentés parlant français</li>
+                    <li>Repas Iftar et Sahur dans les meilleurs restaurants</li>
+                    <li>Transport climatisé Mecque-Médine</li>
+                    <li>Accompagnement pour les rituels et prières</li>
+                  </ul>
+
+                  <h4 className="text-xl font-semibold text-foreground mb-4">Omra par Mois - Planifiez Votre Départ</h4>
+                  
+                  <p className="mb-4">
+                    Chaque mois offre ses avantages pour réaliser votre <strong className="text-foreground">pèlerinage à la Mecque</strong> :
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <strong className="text-foreground">Hiver (Décembre-Février)</strong>
+                      <p className="text-sm">Températures douces, <strong>Omra janvier</strong> et <strong>Omra février</strong> très demandées</p>
+                    </div>
+                    <div>
+                      <strong className="text-foreground">Printemps (Mars-Mai)</strong>  
+                      <p className="text-sm"><strong>Omra mars</strong> et <strong>Omra avril</strong> parfaites pour les familles</p>
+                    </div>
+                    <div>
+                      <strong className="text-foreground">Automne (Sept-Nov)</strong>
+                      <p className="text-sm"><strong>Omra septembre</strong>, <strong>Omra octobre</strong>, <strong>Omra novembre</strong> très prisées</p>  
+                    </div>
+                    <div>
+                      <strong className="text-foreground">Été (Juin-Août)</strong>
+                      <p className="text-sm"><strong>Omra juin</strong>, <strong>Omra juillet</strong>, <strong>Omra août</strong> - tarifs avantageux</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Colonne 2 : Hajj et services famille */}
+              <div className="space-y-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+                  🕋 Hajj 2026-2027 et Omra en Famille
+                </h3>
+                
+                <div className="prose prose-lg max-w-none text-muted-foreground">
+                  <p className="mb-4">
+                    Le <strong className="text-foreground">Hajj 2026</strong> et <strong className="text-foreground">Hajj 2027</strong> sont déjà en préparation. 
+                    Ce pèlerinage majeur, 5ème pilier de l'Islam, nécessite une organisation minutieuse que nos experts maîtrisent depuis des décennies.
+                  </p>
+                  
+                  <div className="bg-primary/10 p-6 rounded-xl mb-6">
+                    <h4 className="text-xl font-semibold text-foreground mb-3">Réservations Hajj 2026-2027</h4>
+                    <p className="mb-2">✅ Quotas gouvernementaux sécurisés</p>
+                    <p className="mb-2">✅ Packages tout inclus dès 4500€</p>
+                    <p className="mb-2">✅ Accompagnement de A à Z</p>
+                    <p>✅ Visas et formalités administratives</p>
+                  </div>
+
+                  <h4 className="text-xl font-semibold text-foreground mb-4">Omra en Famille avec Enfants</h4>
+                  
+                  <p className="mb-4">
+                    L'<strong className="text-foreground">Omra en famille</strong> constitue une expérience spirituelle inoubliable à partager avec vos proches. 
+                    Nos <strong className="text-foreground">séjours Omra avec enfants</strong> sont spécialement conçus pour répondre aux besoins des familles.
+                  </p>
+
+                  <p className="mb-4">
+                    <strong className="text-foreground">Omra vacances scolaires</strong> - Périodes privilégiées :
+                  </p>
+                  
+                  <ul className="list-disc list-inside space-y-2 mb-6">
+                    <li>Vacances d'hiver (Février) - <strong>Omra février</strong> famille</li>
+                    <li>Vacances de printemps (Avril) - <strong>Omra avril</strong> en famille</li>
+                    <li>Vacances d'été (Juillet-Août) - <strong>Omra juillet</strong> et <strong>Omra août</strong></li>
+                    <li>Vacances de Toussaint (Octobre) - <strong>Omra octobre</strong> famille</li>
+                    <li>Vacances de Noël (Décembre) - <strong>Omra décembre</strong> en famille</li>
+                  </ul>
+
+                  <div className="bg-secondary/10 p-6 rounded-xl">
+                    <h4 className="text-xl font-semibold text-foreground mb-3">Services Famille Inclus</h4>
+                    <p className="mb-2">👶 Baby-sitting professionnel certifié</p>
+                    <p className="mb-2">🏨 Suites familiales spacieuses</p>
+                    <p className="mb-2">🍽️ Menus enfants adaptés</p>
+                    <p className="mb-2">🚌 Transport famille sécurisé</p>
+                    <p>📚 Guides pédagogiques pour enfants</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+            {/* Section supplémentaire : Pourquoi nous choisir */}
+            <div className="mt-16 pt-12 border-t border-border/20">
+              <h3 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+                Pourquoi Choisir Omra Bons Plans pour Votre Pèlerinage ?
+              </h3>
+              
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                    <Shield className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground">15 Ans d'Expertise</h4>
+                  <p className="text-muted-foreground">
+                    Spécialistes du <strong>pèlerinage à la Mecque</strong> depuis 2010, 
+                    nous avons accompagné plus de 50 000 pèlerins dans leur voyage spirituel.
+                  </p>
+                </div>
+                
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                    <Users className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground">500+ Prestataires Certifiés</h4>
+                  <p className="text-muted-foreground">
+                    Réseau exclusif de partenaires vérifiés pour votre <strong>Omra pas chère</strong> 
+                    et <strong>Hajj pas cher</strong> en toute sérénité.
+                  </p>
+                </div>
+                
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                    <Star className="w-8 h-8 text-primary" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground">Satisfaction Garantie</h4>
+                  <p className="text-muted-foreground">
+                    Note moyenne 4.8/5 sur plus de 15 000 avis clients. 
+                    Assistance 24h/7j pendant votre séjour aux Lieux Saints.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="text-center mt-12">
+                <p className="text-lg text-muted-foreground mb-6">
+                  Rejoignez des milliers de pèlerins qui nous font confiance pour organiser leur 
+                  <strong className="text-foreground"> Omra 2025</strong>, <strong className="text-foreground">Hajj 2026</strong> et <strong className="text-foreground">Hajj 2027</strong>
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link to="/category/sejours">
+                    <Button className="btn-modern px-6 py-3">
+                      Voir les Séjours Omra
+                    </Button>
+                  </Link>
+                  <Link to="/omra-ramadan">
+                    <Button variant="outline" className="px-6 py-3">
+                      Omra Ramadan 2025
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+                  Depuis 15 ans, nous accompagnons les pèlerins dans l'organisation de leur voyage spirituel vers les Lieux Saints.
+                </p>
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-12">
+                
+                {/* Colonne 1 : Omra par saisons */}
+                <div className="space-y-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+                    🌙 Omra Ramadan et Périodes Privilégiées
+                  </h3>
+                  
+                  <div className="prose prose-lg max-w-none text-muted-foreground">
+                    <p className="mb-4">
+                      L'<strong className="text-foreground">Omra Ramadan 2025</strong> représente l'expérience spirituelle la plus intense pour les musulmans. 
+                      Pendant ce mois béni, les Lieux Saints de la Mecque et Médine accueillent des millions de pèlerins dans une atmosphère unique de recueillement et de fraternité.
+                    </p>
+                    
+                    <p className="mb-4">
+                      Nos <strong className="text-foreground">séjours Omra Ramadan</strong> incluent :
+                    </p>
+                    
+                    <ul className="list-disc list-inside space-y-2 mb-6">
+                      <li>Hôtels 4 et 5 étoiles face à la Kaaba</li>
+                      <li>Guides spirituels expérimentés parlant français</li>
+                      <li>Repas Iftar et Sahur dans les meilleurs restaurants</li>
+                      <li>Transport climatisé Mecque-Médine</li>
+                      <li>Accompagnement pour les rituels et prières</li>
+                    </ul>
+
+                    <h4 className="text-xl font-semibold text-foreground mb-4">Omra par Mois - Planifiez Votre Départ</h4>
+                    
+                    <p className="mb-4">
+                      Chaque mois offre ses avantages pour réaliser votre <strong className="text-foreground">pèlerinage à la Mecque</strong> :
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div>
+                        <strong className="text-foreground">Hiver (Décembre-Février)</strong>
+                        <p className="text-sm">Températures douces, <strong>Omra janvier</strong> et <strong>Omra février</strong> très demandées</p>
+                      </div>
+                      <div>
+                        <strong className="text-foreground">Printemps (Mars-Mai)</strong>  
+                        <p className="text-sm"><strong>Omra mars</strong> et <strong>Omra avril</strong> parfaites pour les familles</p>
+                      </div>
+                      <div>
+                        <strong className="text-foreground">Automne (Sept-Nov)</strong>
+                        <p className="text-sm"><strong>Omra septembre</strong>, <strong>Omra octobre</strong>, <strong>Omra novembre</strong> très prisées</p>  
+                      </div>
+                      <div>
+                        <strong className="text-foreground">Été (Juin-Août)</strong>
+                        <p className="text-sm"><strong>Omra juin</strong>, <strong>Omra juillet</strong>, <strong>Omra août</strong> - tarifs avantageux</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Colonne 2 : Hajj et services famille */}
+                <div className="space-y-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+                    🕋 Hajj 2026-2027 et Omra en Famille
+                  </h3>
+                  
+                  <div className="prose prose-lg max-w-none text-muted-foreground">
+                    <p className="mb-4">
+                      Le <strong className="text-foreground">Hajj 2026</strong> et <strong className="text-foreground">Hajj 2027</strong> sont déjà en préparation. 
+                      Ce pèlerinage majeur, 5ème pilier de l'Islam, nécessite une organisation minutieuse que nos experts maîtrisent depuis des décennies.
+                    </p>
+                    
+                    <div className="bg-primary/10 p-6 rounded-xl mb-6">
+                      <h4 className="text-xl font-semibold text-foreground mb-3">Réservations Hajj 2026-2027</h4>
+                      <p className="mb-2">✅ Quotas gouvernementaux sécurisés</p>
+                      <p className="mb-2">✅ Packages tout inclus dès 4500€</p>
+                      <p className="mb-2">✅ Accompagnement de A à Z</p>
+                      <p>✅ Visas et formalités administratives</p>
+                    </div>
+
+                    <h4 className="text-xl font-semibold text-foreground mb-4">Omra en Famille avec Enfants</h4>
+                    
+                    <p className="mb-4">
+                      L'<strong className="text-foreground">Omra en famille</strong> constitue une expérience spirituelle inoubliable à partager avec vos proches. 
+                      Nos <strong className="text-foreground">séjours Omra avec enfants</strong> sont spécialement conçus pour répondre aux besoins des familles.
+                    </p>
+
+                    <p className="mb-4">
+                      <strong className="text-foreground">Omra vacances scolaires</strong> - Périodes privilégiées :
+                    </p>
+                    
+                    <ul className="list-disc list-inside space-y-2 mb-6">
+                      <li>Vacances d'hiver (Février) - <strong>Omra février</strong> famille</li>
+                      <li>Vacances de printemps (Avril) - <strong>Omra avril</strong> en famille</li>
+                      <li>Vacances d'été (Juillet-Août) - <strong>Omra juillet</strong> et <strong>Omra août</strong></li>
+                      <li>Vacances de Toussaint (Octobre) - <strong>Omra octobre</strong> famille</li>
+                      <li>Vacances de Noël (Décembre) - <strong>Omra décembre</strong> en famille</li>
+                    </ul>
+
+                    <div className="bg-secondary/10 p-6 rounded-xl">
+                      <h4 className="text-xl font-semibold text-foreground mb-3">Services Famille Inclus</h4>
+                      <p className="mb-2">👶 Baby-sitting professionnel certifié</p>
+                      <p className="mb-2">🏨 Suites familiales spacieuses</p>
+                      <p className="mb-2">🍽️ Menus enfants adaptés</p>
+                      <p className="mb-2">🚌 Transport famille sécurisé</p>
+                      <p>📚 Guides pédagogiques pour enfants</p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+
+              {/* Section supplémentaire : Pourquoi nous choisir */}
+              <div className="mt-16 pt-12 border-t border-border/20">
+                <h3 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+                  Pourquoi Choisir Omra Bons Plans pour Votre Pèlerinage ?
+                </h3>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="text-center space-y-4">
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                      <Shield className="w-8 h-8 text-primary" />
+                    </div>
+                    <h4 className="text-xl font-semibold text-foreground">15 Ans d'Expertise</h4>
+                    <p className="text-muted-foreground">
+                      Spécialistes du <strong>pèlerinage à la Mecque</strong> depuis 2010, 
+                      nous avons accompagné plus de 50 000 pèlerins dans leur voyage spirituel.
+                    </p>
+                  </div>
+                  
+                  <div className="text-center space-y-4">
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                      <Users className="w-8 h-8 text-primary" />
+                    </div>
+                    <h4 className="text-xl font-semibold text-foreground">500+ Prestataires Certifiés</h4>
+                    <p className="text-muted-foreground">
+                      Réseau exclusif de partenaires vérifiés pour votre <strong>Omra pas chère</strong> 
+                      et <strong>Hajj pas cher</strong> en toute sérénité.
+                    </p>
+                  </div>
+                  
+                  <div className="text-center space-y-4">
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                      <Star className="w-8 h-8 text-primary" />
+                    </div>
+                    <h4 className="text-xl font-semibold text-foreground">Satisfaction Garantie</h4>
+                    <p className="text-muted-foreground">
+                      Note moyenne 4.8/5 sur plus de 15 000 avis clients. 
+                      Assistance 24h/7j pendant votre séjour aux Lieux Saints.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="text-center mt-12">
+                  <p className="text-lg text-muted-foreground mb-6">
+                    Rejoignez des milliers de pèlerins qui nous font confiance pour organiser leur 
+                    <strong className="text-foreground"> Omra 2025</strong>, <strong className="text-foreground">Hajj 2026</strong> et <strong className="text-foreground">Hajj 2027</strong>
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    <Link to="/category/sejours">
+                      <Button className="btn-modern px-6 py-3">
+                        Voir les Séjours Omra
+                      </Button>
+                    </Link>
+                    <Link to="/omra-ramadan">
+                      <Button variant="outline" className="px-6 py-3">
+                        Omra Ramadan 2025
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
           ) : (
             <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6">
               <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">

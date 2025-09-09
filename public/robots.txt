@@ -1,14 +1,76 @@
+# Robots.txt optimisé SEO pour Omra Bons Plans
+User-agent: *
+Allow: /
+
+# Pages importantes à indexer en priorité
+Allow: /omra-ramadan
+Allow: /omra-pas-chere  
+Allow: /hajj-2026
+Allow: /hajj-2027
+Allow: /omra-en-famille
+Allow: /omra-avec-enfants
+Allow: /omra-vacances-scolaires
+
+# Pages par mois - haute priorité SEO
+Allow: /omra-janvier
+Allow: /omra-fevrier
+Allow: /omra-mars
+Allow: /omra-avril
+Allow: /omra-juin
+Allow: /omra-juillet
+Allow: /omra-aout
+Allow: /omra-septembre
+Allow: /omra-octobre
+Allow: /omra-novembre
+Allow: /omra-decembre
+
+# Catégories de services
+Allow: /category/sejours
+Allow: /category/vols
+Allow: /category/hebergement
+Allow: /category/guides
+Allow: /category/chauffeurs
+
+# Blog et contenu éditorial
+Allow: /blog
+Allow: /blog/conseils-omra
+Allow: /blog/preparation-hajj
+Allow: /blog/guides-spirituels
+
+# Pages institutionnelles
+Allow: /about
+Allow: /contact
+
+# Interdire les pages privées/admin
+Disallow: /admin/
+Disallow: /auth
+Disallow: /profile
+Disallow: /my-ads
+Disallow: /settings
+Disallow: /notifications
+Disallow: /publish/
+
+# Fichiers et dossiers techniques
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*utm_*
+Disallow: /*?*sid=*
+Disallow: /*?*sessionid*
+
+# Sitemap
+Sitemap: https://omrabonsplans.fr/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Instructions spécifiques par bot
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
 
-User-agent: Bingbot
+User-agent: Bingbot  
 Allow: /
-
-User-agent: Twitterbot
-Allow: /
+Crawl-delay: 1
 
 User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
 Allow: /
