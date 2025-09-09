@@ -253,69 +253,70 @@ const BlogPost = () => {
             <span className="text-foreground truncate">{post.title}</span>
           </div>
 
-          <div className="flex gap-8">
-            {/* Main content */}
-            <div className="flex-1 max-w-4xl">
-            {/* Article Header */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <Badge className={getCategoryColor(post.category)}>
-                  {getCategoryName(post.category)}
-                </Badge>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Eye className="w-4 h-4 mr-1" />
-                  {post.views_count} vues
-                </div>
+          {/* Article Header */}
+          <div className="mb-8 max-w-4xl">
+            <div className="flex items-center justify-between mb-4">
+              <Badge className={getCategoryColor(post.category)}>
+                {getCategoryName(post.category)}
+              </Badge>
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Eye className="w-4 h-4 mr-1" />
+                {post.views_count} vues
               </div>
+            </div>
 
-              <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+            <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-                <div className="flex items-center">
-                  <User className="w-4 h-4 mr-1" />
-                  {post.author?.full_name || post.author?.first_name || 'Anonyme'}
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </div>
-                {post.location_city && (
-                  <button 
-                    onClick={openMap}
-                    className="flex items-center hover:text-foreground transition-colors"
-                  >
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {post.location_city}
-                  </button>
-                )}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+              <div className="flex items-center">
+                <User className="w-4 h-4 mr-1" />
+                {post.author?.full_name || post.author?.first_name || 'Anonyme'}
               </div>
-
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {post.tags.map((tag, index) => (
-                    <Badge key={index} variant="outline" className="text-sm">
-                      <Tag className="w-3 h-3 mr-1" />
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+              <div className="flex items-center">
+                <Calendar className="w-4 h-4 mr-1" />
+                {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </div>
+              {post.location_city && (
+                <button 
+                  onClick={openMap}
+                  className="flex items-center hover:text-foreground transition-colors"
+                >
+                  <MapPin className="w-4 h-4 mr-1" />
+                  {post.location_city}
+                </button>
               )}
             </div>
 
-            {/* Cover Image */}
-            {post.cover_image && (
-              <div className="mb-8">
-                <img 
-                  src={post.cover_image} 
-                  alt={post.title}
-                  className="w-full h-64 md:h-96 object-cover rounded-lg"
-                />
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {post.tags.map((tag, index) => (
+                  <Badge key={index} variant="outline" className="text-sm">
+                    <Tag className="w-3 h-3 mr-1" />
+                    {tag}
+                  </Badge>
+                ))}
               </div>
             )}
+          </div>
+
+          {/* Cover Image */}
+          {post.cover_image && (
+            <div className="mb-8 max-w-4xl">
+              <img 
+                src={post.cover_image} 
+                alt={post.title}
+                className="w-full h-64 md:h-96 object-cover rounded-lg"
+              />
+            </div>
+          )}
+
+          <div className="flex gap-8">
+            {/* Main content */}
+            <div className="flex-1 max-w-4xl">
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none mb-8">
@@ -464,7 +465,9 @@ const BlogPost = () => {
 
             {/* Table of Contents - Desktop only */}
             <div className="hidden md:block w-64 flex-shrink-0">
-              <TableOfContents content={post.content} />
+              <div className="sticky top-32">
+                <TableOfContents content={post.content} />
+              </div>
             </div>
           </div>
         </div>
