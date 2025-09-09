@@ -76,20 +76,20 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <Card className="border-dashed border rounded-2xl shadow-sm bg-muted/20 overflow-hidden">
+        <Card className="border-2 border-primary/20 rounded-2xl shadow-lg bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden hover:shadow-xl transition-all duration-300">
           <CollapsibleTrigger className="w-full">
-            <CardHeader className="text-center pb-4 cursor-pointer hover:bg-muted/30 transition-colors">
-              <div className="flex items-center justify-center gap-3">
-                <CardTitle className="text-lg font-semibold text-foreground">
+            <CardHeader className="text-center py-6 cursor-pointer hover:bg-primary/10 transition-all duration-300">
+              <div className="flex items-center justify-center gap-4">
+                <CardTitle className="text-xl font-bold text-primary">
                   Vous souhaitez apparaître sur notre site ?
                 </CardTitle>
                 {isOpen ? (
-                  <ChevronUp className="w-5 h-5 text-muted-foreground shrink-0" />
+                  <ChevronUp className="w-6 h-6 text-primary shrink-0 font-bold" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground shrink-0" />
+                  <ChevronDown className="w-6 h-6 text-primary shrink-0 font-bold" />
                 )}
               </div>
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-base text-foreground/80 mt-3 font-medium">
                 Envoyez-nous un message pour rejoindre notre réseau de {type === 'vendeur' ? 'vendeurs' : 'associations'} de confiance
               </p>
             </CardHeader>
