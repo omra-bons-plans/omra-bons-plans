@@ -185,12 +185,12 @@ const Blog = () => {
         </header>
 
         <div className="container mx-auto px-2 sm:px-6 py-4 sm:py-8">
-          {/* Page Title and Description */}
-          <div className="text-center mb-6 sm:mb-8 px-2">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 sm:mb-4">
+          {/* Page Title and Description - Compact on mobile */}
+          <div className="text-center mb-4 sm:mb-8 px-2">
+            <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-4">
               {getCategoryName(selectedCategory)}
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xs sm:text-base text-muted-foreground max-w-2xl mx-auto hidden sm:block">
               {selectedCategory === 'general' && "Découvrez nos articles sur l'Omra, le Hajj, et la vie spirituelle"}
               {selectedCategory === 'restaurants' && "Les meilleurs restaurants halal pour votre séjour"}
               {selectedCategory === 'associations' && "Découvrez les associations qui œuvrent pour la communauté"}
@@ -199,18 +199,18 @@ const Blog = () => {
             </p>
           </div>
 
-          {/* Category Tabs - Mobile Optimized */}
-          <div className="mb-6 sm:mb-8 px-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-center gap-2">
+          {/* Category Tabs - Horizontal scroll on mobile */}
+          <div className="mb-4 sm:mb-8">
+            <div className="flex overflow-x-auto scrollbar-hide gap-2 px-2 sm:px-0 sm:grid sm:grid-cols-2 lg:flex lg:justify-center lg:gap-4">
               {categories.map((cat) => (
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className="flex items-center justify-between sm:justify-center text-sm w-full lg:w-auto h-12"
+                  className="flex items-center justify-center text-xs sm:text-sm min-w-fit whitespace-nowrap px-3 sm:px-4 h-8 sm:h-12 w-auto sm:w-full lg:w-auto"
                 >
                   <span className="truncate">{cat.label}</span>
-                  <Badge variant="secondary" className="ml-2 text-xs">
+                  <Badge variant="secondary" className="ml-1 sm:ml-2 text-xs px-1 sm:px-2">
                     {cat.count}
                   </Badge>
                 </Button>
@@ -218,13 +218,13 @@ const Blog = () => {
             </div>
           </div>
 
-          {/* Search */}
-          <div className="max-w-md mx-auto mb-6 sm:mb-8 px-2 sm:px-0">
+          {/* Search - Compact on mobile */}
+          <div className="max-w-md mx-auto mb-4 sm:mb-8 px-2 sm:px-0">
             <Input
-              placeholder="Rechercher dans les articles..."
+              placeholder="Rechercher..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-12"
+              className="w-full h-9 sm:h-12 text-sm sm:text-base"
             />
           </div>
 
