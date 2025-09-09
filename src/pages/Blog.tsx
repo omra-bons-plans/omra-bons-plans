@@ -228,31 +228,24 @@ const Blog = () => {
             />
           </div>
 
-          {/* Contact Form for Vendors and Associations */}
-          {(selectedCategory === 'vendeurs' || selectedCategory === 'associations') ? (
-            <VendorAssociationForm 
-              type={selectedCategory === 'vendeurs' ? 'vendeur' : 'association'} 
-            />
+          {/* Posts Grid */}
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <h3 className="text-lg font-semibold text-muted-foreground mb-2">
+                Aucun article trouvé
+              </h3>
+              <p className="text-muted-foreground">
+                {searchTerm ? 'Essayez avec d\'autres mots-clés' : 'Aucun article publié pour le moment'}
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Debug: posts={posts.length}, filteredPosts={filteredPosts.length}, loading={loading ? 'true' : 'false'}
+              </p>
+            </div>
           ) : (
-            <>
-              {/* Posts Grid */}
-              {loading ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                </div>
-              ) : filteredPosts.length === 0 ? (
-                <div className="text-center py-12">
-                  <h3 className="text-lg font-semibold text-muted-foreground mb-2">
-                    Aucun article trouvé
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {searchTerm ? 'Essayez avec d\'autres mots-clés' : 'Aucun article publié pour le moment'}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Debug: posts={posts.length}, filteredPosts={filteredPosts.length}, loading={loading ? 'true' : 'false'}
-                  </p>
-                </div>
-              ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 px-2 sm:px-0">
               {filteredPosts.map((post) => (
                 <Card 
@@ -331,8 +324,15 @@ const Blog = () => {
                 </Card>
               ))}
             </div>
-              )}
-            </>
+          )}
+
+          {/* Contact Form for Vendors and Associations - Displayed at bottom */}
+          {(selectedCategory === 'vendeurs' || selectedCategory === 'associations') && (
+            <div className="mt-12 max-w-2xl mx-auto">
+              <VendorAssociationForm 
+                type={selectedCategory === 'vendeurs' ? 'vendeur' : 'association'} 
+              />
+            </div>
           )}
         </div>
       </div>

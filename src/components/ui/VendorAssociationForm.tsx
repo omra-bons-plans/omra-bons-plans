@@ -71,21 +71,21 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
     : 'Vous souhaitez apparaître sur notre site en tant qu\'association ? Contactez-nous !';
 
   return (
-    <div className="max-w-2xl mx-auto px-4">
-      <Card className="border rounded-2xl shadow-lg">
-        <CardHeader className="text-center pb-6">
-          <CardTitle className="text-2xl font-bold text-foreground mb-4">
-            {title}
+    <div className="max-w-xl mx-auto px-4">
+      <Card className="border-dashed border rounded-2xl shadow-sm bg-muted/20">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-lg font-semibold text-foreground mb-2">
+            Vous souhaitez apparaître sur notre site ?
           </CardTitle>
-          <p className="text-muted-foreground">
-            {description}
+          <p className="text-sm text-muted-foreground">
+            Envoyez-nous un message pour rejoindre notre réseau de {type === 'vendeur' ? 'vendeurs' : 'associations'} de confiance
           </p>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="prenom">Prénom *</Label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label htmlFor="prenom" className="text-xs">Prénom *</Label>
                 <Input
                   id="prenom"
                   name="prenom"
@@ -93,11 +93,12 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
                   value={formData.prenom}
                   onChange={handleInputChange}
                   placeholder="Votre prénom"
+                  className="h-9"
                   required
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="nom">Nom *</Label>
+              <div className="space-y-1">
+                <Label htmlFor="nom" className="text-xs">Nom *</Label>
                 <Input
                   id="nom"
                   name="nom"
@@ -105,13 +106,14 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
                   value={formData.nom}
                   onChange={handleInputChange}
                   placeholder="Votre nom"
+                  className="h-9"
                   required
                 />
               </div>
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="mail">Email *</Label>
+            <div className="space-y-1">
+              <Label htmlFor="mail" className="text-xs">Email *</Label>
               <Input
                 id="mail"
                 name="mail"
@@ -119,29 +121,30 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
                 value={formData.mail}
                 onChange={handleInputChange}
                 placeholder="votre@email.com"
+                className="h-9"
                 required
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="message">Message *</Label>
+            <div className="space-y-1">
+              <Label htmlFor="message" className="text-xs">Message *</Label>
               <Textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
                 placeholder={`Décrivez votre ${type} et pourquoi vous souhaitez apparaître sur notre site...`}
-                className="min-h-[120px]"
+                className="min-h-[80px] resize-none"
                 required
               />
             </div>
             
             <Button 
               type="submit" 
-              className="w-full h-12 text-base font-medium"
+              className="w-full h-9 text-sm"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande'}
+              {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma candidature'}
             </Button>
           </form>
         </CardContent>
