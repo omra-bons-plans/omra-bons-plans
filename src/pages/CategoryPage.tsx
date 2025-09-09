@@ -216,7 +216,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/b44f7a09-71c3-4dcb-92b6-d93306719835.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/2b8f6eaa-5bcc-4d13-9f74-64f2d80de369.png')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
