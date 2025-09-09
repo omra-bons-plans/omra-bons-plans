@@ -19,37 +19,37 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const freeCurrencyApiKey = Deno.env.get('FREECURRENCY_API_KEY');
+    const exchangerateApiKey = Deno.env.get('EXCHANGERATE_API_KEY');
     let eurToSar = 3.95; // Fallback value
     
     try {
-      if (!freeCurrencyApiKey) {
-        console.warn('FREECURRENCY_API_KEY not found, using fallback APIs');
-        throw new Error('FreeCurrency API key not configured');
+      if (!exchangerateApiKey) {
+        console.warn('EXCHANGERATE_API_KEY not found, using fallback APIs');
+        throw new Error('ExchangeRate API key not configured');
       }
       
-      // Use FreeCurrency API with API key
+      // Use ExchangeRate-API with API key
       const exchangeResponse = await fetch(
-        `https://api.freecurrencyapi.com/v1/latest?apikey=${freeCurrencyApiKey}&base_currency=EUR&currencies=SAR`
+        `https://v6.exchangerate-api.com/v6/${exchangerateApiKey}/latest/EUR`
       );
       
       if (exchangeResponse.ok) {
         const exchangeData = await exchangeResponse.json();
-        console.log('FreeCurrency API data:', exchangeData);
+        console.log('ExchangeRate-API data:', exchangeData);
         
-        if (exchangeData.data && exchangeData.data.SAR) {
-          eurToSar = exchangeData.data.SAR;
-          console.log('Using FreeCurrency rate:', eurToSar);
+        if (exchangeData.conversion_rates && exchangeData.conversion_rates.SAR) {
+          eurToSar = exchangeData.conversion_rates.SAR;
+          console.log('Using ExchangeRate-API rate:', eurToSar);
         } else {
-          console.warn('Invalid response from FreeCurrency API, trying fallback');
-          throw new Error('Invalid response from FreeCurrency API');
+          console.warn('Invalid response from ExchangeRate-API, trying fallback');
+          throw new Error('Invalid response from ExchangeRate-API');
         }
       } else {
-        console.warn('FreeCurrency API failed:', exchangeResponse.status, exchangeResponse.statusText);
-        throw new Error('FreeCurrency API failed');
+        console.warn('ExchangeRate-API failed:', exchangeResponse.status, exchangeResponse.statusText);
+        throw new Error('ExchangeRate-API failed');
       }
-    } catch (freeCurrencyError) {
-      console.warn('FreeCurrency API error:', freeCurrencyError.message);
+    } catch (exchangerateError) {
+      console.warn('ExchangeRate-API error:', exchangerateError.message);
       
       try {
         // Fallback to Frankfurter API (European Central Bank data, completely free)
