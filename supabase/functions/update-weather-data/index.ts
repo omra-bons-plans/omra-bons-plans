@@ -37,15 +37,42 @@ serve(async (req) => {
     const weatherPromises = Object.entries(cities).map(async ([city, cityData]) => {
       console.log(`Fetching weather for ${cityData.name}...`);
       
-      // WeatherAPI current conditions endpoint
+      // WeatherAPI current conditions endpoint with HTTPS and retry logic
       const cacheBuster = Date.now();
-      const weatherResponse = await fetch(
-        `http://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`
-      );
+      console.log(`🌐 Calling WeatherAPI for ${cityData.name}: https://api.weatherapi.com/v1/current.json?q=${encodeURIComponent(cityData.query)}`);
       
-      if (!weatherResponse.ok) {
-        console.error(`WeatherAPI error for ${city}:`, weatherResponse.status, weatherResponse.statusText);
-        throw new Error(`WeatherAPI error for ${city}: ${weatherResponse.status}`);
+      let weatherResponse;
+      let lastError;
+      
+      // Try HTTPS first, then HTTP as fallback
+      for (const protocol of ['https', 'http']) {
+        try {
+          const url = `${protocol}://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`;
+          console.log(`🔄 Trying ${protocol.toUpperCase()} for ${cityData.name}...`);
+          
+          weatherResponse = await fetch(url, {
+            headers: {
+              'User-Agent': 'Supabase-Edge-Function/1.0'
+            },
+            signal: AbortSignal.timeout(10000) // 10 second timeout
+          });
+          
+          if (weatherResponse.ok) {
+            console.log(`✅ ${protocol.toUpperCase()} successful for ${cityData.name}`);
+            break;
+          } else {
+            console.log(`⚠️ ${protocol.toUpperCase()} failed for ${cityData.name}: ${weatherResponse.status}`);
+            lastError = `${protocol.toUpperCase()} failed: ${weatherResponse.status}`;
+          }
+        } catch (error) {
+          console.log(`❌ ${protocol.toUpperCase()} error for ${cityData.name}:`, error.message);
+          lastError = error.message;
+        }
+      }
+      
+      if (!weatherResponse || !weatherResponse.ok) {
+        console.error(`WeatherAPI failed for ${city} after all retries. Last error:`, lastError);
+        throw new Error(`WeatherAPI failed for ${city}: ${lastError}`);
       }
       
       const weatherData = await weatherResponse.json();
