@@ -214,7 +214,7 @@ const BlogEditor = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
+      <header className="glass-strong sticky top-0 z-40 border-b border-border/20 pt-16 lg:pt-0">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-2 sm:space-x-4">
