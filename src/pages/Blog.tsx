@@ -137,18 +137,26 @@ const Blog = () => {
   };
 
   const filteredPosts = posts.filter(post => {
-    // Filtrer par catégorie
-    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
-    
-    // Filtrer par recherche
-    const matchesSearch = searchTerm === '' || 
-                         post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    console.log('🔍 Filtering post:', post.title, 'category match:', matchesCategory, 'search match:', matchesSearch);
-    return matchesCategory && matchesSearch;
+    try {
+      // Filtrer par catégorie
+      const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+      
+      // Filtrer par recherche avec des vérifications sécurisées
+      const searchLower = searchTerm.toLowerCase();
+      const matchesSearch = searchTerm === '' || 
+                           (post.title && post.title.toLowerCase().includes(searchLower)) ||
+                           (post.content && post.content.toLowerCase().includes(searchLower)) ||
+                           (post.excerpt && post.excerpt.toLowerCase().includes(searchLower)) ||
+                           (post.tags && Array.isArray(post.tags) && post.tags.some(tag => 
+                             tag && typeof tag === 'string' && tag.toLowerCase().includes(searchLower)
+                           ));
+      
+      console.log('🔍 Filtering post:', post.title, 'category match:', matchesCategory, 'search match:', matchesSearch);
+      return matchesCategory && matchesSearch;
+    } catch (error) {
+      console.error('Erreur lors du filtrage du post:', post, error);
+      return false;
+    }
   });
 
   console.log('📖 Blog render - posts:', posts.length, 'filteredPosts:', filteredPosts.length, 'loading:', loading);
