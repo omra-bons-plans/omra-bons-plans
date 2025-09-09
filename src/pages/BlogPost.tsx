@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { TableOfContents } from '@/components/ui/TableOfContents';
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 interface BlogPost {
   id: string;
@@ -358,52 +359,10 @@ const BlogPost = () => {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none mb-8">
-              <div className="whitespace-pre-wrap leading-relaxed" id="article-content">
-                {post.content.split('\n').map((line, index) => {
-                  const trimmed = line.trim();
-                  
-                  // Check for markdown-style headings
-                  const headingMatch = trimmed.match(/^(#{2,4})\s+(.+)$/);
-                  if (headingMatch) {
-                    const level = headingMatch[1].length;
-                    const text = headingMatch[2];
-                    const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
-                    return (
-                      <HeadingTag 
-                        key={index} 
-                        id={`heading-${index}`}
-                        className={`scroll-mt-24 ${level === 2 ? 'text-2xl font-bold mt-8 mb-4' : level === 3 ? 'text-xl font-semibold mt-6 mb-3' : 'text-lg font-medium mt-4 mb-2'}`}
-                      >
-                        {text}
-                      </HeadingTag>
-                    );
-                  }
-                  
-                  // Check for potential headings (standalone lines that look like titles)
-                  else if (
-                    trimmed.length > 10 && 
-                    trimmed.length < 100 && 
-                    trimmed.match(/^[A-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ][a-zA-ZÀ-ÿ\s:'()0-9-]+$/) &&
-                    !trimmed.includes('.') &&
-                    !trimmed.includes(',') &&
-                    index > 0 && 
-                    post.content.split('\n')[index - 1]?.trim() === ''
-                  ) {
-                    return (
-                      <h2 
-                        key={index} 
-                        id={`heading-${index}`}
-                        className="text-xl font-semibold mt-6 mb-3 scroll-mt-24"
-                      >
-                        {trimmed}
-                      </h2>
-                    );
-                  }
-                  
-                  // Regular content
-                  return <div key={index}>{line}</div>;
-                })}
-              </div>
+              <MarkdownRenderer 
+                content={post.content} 
+                className="whitespace-pre-wrap leading-relaxed" 
+              />
             </div>
 
             {/* Video */}
