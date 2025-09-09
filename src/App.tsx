@@ -35,8 +35,6 @@ import BlogPost from "./pages/BlogPost";
 import PublicProfile from "./pages/PublicProfile";
 import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
-import OmraRamadan from "./pages/OmraRamadan";
-import Hajj2026 from "./pages/Hajj2026";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import CategoryPage from "./pages/CategoryPage";
@@ -157,24 +155,6 @@ const App = () => (
                 <Notifications />
               </ProtectedRoute>
             } />
-            <Route path="/omra-ramadan" element={<OmraRamadan />} />
-            <Route path="/hajj-2026" element={<Hajj2026 />} />
-            <Route path="/hajj-2027" element={<Hajj2026 />} />
-            <Route path="/omra-pas-chere" element={<CategoryPage />} />
-            <Route path="/omra-en-famille" element={<CategoryPage />} />
-            <Route path="/omra-avec-enfants" element={<CategoryPage />} />
-            <Route path="/omra-vacances-scolaires" element={<CategoryPage />} />
-            <Route path="/omra-janvier" element={<CategoryPage />} />
-            <Route path="/omra-fevrier" element={<CategoryPage />} />
-            <Route path="/omra-mars" element={<CategoryPage />} />
-            <Route path="/omra-avril" element={<CategoryPage />} />
-            <Route path="/omra-juin" element={<CategoryPage />} />
-            <Route path="/omra-juillet" element={<CategoryPage />} />
-            <Route path="/omra-aout" element={<CategoryPage />} />
-            <Route path="/omra-septembre" element={<CategoryPage />} />
-            <Route path="/omra-octobre" element={<CategoryPage />} />
-            <Route path="/omra-novembre" element={<CategoryPage />} />
-            <Route path="/omra-decembre" element={<CategoryPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
