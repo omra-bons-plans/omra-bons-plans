@@ -35,6 +35,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleGoHome = () => {
+    // Use React Router navigate instead of window.location.href
     window.location.href = '/';
   };
 
