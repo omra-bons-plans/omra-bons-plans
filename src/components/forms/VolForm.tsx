@@ -107,7 +107,7 @@ const VolForm = ({ onSubmit, onBack }: VolFormProps) => {
                 placeholder="Ex: Vol direct Paris"
                 onChange={(e) => {
                   const upperValue = e.target.value.toUpperCase();
-                  setValue('title', upperValue);
+                  setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
                 }}
                 maxLength={20}
               />

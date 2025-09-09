@@ -121,7 +121,7 @@ const GuideForm = ({ onSubmit, onBack }: GuideFormProps) => {
                 placeholder="Ex: Guide Français"
                 onChange={(e) => {
                   const upperValue = e.target.value.toUpperCase();
-                  setValue('title', upperValue);
+                  setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
                 }}
                 maxLength={20}
               />

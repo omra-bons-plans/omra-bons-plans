@@ -125,7 +125,7 @@ const SejourForm = ({ formulaType, onSubmit, onBack }: SejourFormProps) => {
                   placeholder="Ex: Omra Confort 5★"
                   onChange={(e) => {
                     const upperValue = e.target.value.toUpperCase();
-                    setValue('title', upperValue);
+                    setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
                   }}
                   maxLength={20}
                 />

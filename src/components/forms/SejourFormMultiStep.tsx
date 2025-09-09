@@ -364,7 +364,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     maxLength={20}
                     onChange={(e) => {
                       const upperValue = e.target.value.toUpperCase();
-                      setValue('title', upperValue);
+                      setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
                     }}
                   />
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
