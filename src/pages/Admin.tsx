@@ -44,6 +44,7 @@ const Admin = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [accountTypeFilter, setAccountTypeFilter] = useState<string>('all');
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
   const [clickStats, setClickStats] = useState({
     totalAdViews: 0,
     totalContactViews: 0,
@@ -253,8 +254,6 @@ const Admin = () => {
   const totalAds = users.reduce((sum, user) => sum + user.ads_count, 0);
 
   // Mobile Navigation Component
-  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
-
   const MobileNavigation = () => (
     <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
       <SheetTrigger asChild>
