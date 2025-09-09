@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 interface BlogPost {
   id: string;
@@ -315,11 +316,10 @@ const BlogPost = () => {
             )}
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none mb-8">
-              <div className="whitespace-pre-wrap leading-relaxed">
-                {post.content}
-              </div>
-            </div>
+            <MarkdownRenderer 
+              content={post.content} 
+              className="mb-8 text-base leading-relaxed" 
+            />
 
             {/* Video */}
             {post.video_url && (
