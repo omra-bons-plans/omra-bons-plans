@@ -774,7 +774,19 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       id="price"
                       type="number"
                       step="0.01"
-                      {...register("price", { required: "Le prix est requis", valueAsNumber: true })}
+                      {...register("price", { 
+                        required: "Le prix est requis", 
+                        valueAsNumber: true,
+                        validate: {
+                          lowerThanOriginal: (value) => {
+                            const originalPrice = watch('originalPrice');
+                            if (originalPrice && value && value >= originalPrice) {
+                              return "Le prix de vente doit être inférieur au prix de base";
+                            }
+                            return true;
+                          }
+                        }
+                      })}
                       placeholder="Ex: 2890"
                     />
                     {errors.price && <p className="text-destructive text-sm">{errors.price.message}</p>}
@@ -786,9 +798,21 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       id="originalPrice"
                       type="number"
                       step="0.01"
-                      {...register("originalPrice", { valueAsNumber: true })}
+                      {...register("originalPrice", { 
+                        valueAsNumber: true,
+                        validate: {
+                          higherThanSalePrice: (value) => {
+                            const salePrice = watch('price');
+                            if (value && salePrice && value <= salePrice) {
+                              return "Le prix de base doit être supérieur au prix de vente";
+                            }
+                            return true;
+                          }
+                        }
+                      })}
                       placeholder="Ex: 4200"
                     />
+                    {errors.originalPrice && <p className="text-destructive text-sm">{errors.originalPrice.message}</p>}
                   </div>
                 </div>
 
