@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Save, Eye, MapPin, Image, Video, Tag } from 'lucide-react';
+import { ArrowLeft, Save, Eye, MapPin, Image, Video, Tag, User } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +30,8 @@ interface BlogPostFormData {
   location_address: string;
   location_city: string;
   tags: string[];
+  contact_phone: string;
+  contact_instagram: string;
 }
 
 const BlogEditor = () => {
@@ -53,7 +55,9 @@ const BlogEditor = () => {
     is_published: false,
     location_address: '',
     location_city: '',
-    tags: []
+    tags: [],
+    contact_phone: '',
+    contact_instagram: ''
   });
 
   const isEditMode = !!id;
@@ -94,7 +98,9 @@ const BlogEditor = () => {
         is_published: data.is_published || false,
         location_address: data.location_address || '',
         location_city: data.location_city || '',
-        tags: data.tags || []
+        tags: data.tags || [],
+        contact_phone: data.contact_phone || '',
+        contact_instagram: data.contact_instagram || ''
       });
     } catch (error) {
       console.error('Erreur lors du chargement de l\'article:', error);
@@ -391,6 +397,40 @@ const BlogEditor = () => {
                       value={formData.location_city}
                       onChange={(e) => setFormData(prev => ({ ...prev, location_city: e.target.value }))}
                       placeholder="Paris"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Contact (for vendeurs only) */}
+          {formData.category === 'vendeurs' && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <User className="w-5 h-5 mr-2" />
+                  Informations de contact
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6 p-4 sm:p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="contact_phone">Numéro de téléphone</Label>
+                    <Input
+                      id="contact_phone"
+                      value={formData.contact_phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, contact_phone: e.target.value }))}
+                      placeholder="+33 6 12 34 56 78"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contact_instagram">Lien Instagram</Label>
+                    <Input
+                      id="contact_instagram"
+                      value={formData.contact_instagram}
+                      onChange={(e) => setFormData(prev => ({ ...prev, contact_instagram: e.target.value }))}
+                      placeholder="https://instagram.com/votre_compte"
                     />
                   </div>
                 </div>

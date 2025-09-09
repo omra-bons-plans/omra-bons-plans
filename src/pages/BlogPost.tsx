@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, ChevronLeft, ChevronRight, Phone, Instagram } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +24,8 @@ interface BlogPost {
   location_city?: string;
   location_latitude?: number;
   location_longitude?: number;
+  contact_phone?: string;
+  contact_instagram?: string;
   tags: string[];
   views_count: number;
   created_at: string;
@@ -70,6 +72,8 @@ const BlogPost = () => {
           location_city,
           location_latitude,
           location_longitude,
+          contact_phone,
+          contact_instagram,
           tags,
           views_count,
           created_at,
@@ -406,6 +410,42 @@ const BlogPost = () => {
                     >
                       Voir sur la carte
                     </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Contact Info - for vendeurs only */}
+            {post.category === 'vendeurs' && (post.contact_phone || post.contact_instagram) && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <User className="w-5 h-5 mr-2" />
+                    Contacter le vendeur
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {post.contact_phone && (
+                      <Button
+                        variant="outline"
+                        onClick={() => window.open(`tel:${post.contact_phone}`, '_self')}
+                        className="w-full justify-start"
+                      >
+                        <Phone className="w-4 h-4 mr-2" />
+                        Appeler : {post.contact_phone}
+                      </Button>
+                    )}
+                    {post.contact_instagram && (
+                      <Button
+                        variant="outline"
+                        onClick={() => window.open(post.contact_instagram, '_blank')}
+                        className="w-full justify-start"
+                      >
+                        <Instagram className="w-4 h-4 mr-2" />
+                        Suivre sur Instagram
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
