@@ -31,70 +31,112 @@ serve(async (req) => {
       madinah: { query: "Medina,Saudi Arabia", name: "Madinah" }
     };
 
-    console.log('Fetching weather data using WeatherAPI...');
+    console.log('Fetching weather data with fallback APIs...');
     
-    // Fetch weather data for both cities using WeatherAPI
+    // Fetch weather data for both cities with fallback system
     const weatherPromises = Object.entries(cities).map(async ([city, cityData]) => {
-      console.log(`Fetching weather for ${cityData.name}...`);
+      console.log(`🌤️ Fetching weather for ${cityData.name}...`);
       
-      // WeatherAPI current conditions endpoint with HTTPS and retry logic
-      const cacheBuster = Date.now();
-      console.log(`🌐 Calling WeatherAPI for ${cityData.name}: https://api.weatherapi.com/v1/current.json?q=${encodeURIComponent(cityData.query)}`);
+      // Try WeatherAPI first, then Open-Meteo as fallback
+      let weatherData = null;
+      let lastError = null;
       
-      let weatherResponse;
-      let lastError;
-      
-      // Try HTTPS first, then HTTP as fallback
-      for (const protocol of ['https', 'http']) {
+      // Method 1: WeatherAPI (primary)
+      if (weatherApiKey) {
         try {
-          const url = `${protocol}://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`;
-          console.log(`🔄 Trying ${protocol.toUpperCase()} for ${cityData.name}...`);
+          console.log(`🔄 Trying WeatherAPI for ${cityData.name}...`);
+          const cacheBuster = Date.now();
           
-          weatherResponse = await fetch(url, {
-            headers: {
-              'User-Agent': 'Supabase-Edge-Function/1.0'
-            },
-            signal: AbortSignal.timeout(10000) // 10 second timeout
-          });
-          
-          if (weatherResponse.ok) {
-            console.log(`✅ ${protocol.toUpperCase()} successful for ${cityData.name}`);
-            break;
-          } else {
-            console.log(`⚠️ ${protocol.toUpperCase()} failed for ${cityData.name}: ${weatherResponse.status}`);
-            lastError = `${protocol.toUpperCase()} failed: ${weatherResponse.status}`;
+          for (const protocol of ['https', 'http']) {
+            try {
+              const url = `${protocol}://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(cityData.query)}&_=${cacheBuster}`;
+              
+              const weatherResponse = await fetch(url, {
+                headers: { 'User-Agent': 'Supabase-Edge-Function/1.0' },
+                signal: AbortSignal.timeout(8000)
+              });
+              
+              if (weatherResponse.ok) {
+                const data = await weatherResponse.json();
+                if (data?.current) {
+                  weatherData = {
+                    temperature: Math.round(data.current.temp_c),
+                    description: data.current.condition?.text || 'Clear',
+                    icon: data.current.condition?.icon || '',
+                    humidity: data.current.humidity || null,
+                    wind_speed: data.current.wind_kph || null
+                  };
+                  console.log(`✅ WeatherAPI success for ${cityData.name}: ${weatherData.temperature}°C`);
+                  break;
+                }
+              }
+            } catch (error) {
+              console.log(`⚠️ WeatherAPI ${protocol} failed for ${cityData.name}:`, error.message);
+              lastError = `WeatherAPI: ${error.message}`;
+            }
           }
         } catch (error) {
-          console.log(`❌ ${protocol.toUpperCase()} error for ${cityData.name}:`, error.message);
-          lastError = error.message;
+          console.log(`❌ WeatherAPI failed for ${cityData.name}:`, error.message);
+          lastError = `WeatherAPI: ${error.message}`;
         }
       }
       
-      if (!weatherResponse || !weatherResponse.ok) {
-        console.error(`WeatherAPI failed for ${city} after all retries. Last error:`, lastError);
-        throw new Error(`WeatherAPI failed for ${city}: ${lastError}`);
+      // Method 2: Open-Meteo (free fallback, no API key needed)
+      if (!weatherData) {
+        try {
+          console.log(`🔄 Trying Open-Meteo fallback for ${cityData.name}...`);
+          
+          // Get coordinates for the cities
+          const coords = city === 'makkah' 
+            ? { lat: 21.4225, lon: 39.8262 } // Makkah coordinates
+            : { lat: 24.4686, lon: 39.6142 }; // Madinah coordinates
+          
+          const meteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh`;
+          
+          const meteoResponse = await fetch(meteoUrl, {
+            signal: AbortSignal.timeout(8000)
+          });
+          
+          if (meteoResponse.ok) {
+            const data = await meteoResponse.json();
+            if (data?.current_weather) {
+              // Map weather codes to descriptions
+              const getWeatherDescription = (code) => {
+                const codes = {
+                  0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+                  45: 'Fog', 48: 'Depositing rime fog',
+                  51: 'Light drizzle', 53: 'Moderate drizzle', 55: 'Dense drizzle',
+                  61: 'Slight rain', 63: 'Moderate rain', 65: 'Heavy rain',
+                  80: 'Slight rain showers', 81: 'Moderate rain showers', 82: 'Violent rain showers'
+                };
+                return codes[code] || 'Clear';
+              };
+              
+              weatherData = {
+                temperature: Math.round(data.current_weather.temperature),
+                description: getWeatherDescription(data.current_weather.weathercode),
+                icon: '', // Open-Meteo doesn't provide icons
+                humidity: null, // Not available in current_weather
+                wind_speed: data.current_weather.windspeed || null
+              };
+              console.log(`✅ Open-Meteo success for ${cityData.name}: ${weatherData.temperature}°C`);
+            }
+          }
+        } catch (error) {
+          console.log(`❌ Open-Meteo failed for ${cityData.name}:`, error.message);
+          lastError = `Open-Meteo: ${error.message}`;
+        }
       }
       
-      const weatherData = await weatherResponse.json();
-      console.log(`Weather data for ${city}:`, JSON.stringify(weatherData, null, 2));
-      
-      if (!weatherData || !weatherData.current) {
-        console.error(`Invalid weather data for ${city}:`, weatherData);
-        throw new Error(`Invalid weather data received for ${city}`);
+      // If all APIs failed, throw error
+      if (!weatherData) {
+        throw new Error(`All weather APIs failed for ${city}. Last error: ${lastError}`);
       }
-      
-      const currentWeather = weatherData.current;
-      const temperature = Math.round(currentWeather.temp_c);
-      console.log(`🌡️ Temperature for ${cityData.name}: ${currentWeather.temp_c}°C (rounded: ${temperature}°C)`);
       
       return {
         city,
-        temperature,
-        description: currentWeather.condition?.text || 'Sunny',
-        icon: currentWeather.condition?.icon || '',
-        humidity: currentWeather.humidity || null,
-        wind_speed: currentWeather.wind_kph || null,
-        temp_max: null, // WeatherAPI current endpoint doesn't provide daily min/max
+        ...weatherData,
+        temp_max: null,
         temp_min: null
       };
     });
