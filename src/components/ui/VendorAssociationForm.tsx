@@ -77,16 +77,16 @@ const VendorAssociationForm = ({ type }: VendorAssociationFormProps) => {
     <div className="w-full max-w-4xl mx-auto px-4">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <Card className="border-dashed border rounded-2xl shadow-sm bg-muted/20 overflow-hidden">
-          <CollapsibleTrigger asChild>
+          <CollapsibleTrigger className="w-full">
             <CardHeader className="text-center pb-4 cursor-pointer hover:bg-muted/30 transition-colors">
               <div className="flex items-center justify-center gap-3">
                 <CardTitle className="text-lg font-semibold text-foreground">
                   Vous souhaitez apparaître sur notre site ?
                 </CardTitle>
                 {isOpen ? (
-                  <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                  <ChevronUp className="w-5 h-5 text-muted-foreground shrink-0" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                  <ChevronDown className="w-5 h-5 text-muted-foreground shrink-0" />
                 )}
               </div>
               <p className="text-sm text-muted-foreground mt-2">
