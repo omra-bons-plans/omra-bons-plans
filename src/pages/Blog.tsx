@@ -44,13 +44,14 @@ const Blog = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, [selectedCategory]);
+  }, []); // Enlever selectedCategory de la dépendance pour ne charger qu'une fois
 
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      console.log('📖 Fetching posts for category:', selectedCategory);
+      console.log('📖 Fetching all posts for counters');
       
+      // Toujours récupérer TOUS les articles publiés pour calculer les compteurs correctement
       let query = supabase
         .from('blog_posts')
         .select(`
@@ -76,14 +77,7 @@ const Blog = () => {
         .eq('is_published', true)
         .order('created_at', { ascending: false });
 
-      console.log('📖 Query built, selectedCategory:', selectedCategory);
-
-      if (selectedCategory !== 'all') {
-        query = query.eq('category', selectedCategory);
-        console.log('📖 Added category filter:', selectedCategory);
-      }
-
-      console.log('📖 Executing query...');
+      console.log('📖 Executing query for all posts...');
       const { data, error } = await query;
 
       console.log('📖 Query result - data:', data, 'error:', error);
@@ -97,7 +91,7 @@ const Blog = () => {
       })) as BlogPost[];
 
       setPosts(postsWithAuthors);
-      console.log('📖 Posts loaded:', postsWithAuthors.length, 'posts', postsWithAuthors);
+      console.log('📖 All posts loaded:', postsWithAuthors.length, 'posts', postsWithAuthors);
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
       toast.error('Erreur lors du chargement des articles');
@@ -143,14 +137,18 @@ const Blog = () => {
   };
 
   const filteredPosts = posts.filter(post => {
+    // Filtrer par catégorie
+    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+    
+    // Filtrer par recherche
     const matchesSearch = searchTerm === '' || 
                          post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    console.log('🔍 Filtering post:', post.title, 'matches search:', matchesSearch, 'searchTerm:', searchTerm);
-    return matchesSearch;
+    console.log('🔍 Filtering post:', post.title, 'category match:', matchesCategory, 'search match:', matchesSearch);
+    return matchesCategory && matchesSearch;
   });
 
   console.log('📖 Blog render - posts:', posts.length, 'filteredPosts:', filteredPosts.length, 'loading:', loading);
