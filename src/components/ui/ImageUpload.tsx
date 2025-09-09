@@ -11,6 +11,7 @@ interface ImageUploadProps {
   maxImages?: number;
   className?: string;
   bucketName?: string;
+  firstImageLabel?: string;
 }
 
 export const ImageUpload = ({ 
@@ -18,7 +19,8 @@ export const ImageUpload = ({
   onImagesChange, 
   maxImages = 5, 
   className = '',
-  bucketName = 'ad-images'
+  bucketName = 'ad-images',
+  firstImageLabel = 'Image principale'
 }: ImageUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { uploadImage, deleteImage, uploading } = useImageUpload(bucketName);
@@ -143,10 +145,10 @@ export const ImageUpload = ({
                 </div>
 
                 {/* First image indicator */}
-                {index === 0 && (
+                {index === 0 && firstImageLabel && (
                   <div className="absolute top-2 left-2">
                     <div className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
-                      Image principale
+                      {firstImageLabel}
                     </div>
                   </div>
                 )}

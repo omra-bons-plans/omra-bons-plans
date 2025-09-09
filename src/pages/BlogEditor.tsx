@@ -345,6 +345,7 @@ const BlogEditor = () => {
                   }))}
                   maxImages={10}
                   bucketName="blog-images"
+                  firstImageLabel=""
                 />
               </div>
 
