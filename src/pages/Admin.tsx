@@ -267,11 +267,9 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
-              console.log('🔍 Clic mobile sur Gérer les annonces détecté');
               navigate('/admin/ads');
             }}
-            className="justify-start cursor-pointer hover:bg-muted/80"
-            style={{ pointerEvents: 'auto', zIndex: 10 }}
+            className="justify-start"
           >
             <FileText className="w-4 h-4 mr-2" />
             Gérer les annonces
@@ -279,11 +277,9 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
-              console.log('🔍 Clic mobile sur Gérer le blog détecté');
               navigate('/admin/blog');
             }}
-            className="justify-start cursor-pointer hover:bg-muted/80"
-            style={{ pointerEvents: 'auto', zIndex: 10 }}
+            className="justify-start"
           >
             <Settings className="w-4 h-4 mr-2" />
             Gérer le blog
@@ -296,7 +292,7 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-40 border-b border-border/20">
+      <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 md:space-x-4">
@@ -318,23 +314,15 @@ const Admin = () => {
                 <>
                   <Button
                     variant="outline"
-                    onClick={() => {
-                      console.log('🔍 Clic sur Gérer les annonces détecté');
-                      navigate('/admin/ads');
-                    }}
-                    className="text-sm cursor-pointer hover:bg-muted/80"
-                    style={{ pointerEvents: 'auto', zIndex: 10 }}
+                    onClick={() => navigate('/admin/ads')}
+                    className="text-sm"
                   >
                     Gérer les annonces
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={() => {
-                      console.log('🔍 Clic sur Gérer le blog détecté');
-                      navigate('/admin/blog');
-                    }}
-                    className="text-sm cursor-pointer hover:bg-muted/80"
-                    style={{ pointerEvents: 'auto', zIndex: 10 }}
+                    onClick={() => navigate('/admin/blog')}
+                    className="text-sm"
                   >
                     Gérer le blog
                   </Button>

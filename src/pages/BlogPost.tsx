@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, List } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 interface BlogPost {
   id: string;
@@ -38,7 +37,6 @@ const BlogPost = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tableOfContents, setTableOfContents] = useState<{id: string, title: string, level: number}[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -131,39 +129,6 @@ const BlogPost = () => {
       navigate('/blog');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const extractTableOfContents = (content: string) => {
-    const headingRegex = /^(#{1,6})\s+(.+)$/gm;
-    const headings: {id: string, title: string, level: number}[] = [];
-    let match;
-
-    while ((match = headingRegex.exec(content)) !== null) {
-      const level = match[1].length;
-      const title = match[2].trim();
-      const id = title.toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .trim();
-      
-      headings.push({ id, title, level });
-    }
-
-    return headings;
-  };
-
-  useEffect(() => {
-    if (post?.content) {
-      const toc = extractTableOfContents(post.content);
-      setTableOfContents(toc);
-    }
-  }, [post?.content]);
-
-  const scrollToHeading = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -287,202 +252,165 @@ const BlogPost = () => {
             <span className="text-foreground truncate">{post.title}</span>
           </div>
 
-          <div className="flex gap-8">
-            {/* Main Content */}
-            <div className="flex-1 max-w-4xl">
-              {/* Article Header */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-4">
-                  <Badge className={getCategoryColor(post.category)}>
-                    {getCategoryName(post.category)}
-                  </Badge>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Eye className="w-4 h-4 mr-1" />
-                    {post.views_count} vues
-                  </div>
+          <div className="max-w-4xl mx-auto">
+            {/* Article Header */}
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <Badge className={getCategoryColor(post.category)}>
+                  {getCategoryName(post.category)}
+                </Badge>
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <Eye className="w-4 h-4 mr-1" />
+                  {post.views_count} vues
                 </div>
+              </div>
 
-                <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+              <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
 
-                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-                  <div className="flex items-center">
-                    <User className="w-4 h-4 mr-1" />
-                    {post.author?.full_name || post.author?.first_name || 'Anonyme'}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </div>
-                  {post.location_city && (
-                    <button 
-                      onClick={openMap}
-                      className="flex items-center hover:text-foreground transition-colors"
-                    >
-                      <MapPin className="w-4 h-4 mr-1" />
-                      {post.location_city}
-                    </button>
-                  )}
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center">
+                  <User className="w-4 h-4 mr-1" />
+                  {post.author?.full_name || post.author?.first_name || 'Anonyme'}
                 </div>
-
-                {post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {post.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-sm">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
+                <div className="flex items-center">
+                  <Calendar className="w-4 h-4 mr-1" />
+                  {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </div>
+                {post.location_city && (
+                  <button 
+                    onClick={openMap}
+                    className="flex items-center hover:text-foreground transition-colors"
+                  >
+                    <MapPin className="w-4 h-4 mr-1" />
+                    {post.location_city}
+                  </button>
                 )}
               </div>
 
-              {/* Cover Image */}
-              {post.cover_image && (
-                <div className="mb-8">
-                  <img 
-                    src={post.cover_image} 
-                    alt={post.title}
-                    className="w-full h-64 md:h-96 object-cover rounded-lg"
-                  />
-                </div>
-              )}
-
-              {/* Article Content */}
-              <MarkdownRenderer 
-                content={post.content} 
-                className="mb-8 text-base leading-relaxed" 
-              />
-
-              {/* Video */}
-              {post.video_url && (
-                <div className="mb-8">
-                  <h3 className="text-lg font-semibold mb-4 flex items-center">
-                    <Video className="w-5 h-5 mr-2" />
-                    Vidéo associée
-                  </h3>
-                  <div className="bg-muted rounded-lg p-4">
-                    <a 
-                      href={post.video_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      Voir la vidéo →
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {/* Location Map */}
-              {(post.location_address || (post.location_latitude && post.location_longitude)) && (
-                <Card className="mb-8">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <MapPin className="w-5 h-5 mr-2" />
-                      Localisation
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      {post.location_address && (
-                        <p className="text-sm">{post.location_address}</p>
-                      )}
-                      <Button
-                        variant="outline"
-                        onClick={openMap}
-                        className="w-full"
-                      >
-                        Voir sur la carte
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Related Posts */}
-              {relatedPosts.length > 0 && (
-                <div className="mt-12">
-                  <h3 className="text-2xl font-bold mb-6">Articles similaires</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {relatedPosts.map((relatedPost) => (
-                      <Card 
-                        key={relatedPost.id}
-                        className="cursor-pointer hover:shadow-lg transition-shadow"
-                        onClick={() => navigate(`/blog/${relatedPost.category}/${relatedPost.id}`)}
-                      >
-                        {relatedPost.cover_image && (
-                          <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                            <img 
-                              src={relatedPost.cover_image} 
-                              alt={relatedPost.title}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-base leading-tight line-clamp-2">
-                            {relatedPost.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="pt-0">
-                          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                            {relatedPost.excerpt || 'Cliquez pour lire l\'article...'}
-                          </p>
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center">
-                              <Eye className="w-3 h-3 mr-1" />
-                              {relatedPost.views_count}
-                            </div>
-                            {relatedPost.location_city && (
-                              <div className="flex items-center">
-                                <MapPin className="w-3 h-3 mr-1" />
-                                {relatedPost.location_city}
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {post.tags.map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-sm">
+                      <Tag className="w-3 h-3 mr-1" />
+                      {tag}
+                    </Badge>
+                  ))}
                 </div>
               )}
             </div>
 
-            {/* Table of Contents - Right Sidebar */}
-            {tableOfContents.length > 0 && (
-              <div className="hidden lg:block lg:w-64 xl:w-80">
-                <div className="sticky top-24">
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-base flex items-center">
-                        <List className="w-4 h-4 mr-2" />
-                        Sommaire
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <nav className="space-y-1">
-                        {tableOfContents.map((heading, index) => (
-                          <button
-                            key={index}
-                            onClick={() => scrollToHeading(heading.id)}
-                            className={`
-                              block w-full text-left text-sm py-1 px-2 rounded-md hover:bg-muted transition-colors
-                              ${heading.level === 1 ? 'font-medium' : ''}
-                              ${heading.level === 2 ? 'ml-2 text-muted-foreground' : ''}
-                              ${heading.level === 3 ? 'ml-4 text-muted-foreground text-xs' : ''}
-                              ${heading.level >= 4 ? 'ml-6 text-muted-foreground text-xs' : ''}
-                            `}
-                          >
-                            {heading.title}
-                          </button>
-                        ))}
-                      </nav>
-                    </CardContent>
-                  </Card>
+            {/* Cover Image */}
+            {post.cover_image && (
+              <div className="mb-8">
+                <img 
+                  src={post.cover_image} 
+                  alt={post.title}
+                  className="w-full h-64 md:h-96 object-cover rounded-lg"
+                />
+              </div>
+            )}
+
+            {/* Article Content */}
+            <div className="prose prose-lg max-w-none mb-8">
+              <div className="whitespace-pre-wrap leading-relaxed">
+                {post.content}
+              </div>
+            </div>
+
+            {/* Video */}
+            {post.video_url && (
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold mb-4 flex items-center">
+                  <Video className="w-5 h-5 mr-2" />
+                  Vidéo associée
+                </h3>
+                <div className="bg-muted rounded-lg p-4">
+                  <a 
+                    href={post.video_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Voir la vidéo →
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Location Map */}
+            {(post.location_address || (post.location_latitude && post.location_longitude)) && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <MapPin className="w-5 h-5 mr-2" />
+                    Localisation
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {post.location_address && (
+                      <p className="text-sm">{post.location_address}</p>
+                    )}
+                    <Button
+                      variant="outline"
+                      onClick={openMap}
+                      className="w-full"
+                    >
+                      Voir sur la carte
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Related Posts */}
+            {relatedPosts.length > 0 && (
+              <div className="mt-12">
+                <h3 className="text-2xl font-bold mb-6">Articles similaires</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {relatedPosts.map((relatedPost) => (
+                    <Card 
+                      key={relatedPost.id}
+                      className="cursor-pointer hover:shadow-lg transition-shadow"
+                      onClick={() => navigate(`/blog/${relatedPost.category}/${relatedPost.id}`)}
+                    >
+                      {relatedPost.cover_image && (
+                        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                          <img 
+                            src={relatedPost.cover_image} 
+                            alt={relatedPost.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-base leading-tight line-clamp-2">
+                          {relatedPost.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                          {relatedPost.excerpt || 'Cliquez pour lire l\'article...'}
+                        </p>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <div className="flex items-center">
+                            <Eye className="w-3 h-3 mr-1" />
+                            {relatedPost.views_count}
+                          </div>
+                          {relatedPost.location_city && (
+                            <div className="flex items-center">
+                              <MapPin className="w-3 h-3 mr-1" />
+                              {relatedPost.location_city}
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </div>
             )}
