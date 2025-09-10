@@ -126,7 +126,7 @@ const MobileSidebar = () => {
           )}
 
           {/* Menu Items */}
-          <div className="space-y-2">
+          <div className="space-y-2 pb-20">
             {/* Categories Section - Collapsible */}
             <div className="mb-4">
               <button
