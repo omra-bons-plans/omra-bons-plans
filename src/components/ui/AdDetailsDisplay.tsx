@@ -88,8 +88,13 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
   };
 
   const formatCity = (city: string) => {
-    if (!city || typeof city !== 'string') return '';
-    return city.charAt(0).toUpperCase() + city.slice(1);
+    try {
+      if (!city || typeof city !== 'string') return '';
+      return city.charAt(0).toUpperCase() + city.slice(1);
+    } catch (error) {
+      console.error('Error formatting city:', error, city);
+      return '';
+    }
   };
 
   return (
@@ -214,10 +219,16 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                     <MapPin className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Ville:</span>
                     <span>
-                      {Array.isArray(ad.categoryDetails.city) 
-                        ? ad.categoryDetails.city.map(formatCity).join(', ')
-                        : formatCity(ad.categoryDetails.city)
-                      }
+                      {(() => {
+                        try {
+                          return Array.isArray(ad.categoryDetails.city) 
+                            ? ad.categoryDetails.city.filter(city => city).map(formatCity).join(', ')
+                            : formatCity(ad.categoryDetails.city);
+                        } catch (error) {
+                          console.error('Error processing city data:', error);
+                          return 'Information non disponible';
+                        }
+                      })()}
                     </span>
                   </div>
                 )}
