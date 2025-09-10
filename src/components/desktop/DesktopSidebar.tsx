@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
   Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail
+  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -242,6 +242,14 @@ export function DesktopSidebar() {
                       <NavLink to="/contact" className={getNavCls}>
                         <Mail className="w-4 h-4" />
                         <span>Contact</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <NavLink to="/prayer-times" className={getNavCls}>
+                        <Clock className="w-4 h-4" />
+                        <span>Horaires de prière</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
