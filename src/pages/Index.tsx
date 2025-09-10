@@ -461,8 +461,9 @@ const Index = () => {
                   
                   {/* Text Content */}
                   <div className="relative z-10 text-left">
-                    <div className="text-lg font-bold">Rejoindre notre communauté</div>
-                    <div className="text-sm opacity-90">OmraBonsPlans sur WhatsApp</div>
+                    <div className="text-lg font-bold">Rejoindre notre</div>
+                    <div className="text-lg font-bold">communauté</div>
+                    <div className="text-xs opacity-90 mt-1">OmraBonsPlans sur WhatsApp</div>
                   </div>
                   
                   {/* Animated Background Effect */}
