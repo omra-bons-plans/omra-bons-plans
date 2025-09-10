@@ -54,7 +54,7 @@ const PrayerTimes = () => {
       setLoading(true);
       setError(null);
       
-      // Utilisation de l'API Aladhan pour récupérer les horaires de prière
+      // Utilisation de l'API Aladhan avec méthode 2 (ISNA) qui utilise 15° pour Fajr et Isha
       const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=2`);
       
       if (!response.ok) {
@@ -238,8 +238,9 @@ const PrayerTimes = () => {
               <Card className="bg-muted/50">
                 <CardContent className="pt-6">
                   <div className="text-sm text-muted-foreground text-center">
-                    <p>Les horaires sont calculés selon la méthode de calcul standard.</p>
-                    <p className="mt-1">Pour plus de précision, vérifiez avec votre mosquée locale.</p>
+                    <p><strong>Méthode de calcul :</strong> ISNA (Islamic Society of North America)</p>
+                    <p>Angle utilisé : <strong>15°</strong> pour Fajr et Isha</p>
+                    <p className="mt-2">Pour plus de précision, vérifiez avec votre mosquée locale.</p>
                   </div>
                 </CardContent>
               </Card>
