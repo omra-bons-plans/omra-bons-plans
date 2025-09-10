@@ -30,7 +30,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to admin
     const adminEmailResponse = await resend.emails.send({
       from: "OmraBonsPlans <feedback@omrabonsplans.fr>",
-      to: ["fafaland@hotmail.fr"],
+      to: ["contact@omrabonsplans.fr"],
       reply_to: email,
       subject: `Nouveau feedback de ${firstName} ${lastName}`,
       html: `
