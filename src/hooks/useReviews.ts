@@ -3,6 +3,16 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
+export interface ReviewReply {
+  id: string;
+  review_id: string;
+  ad_owner_id: string;
+  reply_text: string;
+  created_at: string;
+  updated_at: string;
+  owner_name?: string;
+}
+
 export interface Review {
   id: string;
   ad_id: string;
@@ -11,6 +21,7 @@ export interface Review {
   comment: string | null;
   created_at: string;
   reviewer_name?: string;
+  reply?: ReviewReply;
 }
 
 export interface ReviewStats {
@@ -41,19 +52,41 @@ export const useReviews = (adId?: string) => {
 
       if (reviewsError) throw reviewsError;
 
-      // Fetch profiles for reviewers
+      // Fetch review replies
+      const reviewIds = reviewsData?.map(review => review.id) || [];
+      const { data: repliesData } = await supabase
+        .from('review_replies')
+        .select('*')
+        .in('review_id', reviewIds);
+
+      // Fetch profiles for reviewers and reply authors
       const reviewerIds = reviewsData?.map(review => review.reviewer_id) || [];
+      const replyAuthorIds = repliesData?.map(reply => reply.ad_owner_id) || [];
+      const allUserIds = [...new Set([...reviewerIds, ...replyAuthorIds])];
+      
       const { data: profiles } = await supabase
         .from('profiles')
         .select('id, full_name, first_name')
-        .in('id', reviewerIds);
+        .in('id', allUserIds);
 
-      // Format reviews with reviewer names
+      // Format reviews with reviewer names and replies
       const formattedReviews = (reviewsData || []).map(review => {
         const profile = profiles?.find(p => p.id === review.reviewer_id);
+        const reply = repliesData?.find(r => r.review_id === review.id);
+        let formattedReply = undefined;
+        
+        if (reply) {
+          const ownerProfile = profiles?.find(p => p.id === reply.ad_owner_id);
+          formattedReply = {
+            ...reply,
+            owner_name: ownerProfile?.full_name || ownerProfile?.first_name || 'Propriétaire'
+          };
+        }
+
         return {
           ...review,
-          reviewer_name: profile?.full_name || profile?.first_name || 'Anonyme'
+          reviewer_name: profile?.full_name || profile?.first_name || 'Anonyme',
+          reply: formattedReply
         };
       });
 
@@ -171,6 +204,85 @@ export const useReviews = (adId?: string) => {
     fetchReviews();
   }, [adId]);
 
+  const submitReply = async (reviewId: string, replyText: string) => {
+    if (!user || !adId) {
+      toast.error('Vous devez être connecté pour répondre');
+      return false;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('review_replies')
+        .insert({
+          review_id: reviewId,
+          ad_owner_id: user.id,
+          reply_text: replyText.trim()
+        });
+
+      if (error) throw error;
+
+      toast.success('Votre réponse a été ajoutée avec succès');
+      fetchReviews(); // Refresh reviews
+      return true;
+    } catch (err) {
+      console.error('Error submitting reply:', err);
+      toast.error('Erreur lors de l\'ajout de votre réponse');
+      return false;
+    }
+  };
+
+  const updateReply = async (replyId: string, replyText: string) => {
+    if (!user) {
+      toast.error('Vous devez être connecté pour modifier une réponse');
+      return false;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('review_replies')
+        .update({
+          reply_text: replyText.trim()
+        })
+        .eq('id', replyId)
+        .eq('ad_owner_id', user.id);
+
+      if (error) throw error;
+
+      toast.success('Votre réponse a été modifiée avec succès');
+      fetchReviews(); // Refresh reviews
+      return true;
+    } catch (err) {
+      console.error('Error updating reply:', err);
+      toast.error('Erreur lors de la modification de votre réponse');
+      return false;
+    }
+  };
+
+  const deleteReply = async (replyId: string) => {
+    if (!user) {
+      toast.error('Vous devez être connecté pour supprimer une réponse');
+      return false;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('review_replies')
+        .delete()
+        .eq('id', replyId)
+        .eq('ad_owner_id', user.id);
+
+      if (error) throw error;
+
+      toast.success('Votre réponse a été supprimée');
+      fetchReviews(); // Refresh reviews
+      return true;
+    } catch (err) {
+      console.error('Error deleting reply:', err);
+      toast.error('Erreur lors de la suppression de votre réponse');
+      return false;
+    }
+  };
+
   return {
     reviews,
     stats,
@@ -180,6 +292,9 @@ export const useReviews = (adId?: string) => {
     updateReview,
     deleteReview,
     getUserReview,
+    submitReply,
+    updateReply,
+    deleteReply,
     refetch: fetchReviews
   };
 };

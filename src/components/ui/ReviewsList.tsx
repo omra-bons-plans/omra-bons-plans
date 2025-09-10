@@ -5,17 +5,31 @@ import { Badge } from './badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './alert-dialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { Review } from '@/hooks/useReviews';
+import { ReviewReply } from './ReviewReply';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 interface ReviewsListProps {
   reviews: Review[];
   loading: boolean;
+  adOwnerId?: string;
   onEditReview?: (review: Review) => void;
   onDeleteReview?: (reviewId: string) => void;
+  onSubmitReply?: (reviewId: string, replyText: string) => Promise<boolean>;
+  onUpdateReply?: (replyId: string, replyText: string) => Promise<boolean>;
+  onDeleteReply?: (replyId: string) => Promise<boolean>;
 }
 
-export const ReviewsList = ({ reviews, loading, onEditReview, onDeleteReview }: ReviewsListProps) => {
+export const ReviewsList = ({ 
+  reviews, 
+  loading, 
+  adOwnerId,
+  onEditReview, 
+  onDeleteReview,
+  onSubmitReply,
+  onUpdateReply,
+  onDeleteReply
+}: ReviewsListProps) => {
   const { user } = useAuth();
 
   if (loading) {
@@ -147,6 +161,16 @@ export const ReviewsList = ({ reviews, loading, onEditReview, onDeleteReview }: 
                 {review.comment}
               </p>
             )}
+
+            {/* Reply Section */}
+            <ReviewReply
+              reply={review.reply}
+              canReply={user?.id === adOwnerId && !review.reply}
+              isOwner={user?.id === adOwnerId}
+              onSubmitReply={(replyText) => onSubmitReply ? onSubmitReply(review.id, replyText) : Promise.resolve(false)}
+              onUpdateReply={onUpdateReply}
+              onDeleteReply={onDeleteReply}
+            />
           </CardContent>
         </Card>
       ))}

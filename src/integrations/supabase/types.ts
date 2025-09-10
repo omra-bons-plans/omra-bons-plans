@@ -724,6 +724,33 @@ export type Database = {
         }
         Relationships: []
       }
+      review_replies: {
+        Row: {
+          ad_owner_id: string
+          created_at: string
+          id: string
+          reply_text: string
+          review_id: string
+          updated_at: string
+        }
+        Insert: {
+          ad_owner_id: string
+          created_at?: string
+          id?: string
+          reply_text: string
+          review_id: string
+          updated_at?: string
+        }
+        Update: {
+          ad_owner_id?: string
+          created_at?: string
+          id?: string
+          reply_text?: string
+          review_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           ad_id: string

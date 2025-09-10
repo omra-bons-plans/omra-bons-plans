@@ -71,7 +71,10 @@ export default function AdDetails() {
     submitReview,
     updateReview,
     deleteReview,
-    getUserReview
+    getUserReview,
+    submitReply,
+    updateReply,
+    deleteReply
   } = useReviews(id);
 
   useEffect(() => {
@@ -337,8 +340,12 @@ export default function AdDetails() {
                       <ReviewsList
                         reviews={reviews}
                         loading={reviewsLoading}
+                        adOwnerId={ad?.user_id}
                         onEditReview={handleEditReview}
                         onDeleteReview={handleDeleteReview}
+                        onSubmitReply={submitReply}
+                        onUpdateReply={updateReply}
+                        onDeleteReply={deleteReply}
                       />
                     </div>
                   </TabsContent>
@@ -523,8 +530,12 @@ export default function AdDetails() {
                     <ReviewsList
                       reviews={reviews}
                       loading={reviewsLoading}
+                      adOwnerId={ad?.user_id}
                       onEditReview={handleEditReview}
                       onDeleteReview={handleDeleteReview}
+                      onSubmitReply={submitReply}
+                      onUpdateReply={updateReply}
+                      onDeleteReply={deleteReply}
                     />
                   </div>
                 </TabsContent>
