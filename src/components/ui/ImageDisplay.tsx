@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Dialog, DialogContent } from './dialog';
+import { Dialog, DialogContent, DialogTitle } from './dialog';
 import { Button } from './button';
 import { Card } from './card';
 import { getImageUrl } from '@/utils/imageUtils';
@@ -20,6 +20,8 @@ export const ImageDisplay = ({
 }: ImageDisplayProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   // Combine cover image and additional images, converting paths to URLs
   const allImagePaths = coverImage 
@@ -49,6 +51,33 @@ export const ImageDisplay = ({
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && allImages.length > 1) {
+      nextImage();
+    }
+    if (isRightSwipe && allImages.length > 1) {
+      prevImage();
+    }
+
+    // Reset touch values
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   return (
@@ -133,7 +162,15 @@ export const ImageDisplay = ({
       {/* Image Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black">
-          <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          <DialogTitle className="sr-only">
+            {title} - Image {currentImageIndex + 1} sur {allImages.length}
+          </DialogTitle>
+          <div 
+            className="relative w-full h-full flex items-center justify-center overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* Close Button */}
             <Button
               variant="ghost"
