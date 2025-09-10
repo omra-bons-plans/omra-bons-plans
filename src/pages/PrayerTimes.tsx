@@ -54,58 +54,21 @@ const PrayerTimes = () => {
       setLoading(true);
       setError(null);
       
-      // D'abord, obtenir les coordonnées de la ville via une API de géocodage
-      const geocodeResponse = await fetch(`https://api.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}&limit=1`);
-      const geocodeData = await geocodeResponse.json();
-      
-      if (!geocodeData || geocodeData.length === 0) {
-        throw new Error('Ville non trouvée');
-      }
-      
-      const { lat, lon } = geocodeData[0];
-      
-      // Utilisation de l'API IslamicFinder avec méthode 2 (ISNA) qui utilise 15° pour Fajr et Isha
-      const response = await fetch(`https://www.islamicfinder.us/index.php/api/prayer_times?latitude=${lat}&longitude=${lon}&timezone=auto&method=2&format=json`);
+      // Utilisation de l'API Aladhan avec méthode 2 (ISNA) qui utilise 15° pour Fajr et Isha
+      const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=2`);
       
       if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des horaires');
+        throw new Error('Ville non trouvée ou erreur de réseau');
       }
       
       const data = await response.json();
       
-      if (!data || !data.results) {
+      if (data.code !== 200) {
         throw new Error('Impossible de récupérer les horaires pour cette ville');
       }
       
-      // Adapter la structure des données pour correspondre à notre interface
-      const adaptedData = {
-        timings: {
-          Fajr: data.results.Fajr,
-          Sunrise: data.results.Sunrise,
-          Dhuhr: data.results.Dhuhr,
-          Asr: data.results.Asr,
-          Maghrib: data.results.Maghrib,
-          Isha: data.results.Isha
-        },
-        date: {
-          readable: new Date().toLocaleDateString('fr-FR', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          }),
-          hijri: data.results.hijri || {
-            date: '',
-            month: { ar: '', en: '' },
-            year: ''
-          }
-        },
-        meta: {
-          timezone: data.results.timezone || 'Local'
-        }
-      };
-      
-      setPrayerData(adaptedData);
-      toast.success('Horaires de prière récupérés avec succès via IslamicFinder');
+      setPrayerData(data.data);
+      toast.success('Horaires de prière récupérés avec succès');
     } catch (err: any) {
       setError(err.message || 'Une erreur est survenue');
       toast.error(err.message || 'Une erreur est survenue');
@@ -275,7 +238,7 @@ const PrayerTimes = () => {
               <Card className="bg-muted/50">
                 <CardContent className="pt-6">
                   <div className="text-sm text-muted-foreground text-center">
-                    <p><strong>Source :</strong> IslamicFinder API</p>
+                    <p><strong>Source :</strong> Aladhan API</p>
                     <p><strong>Méthode de calcul :</strong> ISNA (Islamic Society of North America)</p>
                     <p>Angle utilisé : <strong>15°</strong> pour Fajr et Isha</p>
                     <p className="mt-2">Pour plus de précision, vérifiez avec votre mosquée locale.</p>
