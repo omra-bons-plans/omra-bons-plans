@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,26 +12,41 @@ import { validatePassword } from '@/utils/validation';
 import PasswordStrengthIndicator from '@/components/ui/PasswordStrengthIndicator';
 import { Mail, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
   const [error, setError] = useState('');
   const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
   const [showResetConfirmation, setShowResetConfirmation] = useState(false);
   const [showResetForm, setShowResetForm] = useState(false);
+  const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
   const { signIn, signUp, resetPassword, user } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  // Redirect if already authenticated
+  // Check for reset password mode
   useEffect(() => {
-    if (user) {
+    const mode = searchParams.get('mode');
+    if (mode === 'reset-password') {
+      setShowUpdatePasswordForm(true);
+    }
+  }, [searchParams]);
+
+  // Redirect if already authenticated (except in reset password mode)
+  useEffect(() => {
+    const mode = searchParams.get('mode');
+    if (user && mode !== 'reset-password') {
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user, navigate, searchParams]);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,14 +143,56 @@ const Auth = () => {
     setLoading(false);
   };
 
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setUpdateLoading(true);
+    setError('');
+
+    if (!newPassword || !confirmNewPassword) {
+      setError('Veuillez remplir tous les champs');
+      setUpdateLoading(false);
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      setError('Les mots de passe ne correspondent pas');
+      setUpdateLoading(false);
+      return;
+    }
+
+    // Validation du mot de passe sécurisé
+    const passwordValidation = validatePassword(newPassword);
+    if (!passwordValidation.isValid) {
+      setError(`Mot de passe trop faible. Requis : ${passwordValidation.errors.join(', ')}`);
+      setUpdateLoading(false);
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+    
+    if (error) {
+      setError('Erreur lors de la mise à jour du mot de passe');
+    } else {
+      toast.success('Mot de passe mis à jour avec succès !');
+      navigate('/');
+    }
+    
+    setUpdateLoading(false);
+  };
+
   const resetForm = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setNewPassword('');
+    setConfirmNewPassword('');
     setError('');
     setShowEmailConfirmation(false);
     setShowResetConfirmation(false);
     setShowResetForm(false);
+    setShowUpdatePasswordForm(false);
   };
 
   return (
@@ -241,7 +298,76 @@ const Auth = () => {
           </Card>
         )}
 
-        {!showEmailConfirmation && !showResetConfirmation && !showResetForm && (
+        {/* Formulaire de mise à jour du mot de passe */}
+        {showUpdatePasswordForm && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                🔐 Nouveau mot de passe
+              </CardTitle>
+              <CardDescription>
+                Choisissez un nouveau mot de passe sécurisé pour votre compte
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleUpdatePassword} className="space-y-4">
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                
+                <div className="space-y-2">
+                  <Label htmlFor="new-password">Nouveau mot de passe</Label>
+                  <Input
+                    id="new-password"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                  <PasswordStrengthIndicator password={newPassword} />
+                  
+                  {/* Password requirements info */}
+                  {!newPassword && (
+                    <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                      <p className="font-medium mb-1">Exigences de sécurité :</p>
+                      <ul className="space-y-0.5 text-xs">
+                        <li>• Au moins 8 caractères</li>
+                        <li>• Une majuscule et une minuscule</li>
+                        <li>• Au moins un chiffre</li>
+                        <li>• Un caractère spécial (!@#$%...)</li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-new-password">Confirmer le nouveau mot de passe</Label>
+                  <Input
+                    id="confirm-new-password"
+                    type="password"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={updateLoading}
+                >
+                  {updateLoading ? 'Mise à jour...' : 'Mettre à jour le mot de passe'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        )}
+
+        {!showEmailConfirmation && !showResetConfirmation && !showResetForm && !showUpdatePasswordForm && (
           <>
             <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
               <TabsList className="grid w-full grid-cols-2">
