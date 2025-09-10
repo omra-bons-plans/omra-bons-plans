@@ -126,15 +126,15 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
             </div>
           )}
 
-          {/* Places véhicule (pour chauffeurs) */}
-          {category === 'chauffeurs' && data.vehicleSeats && (
-            <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm">
-                <span className="font-medium">Places:</span> {data.vehicleSeats} personnes
-              </span>
-            </div>
-          )}
+           {/* Places véhicule (pour chauffeurs) */}
+           {category === 'chauffeurs' && data.vehicleSeats && (
+             <div className="flex items-center space-x-2">
+               <Users className="w-4 h-4 text-muted-foreground" />
+               <span className="text-sm">
+                 <span className="font-medium">Sièges:</span> {data.vehicleSeats} personnes
+               </span>
+             </div>
+           )}
         </div>
 
         {/* Langues */}

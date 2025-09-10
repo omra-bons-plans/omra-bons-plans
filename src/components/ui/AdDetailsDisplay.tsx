@@ -222,13 +222,13 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   </div>
                 )}
 
-                {ad.categoryDetails.vehicle_seats && (
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-muted-foreground" />
-                    <span className="font-medium">Places:</span>
-                    <span>{ad.categoryDetails.vehicle_seats} personnes</span>
-                  </div>
-                )}
+                 {ad.categoryDetails.vehicle_seats && (
+                   <div className="flex items-center space-x-2">
+                     <Users className="w-4 h-4 text-muted-foreground" />
+                     <span className="font-medium">Sièges:</span>
+                     <span>{ad.categoryDetails.vehicle_seats} personnes</span>
+                   </div>
+                 )}
 
                 {ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
                   <div className="flex items-center space-x-2">
