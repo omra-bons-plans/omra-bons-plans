@@ -447,10 +447,10 @@ const Index = () => {
               </div>
 
               {/* WhatsApp Community Button */}
-              <div className="mt-8">
+              <div className="mt-8 max-w-[280px] mx-auto">
                 <button
                   onClick={() => window.open('https://chat.whatsapp.com/BI3ZaOGPAQs2iTISdceqKe', '_blank')}
-                  className="group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3"
+                  className="group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3 w-full"
                 >
                   {/* WhatsApp Icon */}
                   <div className="relative z-10">
