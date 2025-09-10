@@ -70,7 +70,7 @@ Deno.serve(async (req) => {
 
     // Send the email
     const { data, error } = await resend.emails.send({
-      from: 'OmraBonsPlans.fr Sécurité <security@resend.dev>',
+      from: 'OmraBonsPlans.fr Sécurité <security@omrabonsplans.fr>',
       to: [user.email],
       subject: '🔐 Réinitialisation de votre mot de passe - OmraBonsPlans.fr',
       html,

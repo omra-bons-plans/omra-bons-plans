@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
 
     // Send the email
     const { data, error } = await resend.emails.send({
-      from: 'OmraBonsPlans.fr <onboarding@resend.dev>',
+      from: 'OmraBonsPlans.fr <inscription@omrabonsplans.fr>',
       to: [user.email],
       subject: '🕌 Confirmez votre compte OmraBonsPlans.fr',
       html,

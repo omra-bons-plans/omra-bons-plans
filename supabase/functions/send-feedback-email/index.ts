@@ -63,7 +63,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to user
     const userEmailResponse = await resend.emails.send({
-      from: "OmraBonsPlans <onboarding@resend.dev>",
+      from: "OmraBonsPlans <support@omrabonsplans.fr>",
       to: [email],
       subject: "Merci pour votre message !",
       html: `
