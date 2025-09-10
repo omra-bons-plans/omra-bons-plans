@@ -321,41 +321,53 @@ const BlogPost = () => {
             </div>
           )}
 
-          {/* Additional Images Carousel */}
-          {post.images && post.images.length > 0 && (
-            <div className="mb-8 max-w-4xl">
-              <h3 className="text-lg font-semibold mb-4">Images</h3>
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {post.images.map((image, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1">
-                        <Card>
-                          <CardContent className="flex aspect-video items-center justify-center p-2">
-                            <img 
-                              src={image} 
-                              alt={`Image ${index + 1} - ${post.title}`}
-                              className="w-full h-full object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
-                              onClick={() => window.open(image, '_blank')}
-                            />
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden sm:flex" />
-                <CarouselNext className="hidden sm:flex" />
-              </Carousel>
-              
-              {/* Mobile: Show image count and scroll hint */}
-              <div className="sm:hidden text-center mt-2">
-                <p className="text-xs text-muted-foreground">
-                  {post.images.length} image{post.images.length > 1 ? 's' : ''} • Balayez pour naviguer
-                </p>
-              </div>
-            </div>
-          )}
+           {/* Additional Images Carousel */}
+           {post.images && post.images.length > 0 && (
+             <div className="mb-8 max-w-4xl">
+               <h3 className="text-lg font-semibold mb-4">Images</h3>
+               <div className="relative">
+                 <Carousel className="w-full">
+                   <CarouselContent>
+                     {post.images.map((image, index) => (
+                       <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                         <div className="p-1">
+                           <Card>
+                             <CardContent className="flex aspect-video items-center justify-center p-2">
+                               <img 
+                                 src={image} 
+                                 alt={`Image ${index + 1} - ${post.title}`}
+                                 className="w-full h-full object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                                 onClick={() => window.open(image, '_blank')}
+                               />
+                             </CardContent>
+                           </Card>
+                         </div>
+                       </CarouselItem>
+                     ))}
+                   </CarouselContent>
+                   <CarouselPrevious className="hidden sm:flex" />
+                   <CarouselNext className="hidden sm:flex" />
+                 </Carousel>
+                 
+                 {/* Pagination dots for carousel */}
+                 <div className="flex justify-center mt-4 space-x-2">
+                   {post.images.map((_, index) => (
+                     <div
+                       key={index}
+                       className="w-2 h-2 rounded-full bg-muted-foreground/30"
+                     />
+                   ))}
+                 </div>
+               </div>
+               
+               {/* Mobile: Show image count and scroll hint */}
+               <div className="sm:hidden text-center mt-2">
+                 <p className="text-xs text-muted-foreground">
+                   {post.images.length} image{post.images.length > 1 ? 's' : ''} • Balayez pour naviguer
+                 </p>
+               </div>
+             </div>
+           )}
 
           <div className="flex gap-8">
             {/* Main content */}

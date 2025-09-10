@@ -68,9 +68,29 @@ export const ImageDisplay = ({
             />
             
             {allImages.length > 1 && (
-              <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
-                +{allImages.length - 1} photo{allImages.length > 2 ? 's' : ''}
-              </div>
+              <>
+                <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                  +{allImages.length - 1} photo{allImages.length > 2 ? 's' : ''}
+                </div>
+                
+                {/* Pagination dots */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {allImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(index);
+                      }}
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                        index === 0 
+                          ? 'bg-white' 
+                          : 'bg-white/50 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </Card>
@@ -140,28 +160,43 @@ export const ImageDisplay = ({
               }}
             />
 
-            {/* Navigation Buttons */}
-            {allImages.length > 1 && (
-              <>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
-                >
-                  <ChevronLeft className="w-8 h-8" />
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
-                >
-                  <ChevronRight className="w-8 h-8" />
-                </Button>
-              </>
-            )}
+             {/* Navigation Buttons */}
+             {allImages.length > 1 && (
+               <>
+                 <Button
+                   variant="ghost"
+                   size="sm"
+                   onClick={prevImage}
+                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
+                 >
+                   <ChevronLeft className="w-8 h-8" />
+                 </Button>
+                 
+                 <Button
+                   variant="ghost"
+                   size="sm"
+                   onClick={nextImage}
+                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
+                 >
+                   <ChevronRight className="w-8 h-8" />
+                 </Button>
+
+                 {/* Modal Pagination dots */}
+                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                   {allImages.map((_, index) => (
+                     <button
+                       key={index}
+                       onClick={() => setCurrentImageIndex(index)}
+                       className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                         index === currentImageIndex 
+                           ? 'bg-white' 
+                           : 'bg-white/50 hover:bg-white/70'
+                       }`}
+                     />
+                   ))}
+                 </div>
+               </>
+             )}
           </div>
         </DialogContent>
       </Dialog>
