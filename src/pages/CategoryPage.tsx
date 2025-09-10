@@ -302,7 +302,7 @@ const CategoryPage = () => {
           <div className="flex items-center justify-between mb-6">
             <Button
               variant="outline"
-              onClick={() => window.history.back()}
+              onClick={() => navigate('/')}
               className="flex items-center space-x-2 bg-background hover:bg-muted border-2"
             >
               <Home className="w-4 h-4" />

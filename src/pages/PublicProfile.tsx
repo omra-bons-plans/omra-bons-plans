@@ -260,7 +260,7 @@ const PublicProfile = () => {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-2">Profil non trouvé</h2>
-            <Button onClick={() => window.history.back()}>Retour à l'accueil</Button>
+            <Button onClick={() => navigate('/')}>Retour à l'accueil</Button>
           </div>
         </div>
       </ResponsiveLayout>
