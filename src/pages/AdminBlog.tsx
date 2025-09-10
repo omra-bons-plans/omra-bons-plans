@@ -465,7 +465,7 @@ const AdminBlog = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => navigate(`/blog/${post.category}/${post.id}`)}
+                              onClick={() => navigate(`/blog/${post.category}/${post.id}`, { state: { fromAdmin: true } })}
                             >
                               <Eye className="w-4 h-4" />
                             </Button>

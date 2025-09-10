@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Instagram } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -41,6 +41,7 @@ interface BlogPost {
 
 const BlogPost = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { category, id } = useParams();
   const { user } = useAuth();
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -226,7 +227,15 @@ const BlogPost = () => {
             <div className="flex items-center justify-between">
               <Button 
                 variant="ghost" 
-                onClick={() => navigate(`/blog/${category}`)}
+                onClick={() => {
+                  // Check if we came from admin (state first, then referrer as fallback)
+                  const fromAdmin = (location.state as any)?.fromAdmin || document.referrer.includes('/admin/blog');
+                  if (fromAdmin) {
+                    navigate('/admin/blog');
+                  } else {
+                    navigate(`/blog/${category}`);
+                  }
+                }}
                 className="text-muted-foreground hover:text-foreground"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
