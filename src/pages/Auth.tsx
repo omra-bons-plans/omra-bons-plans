@@ -367,6 +367,59 @@ const Auth = () => {
           </Card>
         )}
 
+        {/* Formulaire de réinitialisation de mot de passe */}
+        {showResetForm && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                🔐 Mot de passe oublié
+              </CardTitle>
+              <CardDescription>
+                Saisissez votre email pour recevoir un lien de réinitialisation
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleResetPassword} className="space-y-4">
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                
+                <div className="space-y-2">
+                  <Label htmlFor="reset-email">Adresse email</Label>
+                  <Input
+                    id="reset-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="votre@email.com"
+                    required
+                  />
+                </div>
+                
+                <div className="flex gap-2">
+                  <Button 
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowResetForm(false)}
+                    className="flex-1"
+                  >
+                    Annuler
+                  </Button>
+                  <Button 
+                    type="submit" 
+                    className="flex-1"
+                    disabled={resetLoading}
+                  >
+                    {resetLoading ? 'Envoi...' : 'Envoyer le lien'}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        )}
+
         {!showEmailConfirmation && !showResetConfirmation && !showResetForm && !showUpdatePasswordForm && (
           <>
             <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
@@ -517,59 +570,6 @@ const Auth = () => {
             </Card>
           </TabsContent>
             </Tabs>
-
-            {/* Formulaire de réinitialisation de mot de passe */}
-            {showResetForm && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    🔐 Mot de passe oublié
-                  </CardTitle>
-                  <CardDescription>
-                    Saisissez votre email pour recevoir un lien de réinitialisation
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleResetPassword} className="space-y-4">
-                    {error && (
-                      <Alert variant="destructive">
-                        <AlertDescription>{error}</AlertDescription>
-                      </Alert>
-                    )}
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="reset-email">Adresse email</Label>
-                      <Input
-                        id="reset-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="votre@email.com"
-                        required
-                      />
-                    </div>
-                    
-                    <div className="flex gap-2">
-                      <Button 
-                        type="button"
-                        variant="outline"
-                        onClick={() => setShowResetForm(false)}
-                        className="flex-1"
-                      >
-                        Annuler
-                      </Button>
-                      <Button 
-                        type="submit" 
-                        className="flex-1"
-                        disabled={resetLoading}
-                      >
-                        {resetLoading ? 'Envoi...' : 'Envoyer le lien'}
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
-            )}
 
             {/* Back to home */}
             <div className="text-center">
