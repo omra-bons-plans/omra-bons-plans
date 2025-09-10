@@ -103,7 +103,7 @@ const BlogEditor = () => {
         location_city: data.location_city || '',
         tags: data.tags || [],
         contact_phone: data.contact_phone || '',
-        contact_phone_country: data.contact_phone_country || '+33',
+        contact_phone_country: (data as any).contact_phone_country || '+33',
         contact_instagram: data.contact_instagram || ''
       });
     } catch (error) {

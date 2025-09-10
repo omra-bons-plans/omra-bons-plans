@@ -380,6 +380,7 @@ export type Database = {
           category: string
           contact_instagram: string | null
           contact_phone: string | null
+          contact_phone_country: string | null
           content: string
           cover_image: string | null
           created_at: string
@@ -403,6 +404,7 @@ export type Database = {
           category: string
           contact_instagram?: string | null
           contact_phone?: string | null
+          contact_phone_country?: string | null
           content: string
           cover_image?: string | null
           created_at?: string
@@ -426,6 +428,7 @@ export type Database = {
           category?: string
           contact_instagram?: string | null
           contact_phone?: string | null
+          contact_phone_country?: string | null
           content?: string
           cover_image?: string | null
           created_at?: string
