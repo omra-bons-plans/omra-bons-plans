@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const Contact = () => {
   return (
     <ResponsiveLayout>
       <SEOHead {...seoConfig.contact} />
+      <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">

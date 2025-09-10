@@ -3,13 +3,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { useSEOOptimizations } from '@/hooks/useSEOOptimizations';
 
 const About = () => {
   const navigate = useNavigate();
+  // Initialiser les optimisations SEO
+  useSEOOptimizations();
 
   return (
     <ResponsiveLayout>
       <SEOHead {...seoConfig.about} />
+      <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">

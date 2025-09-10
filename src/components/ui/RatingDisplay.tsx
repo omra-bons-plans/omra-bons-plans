@@ -1,18 +1,23 @@
 import { Star } from 'lucide-react';
 import { ReviewStats } from '@/hooks/useReviews';
+import { useEffect } from 'react';
 
 interface RatingDisplayProps {
   stats: ReviewStats;
   showCount?: boolean;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  businessName?: string; // Pour les Rich Snippets
+  businessType?: string; // Type d'entreprise (ex: "TravelAgency")
 }
 
 export const RatingDisplay = ({ 
   stats, 
   showCount = true, 
   size = 'md',
-  className = '' 
+  className = '',
+  businessName,
+  businessType = 'TravelAgency'
 }: RatingDisplayProps) => {
   const iconSizes = {
     sm: 'w-3 h-3',
@@ -25,6 +30,42 @@ export const RatingDisplay = ({
     md: 'text-sm',
     lg: 'text-base'
   };
+
+  // Générer les données structurées pour les Rich Snippets
+  useEffect(() => {
+    if (stats.totalReviews > 0 && businessName) {
+      const structuredData = {
+        "@context": "https://schema.org",
+        "@type": businessType,
+        "name": businessName,
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": stats.averageRating.toFixed(1),
+          "reviewCount": stats.totalReviews,
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      };
+
+      let scriptTag = document.querySelector(`script[data-rating-ld="${businessName}"]`) as HTMLScriptElement;
+      
+      if (!scriptTag) {
+        scriptTag = document.createElement('script');
+        scriptTag.setAttribute('type', 'application/ld+json');
+        scriptTag.setAttribute('data-rating-ld', businessName);
+        document.head.appendChild(scriptTag);
+      }
+      
+      scriptTag.textContent = JSON.stringify(structuredData);
+
+      return () => {
+        const existingScript = document.querySelector(`script[data-rating-ld="${businessName}"]`);
+        if (existingScript) {
+          existingScript.remove();
+        }
+      };
+    }
+  }, [stats, businessName, businessType]);
 
   if (stats.totalReviews === 0) {
     return (

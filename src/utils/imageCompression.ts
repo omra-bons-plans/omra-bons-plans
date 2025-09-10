@@ -10,7 +10,7 @@ interface CompressionOptions {
 }
 
 /**
- * Compresse une image File en réduisant sa taille et/ou qualité
+ * Compresse une image File en réduisant sa taille et/ou qualité avec support WebP
  */
 export const compressImage = async (
   file: File, 
@@ -49,6 +49,11 @@ export const compressImage = async (
         // Dessiner l'image redimensionnée
         ctx.drawImage(img, 0, 0, width, height);
         
+        // Détecter le support WebP du navigateur
+        const supportsWebP = canvas.toDataURL('image/webp').startsWith('data:image/webp');
+        const outputFormat = supportsWebP ? 'image/webp' : 'image/jpeg';
+        const fileExtension = supportsWebP ? 'webp' : 'jpg';
+        
         // Fonction pour créer le blob avec la qualité donnée
         const createBlob = (currentQuality: number): Promise<Blob> => {
           return new Promise((blobResolve) => {
@@ -60,7 +65,7 @@ export const compressImage = async (
                   reject(new Error('Erreur lors de la compression'));
                 }
               },
-              'image/jpeg',
+              outputFormat,
               currentQuality
             );
           });
@@ -73,8 +78,10 @@ export const compressImage = async (
           
           // Si la taille est acceptable ou qu'on a atteint la qualité minimale
           if (sizeKB <= maxSizeKB || currentQuality <= 0.1) {
-            return new File([blob], file.name, {
-              type: 'image/jpeg',
+            // Générer le nouveau nom de fichier avec l'extension appropriée
+            const originalName = file.name.replace(/\.[^/.]+$/, '');
+            return new File([blob], `${originalName}.${fileExtension}`, {
+              type: outputFormat,
               lastModified: Date.now(),
             });
           }
@@ -94,6 +101,57 @@ export const compressImage = async (
       reject(new Error('Erreur lors du chargement de l\'image'));
     };
 
+    img.src = URL.createObjectURL(file);
+  });
+};
+
+/**
+ * Convertit automatiquement une image en WebP si le navigateur le supporte
+ */
+export const convertToWebP = async (file: File, quality = 0.8): Promise<File> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      if (!ctx) {
+        reject(new Error('Impossible de créer le contexte canvas'));
+        return;
+      }
+
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+
+      // Vérifier le support WebP
+      const supportsWebP = canvas.toDataURL('image/webp').startsWith('data:image/webp');
+      
+      if (!supportsWebP) {
+        // Retourner le fichier original si WebP n'est pas supporté
+        resolve(file);
+        return;
+      }
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const originalName = file.name.replace(/\.[^/.]+$/, '');
+            const webpFile = new File([blob], `${originalName}.webp`, {
+              type: 'image/webp',
+              lastModified: Date.now(),
+            });
+            resolve(webpFile);
+          } else {
+            reject(new Error('Erreur lors de la conversion WebP'));
+          }
+        },
+        'image/webp',
+        quality
+      );
+    };
+
+    img.onerror = () => reject(new Error('Erreur lors du chargement de l\'image'));
     img.src = URL.createObjectURL(file);
   });
 };
