@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, ChevronLeft, ChevronRight, Phone, Instagram } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Instagram } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ImageDisplay } from '@/components/ui/ImageDisplay';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
@@ -321,53 +321,16 @@ const BlogPost = () => {
             </div>
           )}
 
-           {/* Additional Images Carousel */}
-           {post.images && post.images.length > 0 && (
-             <div className="mb-8 max-w-4xl">
-               <h3 className="text-lg font-semibold mb-4">Images</h3>
-               <div className="relative">
-                 <Carousel className="w-full">
-                   <CarouselContent>
-                     {post.images.map((image, index) => (
-                       <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                         <div className="p-1">
-                           <Card>
-                             <CardContent className="flex aspect-video items-center justify-center p-2">
-                               <img 
-                                 src={image} 
-                                 alt={`Image ${index + 1} - ${post.title}`}
-                                 className="w-full h-full object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
-                                 onClick={() => window.open(image, '_blank')}
-                               />
-                             </CardContent>
-                           </Card>
-                         </div>
-                       </CarouselItem>
-                     ))}
-                   </CarouselContent>
-                   <CarouselPrevious className="hidden sm:flex" />
-                   <CarouselNext className="hidden sm:flex" />
-                 </Carousel>
-                 
-                 {/* Pagination dots for carousel */}
-                 <div className="flex justify-center mt-4 space-x-2">
-                   {post.images.map((_, index) => (
-                     <div
-                       key={index}
-                       className="w-2 h-2 rounded-full bg-muted-foreground/30"
-                     />
-                   ))}
-                 </div>
-               </div>
-               
-               {/* Mobile: Show image count and scroll hint */}
-               <div className="sm:hidden text-center mt-2">
-                 <p className="text-xs text-muted-foreground">
-                   {post.images.length} image{post.images.length > 1 ? 's' : ''} • Balayez pour naviguer
-                 </p>
-               </div>
-             </div>
-           )}
+          {/* Images Gallery */}
+          {((post.cover_image && !post.images?.length) || (post.images && post.images.length > 0)) && (
+            <div className="mb-8 max-w-4xl">
+              <ImageDisplay
+                images={post.images || []}
+                coverImage={post.cover_image}
+                title={`Images - ${post.title}`}
+              />
+            </div>
+          )}
 
           <div className="flex gap-8">
             {/* Main content */}
