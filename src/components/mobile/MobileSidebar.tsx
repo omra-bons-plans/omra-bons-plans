@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -241,6 +241,50 @@ const MobileSidebar = () => {
                       <span className="font-medium">Blog</span>
                     </div>
                   </button>
+
+                  <Link
+                    to="/about"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Info className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">À propos</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Mail className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Contact</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/prayer-times"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Clock className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Horaires de prière</span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/islamic-calendar"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Calendrier islamique</span>
+                    </div>
+                  </Link>
 
                   <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3">
                     <div className="flex items-center space-x-3">
