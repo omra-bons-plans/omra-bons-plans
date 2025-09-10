@@ -17,6 +17,7 @@ import UserMenu from '@/components/ui/UserMenu';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
+import CountrySelect from '@/components/ui/CountrySelect';
 
 interface BlogPostFormData {
   title: string;
@@ -31,6 +32,7 @@ interface BlogPostFormData {
   location_city: string;
   tags: string[];
   contact_phone: string;
+  contact_phone_country: string;
   contact_instagram: string;
 }
 
@@ -57,6 +59,7 @@ const BlogEditor = () => {
     location_city: '',
     tags: [],
     contact_phone: '',
+    contact_phone_country: '+33',
     contact_instagram: ''
   });
 
@@ -100,6 +103,7 @@ const BlogEditor = () => {
         location_city: data.location_city || '',
         tags: data.tags || [],
         contact_phone: data.contact_phone || '',
+        contact_phone_country: data.contact_phone_country || '+33',
         contact_instagram: data.contact_instagram || ''
       });
     } catch (error) {
@@ -417,12 +421,20 @@ const BlogEditor = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="contact_phone">Numéro de téléphone</Label>
-                    <Input
-                      id="contact_phone"
-                      value={formData.contact_phone}
-                      onChange={(e) => setFormData(prev => ({ ...prev, contact_phone: e.target.value }))}
-                      placeholder="+33 6 12 34 56 78"
-                    />
+                    <div className="flex space-x-2">
+                      <CountrySelect
+                        value={formData.contact_phone_country}
+                        onValueChange={(value) => setFormData(prev => ({ ...prev, contact_phone_country: value }))}
+                        className="flex-shrink-0"
+                      />
+                      <Input
+                        id="contact_phone"
+                        value={formData.contact_phone}
+                        onChange={(e) => setFormData(prev => ({ ...prev, contact_phone: e.target.value }))}
+                        placeholder="6 12 34 56 78"
+                        className="flex-1"
+                      />
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="contact_instagram">Lien Instagram</Label>
