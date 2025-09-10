@@ -54,8 +54,8 @@ const PrayerTimes = () => {
       setLoading(true);
       setError(null);
       
-      // Utilisation de l'API Aladhan avec méthode 2 (ISNA) qui utilise 15° pour Fajr et Isha
-      const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=2`);
+      // Utilisation de l'API Aladhan avec méthode 3 (MWL) qui utilise 18° pour Fajr et 17° pour Isha
+      const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=3`);
       
       if (!response.ok) {
         throw new Error('Ville non trouvée ou erreur de réseau');
@@ -239,8 +239,8 @@ const PrayerTimes = () => {
                 <CardContent className="pt-6">
                   <div className="text-sm text-muted-foreground text-center">
                     <p><strong>Source :</strong> Aladhan API</p>
-                    <p><strong>Méthode de calcul :</strong> ISNA (Islamic Society of North America)</p>
-                    <p>Angle utilisé : <strong>15°</strong> pour Fajr et Isha</p>
+                    <p><strong>Méthode de calcul :</strong> MWL (Muslim World League)</p>
+                    <p>Angles utilisés : <strong>18°</strong> pour Fajr et <strong>17°</strong> pour Isha</p>
                     <p className="mt-2">Pour plus de précision, vérifiez avec votre mosquée locale.</p>
                   </div>
                 </CardContent>
