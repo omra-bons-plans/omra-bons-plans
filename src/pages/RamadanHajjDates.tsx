@@ -1,5 +1,6 @@
 import React from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, MapPin } from 'lucide-react';
@@ -58,6 +59,7 @@ const RamadanHajjDates = () => {
 
   return (
     <ResponsiveLayout>
+      <SEOHead {...seoConfig.ramadanHajj} />
       <main className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto p-6">
           {/* Header */}

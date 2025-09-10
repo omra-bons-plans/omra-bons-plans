@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import VendorAssociationForm from '@/components/ui/VendorAssociationForm';
+import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 
 interface BlogPost {
   id: string;
@@ -171,6 +172,7 @@ const Blog = () => {
 
   return (
     <ResponsiveLayout>
+      <SEOHead {...seoConfig.blog} />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">

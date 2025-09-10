@@ -9,6 +9,7 @@ import { MapPin, Clock, Search, Sun, Sunset, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 
 interface PrayerTime {
   Fajr: string;
@@ -124,6 +125,7 @@ const PrayerTimes = () => {
 
   return (
     <ResponsiveLayout>
+      <SEOHead {...seoConfig.prayerTimes} />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="space-y-6">
           {/* Header */}

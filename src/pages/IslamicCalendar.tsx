@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 
 interface HijriDate {
   date: string;
@@ -112,6 +113,7 @@ const IslamicCalendar = () => {
 
   return (
     <ResponsiveLayout>
+      <SEOHead {...seoConfig.islamicCalendar} />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">
