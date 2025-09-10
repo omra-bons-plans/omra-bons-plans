@@ -5,7 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ImageDisplay } from '@/components/ui/ImageDisplay';
+import { ContactModal } from '@/components/ui/ContactModal';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { TableOfContents } from '@/components/ui/TableOfContents';
@@ -40,6 +42,7 @@ interface BlogPost {
 const BlogPost = () => {
   const navigate = useNavigate();
   const { category, id } = useParams();
+  const { user } = useAuth();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -400,18 +403,21 @@ const BlogPost = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {post.contact_phone && (
-                      <Button
-                        variant="outline"
-                        onClick={() => window.open(`tel:${post.contact_phone}`, '_self')}
-                        className="w-full justify-start"
-                      >
-                        <Phone className="w-4 h-4 mr-2" />
-                        Appeler : {post.contact_phone}
-                      </Button>
-                    )}
-                    {post.contact_instagram && (
+                  <ContactModal
+                    contactInfo={{
+                      phone: post.contact_phone || undefined,
+                    }}
+                    showOptions={{
+                      show_email: false,
+                      show_phone: !!post.contact_phone,
+                      show_whatsapp: false,
+                      show_professional_phone: false,
+                    }}
+                    ownerName="le vendeur"
+                    isAuthenticated={!!user}
+                  />
+                  {post.contact_instagram && user && (
+                    <div className="mt-3">
                       <Button
                         variant="outline"
                         onClick={() => window.open(post.contact_instagram, '_blank')}
@@ -420,8 +426,8 @@ const BlogPost = () => {
                         <Instagram className="w-4 h-4 mr-2" />
                         Suivre sur Instagram
                       </Button>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
