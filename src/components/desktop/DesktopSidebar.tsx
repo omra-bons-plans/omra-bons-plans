@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
   Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar
+  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -258,6 +258,14 @@ export function DesktopSidebar() {
                       <NavLink to="/islamic-calendar" className={getNavCls}>
                         <Calendar className="w-4 h-4" />
                         <span>Calendrier islamique</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <NavLink to="/ramadan-hajj-dates" className={getNavCls}>
+                        <CalendarDays className="w-4 h-4" />
+                        <span>Dates Ramadan / Hajj</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

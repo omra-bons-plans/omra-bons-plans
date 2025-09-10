@@ -39,6 +39,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PrayerTimes from "./pages/PrayerTimes";
 import IslamicCalendar from "./pages/IslamicCalendar";
+import RamadanHajjDates from "./pages/RamadanHajjDates";
 import CategoryPage from "./pages/CategoryPage";
 
 const queryClient = new QueryClient();
@@ -161,6 +162,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/prayer-times" element={<PrayerTimes />} />
             <Route path="/islamic-calendar" element={<IslamicCalendar />} />
+            <Route path="/ramadan-hajj-dates" element={<RamadanHajjDates />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
               </Routes>
