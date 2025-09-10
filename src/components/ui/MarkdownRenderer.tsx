@@ -9,6 +9,10 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
   const renderContent = (text: string) => {
     // Convert markdown to HTML with proper styling
     let html = text
+      // Convert headings
+      .replace(/^### (.*$)/gm, '<h3 id="$1" class="text-lg font-semibold text-foreground mt-6 mb-3">$1</h3>')
+      .replace(/^## (.*$)/gm, '<h2 id="$1" class="text-xl font-semibold text-foreground mt-8 mb-4">$1</h2>')
+      .replace(/^# (.*$)/gm, '<h1 id="$1" class="text-2xl font-bold text-foreground mt-8 mb-6">$1</h1>')
       // Convert bold **text** to <strong>text</strong>
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>')
       // Convert links [text](url) to <a href="url">text</a>
