@@ -78,7 +78,8 @@ const Blog = () => {
           author_id
         `)
         .eq('is_published', true)
-        .order('created_at', { ascending: false });
+        .not('published_at', 'is', null)
+        .order('published_at', { ascending: false });
 
       console.log('📖 Executing query for all posts...');
       const { data, error } = await query;
