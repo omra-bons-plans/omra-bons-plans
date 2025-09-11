@@ -270,11 +270,11 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                         ? 'border-2 border-primary shadow-glow transform scale-105' 
                         : 'border border-border hover:border-primary/30'
                     }`}>
-                      <CardHeader className="text-center relative">
+                      <CardHeader className="text-center relative pt-8">
                         {agency.isRecommended && (
-                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                            <Badge className="bg-primary text-primary-foreground px-4 py-1 text-xs font-bold">
-                              Recommandé
+                          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10">
+                            <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-md">
+                              ⭐ Recommandé
                             </Badge>
                           </div>
                         )}
