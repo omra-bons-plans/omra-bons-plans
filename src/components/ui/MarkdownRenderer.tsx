@@ -17,15 +17,17 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
       const headingMatch = trimmed.match(/^(#{2,4})\s+(.+)$/);
       if (headingMatch) {
         const level = headingMatch[1].length;
-        const text = headingMatch[2];
+        let headingText = headingMatch[2];
+        // Process bold text in headings too
+        headingText = headingText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
         const id = `heading-${index}`;
         
         if (level === 2) {
-          html += `<h2 id="${id}" class="text-xl font-semibold text-foreground mt-8 mb-4">${text}</h2>`;
+          html += `<h2 id="${id}" class="text-xl font-semibold text-foreground mt-8 mb-4">${headingText}</h2>`;
         } else if (level === 3) {
-          html += `<h3 id="${id}" class="text-lg font-semibold text-foreground mt-6 mb-3">${text}</h3>`;
+          html += `<h3 id="${id}" class="text-lg font-semibold text-foreground mt-6 mb-3">${headingText}</h3>`;
         } else if (level === 4) {
-          html += `<h4 id="${id}" class="text-base font-semibold text-foreground mt-4 mb-2">${text}</h4>`;
+          html += `<h4 id="${id}" class="text-base font-semibold text-foreground mt-4 mb-2">${headingText}</h4>`;
         }
       }
       // Check for text that looks like a heading (standalone line with title case) and add IDs
@@ -40,9 +42,11 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         (index + 1 >= lines.length || lines[index + 1]?.trim() === '')
       ) {
         const id = `heading-${index}`;
-        html += `<h2 id="${id}" class="text-xl font-semibold text-foreground mt-8 mb-4">${trimmed}</h2>`;
+        // Process bold text in auto-detected headings too
+        const processedText = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
+        html += `<h2 id="${id}" class="text-xl font-semibold text-foreground mt-8 mb-4">${processedText}</h2>`;
       }
-      // Convert other markdown elements
+      // Process regular text with all markdown elements
       else {
         let processedLine = line
           // Convert bold **text** to <strong>text</strong>
