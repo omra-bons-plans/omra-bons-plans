@@ -264,38 +264,36 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                   </Card>
                 </td>
                 {filteredAgencies.map((agency) => (
-                <td key={agency.name} className="w-72 p-0 pl-4">
-                    <div className="relative">
-                      {agency.isRecommended && (
-                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-50 mb-2">
-                          <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-md whitespace-nowrap">
-                            ⭐ Recommandé
-                          </Badge>
-                        </div>
-                      )}
-                      <Card className={`transition-all duration-300 ${
-                        agency.isRecommended 
-                          ? 'border-2 border-primary shadow-glow transform scale-105 mt-6' 
-                          : 'border border-border hover:border-primary/30'
-                      }`}>
-                        <CardHeader className="text-center relative pt-6">
-                          <div className="space-y-3">
-                            <h3 className="font-bold text-lg">{agency.name}</h3>
-                            <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
-                            <div className="text-center">
-                              <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
-                              <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
-                            </div>
-                            <Badge className={getPriceRangeColor(agency.priceRange)}>
-                              {agency.priceRange}
-                            </Badge>
-                            {agency.highlight && (
-                              <p className="text-xs text-primary font-medium">{agency.highlight}</p>
-                            )}
+                  <td key={agency.name} className="w-72 p-0 pl-4" style={{ position: 'relative', paddingTop: agency.isRecommended ? '24px' : '0' }}>
+                    {agency.isRecommended && (
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-50">
+                        <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-lg whitespace-nowrap">
+                          ⭐ Recommandé
+                        </Badge>
+                      </div>
+                    )}
+                    <Card className={`transition-all duration-300 ${
+                      agency.isRecommended 
+                        ? 'border-2 border-primary shadow-glow transform scale-105 mt-2' 
+                        : 'border border-border hover:border-primary/30'
+                    }`}>
+                      <CardHeader className="text-center relative pt-6">
+                        <div className="space-y-3">
+                          <h3 className="font-bold text-lg">{agency.name}</h3>
+                          <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
+                            <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
                           </div>
-                        </CardHeader>
-                      </Card>
-                    </div>
+                          <Badge className={getPriceRangeColor(agency.priceRange)}>
+                            {agency.priceRange}
+                          </Badge>
+                          {agency.highlight && (
+                            <p className="text-xs text-primary font-medium">{agency.highlight}</p>
+                          )}
+                        </div>
+                      </CardHeader>
+                    </Card>
                   </td>
                 ))}
               </tr>
