@@ -1144,6 +1144,14 @@ const Index = () => {
                 >
                   <Instagram className="w-4 h-4 text-primary" />
                 </a>
+                <a 
+                  href="https://www.tiktok.com/@omrabonsplans.fr?_t=ZS-8ze7UP4jLne&_r=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
+                >
+                  <span className="text-sm">🎵</span>
+                </a>
               </div>
             </div>
             
