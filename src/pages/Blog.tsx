@@ -321,7 +321,15 @@ const Blog = () => {
                   </CardHeader>
                   <CardContent className="pt-0 p-4 sm:p-6 sm:pt-0">
                     <p className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
-                      {post.excerpt || post.content.substring(0, 150)}...
+                      {(() => {
+                        const text = post.excerpt || post.content.substring(0, 150);
+                        // Nettoyer le markdown pour l'affichage en texte simple
+                        const cleanText = text
+                          .replace(/\*\*(.*?)\*\*/g, '$1') // Supprimer les ** pour le gras
+                          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Garder seulement le texte des liens
+                          .replace(/\n/g, ' '); // Remplacer les retours à la ligne par des espaces
+                        return cleanText.length > 150 ? cleanText.substring(0, 150) + '...' : cleanText;
+                      })()}
                     </p>
                     
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground space-y-2 sm:space-y-0">
