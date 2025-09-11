@@ -131,7 +131,7 @@ const agenciesFeatures: AgencyFeatures[] = [
       guidesExperience: true,
       hotelsProximiteMosquees: false,
       departsMultiVilles: false,
-      accompagnementSpirituel: false,
+      accompagnementSpirituel: true,
       organisationLogistique: true,
       serviceClientReactif: false,
       groupesTailleHumaine: false,
