@@ -295,7 +295,8 @@ const BlogEditor = () => {
                   value={formData.excerpt}
                   onChange={(excerpt) => setFormData(prev => ({ ...prev, excerpt }))}
                   placeholder="Entrez un résumé de l'article (optionnel, sera généré automatiquement si vide)"
-                  rows={3}
+                  rows={4}
+                  className="min-h-[150px]"
                 />
               </div>
 

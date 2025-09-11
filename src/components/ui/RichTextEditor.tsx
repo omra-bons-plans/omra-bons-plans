@@ -220,7 +220,7 @@ export const RichTextEditor = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           rows={rows}
-          className="min-h-[200px] font-mono text-sm"
+          className={`min-h-[200px] font-mono text-sm ${className}`}
         />
       )}
 
