@@ -55,6 +55,7 @@ const AdminAds = () => {
     publishedAds: 0,
     draftAds: 0,
     pausedAds: 0,
+    expiredAds: 0,
     totalViews: 0,
     totalContacts: 0
   });
@@ -124,9 +125,10 @@ const AdminAds = () => {
       
       setStats({
         totalAds: adsWithStats.length,
-        publishedAds: adsWithStats.filter(ad => ad.is_published && !ad.is_draft && !ad.is_paused).length,
+        publishedAds: adsWithStats.filter(ad => ad.is_published && !ad.is_draft && !ad.is_paused && !isAdExpired(ad.publish_end_date)).length,
         draftAds: adsWithStats.filter(ad => ad.is_draft).length,
         pausedAds: adsWithStats.filter(ad => ad.is_paused).length,
+        expiredAds: adsWithStats.filter(ad => isAdExpired(ad.publish_end_date)).length,
         totalViews,
         totalContacts
       });
@@ -144,8 +146,44 @@ const AdminAds = () => {
     }
   };
 
-  const handleDeleteAd = async (adId: string) => {
+  const isAdExpired = (publishEndDate: string) => {
+    return publishEndDate && new Date(publishEndDate) <= new Date();
+  };
+
+  const handleDeleteAd = async (adId: string, ad: AdData) => {
+    // Seules les annonces expirées peuvent être supprimées
+    if (!isAdExpired(ad.publish_end_date)) {
+      toast({
+        title: "Action non autorisée",
+        description: "Seules les annonces expirées peuvent être supprimées",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
+      // Supprimer d'abord les données spécifiques à la catégorie
+      const categoryTables: Record<string, string> = {
+        'sejours': 'ads_sejours',
+        'vols': 'ads_vols',
+        'guides': 'ads_guides',
+        'chauffeurs': 'ads_chauffeurs',
+        'babysitting': 'ads_babysitting',
+        'hebergement': 'ads_hebergements'
+      };
+
+      const categoryTable = categoryTables[ad.category];
+      if (categoryTable) {
+        // Cast as any to bypass TypeScript limitations with dynamic table names
+        const { error: categoryError } = await (supabase as any)
+          .from(categoryTable)
+          .delete()
+          .eq('ad_id', adId);
+
+        if (categoryError) throw categoryError;
+      }
+
+      // Supprimer l'annonce principale
       const { error } = await supabase
         .from('ads')
         .delete()
@@ -155,7 +193,7 @@ const AdminAds = () => {
 
       toast({
         title: "Succès",
-        description: "Annonce supprimée avec succès",
+        description: "Offre expirée supprimée avec succès",
       });
 
       fetchAds();
@@ -232,6 +270,9 @@ const AdminAds = () => {
   };
 
   const getStatusBadge = (ad: AdData) => {
+    if (isAdExpired(ad.publish_end_date)) {
+      return <Badge variant="destructive">Offre expirée</Badge>;
+    }
     if (ad.is_draft) {
       return <Badge variant="secondary">Brouillon</Badge>;
     }
@@ -253,9 +294,10 @@ const AdminAds = () => {
     const matchesCategory = categoryFilter === 'all' || ad.category === categoryFilter;
     
     const matchesStatus = statusFilter === 'all' || 
-                         (statusFilter === 'published' && ad.is_published && !ad.is_draft && !ad.is_paused) ||
+                         (statusFilter === 'published' && ad.is_published && !ad.is_draft && !ad.is_paused && !isAdExpired(ad.publish_end_date)) ||
                          (statusFilter === 'draft' && ad.is_draft) ||
                          (statusFilter === 'paused' && ad.is_paused) ||
+                         (statusFilter === 'expired' && isAdExpired(ad.publish_end_date)) ||
                          (statusFilter === 'unpublished' && !ad.is_published);
 
     return matchesSearch && matchesCategory && matchesStatus;
@@ -315,7 +357,7 @@ const AdminAds = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Annonces</CardTitle>
@@ -353,6 +395,16 @@ const AdminAds = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{stats.pausedAds}</div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Expirées</CardTitle>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stats.expiredAds}</div>
               </CardContent>
             </Card>
 
@@ -418,6 +470,7 @@ const AdminAds = () => {
                       <SelectItem value="published">Publiées</SelectItem>
                       <SelectItem value="draft">Brouillons</SelectItem>
                       <SelectItem value="paused">En pause</SelectItem>
+                      <SelectItem value="expired">Expirées</SelectItem>
                       <SelectItem value="unpublished">Non publiées</SelectItem>
                     </SelectContent>
                   </Select>
@@ -532,30 +585,32 @@ const AdminAds = () => {
                                 )}
                               </Button>
                             )}
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="outline" size="sm">
-                                  <Trash2 className="w-4 h-4 text-destructive" />
-                                </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>Supprimer l'annonce</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleDeleteAd(ad.id)}
-                                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                  >
-                                    Supprimer
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                            {isAdExpired(ad.publish_end_date) && (
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button variant="outline" size="sm">
+                                    <Trash2 className="w-4 h-4 text-destructive" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Supprimer l'offre expirée</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Êtes-vous sûr de vouloir supprimer cette offre expirée ? Cette action est irréversible.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() => handleDeleteAd(ad.id, ad)}
+                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                    >
+                                      Supprimer
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>
