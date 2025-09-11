@@ -216,6 +216,45 @@ const MobileSidebar = () => {
               )}
             </div>
 
+            {/* Comparatifs Section */}
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-muted-foreground p-3">Comparatifs</h3>
+              <div className="space-y-1">
+                <Link
+                  to="/comparatif-agences"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Building className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Comparatif Agences</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/comparatif-visuel"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                >
+                  <div className="flex items-center space-x-3">
+                    <FileText className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Comparatif Visuel</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/agences-liste"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Building className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">Liste des Agences</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
             {/* Services Section - Collapsible */}
             <div className="mb-4">
               <button
