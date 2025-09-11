@@ -69,7 +69,7 @@ Deno.serve(async (req) => {
             supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
             token,
             token_hash,
-            redirect_to: redirect_to || 'https://lovable.dev/projects/lptyhenryzhztdwpkvsc',
+            redirect_to: redirect_to || 'https://0d32be0f-306d-480b-b7fd-a00d6f7142c4.lovableproject.com/',
             email_action_type,
             user_email: user.email,
           })
@@ -135,7 +135,7 @@ Deno.serve(async (req) => {
         supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
         token,
         token_hash,
-        redirect_to: redirect_to || 'https://lovable.dev/projects/lptyhenryzhztdwpkvsc',
+        redirect_to: redirect_to || 'https://0d32be0f-306d-480b-b7fd-a00d6f7142c4.lovableproject.com/',
         email_action_type,
         user_email: user.email,
       })
