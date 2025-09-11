@@ -1034,8 +1034,8 @@ const Index = () => {
                     <UtensilsCrossed className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants halal certifiés</h3>
-                    <p className="text-sm text-muted-foreground">Guide des meilleurs restaurants halal à La Mecque et Médine avec certification officielle</p>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants</h3>
+                    <p className="text-sm text-muted-foreground">Guide des meilleurs restaurants à La Mecque et Médine</p>
                   </div>
                 </Link>
                 
