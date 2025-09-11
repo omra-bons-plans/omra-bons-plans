@@ -249,94 +249,105 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
 
       {/* Comparison Table */}
       <div className="overflow-x-auto">
-        <div className="min-w-fit flex gap-4 pb-4">
-          {/* Features Column */}
-          <div className="w-64 flex-shrink-0">
-            <Card className="h-full border-2 border-muted bg-muted/20">
-              <CardHeader className="text-center pb-4">
-                <div className="h-16 flex items-center justify-center">
-                  <h3 className="font-bold text-lg text-muted-foreground">Fonctionnalités</h3>
-                </div>
-                <div className="h-20"></div>
-              </CardHeader>
-              <CardContent className="space-y-0 p-0">
-                {Object.entries(featureLabels).map(([key, label], index) => (
-                  <div key={key} className="h-14 flex items-center text-sm font-medium text-muted-foreground border-b border-muted/30 last:border-b-0 px-4">
-                    {label}
-                  </div>
+        <div className="min-w-fit">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <td className="w-64 p-0">
+                  <Card className="border-2 border-muted bg-muted/20 h-full">
+                    <CardHeader className="text-center pb-4">
+                      <div className="h-16 flex items-center justify-center">
+                        <h3 className="font-bold text-lg text-muted-foreground">Fonctionnalités</h3>
+                      </div>
+                      <div className="h-20"></div>
+                    </CardHeader>
+                  </Card>
+                </td>
+                {filteredAgencies.map((agency) => (
+                  <td key={agency.name} className="w-72 p-0 pl-4">
+                    <Card className={`transition-all duration-300 ${
+                      agency.isRecommended 
+                        ? 'border-2 border-primary shadow-glow transform scale-105' 
+                        : 'border border-border hover:border-primary/30'
+                    }`}>
+                      <CardHeader className="text-center relative">
+                        {agency.isRecommended && (
+                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-primary text-primary-foreground px-4 py-1 text-xs font-bold">
+                              Recommandé
+                            </Badge>
+                          </div>
+                        )}
+                        
+                        <div className="space-y-3">
+                          <h3 className="font-bold text-lg">{agency.name}</h3>
+                          <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
+                            <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
+                          </div>
+                          <Badge className={getPriceRangeColor(agency.priceRange)}>
+                            {agency.priceRange}
+                          </Badge>
+                          {agency.highlight && (
+                            <p className="text-xs text-primary font-medium">{agency.highlight}</p>
+                          )}
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  </td>
                 ))}
-                <div className="h-20 border-b border-muted/30"></div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Agency Cards */}
-          {filteredAgencies.map((agency, index) => (
-            <div key={agency.name} className="w-72 flex-shrink-0">
-              <Card className={`h-full transition-all duration-300 ${
-                agency.isRecommended 
-                  ? 'border-2 border-primary shadow-glow transform scale-105' 
-                  : 'border border-border hover:border-primary/30'
-              }`}>
-                <CardHeader className="text-center relative">
-                  {agency.isRecommended && (
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <Badge className="bg-primary text-primary-foreground px-4 py-1 text-xs font-bold">
-                        Recommandé
-                      </Badge>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(featureLabels).map(([key, label]) => (
+                <tr key={key}>
+                  <td className="w-64 p-0 align-top">
+                    <div className="h-16 flex items-center text-sm font-medium text-muted-foreground border-b border-muted/30 px-4 bg-muted/5">
+                      {label}
                     </div>
-                  )}
-                  
-                  <div className="space-y-3">
-                    <h3 className="font-bold text-lg">{agency.name}</h3>
-                    <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
-                      <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
-                    </div>
-                    <Badge className={getPriceRangeColor(agency.priceRange)}>
-                      {agency.priceRange}
-                    </Badge>
-                    {agency.highlight && (
-                      <p className="text-xs text-primary font-medium">{agency.highlight}</p>
-                    )}
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-0 p-0">
-                  {Object.entries(agency.features).map(([key, hasFeature], index) => (
-                    <div key={key} className="h-14 flex items-center justify-center border-b border-muted/30 last:border-b-0">
-                      {hasFeature ? (
-                        <Check className="h-6 w-6 text-success font-bold stroke-[3]" />
-                      ) : (
-                        <X className="h-6 w-6 text-destructive font-bold stroke-[3]" />
-                      )}
-                    </div>
+                  </td>
+                  {filteredAgencies.map((agency) => (
+                    <td key={agency.name} className="w-72 p-0 pl-4 align-top">
+                      <div className="h-16 flex items-center justify-center border-b border-muted/30">
+                        {agency.features[key as keyof typeof agency.features] ? (
+                          <Check className="h-6 w-6 text-success font-bold stroke-[3]" />
+                        ) : (
+                          <X className="h-6 w-6 text-destructive font-bold stroke-[3]" />
+                        )}
+                      </div>
+                    </td>
                   ))}
-                  
-                  <div className="h-20 border-b border-muted/30 flex items-center justify-center p-4">
-                    <Button 
-                      className={`w-full ${
-                        agency.isRecommended 
-                          ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
-                          : 'variant-outline'
-                      }`}
-                      asChild
-                    >
-                      <a 
-                        href={agency.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2"
+                </tr>
+              ))}
+              <tr>
+                <td className="w-64 p-0"></td>
+                {filteredAgencies.map((agency) => (
+                  <td key={agency.name} className="w-72 p-0 pl-4">
+                    <div className="h-20 flex items-center justify-center p-4">
+                      <Button 
+                        className={`w-full ${
+                          agency.isRecommended 
+                            ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
+                            : 'variant-outline'
+                        }`}
+                        asChild
                       >
-                        Voir l'agence <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
+                        <a 
+                          href={agency.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2"
+                        >
+                          Voir l'agence <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
