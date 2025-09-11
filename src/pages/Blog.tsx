@@ -13,6 +13,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import VendorAssociationForm from '@/components/ui/VendorAssociationForm';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 
 interface BlogPost {
   id: string;
@@ -320,17 +321,12 @@ const Blog = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0 p-4 sm:p-6 sm:pt-0">
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
-                      {(() => {
-                        const text = post.excerpt || post.content.substring(0, 150);
-                        // Nettoyer le markdown pour l'affichage en texte simple
-                        const cleanText = text
-                          .replace(/\*\*(.*?)\*\*/g, '$1') // Supprimer les ** pour le gras
-                          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Garder seulement le texte des liens
-                          .replace(/\n/g, ' '); // Remplacer les retours à la ligne par des espaces
-                        return cleanText.length > 150 ? cleanText.substring(0, 150) + '...' : cleanText;
-                      })()}
-                    </p>
+                    <div className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
+                      <MarkdownRenderer 
+                        content={(post.excerpt || post.content.substring(0, 150)) + (post.excerpt && post.excerpt.length <= 150 ? '' : '...')}
+                        className="text-sm"
+                      />
+                    </div>
                     
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground space-y-2 sm:space-y-0">
                       <div className="flex items-center">
