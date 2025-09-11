@@ -14,6 +14,7 @@ import {
 import { Star, TrendingUp, TrendingDown, Search, ExternalLink } from 'lucide-react';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import AgencyComparison from '@/components/ui/AgencyComparison';
 
 interface AgencyData {
   name: string;
@@ -491,6 +492,18 @@ export default function ComparatifAgences() {
                 </TableBody>
               </Table>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Star className="h-5 w-5 text-primary" />
+              Comparatif Visuel Interactif
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <AgencyComparison />
           </CardContent>
         </Card>
 
