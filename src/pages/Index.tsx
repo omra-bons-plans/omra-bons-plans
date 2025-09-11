@@ -1040,7 +1040,7 @@ const Index = () => {
                 </Link>
                 
                 <a 
-                  href="https://www.saudirailways.org/" 
+                  href="https://sar.hhr.sa/timetable#" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group"
