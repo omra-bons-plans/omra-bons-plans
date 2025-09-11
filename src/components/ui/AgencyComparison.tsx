@@ -173,7 +173,7 @@ const featureLabels = {
   accompagnementSpirituel: "Accompagnement spirituel",
   organisationLogistique: "Organisation logistique",
   serviceClientReactif: "Service client réactif",
-  groupesTailleHumaine: "Groupes taille humaine",
+  groupesTailleHumaine: "Grand groupe",
   dimensionEducative: "Dimension éducative",
   agenceAgreee: "Agence agréée",
   tarifsClairs: "Tarifs clairs",
