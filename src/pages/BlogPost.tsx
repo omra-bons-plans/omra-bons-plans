@@ -322,19 +322,8 @@ const BlogPost = () => {
             )}
           </div>
 
-          {/* Cover Image */}
-          {post.cover_image && (
-            <div className="mb-8 max-w-4xl">
-              <img 
-                src={post.cover_image} 
-                alt={post.title}
-                className="w-full h-64 md:h-96 object-cover rounded-lg"
-              />
-            </div>
-          )}
-
           {/* Images Gallery */}
-          {((post.cover_image && !post.images?.length) || (post.images && post.images.length > 0)) && (
+          {(post.cover_image || (post.images && post.images.length > 0)) && (
             <div className="mb-8 max-w-4xl">
               <ImageDisplay
                 images={post.images || []}
