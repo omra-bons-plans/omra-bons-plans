@@ -35,7 +35,8 @@ const Auth = () => {
   // Check for reset password mode
   useEffect(() => {
     const mode = searchParams.get('mode');
-    if (mode === 'reset-password') {
+    const type = searchParams.get('type');
+    if (mode === 'reset-password' || type === 'recovery') {
       setShowUpdatePasswordForm(true);
     }
   }, [searchParams]);
@@ -43,7 +44,8 @@ const Auth = () => {
   // Redirect if already authenticated (except in reset password mode)
   useEffect(() => {
     const mode = searchParams.get('mode');
-    if (user && mode !== 'reset-password') {
+    const type = searchParams.get('type');
+    if (user && mode !== 'reset-password' && type !== 'recovery') {
       navigate('/');
     }
   }, [user, navigate, searchParams]);
