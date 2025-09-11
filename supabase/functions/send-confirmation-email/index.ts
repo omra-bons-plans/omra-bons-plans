@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
         supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
         token,
         token_hash,
-        redirect_to: redirect_to || 'https://omrabonsplans.fr',
+        redirect_to: redirect_to || 'https://lovable.dev/projects/lptyhenryzhztdwpkvsc',
         email_action_type,
         user_email: user.email,
       })
