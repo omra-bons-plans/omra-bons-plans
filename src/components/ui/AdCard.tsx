@@ -57,7 +57,7 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
             <Badge className="bg-red-600 text-white text-sm px-4 py-2 rounded-full font-semibold">
               <Clock className="w-4 h-4 mr-2" />
-              Annonce expirée
+              Offre expirée
             </Badge>
           </div>
         )}
