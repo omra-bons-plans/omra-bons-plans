@@ -54,14 +54,17 @@ export const useAds = () => {
       setLoading(true);
       setError(null);
 
-      // Fetch published ads that haven't expired
+      // Calculer la date limite pour les annonces expirées (7 jours avant maintenant)
+      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      
+      // Fetch published ads that haven't expired OR expired within the last 7 days
       const { data: adsData, error: adsError } = await supabase
         .from('ads')
         .select('*')
         .eq('is_published', true)
         .eq('is_draft', false)
         .eq('is_paused', false)
-        .gt('publish_end_date', new Date().toISOString())
+        .gt('publish_end_date', sevenDaysAgo)
         .order('created_at', { ascending: false });
 
       if (adsError) throw adsError;
