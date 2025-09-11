@@ -190,31 +190,28 @@ const Admin = () => {
 
   const handleDeleteUser = async (userId: string) => {
     try {
-      // Supprimer d'abord les annonces de l'utilisateur
-      await supabase
-        .from('ads')
-        .delete()
-        .eq('user_id', userId);
+      // Utiliser l'Admin API pour supprimer complètement l'utilisateur du système auth
+      const { error: authError } = await supabase.auth.admin.deleteUser(userId);
+      
+      if (authError) {
+        console.error('Erreur lors de la suppression du compte auth:', authError);
+        throw authError;
+      }
 
-      // Supprimer le profil
-      const { error } = await supabase
-        .from('profiles')
-        .delete()
-        .eq('id', userId);
-
-      if (error) throw error;
+      // Les suppressions en cascade devraient gérer le reste (profils, annonces, etc.)
+      // grâce aux contraintes de clés étrangères avec ON DELETE CASCADE
 
       toast({
         title: "Succès",
-        description: "Utilisateur supprimé avec succès",
+        description: "Compte utilisateur supprimé définitivement avec toutes ses données",
       });
 
       fetchUsers();
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+      console.error('Erreur lors de la suppression du compte:', error);
       toast({
         title: "Erreur",
-        description: "Impossible de supprimer l'utilisateur",
+        description: "Impossible de supprimer le compte utilisateur. Vérifiez vos permissions d'administrateur.",
         variant: "destructive",
       });
     }
