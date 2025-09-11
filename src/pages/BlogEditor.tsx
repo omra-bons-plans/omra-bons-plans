@@ -291,10 +291,9 @@ const BlogEditor = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="excerpt">Résumé/Extrait</Label>
-                <Textarea
-                  id="excerpt"
+                <RichTextEditor
                   value={formData.excerpt}
-                  onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                  onChange={(excerpt) => setFormData(prev => ({ ...prev, excerpt }))}
                   placeholder="Entrez un résumé de l'article (optionnel, sera généré automatiquement si vide)"
                   rows={3}
                 />
