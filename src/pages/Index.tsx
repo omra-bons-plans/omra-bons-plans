@@ -1159,10 +1159,10 @@ const Index = () => {
             <div>
               <h4 className="font-bold text-lg mb-6">Service</h4>
               <ul className="space-y-4 text-muted-foreground text-sm">
-                <li><Link to="#" className="hover:text-primary transition-colors">Contact</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Nous que Voir</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Comment</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Vous</Link></li>
+                <li><Link to="/comparatif-agences" className="hover:text-primary transition-colors">Comparatif Agences</Link></li>
+                <li><Link to="/prayer-times" className="hover:text-primary transition-colors">Horaires de Prière</Link></li>
+                <li><Link to="/islamic-calendar" className="hover:text-primary transition-colors">Calendrier Islamique</Link></li>
+                <li><Link to="/ramadan-hajj-dates" className="hover:text-primary transition-colors">Dates Ramadan & Hajj</Link></li>
               </ul>
             </div>
             
