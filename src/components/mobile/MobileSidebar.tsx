@@ -95,7 +95,8 @@ const MobileSidebar = () => {
       <div className={`lg:hidden fixed top-0 left-0 h-full w-full max-w-sm bg-background border-r border-border z-50 transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="p-6">
+        <div className="flex flex-col h-full">
+          <div className="p-6 pb-0 flex-shrink-0">
           {/* Close Button */}
           <div className="flex justify-end mb-6">
             <Button
@@ -125,8 +126,11 @@ const MobileSidebar = () => {
             </div>
           )}
 
-          {/* Menu Items */}
-          <div className="space-y-2 pb-20">
+          </div>
+          
+          {/* Scrollable Menu Items */}
+          <div className="flex-1 overflow-y-auto px-6">
+            <div className="space-y-2 pb-4">
             {/* Categories Section - Collapsible */}
             <div className="mb-4">
               <button
@@ -375,11 +379,12 @@ const MobileSidebar = () => {
                 )}
               </>
             )}
+            </div>
           </div>
 
-          {/* Disconnect Button */}
-          {user && (
-            <div className="absolute bottom-6 left-6 right-6">
+          {/* Bottom Buttons */}
+          <div className="flex-shrink-0 p-6 pt-4 border-t border-border">
+            {user ? (
               <Button
                 variant="outline"
                 onClick={handleSignOut}
@@ -387,19 +392,14 @@ const MobileSidebar = () => {
               >
                 Se déconnecter
               </Button>
-            </div>
-          )}
-
-          {/* Login Button for non-authenticated users */}
-          {!user && (
-            <div className="absolute bottom-6 left-6 right-6">
-              <Link to="/auth" onClick={() => setIsOpen(false)}>
+            ) : (
+              <Link to="/auth" onClick={() => setIsOpen(false)} className="block">
                 <Button className="w-full">
                   Se connecter
                 </Button>
               </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
