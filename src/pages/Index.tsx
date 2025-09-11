@@ -1022,50 +1022,49 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl font-bold">Autres services</h2>
+              <h2 className="text-4xl font-bold">Services complémentaires pour votre pèlerinage</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Explorez encore plus Omra Granite des services pour vos voyages religieux:
-                les invitations, des navettes de transport, des décès artistisques et standards.
+                Découvrez nos services exclusifs pour enrichir votre voyage spirituel en Arabie Saoudite : 
+                restaurants halal certifiés, transport ferroviaire haute vitesse entre les villes saintes.
               </p>
               
               <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">🍽️</span>
+                <Link to="/blog?category=restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <UtensilsCrossed className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Restaurants</h3>
-                    <p className="text-sm text-muted-foreground">Découvrez les meilleurs restaurants halal</p>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants halal certifiés</h3>
+                    <p className="text-sm text-muted-foreground">Guide des meilleurs restaurants halal à La Mecque et Médine avec certification officielle</p>
                   </div>
-                </div>
+                </Link>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">🚂</span>
+                <a 
+                  href="https://www.saudirailways.org/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group"
+                >
+                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                    <span className="text-2xl">🚄</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Trains</h3>
-                    <p className="text-sm text-muted-foreground">Liaisons train avec la 3</p>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Train Haramain Express</h3>
+                    <p className="text-sm text-muted-foreground">Réservez votre billet sur le train haute vitesse reliant La Mecque, Médine et Jeddah</p>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">🚗</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Location de voitures</h3>
-                    <p className="text-sm text-muted-foreground">Louez une voiture à l'heure ou à la journée</p>
-                  </div>
-                </div>
+                </a>
               </div>
             </div>
 
             {/* Service Image */}
             <div className="relative">
               <div className="bg-gradient-subtle rounded-3xl overflow-hidden shadow-large">
-                <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
-                  <div className="text-9xl opacity-40">🍽️</div>
+                <div className="aspect-video bg-gradient-primary/20 relative">
+                  <img 
+                    src="/lovable-uploads/f137f21e-556a-46f4-affa-52a97b71a0b8.png"
+                    alt="Train Haramain Express traversant le désert saoudien au coucher du soleil"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               
