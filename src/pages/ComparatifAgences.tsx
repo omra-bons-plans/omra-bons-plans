@@ -11,10 +11,9 @@ import {
   TableHeader, 
   TableRow 
 } from '@/components/ui/table';
-import { Star, TrendingUp, TrendingDown, Search, ExternalLink } from 'lucide-react';
+import { Star, Search, ExternalLink } from 'lucide-react';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
-import AgencyComparison from '@/components/ui/AgencyComparison';
 
 interface AgencyData {
   name: string;
@@ -354,75 +353,6 @@ export default function ComparatifAgences() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-          {filteredAgencies.map((agency) => (
-            <Card key={agency.name} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <CardTitle className="text-lg">{agency.name}</CardTitle>
-                  <a 
-                    href={agency.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex">{renderStars(agency.googleRating)}</div>
-                  <Badge className={getRatingColor(agency.googleRating)}>
-                    {agency.googleRating}/5
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">
-                    ({agency.reviewCount} avis)
-                  </span>
-                </div>
-                {agency.highlight && (
-                  <p className="text-sm text-primary font-medium">{agency.highlight}</p>
-                )}
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <div>
-                  <Badge variant="secondary" className="mb-2">{agency.priceRange}</Badge>
-                  <div className="flex flex-wrap gap-1">
-                    {agency.specialties.map((specialty) => (
-                      <Badge key={specialty} variant="outline" className="text-xs">
-                        {specialty}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-sm mb-2 flex items-center gap-1">
-                    <TrendingUp className="h-3 w-3 text-green-600" />
-                    Points Forts
-                  </h4>
-                  <ul className="text-xs space-y-1">
-                    {agency.strengths.slice(0, 3).map((strength, index) => (
-                      <li key={index} className="text-muted-foreground">• {strength}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-sm mb-2 flex items-center gap-1">
-                    <TrendingDown className="h-3 w-3 text-orange-600" />
-                    Points d'Attention
-                  </h4>
-                  <ul className="text-xs space-y-1">
-                    {agency.weaknesses.slice(0, 2).map((weakness, index) => (
-                      <li key={index} className="text-muted-foreground">• {weakness}</li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -466,16 +396,30 @@ export default function ComparatifAgences() {
                         <Badge variant="outline">{agency.reviewCount}</Badge>
                       </TableCell>
                       <TableCell>
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap gap-1 max-w-xs">
                           {agency.specialties.slice(0, 2).map((specialty) => (
-                            <Badge key={specialty} variant="outline" className="text-xs">
+                            <Badge key={specialty} variant="secondary" className="text-xs">
                               {specialty}
                             </Badge>
                           ))}
+                          {agency.specialties.length > 2 && (
+                            <Badge variant="secondary" className="text-xs">
+                              +{agency.specialties.length - 2}
+                            </Badge>
+                          )}
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="secondary">{agency.priceRange}</Badge>
+                        <Badge 
+                          variant="outline"
+                          className={
+                            agency.priceRange === 'Premium' ? 'border-purple-500 text-purple-700' :
+                            agency.priceRange === 'Économique' ? 'border-green-500 text-green-700' :
+                            'border-blue-500 text-blue-700'
+                          }
+                        >
+                          {agency.priceRange}
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <a 
@@ -484,7 +428,8 @@ export default function ComparatifAgences() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-primary hover:underline"
                         >
-                          Visiter <ExternalLink className="h-3 w-3" />
+                          Visiter
+                          <ExternalLink className="h-3 w-3" />
                         </a>
                       </TableCell>
                     </TableRow>
@@ -492,39 +437,6 @@ export default function ComparatifAgences() {
                 </TableBody>
               </Table>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-primary" />
-              Comparatif Visuel Interactif
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <AgencyComparison />
-          </CardContent>
-        </Card>
-
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Méthodologie d'Analyse</CardTitle>
-          </CardHeader>
-          <CardContent className="prose dark:prose-invert max-w-none">
-            <p>
-              Ce comparatif est basé sur l'analyse des sites web officiels des agences, 
-              incluant les notes Google Business affichées publiquement et les informations 
-              commerciales disponibles. Les points forts et faiblesses sont déterminés 
-              selon les services mis en avant par chaque agence.
-            </p>
-            <h3>Critères d'évaluation :</h3>
-            <ul>
-              <li><strong>Notes Google :</strong> Notes officielles affichées sur les sites</li>
-              <li><strong>Spécialités :</strong> Services et formules spécifiques</li>
-              <li><strong>Transparence :</strong> Clarté des informations tarifaires</li>
-              <li><strong>Services inclus :</strong> Étendue des prestations proposées</li>
-            </ul>
           </CardContent>
         </Card>
       </div>
