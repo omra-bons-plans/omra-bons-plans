@@ -259,13 +259,13 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                 </div>
                 <div className="h-20"></div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {Object.entries(featureLabels).map(([key, label]) => (
-                  <div key={key} className="h-12 flex items-center text-sm font-medium text-muted-foreground">
+              <CardContent className="space-y-0 p-0">
+                {Object.entries(featureLabels).map(([key, label], index) => (
+                  <div key={key} className="h-14 flex items-center text-sm font-medium text-muted-foreground border-b border-muted/30 last:border-b-0 px-4">
                     {label}
                   </div>
                 ))}
-                <div className="h-16"></div>
+                <div className="h-20 border-b border-muted/30"></div>
               </CardContent>
             </Card>
           </div>
@@ -303,18 +303,18 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                   </div>
                 </CardHeader>
                 
-                <CardContent className="space-y-4">
-                  {Object.entries(agency.features).map(([key, hasFeature]) => (
-                    <div key={key} className="h-12 flex items-center justify-center">
+                <CardContent className="space-y-0 p-0">
+                  {Object.entries(agency.features).map(([key, hasFeature], index) => (
+                    <div key={key} className="h-14 flex items-center justify-center border-b border-muted/30 last:border-b-0">
                       {hasFeature ? (
-                        <Check className="h-5 w-5 text-success" />
+                        <Check className="h-6 w-6 text-success font-bold stroke-[3]" />
                       ) : (
-                        <X className="h-5 w-5 text-destructive" />
+                        <X className="h-6 w-6 text-destructive font-bold stroke-[3]" />
                       )}
                     </div>
                   ))}
                   
-                  <div className="pt-4">
+                  <div className="h-20 border-b border-muted/30 flex items-center justify-center p-4">
                     <Button 
                       className={`w-full ${
                         agency.isRecommended 
