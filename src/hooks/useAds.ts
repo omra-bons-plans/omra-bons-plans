@@ -233,7 +233,10 @@ export const useAds = () => {
           if (ad.categoryDetails) {
             let accommodationInfo = `${ad.categoryDetails.accommodation_type} • ${ad.categoryDetails.rooms_count} chambres`;
             if (ad.categoryDetails.distance_to_mosque) {
-              accommodationInfo += ` • ${ad.categoryDetails.distance_to_mosque}`;
+              // Convertir la distance en minutes à pied (environ 80m/minute de marche)
+              const distanceInMeters = parseInt(ad.categoryDetails.distance_to_mosque);
+              const walkingMinutes = Math.round(distanceInMeters / 80);
+              accommodationInfo += ` • ${walkingMinutes}min à pied`;
             }
             subtitle = accommodationInfo;
             location = ad.categoryDetails.city || location;
