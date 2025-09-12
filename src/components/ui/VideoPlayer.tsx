@@ -12,6 +12,11 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayerProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Détecter si c'est une vidéo en format 9:16 (YouTube Shorts)
+  const isVerticalVideo = (url: string) => {
+    return url.includes('youtube.com/shorts/');
+  };
+
   // Convertir l'URL YouTube en format embed
   const getEmbedUrl = (url: string) => {
     if (url.includes('youtube.com/watch?v=')) {
@@ -42,6 +47,7 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
 
   const embedUrl = getEmbedUrl(videoUrl);
   const thumbnail = getThumbnail(videoUrl);
+  const isVertical = isVerticalVideo(videoUrl);
 
   return (
     <>
@@ -73,7 +79,7 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
 
       {/* Modal avec vidéo */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl w-full">
+        <DialogContent className={`w-full ${isVertical ? 'max-w-md sm:max-w-lg' : 'max-w-4xl'}`}>
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between">
               {title}
@@ -89,7 +95,7 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
             </DialogTitle>
           </DialogHeader>
           
-          <div className="aspect-video bg-black rounded-lg overflow-hidden">
+          <div className={`bg-black rounded-lg overflow-hidden ${isVertical ? 'aspect-[9/16]' : 'aspect-video'}`}>
             <iframe
               src={embedUrl}
               title={title}
