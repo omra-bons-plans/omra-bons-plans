@@ -231,7 +231,10 @@ export const useAds = () => {
           break;
         case 'hebergement':
           if (ad.categoryDetails) {
-            let accommodationInfo = `${ad.categoryDetails.accommodation_type} • ${ad.categoryDetails.rooms_count} chambres`;
+            const accommodationType = ad.categoryDetails.accommodation_type === 'appartement' ? 'Appartement' : 
+                                    ad.categoryDetails.accommodation_type === 'hotel' ? 'Hôtel' : 
+                                    ad.categoryDetails.accommodation_type;
+            let accommodationInfo = `${accommodationType} • ${ad.categoryDetails.rooms_count} chambres`;
             if (ad.categoryDetails.walking_minutes) {
               accommodationInfo += ` • ${ad.categoryDetails.walking_minutes}min à pied`;
             } else if (ad.categoryDetails.distance_to_mosque) {

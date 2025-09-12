@@ -194,7 +194,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
       case 2:
         // Valider lits (obligatoire), chambres (si appartement) et dates
         const fieldsToValidate: (keyof HebergementFormData)[] = ['bedsCount'];
-        if (watchedAccommodationType === 'apartment') {
+        if (watchedAccommodationType === 'appartement') {
           fieldsToValidate.push('roomsCount');
         }
         // Ajouter la validation des dates si elles sont renseignées
@@ -449,7 +449,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="hotel">Hôtel</SelectItem>
-                            <SelectItem value="apartment">Appartement</SelectItem>
+                            <SelectItem value="appartement">Appartement</SelectItem>
                           </SelectContent>
                         </Select>
                       )}
@@ -575,13 +575,13 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Chambres uniquement pour les appartements */}
-                  {watchedAccommodationType === 'apartment' && (
+                  {watchedAccommodationType === 'appartement' && (
                     <div className="space-y-2">
                       <Label htmlFor="roomsCount">Nombre de chambres *</Label>
                       <Input
                         type="number"
                         id="roomsCount"
-                        {...register("roomsCount", { min: 1, required: watchedAccommodationType === 'apartment' ? "Le nombre de chambres est obligatoire" : false })}
+                        {...register("roomsCount", { min: 1, required: watchedAccommodationType === 'appartement' ? "Le nombre de chambres est obligatoire" : false })}
                         min="1"
                         placeholder="1"
                       />
@@ -602,7 +602,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                   </div>
 
                   {/* Salon uniquement pour les appartements */}
-                  {watchedAccommodationType === 'apartment' && (
+                  {watchedAccommodationType === 'appartement' && (
                     <div className="flex items-center space-x-2 mt-8">
                       <Controller
                         name="hasLivingRoom"
@@ -626,7 +626,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
 
       case 3:
         // Afficher l'étape commodités seulement pour les appartements
-        if (watchedAccommodationType !== 'apartment') {
+        if (watchedAccommodationType !== 'appartement') {
           return null; // Ne rien afficher si ce n'est pas un appartement
         }
         return (
@@ -935,7 +935,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="price">
-                      {watchedAccommodationType === 'apartment' ? 'Prix à la nuitée (€) *' : 'Prix de la location (€) *'}
+                      {watchedAccommodationType === 'appartement' ? 'Prix à la nuitée (€) *' : 'Prix de la location (€) *'}
                     </Label>
                     <Input
                       type="number"
@@ -1219,10 +1219,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                     {watch('bedsCount') && (
                       <li>• {watch('bedsCount')} Lit{watch('bedsCount') > 1 ? 's' : ''}</li>
                     )}
-                    {watchedAccommodationType === 'apartment' && watch('roomsCount') && (
+                    {watchedAccommodationType === 'appartement' && watch('roomsCount') && (
                       <li>• {watch('roomsCount')} Chambre{watch('roomsCount') > 1 ? 's' : ''}</li>
                     )}
-                    {watchedAccommodationType === 'apartment' && watch('hasLivingRoom') && (
+                    {watchedAccommodationType === 'appartement' && watch('hasLivingRoom') && (
                       <li>• Salon</li>
                     )}
                     {watch('hasWifi') && <li>• Wifi</li>}
@@ -1283,7 +1283,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                   <div>
                     <span className="text-gray-500">Type:</span>
                     <p className="font-medium">
-                      {watch('accommodationType') === 'hotel' ? 'Hôtel' : watch('accommodationType') === 'apartment' ? 'Appartement' : 'Non sélectionné'}
+                      {watch('accommodationType') === 'hotel' ? 'Hôtel' : watch('accommodationType') === 'appartement' ? 'Appartement' : 'Non sélectionné'}
                     </p>
                   </div>
                   
