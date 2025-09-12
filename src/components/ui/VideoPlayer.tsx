@@ -20,6 +20,9 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
     } else if (url.includes('youtu.be/')) {
       const videoId = url.split('youtu.be/')[1].split('?')[0];
       return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    } else if (url.includes('youtube.com/shorts/')) {
+      const videoId = url.split('shorts/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
     }
     return url;
   };
@@ -31,6 +34,8 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
       videoId = url.split('v=')[1].split('&')[0];
     } else if (url.includes('youtu.be/')) {
       videoId = url.split('youtu.be/')[1].split('?')[0];
+    } else if (url.includes('youtube.com/shorts/')) {
+      videoId = url.split('shorts/')[1].split('?')[0];
     }
     return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
   };
