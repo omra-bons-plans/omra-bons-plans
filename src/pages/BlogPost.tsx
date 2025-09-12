@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Instagram } from 'lucide-react';
+import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Instagram, MessageCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -477,6 +477,24 @@ const BlogPost = () => {
                 </div>
               </div>
             )}
+
+            {/* WhatsApp Community Link */}
+            <Card className="mt-12 border-green-200 bg-green-50/50">
+              <CardContent className="text-center py-8">
+                <MessageCircle className="w-12 h-12 mx-auto mb-4 text-green-600" />
+                <h3 className="text-xl font-semibold mb-2 text-green-800">Rejoignez notre communauté</h3>
+                <p className="text-green-700 mb-4">
+                  Échangez avec d'autres membres, partagez vos expériences et restez informé des dernières actualités !
+                </p>
+                <Button 
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                  onClick={() => window.open('https://chat.whatsapp.com/YOUR_WHATSAPP_LINK', '_blank')}
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Rejoindre WhatsApp
+                </Button>
+              </CardContent>
+            </Card>
             </div>
 
             {/* Table of Contents - Desktop only */}
