@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ImageDisplay } from '@/components/ui/ImageDisplay';
 import { ContactModal } from '@/components/ui/ContactModal';
+import VideoPlayer from '@/components/ui/VideoPlayer';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
@@ -352,16 +353,11 @@ const BlogPost = () => {
                   <Video className="w-5 h-5 mr-2" />
                   Vidéo associée
                 </h3>
-                <div className="bg-muted rounded-lg p-4">
-                  <a 
-                    href={post.video_url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    Voir la vidéo →
-                  </a>
-                </div>
+                <VideoPlayer 
+                  videoUrl={post.video_url} 
+                  title={post.title}
+                  className="w-full max-w-2xl"
+                />
               </div>
             )}
 
