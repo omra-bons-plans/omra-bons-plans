@@ -224,6 +224,7 @@ export type Database = {
           name: string
           rooms_count: number | null
           video_url: string | null
+          walking_minutes: number | null
         }
         Insert: {
           accommodation_type: string
@@ -242,6 +243,7 @@ export type Database = {
           name: string
           rooms_count?: number | null
           video_url?: string | null
+          walking_minutes?: number | null
         }
         Update: {
           accommodation_type?: string
@@ -260,6 +262,7 @@ export type Database = {
           name?: string
           rooms_count?: number | null
           video_url?: string | null
+          walking_minutes?: number | null
         }
         Relationships: [
           {
