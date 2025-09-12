@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Zap, Clock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import { FormattedListing } from "@/hooks/useAds";
 
@@ -12,20 +12,6 @@ interface AdCardProps {
 }
 
 const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    // Ne pas permettre le clic si l'annonce est expirée
-    if (!listing.isExpired) {
-      // Pass the category as state to know where to return
-      navigate(`/ad/${listing.id}`, { 
-        state: { 
-          fromCategory: listing.type === 'hebergement' ? 'hebergements' : listing.type 
-        } 
-      });
-    }
-  };
-
   const cardClasses = `
     card-modern overflow-hidden border-border/20 bg-card/50 transition-all duration-300
     ${!listing.isExpired ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50 grayscale'}
@@ -33,8 +19,63 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
     ${className}
   `;
 
+  // Ne pas permettre le lien si l'annonce est expirée
+  if (listing.isExpired) {
+    return (
+      <Card className={cardClasses}>
+        <div className="relative group">
+          <div className={`w-full ${imageHeight} overflow-hidden`}>
+            <img 
+              src={listing.image} 
+              alt={listing.title}
+              className="w-full h-full object-cover transition-all duration-500"
+              onError={(e) => {
+                console.log('Ad image failed to load:', listing.image);
+                const target = e.target as HTMLImageElement;
+                target.src = '/ad-placeholder.jpg';
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+          </div>
+          
+          {/* Badge d'annonce expirée */}
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <Badge className="bg-red-600 text-white text-sm px-4 py-2 rounded-full font-semibold">
+              <Clock className="w-4 h-4 mr-2" />
+              Offre expirée
+            </Badge>
+          </div>
+        </div>
+        
+        <CardContent className="p-6 space-y-4">
+          <div className="space-y-2">
+            <h3 className="font-bold text-xl line-clamp-1 text-muted-foreground">
+              {listing.title}
+            </h3>
+            <p className="line-clamp-1 text-muted-foreground/60">
+              {listing.subtitle}
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="font-bold text-lg text-muted-foreground">
+                {listing.price}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
-    <Card className={cardClasses} onClick={handleClick}>
+    <Link 
+      to={`/ad/${listing.id}`}
+      state={{ fromCategory: listing.type === 'hebergement' ? 'hebergements' : listing.type }}
+      className="block"
+    >
+      <Card className={cardClasses}>
       <div className="relative group">
         <div className={`w-full ${imageHeight} overflow-hidden`}>
           <img 
@@ -142,6 +183,7 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 
