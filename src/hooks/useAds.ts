@@ -231,7 +231,11 @@ export const useAds = () => {
           break;
         case 'hebergement':
           if (ad.categoryDetails) {
-            subtitle = `${ad.categoryDetails.accommodation_type} • ${ad.categoryDetails.rooms_count} chambres`;
+            let accommodationInfo = `${ad.categoryDetails.accommodation_type} • ${ad.categoryDetails.rooms_count} chambres`;
+            if (ad.categoryDetails.distance_to_mosque) {
+              accommodationInfo += ` • ${ad.categoryDetails.distance_to_mosque}`;
+            }
+            subtitle = accommodationInfo;
             location = ad.categoryDetails.city || location;
           }
           break;
