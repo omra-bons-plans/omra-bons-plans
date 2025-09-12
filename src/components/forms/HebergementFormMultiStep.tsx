@@ -19,14 +19,14 @@ import { toast } from "sonner";
 // Component pour l'aperçu vidéo
 const VideoPreview = ({ url }: { url: string }) => {
   const getVideoEmbed = (url: string) => {
-    // YouTube patterns
-    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+    // YouTube patterns (including Shorts)
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/;
     const youtubeMatch = url.match(youtubeRegex);
     
     if (youtubeMatch) {
       const videoId = youtubeMatch[1];
       return (
-        <div className="aspect-video w-full max-w-md">
+        <div className="aspect-[9/16] w-full max-w-xs mx-auto">
           <iframe
             width="100%"
             height="100%"
@@ -48,7 +48,7 @@ const VideoPreview = ({ url }: { url: string }) => {
     if (vimeoMatch) {
       const videoId = vimeoMatch[1];
       return (
-        <div className="aspect-video w-full max-w-md">
+        <div className="aspect-[9/16] w-full max-w-xs mx-auto">
           <iframe
             width="100%"
             height="100%"
