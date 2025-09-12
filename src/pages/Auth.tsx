@@ -175,7 +175,11 @@ const Auth = () => {
     });
     
     if (error) {
-      setError('Erreur lors de la mise à jour du mot de passe');
+      if (error.message.includes('New password should be different from the old password')) {
+        setError('Le nouveau mot de passe doit être différent de l\'ancien mot de passe');
+      } else {
+        setError('Erreur lors de la mise à jour du mot de passe');
+      }
     } else {
       toast.success('Mot de passe mis à jour avec succès !');
       navigate('/');
