@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -132,6 +132,17 @@ const MobileSidebar = () => {
           {/* Scrollable Menu Items */}
           <div className="flex-1 overflow-y-auto px-6">
             <div className="space-y-2 pb-4">
+            
+            {/* Accueil Button */}
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors mb-4"
+            >
+              <Home className="w-5 h-5 text-muted-foreground" />
+              <span className="font-medium">Accueil</span>
+            </Link>
+
             {/* Categories Section - Collapsible */}
             <div className="mb-4">
               <button
