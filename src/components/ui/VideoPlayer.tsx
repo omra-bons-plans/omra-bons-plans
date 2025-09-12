@@ -43,7 +43,7 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
       {/* Preview avec bouton play */}
       <div className={`relative group cursor-pointer ${className}`}>
         <div 
-          className="aspect-video bg-muted rounded-lg overflow-hidden relative"
+          className="aspect-[9/16] sm:aspect-video bg-muted rounded-lg overflow-hidden relative"
           onClick={() => setIsOpen(true)}
         >
           {thumbnail && (
