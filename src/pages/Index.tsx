@@ -441,7 +441,7 @@ const Index = () => {
                     <div className="text-[9px] sm:text-xs text-gray-600 font-medium mb-1">Taux du jour</div>
                     <div className="text-base sm:text-lg font-bold text-gray-800">
                       1€ = <span className="text-amber-500">
-                        {weatherAndExchange?.exchange?.eurToSar || '4.39'}
+                        {weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'}
                       </span> Sar
                     </div>
                   </div>
