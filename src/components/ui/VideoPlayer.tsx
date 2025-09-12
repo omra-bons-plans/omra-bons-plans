@@ -68,31 +68,34 @@ const VideoPlayer = ({ videoUrl, title = "Vidéo", className = "" }: VideoPlayer
 
       {/* Modal avec vidéo */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl w-full">
-          <DialogHeader>
-            <DialogTitle className="flex items-center justify-between">
+        <DialogContent className="max-w-4xl w-full h-auto max-h-[90vh] p-2 sm:p-6">
+          <DialogHeader className="px-2 sm:px-0">
+            <DialogTitle className="flex items-center justify-between text-sm sm:text-base">
               {title}
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => window.open(videoUrl, '_blank')}
-                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
+                className="flex items-center space-x-1 sm:space-x-2 text-muted-foreground hover:text-foreground"
               >
-                <Maximize className="w-4 h-4" />
-                <span className="text-xs">Ouvrir dans YouTube</span>
+                <Maximize className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="text-xs hidden sm:inline">Ouvrir dans YouTube</span>
               </Button>
             </DialogTitle>
           </DialogHeader>
           
-          <div className="aspect-video bg-black rounded-lg overflow-hidden">
-            <iframe
-              src={embedUrl}
-              title={title}
-              className="w-full h-full"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+          {/* Container avec aspect ratio 16:9 fixe pour mobile */}
+          <div className="w-full" style={{ aspectRatio: '16/9' }}>
+            <div className="w-full h-full bg-black rounded-lg overflow-hidden">
+              <iframe
+                src={embedUrl}
+                title={title}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
         </DialogContent>
       </Dialog>
