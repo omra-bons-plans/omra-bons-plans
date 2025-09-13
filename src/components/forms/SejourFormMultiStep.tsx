@@ -433,7 +433,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   {!watch("airline") && <p className="text-destructive text-sm">La compagnie aérienne est requise</p>}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8">
                   <div className="space-y-2">
                     <Label htmlFor="departureAirport">Aéroport de départ *</Label>
                     <AirportSelect
@@ -457,9 +457,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
               </div>
 
               {/* Section bagages */}
-              <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                <h4 className="font-semibold mb-4">Bagages en soute inclus</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-8 p-6 bg-muted/30 rounded-lg">
+                <h4 className="font-semibold mb-6">Bagages en soute inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                   <div className="space-y-2">
                     <Label htmlFor="checkedBagsCount">Nombre de bagages en soute</Label>
                     <Input
@@ -494,9 +494,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                 </div>
               </div>
               
-              <div className="space-y-4">
-                <h4 className="font-semibold mb-4">Bagages à main inclus</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-6 p-6 bg-muted/20 rounded-lg">
+                <h4 className="font-semibold mb-6">Bagages à main inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                   <div className="space-y-2">
                     <Label htmlFor="carryOnBagsCount">Nombre de bagages à main</Label>
                     <Input
