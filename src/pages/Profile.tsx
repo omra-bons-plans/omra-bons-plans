@@ -166,7 +166,7 @@ const Profile = () => {
           requiredFields = ['company_name', 'company_address', 'professional_email', 'professional_phone'];
         } else {
           // All personal fields except instagram and facebook
-          requiredFields = ['first_name', 'kuniya', 'gender', 'email', 'phone', 'whatsapp'];
+          requiredFields = ['first_name', 'gender', 'email', 'phone', 'whatsapp'];
         }
         
         const isComplete = requiredFields.every(field => {

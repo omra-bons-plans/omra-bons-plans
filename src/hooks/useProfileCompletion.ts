@@ -8,7 +8,7 @@ interface ProfileCompletionStatus {
   missingFields: string[];
 }
 
-const PERSONAL_REQUIRED_FIELDS = ['first_name', 'kuniya', 'gender', 'email', 'phone', 'whatsapp'] as const;
+const PERSONAL_REQUIRED_FIELDS = ['first_name', 'gender', 'email', 'phone', 'whatsapp'] as const;
 const PROFESSIONAL_REQUIRED_FIELDS = ['company_name', 'company_address', 'professional_email', 'professional_phone'] as const;
 
 export const useProfileCompletion = (): ProfileCompletionStatus => {
@@ -31,7 +31,7 @@ export const useProfileCompletion = (): ProfileCompletionStatus => {
         
         const { data, error } = await supabase
           .from('profiles')
-          .select('first_name, kuniya, gender, email, phone, whatsapp, is_professional, company_name, company_address, professional_email, professional_phone')
+          .select('first_name, gender, email, phone, whatsapp, is_professional, company_name, company_address, professional_email, professional_phone')
           .eq('id', user.id)
           .maybeSingle();
 
