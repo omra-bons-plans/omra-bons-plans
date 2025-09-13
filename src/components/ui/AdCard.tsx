@@ -109,12 +109,18 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
           </Badge>
         )}
         
-        {!listing.isExpired && listing.isFlashSale && (
-          <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
-            <Zap className="w-3 h-3 mr-1" />
-            <span>Flash</span>
-          </Badge>
-        )}
+         {!listing.isExpired && listing.isFlashSale && (
+           <Badge className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold flash-pulse">
+             <Zap className="w-3 h-3 mr-1" />
+             <span>Vente Flash</span>
+           </Badge>
+         )}
+         
+         {!listing.isExpired && listing.isPromo && !listing.isFlashSale && (
+           <Badge className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold">
+             <span>Promo</span>
+           </Badge>
+         )}
         
         {/* Individual countdown for flash sale items */}
         {!listing.isExpired && listing.isFlashSale && listing.flashSaleEndDate && (

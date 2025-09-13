@@ -177,6 +177,7 @@ const Index = () => {
       originalPrice: "1890€",
       discount: 23,
       isFlashSale: false,
+      isPromo: true,
       flashSaleEndDate: undefined,
       image: luxuryHotelMecca,
       rating: 4.8,
