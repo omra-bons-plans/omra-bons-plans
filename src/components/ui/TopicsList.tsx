@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import CreateTopicModal from './CreateTopicModal';
+import RequestTopicModal from './RequestTopicModal';
 
 interface TopicsListProps {
   selectedTopicId?: string;
@@ -21,6 +22,7 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTheme, setSelectedTheme] = useState('tous');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showRequestModal, setShowRequestModal] = useState(false);
 
   const formatTime = (dateString: string | null) => {
     if (!dateString) return 'Aucun message';
@@ -69,15 +71,26 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
       {/* Header with search and create button */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-card-foreground">Discussions</h2>
-        {user && isAdmin && (
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            size="sm"
-            className="btn-modern"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Nouveau sujet
-          </Button>
+        {user && (
+          isAdmin ? (
+            <Button
+              onClick={() => setShowCreateModal(true)}
+              size="sm"
+              className="btn-modern"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Nouveau sujet
+            </Button>
+          ) : (
+            <Button
+              onClick={() => setShowRequestModal(true)}
+              size="sm"
+              variant="outline"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Proposer un sujet
+            </Button>
+          )
         )}
       </div>
 
@@ -253,6 +266,12 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
       <CreateTopicModal
         open={showCreateModal}
         onOpenChange={setShowCreateModal}
+      />
+
+      {/* Request Topic Modal */}
+      <RequestTopicModal
+        open={showRequestModal}
+        onOpenChange={setShowRequestModal}
       />
     </div>
   );

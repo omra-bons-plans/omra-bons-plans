@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -290,6 +290,18 @@ const Admin = () => {
             <Settings className="w-4 h-4 mr-2" />
             Gérer le blog
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/topic-requests from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/topic-requests');
+            }}
+            className="justify-start"
+          >
+            <MessageCircle className="w-4 h-4 mr-2" />
+            Demandes de sujets
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -331,6 +343,13 @@ const Admin = () => {
                     className="text-sm"
                   >
                     Gérer le blog
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin/topic-requests')}
+                    className="text-sm"
+                  >
+                    Demandes de sujets
                   </Button>
                 </>
               )}
