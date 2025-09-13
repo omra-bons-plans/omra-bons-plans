@@ -207,6 +207,17 @@ const SejourDetails = () => {
 
   const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
     try {
+      // Afficher un toast de chargement
+      if (saveAsDraft) {
+        toast.info("Sauvegarde en cours...", {
+          duration: 2000,
+        });
+      } else {
+        toast.info("Publication en cours...", {
+          duration: 3000,
+        });
+      }
+
       // Vérifier la session active d'abord
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {

@@ -55,6 +55,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [isFormDirty, setIsFormDirty] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Hook pour les compagnies aériennes
   const { airlines, loading: airlinesLoading, error: airlinesError } = useAirlines();
@@ -328,34 +329,48 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
     }
   };
 
-  const handleSaveDraft = (data: SejourFormData) => {
-    // Ajouter les images aux données du formulaire
-    const dataWithImages = {
-      ...data,
-      images: images,
-      coverImage: coverImage
-    };
+  const handleSaveDraft = async (data: SejourFormData) => {
+    if (isSubmitting) return;
     
-    onSubmit(dataWithImages, true);
-    setIsFormDirty(false); // Marquer comme sauvegardé
+    setIsSubmitting(true);
+    try {
+      // Ajouter les images aux données du formulaire
+      const dataWithImages = {
+        ...data,
+        images: images,
+        coverImage: coverImage
+      };
+      
+      await onSubmit(dataWithImages, true);
+      setIsFormDirty(false); // Marquer comme sauvegardé
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handlePublish = (data: SejourFormData) => {
+  const handlePublish = async (data: SejourFormData) => {
+    if (isSubmitting) return;
+    
     // Vérifier que la photo de couverture est présente
     if (!coverImage) {
       alert("La photo de couverture est obligatoire");
       return;
     }
     
-    // Ajouter les images aux données du formulaire
-    const dataWithImages = {
-      ...data,
-      images: images,
-      coverImage: coverImage
-    };
-    
-    onSubmit(dataWithImages, false);
-    setIsFormDirty(false); // Marquer comme sauvegardé après publication
+    setIsSubmitting(true);
+    try {
+      // Ajouter les images aux données du formulaire
+      const dataWithImages = {
+        ...data,
+        images: images,
+        coverImage: coverImage
+      };
+      
+      await onSubmit(dataWithImages, false);
+      setIsFormDirty(false); // Marquer comme sauvegardé après publication
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderStep = () => {
@@ -1235,17 +1250,19 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     type="button" 
                     variant="secondary" 
                     onClick={() => handleSaveDraft(watch())}
+                    disabled={isSubmitting}
                     className="px-6 w-full sm:w-auto h-12"
                   >
-                    💾 Sauvegarder comme brouillon
+                    {isSubmitting ? "💾 Sauvegarde..." : "💾 Sauvegarder comme brouillon"}
                   </Button>
                   
                   <Button 
                     type="button" 
                     onClick={() => handlePublish(watch())}
+                    disabled={isSubmitting}
                     className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
-                    🚀 Publier maintenant
+                    {isSubmitting ? "🚀 Publication..." : "🚀 Publier maintenant"}
                   </Button>
                 </div>
               </div>
