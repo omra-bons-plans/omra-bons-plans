@@ -349,10 +349,10 @@ const Index = () => {
             <div className="space-y-6 md:space-y-10 max-w-4xl">
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
-                  <span className="text-white drop-shadow-lg">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA</span><br />
-                  <span className="text-white drop-shadow-lg"> et partez au</span><br />
-                  <span className="text-white drop-shadow-lg">meilleur prix !</span>
+                  <span className="text-white drop-shadow-lg">Comparateur d'annonces</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA & HAJJ</span><br />
+                  <span className="text-white drop-shadow-lg"> au meilleur prix</span><br />
+                  <span className="text-white drop-shadow-lg">en 2025 !</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
@@ -523,8 +523,8 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
-                <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
+                <h2 className="text-4xl font-bold mb-4">Offres Flash Omra & Hajj 2025</h2>
+                <p className="text-muted-foreground text-lg">Promotions exceptionnelles sur les séjours, vols et services</p>
               </div>
               
             </div>
@@ -684,8 +684,8 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Votre plateforme de services pour le hajj et la omra</h2>
-                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
+                <h2 className="text-4xl font-bold mb-4">Services Omra & Hajj - Séjours, Vols, Hébergements</h2>
+                <p className="text-muted-foreground text-lg">Comparez les meilleures offres d'agences, guides spirituels et chauffeurs</p>
               </div>
             </div>
           </div>
@@ -843,7 +843,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl font-bold">Services complémentaires pour votre pèlerinage</h2>
+              <h2 className="text-4xl font-bold">Services Complémentaires Arabie Saoudite</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 Découvrez nos services exclusifs pour enrichir votre voyage spirituel en Arabie Saoudite : 
                 restaurants halal certifiés, transport ferroviaire haute vitesse entre les villes saintes.
@@ -855,7 +855,7 @@ const Index = () => {
                     <UtensilsCrossed className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants</h3>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants Halal La Mecque Médine</h3>
                     <p className="text-sm text-muted-foreground">Guide des meilleurs restaurants à La Mecque et Médine</p>
                   </div>
                 </Link>
@@ -870,7 +870,7 @@ const Index = () => {
                     <span className="text-2xl">🚄</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Train Haramain Express</h3>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Train Haramain Express Omra</h3>
                     <p className="text-sm text-muted-foreground">Réservez votre billet sur le train haute vitesse reliant La Mecque, Médine et Jeddah</p>
                   </div>
                 </a>
@@ -901,8 +901,8 @@ const Index = () => {
             <TabsContent value="discussions" className="space-y-0">
               <div className="py-8">
                 <div className="text-center mb-8">
-                  <h2 className="text-4xl font-bold mb-4">Discussions</h2>
-                  <p className="text-muted-foreground text-lg">Échangez avec la communauté OmraBonsPlans</p>
+                  <h2 className="text-4xl font-bold mb-4">Forum Omra & Hajj - Discussions Communauté</h2>
+                  <p className="text-muted-foreground text-lg">Conseils, expériences et entraide pour votre pèlerinage</p>
                 </div>
                 <div className="max-w-6xl mx-auto">
                   {/* New Discussion System */}
