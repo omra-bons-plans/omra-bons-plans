@@ -209,7 +209,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
         isValid = true; // Commodités et vidéo sont optionnelles
         break;
       case 4:
-        isValid = !!coverImage; // Cover image is required
+        // Cover image is required - check both new cover image and existing cover image
+        const hasNewCoverImage = !!coverImage;
+        const hasExistingCoverImage = isEditing && initialData?.coverImageUrl;
+        isValid = hasNewCoverImage || hasExistingCoverImage;
         if (!isValid) {
           alert("Une photo de couverture est obligatoire");
         }
