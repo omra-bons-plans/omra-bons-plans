@@ -39,6 +39,9 @@ const Auth = () => {
     const token = searchParams.get('token');
     const email = searchParams.get('email');
     
+    // Check if we're returning from a password reset
+    const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+    
     // Also check hash parameters for Supabase redirects
     const hash = window.location.hash.substring(1);
     const hashParams = new URLSearchParams(hash);
@@ -52,10 +55,18 @@ const Auth = () => {
       email,
       accessToken: !!accessToken,
       tokenType,
+      isPasswordResetMode,
       hash: window.location.hash,
       search: window.location.search,
       showUpdatePasswordForm
     });
+    
+    // If we have the reset mode flag from sessionStorage, show the form
+    if (isPasswordResetMode) {
+      console.log('Password reset mode detected from sessionStorage');
+      setShowUpdatePasswordForm(true);
+      return;
+    }
     
     // Handle direct token from email (preferred method)
     if (type === 'recovery' && token && email) {
@@ -88,10 +99,15 @@ const Auth = () => {
       }
 
       console.log('Token verified successfully, user logged in');
+      
+      // IMPORTANT: Set flag BEFORE cleaning URL to prevent redirect
       setShowUpdatePasswordForm(true);
       
+      // Store in sessionStorage to persist across redirects
+      sessionStorage.setItem('password_reset_mode', 'true');
+      
       // Clean URL
-      window.history.replaceState({}, document.title, window.location.pathname);
+      window.history.replaceState({}, document.title, '/auth');
       
       toast.success('Lien vérifié ! Vous pouvez maintenant changer votre mot de passe.');
     } catch (err) {
@@ -104,17 +120,19 @@ const Auth = () => {
   useEffect(() => {
     const mode = searchParams.get('mode');
     const type = searchParams.get('type');
+    const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
     
     console.log('Auth page - Redirect check:', {
       user: !!user,
       mode,
       type,
       showUpdatePasswordForm,
-      shouldRedirect: user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm
+      isPasswordResetMode,
+      shouldRedirect: user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm && !isPasswordResetMode
     });
     
     // Don't redirect if we're in password reset mode or if the session is for password recovery
-    if (user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm) {
+    if (user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm && !isPasswordResetMode) {
       console.log('Redirecting to home page');
       navigate('/');
     }
@@ -251,6 +269,8 @@ const Auth = () => {
         setError('Erreur lors de la mise à jour du mot de passe');
       }
     } else {
+      // Clear the password reset mode flag
+      sessionStorage.removeItem('password_reset_mode');
       toast.success('Mot de passe mis à jour avec succès !');
       navigate('/');
     }
