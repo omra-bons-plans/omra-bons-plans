@@ -207,6 +207,14 @@ const SejourDetails = () => {
 
   const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
     try {
+      // Empêcher les soumissions multiples
+      if (loading) {
+        console.log('⚠️ Soumission ignorée - déjà en cours');
+        return;
+      }
+      
+      setLoading(true);
+      
       // Afficher un toast de chargement
       if (saveAsDraft) {
         toast.info("Sauvegarde en cours...", {
@@ -435,6 +443,8 @@ const SejourDetails = () => {
     } catch (error) {
       console.error('Error creating/updating ad:', error);
       toast.error(isEditMode ? "Erreur lors de la mise à jour" : "Erreur lors de la publication de l'annonce");
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -343,6 +343,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
       
       await onSubmit(dataWithImages, true);
       setIsFormDirty(false); // Marquer comme sauvegardé
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -368,6 +370,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
       
       await onSubmit(dataWithImages, false);
       setIsFormDirty(false); // Marquer comme sauvegardé après publication
+    } catch (error) {
+      console.error('Erreur lors de la publication:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -1249,7 +1253,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   <Button 
                     type="button" 
                     variant="secondary" 
-                    onClick={() => handleSaveDraft(watch())}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (!isSubmitting) {
+                        handleSaveDraft(watch());
+                      }
+                    }}
                     disabled={isSubmitting}
                     className="px-6 w-full sm:w-auto h-12"
                   >
@@ -1258,7 +1268,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   
                   <Button 
                     type="button" 
-                    onClick={() => handlePublish(watch())}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (!isSubmitting) {
+                        handlePublish(watch());
+                      }
+                    }}
                     disabled={isSubmitting}
                     className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
