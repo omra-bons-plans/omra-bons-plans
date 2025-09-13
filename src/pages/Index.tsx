@@ -350,7 +350,7 @@ const Index = () => {
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
-                  <span className="text-white drop-shadow-lg">Première plateforme d'annonce Hajj et Omra francophone</span>
+                  <span className="text-white drop-shadow-lg">1ère plateforme francophone dédiée aux annonces Hajj & Omra</span>
                 </p>
               </div>
 
