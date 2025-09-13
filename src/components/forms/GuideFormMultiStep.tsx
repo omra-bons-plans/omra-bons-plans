@@ -34,9 +34,10 @@ interface GuideFormData {
 interface GuideFormMultiStepProps {
   onSubmit: (data: GuideFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
+  initialData?: any;
 }
 
-const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
+const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -44,22 +45,35 @@ const GuideFormMultiStep = ({ onSubmit, onBack }: GuideFormMultiStepProps) => {
 
   const { register, handleSubmit, watch, setValue, control, formState: { errors }, trigger } = useForm<GuideFormData>({
     defaultValues: {
-      showEmail: true,
-      showPhone: false,
-      showWhatsapp: false,
-      showProfessionalPhone: false,
-      languages: ['francais'],
-      offersOmraGuidance: false,
-      offersVisits: false,
-      offersCourses: false,
-      offersOmraBadal: false,
-      offersWheelchairHelp: false,
-      offersOther: false,
+      title: initialData?.title || '',
+      description: initialData?.description || '',
+      gender: initialData?.gender || 'male',
+      city: initialData?.city || '',
+      yearsExperience: initialData?.yearsExperience || 1,
+      showEmail: initialData?.showEmail ?? true,
+      showPhone: initialData?.showPhone ?? false,
+      showWhatsapp: initialData?.showWhatsapp ?? false,
+      showProfessionalPhone: initialData?.showProfessionalPhone ?? false,
+      languages: initialData?.languages || ['francais'],
+      offersOmraGuidance: initialData?.offersOmraGuidance ?? false,
+      offersVisits: initialData?.offersVisits ?? false,
+      offersCourses: initialData?.offersCourses ?? false,
+      offersOmraBadal: initialData?.offersOmraBadal ?? false,
+      offersWheelchairHelp: initialData?.offersWheelchairHelp ?? false,
+      offersOther: initialData?.offersOther ?? false,
+      otherServicesDescription: initialData?.otherServicesDescription || '',
     }
   });
 
   const totalSteps = 4;
   const offersOther = watch('offersOther');
+
+  // Initialize selected languages from initial data
+  useEffect(() => {
+    if (initialData?.languages) {
+      setSelectedLanguages(initialData.languages);
+    }
+  }, [initialData]);
 
   // Scroll vers le haut quand l'étape change
   useEffect(() => {

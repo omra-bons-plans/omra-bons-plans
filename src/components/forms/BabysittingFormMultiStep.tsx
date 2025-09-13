@@ -26,9 +26,10 @@ interface BabysittingFormData {
 interface BabysittingFormMultiStepProps {
   onSubmit: (data: BabysittingFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
+  initialData?: any;
 }
 
-const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStepProps) => {
+const BabysittingFormMultiStep = ({ onSubmit, onBack, initialData }: BabysittingFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -38,15 +39,26 @@ const BabysittingFormMultiStep = ({ onSubmit, onBack }: BabysittingFormMultiStep
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<BabysittingFormData>({
     defaultValues: {
-      showEmail: true,
-      showPhone: false,
-      showWhatsapp: false,
-      showProfessionalPhone: false,
-      languages: ['francais'],
+      title: initialData?.title || '',
+      description: initialData?.description || '',
+      gender: initialData?.gender || 'female',
+      city: initialData?.city || '',
+      showEmail: initialData?.showEmail ?? true,
+      showPhone: initialData?.showPhone ?? false,
+      showWhatsapp: initialData?.showWhatsapp ?? false,
+      showProfessionalPhone: initialData?.showProfessionalPhone ?? false,
+      languages: initialData?.languages || ['francais'],
     }
   });
 
   const totalSteps = 4;
+
+  // Initialize selected languages from initial data
+  useEffect(() => {
+    if (initialData?.languages) {
+      setSelectedLanguages(initialData.languages);
+    }
+  }, [initialData]);
 
   // Scroll vers le haut quand l'étape change
   useEffect(() => {

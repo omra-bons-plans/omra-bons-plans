@@ -1,21 +1,43 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import BabysittingFormMultiStep from "@/components/forms/BabysittingFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const BabysittingDetails = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [editData, setEditData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isEditing = searchParams.get('edit');
 
-  // Check if user came from category selection
   useEffect(() => {
     const selectedCategory = sessionStorage.getItem('selectedCategory');
-    if (!selectedCategory || selectedCategory !== 'babysitting') {
+    
+    if (!isEditing && (!selectedCategory || selectedCategory !== 'babysitting')) {
       navigate('/publish');
+      return;
     }
-  }, [navigate]);
+
+    if (isEditing) {
+      const fetchEditData = async () => {
+        setLoading(true);
+        const data = await fetchAdForEdit(isEditing);
+        if (data) {
+          const formData = convertAdDataToFormData(data.adData, data.categoryData, 'babysitting');
+          setEditData(formData);
+        } else {
+          toast.error("Erreur lors du chargement de l'annonce");
+          navigate('/my-ads');
+        }
+        setLoading(false);
+      };
+      fetchEditData();
+    }
+  }, [navigate, isEditing]);
 
   const handleBack = () => {
     navigate('/publish');

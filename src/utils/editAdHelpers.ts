@@ -113,8 +113,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         returnDate: categoryData?.return_date || '',
         nightsMedina: categoryData?.nights_medina || 0,
         nightsMecca: categoryData?.nights_mecca || 0,
-        medinnaHotelName: categoryData?.medina_hotel_name || '',
-        medinnaHotelDistance: categoryData?.medina_hotel_distance || '',
+        medinaHotelName: categoryData?.medina_hotel_name || '',
+        medinaHotelDistance: categoryData?.medina_hotel_distance || '',
         meccaHotelName: categoryData?.mecca_hotel_name || '',
         meccaHotelDistance: categoryData?.mecca_hotel_distance || '',
         formulaType: categoryData?.formula_type || 'economique',
@@ -128,6 +128,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         arrivalAirport: categoryData?.arrival_airport || '',
         departureDate: categoryData?.departure_date || '',
         returnDate: categoryData?.return_date || '',
+        checkedBagsCount: categoryData?.checked_bags_count || 0,
+        checkedBagsWeight: categoryData?.checked_bags_weight || 20,
         hasStopover: categoryData?.has_stopover || false,
         stopoverDetails: categoryData?.stopover_details || '',
       };
@@ -157,12 +159,13 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         languages: categoryData?.languages || ['français'],
       };
 
-    case 'babysitting':
-      return {
-        ...baseFormData,
-        gender: categoryData?.gender || 'female',
-        languages: categoryData?.languages || ['français'],
-      };
+      case 'babysitting':
+        return {
+          ...baseFormData,
+          gender: categoryData?.gender || 'female',
+          city: categoryData?.city || '',
+          languages: categoryData?.languages || ['français'],
+        };
 
     default:
       return baseFormData;

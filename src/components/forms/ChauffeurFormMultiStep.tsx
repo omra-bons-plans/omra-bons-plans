@@ -27,9 +27,10 @@ interface ChauffeurFormData {
 interface ChauffeurFormMultiStepProps {
   onSubmit: (data: ChauffeurFormData, saveAsDraft?: boolean) => void;
   onBack: () => void;
+  initialData?: any;
 }
 
-const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProps) => {
+const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -38,16 +39,30 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack }: ChauffeurFormMultiStepProp
 
   const { register, handleSubmit, watch, setValue, formState: { errors }, trigger } = useForm<ChauffeurFormData>({
     defaultValues: {
-      showEmail: true,
-      showPhone: false,
-      showWhatsapp: false,
-      showProfessionalPhone: false,
-      languages: ['francais'],
-      city: [],
+      title: initialData?.title || '',
+      description: initialData?.description || '',
+      gender: initialData?.gender || 'male',
+      vehicleSeats: initialData?.vehicleSeats || 4,
+      showEmail: initialData?.showEmail ?? true,
+      showPhone: initialData?.showPhone ?? false,
+      showWhatsapp: initialData?.showWhatsapp ?? false,
+      showProfessionalPhone: initialData?.showProfessionalPhone ?? false,
+      languages: initialData?.languages || ['francais'],
+      city: initialData?.city || [],
     }
   });
 
   const totalSteps = 4;
+
+  // Initialize selected languages and cities from initial data
+  useEffect(() => {
+    if (initialData?.languages) {
+      setSelectedLanguages(initialData.languages);
+    }
+    if (initialData?.city) {
+      setSelectedCities(initialData.city);
+    }
+  }, [initialData]);
 
   // Scroll vers le haut quand l'étape change
   useEffect(() => {

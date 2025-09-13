@@ -1,21 +1,46 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import GuideFormMultiStep from "@/components/forms/GuideFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
+import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
 
 const GuideDetails = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [editData, setEditData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isEditing = searchParams.get('edit');
 
-  // Check if user came from category selection
+  // Check if user came from category selection or is editing
   useEffect(() => {
     const selectedCategory = sessionStorage.getItem('selectedCategory');
-    if (!selectedCategory || selectedCategory !== 'guides') {
+    
+    if (!isEditing && (!selectedCategory || selectedCategory !== 'guides')) {
       navigate('/publish');
+      return;
     }
-  }, [navigate]);
+
+    // If editing, fetch the ad data
+    if (isEditing) {
+      const fetchEditData = async () => {
+        setLoading(true);
+        const data = await fetchAdForEdit(isEditing);
+        if (data) {
+          const formData = convertAdDataToFormData(data.adData, data.categoryData, 'guides');
+          setEditData(formData);
+        } else {
+          toast.error("Erreur lors du chargement de l'annonce");
+          navigate('/my-ads');
+        }
+        setLoading(false);
+      };
+
+      fetchEditData();
+    }
+  }, [navigate, isEditing]);
 
   const handleBack = () => {
     navigate('/publish');
@@ -213,10 +238,20 @@ const GuideDetails = () => {
   return (
     <RequiredProfileGuard>
       <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+              <p className="text-muted-foreground">Chargement de l'annonce...</p>
+            </div>
+          </div>
+        ) : (
           <GuideFormMultiStep 
             onSubmit={handleGuideSubmit} 
             onBack={handleBack}
+            initialData={editData}
           />
+        )}
       </PublishLayout>
     </RequiredProfileGuard>
   );

@@ -34,25 +34,25 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
   const totalSteps = 5;
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: '',
-    originalPrice: '',
-    location: '',
-    airline: '',
-    departureAirport: '',
-    arrivalAirport: '',
-    departureDate: undefined as Date | undefined,
-    returnDate: undefined as Date | undefined,
-    hasOutboundStopover: false,
-    outboundStopoverDetails: '',
+    title: initialData?.title || '',
+    description: initialData?.description || '',
+    price: initialData?.price || '',
+    originalPrice: initialData?.originalPrice || '',
+    location: initialData?.location || '',
+    airline: initialData?.airline || '',
+    departureAirport: initialData?.departureAirport || '',
+    arrivalAirport: initialData?.arrivalAirport || '',
+    departureDate: initialData?.departureDate ? new Date(initialData.departureDate) : undefined,
+    returnDate: initialData?.returnDate ? new Date(initialData.returnDate) : undefined,
+    hasOutboundStopover: initialData?.hasStopover || false,
+    outboundStopoverDetails: initialData?.stopoverDetails || '',
     hasReturnStopover: false,
     returnStopoverDetails: '',
-    checkedBagsCount: 0,
-    checkedBagsWeight: 20,
-    showPhone: true,
-    showWhatsapp: false,
-    showEmail: true
+    checkedBagsCount: initialData?.checkedBagsCount || 0,
+    checkedBagsWeight: initialData?.checkedBagsWeight || 20,
+    showPhone: initialData?.showPhone ?? true,
+    showWhatsapp: initialData?.showWhatsapp ?? false,
+    showEmail: initialData?.showEmail ?? true
   });
 
   const [images, setImages] = useState<File[]>([]);
