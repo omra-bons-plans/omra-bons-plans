@@ -32,18 +32,24 @@ const Auth = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Check for reset password mode
+  // Check for password reset in URL parameters or hash
   useEffect(() => {
     const mode = searchParams.get('mode');
     const type = searchParams.get('type');
-    // Also check for Supabase auth hash parameters (from email links)
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const token = searchParams.get('token');
+    const email = searchParams.get('email');
+    
+    // Also check hash parameters for Supabase redirects
+    const hash = window.location.hash.substring(1);
+    const hashParams = new URLSearchParams(hash);
     const accessToken = hashParams.get('access_token');
     const tokenType = hashParams.get('type');
     
     console.log('Auth page - URL params check:', {
       mode,
       type,
+      token: !!token,
+      email,
       accessToken: !!accessToken,
       tokenType,
       hash: window.location.hash,
@@ -51,11 +57,48 @@ const Auth = () => {
       showUpdatePasswordForm
     });
     
-    if (mode === 'reset-password' || type === 'recovery' || tokenType === 'recovery' || accessToken) {
+    // Handle direct token from email (preferred method)
+    if (type === 'recovery' && token && email) {
+      console.log('Direct token detected, verifying OTP...');
+      handleTokenVerification(token, email);
+      return;
+    }
+    
+    // Fallback for hash-based tokens or manual mode setting
+    if (mode === 'reset-password' || tokenType === 'recovery' || accessToken) {
       console.log('Setting showUpdatePasswordForm to true');
       setShowUpdatePasswordForm(true);
     }
   }, [searchParams]);
+
+  // Handle token verification from email link
+  const handleTokenVerification = async (token: string, email: string) => {
+    try {
+      console.log('Verifying OTP token...');
+      const { data, error } = await supabase.auth.verifyOtp({
+        token_hash: token,
+        type: 'recovery',
+        email: email,
+      });
+
+      if (error) {
+        console.error('Token verification failed:', error);
+        toast.error('Lien de réinitialisation invalide ou expiré. Demandez un nouveau lien.');
+        return;
+      }
+
+      console.log('Token verified successfully, user logged in');
+      setShowUpdatePasswordForm(true);
+      
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      toast.success('Lien vérifié ! Vous pouvez maintenant changer votre mot de passe.');
+    } catch (err) {
+      console.error('Token verification error:', err);
+      toast.error('Erreur lors de la vérification du lien. Réessayez.');
+    }
+  };
 
   // Redirect if already authenticated (except in reset password mode)
   useEffect(() => {
