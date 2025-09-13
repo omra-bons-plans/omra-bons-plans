@@ -41,7 +41,18 @@ const Auth = () => {
     const accessToken = hashParams.get('access_token');
     const tokenType = hashParams.get('type');
     
+    console.log('Auth page - URL params check:', {
+      mode,
+      type,
+      accessToken: !!accessToken,
+      tokenType,
+      hash: window.location.hash,
+      search: window.location.search,
+      showUpdatePasswordForm
+    });
+    
     if (mode === 'reset-password' || type === 'recovery' || tokenType === 'recovery' || accessToken) {
+      console.log('Setting showUpdatePasswordForm to true');
       setShowUpdatePasswordForm(true);
     }
   }, [searchParams]);
@@ -50,8 +61,18 @@ const Auth = () => {
   useEffect(() => {
     const mode = searchParams.get('mode');
     const type = searchParams.get('type');
+    
+    console.log('Auth page - Redirect check:', {
+      user: !!user,
+      mode,
+      type,
+      showUpdatePasswordForm,
+      shouldRedirect: user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm
+    });
+    
     // Don't redirect if we're in password reset mode or if the session is for password recovery
     if (user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm) {
+      console.log('Redirecting to home page');
       navigate('/');
     }
   }, [user, navigate, searchParams, showUpdatePasswordForm]);
