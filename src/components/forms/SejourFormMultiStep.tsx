@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAirlines } from "@/hooks/useAirlines";
+import { AirportSelect } from "@/components/ui/AirportSelect";
 
 interface SejourFormData {
   title: string;
@@ -250,13 +251,24 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
     
     switch (currentStep) {
       case 1:
-        // Validation manuelle pour airline car il utilise setValue au lieu de register
+        // Validation manuelle pour airline et airports car ils utilisent setValue au lieu de register
         const currentAirline = watch('airline');
+        const currentDepartureAirport = watch('departureAirport');
+        const currentArrivalAirport = watch('arrivalAirport');
+        
         if (!currentAirline) {
           alert("Veuillez sélectionner une compagnie aérienne");
           return;
         }
-        fieldsToValidate = ['title', 'departureAirport', 'arrivalAirport'];
+        if (!currentDepartureAirport) {
+          alert("Veuillez sélectionner un aéroport de départ");
+          return;
+        }
+        if (!currentArrivalAirport) {
+          alert("Veuillez sélectionner un aéroport d'arrivée");
+          return;
+        }
+        fieldsToValidate = ['title'];
         break;
       case 2:
         fieldsToValidate = ['description'];
@@ -421,38 +433,20 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                   <div className="space-y-2">
                     <Label htmlFor="departureAirport">Aéroport de départ *</Label>
-                    <Input 
-                      id="departureAirport"
-                      placeholder="Ex: CDG, LYS, ORY..."
-                      {...register("departureAirport", { 
-                        required: "L'aéroport de départ est requis",
-                        pattern: {
-                          value: /^[A-Z]{3}$/,
-                          message: "Code IATA à 3 lettres (ex: CDG)"
-                        }
-                      })}
-                      maxLength={3}
-                      className="uppercase"
-                      onChange={(e) => setValue("departureAirport", e.target.value.toUpperCase())}
+                    <AirportSelect
+                      value={watch("departureAirport")}
+                      onValueChange={(value) => setValue("departureAirport", value)}
+                      placeholder="Choisir l'aéroport de départ..."
                     />
                     {errors.departureAirport && <p className="text-destructive text-sm">{errors.departureAirport.message}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="arrivalAirport">Aéroport d'arrivée *</Label>
-                    <Input 
-                      id="arrivalAirport"
-                      placeholder="Ex: JED, RUH..."
-                      {...register("arrivalAirport", { 
-                        required: "L'aéroport d'arrivée est requis",
-                        pattern: {
-                          value: /^[A-Z]{3}$/,
-                          message: "Code IATA à 3 lettres (ex: JED)"
-                        }
-                      })}
-                      maxLength={3}
-                      className="uppercase"
-                      onChange={(e) => setValue("arrivalAirport", e.target.value.toUpperCase())}
+                    <AirportSelect
+                      value={watch("arrivalAirport")}
+                      onValueChange={(value) => setValue("arrivalAirport", value)}
+                      placeholder="Choisir l'aéroport d'arrivée..."
                     />
                     {errors.arrivalAirport && <p className="text-destructive text-sm">{errors.arrivalAirport.message}</p>}
                   </div>
@@ -1100,9 +1094,24 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                         <div className="w-2 h-2 bg-primary rounded-full"></div>
                         <span>🕋 {watch('meccaHotelName')}</span>
                       </li>
-                    )}
-                  </ul>
-                </div>
+                     )}
+                   </ul>
+                 </div>
+
+                 {/* Bagages */}
+                 <div className="space-y-3">
+                   <h4 className="text-lg font-semibold text-foreground">Bagages inclus</h4>
+                   <div className="space-y-2 text-sm text-muted-foreground">
+                     <div className="flex items-center space-x-2">
+                       <div className="w-2 h-2 bg-primary rounded-full"></div>
+                       <span>Bagages en soute: {watch('checkedBagsCount') || 0} bagage(s) de {watch('checkedBagsWeight') || 20}kg chacun</span>
+                     </div>
+                     <div className="flex items-center space-x-2">
+                       <div className="w-2 h-2 bg-primary rounded-full"></div>
+                       <span>Bagages à main: {watch('carryOnBagsCount') || 1} bagage(s) de {watch('carryOnBagsWeight') || 10}kg chacun</span>
+                     </div>
+                   </div>
+                 </div>
 
                 {/* Contact */}
                 <div className="space-y-4">

@@ -1,11 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Users, Languages, Calendar, Car, Baby, User } from "lucide-react";
+import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Building } from "lucide-react";
 
 interface AdPreviewProps {
   data: any;
   coverImage?: File | null;
-  category: 'babysitting' | 'chauffeurs' | 'guides';
+  category: 'babysitting' | 'chauffeurs' | 'guides' | 'vols' | 'sejours';
   className?: string;
 }
 
@@ -18,6 +18,10 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
         return <Car className="w-5 h-5" />;
       case 'guides':
         return <User className="w-5 h-5" />;
+      case 'vols':
+        return <Plane className="w-5 h-5" />;
+      case 'sejours':
+        return <Building className="w-5 h-5" />;
       default:
         return <User className="w-5 h-5" />;
     }
@@ -31,6 +35,10 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
         return 'Chauffeur';
       case 'guides':
         return 'Guide';
+      case 'vols':
+        return 'Vol';
+      case 'sejours':
+        return 'Séjour Omra';
       default:
         return 'Service';
     }
@@ -98,47 +106,112 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
 
         {/* Informations spécifiques par catégorie */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Genre */}
-          <div className="flex items-center space-x-2">
-            <User className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm">
-              <span className="font-medium">Genre:</span> {data.gender === 'male' ? 'Homme' : 'Femme'}
-            </span>
-          </div>
+          {/* Informations pour les services (guides, chauffeurs, babysitting) */}
+          {(category === 'guides' || category === 'chauffeurs' || category === 'babysitting') && (
+            <>
+              {/* Genre */}
+              <div className="flex items-center space-x-2">
+                <User className="w-4 h-4 text-muted-foreground" />
+                <span className="text-sm">
+                  <span className="font-medium">Genre:</span> {data.gender === 'male' ? 'Homme' : 'Femme'}
+                </span>
+              </div>
 
-          {/* Ville (pour chauffeurs et guides) */}
-          {(category === 'chauffeurs' || category === 'guides') && data.city && (
-            <div className="flex items-center space-x-2">
-              <MapPin className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm">
-                <span className="font-medium">Ville:</span> {formatCity(data.city)}
-              </span>
-            </div>
+              {/* Ville (pour chauffeurs et guides) */}
+              {(category === 'chauffeurs' || category === 'guides') && data.city && (
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Ville:</span> {formatCity(data.city)}
+                  </span>
+                </div>
+              )}
+
+              {/* Expérience (pour guides) */}
+              {category === 'guides' && data.yearsExperience !== undefined && (
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Expérience:</span> {data.yearsExperience} ans
+                  </span>
+                </div>
+              )}
+
+               {/* Places véhicule (pour chauffeurs) */}
+               {category === 'chauffeurs' && data.vehicleSeats && (
+                 <div className="flex items-center space-x-2">
+                   <Users className="w-4 h-4 text-muted-foreground" />
+                   <span className="text-sm">
+                     <span className="font-medium">Sièges:</span> {data.vehicleSeats} personnes
+                   </span>
+                 </div>
+               )}
+            </>
           )}
 
-          {/* Expérience (pour guides) */}
-          {category === 'guides' && data.yearsExperience !== undefined && (
-            <div className="flex items-center space-x-2">
-              <Calendar className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm">
-                <span className="font-medium">Expérience:</span> {data.yearsExperience} ans
-              </span>
-            </div>
-          )}
+          {/* Informations pour les vols et séjours */}
+          {(category === 'vols' || category === 'sejours') && (
+            <>
+              {/* Compagnie aérienne */}
+              {data.airline && (
+                <div className="flex items-center space-x-2">
+                  <Plane className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Compagnie:</span> {data.airline}
+                  </span>
+                </div>
+              )}
 
-           {/* Places véhicule (pour chauffeurs) */}
-           {category === 'chauffeurs' && data.vehicleSeats && (
-             <div className="flex items-center space-x-2">
-               <Users className="w-4 h-4 text-muted-foreground" />
-               <span className="text-sm">
-                 <span className="font-medium">Sièges:</span> {data.vehicleSeats} personnes
-               </span>
-             </div>
-           )}
+              {/* Aéroports */}
+              {(data.departureAirport || data.arrivalAirport) && (
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Trajet:</span> {data.departureAirport} → {data.arrivalAirport}
+                  </span>
+                </div>
+              )}
+
+              {/* Dates */}
+              {(data.departureDate || data.returnDate) && (
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Dates:</span> {data.departureDate} - {data.returnDate}
+                  </span>
+                </div>
+              )}
+
+              {/* Nuits (pour séjours) */}
+              {category === 'sejours' && (data.nightsMedina || data.nightsMecca) && (
+                <div className="flex items-center space-x-2">
+                  <Building className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    <span className="font-medium">Nuits:</span> {data.nightsMedina || 0} Médine, {data.nightsMecca || 0} Makkah
+                  </span>
+                </div>
+              )}
+            </>
+          )}
         </div>
 
-        {/* Langues */}
-        {data.languages && data.languages.length > 0 && (
+        {/* Bagages (pour vols et séjours) */}
+        {(category === 'vols' || category === 'sejours') && (
+          <div className="space-y-2">
+            <h4 className="font-semibold text-sm">Bagages inclus</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+              <div>
+                <span className="font-medium">Bagages en soute:</span> {data.checkedBagsCount || 0} bagage(s) de {data.checkedBagsWeight || 20}kg
+              </div>
+              <div>
+                <span className="font-medium">Bagages à main:</span> {data.carryOnBagsCount || 1} bagage(s) de {data.carryOnBagsWeight || 10}kg
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Langues (pour services) */}
+        {(category === 'guides' || category === 'chauffeurs' || category === 'babysitting') && data.languages && data.languages.length > 0 && (
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
               <Languages className="w-4 h-4 text-muted-foreground" />
