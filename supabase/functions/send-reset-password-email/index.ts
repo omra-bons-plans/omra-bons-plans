@@ -1,9 +1,11 @@
 import React from 'npm:react@18.3.1'
 import { Resend } from 'npm:resend@4.0.0'
 import { renderAsync } from 'npm:@react-email/components@0.0.22'
+import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0'
 import { ResetPasswordEmail } from './_templates/reset-password-email.tsx'
 
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string)
+const hookSecret = Deno.env.get('SEND_RESET_PASSWORD_HOOK_SECRET') as string
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -25,12 +27,23 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const payload = await req.json()
+    const payload = await req.text()
+    const headers = Object.fromEntries(req.headers)
+    
+    // Verify webhook if secret is configured
+    let parsedPayload
+    if (hookSecret) {
+      const wh = new Webhook(hookSecret)
+      parsedPayload = wh.verify(payload, headers)
+    } else {
+      // Fallback for direct calls without webhook verification
+      parsedPayload = JSON.parse(payload)
+    }
     
     const {
       user,
       email_data: { token, token_hash, redirect_to, email_action_type },
-    } = payload as {
+    } = parsedPayload as {
       user: {
         email: string
       }
