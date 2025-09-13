@@ -263,11 +263,12 @@ const SejourDetails = () => {
               .from('ads')
               .update({ 
                 images: uploadedImagePaths,
-                cover_image: uploadedImagePaths[0] || null
+                cover_image: uploadedImagePaths[0] // Toujours mettre la première image comme couverture
               })
               .eq('id', editAdId);
               
             if (updateError) throw updateError;
+            console.log('✅ Images updated in edit mode, cover image:', uploadedImagePaths[0]);
           }
         }
 
@@ -380,10 +381,14 @@ const SejourDetails = () => {
       if (uploadedImagePaths.length > 0) {
         const { error: updateError } = await supabase
           .from('ads')
-          .update({ images: uploadedImagePaths })
+          .update({ 
+            images: uploadedImagePaths,
+            cover_image: uploadedImagePaths[0] // Toujours mettre la première image comme couverture
+          })
           .eq('id', ad.id);
           
         if (updateError) throw updateError;
+        console.log('✅ Images updated successfully, cover image:', uploadedImagePaths[0]);
       }
 
        // Create the sejour details

@@ -362,18 +362,17 @@ const MyAds = () => {
                             <div className="flex flex-col lg:flex-row gap-6">
                               {/* Image */}
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
-                                {ad.coverImage ? (
+                                 {ad.coverImage ? (
                                    <ImageWithFallback 
                                      src={getImageUrl(ad.coverImage)} 
                                      alt={ad.title}
                                      className="w-full h-full object-cover"
                                    />
                                 ) : (
-                                   <ImageWithFallback 
-                                     src="/ad-placeholder.jpg" 
-                                     alt="Aucune image disponible"
-                                     className="w-full h-full object-cover"
-                                   />
+                                   <div className="w-full h-full bg-muted flex flex-col items-center justify-center">
+                                     <div className="text-2xl mb-2">📷</div>
+                                     <p className="text-xs text-muted-foreground">Aucune image disponible</p>
+                                   </div>
                                 )}
                               </div>
 
