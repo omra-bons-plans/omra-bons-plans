@@ -117,9 +117,18 @@ const SejourDetails = () => {
 
   const saveDraft = async (adData: any, categoryData?: any) => {
     try {
+      // Vérifier la session active d'abord
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Votre session a expiré. Veuillez vous reconnecter.");
+        navigate('/auth');
+        return;
+      }
+
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        toast.error("Vous devez être connecté pour sauvegarder");
+        toast.error("Erreur d'authentification. Veuillez vous reconnecter.");
+        navigate('/auth');
         return;
       }
 
@@ -198,11 +207,22 @@ const SejourDetails = () => {
 
   const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        toast.error("Vous devez être connecté pour publier une annonce");
+      // Vérifier la session active d'abord
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Votre session a expiré. Veuillez vous reconnecter.");
+        navigate('/auth');
         return;
       }
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("Erreur d'authentification. Veuillez vous reconnecter.");
+        navigate('/auth');
+        return;
+      }
+
+      console.log('✅ User authenticated:', user.email);
 
       const selectedFormula = sessionStorage.getItem('selectedFormula');
 
