@@ -55,6 +55,8 @@ export const useAds = () => {
       setLoading(true);
       setError(null);
 
+      console.log('🔄 Fetching ads - Start');
+
       // Calculer la date limite pour les annonces expirées (7 jours avant maintenant)
       const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
       
@@ -71,113 +73,145 @@ export const useAds = () => {
       if (adsError) throw adsError;
 
       if (!adsData || adsData.length === 0) {
+        console.log('📭 No ads found');
         setAds([]);
         setLoading(false);
         return;
       }
 
-      // Fetch category-specific details for each ad
-      const enrichedAds: Ad[] = await Promise.all(
-        adsData.map(async (ad) => {
-          let categoryDetails = null;
+      console.log('📊 Found', adsData.length, 'ads');
 
-          try {
-            switch (ad.category) {
-              case 'sejours':
-                const { data: sejourData } = await supabase
-                  .from('ads_sejours')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = sejourData;
-                break;
-              case 'vols':
-                const { data: volData } = await supabase
-                  .from('ads_vols')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = volData;
-                break;
-              case 'guides':
-                const { data: guideData } = await supabase
-                  .from('ads_guides')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = guideData;
-                break;
-              case 'chauffeurs':
-                const { data: chauffeurData } = await supabase
-                  .from('ads_chauffeurs')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = chauffeurData;
-                break;
-              case 'babysitting':
-                const { data: babysittingData } = await supabase
-                  .from('ads_babysitting')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = babysittingData;
-                break;
-              case 'hebergement':
-                const { data: hebergementData } = await supabase
-                  .from('ads_hebergements')
-                  .select('*')
-                  .eq('ad_id', ad.id)
-                  .single();
-                categoryDetails = hebergementData;
-                break;
-            }
-          } catch (categoryError) {
-            console.warn(`Error fetching ${ad.category} details for ad ${ad.id}:`, categoryError);
+      // Group ads by category for batch fetching
+      const adsByCategory = adsData.reduce((acc, ad) => {
+        if (!acc[ad.category]) acc[ad.category] = [];
+        acc[ad.category].push(ad);
+        return acc;
+      }, {} as Record<string, any[]>);
+
+      // Batch fetch category details
+      const categoryDetailsMap = new Map();
+      
+      await Promise.all(Object.entries(adsByCategory).map(async ([category, categoryAds]) => {
+        const adIds = categoryAds.map(ad => ad.id);
+        
+        try {
+          let categoryData = [];
+          
+          switch (category) {
+            case 'sejours':
+              const { data: sejourData } = await supabase
+                .from('ads_sejours')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = sejourData || [];
+              break;
+            case 'vols':
+              const { data: volData } = await supabase
+                .from('ads_vols')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = volData || [];
+              break;
+            case 'guides':
+              const { data: guideData } = await supabase
+                .from('ads_guides')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = guideData || [];
+              break;
+            case 'chauffeurs':
+              const { data: chauffeurData } = await supabase
+                .from('ads_chauffeurs')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = chauffeurData || [];
+              break;
+            case 'babysitting':
+              const { data: babysittingData } = await supabase
+                .from('ads_babysitting')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = babysittingData || [];
+              break;
+            case 'hebergement':
+              const { data: hebergementData } = await supabase
+                .from('ads_hebergements')
+                .select('*')
+                .in('ad_id', adIds);
+              categoryData = hebergementData || [];
+              break;
           }
+          
+          // Map category details to ad IDs
+          categoryData.forEach(detail => {
+            categoryDetailsMap.set(detail.ad_id, detail);
+          });
+          
+        } catch (categoryError) {
+          console.warn(`Error fetching ${category} details:`, categoryError);
+        }
+      }));
 
-          return {
-            id: ad.id,
-            title: ad.title,
-            description: ad.description,
-            price: ad.price,
-            originalPrice: ad.original_price,
-            category: ad.category,
-            location: ad.location,
-            coverImage: ad.cover_image,
-            images: ad.images || [],
-            isPromotion: ad.is_promotion,
-            promotionEndDate: ad.promotion_end_date,
-            publishEndDate: ad.publish_end_date,
-            createdAt: ad.created_at,
-            showEmail: ad.show_email,
-            showPhone: ad.show_phone,
-            userId: ad.user_id,
-            categoryDetails,
-          };
-        })
-      );
-
-      // Fetch real ratings for all ads
-      const adsWithRealRatings = await Promise.all(
-        enrichedAds.map(async (ad) => {
+      // Batch fetch all ratings at once
+      const allAdIds = adsData.map(ad => ad.id);
+      const ratingsMap = new Map();
+      
+      try {
+        // Since we can't batch the RPC function, we'll do it efficiently
+        const ratingPromises = allAdIds.map(async (adId) => {
           const { data: ratingData } = await supabase
-            .rpc('get_ad_rating', { ad_id: ad.id });
+            .rpc('get_ad_rating', { ad_id: adId });
           
           const rating = ratingData?.[0]?.avg_rating || 0;
           const reviewCount = ratingData?.[0]?.review_count || 0;
           
-          return {
-            ...ad,
-            rating: rating > 0 ? Number(rating) : 4.5 + Math.random() * 0.5, // Fallback to random for ads without reviews
-            reviews: reviewCount > 0 ? reviewCount : Math.floor(Math.random() * 100) + 10, // Fallback to random
+          return { 
+            adId, 
+            rating: rating > 0 ? Number(rating) : 4.5 + Math.random() * 0.5,
+            reviews: reviewCount > 0 ? reviewCount : Math.floor(Math.random() * 100) + 10
           };
-        })
-      );
+        });
+        
+        const ratingsResults = await Promise.all(ratingPromises);
+        ratingsResults.forEach(({ adId, rating, reviews }) => {
+          ratingsMap.set(adId, { rating, reviews });
+        });
+      } catch (ratingError) {
+        console.warn('Error fetching ratings:', ratingError);
+      }
 
-      setAds(adsWithRealRatings);
+      // Combine all data
+      const enrichedAds: Ad[] = adsData.map((ad) => {
+        const categoryDetails = categoryDetailsMap.get(ad.id);
+        const ratingData = ratingsMap.get(ad.id) || { rating: 4.5, reviews: 0 };
+
+        return {
+          id: ad.id,
+          title: ad.title,
+          description: ad.description,
+          price: ad.price,
+          originalPrice: ad.original_price,
+          category: ad.category,
+          location: ad.location,
+          coverImage: ad.cover_image,
+          images: ad.images || [],
+          isPromotion: ad.is_promotion,
+          promotionEndDate: ad.promotion_end_date,
+          publishEndDate: ad.publish_end_date,
+          createdAt: ad.created_at,
+          showEmail: ad.show_email,
+          showPhone: ad.show_phone,
+          userId: ad.user_id,
+          categoryDetails,
+          rating: ratingData.rating,
+          reviews: ratingData.reviews,
+        };
+      });
+
+      console.log('✅ Successfully enriched', enrichedAds.length, 'ads');
+      setAds(enrichedAds);
     } catch (err) {
-      console.error('Error fetching ads:', err);
+      console.error('❌ Error fetching ads:', err);
       setError('Erreur lors du chargement des annonces');
     } finally {
       setLoading(false);
