@@ -36,7 +36,12 @@ const Auth = () => {
   useEffect(() => {
     const mode = searchParams.get('mode');
     const type = searchParams.get('type');
-    if (mode === 'reset-password' || type === 'recovery') {
+    // Also check for Supabase auth hash parameters (from email links)
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = hashParams.get('access_token');
+    const tokenType = hashParams.get('type');
+    
+    if (mode === 'reset-password' || type === 'recovery' || tokenType === 'recovery' || accessToken) {
       setShowUpdatePasswordForm(true);
     }
   }, [searchParams]);
@@ -45,10 +50,11 @@ const Auth = () => {
   useEffect(() => {
     const mode = searchParams.get('mode');
     const type = searchParams.get('type');
-    if (user && mode !== 'reset-password' && type !== 'recovery') {
+    // Don't redirect if we're in password reset mode or if the session is for password recovery
+    if (user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm) {
       navigate('/');
     }
-  }, [user, navigate, searchParams]);
+  }, [user, navigate, searchParams, showUpdatePasswordForm]);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
