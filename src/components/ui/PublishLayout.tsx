@@ -34,9 +34,12 @@ const PublishLayout = ({
       <header className="bg-background/95 backdrop-blur-sm border-b border-border/40 sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3 cursor-pointer" onClick={handleClose}>
-              <span className="text-lg sm:text-xl font-bold text-foreground">OmraBonsPlans.fr</span>
-            </div>
+            <button 
+              className="flex items-center space-x-3 cursor-pointer bg-transparent border-none p-0 text-lg sm:text-xl font-bold text-foreground hover:opacity-80 transition-opacity" 
+              onClick={handleClose}
+            >
+              OmraBonsPlans.fr
+            </button>
             
             {/* Progress indicator - Hidden on mobile, shown on larger screens */}
             <div className="hidden md:flex items-center space-x-2 bg-accent/30 rounded-full px-4 py-2">
