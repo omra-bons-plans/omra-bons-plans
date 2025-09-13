@@ -199,50 +199,73 @@ const ChauffeurDetails = () => {
         return;
       }
 
-      console.log('Creating main ad entry...');
+      console.log(isEditing ? 'Updating ad entry...' : 'Creating main ad entry...');
       console.log('Cities selected:', data.city);
       console.log('Primary city:', getPrimaryCity(data.city));
       
-      const { data: ad, error: adError } = await supabase
-        .from('ads')
-        .insert({
-          user_id: user.id,
-          category: 'chauffeurs',
-          title: data.title,
-          description: data.description,
-          price: 0, // Chauffeurs sans prix
-          location: getPrimaryCity(data.city),
-          images: imageUrls,
-          cover_image: coverImageUrl,
-          show_email: data.showEmail,
-          show_phone: data.showPhone,
-          show_whatsapp: data.showWhatsapp,
-          show_professional_phone: data.showProfessionalPhone,
-          publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
-          is_published: true,
-          is_draft: false,
-          is_paused: false,
-        })
-        .select()
-        .single();
+      const adPayload = {
+        user_id: user.id,
+        category: 'chauffeurs',
+        title: data.title,
+        description: data.description,
+        price: 0, // Chauffeurs sans prix
+        location: getPrimaryCity(data.city),
+        images: imageUrls.length > 0 ? imageUrls : (editData?.existingImages || []),
+        cover_image: coverImageUrl || (editData?.coverImageUrl || ''),
+        show_email: data.showEmail,
+        show_phone: data.showPhone,
+        show_whatsapp: data.showWhatsapp,
+        show_professional_phone: data.showProfessionalPhone,
+        publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
+        is_published: true,
+        is_draft: false,
+        is_paused: false,
+      };
 
-      if (adError) {
-        console.error('Error creating main ad:', adError);
-        toast.dismiss(toastId);
-        toast.error("Erreur lors de la création de l'annonce principale");
-        return;
+      let ad;
+      if (isEditing) {
+        const { data: updatedAd, error: adError } = await supabase
+          .from('ads')
+          .update(adPayload)
+          .eq('id', isEditing)
+          .select()
+          .single();
+        
+        if (adError) throw adError;
+        ad = updatedAd;
+      } else {
+        const { data: newAd, error: adError } = await supabase
+          .from('ads')
+          .insert(adPayload)
+          .select()
+          .single();
+        
+        if (adError) throw adError;
+        ad = newAd;
       }
 
-      console.log('Creating chauffeur details...');
-      const { error: chauffeurError } = await supabase
-        .from('ads_chauffeurs')
-        .insert({
-          ad_id: ad.id,
-          gender: data.gender,
-          city: data.city,
-          vehicle_seats: data.vehicleSeats,
-          languages: data.languages,
-        });
+      console.log(isEditing ? 'Updating chauffeur details...' : 'Creating chauffeur details...');
+      const chauffeurPayload = {
+        ad_id: ad.id,
+        gender: data.gender,
+        city: data.city,
+        vehicle_seats: data.vehicleSeats,
+        languages: data.languages,
+      };
+
+      let chauffeurError;
+      if (isEditing) {
+        const { error } = await supabase
+          .from('ads_chauffeurs')
+          .update(chauffeurPayload)
+          .eq('ad_id', ad.id);
+        chauffeurError = error;
+      } else {
+        const { error } = await supabase
+          .from('ads_chauffeurs')
+          .insert(chauffeurPayload);
+        chauffeurError = error;
+      }
 
       if (chauffeurError) {
         console.error('Error creating chauffeur details:', chauffeurError);
@@ -252,8 +275,11 @@ const ChauffeurDetails = () => {
       }
 
       toast.dismiss(toastId);
-      toast.success("Annonce publiée avec succès !");
+      toast.success(isEditing ? "Annonce modifiée avec succès !" : "Annonce publiée avec succès !");
       // Clear session storage and redirect
+      if (isEditing) {
+        sessionStorage.removeItem('editingAdId');
+      }
       sessionStorage.removeItem('selectedCategory');
       navigate('/my-ads');
     } catch (error) {

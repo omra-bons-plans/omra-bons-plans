@@ -179,52 +179,83 @@ const GuideDetails = () => {
         return;
       }
 
-      const { data: ad, error: adError } = await supabase
-        .from('ads')
-        .insert({
-          user_id: user.id,
-          category: 'guides',
-          title: data.title,
-          description: data.description,
-          price: 0, // Guides sans prix
-          location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
-          images: imageUrls,
-          cover_image: coverImageUrl,
-          show_email: data.showEmail,
-          show_phone: data.showPhone,
-          show_whatsapp: data.showWhatsapp,
-          show_professional_phone: data.showProfessionalPhone,
-          publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
-          is_published: true,
-          is_draft: false,
-          is_paused: false,
-        })
-        .select()
-        .single();
+      const adPayload = {
+        user_id: user.id,
+        category: 'guides',
+        title: data.title,
+        description: data.description,
+        price: 0, // Guides sans prix
+        location: data.city === 'both' ? 'Makkah - Médine' : data.city === 'makkah' ? 'Makkah' : 'Médine',
+        images: imageUrls.length > 0 ? imageUrls : (editData?.existingImages || []),
+        cover_image: coverImageUrl || (editData?.coverImageUrl || ''),
+        show_email: data.showEmail,
+        show_phone: data.showPhone,
+        show_whatsapp: data.showWhatsapp,
+        show_professional_phone: data.showProfessionalPhone,
+        publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
+        is_published: true,
+        is_draft: false,
+        is_paused: false,
+      };
 
-      if (adError) throw adError;
+      let ad;
+      if (isEditing) {
+        const { data: updatedAd, error: adError } = await supabase
+          .from('ads')
+          .update(adPayload)
+          .eq('id', isEditing)
+          .select()
+          .single();
+        
+        if (adError) throw adError;
+        ad = updatedAd;
+      } else {
+        const { data: newAd, error: adError } = await supabase
+          .from('ads')
+          .insert(adPayload)
+          .select()
+          .single();
+        
+        if (adError) throw adError;
+        ad = newAd;
+      }
 
-      const { error: guideError } = await supabase
-        .from('ads_guides')
-        .insert({
-          ad_id: ad.id,
-          gender: data.gender,
-          city: data.city,
-          years_experience: data.yearsExperience,
-          languages: data.languages,
-          offers_omra_guidance: data.offersOmraGuidance,
-          offers_visits: data.offersVisits,
-          offers_courses: data.offersCourses,
-          offers_omra_badal: data.offersOmraBadal,
-          offers_wheelchair_help: data.offersWheelchairHelp,
-          offers_other: data.offersOther,
-          other_services_description: data.otherServicesDescription,
-        });
+      const guidePayload = {
+        ad_id: ad.id,
+        gender: data.gender,
+        city: data.city,
+        years_experience: data.yearsExperience,
+        languages: data.languages,
+        offers_omra_guidance: data.offersOmraGuidance,
+        offers_visits: data.offersVisits,
+        offers_courses: data.offersCourses,
+        offers_omra_badal: data.offersOmraBadal,
+        offers_wheelchair_help: data.offersWheelchairHelp,
+        offers_other: data.offersOther,
+        other_services_description: data.otherServicesDescription,
+      };
+
+      let guideError;
+      if (isEditing) {
+        const { error } = await supabase
+          .from('ads_guides')
+          .update(guidePayload)
+          .eq('ad_id', ad.id);
+        guideError = error;
+      } else {
+        const { error } = await supabase
+          .from('ads_guides')
+          .insert(guidePayload);
+        guideError = error;
+      }
 
       if (guideError) throw guideError;
 
-      toast.success("Annonce publiée avec succès !");
+      toast.success(isEditing ? "Annonce modifiée avec succès !" : "Annonce publiée avec succès !");
       // Clear session storage and redirect
+      if (isEditing) {
+        sessionStorage.removeItem('editingAdId');
+      }
       sessionStorage.removeItem('selectedCategory');
       navigate('/my-ads');
     } catch (error) {
