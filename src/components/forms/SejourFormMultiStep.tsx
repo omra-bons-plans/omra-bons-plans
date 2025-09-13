@@ -433,7 +433,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   {!watch("airline") && <p className="text-destructive text-sm">La compagnie aérienne est requise</p>}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                   <div className="space-y-2">
                     <Label htmlFor="departureAirport">Aéroport de départ *</Label>
                     <AirportSelect
