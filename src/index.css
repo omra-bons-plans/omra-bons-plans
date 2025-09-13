@@ -165,7 +165,7 @@
     position: relative;
   }
 
-  /* Overlay dégradé avec effet blur - Version corrigée */
+  /* Overlay neutre sans teinte jaune */
   body::before {
     content: '';
     position: fixed;
@@ -174,10 +174,10 @@
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 20% 20%, hsl(var(--primary) / 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 60%, hsl(var(--secondary) / 0.02) 0%, transparent 40%),
-      radial-gradient(circle at 40% 90%, hsl(var(--primary) / 0.02) 0%, transparent 35%);
-    opacity: 0.5;
+      radial-gradient(circle at 20% 20%, hsl(0 0% 20% / 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, hsl(0 0% 30% / 0.01) 0%, transparent 40%),
+      radial-gradient(circle at 40% 90%, hsl(0 0% 25% / 0.015) 0%, transparent 35%);
+    opacity: 0.3;
     filter: blur(40px);
     pointer-events: none;
     z-index: -1;
@@ -270,12 +270,12 @@
     50% { transform: translateY(-20px); }
   }
 
-  /* Hero background overlay - Version corrigée */
+  /* Hero background overlay - Version neutre sans teinte jaune */
   .hero-overlay {
     background: linear-gradient(135deg, 
-      hsl(var(--primary) / 0.7) 0%,
-      hsl(var(--primary) / 0.6) 50%,
-      hsl(var(--secondary) / 0.8) 100%
+      hsl(0 0% 0% / 0.7) 0%,
+      hsl(0 0% 0% / 0.5) 50%,
+      hsl(0 0% 0% / 0.8) 100%
     );
   }
 
