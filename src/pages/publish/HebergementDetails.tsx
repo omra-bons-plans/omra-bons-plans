@@ -214,6 +214,8 @@ const HebergementDetails = () => {
         return;
       }
 
+      console.log('🔍 HEBERGEMENT SUBMIT - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       console.log('🔍 handleHebergementSubmit - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
 
       if (isEditing) {

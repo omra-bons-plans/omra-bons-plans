@@ -96,6 +96,8 @@ const GuideDetails = () => {
         return;
       }
 
+      console.log('🔍 GUIDE SUBMIT - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       // Handle image uploads if provided
       let imageUrls: string[] = [];
       let coverImageUrl = '';

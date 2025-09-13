@@ -93,6 +93,8 @@ const BabysittingDetails = () => {
         return;
       }
 
+      console.log('🔍 BABYSITTING SUBMIT - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       // Handle image uploads if provided
       let imageUrls: string[] = [];
       let coverImageUrl = '';

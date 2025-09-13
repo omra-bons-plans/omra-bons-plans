@@ -99,6 +99,8 @@ const ChauffeurDetails = () => {
         return;
       }
 
+      console.log('🔍 CHAUFFEUR SUBMIT - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       // Helper function to get primary city for location display
       const getPrimaryCity = (cities: string[]) => {
         if (!cities || cities.length === 0) return 'Ville non spécifiée';
@@ -199,7 +201,7 @@ const ChauffeurDetails = () => {
         return;
       }
 
-      console.log(isEditing ? 'Updating ad entry...' : 'Creating main ad entry...');
+      console.log(isEditing ? '🔄 UPDATING existing ad:' : '🆕 CREATING new ad:', isEditing);
       console.log('Cities selected:', data.city);
       console.log('Primary city:', getPrimaryCity(data.city));
       

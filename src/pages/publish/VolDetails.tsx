@@ -96,6 +96,8 @@ const VolDetails = () => {
         return;
       }
 
+      console.log('🔍 VOL SUBMIT - isEditing:', isEditing, 'saveAsDraft:', saveAsDraft);
+
       if (saveAsDraft) {
         const adData = {
           category: 'vols',
