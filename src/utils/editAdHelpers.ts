@@ -109,6 +109,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
       return {
         ...baseFormData,
         airline: categoryData?.airline || '',
+        departureAirport: categoryData?.departure_airport || '',
+        arrivalAirport: categoryData?.arrival_airport || '',
         departureDate: categoryData?.departure_date || '',
         returnDate: categoryData?.return_date || '',
         nightsMedina: categoryData?.nights_medina || 0,
@@ -118,6 +120,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         meccaHotelName: categoryData?.mecca_hotel_name || '',
         meccaHotelDistance: categoryData?.mecca_hotel_distance || '',
         formulaType: categoryData?.formula_type || 'economique',
+        checkedBagsCount: categoryData?.checked_bags_count || 0,
+        checkedBagsWeight: categoryData?.checked_bags_weight || 20,
       };
 
     case 'vols':

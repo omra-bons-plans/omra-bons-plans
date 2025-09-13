@@ -73,9 +73,11 @@ const SejourDetails = () => {
         description: adData.description,
         price: adData.price,
         originalPrice: adData.original_price,
-        airline: sejourData.airline,
-        departureDate: sejourData.departure_date,
-        returnDate: sejourData.return_date,
+        airline: sejourData.airline || '',
+        departureAirport: sejourData.departure_airport || '',
+        arrivalAirport: sejourData.arrival_airport || '',
+        departureDate: sejourData.departure_date || '',
+        returnDate: sejourData.return_date || '',
         nightsMedina: sejourData.nights_medina || 0,
         nightsMecca: sejourData.nights_mecca || 0,
         medinaHotelName: sejourData.medina_hotel_name || '',
@@ -300,6 +302,8 @@ const SejourDetails = () => {
         const categoryData = {
           formula_type: selectedFormula,
           airline: data.airline,
+          departure_airport: data.departureAirport,
+          arrival_airport: data.arrivalAirport,
           departure_date: data.departureDate,
           return_date: data.returnDate,
           nights_medina: data.nightsMedina || 0,
@@ -356,24 +360,26 @@ const SejourDetails = () => {
         if (updateError) throw updateError;
       }
 
-      // Create the sejour details
-      const { error: sejourError } = await supabase
-        .from('ads_sejours')
-        .insert({
-          ad_id: ad.id,
-          formula_type: selectedFormula,
-          airline: data.airline,
-          departure_date: data.departureDate,
-          return_date: data.returnDate,
-          nights_medina: data.nightsMedina || 0,
-          nights_mecca: data.nightsMecca || 0,
-          medina_hotel_name: data.medinaHotelName,
-          medina_hotel_distance: data.medinaHotelDistance,
-          mecca_hotel_name: data.meccaHotelName,
-          mecca_hotel_distance: data.meccaHotelDistance,
-          checked_bags_count: data.checkedBagsCount || 0,
-          checked_bags_weight: data.checkedBagsWeight || 20,
-        });
+       // Create the sejour details
+       const { error: sejourError } = await supabase
+         .from('ads_sejours')
+         .insert({
+           ad_id: ad.id,
+           formula_type: selectedFormula,
+           airline: data.airline,
+           departure_airport: data.departureAirport,
+           arrival_airport: data.arrivalAirport,
+           departure_date: data.departureDate,
+           return_date: data.returnDate,
+           nights_medina: data.nightsMedina || 0,
+           nights_mecca: data.nightsMecca || 0,
+           medina_hotel_name: data.medinaHotelName,
+           medina_hotel_distance: data.medinaHotelDistance,
+           mecca_hotel_name: data.meccaHotelName,
+           mecca_hotel_distance: data.meccaHotelDistance,
+           checked_bags_count: data.checkedBagsCount || 0,
+           checked_bags_weight: data.checkedBagsWeight || 20,
+         });
 
       if (sejourError) throw sejourError;
 

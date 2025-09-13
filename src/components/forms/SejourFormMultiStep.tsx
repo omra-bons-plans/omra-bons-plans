@@ -18,6 +18,8 @@ interface SejourFormData {
   price: number;
   originalPrice?: number;
   airline: string;
+  departureAirport: string;
+  arrivalAirport: string;
   departureDate: string;
   returnDate: string;
   nightsMedina: number;
@@ -76,6 +78,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
         price: initialData.price || 0,
         originalPrice: initialData.originalPrice || 0,
         airline: initialData.airline || '',
+        departureAirport: initialData.departureAirport || '',
+        arrivalAirport: initialData.arrivalAirport || '',
         departureDate: initialData.departureDate || '',
         returnDate: initialData.returnDate || '',
         nightsMedina: initialData.nightsMedina || 0,
@@ -246,7 +250,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           alert("Veuillez sélectionner une compagnie aérienne");
           return;
         }
-        fieldsToValidate = ['title'];
+        fieldsToValidate = ['title', 'departureAirport', 'arrivalAirport'];
         break;
       case 2:
         fieldsToValidate = ['description'];
@@ -406,6 +410,46 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     </SelectContent>
                   </Select>
                   {!watch("airline") && <p className="text-destructive text-sm">La compagnie aérienne est requise</p>}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="departureAirport">Aéroport de départ *</Label>
+                    <Input 
+                      id="departureAirport"
+                      placeholder="Ex: CDG, LYS, ORY..."
+                      {...register("departureAirport", { 
+                        required: "L'aéroport de départ est requis",
+                        pattern: {
+                          value: /^[A-Z]{3}$/,
+                          message: "Code IATA à 3 lettres (ex: CDG)"
+                        }
+                      })}
+                      maxLength={3}
+                      className="uppercase"
+                      onChange={(e) => setValue("departureAirport", e.target.value.toUpperCase())}
+                    />
+                    {errors.departureAirport && <p className="text-destructive text-sm">{errors.departureAirport.message}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="arrivalAirport">Aéroport d'arrivée *</Label>
+                    <Input 
+                      id="arrivalAirport"
+                      placeholder="Ex: JED, RUH..."
+                      {...register("arrivalAirport", { 
+                        required: "L'aéroport d'arrivée est requis",
+                        pattern: {
+                          value: /^[A-Z]{3}$/,
+                          message: "Code IATA à 3 lettres (ex: JED)"
+                        }
+                      })}
+                      maxLength={3}
+                      className="uppercase"
+                      onChange={(e) => setValue("arrivalAirport", e.target.value.toUpperCase())}
+                    />
+                    {errors.arrivalAirport && <p className="text-destructive text-sm">{errors.arrivalAirport.message}</p>}
+                  </div>
                 </div>
               </div>
 

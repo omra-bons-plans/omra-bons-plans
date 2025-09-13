@@ -373,6 +373,14 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   </div>
                 )}
 
+                {ad.categoryDetails.departure_airport && ad.categoryDetails.arrival_airport && (
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Trajet:</span>
+                    <span>{ad.categoryDetails.departure_airport} → {ad.categoryDetails.arrival_airport}</span>
+                  </div>
+                )}
+
                 {ad.categoryDetails.departure_date && (
                   <div className="flex items-center space-x-2">
                     <Calendar className="w-4 h-4 text-muted-foreground" />
