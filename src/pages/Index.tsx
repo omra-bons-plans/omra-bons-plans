@@ -351,7 +351,7 @@ const Index = () => {
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
                   <span className="text-white drop-shadow-lg">Plateforme d'annonces</span><br />
                   <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Omra & Hajj</span><br />
-                  <span className="text-white drop-shadow-lg">: trouvez le meilleur prix !</span>
+                  <span className="text-white drop-shadow-lg">trouvez le meilleur prix !</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
