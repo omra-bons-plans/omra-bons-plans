@@ -119,7 +119,7 @@ const VolDetails = () => {
           show_phone: data.showPhone,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate,
+          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
           is_published: true,
           is_draft: false,
         })
