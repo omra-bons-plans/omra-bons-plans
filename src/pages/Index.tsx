@@ -368,13 +368,20 @@ const Index = () => {
           <div className="hero-overlay absolute inset-0"></div>
         </div>
 
-        {/* Animated Background Pattern */}
-        <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
+        {/* Animated Background Pattern - Version neutre */}
+        <div className="absolute inset-0 opacity-20 z-10" style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, hsl(0 0% 100% / 0.1) 2%, transparent 40%),
+            radial-gradient(circle at 80% 70%, hsl(0 0% 100% / 0.05) 2%, transparent 40%),
+            radial-gradient(circle at 40% 90%, hsl(0 0% 100% / 0.08) 3%, transparent 50%)
+          `,
+          backgroundSize: '120px 120px, 80px 80px, 100px 100px'
+        }}></div>
         
-        {/* Floating Decorative Elements */}
-        <div className="absolute top-20 right-20 w-16 h-16 bg-secondary/20 rounded-full blur-sm float"></div>
-        <div className="absolute top-40 right-40 w-8 h-8 bg-primary/30 rounded-full blur-sm float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-32 left-20 w-12 h-12 bg-warning/20 rounded-full blur-sm float" style={{animationDelay: '4s'}}></div>
+        {/* Floating Decorative Elements - Version neutre */}
+        <div className="absolute top-20 right-20 w-16 h-16 bg-white/10 rounded-full blur-sm float"></div>
+        <div className="absolute top-40 right-40 w-8 h-8 bg-white/15 rounded-full blur-sm float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-32 left-20 w-12 h-12 bg-white/8 rounded-full blur-sm float" style={{animationDelay: '4s'}}></div>
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="flex flex-col items-center justify-start text-center min-h-screen pt-20 md:pt-32">
@@ -382,7 +389,7 @@ const Index = () => {
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
                   <span className="text-white drop-shadow-lg">Plateforme d'annonces</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Omra & Hajj</span><br />
+                  <span className="text-white font-black text-6xl md:text-9xl drop-shadow-lg">Omra & Hajj</span><br />
                   <span className="text-white drop-shadow-lg">trouvez le meilleur prix !</span>
                 </h1>
                 
