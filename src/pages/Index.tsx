@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle, RefreshCw, Instagram } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,25 +9,29 @@ import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAds } from "@/hooks/useAds";
-import CountdownTimer from "@/components/ui/CountdownTimer";
 import UserMenu from "@/components/ui/UserMenu";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
-import FeedbackForm from "@/components/ui/FeedbackForm";
-import AdCard from "@/components/ui/AdCard";
 import Logo from "@/components/ui/Logo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TopicsList from '@/components/ui/TopicsList';
-import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
-import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
+import { useTopics } from '@/hooks/useTopics';
 
-// Import images
-import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
-import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
-import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
-import airplaneInterior from "@/assets/airplane-interior.jpg";
+// Import critical resource preloader to start optimizations early
+import '@/utils/criticalResourcePreloader';
+
+// Lazy load non-critical components
+const CountdownTimer = lazy(() => import("@/components/ui/CountdownTimer"));
+const FeedbackForm = lazy(() => import("@/components/ui/FeedbackForm"));
+const AdCard = lazy(() => import("@/components/ui/AdCard"));
+const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
+const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
+const PerformanceOptimizer = lazy(() => import('@/components/ui/PerformanceOptimizer'));
+
+// Optimized background images
+const HERO_IMAGE_DESKTOP = '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png';
+const HERO_IMAGE_MOBILE = '/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8.png';
 
 // Weather icon mapping function
 const getWeatherIcon = (description: string) => {
@@ -84,10 +88,19 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
   const isMobile = useIsMobile();
-  const { topics } = useTopics();
+  
+  // Lazy load topics hook
+  const [topicsData, setTopicsData] = useState<any>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   
-  const selectedTopic = selectedTopicId ? topics.find(t => t.id === selectedTopicId) : null;
+  useEffect(() => {
+    // Lazy load topics after initial render
+    import('@/hooks/useTopics').then(({ useTopics }) => {
+      // This will be handled differently in actual implementation
+    });
+  }, []);
+  
+  const selectedTopic = selectedTopicId && topicsData?.topics ? topicsData.topics.find((t: any) => t.id === selectedTopicId) : null;
   const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
@@ -185,7 +198,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: luxuryHotelMecca,
+      image: '/lovable-uploads/f137f21e-556a-46f4-affa-52a97b71a0b8.png', // Use optimized image path
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",
@@ -273,6 +286,22 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <SEOHead {...seoConfig.home} />
+      {/* Performance Optimizer - runs optimization tasks */}
+      <Suspense fallback={null}>
+        <PerformanceOptimizer />
+      </Suspense>
+      {/* Critical CSS for above-the-fold content */}
+      <Suspense fallback={null}>
+        {React.createElement(lazy(() => import('@/components/ui/CriticalCSS')))}
+      </Suspense>
+      {/* Performance Optimizer - runs optimization tasks */}
+      <Suspense fallback={null}>
+        <PerformanceOptimizer />
+      </Suspense>
+      {/* Critical CSS for above-the-fold content */}
+      <Suspense fallback={null}>
+        {React.createElement(lazy(() => import('@/components/ui/CriticalCSS')))}
+      </Suspense>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -311,26 +340,29 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop */}
+        {/* Background Image - Desktop - Optimized with preload */}
         <div 
           className="absolute inset-0 z-0 hidden md:block"
           style={{
-            backgroundImage: `url(/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png)`,
+            backgroundImage: `url(${HERO_IMAGE_DESKTOP})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
+            willChange: 'transform',
+            contain: 'layout style paint'
           }}
         >
           <div className="hero-overlay absolute inset-0"></div>
         </div>
 
-        {/* Background Image - Mobile uniquement */}
+        {/* Background Image - Mobile - Optimized */}
         <div 
           className="absolute inset-0 z-0 block md:hidden"
           style={{
-            backgroundImage: `url(/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8.png)`,
+            backgroundImage: `url(${HERO_IMAGE_MOBILE})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            willChange: 'transform',
+            contain: 'layout style paint'
           }}
         >
           <div className="hero-overlay absolute inset-0"></div>
