@@ -369,7 +369,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       id="checkedBagsCount"
                       type="number"
                       min="0"
-                      max="10"
+                      max="4"
                       value={formData.checkedBagsCount}
                       onChange={(e) => updateFormData('checkedBagsCount', parseInt(e.target.value) || 0)}
                       placeholder="Ex: 1"
@@ -382,7 +382,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       id="checkedBagsWeight"
                       type="number"
                       min="0"
-                      max="50"
+                      max="32"
                       value={formData.checkedBagsWeight}
                       onChange={(e) => updateFormData('checkedBagsWeight', parseInt(e.target.value) || 20)}
                       placeholder="Ex: 23"
@@ -400,7 +400,7 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       id="carryOnBagsCount"
                       type="number"
                       min="0"
-                      max="5"
+                      max="3"
                       value={formData.carryOnBagsCount}
                       onChange={(e) => updateFormData('carryOnBagsCount', parseInt(e.target.value) || 1)}
                       placeholder="Ex: 1"
