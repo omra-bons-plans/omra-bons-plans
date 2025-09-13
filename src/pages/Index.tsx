@@ -340,7 +340,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop - Sans overlay */}
+        {/* Background Image - Desktop - Avec overlay pour lisibilité */}
         <div 
           className="absolute inset-0 z-0 hidden md:block"
           style={{
@@ -351,9 +351,10 @@ const Index = () => {
             contain: 'layout style paint'
           }}
         >
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
-        {/* Background Image - Mobile - Sans overlay */}
+        {/* Background Image - Mobile - Avec overlay pour lisibilité */}
         <div 
           className="absolute inset-0 z-0 block md:hidden"
           style={{
@@ -364,6 +365,7 @@ const Index = () => {
             contain: 'layout style paint'
           }}
         >
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
         {/* Pas d'effets décoratifs pour préserver l'image d'origine */}
