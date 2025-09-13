@@ -209,7 +209,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isFormDirty]);
 
-  const totalSteps = 6;
+  const totalSteps = 7;
   const isPromotion = watch('isPromotion');
   const originalPrice = watch('originalPrice');
   const price = watch('price');
@@ -271,26 +271,29 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
         fieldsToValidate = ['title'];
         break;
       case 2:
-        fieldsToValidate = ['description'];
+        // Validation des bagages - pas de champs requis spécifiques
         break;
       case 3:
-        fieldsToValidate = ['departureDate', 'returnDate', 'nightsMedina', 'nightsMecca'];
+        fieldsToValidate = ['description'];
         break;
       case 4:
-        fieldsToValidate = ['medinaHotelName', 'medinaHotelDistance', 'meccaHotelName', 'meccaHotelDistance'];
+        fieldsToValidate = ['departureDate', 'returnDate', 'nightsMedina', 'nightsMecca'];
         break;
       case 5:
-        fieldsToValidate = ['price', 'publishEndDate'];
+        fieldsToValidate = ['medinaHotelName', 'medinaHotelDistance', 'meccaHotelName', 'meccaHotelDistance'];
         break;
       case 6:
+        fieldsToValidate = ['price', 'publishEndDate'];
+        break;
+      case 7:
         // Récapitulatif - pas de validation nécessaire
         break;
     }
 
     const isValid = await trigger(fieldsToValidate);
     
-    // Validation spéciale pour l'étape 5 - photo de couverture obligatoire
-    if (currentStep === 5 && !coverImage) {
+    // Validation spéciale pour l'étape 6 - photo de couverture obligatoire
+    if (currentStep === 6 && !coverImage) {
       alert("La photo de couverture est obligatoire");
       return;
     }
@@ -571,7 +574,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           </Card>
         );
 
-      case 3:
+      case 4:
         return (
           <Card>
             <CardHeader>
@@ -694,7 +697,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           </Card>
         );
 
-      case 4:
+      case 5:
         return (
           <Card>
             <CardHeader>
@@ -757,7 +760,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           </Card>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-8">
             <Card>
@@ -999,7 +1002,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-8">
             <div className="text-center space-y-2">
@@ -1186,7 +1189,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
         <div className="text-center mb-6">
           <p className="text-sm text-muted-foreground">
             Étape {currentStep} sur {totalSteps}
-            {currentStep === 6 ? " - Récapitulatif" : ""}
+            {currentStep === 7 ? " - Récapitulatif" : ""}
           </p>
         </div>
 
