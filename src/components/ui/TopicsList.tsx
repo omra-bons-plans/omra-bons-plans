@@ -69,7 +69,7 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
       {/* Header with search and create button */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-card-foreground">Discussions</h2>
-        {user && (
+        {user && isAdmin && (
           <Button
             onClick={() => setShowCreateModal(true)}
             size="sm"

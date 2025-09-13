@@ -57,6 +57,19 @@ export const useTopics = () => {
       return false;
     }
 
+    // Vérifier si l'utilisateur est admin
+    const { data: userRoles } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .eq('role', 'admin')
+      .single();
+
+    if (!userRoles) {
+      toast.error('Seuls les administrateurs peuvent créer des sujets');
+      return false;
+    }
+
     try {
       const { error } = await supabase
         .from('chat_topics')
