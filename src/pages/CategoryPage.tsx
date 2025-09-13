@@ -11,6 +11,8 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useAds } from "@/hooks/useAds";
 import AdCard from "@/components/ui/AdCard";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
+import { SEOHead } from "@/components/SEO/SEOHead";
+import { SEOBreadcrumb } from "@/components/SEO/SEOBreadcrumb";
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();
@@ -144,7 +146,28 @@ const CategoryPage = () => {
 
   return (
     <ResponsiveLayout>
+      <SEOHead 
+        title={`${categoryInfo.name} Omra & Hajj - ${sortedListings.length} Annonces 2025`}
+        description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2025. ${categoryInfo.description} au meilleur prix.`}
+        keywords={`${categoryInfo.name.toLowerCase()} omra, hajj ${categoryInfo.name.toLowerCase()}, ${category} omra 2025`}
+        canonical={`https://omrabonsplans.fr/category/${category}`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": `${categoryInfo.name} Omra & Hajj`,
+          "description": categoryInfo.description,
+          "url": `https://omrabonsplans.fr/category/${category}`,
+          "numberOfItems": sortedListings.length
+        }}
+      />
       <div className="min-h-screen bg-background">
+        <SEOBreadcrumb 
+          items={[
+            { name: 'Accueil', url: '/' },
+            { name: categoryInfo.name, url: `/category/${category}` }
+          ]}
+          className="container mx-auto px-4 pt-4"
+        />
         {/* Header */}
         {category === "vols" ? (
           <div 

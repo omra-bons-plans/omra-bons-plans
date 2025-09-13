@@ -31,11 +31,12 @@ const ImageWithFallback = ({
   return (
     <img
       src={imgSrc}
-      alt={alt}
+      alt={alt || "Image"}
       className={className}
       onError={handleError}
       onLoad={handleLoad}
       loading="lazy"
+      decoding="async"
     />
   );
 };
