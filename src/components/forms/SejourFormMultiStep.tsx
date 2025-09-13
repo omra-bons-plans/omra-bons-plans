@@ -370,37 +370,40 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Titre de l'annonce *</Label>
-                  <Input
-                    id="title"
-                    {...register("title", { 
-                      required: "Le titre est requis",
-                      minLength: {
-                        value: 5,
-                        message: "Le titre doit contenir au moins 5 caractères"
-                      },
-                      maxLength: {
-                        value: 20,
-                        message: "Le titre ne peut pas dépasser 20 caractères"
-                      }
-                    })}
-                    placeholder="Ex: Omra Confort 5★"
-                    maxLength={20}
-                    onChange={(e) => {
-                      const upperValue = e.target.value.toUpperCase();
-                      setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
-                    }}
-                  />
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
-                    <span className={errors.title ? "text-destructive font-medium" : "text-muted-foreground"}>
-                      {errors.title?.message || "Le titre doit contenir au moins 5 caractères"}
-                    </span>
-                    <span className="text-muted-foreground text-right">{watch('title')?.length || 0}/20</span>
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="title">Titre de l'annonce *</Label>
+                <Input
+                  id="title"
+                  {...register("title", { 
+                    required: "Le titre est requis",
+                    minLength: {
+                      value: 5,
+                      message: "Le titre doit contenir au moins 5 caractères"
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "Le titre ne peut pas dépasser 20 caractères"
+                    }
+                  })}
+                  placeholder="Ex: Omra Confort 5★"
+                  maxLength={20}
+                  onChange={(e) => {
+                    const upperValue = e.target.value.toUpperCase();
+                    setValue('title', upperValue, { shouldValidate: true, shouldDirty: true });
+                  }}
+                />
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs">
+                  <span className={errors.title ? "text-destructive font-medium" : "text-muted-foreground"}>
+                    {errors.title?.message || "Le titre doit contenir au moins 5 caractères"}
+                  </span>
+                  <span className="text-muted-foreground text-right">{watch('title')?.length || 0}/20</span>
                 </div>
+              </div>
 
+              {/* Section Compagnie et aéroports */}
+              <div className="p-4 bg-muted/20 rounded-lg space-y-4">
+                <h4 className="font-semibold text-lg">Compagnie et aéroports</h4>
+                
                 <div className="space-y-2">
                   <Label htmlFor="airline">Compagnie aérienne *</Label>
                   <Select 
@@ -411,7 +414,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     value={watch("airline") || ""}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder={airlinesLoading ? "Chargement..." : "Choisir la compagnie"} />
+                      <SelectValue placeholder={airlinesLoading ? "Chargement..." : "Sélectionner une compagnie aérienne..."} />
                     </SelectTrigger>
                     <SelectContent className="bg-background border-border z-50 max-h-60 overflow-y-auto">
                       {airlinesLoading ? (
@@ -433,13 +436,13 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                   {!watch("airline") && <p className="text-destructive text-sm">La compagnie aérienne est requise</p>}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="departureAirport">Aéroport de départ *</Label>
                     <AirportSelect
                       value={watch("departureAirport")}
                       onValueChange={(value) => setValue("departureAirport", value)}
-                      placeholder="Choisir l'aéroport de départ..."
+                      placeholder="Ex: CDG - Paris"
                     />
                     {errors.departureAirport && <p className="text-destructive text-sm">{errors.departureAirport.message}</p>}
                   </div>
@@ -449,7 +452,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     <AirportSelect
                       value={watch("arrivalAirport")}
                       onValueChange={(value) => setValue("arrivalAirport", value)}
-                      placeholder="Choisir l'aéroport d'arrivée..."
+                      placeholder="Ex: JED - Jeddah"
                     />
                     {errors.arrivalAirport && <p className="text-destructive text-sm">{errors.arrivalAirport.message}</p>}
                   </div>
