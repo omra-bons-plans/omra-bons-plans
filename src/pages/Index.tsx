@@ -350,7 +350,7 @@ const Index = () => {
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
                   <span className="text-white drop-shadow-lg">Organisez votre</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA 2025</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">OMRA</span><br />
                   <span className="text-white drop-shadow-lg"> et partez au</span><br />
                   <span className="text-white drop-shadow-lg">meilleur prix !</span>
                 </h1>
