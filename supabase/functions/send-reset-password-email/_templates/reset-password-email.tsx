@@ -131,7 +131,7 @@ export const ResetPasswordEmail = ({
           </Text>
           
           <Text style={footerText}>
-            <Link href="https://omrabonsplans.fr" style={footerLink}>
+            <Link href={new URL(redirect_to).origin} style={footerLink}>
               OmraBonsPlans.fr
             </Link>{' '}
             - Votre compagnon de voyage spirituel
