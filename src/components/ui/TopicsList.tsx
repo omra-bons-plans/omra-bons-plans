@@ -138,39 +138,47 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
         {filteredTopics.map(topic => (
           <div
             key={topic.id}
-            className={`p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md group ${
+            className={`rounded-lg border cursor-pointer transition-all hover:shadow-md group ${
               selectedTopicId === topic.id 
                 ? 'bg-primary/10 border-primary shadow-md' 
                 : 'bg-card hover:bg-card/80 border-border/20'
+            } ${
+              /* Version mobile compacte */
+              'sm:p-4 p-3'
             }`}
             onClick={() => onTopicSelect(topic.id)}
           >
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-3 flex-1">
                 <div 
-                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: topic.color }}
                 >
-                  <MessageCircle className="w-5 h-5 text-white" />
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-card-foreground truncate">
+                    <h3 className="font-semibold text-card-foreground truncate text-sm sm:text-base">
                       {topic.title}
                     </h3>
                     {topic.is_pinned && (
-                      <Pin className="w-4 h-4 text-primary flex-shrink-0" />
+                      <Pin className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                     )}
                   </div>
+                  
+                  {/* Description - cachée sur mobile, visible sur desktop */}
                   {topic.description && (
-                    <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                    <p className="hidden sm:block text-sm text-muted-foreground mb-2 line-clamp-2">
                       {topic.description}
                     </p>
                   )}
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  
+                  {/* Métadonnées - version mobile compacte */}
+                  <div className="flex items-center gap-2 sm:gap-3 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Users className="w-3 h-3" />
-                      <span>{topic.message_count} message{topic.message_count !== 1 ? 's' : ''}</span>
+                      <span className="hidden sm:inline">{topic.message_count} message{topic.message_count !== 1 ? 's' : ''}</span>
+                      <span className="sm:hidden">{topic.message_count}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
@@ -183,9 +191,9 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
                 </div>
               </div>
 
-              {/* Actions for admin */}
+              {/* Actions for admin - masquées sur mobile */}
               {isAdmin && (
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="hidden sm:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button
                     variant="ghost"
                     size="sm"
