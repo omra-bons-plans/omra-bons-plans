@@ -252,9 +252,11 @@ export const useAds = () => {
           subtitle = ad.description.length > 50 ? ad.description.substring(0, 50) + '...' : ad.description;
       }
 
-      // Determine promotion type based on discount and publication date
-      const daysSincePublication = (new Date().getTime() - new Date(ad.createdAt).getTime()) / (1000 * 60 * 60 * 24);
-      const isFlashSale = discount > 30 && daysSincePublication <= 10;
+      // Determine promotion type based on discount and publication end date
+      const daysUntilExpiration = ad.publishEndDate 
+        ? (new Date(ad.publishEndDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+        : Infinity;
+      const isFlashSale = discount > 30 && daysUntilExpiration <= 10;
       const isPromo = discount > 0 && discount <= 30;
 
       const isExpired = ad.publishEndDate ? new Date(ad.publishEndDate) <= new Date() : false;
