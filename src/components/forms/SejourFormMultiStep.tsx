@@ -37,6 +37,8 @@ interface SejourFormData {
   promotionEndDate?: string;
   checkedBagsCount?: number;
   checkedBagsWeight?: number;
+  carryOnBagsCount?: number;
+  carryOnBagsWeight?: number;
 }
 
 interface SejourFormMultiStepProps {
@@ -65,6 +67,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
       isPromotion: false,
       checkedBagsCount: 0,
       checkedBagsWeight: 20,
+      carryOnBagsCount: 1,
+      carryOnBagsWeight: 10,
     }
   });
 
@@ -97,6 +101,8 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
         promotionEndDate: initialData.promotionEndDate || '',
         checkedBagsCount: initialData.checkedBagsCount || 0,
         checkedBagsWeight: initialData.checkedBagsWeight || 20,
+        carryOnBagsCount: initialData.carryOnBagsCount || 1,
+        carryOnBagsWeight: initialData.carryOnBagsWeight || 10,
       });
     }
   }, [initialData, isEditMode, reset]);
@@ -487,6 +493,43 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       placeholder="Ex: 23"
                     />
                     {errors.checkedBagsWeight && <p className="text-destructive text-sm">{errors.checkedBagsWeight.message}</p>}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-semibold mb-4">Bagages à main inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="carryOnBagsCount">Nombre de bagages à main</Label>
+                    <Input
+                      id="carryOnBagsCount"
+                      type="number"
+                      min="0"
+                      max="5"
+                      {...register("carryOnBagsCount", { 
+                        valueAsNumber: true,
+                        min: { value: 0, message: "Le nombre doit être positif" }
+                      })}
+                      placeholder="Ex: 1"
+                    />
+                    {errors.carryOnBagsCount && <p className="text-destructive text-sm">{errors.carryOnBagsCount.message}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="carryOnBagsWeight">Kilos pour chaque bagage à main</Label>
+                    <Input
+                      id="carryOnBagsWeight"
+                      type="number"
+                      min="0"
+                      max="15"
+                      {...register("carryOnBagsWeight", { 
+                        valueAsNumber: true,
+                        min: { value: 0, message: "Le poids doit être positif" }
+                      })}
+                      placeholder="Ex: 10"
+                    />
+                    {errors.carryOnBagsWeight && <p className="text-destructive text-sm">{errors.carryOnBagsWeight.message}</p>}
                   </div>
                 </div>
               </div>

@@ -50,6 +50,8 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
     returnStopoverDetails: '',
     checkedBagsCount: initialData?.checkedBagsCount || 0,
     checkedBagsWeight: initialData?.checkedBagsWeight || 20,
+    carryOnBagsCount: initialData?.carryOnBagsCount || 1,
+    carryOnBagsWeight: initialData?.carryOnBagsWeight || 10,
     showPhone: initialData?.showPhone ?? true,
     showWhatsapp: initialData?.showWhatsapp ?? false,
     showEmail: initialData?.showEmail ?? true
@@ -169,7 +171,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
           formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
         ].filter(Boolean).join(' | ') || null,
         checked_bags_count: formData.checkedBagsCount,
-        checked_bags_weight: formData.checkedBagsWeight
+        checked_bags_weight: formData.checkedBagsWeight,
+        carry_on_bags_count: formData.carryOnBagsCount,
+        carry_on_bags_weight: formData.carryOnBagsWeight
       };
 
       const { error: flightError } = await supabase
@@ -252,7 +256,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
             formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
           ].filter(Boolean).join(' | ') || null,
           checked_bags_count: formData.checkedBagsCount,
-          checked_bags_weight: formData.checkedBagsWeight
+          checked_bags_weight: formData.checkedBagsWeight,
+          carry_on_bags_count: formData.carryOnBagsCount,
+          carry_on_bags_weight: formData.carryOnBagsWeight
         };
 
         const { error: flightError } = await supabase
@@ -380,6 +386,37 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       value={formData.checkedBagsWeight}
                       onChange={(e) => updateFormData('checkedBagsWeight', parseInt(e.target.value) || 20)}
                       placeholder="Ex: 23"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-semibold mb-4">Bagages à main inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="carryOnBagsCount">Nombre de bagages à main</Label>
+                    <Input
+                      id="carryOnBagsCount"
+                      type="number"
+                      min="0"
+                      max="5"
+                      value={formData.carryOnBagsCount}
+                      onChange={(e) => updateFormData('carryOnBagsCount', parseInt(e.target.value) || 1)}
+                      placeholder="Ex: 1"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="carryOnBagsWeight">Kilos pour chaque bagage à main</Label>
+                    <Input
+                      id="carryOnBagsWeight"
+                      type="number"
+                      min="0"
+                      max="15"
+                      value={formData.carryOnBagsWeight}
+                      onChange={(e) => updateFormData('carryOnBagsWeight', parseInt(e.target.value) || 10)}
+                      placeholder="Ex: 10"
                     />
                   </div>
                 </div>
@@ -843,6 +880,10 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                       <div className="flex items-center space-x-2">
                         <span className="font-medium">Bagages en soute:</span>
                         <span>{formData.checkedBagsCount || 0} bagage(s) de {formData.checkedBagsWeight || 20}kg chacun</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium">Bagages à main:</span>
+                        <span>{formData.carryOnBagsCount || 1} bagage(s) de {formData.carryOnBagsWeight || 10}kg chacun</span>
                       </div>
                     </div>
 

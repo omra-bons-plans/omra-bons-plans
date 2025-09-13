@@ -122,6 +122,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         formulaType: categoryData?.formula_type || 'economique',
         checkedBagsCount: categoryData?.checked_bags_count || 0,
         checkedBagsWeight: categoryData?.checked_bags_weight || 20,
+        carryOnBagsCount: categoryData?.carry_on_bags_count || 1,
+        carryOnBagsWeight: categoryData?.carry_on_bags_weight || 10,
       };
 
     case 'vols':
@@ -134,6 +136,8 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         returnDate: categoryData?.return_date || '',
         checkedBagsCount: categoryData?.checked_bags_count || 0,
         checkedBagsWeight: categoryData?.checked_bags_weight || 20,
+        carryOnBagsCount: categoryData?.carry_on_bags_count || 1,
+        carryOnBagsWeight: categoryData?.carry_on_bags_weight || 10,
         hasStopover: categoryData?.has_stopover || false,
         stopoverDetails: categoryData?.stopover_details || '',
       };

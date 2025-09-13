@@ -124,6 +124,8 @@ const VolDetails = () => {
           ].filter(Boolean).join(' | ') || null,
           checked_bags_count: data.checkedBagsCount || 0,
           checked_bags_weight: data.checkedBagsWeight || 20,
+          carry_on_bags_count: data.carryOnBagsCount || 1,
+          carry_on_bags_weight: data.carryOnBagsWeight || 10,
         };
 
         await saveDraft(adData, categoryData);
@@ -169,6 +171,8 @@ const VolDetails = () => {
           ].filter(Boolean).join(' | ') || null,
           checked_bags_count: data.checkedBagsCount || 0,
           checked_bags_weight: data.checkedBagsWeight || 20,
+          carry_on_bags_count: data.carryOnBagsCount || 1,
+          carry_on_bags_weight: data.carryOnBagsWeight || 10,
         });
 
       if (volError) throw volError;

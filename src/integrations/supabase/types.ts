@@ -279,6 +279,8 @@ export type Database = {
           ad_id: string
           airline: string | null
           arrival_airport: string | null
+          carry_on_bags_count: number | null
+          carry_on_bags_weight: number | null
           checked_bags_count: number | null
           checked_bags_weight: number | null
           departure_airport: string | null
@@ -296,6 +298,8 @@ export type Database = {
           ad_id: string
           airline?: string | null
           arrival_airport?: string | null
+          carry_on_bags_count?: number | null
+          carry_on_bags_weight?: number | null
           checked_bags_count?: number | null
           checked_bags_weight?: number | null
           departure_airport?: string | null
@@ -313,6 +317,8 @@ export type Database = {
           ad_id?: string
           airline?: string | null
           arrival_airport?: string | null
+          carry_on_bags_count?: number | null
+          carry_on_bags_weight?: number | null
           checked_bags_count?: number | null
           checked_bags_weight?: number | null
           departure_airport?: string | null
@@ -341,6 +347,8 @@ export type Database = {
           ad_id: string
           airline: string
           arrival_airport: string | null
+          carry_on_bags_count: number | null
+          carry_on_bags_weight: number | null
           checked_bags_count: number | null
           checked_bags_weight: number | null
           departure_airport: string | null
@@ -353,6 +361,8 @@ export type Database = {
           ad_id: string
           airline: string
           arrival_airport?: string | null
+          carry_on_bags_count?: number | null
+          carry_on_bags_weight?: number | null
           checked_bags_count?: number | null
           checked_bags_weight?: number | null
           departure_airport?: string | null
@@ -365,6 +375,8 @@ export type Database = {
           ad_id?: string
           airline?: string
           arrival_airport?: string | null
+          carry_on_bags_count?: number | null
+          carry_on_bags_weight?: number | null
           checked_bags_count?: number | null
           checked_bags_weight?: number | null
           departure_airport?: string | null

@@ -93,6 +93,8 @@ const SejourDetails = () => {
         promotionEndDate: adData.promotion_end_date,
         checkedBagsCount: sejourData.checked_bags_count || 0,
         checkedBagsWeight: sejourData.checked_bags_weight || 20,
+        carryOnBagsCount: sejourData.carry_on_bags_count || 1,
+        carryOnBagsWeight: sejourData.carry_on_bags_weight || 10,
         coverImage: adData.cover_image,
         images: adData.images || []
       };
@@ -265,6 +267,8 @@ const SejourDetails = () => {
             mecca_hotel_distance: data.meccaHotelDistance,
             checked_bags_count: data.checkedBagsCount || 0,
             checked_bags_weight: data.checkedBagsWeight || 20,
+            carry_on_bags_count: data.carryOnBagsCount || 1,
+            carry_on_bags_weight: data.carryOnBagsWeight || 10,
           })
           .eq('ad_id', editAdId);
 
@@ -314,6 +318,8 @@ const SejourDetails = () => {
           mecca_hotel_distance: data.meccaHotelDistance,
           checked_bags_count: data.checkedBagsCount || 0,
           checked_bags_weight: data.checkedBagsWeight || 20,
+          carry_on_bags_count: data.carryOnBagsCount || 1,
+          carry_on_bags_weight: data.carryOnBagsWeight || 10,
         };
 
         await saveDraft(adData, categoryData);
@@ -379,6 +385,8 @@ const SejourDetails = () => {
            mecca_hotel_distance: data.meccaHotelDistance,
            checked_bags_count: data.checkedBagsCount || 0,
            checked_bags_weight: data.checkedBagsWeight || 20,
+           carry_on_bags_count: data.carryOnBagsCount || 1,
+           carry_on_bags_weight: data.carryOnBagsWeight || 10,
          });
 
       if (sejourError) throw sejourError;
