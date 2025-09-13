@@ -20,11 +20,6 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
   const { user } = useAuth();
   const { isAdmin } = useAdmin();
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Debug logs pour vérifier l'état de l'authentification
-  console.log('🔐 TopicsList - User:', user ? 'connecté' : 'non connecté');
-  console.log('🔐 TopicsList - IsAdmin:', isAdmin);
-  console.log('🔐 TopicsList - User ID:', user?.id);
   const [selectedTheme, setSelectedTheme] = useState('tous');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);

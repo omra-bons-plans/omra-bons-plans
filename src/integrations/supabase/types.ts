@@ -1069,6 +1069,7 @@ export type Database = {
         | "ad_status_change"
         | "ad_expiring"
         | "system"
+        | "topic_request"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1204,6 +1205,7 @@ export const Constants = {
         "ad_status_change",
         "ad_expiring",
         "system",
+        "topic_request",
       ],
     },
   },
