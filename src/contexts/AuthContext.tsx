@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log('🔐 Auth state changed:', event, 'User:', session?.user?.email || 'null');
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -44,7 +43,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('🔐 Initial session:', session?.user?.email || 'null');
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -82,21 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut = async () => {
-    console.log('🚪 Starting sign out...');
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('❌ Sign out error:', error);
-        throw error;
-      }
-      console.log('✅ Sign out successful');
-      // Force immediate state update
-      setUser(null);
-      setSession(null);
-    } catch (error) {
-      console.error('❌ Sign out failed:', error);
-      throw error;
-    }
+    await supabase.auth.signOut();
   };
 
   const value = {

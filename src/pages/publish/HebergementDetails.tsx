@@ -92,13 +92,9 @@ const HebergementDetails = () => {
 
   const updateExistingAd = async (data: any, saveAsDraft = false) => {
     try {
-      console.log('🔍 updateExistingAd - Starting with data:', data);
-      
       // Handle image uploads if new images are provided
       let imageUrls: string[] = [...(data.existingImages || [])];
       let coverImageUrl = data.coverImageUrl || '';
-      
-      console.log('📸 Initial images:', { imageUrls, coverImageUrl });
 
       // Upload new cover image if provided
       if (data.coverImage && typeof data.coverImage === 'object') {
@@ -141,77 +137,56 @@ const HebergementDetails = () => {
         }
       }
 
-      // Prepare update data
-      const updateData = {
-        title: data.title,
-        description: data.description,
-        price: data.price,
-        original_price: data.originalPrice,
-        location: `${data.city} - ${data.name}`,
-        cover_image: coverImageUrl,
-        images: imageUrls,
-        show_email: data.showEmail,
-        show_phone: data.showPhone,
-        show_whatsapp: data.showWhatsapp,
-        show_professional_phone: data.showProfessionalPhone,
-        is_promotion: data.isPromotion,
-        promotion_end_date: data.promotionEndDate || null,
-        publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
-        is_published: !saveAsDraft,
-        is_draft: saveAsDraft,
-        updated_at: new Date().toISOString(),
-      };
-
-      console.log('📝 Updating main ad with data:', updateData);
-      console.log('🔑 Ad ID:', isEditing);
-
       // Update the main ad
       const { error: adError } = await supabase
         .from('ads')
-        .update(updateData)
+        .update({
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          original_price: data.originalPrice,
+          location: `${data.city} - ${data.name}`,
+          cover_image: coverImageUrl,
+          images: imageUrls,
+          show_email: data.showEmail,
+          show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
+          show_professional_phone: data.showProfessionalPhone,
+          is_promotion: data.isPromotion,
+          promotion_end_date: data.promotionEndDate || null,
+          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
+          is_published: !saveAsDraft,
+          is_draft: saveAsDraft,
+          updated_at: new Date().toISOString(),
+        })
         .eq('id', isEditing);
 
-      if (adError) {
-        console.error('❌ Ad update error:', adError);
-        throw adError;
-      }
-
-      console.log('✅ Main ad updated successfully');
-
-      // Prepare category update data
-      const categoryUpdateData = {
-        city: data.city,
-        accommodation_type: data.accommodationType,
-        name: data.name,
-        distance_to_mosque: data.distanceToMosque,
-        walking_minutes: data.walkingMinutes,
-        available_from: data.availableFrom,
-        available_to: data.availableTo,
-        rooms_count: data.roomsCount,
-        beds_count: data.bedsCount,
-        has_living_room: data.hasLivingRoom,
-        has_wifi: data.hasWifi,
-        has_ac: data.hasAc,
-        has_tv: data.hasTv,
-        has_fridge: data.hasFridge,
-        has_washing_machine: data.hasWashingMachine,
-        video_url: data.videoUrl,
-      };
-
-      console.log('📝 Updating category data:', categoryUpdateData);
+      if (adError) throw adError;
 
       // Update category-specific data
       const { error: categoryError } = await supabase
         .from('ads_hebergements')
-        .update(categoryUpdateData)
+        .update({
+          city: data.city,
+          accommodation_type: data.accommodationType,
+          name: data.name,
+          distance_to_mosque: data.distanceToMosque,
+          walking_minutes: data.walkingMinutes,
+          available_from: data.availableFrom,
+          available_to: data.availableTo,
+          rooms_count: data.roomsCount,
+          beds_count: data.bedsCount,
+          has_living_room: data.hasLivingRoom,
+          has_wifi: data.hasWifi,
+          has_ac: data.hasAc,
+          has_tv: data.hasTv,
+          has_fridge: data.hasFridge,
+          has_washing_machine: data.hasWashingMachine,
+          video_url: data.videoUrl,
+        })
         .eq('ad_id', isEditing);
 
-      if (categoryError) {
-        console.error('❌ Category update error:', categoryError);
-        throw categoryError;
-      }
-
-      console.log('✅ Category data updated successfully');
+      if (categoryError) throw categoryError;
 
       toast.success(saveAsDraft ? "Brouillon mis à jour avec succès !" : "Annonce mise à jour avec succès !");
       sessionStorage.removeItem('selectedCategory');
