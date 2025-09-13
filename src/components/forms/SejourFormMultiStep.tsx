@@ -459,10 +459,23 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                 </div>
               </div>
 
-              {/* Section bagages */}
-              <div className="mt-8 p-6 bg-muted/30 rounded-lg">
-                <h4 className="font-semibold mb-6">Bagages en soute inclus</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            </CardContent>
+          </Card>
+        );
+
+      case 2:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span>🎒</span>
+                <span>Bagages inclus</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="p-4 bg-muted/20 rounded-lg">
+                <h4 className="font-semibold mb-4">Bagages en soute inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="checkedBagsCount">Nombre de bagages en soute</Label>
                     <Input
@@ -497,9 +510,9 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                 </div>
               </div>
               
-              <div className="mt-6 p-6 bg-muted/20 rounded-lg">
-                <h4 className="font-semibold mb-6">Bagages à main inclus</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              <div className="p-4 bg-muted/30 rounded-lg">
+                <h4 className="font-semibold mb-4">Bagages à main inclus</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="carryOnBagsCount">Nombre de bagages à main</Label>
                     <Input
@@ -537,7 +550,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
           </Card>
         );
 
-      case 2:
+      case 3:
         return (
           <Card>
             <CardHeader>
