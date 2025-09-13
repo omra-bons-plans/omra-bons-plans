@@ -29,7 +29,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email to admin
     const adminEmailResponse = await resend.emails.send({
-      from: "OmraBonsPlans <onboarding@resend.dev>",
+      from: "OmraBonsPlans <contact@omrabonsplans.fr>",
       to: ["contact@omrabonsplans.fr"],
       reply_to: email,
       subject: `Nouveau feedback de ${firstName} ${lastName}`,
@@ -63,7 +63,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to user
     const userEmailResponse = await resend.emails.send({
-      from: "OmraBonsPlans <onboarding@resend.dev>",
+      from: "OmraBonsPlans <contact@omrabonsplans.fr>",
       to: [email],
       subject: "Merci pour votre message !",
       html: `
