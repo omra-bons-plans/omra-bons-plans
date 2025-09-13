@@ -18,7 +18,9 @@ import Logo from "@/components/ui/Logo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ChatWindow from "@/components/ui/ChatWindow";
+import TopicsList from '@/components/ui/TopicsList';
+import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
+import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
 
 // Import images
@@ -82,6 +84,10 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
   const isMobile = useIsMobile();
+  const { topics } = useTopics();
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  
+  const selectedTopic = selectedTopicId ? topics.find(t => t.id === selectedTopicId) : null;
   const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
@@ -898,8 +904,23 @@ const Index = () => {
                   <h2 className="text-4xl font-bold mb-4">Discussions</h2>
                   <p className="text-muted-foreground text-lg">Échangez avec la communauté OmraBonsPlans</p>
                 </div>
-                <div className="max-w-4xl mx-auto">
-                  <ChatWindow />
+                <div className="max-w-6xl mx-auto">
+                  {/* New Discussion System */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-1">
+                      <TopicsList 
+                        selectedTopicId={selectedTopicId} 
+                        onTopicSelect={setSelectedTopicId} 
+                      />
+                    </div>
+                    <div className="lg:col-span-2">
+                      <ThreadedChatWindow
+                        topicId={selectedTopicId}
+                        topicTitle={selectedTopic?.title}
+                        topicColor={selectedTopic?.color}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </TabsContent>

@@ -482,25 +482,48 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          mentions: string[] | null
           message: string
+          parent_id: string | null
+          topic_id: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
+          mentions?: string[] | null
           message: string
+          parent_id?: string | null
+          topic_id?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
+          mentions?: string[] | null
           message?: string
+          parent_id?: string | null
+          topic_id?: string | null
           updated_at?: string
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "chat_messages_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "chat_messages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_messages_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "chat_topics"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "chat_messages_user_id_fkey"
             columns: ["user_id"]
@@ -509,6 +532,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      chat_topics: {
+        Row: {
+          color: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_pinned: boolean | null
+          last_message_at: string | null
+          message_count: number | null
+          theme: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          last_message_at?: string | null
+          message_count?: number | null
+          theme: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          last_message_at?: string | null
+          message_count?: number | null
+          theme?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       click_stats: {
         Row: {
