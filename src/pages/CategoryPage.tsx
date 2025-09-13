@@ -120,7 +120,7 @@ const CategoryPage = () => {
         <div className="min-h-screen bg-background flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Catégorie introuvable</h1>
-            <Button onClick={() => window.history.back()}>
+            <Button onClick={() => navigate('/')}>
               Retour à l'accueil
             </Button>
           </div>
