@@ -469,7 +469,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       id="checkedBagsCount"
                       type="number"
                       min="0"
-                      max="10"
+                      max="4"
                       {...register("checkedBagsCount", { 
                         valueAsNumber: true,
                         min: { value: 0, message: "Le nombre doit être positif" }
@@ -485,7 +485,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       id="checkedBagsWeight"
                       type="number"
                       min="0"
-                      max="50"
+                      max="32"
                       {...register("checkedBagsWeight", { 
                         valueAsNumber: true,
                         min: { value: 0, message: "Le poids doit être positif" }
@@ -506,7 +506,7 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                       id="carryOnBagsCount"
                       type="number"
                       min="0"
-                      max="5"
+                      max="3"
                       {...register("carryOnBagsCount", { 
                         valueAsNumber: true,
                         min: { value: 0, message: "Le nombre doit être positif" }
