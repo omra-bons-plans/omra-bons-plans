@@ -6,7 +6,7 @@ import { toast } from '@/hooks/use-toast';
 export interface Notification {
   id: string;
   user_id: string;
-  type: 'profile_view' | 'ad_comment' | 'contact_request' | 'ad_status_change' | 'ad_expiring' | 'system';
+  type: 'profile_view' | 'ad_comment' | 'contact_request' | 'ad_status_change' | 'ad_expiring' | 'system' | 'topic_request';
   title: string;
   message: string;
   is_read: boolean;
