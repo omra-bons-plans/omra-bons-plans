@@ -1186,11 +1186,14 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                   <h2 className="text-xl font-bold text-gray-900">
                     {watch('title') || 'Titre de votre annonce'}
                   </h2>
-                  {watch('distanceToMosque') && (
-                    <span className="text-sm text-gray-500">
-                      {watch('distanceToMosque')} mètres
-                    </span>
-                  )}
+                  <div className="text-right text-sm text-gray-500">
+                    {watch('distanceToMosque') && (
+                      <div>{watch('distanceToMosque')} mètres</div>
+                    )}
+                    {watch('walkingMinutes') && (
+                      <div>{watch('walkingMinutes')} min à pied</div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Price */}
@@ -1309,6 +1312,20 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                     <div>
                       <span className="text-gray-500">Nom de l'hôtel:</span>
                       <p className="font-medium">{watch('name')}</p>
+                    </div>
+                  )}
+                  
+                  {watch('distanceToMosque') && (
+                    <div>
+                      <span className="text-gray-500">Distance à la mosquée:</span>
+                      <p className="font-medium">{watch('distanceToMosque')} mètres</p>
+                    </div>
+                  )}
+                  
+                  {watch('walkingMinutes') && (
+                    <div>
+                      <span className="text-gray-500">Temps de marche:</span>
+                      <p className="font-medium">{watch('walkingMinutes')} minutes à pied</p>
                     </div>
                   )}
                   

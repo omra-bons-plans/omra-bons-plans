@@ -231,11 +231,16 @@ export const useAds = () => {
           }
           break;
         case 'hebergement':
+        case 'hebergements':
           if (ad.categoryDetails) {
-            const accommodationType = ad.categoryDetails.accommodation_type === 'appartement' ? 'Appartement' : 
+            const accommodationType = ad.categoryDetails.accommodation_type === 'apartment' ? 'Appartement' :
+                                    ad.categoryDetails.accommodation_type === 'appartement' ? 'Appartement' : 
                                     ad.categoryDetails.accommodation_type === 'hotel' ? 'Hôtel' : 
                                     ad.categoryDetails.accommodation_type;
-            let accommodationInfo = `${accommodationType} • ${ad.categoryDetails.rooms_count} chambres`;
+            let accommodationInfo = accommodationType;
+            if (ad.categoryDetails.rooms_count) {
+              accommodationInfo += ` • ${ad.categoryDetails.rooms_count} chambres`;
+            }
             if (ad.categoryDetails.walking_minutes) {
               accommodationInfo += ` • ${ad.categoryDetails.walking_minutes}min à pied`;
             } else if (ad.categoryDetails.distance_to_mosque) {

@@ -530,6 +530,14 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   </div>
                 )}
 
+                {ad.categoryDetails.walking_minutes && (
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium">Temps de marche:</span>
+                    <span>{ad.categoryDetails.walking_minutes} minutes à pied</span>
+                  </div>
+                )}
+
                 {/* Équipements */}
                 {(ad.categoryDetails.has_wifi || ad.categoryDetails.has_ac || ad.categoryDetails.has_tv || 
                   ad.categoryDetails.has_fridge || ad.categoryDetails.has_washing_machine || ad.categoryDetails.has_living_room) && (
