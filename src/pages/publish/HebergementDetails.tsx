@@ -138,27 +138,29 @@ const HebergementDetails = () => {
       }
 
       // Update the main ad
+      const adData = {
+        title: data.title,
+        description: data.description,
+        price: data.price ? Number(data.price) : 0,
+        original_price: data.originalPrice ? Number(data.originalPrice) : null,
+        location: `${data.city} - ${data.name}`,
+        cover_image: coverImageUrl,
+        images: imageUrls,
+        show_email: data.showEmail,
+        show_phone: data.showPhone,
+        show_whatsapp: data.showWhatsapp,
+        show_professional_phone: data.showProfessionalPhone,
+        is_promotion: data.isPromotion,
+        promotion_end_date: data.promotionEndDate || null,
+        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        is_published: !saveAsDraft,
+        is_draft: saveAsDraft,
+        updated_at: new Date().toISOString(),
+      };
+
       const { error: adError } = await supabase
         .from('ads')
-        .update({
-          title: data.title,
-          description: data.description,
-          price: data.price,
-          original_price: data.originalPrice,
-          location: `${data.city} - ${data.name}`,
-          cover_image: coverImageUrl,
-          images: imageUrls,
-          show_email: data.showEmail,
-          show_phone: data.showPhone,
-          show_whatsapp: data.showWhatsapp,
-          show_professional_phone: data.showProfessionalPhone,
-          is_promotion: data.isPromotion,
-          promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
-          is_published: !saveAsDraft,
-          is_draft: saveAsDraft,
-          updated_at: new Date().toISOString(),
-        })
+        .update(adData)
         .eq('id', isEditing);
 
       if (adError) throw adError;
@@ -226,8 +228,8 @@ const HebergementDetails = () => {
           category: 'hebergement',
           title: data.title || 'Brouillon hébergement',
           description: data.description || '',
-          price: data.price || 0,
-          original_price: data.originalPrice,
+          price: data.price ? Number(data.price) : 0,
+          original_price: data.originalPrice ? Number(data.originalPrice) : null,
           location: `${data.city || 'Non spécifié'} - ${data.name || 'Brouillon hébergement'}`,
           show_email: data.showEmail,
           show_phone: data.showPhone,
@@ -235,7 +237,7 @@ const HebergementDetails = () => {
           show_professional_phone: data.showProfessionalPhone,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         };
 
         // Convert French values to English for database
@@ -310,28 +312,30 @@ const HebergementDetails = () => {
       }
 
       // Create the main ad
+      const adData = {
+        category: 'hebergement',
+        title: data.title,
+        description: data.description,
+        price: data.price ? Number(data.price) : 0,
+        original_price: data.originalPrice ? Number(data.originalPrice) : null,
+        location: `${data.city} - ${data.name}`,
+        cover_image: coverImageUrl,
+        images: imageUrls,
+        user_id: user.id,
+        show_email: data.showEmail,
+        show_phone: data.showPhone,
+        show_whatsapp: data.showWhatsapp,
+        show_professional_phone: data.showProfessionalPhone,
+        is_promotion: data.isPromotion,
+        promotion_end_date: data.promotionEndDate || null,
+        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        is_published: true,
+        is_draft: false,
+      };
+
       const { data: ad, error: adError } = await supabase
         .from('ads')
-        .insert({
-          category: 'hebergement',
-          title: data.title,
-          description: data.description,
-          price: data.price,
-          original_price: data.originalPrice,
-          location: `${data.city} - ${data.name}`,
-          cover_image: coverImageUrl,
-          images: imageUrls,
-          user_id: user.id,
-          show_email: data.showEmail,
-          show_phone: data.showPhone,
-          show_whatsapp: data.showWhatsapp,
-          show_professional_phone: data.showProfessionalPhone,
-          is_promotion: data.isPromotion,
-          promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
-          is_published: true,
-          is_draft: false,
-        })
+        .insert(adData)
         .select()
         .single();
 
