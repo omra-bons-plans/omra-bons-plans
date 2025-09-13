@@ -1157,6 +1157,21 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                       ))}
                     </div>
                   </div>
+                ) : initialData?.coverImageUrl ? (
+                  <div className="relative h-full">
+                    <ImageWithFallback
+                      src={getImageUrl(initialData.coverImageUrl)}
+                      alt="Photo de couverture"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Pagination dots */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      {Array.from({length: existingImages.length + images.length}).map((_, index) => (
+                        <div key={index} className="w-2 h-2 bg-white/60 rounded-full"></div>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400">
                     <Upload className="w-12 h-12" />

@@ -164,11 +164,17 @@ const HebergementDetails = () => {
       if (adError) throw adError;
 
       // Update category-specific data
+      // Convert French values to English for database
+      const accommodationTypeMap: Record<string, string> = {
+        'appartement': 'apartment',
+        'hotel': 'hotel'
+      };
+      
       const { error: categoryError } = await supabase
         .from('ads_hebergements')
         .update({
           city: data.city,
-          accommodation_type: data.accommodationType,
+          accommodation_type: accommodationTypeMap[data.accommodationType] || 'apartment',
           name: data.name,
           distance_to_mosque: data.distanceToMosque,
           walking_minutes: data.walkingMinutes,
@@ -232,9 +238,15 @@ const HebergementDetails = () => {
           publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         };
 
+        // Convert French values to English for database
+        const accommodationTypeMap: Record<string, string> = {
+          'appartement': 'apartment',
+          'hotel': 'hotel'
+        };
+
         const categoryData = {
           city: data.city || 'Non spécifié',
-          accommodation_type: data.accommodationType || 'hotel',
+          accommodation_type: accommodationTypeMap[data.accommodationType] || 'apartment',
           name: data.name || 'Brouillon hébergement',
           distance_to_mosque: data.distanceToMosque,
           walking_minutes: data.walkingMinutes,
@@ -326,12 +338,18 @@ const HebergementDetails = () => {
       if (adError) throw adError;
 
       // Create the hebergement-specific data
+      // Convert French values to English for database
+      const accommodationTypeMap: Record<string, string> = {
+        'appartement': 'apartment',
+        'hotel': 'hotel'
+      };
+      
       const { error: hebergementError } = await supabase
         .from('ads_hebergements')
         .insert({
           ad_id: ad.id,
           city: data.city,
-          accommodation_type: data.accommodationType,
+          accommodation_type: accommodationTypeMap[data.accommodationType] || 'apartment',
           name: data.name,
           distance_to_mosque: data.distanceToMosque,
           walking_minutes: data.walkingMinutes,
