@@ -151,16 +151,6 @@ const AdminAds = () => {
   };
 
   const handleDeleteAd = async (adId: string, ad: AdData) => {
-    // Seules les annonces expirées peuvent être supprimées
-    if (!isAdExpired(ad.publish_end_date)) {
-      toast({
-        title: "Action non autorisée",
-        description: "Seules les annonces expirées peuvent être supprimées",
-        variant: "destructive",
-      });
-      return;
-    }
-
     try {
       // Supprimer d'abord les données spécifiques à la catégorie
       const categoryTables: Record<string, string> = {
@@ -183,6 +173,14 @@ const AdminAds = () => {
         if (categoryError) throw categoryError;
       }
 
+      // Supprimer aussi les statistiques de clics associées
+      const { error: clickStatsError } = await supabase
+        .from('click_stats')
+        .delete()
+        .eq('ad_id', adId);
+
+      if (clickStatsError) throw clickStatsError;
+
       // Supprimer l'annonce principale
       const { error } = await supabase
         .from('ads')
@@ -193,7 +191,7 @@ const AdminAds = () => {
 
       toast({
         title: "Succès",
-        description: "Offre expirée supprimée avec succès",
+        description: "Annonce supprimée avec succès",
       });
 
       fetchAds();
@@ -585,32 +583,31 @@ const AdminAds = () => {
                                 )}
                               </Button>
                             )}
-                            {isAdExpired(ad.publish_end_date) && (
-                              <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                  <Button variant="outline" size="sm">
-                                    <Trash2 className="w-4 h-4 text-destructive" />
-                                  </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                  <AlertDialogHeader>
-                                    <AlertDialogTitle>Supprimer l'offre expirée</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                      Êtes-vous sûr de vouloir supprimer cette offre expirée ? Cette action est irréversible.
-                                    </AlertDialogDescription>
-                                  </AlertDialogHeader>
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                    <AlertDialogAction
-                                      onClick={() => handleDeleteAd(ad.id, ad)}
-                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                    >
-                                      Supprimer
-                                    </AlertDialogAction>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialog>
-                            )}
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="sm">
+                                  <Trash2 className="w-4 h-4 text-destructive" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Supprimer l'annonce</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer cette annonce "{ad.title}" ? 
+                                    Cette action est irréversible et supprimera définitivement l'annonce ainsi que toutes ses données associées.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleDeleteAd(ad.id, ad)}
+                                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                  >
+                                    Supprimer définitivement
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         </TableCell>
                       </TableRow>
