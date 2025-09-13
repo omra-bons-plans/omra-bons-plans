@@ -204,9 +204,9 @@ const TopicsList: React.FC<TopicsListProps> = ({ selectedTopicId, onTopicSelect 
                 </div>
               </div>
 
-              {/* Actions for admin - masquées sur mobile */}
+              {/* Actions for admin */}
               {isAdmin && (
-                <div className="hidden sm:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 opacity-100">
                   <Button
                     variant="ghost"
                     size="sm"
