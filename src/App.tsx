@@ -179,6 +179,11 @@ const App = () => (
             <Route path="/agences-liste" element={<AgencesListe />} />
             <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
             <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+            
+            {/* Redirections pour anciennes URLs */}
+            <Route path="/my-account" element={<Auth />} />
+            <Route path="/my-account/*" element={<Auth />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
               </Routes>
