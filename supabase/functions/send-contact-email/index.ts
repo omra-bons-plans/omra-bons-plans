@@ -28,7 +28,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Received contact form submission:", { nom, prenom, mail });
 
     const emailResponse = await resend.emails.send({
-      from: "OmraBonsPlans <contact@omrabonsplans.fr>",
+      from: "OmraBonsPlans <onboarding@resend.dev>",
       to: ["contact@omrabonsplans.fr"],
       reply_to: mail,
       subject: `Nouveau message de contact de ${prenom} ${nom}`,
