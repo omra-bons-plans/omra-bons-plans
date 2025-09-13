@@ -524,7 +524,7 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Offres Flash Omra & Hajj 2025</h2>
+                <h2 className="text-4xl font-bold mb-4">Offres Flash Omra & Hajj</h2>
                 <p className="text-muted-foreground text-lg">Promotions exceptionnelles sur les séjours, vols et services</p>
               </div>
               
