@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -296,6 +296,17 @@ const MobileSidebar = () => {
               
               {servicesOpen && (
                 <div className="space-y-1 mt-2">
+                  <Link
+                    to="/discussions"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <MessageCircle className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Discussions</span>
+                    </div>
+                  </Link>
+
                   <button
                     onClick={() => {
                       console.log('📱 Mobile blog button clicked, navigating to /blog');
