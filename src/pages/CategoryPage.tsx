@@ -13,6 +13,7 @@ import AdCard from "@/components/ui/AdCard";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { SEOHead } from "@/components/SEO/SEOHead";
 import { SEOBreadcrumb } from "@/components/SEO/SEOBreadcrumb";
+import { generateCleanCanonicalUrl } from "@/utils/seoHelpers";
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();
@@ -150,7 +151,7 @@ const CategoryPage = () => {
         title={`${categoryInfo.name} Omra & Hajj - ${sortedListings.length} Annonces 2025`}
         description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2025. ${categoryInfo.description} au meilleur prix.`}
         keywords={`${categoryInfo.name.toLowerCase()} omra, hajj ${categoryInfo.name.toLowerCase()}, ${category} omra 2025`}
-        canonical={`https://omrabonsplans.fr/category/${category}`}
+        canonical={generateCleanCanonicalUrl(`/category/${category}`)}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",

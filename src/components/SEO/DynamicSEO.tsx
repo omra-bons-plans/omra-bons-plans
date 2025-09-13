@@ -1,6 +1,6 @@
 import React from 'react';
 import { SEOHead } from './SEOHead';
-import { generateMetaDescription, generateSEOTitle, generateCanonicalUrl } from '@/utils/seoHelpers';
+import { generateMetaDescription, generateSEOTitle, generateCleanCanonicalUrl } from '@/utils/seoHelpers';
 
 interface DynamicSEOProps {
   title: string;
@@ -26,7 +26,7 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
 }) => {
   const optimizedTitle = generateSEOTitle(title);
   const optimizedDescription = generateMetaDescription(description, keywords);
-  const canonicalUrl = generateCanonicalUrl(path);
+  const canonicalUrl = generateCleanCanonicalUrl(path);
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
   

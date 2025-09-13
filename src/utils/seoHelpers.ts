@@ -87,11 +87,23 @@ export const generateImageAlt = (
 };
 
 /**
- * Génère des URLs canoniques
+ * Génère des URLs canoniques en supprimant les paramètres de requête
  */
 export const generateCanonicalUrl = (path: string): string => {
   const baseUrl = 'https://omrabonsplans.fr';
-  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+  // Supprimer les paramètres de requête pour éviter le duplicate content
+  const cleanPath = path.split('?')[0].split('#')[0];
+  return `${baseUrl}${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
+};
+
+/**
+ * Génère une URL canonique propre pour les pages avec filtres
+ */
+export const generateCleanCanonicalUrl = (pathname: string): string => {
+  const baseUrl = 'https://omrabonsplans.fr';
+  // Toujours utiliser le path de base sans paramètres de filtres
+  const cleanPath = pathname.split('?')[0];
+  return `${baseUrl}${cleanPath}`;
 };
 
 /**
