@@ -11,6 +11,7 @@ const SejourDetails = () => {
   const [searchParams] = useSearchParams();
   const [initialData, setInitialData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const editAdId = searchParams.get('edit');
   const isEditMode = !!editAdId;
@@ -206,14 +207,18 @@ const SejourDetails = () => {
   };
 
   const handleSejourSubmit = async (data: any, saveAsDraft = false) => {
+    // Protection absolue contre les clics multiples
+    if (isSubmitting || loading) {
+      console.log('⚠️ Soumission bloquée - déjà en cours');
+      toast.warning("Une opération est déjà en cours...");
+      return;
+    }
+
     try {
-      // Empêcher les soumissions multiples
-      if (loading) {
-        console.log('⚠️ Soumission ignorée - déjà en cours');
-        return;
-      }
-      
+      setIsSubmitting(true);
       setLoading(true);
+      
+      console.log(`🚀 Début ${saveAsDraft ? 'sauvegarde' : 'publication'}`);
       
       // Afficher un toast de chargement
       if (saveAsDraft) {
@@ -444,7 +449,9 @@ const SejourDetails = () => {
       console.error('Error creating/updating ad:', error);
       toast.error(isEditMode ? "Erreur lors de la mise à jour" : "Erreur lors de la publication de l'annonce");
     } finally {
+      setIsSubmitting(false);
       setLoading(false);
+      console.log(`✅ Fin ${saveAsDraft ? 'sauvegarde' : 'publication'}`);
     }
   };
 
@@ -473,6 +480,7 @@ const SejourDetails = () => {
           onBack={handleBack}
           initialData={initialData}
           isEditMode={isEditMode}
+          isSubmitting={isSubmitting}
         />
       </PublishLayout>
     </RequiredProfileGuard>

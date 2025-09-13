@@ -48,9 +48,17 @@ interface SejourFormMultiStepProps {
   onBack: () => void;
   initialData?: any;
   isEditMode?: boolean;
+  isSubmitting?: boolean;
 }
 
-const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEditMode }: SejourFormMultiStepProps) => {
+const SejourFormMultiStep = ({ 
+  formulaType, 
+  onSubmit, 
+  onBack, 
+  initialData = null, 
+  isEditMode = false,
+  isSubmitting: parentIsSubmitting = false
+}: SejourFormMultiStepProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [images, setImages] = useState<File[]>([]);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -330,7 +338,10 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
   };
 
   const handleSaveDraft = async (data: SejourFormData) => {
-    if (isSubmitting) return;
+    if (isSubmitting || parentIsSubmitting) {
+      console.log('⚠️ Sauvegarde bloquée - déjà en cours');
+      return;
+    }
     
     setIsSubmitting(true);
     try {
@@ -351,7 +362,10 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
   };
 
   const handlePublish = async (data: SejourFormData) => {
-    if (isSubmitting) return;
+    if (isSubmitting || parentIsSubmitting) {
+      console.log('⚠️ Publication bloquée - déjà en cours');
+      return;
+    }
     
     // Vérifier que la photo de couverture est présente
     if (!coverImage) {
@@ -1256,14 +1270,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      if (!isSubmitting) {
+                      if (!isSubmitting && !parentIsSubmitting) {
                         handleSaveDraft(watch());
                       }
                     }}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || parentIsSubmitting}
                     className="px-6 w-full sm:w-auto h-12"
                   >
-                    {isSubmitting ? "💾 Sauvegarde..." : "💾 Sauvegarder comme brouillon"}
+                    {(isSubmitting || parentIsSubmitting) ? "💾 Sauvegarde..." : "💾 Sauvegarder comme brouillon"}
                   </Button>
                   
                   <Button 
@@ -1271,14 +1285,14 @@ const SejourFormMultiStep = ({ formulaType, onSubmit, onBack, initialData, isEdi
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      if (!isSubmitting) {
+                      if (!isSubmitting && !parentIsSubmitting) {
                         handlePublish(watch());
                       }
                     }}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || parentIsSubmitting}
                     className="btn-modern px-8 w-full sm:w-auto h-12"
                   >
-                    {isSubmitting ? "🚀 Publication..." : "🚀 Publier maintenant"}
+                    {(isSubmitting || parentIsSubmitting) ? "🚀 Publication..." : "🚀 Publier maintenant"}
                   </Button>
                 </div>
               </div>
