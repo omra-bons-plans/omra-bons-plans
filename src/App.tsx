@@ -45,6 +45,7 @@ import AgencesListe from "./pages/AgencesListe";
 import AgenceDetails from "./pages/AgenceDetails";
 import ComparatifVisuel from "./pages/ComparatifVisuel";
 import ComparatifAgences from "./pages/ComparatifAgences";
+import Discussions from "./pages/Discussions";
 
 const queryClient = new QueryClient();
 
@@ -137,6 +138,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:category" element={<Blog />} />
             <Route path="/blog/:category/:id" element={<BlogPost />} />
+            <Route path="/discussions" element={<Discussions />} />
             <Route path="/admin/ads" element={
               <ProtectedRoute>
                 <AdminAds />
