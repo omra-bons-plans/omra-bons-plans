@@ -50,14 +50,38 @@ export const airports: Airport[] = [
 ];
 
 export const searchAirports = (query: string): Airport[] => {
-  if (!query || query.length < 2) return [];
+  if (!query) return airports.slice(0, 10); // Retourner les premiers aéroports si pas de requête
+  if (query.length < 2) return [];
   
   const normalizedQuery = query.toLowerCase().trim();
   
-  return airports.filter(airport => 
-    airport.code.toLowerCase().includes(normalizedQuery) ||
-    airport.name.toLowerCase().includes(normalizedQuery) ||
-    airport.city.toLowerCase().includes(normalizedQuery) ||
-    airport.country.toLowerCase().includes(normalizedQuery)
-  ).slice(0, 10); // Limiter à 10 résultats
+  // Fonction de scoring pour priorité des résultats
+  const scoreAirport = (airport: Airport): number => {
+    let score = 0;
+    
+    // Correspondance exacte du code (priorité maximale)
+    if (airport.code.toLowerCase() === normalizedQuery) score += 100;
+    else if (airport.code.toLowerCase().startsWith(normalizedQuery)) score += 50;
+    else if (airport.code.toLowerCase().includes(normalizedQuery)) score += 20;
+    
+    // Correspondance de la ville (priorité élevée)
+    if (airport.city.toLowerCase() === normalizedQuery) score += 80;
+    else if (airport.city.toLowerCase().startsWith(normalizedQuery)) score += 40;
+    else if (airport.city.toLowerCase().includes(normalizedQuery)) score += 15;
+    
+    // Correspondance du nom d'aéroport
+    if (airport.name.toLowerCase().includes(normalizedQuery)) score += 10;
+    
+    // Correspondance du pays
+    if (airport.country.toLowerCase().includes(normalizedQuery)) score += 5;
+    
+    return score;
+  };
+  
+  return airports
+    .map(airport => ({ airport, score: scoreAirport(airport) }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(({ airport }) => airport)
+    .slice(0, 10); // Limiter à 10 résultats
 };

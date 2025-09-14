@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { searchAirports, Airport } from "@/data/airports";
+import { searchAirports, Airport, airports } from "@/data/airports";
 
 interface AirportSelectProps {
   value?: string;
@@ -40,7 +40,7 @@ export function AirportSelect({
   }, [searchQuery]);
 
   const selectedAirport = filteredAirports.find((airport) => airport.code === value) || 
-                         searchAirports("").find((airport) => airport.code === value);
+                         airports.find((airport) => airport.code === value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
