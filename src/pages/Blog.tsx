@@ -51,11 +51,9 @@ const Blog = () => {
   // Mettre à jour selectedCategory quand la catégorie URL change
   useEffect(() => {
     const newCategory = category || 'all';
-    if (newCategory !== selectedCategory) {
-      console.log('📖 Updating selectedCategory from', selectedCategory, 'to', newCategory);
-      setSelectedCategory(newCategory);
-    }
-  }, [category, selectedCategory]);
+    console.log('📖 URL category changed to:', newCategory, 'current selectedCategory:', selectedCategory);
+    setSelectedCategory(newCategory);
+  }, [category]); // Enlever selectedCategory des dépendances pour éviter les boucles
 
   useEffect(() => {
     fetchPosts();
@@ -243,11 +241,18 @@ const Blog = () => {
                   {categories.map((cat) => (
                     <DropdownMenuItem
                       key={cat.value}
-                      onClick={() => {
-                        if (cat.value === 'all') {
-                          navigate('/blog');
-                        } else {
-                          navigate(`/blog/${cat.value}`);
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🎯 Navigating to category:', cat.value);
+                        try {
+                          if (cat.value === 'all') {
+                            navigate('/blog', { replace: true });
+                          } else {
+                            navigate(`/blog/${cat.value}`, { replace: true });
+                          }
+                        } catch (error) {
+                          console.error('❌ Navigation error:', error);
                         }
                       }}
                       className={selectedCategory === cat.value ? "bg-muted" : ""}
@@ -268,11 +273,17 @@ const Blog = () => {
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
-                  onClick={() => {
-                    if (cat.value === 'all') {
-                      navigate('/blog');
-                    } else {
-                      navigate(`/blog/${cat.value}`);
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('🎯 Desktop navigation to category:', cat.value);
+                    try {
+                      if (cat.value === 'all') {
+                        navigate('/blog', { replace: true });
+                      } else {
+                        navigate(`/blog/${cat.value}`, { replace: true });
+                      }
+                    } catch (error) {
+                      console.error('❌ Desktop navigation error:', error);
                     }
                   }}
                   className="flex items-center justify-center text-sm h-12 w-full lg:w-auto"
