@@ -51,9 +51,10 @@ export const airports: Airport[] = [
 
 export const searchAirports = (query: string): Airport[] => {
   if (!query) return airports.slice(0, 10); // Retourner les premiers aéroports si pas de requête
-  if (query.length < 2) return [];
+  if (query.length < 1) return []; // Permettre la recherche avec 1 caractère
   
   const normalizedQuery = query.toLowerCase().trim();
+  console.log(`🔍 Recherche aéroports pour: "${query}" (normalisé: "${normalizedQuery}")`);
   
   // Fonction de scoring pour priorité des résultats
   const scoreAirport = (airport: Airport): number => {
@@ -78,10 +79,13 @@ export const searchAirports = (query: string): Airport[] => {
     return score;
   };
   
-  return airports
+  const results = airports
     .map(airport => ({ airport, score: scoreAirport(airport) }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .map(({ airport }) => airport)
     .slice(0, 10); // Limiter à 10 résultats
+    
+  console.log(`✅ Résultats trouvés: ${results.length}`, results.map(a => `${a.code} - ${a.city}`));
+  return results;
 };
