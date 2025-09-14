@@ -73,8 +73,8 @@ export function AirportSelect({
           />
           <CommandList>
             <CommandEmpty>
-              {searchQuery.length < 2 
-                ? "Tapez au moins 2 caractères pour rechercher..." 
+              {searchQuery.length < 1 
+                ? "Tapez pour rechercher..." 
                 : "Aucun aéroport trouvé."}
             </CommandEmpty>
             <CommandGroup>
