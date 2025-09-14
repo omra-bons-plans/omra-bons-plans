@@ -45,9 +45,18 @@ const Blog = () => {
 
   console.log('📖 Blog component loaded, category:', category, 'selectedCategory:', selectedCategory);
 
+  // Mettre à jour selectedCategory quand la catégorie URL change
+  useEffect(() => {
+    if (category && category !== selectedCategory) {
+      setSelectedCategory(category);
+    } else if (!category && selectedCategory !== 'all') {
+      setSelectedCategory('all');
+    }
+  }, [category]);
+
   useEffect(() => {
     fetchPosts();
-  }, []); // Enlever selectedCategory de la dépendance pour ne charger qu'une fois
+  }, []); // Charger les posts une seule fois
 
   const fetchPosts = async () => {
     try {
@@ -231,7 +240,13 @@ const Blog = () => {
                   {categories.map((cat) => (
                     <DropdownMenuItem
                       key={cat.value}
-                      onClick={() => setSelectedCategory(cat.value)}
+                      onClick={() => {
+                        if (cat.value === 'all') {
+                          navigate('/blog');
+                        } else {
+                          navigate(`/blog/${cat.value}`);
+                        }
+                      }}
                       className={selectedCategory === cat.value ? "bg-muted" : ""}
                     >
                       <span className="flex-1">{cat.label}</span>
@@ -250,7 +265,13 @@ const Blog = () => {
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
-                  onClick={() => setSelectedCategory(cat.value)}
+                  onClick={() => {
+                    if (cat.value === 'all') {
+                      navigate('/blog');
+                    } else {
+                      navigate(`/blog/${cat.value}`);
+                    }
+                  }}
                   className="flex items-center justify-center text-sm h-12 w-full lg:w-auto"
                 >
                   <span className="truncate">{cat.label}</span>
