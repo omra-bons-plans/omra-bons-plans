@@ -351,11 +351,11 @@ const Index = () => {
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
                   <span className="text-white drop-shadow-lg">Tous les services</span><br />
                   <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Hajj & Omra</span><br />
-                  <span className="text-white drop-shadow-lg">en un seul endroit  Trouvez, comparez, partez !</span>
+                  <span className="text-white drop-shadow-lg">en un seul endroit</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
-                  <span className="text-white drop-shadow-lg">1ère plateforme francophone dédiée aux annonces Hajj & Omra</span>
+                  <span className="text-white drop-shadow-lg">Chauffeurs, hébergements, agences de voyages, guides : trouvez ce dont vous avez besoin en quelques clics.</span>
                 </p>
               </div>
 
