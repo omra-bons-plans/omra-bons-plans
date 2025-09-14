@@ -41,18 +41,21 @@ const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>(category || 'all');
+  // Initialiser directement avec la catégorie de l'URL
+  const [selectedCategory, setSelectedCategory] = useState<string>(() => {
+    return category || 'all';
+  });
 
   console.log('📖 Blog component loaded, category:', category, 'selectedCategory:', selectedCategory);
 
   // Mettre à jour selectedCategory quand la catégorie URL change
   useEffect(() => {
-    if (category && category !== selectedCategory) {
-      setSelectedCategory(category);
-    } else if (!category && selectedCategory !== 'all') {
-      setSelectedCategory('all');
+    const newCategory = category || 'all';
+    if (newCategory !== selectedCategory) {
+      console.log('📖 Updating selectedCategory from', selectedCategory, 'to', newCategory);
+      setSelectedCategory(newCategory);
     }
-  }, [category]);
+  }, [category, selectedCategory]);
 
   useEffect(() => {
     fetchPosts();
