@@ -60,21 +60,54 @@ export const searchAirports = (query: string): Airport[] => {
   const scoreAirport = (airport: Airport): number => {
     let score = 0;
     
+    // Debug pour Paris spécifiquement
+    if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) {
+      console.log(`🏮 Évaluation de ${airport.code} - ${airport.city}:`);
+    }
+    
     // Correspondance exacte du code (priorité maximale)
-    if (airport.code.toLowerCase() === normalizedQuery) score += 100;
-    else if (airport.code.toLowerCase().startsWith(normalizedQuery)) score += 50;
-    else if (airport.code.toLowerCase().includes(normalizedQuery)) score += 20;
+    if (airport.code.toLowerCase() === normalizedQuery) {
+      score += 100;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Code exact: +100`);
+    }
+    else if (airport.code.toLowerCase().startsWith(normalizedQuery)) {
+      score += 50;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Code commence par: +50`);
+    }
+    else if (airport.code.toLowerCase().includes(normalizedQuery)) {
+      score += 20;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Code contient: +20`);
+    }
     
     // Correspondance de la ville (priorité élevée)
-    if (airport.city.toLowerCase() === normalizedQuery) score += 80;
-    else if (airport.city.toLowerCase().startsWith(normalizedQuery)) score += 40;
-    else if (airport.city.toLowerCase().includes(normalizedQuery)) score += 15;
+    if (airport.city.toLowerCase() === normalizedQuery) {
+      score += 80;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Ville exacte: +80`);
+    }
+    else if (airport.city.toLowerCase().startsWith(normalizedQuery)) {
+      score += 40;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Ville commence par: +40`);
+    }
+    else if (airport.city.toLowerCase().includes(normalizedQuery)) {
+      score += 15;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Ville contient: +15`);
+    }
     
     // Correspondance du nom d'aéroport
-    if (airport.name.toLowerCase().includes(normalizedQuery)) score += 10;
+    if (airport.name.toLowerCase().includes(normalizedQuery)) {
+      score += 10;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Nom contient: +10`);
+    }
     
     // Correspondance du pays
-    if (airport.country.toLowerCase().includes(normalizedQuery)) score += 5;
+    if (airport.country.toLowerCase().includes(normalizedQuery)) {
+      score += 5;
+      if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) console.log(`  ✅ Pays contient: +5`);
+    }
+    
+    if (normalizedQuery === "paris" || normalizedQuery.startsWith("par")) {
+      console.log(`  📊 Score final pour ${airport.code}: ${score}`);
+    }
     
     return score;
   };
