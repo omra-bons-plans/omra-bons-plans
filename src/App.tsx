@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
@@ -179,6 +179,32 @@ const App = () => (
             <Route path="/agences-liste" element={<AgencesListe />} />
             <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
             <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+            
+            {/* Redirections pour les anciennes URLs obsolètes */}
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="/test" element={<Navigate to="/" replace />} />
+            <Route path="/checkout" element={<Navigate to="/" replace />} />
+            <Route path="/all-ads" element={<Navigate to="/" replace />} />
+            
+            {/* Anciennes archives de blog */}
+            <Route path="/2019" element={<Navigate to="/blog" replace />} />
+            <Route path="/2019/06" element={<Navigate to="/blog" replace />} />
+            <Route path="/2019/07" element={<Navigate to="/blog" replace />} />
+            
+            {/* Anciens articles de blog en anglais vers blog */}
+            <Route path="/competitive-analysis-for-entrepreneurs" element={<Navigate to="/blog" replace />} />
+            <Route path="/five-ways-to-create-your-classified-ad-that-will-stand-out" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-choose-best-laptops-under-30000-in-2018" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-create-listing-that-gets-traffic" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-do-market-research-for-to-sell-faster" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-explode-your-leads-with-local-search" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-leverage-contests-to-generate-thousands-of-leads-10" element={<Navigate to="/blog" replace />} />
+            <Route path="/how-to-place-an-ad-for-immigration-advertising" element={<Navigate to="/blog" replace />} />
+            <Route path="/increase-your-business-leads-with-classified-advertising" element={<Navigate to="/blog" replace />} />
+            <Route path="/three-powerful-tricks-for-online-classified-advertising" element={<Navigate to="/blog" replace />} />
+            <Route path="/use-the-right-partner-to-sell-your-products" element={<Navigate to="/blog" replace />} />
+            <Route path="/why-online-free-classified-sites-are-essential-for-marketing" element={<Navigate to="/blog" replace />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
               </Routes>
