@@ -32,7 +32,7 @@ export function AirportSelect({
 }: AirportSelectProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredAirports, setFilteredAirports] = useState<Airport[]>([]);
+  const [filteredAirports, setFilteredAirports] = useState<Airport[]>(searchAirports(""));
 
   useEffect(() => {
     const results = searchAirports(searchQuery);
