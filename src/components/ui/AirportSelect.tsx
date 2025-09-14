@@ -65,7 +65,7 @@ export function AirportSelect({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0" align="start">
-        <Command>
+        <Command shouldFilter={false}>
           <CommandInput 
             placeholder="Rechercher un aéroport..." 
             value={searchQuery}
@@ -81,7 +81,7 @@ export function AirportSelect({
               {filteredAirports.map((airport) => (
                 <CommandItem
                   key={airport.code}
-                  value={airport.code}
+                  value={`${airport.code}-${airport.city}-${airport.name}`}
                   onSelect={() => {
                     onValueChange(airport.code);
                     setOpen(false);
