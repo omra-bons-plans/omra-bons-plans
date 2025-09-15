@@ -62,8 +62,8 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
             <BrowserRouter>
+              <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
               <ScrollToTop />
               <Routes>
             <Route path="/" element={<Index />} />
