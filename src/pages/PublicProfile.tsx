@@ -32,11 +32,11 @@ interface UserProfile {
   is_professional?: boolean;
   public_profile: boolean;
   bio?: string;
-  specialties: string[];
+  specialties?: string[] | null;
   experience_years?: number;
   profile_views: number;
   profile_image?: string;
-  languages_spoken: string[];
+  languages_spoken?: string[] | null;
   created_at: string;
 }
 
@@ -508,7 +508,7 @@ const PublicProfile = () => {
                     )}
 
                     {/* Specialties */}
-                    {profile.specialties.length > 0 && (
+                    {profile.specialties && profile.specialties.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {profile.specialties.map((specialty, index) => (
                           <Badge key={index} variant="secondary">
@@ -519,7 +519,7 @@ const PublicProfile = () => {
                     )}
 
                     {/* Languages */}
-                    {profile.languages_spoken.length > 0 && (
+                    {profile.languages_spoken && profile.languages_spoken.length > 0 && (
                       <div className="flex items-center gap-2 mb-4">
                         <Languages className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">
