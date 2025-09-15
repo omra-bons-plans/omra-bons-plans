@@ -370,8 +370,8 @@ const Index = () => {
               </div>
 
               {/* Compact Weather & Exchange Widget */}
-              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft max-w-[280px] mx-auto border border-border/20 
-                             scale-110 sm:scale-100 sm:p-3 sm:max-w-[280px] lg:max-w-xs">
+              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft mx-auto border border-border/20 
+                             max-w-[240px] sm:scale-100 sm:p-3 sm:max-w-[280px] lg:max-w-xs">
                 
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
@@ -384,7 +384,7 @@ const Index = () => {
                     <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
                   </button>
                   
-                  <div className="text-center py-2 min-h-[60px] flex flex-col justify-center">
+                  <div className="text-center py-1 min-h-[50px] flex flex-col justify-center">
                     {(() => {
                       const items = [
                         {
@@ -400,7 +400,7 @@ const Index = () => {
                           subtitle: translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')
                         },
                         {
-                          icon: <span className="text-lg">💱</span>,
+                          icon: <span className="text-base">💱</span>,
                           title: 'Taux du jour',
                           value: `1€ = ${weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'} Sar`,
                           subtitle: 'Euro vers Riyal'
@@ -410,14 +410,14 @@ const Index = () => {
                       const currentItem = items[mobileRotatingIndex];
 
                       return (
-                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-3">
-                          <div className="w-6 h-6 flex items-center justify-center">
+                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-2">
+                          <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                             {currentItem.icon}
                           </div>
-                          <div className="flex-1 text-left">
-                            <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
-                            <div className="text-lg font-bold text-amber-500">{currentItem.value}</div>
-                            <div className="text-[9px] text-gray-500 capitalize">{currentItem.subtitle}</div>
+                          <div className="flex-1 text-left min-w-0">
+                            <div className="text-xs font-semibold text-gray-800 truncate">{currentItem.title}</div>
+                            <div className="text-base font-bold text-amber-500 truncate">{currentItem.value}</div>
+                            <div className="text-[8px] text-gray-500 capitalize truncate">{currentItem.subtitle}</div>
                           </div>
                         </div>
                       );
