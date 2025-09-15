@@ -117,15 +117,39 @@ const PublicProfile = () => {
     try {
       setLoading(true);
       
-      // Récupérer le profil par slug
-      const { data: profileData, error: profileError } = await supabase
+      // Récupérer le profil par slug ou par ID
+      let profileData, profileError;
+      
+      // D'abord essayer par slug
+      const slugQuery = await supabase
         .from('profiles')
         .select('*')
         .eq('slug', slug)
         .eq('public_profile', true)
-        .single();
+        .maybeSingle();
+
+      if (slugQuery.data) {
+        profileData = slugQuery.data;
+        profileError = slugQuery.error;
+      } else {
+        // Si pas trouvé par slug, essayer par ID (pour la compatibilité admin)
+        const idQuery = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', slug)
+          .eq('public_profile', true)
+          .maybeSingle();
+
+        profileData = idQuery.data;
+        profileError = idQuery.error;
+      }
 
       if (profileError) throw profileError;
+      if (!profileData) {
+        setProfile(null);
+        setLoading(false);
+        return;
+      }
 
       setProfile(profileData);
 
