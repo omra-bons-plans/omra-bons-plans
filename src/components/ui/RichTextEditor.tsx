@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react';
-import { Bold, Link2, Eye, Code } from 'lucide-react';
+import { Bold, Link2, Eye, Code, ImageIcon } from 'lucide-react';
 import { Button } from './button';
 import { Textarea } from './textarea';
 import { Input } from './input';
 import { Label } from './label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { Badge } from './badge';
+import { useImageUpload } from '@/hooks/useImageUpload';
 
 interface RichTextEditorProps {
   value: string;
@@ -27,6 +28,8 @@ export const RichTextEditor = ({
   const [linkDialog, setLinkDialog] = useState(false);
   const [linkText, setLinkText] = useState('');
   const [linkUrl, setLinkUrl] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { uploadImage, uploading } = useImageUpload('blog-images');
 
   const getSelectionText = () => {
     if (!textareaRef.current) return '';
@@ -92,11 +95,33 @@ export const RichTextEditor = ({
     setLinkUrl('');
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const result = await uploadImage(file);
+    if (result) {
+      const imageMarkdown = `![Image](${result.url})`;
+      insertTextAtCursor(imageMarkdown);
+    }
+
+    // Reset the input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const triggerImageUpload = () => {
+    fileInputRef.current?.click();
+  };
+
   const renderPreview = (text: string) => {
     // Convert markdown to HTML
     let html = text
       // Convert bold **text** to <strong>text</strong>
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      // Convert images ![alt](url) to <img src="url" alt="alt">
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto rounded-lg shadow-sm my-4" />')
       // Convert links [text](url) to <a href="url">text</a>
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">$1</a>')
       // Convert line breaks to <br>
@@ -171,6 +196,26 @@ export const RichTextEditor = ({
           </DialogContent>
         </Dialog>
 
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={triggerImageUpload}
+          disabled={uploading}
+          className="p-2"
+          title="Ajouter une image"
+        >
+          <ImageIcon className="w-4 h-4" />
+        </Button>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
+
         <div className="h-4 w-px bg-border" />
         
         <Button
@@ -202,6 +247,9 @@ export const RichTextEditor = ({
         </Badge>
         <Badge variant="secondary" className="text-xs">
           [texte](url)
+        </Badge>
+        <Badge variant="secondary" className="text-xs">
+          ![image](url)
         </Badge>
       </div>
 
