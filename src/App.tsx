@@ -51,8 +51,8 @@ import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
 
 const queryClient = new QueryClient();
 
-// Configuration Google Analytics - Remplacez par votre ID de mesure
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: Remplacer par votre ID Google Analytics
+// Configuration Google Analytics
+const GA_MEASUREMENT_ID = 'G-Q2NQD2NW1V';
 
 const App = () => (
   <ErrorBoundary>
