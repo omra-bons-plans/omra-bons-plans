@@ -400,7 +400,7 @@ const Index = () => {
                           subtitle: translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')
                         },
                         {
-                          icon: <span className="text-base">💱</span>,
+                          icon: <span className="text-base"></span>,
                           title: 'Taux du jour',
                           value: `1€ = ${weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'} Sar`,
                           subtitle: 'Euro vers Riyal'
