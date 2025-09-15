@@ -172,6 +172,8 @@ export const useThreadedChat = (topicId?: string) => {
 
       if (error) throw error;
       
+      // Recharger les messages après suppression
+      fetchMessages();
       toast.success('Message supprimé');
       return true;
     } catch (err) {

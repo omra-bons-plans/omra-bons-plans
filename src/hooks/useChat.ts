@@ -101,7 +101,9 @@ export const useChat = () => {
 
       if (error) throw error;
       
-      toast.success('Message supprimé par l\'administrateur');
+      // Recharger les messages après suppression
+      fetchMessages();
+      toast.success('Message supprimé');
     } catch (err) {
       console.error('Error deleting message:', err);
       toast.error('Erreur lors de la suppression du message');
