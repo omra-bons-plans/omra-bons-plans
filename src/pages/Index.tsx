@@ -359,9 +359,9 @@ const Index = () => {
             <div className="space-y-6 md:space-y-10 max-w-4xl">
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
-                  <span className="text-white drop-shadow-lg">Tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Hajj & Omra</span><br />
-                  <span className="text-white drop-shadow-lg">en un seul endroit</span>
+                  <span className="text-white drop-shadow-lg">Omra Hajj Services Bons Plans</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Tout En Un</span><br />
+                  <span className="text-white drop-shadow-lg">Plateforme Complète</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
