@@ -370,21 +370,21 @@ const Index = () => {
               </div>
 
               {/* Compact Weather & Exchange Widget */}
-              <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft mx-auto border border-border/20 
-                             w-fit max-w-[200px] sm:max-w-[280px] lg:max-w-xs">
+              <div className="bg-white/95 backdrop-blur-sm p-2 rounded-2xl shadow-soft mx-auto border border-border/20 
+                             w-fit min-w-[150px] max-w-[200px] sm:max-w-[280px] lg:max-w-xs">
                 
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
                   <button
                     onClick={refetchWeather}
                     disabled={weatherLoading}
-                    className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 z-10"
+                    className="absolute top-1 right-1 p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 z-10"
                     title="Actualiser les données"
                   >
                     <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
                   </button>
                   
-                  <div className="text-center py-1 min-h-[50px] flex flex-col justify-center items-center">
+                  <div className="py-1 min-h-[45px] flex items-center justify-center">
                     {(() => {
                       const items = [
                         {
@@ -400,7 +400,7 @@ const Index = () => {
                           subtitle: translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')
                         },
                         {
-                          icon: <span className="text-base"></span>,
+                          icon: null,
                           title: 'Taux du jour',
                           value: `1€ = ${weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'} Sar`,
                           subtitle: 'Euro vers Riyal'
@@ -409,28 +409,28 @@ const Index = () => {
 
                       const currentItem = items[mobileRotatingIndex];
 
-                      return (
-                        <div key={mobileRotatingIndex} className="animate-fade-in w-full">
-                          {currentItem.icon ? (
-                            <div className="flex items-center justify-center space-x-2">
-                              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                                {currentItem.icon}
-                              </div>
-                              <div className="text-center">
-                                <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
-                                <div className="text-base font-bold text-amber-500">{currentItem.value}</div>
-                                <div className="text-[8px] text-gray-500 capitalize">{currentItem.subtitle}</div>
-                              </div>
+                      if (currentItem.icon) {
+                        return (
+                          <div key={mobileRotatingIndex} className="animate-fade-in flex items-center space-x-2">
+                            <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
+                              {currentItem.icon}
                             </div>
-                          ) : (
-                            <div className="text-center">
+                            <div className="text-left">
                               <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
-                              <div className="text-base font-bold text-amber-500">{currentItem.value}</div>
-                              <div className="text-[8px] text-gray-500 capitalize">{currentItem.subtitle}</div>
+                              <div className="text-sm font-bold text-amber-500">{currentItem.value}</div>
+                              <div className="text-[7px] text-gray-500 capitalize">{currentItem.subtitle}</div>
                             </div>
-                          )}
-                        </div>
-                      );
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div key={mobileRotatingIndex} className="animate-fade-in text-center">
+                            <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
+                            <div className="text-sm font-bold text-amber-500">{currentItem.value}</div>
+                            <div className="text-[7px] text-gray-500 capitalize">{currentItem.subtitle}</div>
+                          </div>
+                        );
+                      }
                     })()}
                   </div>
                 </div>
