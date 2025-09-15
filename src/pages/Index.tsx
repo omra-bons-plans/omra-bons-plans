@@ -371,7 +371,7 @@ const Index = () => {
 
               {/* Compact Weather & Exchange Widget */}
               <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft mx-auto border border-border/20 
-                             max-w-[240px] sm:scale-100 sm:p-3 sm:max-w-[280px] lg:max-w-xs">
+                             w-fit max-w-[200px] sm:max-w-[280px] lg:max-w-xs">
                 
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
@@ -384,7 +384,7 @@ const Index = () => {
                     <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
                   </button>
                   
-                  <div className="text-center py-1 min-h-[50px] flex flex-col justify-center">
+                  <div className="text-center py-1 min-h-[50px] flex flex-col justify-center items-center">
                     {(() => {
                       const items = [
                         {
@@ -410,14 +410,14 @@ const Index = () => {
                       const currentItem = items[mobileRotatingIndex];
 
                       return (
-                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-2">
+                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-2 w-full">
                           <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                             {currentItem.icon}
                           </div>
-                          <div className="flex-1 text-left min-w-0">
-                            <div className="text-xs font-semibold text-gray-800 truncate">{currentItem.title}</div>
-                            <div className="text-base font-bold text-amber-500 truncate">{currentItem.value}</div>
-                            <div className="text-[8px] text-gray-500 capitalize truncate">{currentItem.subtitle}</div>
+                          <div className="text-center">
+                            <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
+                            <div className="text-base font-bold text-amber-500">{currentItem.value}</div>
+                            <div className="text-[8px] text-gray-500 capitalize">{currentItem.subtitle}</div>
                           </div>
                         </div>
                       );
