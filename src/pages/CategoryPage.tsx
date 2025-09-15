@@ -30,12 +30,12 @@ const CategoryPage = () => {
   // Get category info
   const getCategoryInfo = (categoryId: string) => {
     const categoryMap = {
-      sejours: { name: "Séjours", icon: Building, description: "Packages complets Omra" },
-      vols: { name: "Vols", icon: Plane, description: "Billets d'avion" },
-      hebergements: { name: "Hébergements", icon: Hotel, description: "Hôtels et appartements" },
-      guides: { name: "Guides", icon: BookOpen, description: "Guides spirituels" },
-      chauffeurs: { name: "Chauffeurs", icon: Car, description: "Transport privé" },
-      babysitting: { name: "Baby-sitting", icon: Heart, description: "Garde d'enfants" }
+      sejours: { name: "Séjours", icon: Building, description: "Packages complets Omra", h1: "Séjours Omra Hajj Packages Complets" },
+      vols: { name: "Vols", icon: Plane, description: "Billets d'avion", h1: "Vols Omra Hajj Billets Avion" },
+      hebergements: { name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", h1: "Hébergements Omra Hajj Mecca Medina" },
+      guides: { name: "Guides", icon: BookOpen, description: "Guides spirituels", h1: "Guides Spirituels Omra Hajj Expérimentés" },
+      chauffeurs: { name: "Chauffeurs", icon: Car, description: "Transport privé", h1: "Chauffeurs Privés Omra Hajj Transport" },
+      babysitting: { name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", h1: "Services Baby-sitting Omra et Hajj" }
     };
     return categoryMap[categoryId as keyof typeof categoryMap];
   };
@@ -181,7 +181,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -203,7 +203,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -225,7 +225,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -247,7 +247,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -269,7 +269,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -291,7 +291,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4 text-white">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
@@ -308,7 +308,7 @@ const CategoryPage = () => {
               <div className="text-center space-y-4">
                 <div className="flex items-center justify-center space-x-3">
                   <Icon className="w-8 h-8" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
                 <p className="text-primary-foreground/80 text-lg">
                   {categoryInfo.description}

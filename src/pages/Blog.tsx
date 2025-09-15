@@ -130,11 +130,11 @@ const Blog = () => {
 
   const getCategoryName = (cat: string) => {
     const categories = {
-      general: 'Blog général',
-      restaurants: 'Restaurants',
-      associations: 'Associations',
-      vendeurs: 'Vendeurs',
-      all: 'Toutes les sections'
+      general: 'Blog Omra Hajj Conseils Spiritualité',
+      restaurants: 'Restaurants Halal Mecca Medina Guide',
+      associations: 'Associations Musulmanes Omra Hajj Communauté',
+      vendeurs: 'Vendeurs Omra Hajj Produits Services',
+      all: 'Toutes Sections Blog Omra Hajj'
     };
     return categories[cat as keyof typeof categories] || cat;
   };
