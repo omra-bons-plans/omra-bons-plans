@@ -29,7 +29,7 @@ const About = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center mb-4">Qui sommes-nous ?</CardTitle>
+              <h1 className="text-3xl font-bold text-center mb-4">À Propos de Nous</h1>
             </CardHeader>
             <CardContent className="prose prose-lg max-w-none">
               <div className="space-y-6 text-muted-foreground leading-relaxed">

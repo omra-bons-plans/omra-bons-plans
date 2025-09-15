@@ -96,7 +96,7 @@ const Contact = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-center mb-4">Contactez-nous</CardTitle>
+              <h1 className="text-3xl font-bold text-center mb-4">Contactez-nous</h1>
               <p className="text-muted-foreground text-center">
                 Vous avez une question ou souhaitez nous faire part de vos commentaires ? 
                 N'hésitez pas à nous contacter !
