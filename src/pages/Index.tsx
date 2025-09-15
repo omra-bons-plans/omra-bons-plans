@@ -410,10 +410,12 @@ const Index = () => {
                       const currentItem = items[mobileRotatingIndex];
 
                       return (
-                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-2 w-full">
-                          <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                            {currentItem.icon}
-                          </div>
+                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center w-full">
+                          {currentItem.icon && (
+                            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 mr-2">
+                              {currentItem.icon}
+                            </div>
+                          )}
                           <div className="text-center">
                             <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
                             <div className="text-base font-bold text-amber-500">{currentItem.value}</div>
