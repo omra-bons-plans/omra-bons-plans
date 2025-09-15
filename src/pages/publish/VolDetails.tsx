@@ -106,8 +106,11 @@ const VolDetails = () => {
           price: data.price || 0,
           original_price: data.originalPrice,
           location: `${data.departureAirport} → ${data.arrivalAirport}`,
+          images: data.images || [],
+          cover_image: data.coverImageUrl || null,
           show_email: data.showEmail,
           show_phone: data.showPhone,
+          show_whatsapp: data.showWhatsapp,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
           publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -117,8 +120,8 @@ const VolDetails = () => {
           airline: data.airline,
           departure_airport: data.departureAirport,
           arrival_airport: data.arrivalAirport,
-          departure_date: data.departureDate,
-          return_date: data.returnDate,
+          departure_date: data.departureDate?.toISOString ? data.departureDate.toISOString().split('T')[0] : data.departureDate,
+          return_date: data.returnDate?.toISOString ? data.returnDate.toISOString().split('T')[0] : data.returnDate,
           has_stopover: data.hasOutboundStopover || data.hasReturnStopover,
           stopover_details: [
             data.hasOutboundStopover ? `Aller: ${data.outboundStopoverDetails}` : '',
@@ -142,8 +145,11 @@ const VolDetails = () => {
         price: data.price,
         original_price: data.originalPrice,
         location: `${data.departureAirport} → ${data.arrivalAirport}`,
+        images: data.images || [],
+        cover_image: data.coverImageUrl || null,
         show_email: data.showEmail,
         show_phone: data.showPhone,
+        show_whatsapp: data.showWhatsapp,
         is_promotion: data.isPromotion,
         promotion_end_date: data.promotionEndDate || null,
         publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
@@ -153,9 +159,11 @@ const VolDetails = () => {
 
       let ad;
       if (isEditing) {
+        // Remove user_id from update payload
+        const { user_id, ...updatePayload } = adPayload;
         const { data: updatedAd, error: adError } = await supabase
           .from('ads')
-          .update(adPayload)
+          .update(updatePayload)
           .eq('id', isEditing)
           .select()
           .single();
@@ -178,8 +186,8 @@ const VolDetails = () => {
         airline: data.airline,
         departure_airport: data.departureAirport,
         arrival_airport: data.arrivalAirport,
-        departure_date: data.departureDate,
-        return_date: data.returnDate,
+        departure_date: data.departureDate?.toISOString ? data.departureDate.toISOString().split('T')[0] : data.departureDate,
+        return_date: data.returnDate?.toISOString ? data.returnDate.toISOString().split('T')[0] : data.returnDate,
         has_stopover: data.hasOutboundStopover || data.hasReturnStopover,
         stopover_details: [
           data.hasOutboundStopover ? `Aller: ${data.outboundStopoverDetails}` : '',
@@ -193,9 +201,11 @@ const VolDetails = () => {
 
       let volError;
       if (isEditing) {
+        // For updates, remove ad_id from payload
+        const { ad_id, ...updateVolPayload } = volPayload;
         const { error } = await supabase
           .from('ads_vols')
-          .update(volPayload)
+          .update(updateVolPayload)
           .eq('ad_id', ad.id);
         volError = error;
       } else {

@@ -114,80 +114,30 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
       return;
     }
 
-    try {
-      const location = `${formData.departureAirport} → ${formData.arrivalAirport}`;
-      
-      // Upload images
-      let coverImageUrl = '';
-      let imageUrls: string[] = [];
+    // Upload images if any
+    let coverImageUrl = initialData?.coverImageUrl || '';
+    let imageUrls: string[] = initialData?.existingImages || [];
 
-      if (coverImage) {
-        const coverResult = await uploadImage(coverImage, 'ads');
-        if (coverResult) coverImageUrl = coverResult.url;
-      }
-
-      for (const image of images) {
-        const result = await uploadImage(image, 'ads');
-        if (result) imageUrls.push(result.url);
-      }
-      
-      const adData = {
-        title: formData.title,
-        description: formData.description,
-        price: parseFloat(formData.price),
-        original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-        category: 'vols',
-        currency: 'EUR',
-        location: location,
-        images: imageUrls,
-        cover_image: coverImageUrl || null,
-        show_phone: formData.showPhone,
-        show_whatsapp: formData.showWhatsapp,
-        show_email: formData.showEmail,
-        publish_end_date: publishEndDate?.toISOString(),
-        is_published: true,
-        user_id: user.id
-      };
-
-      const { data: ad, error: adError } = await supabase
-        .from('ads')
-        .insert(adData)
-        .select()
-        .single();
-
-      if (adError) throw adError;
-
-      // Insert flight details
-      const flightData = {
-        ad_id: ad.id,
-        airline: formData.airline,
-        departure_airport: formData.departureAirport,
-        arrival_airport: formData.arrivalAirport,
-        departure_date: formData.departureDate?.toISOString().split('T')[0],
-        return_date: formData.returnDate?.toISOString().split('T')[0],
-        has_stopover: formData.hasOutboundStopover || formData.hasReturnStopover,
-        stopover_details: [
-          formData.hasOutboundStopover ? `Aller: ${formData.outboundStopoverDetails}` : '',
-          formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
-        ].filter(Boolean).join(' | ') || null,
-        checked_bags_count: formData.checkedBagsCount,
-        checked_bags_weight: formData.checkedBagsWeight,
-        carry_on_bags_count: formData.carryOnBagsCount,
-        carry_on_bags_weight: formData.carryOnBagsWeight
-      };
-
-      const { error: flightError } = await supabase
-        .from('ads_vols')
-        .insert(flightData);
-
-      if (flightError) throw flightError;
-
-      toast.success('Annonce publiée avec succès !');
-      onSubmit(formData, false);
-    } catch (error) {
-      console.error('Error publishing ad:', error);
-      toast.error('Erreur lors de la publication');
+    if (coverImage) {
+      const coverResult = await uploadImage(coverImage, 'ads');
+      if (coverResult) coverImageUrl = coverResult.url;
     }
+
+    for (const image of images) {
+      const result = await uploadImage(image, 'ads');
+      if (result) imageUrls.push(result.url);
+    }
+
+    // Prepare form data with images
+    const submitData = {
+      ...formData,
+      publishEndDate: publishEndDate,
+      coverImageUrl,
+      images: imageUrls
+    };
+
+    // Delegate to parent component's onSubmit function
+    onSubmit(submitData, false);
   };
 
   const handleSaveDraft = async () => {
@@ -196,84 +146,29 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
       return;
     }
 
-    try {
-      const location = formData.departureAirport && formData.arrivalAirport 
-        ? `${formData.departureAirport} → ${formData.arrivalAirport}` 
-        : '';
+    // Upload images if any
+    let coverImageUrl = initialData?.coverImageUrl || '';
+    let imageUrls: string[] = initialData?.existingImages || [];
 
-      // Upload images if any
-      let coverImageUrl = '';
-      let imageUrls: string[] = [];
-
-      if (coverImage) {
-        const coverResult = await uploadImage(coverImage, 'ads');
-        if (coverResult) coverImageUrl = coverResult.url;
-      }
-
-      for (const image of images) {
-        const result = await uploadImage(image, 'ads');
-        if (result) imageUrls.push(result.url);
-      }
-
-      const adData = {
-        title: formData.title || 'Brouillon - Vol',
-        description: formData.description || '',
-        price: formData.price ? parseFloat(formData.price) : 0,
-        original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-        category: 'vols',
-        currency: 'EUR',
-        location: location,
-        images: imageUrls,
-        cover_image: coverImageUrl || null,
-        is_draft: true,
-        publish_end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
-        show_phone: formData.showPhone,
-        show_whatsapp: formData.showWhatsapp,
-        show_email: formData.showEmail,
-        user_id: user.id
-      };
-
-      const { data: ad, error: adError } = await supabase
-        .from('ads')
-        .insert(adData)
-        .select()
-        .single();
-
-      if (adError) throw adError;
-
-      // Insert flight details if we have minimum info
-      if (formData.airline || formData.departureAirport || formData.arrivalAirport) {
-        const flightData = {
-          ad_id: ad.id,
-          airline: formData.airline || '',
-          departure_airport: formData.departureAirport || '',
-          arrival_airport: formData.arrivalAirport || '',
-          departure_date: formData.departureDate?.toISOString().split('T')[0] || null,
-          return_date: formData.returnDate?.toISOString().split('T')[0] || null,
-          has_stopover: formData.hasOutboundStopover || formData.hasReturnStopover,
-          stopover_details: [
-            formData.hasOutboundStopover ? `Aller: ${formData.outboundStopoverDetails}` : '',
-            formData.hasReturnStopover ? `Retour: ${formData.returnStopoverDetails}` : ''
-          ].filter(Boolean).join(' | ') || null,
-          checked_bags_count: formData.checkedBagsCount,
-          checked_bags_weight: formData.checkedBagsWeight,
-          carry_on_bags_count: formData.carryOnBagsCount,
-          carry_on_bags_weight: formData.carryOnBagsWeight
-        };
-
-        const { error: flightError } = await supabase
-          .from('ads_vols')
-          .insert(flightData);
-
-        if (flightError) throw flightError;
-      }
-
-      toast.success('Brouillon sauvegardé !');
-      onSubmit(formData, true);
-    } catch (error) {
-      console.error('Error saving draft:', error);
-      toast.error('Erreur lors de la sauvegarde');
+    if (coverImage) {
+      const coverResult = await uploadImage(coverImage, 'ads');
+      if (coverResult) coverImageUrl = coverResult.url;
     }
+
+    for (const image of images) {
+      const result = await uploadImage(image, 'ads');
+      if (result) imageUrls.push(result.url);
+    }
+
+    // Prepare form data with images
+    const submitData = {
+      ...formData,
+      coverImageUrl,
+      images: imageUrls
+    };
+
+    // Delegate to parent component's onSubmit function
+    onSubmit(submitData, true);
   };
 
   const renderStep = () => {
