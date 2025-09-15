@@ -375,19 +375,14 @@ const Index = () => {
                 
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="text-[10px] text-gray-500">
-                      Données en temps réel
-                    </div>
-                    <button
-                      onClick={refetchWeather}
-                      disabled={weatherLoading}
-                      className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
-                      title="Actualiser les données"
-                    >
-                      <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
-                    </button>
-                  </div>
+                  <button
+                    onClick={refetchWeather}
+                    disabled={weatherLoading}
+                    className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 z-10"
+                    title="Actualiser les données"
+                  >
+                    <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
+                  </button>
                   
                   <div className="text-center py-2 min-h-[60px] flex flex-col justify-center">
                     {(() => {
@@ -433,10 +428,7 @@ const Index = () => {
                 {/* Desktop/Tablet: Original layout */}
                 <div className="hidden sm:flex flex-col gap-1 sm:gap-2">
                   {/* Header with refresh button */}
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="text-[10px] sm:text-xs text-gray-500">
-                      Données en temps réel
-                    </div>
+                  <div className="flex items-center justify-end mb-1">
                     <button
                       onClick={refetchWeather}
                       disabled={weatherLoading}
