@@ -83,6 +83,7 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
+  const [mobileRotatingIndex, setMobileRotatingIndex] = useState(0);
   const isMobile = useIsMobile();
   const { topics } = useTopics();
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
@@ -112,6 +113,15 @@ const Index = () => {
     const interval = setInterval(() => {
       setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
     }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Mobile rotation for weather/exchange data every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMobileRotatingIndex(prev => (prev + 1) % 3);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -362,7 +372,66 @@ const Index = () => {
               {/* Compact Weather & Exchange Widget */}
               <div className="bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft max-w-[280px] mx-auto border border-border/20 
                              scale-110 sm:scale-100 sm:p-3 sm:max-w-[280px] lg:max-w-xs">
-                <div className="flex flex-col gap-1 sm:gap-2">
+                
+                {/* Mobile: Single rotating field */}
+                <div className="block sm:hidden">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-[10px] text-gray-500">
+                      Données en temps réel
+                    </div>
+                    <button
+                      onClick={refetchWeather}
+                      disabled={weatherLoading}
+                      className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
+                      title="Actualiser les données"
+                    >
+                      <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
+                    </button>
+                  </div>
+                  
+                  <div className="text-center py-2 min-h-[60px] flex flex-col justify-center">
+                    {(() => {
+                      const items = [
+                        {
+                          icon: weatherAndExchange?.weather ? getWeatherIcon(weatherAndExchange.weather.makkah?.description || 'Sunny') : null,
+                          title: 'Makkah',
+                          value: `${weatherAndExchange?.weather?.makkah?.temperature || '--'}°`,
+                          subtitle: translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
+                        },
+                        {
+                          icon: weatherAndExchange?.weather ? getWeatherIcon(weatherAndExchange.weather.madinah?.description || 'Sunny') : null,
+                          title: 'Médine',
+                          value: `${weatherAndExchange?.weather?.madinah?.temperature || '--'}°`,
+                          subtitle: translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')
+                        },
+                        {
+                          icon: <span className="text-lg">💱</span>,
+                          title: 'Taux du jour',
+                          value: `1€ = ${weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'} Sar`,
+                          subtitle: 'Euro vers Riyal'
+                        }
+                      ];
+
+                      const currentItem = items[mobileRotatingIndex];
+
+                      return (
+                        <div key={mobileRotatingIndex} className="animate-fade-in flex items-center justify-center space-x-3">
+                          <div className="w-6 h-6 flex items-center justify-center">
+                            {currentItem.icon}
+                          </div>
+                          <div className="flex-1 text-left">
+                            <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
+                            <div className="text-lg font-bold text-amber-500">{currentItem.value}</div>
+                            <div className="text-[9px] text-gray-500 capitalize">{currentItem.subtitle}</div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
+
+                {/* Desktop/Tablet: Original layout */}
+                <div className="hidden sm:flex flex-col gap-1 sm:gap-2">
                   {/* Header with refresh button */}
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-[10px] sm:text-xs text-gray-500">
