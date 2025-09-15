@@ -92,7 +92,7 @@ export const SEOHead = ({
 export const seoConfig = {
   home: {
     title: 'Omra Bons Plans - Comparateur Omra & Hajj en Arabie Saoudite',
-    description: 'Trouvez les meilleures offres pour votre Omra et Hajj. Comparez hébergements, vols, guides et services en Arabie Saoudite sur la 1ère plateforme dédiée.',
+    description: 'Trouvez les meilleures offres pour votre Omra et Hajj.',
     keywords: 'omra pas cher, hajj, voyage omra, arabie saoudite, la mecque, médine, pèlerinage islam, hébergement omra, vol omra, guide omra',
     canonical: 'https://omrabonsplans.fr/',
     structuredData: {
