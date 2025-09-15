@@ -180,6 +180,20 @@ const App = () => (
             <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
             <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
             
+            {/* Redirections vers les URLs françaises */}
+            <Route path="/a-propos" element={<About />} />
+            <Route path="/calendrier-islamique" element={<IslamicCalendar />} />
+            <Route path="/dates-ramadan-hajj" element={<RamadanHajjDates />} />
+            <Route path="/horaires-prieres" element={<PrayerTimes />} />
+            
+            {/* Routes des services */}
+            <Route path="/services/babysitting-omra" element={<CategoryPage />} />
+            <Route path="/services/guides-omra" element={<CategoryPage />} />
+            <Route path="/services/hebergement-omra" element={<CategoryPage />} />
+            <Route path="/services/sejours-omra" element={<CategoryPage />} />
+            <Route path="/services/transport-omra" element={<CategoryPage />} />
+            <Route path="/services/vols-omra" element={<CategoryPage />} />
+            
             {/* Redirections pour les anciennes URLs obsolètes */}
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/test" element={<Navigate to="/" replace />} />
