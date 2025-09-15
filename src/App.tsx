@@ -47,8 +47,12 @@ import ComparatifVisuel from "./pages/ComparatifVisuel";
 import ComparatifAgences from "./pages/ComparatifAgences";
 import Discussions from "./pages/Discussions";
 import AdminTopicRequests from "./pages/AdminTopicRequests";
+import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
 
 const queryClient = new QueryClient();
+
+// Configuration Google Analytics - Remplacez par votre ID de mesure
+const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: Remplacer par votre ID Google Analytics
 
 const App = () => (
   <ErrorBoundary>
@@ -58,6 +62,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
             <BrowserRouter>
               <ScrollToTop />
               <Routes>

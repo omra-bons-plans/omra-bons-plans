@@ -59,6 +59,24 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Google Analytics 4 (pour le suivi du trafic)
+
+## Configuration Google Analytics
+
+Ce projet inclut Google Analytics 4 pour mesurer et analyser le trafic web. 
+
+**Pour configurer Analytics :**
+1. Créez un compte Google Analytics sur [analytics.google.com](https://analytics.google.com/)
+2. Obtenez votre ID de mesure (format: G-XXXXXXXXXX)
+3. Remplacez `GA_MEASUREMENT_ID` dans `src/App.tsx` par votre ID
+4. Consultez `docs/GOOGLE_ANALYTICS_SETUP.md` pour un guide détaillé
+
+**Fonctionnalités Analytics incluses :**
+- ✅ Suivi automatique des pages vues
+- ✅ Tracking des événements personnalisés
+- ✅ Suivi des interactions avec les services
+- ✅ Mesure des conversions et objectifs
+- ✅ Conformité RGPD
 
 ## How can I deploy this project?
 
