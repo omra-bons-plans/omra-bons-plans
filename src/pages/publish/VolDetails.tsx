@@ -54,32 +54,63 @@ const VolDetails = () => {
         return;
       }
 
-      // Create the main ad as draft
-      const { data: ad, error: adError } = await supabase
-        .from('ads')
-        .insert({
-          ...adData,
-          user_id: user.id,
-          is_published: false,
-          is_draft: true,
-        })
-        .select()
-        .single();
+      let ad;
+      if (isEditing) {
+        // Update existing ad as draft
+        const { data: updatedAd, error: adError } = await supabase
+          .from('ads')
+          .update({
+            ...adData,
+            is_published: false,
+            is_draft: true,
+          })
+          .eq('id', isEditing)
+          .select()
+          .single();
 
-      if (adError) throw adError;
+        if (adError) throw adError;
+        ad = updatedAd;
+      } else {
+        // Create new ad as draft
+        const { data: newAd, error: adError } = await supabase
+          .from('ads')
+          .insert({
+            ...adData,
+            user_id: user.id,
+            is_published: false,
+            is_draft: true,
+          })
+          .select()
+          .single();
 
-      // Save category-specific data if provided
+        if (adError) throw adError;
+        ad = newAd;
+      }
+
+      // Save or update category-specific data if provided
       if (categoryData) {
-        const { error: categoryError } = await supabase
-          .from('ads_vols')
-          .insert({ ad_id: ad.id, ...categoryData });
+        if (isEditing) {
+          const { error: categoryError } = await supabase
+            .from('ads_vols')
+            .update(categoryData)
+            .eq('ad_id', ad.id);
 
-        if (categoryError) throw categoryError;
+          if (categoryError) throw categoryError;
+        } else {
+          const { error: categoryError } = await supabase
+            .from('ads_vols')
+            .insert({ ad_id: ad.id, ...categoryData });
+
+          if (categoryError) throw categoryError;
+        }
       }
 
       toast.success("Brouillon sauvegardé avec succès !");
       // Clear session storage and redirect
       sessionStorage.removeItem('selectedCategory');
+      if (isEditing) {
+        sessionStorage.removeItem('editingAdId');
+      }
       navigate('/my-ads');
       return ad.id;
     } catch (error) {
