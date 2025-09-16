@@ -486,7 +486,7 @@ const MobileSidebar = () => {
             onClick={() => setIsOpen(false)}
           >
             <Plus className="w-5 h-5" />
-            <span>Créer une annonce</span>
+            <span>Publier une annonce</span>
           </Button>
         </Link>
       </div>

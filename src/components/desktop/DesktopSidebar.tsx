@@ -409,7 +409,7 @@ export function DesktopSidebar() {
                 size={collapsed ? "icon" : "default"}
               >
                 <Plus className="w-4 h-4" />
-                {!collapsed && <span className="ml-2">Créer une annonce</span>}
+                {!collapsed && <span className="ml-2">Publier une annonce</span>}
               </Button>
               
               {/* Sign Out Button */}

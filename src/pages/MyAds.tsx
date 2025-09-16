@@ -260,7 +260,7 @@ const MyAds = () => {
               
               <Link to="/publish">
                 <Button className="bg-primary hover:bg-primary/90">
-                  Créer une annonce
+                  Publier une annonce
                 </Button>
               </Link>
             </div>
@@ -350,7 +350,7 @@ const MyAds = () => {
                           Commencez par créer votre première annonce
                         </p>
                         <Link to="/publish">
-                          <Button>Créer une annonce</Button>
+                          <Button>Publier une annonce</Button>
                         </Link>
                       </CardContent>
                     </Card>
