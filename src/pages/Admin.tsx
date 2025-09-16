@@ -332,21 +332,30 @@ const Admin = () => {
                 <>
                   <Button
                     variant="outline"
-                    onClick={() => navigate('/admin/ads')}
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/ads');
+                      navigate('/admin/ads');
+                    }}
                     className="text-sm"
                   >
                     Gérer les annonces
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={() => navigate('/admin/blog')}
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/blog');
+                      navigate('/admin/blog');
+                    }}
                     className="text-sm"
                   >
                     Gérer le blog
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={() => navigate('/admin/topic-requests')}
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/topic-requests');
+                      navigate('/admin/topic-requests');
+                    }}
                     className="text-sm"
                   >
                     Demandes de sujets
