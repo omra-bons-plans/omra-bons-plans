@@ -259,7 +259,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                 <h4 className="font-semibold mb-4">Bagages en soute inclus</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="checkedBagsCount">Nombre de bagages en soute</Label>
+                    <Label htmlFor="checkedBagsCount" className="text-sm">
+                      Nombre de bagages en soute
+                    </Label>
                     <Input
                       id="checkedBagsCount"
                       type="number"
@@ -272,7 +274,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="checkedBagsWeight">Kilos pour chaque bagages</Label>
+                    <Label htmlFor="checkedBagsWeight" className="text-sm">
+                      Kilos par bagage
+                    </Label>
                     <Input
                       id="checkedBagsWeight"
                       type="number"
@@ -290,7 +294,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                 <h4 className="font-semibold mb-4">Bagages à main inclus</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="carryOnBagsCount">Nombre de bagages à main</Label>
+                    <Label htmlFor="carryOnBagsCount" className="text-sm">
+                      Nombre de bagages à main
+                    </Label>
                     <Input
                       id="carryOnBagsCount"
                       type="number"
@@ -303,7 +309,9 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="carryOnBagsWeight">Kilos pour chaque bagage à main</Label>
+                    <Label htmlFor="carryOnBagsWeight" className="text-sm">
+                      Kilos par bagage à main
+                    </Label>
                     <Input
                       id="carryOnBagsWeight"
                       type="number"
@@ -505,23 +513,30 @@ export default function VolFormMultiStep({ onSubmit, onBack, initialData }: VolF
                         style={{ display: 'none' }}
                         id="cover-upload"
                       />
-                      <label htmlFor="cover-upload" className="cursor-pointer">
-                        {coverImage ? (
-                          <div className="mt-2 text-center">
-                            <img 
-                              src={URL.createObjectURL(coverImage)} 
-                              alt="Cover" 
-                              className="w-32 h-24 object-cover rounded-lg mx-auto"
-                            />
-                            <p className="text-sm text-muted-foreground">{coverImage.name}</p>
-                          </div>
-                        ) : (
+                      {coverImage ? (
+                        <div className="relative mt-2 inline-block">
+                          <img 
+                            src={URL.createObjectURL(coverImage)} 
+                            alt="Cover" 
+                            className="w-32 h-24 object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setCoverImage(null)}
+                            className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1.5 hover:bg-destructive/90 transition-colors shadow-lg"
+                          >
+                            <X size={14} />
+                          </button>
+                          <p className="text-sm text-muted-foreground mt-1 text-center">{coverImage.name}</p>
+                        </div>
+                      ) : (
+                        <label htmlFor="cover-upload" className="cursor-pointer">
                           <div className="mt-2 p-4 border-2 border-dashed border-muted-foreground rounded-lg text-center hover:border-primary">
                             <Upload className="w-8 h-8 mx-auto text-muted-foreground" />
                             <p className="text-sm text-muted-foreground">Cliquez pour ajouter une photo de couverture *</p>
                           </div>
-                        )}
-                      </label>
+                        </label>
+                      )}
                     </div>
 
                     <div>
