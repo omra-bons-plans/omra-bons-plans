@@ -336,17 +336,41 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                 )}
 
                 {/* Informations bagages */}
-                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
-                  <div className="space-y-2">
-                    <span className="font-medium">Bagages en soute:</span>
-                    {ad.categoryDetails.checked_bags_count && (
-                      <div className="flex items-center space-x-2 ml-4">
-                        <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight || ad.categoryDetails.carry_on_bags_count || ad.categoryDetails.carry_on_bags_weight) && (
+                  <div className="space-y-4">
+                    <span className="font-medium">Bagages inclus:</span>
+                    
+                    {/* Bagages en soute */}
+                    {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
+                      <div className="space-y-2">
+                        <span className="font-medium text-sm">Bagages en soute:</span>
+                        {ad.categoryDetails.checked_bags_count && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.checked_bags_weight && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
+                          </div>
+                        )}
                       </div>
                     )}
-                    {ad.categoryDetails.checked_bags_weight && (
-                      <div className="flex items-center space-x-2 ml-4">
-                        <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
+
+                    {/* Bagages à main */}
+                    {(ad.categoryDetails.carry_on_bags_count || ad.categoryDetails.carry_on_bags_weight) && (
+                      <div className="space-y-2">
+                        <span className="font-medium text-sm">Bagages à main:</span>
+                        {ad.categoryDetails.carry_on_bags_count && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.carry_on_bags_count} bagage(s)</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.carry_on_bags_weight && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.carry_on_bags_weight} kg par bagage</span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -449,17 +473,41 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                 )}
 
                 {/* Informations bagages */}
-                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
-                  <div className="space-y-2">
-                    <span className="font-medium">Bagages en soute:</span>
-                    {ad.categoryDetails.checked_bags_count && (
-                      <div className="flex items-center space-x-2 ml-4">
-                        <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight || ad.categoryDetails.carry_on_bags_count || ad.categoryDetails.carry_on_bags_weight) && (
+                  <div className="space-y-4">
+                    <span className="font-medium">Bagages inclus:</span>
+                    
+                    {/* Bagages en soute */}
+                    {(ad.categoryDetails.checked_bags_count || ad.categoryDetails.checked_bags_weight) && (
+                      <div className="space-y-2">
+                        <span className="font-medium text-sm">Bagages en soute:</span>
+                        {ad.categoryDetails.checked_bags_count && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.checked_bags_count} bagage(s)</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.checked_bags_weight && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
+                          </div>
+                        )}
                       </div>
                     )}
-                    {ad.categoryDetails.checked_bags_weight && (
-                      <div className="flex items-center space-x-2 ml-4">
-                        <span className="text-sm">• {ad.categoryDetails.checked_bags_weight} kg par bagage</span>
+
+                    {/* Bagages à main */}
+                    {(ad.categoryDetails.carry_on_bags_count || ad.categoryDetails.carry_on_bags_weight) && (
+                      <div className="space-y-2">
+                        <span className="font-medium text-sm">Bagages à main:</span>
+                        {ad.categoryDetails.carry_on_bags_count && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.carry_on_bags_count} bagage(s)</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.carry_on_bags_weight && (
+                          <div className="flex items-center space-x-2 ml-4">
+                            <span className="text-sm">• {ad.categoryDetails.carry_on_bags_weight} kg par bagage</span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
