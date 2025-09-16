@@ -540,8 +540,11 @@ const Index = () => {
                   
                   {/* Text Content */}
                   <div className="relative z-10 flex-1 text-center">
-                    <div className="text-lg font-bold">Rejoindre la communauté</div>
-                    <div className="text-lg font-bold">Omra Bons Plans</div>
+                    <div className="text-base font-bold leading-tight">
+                      <div>Rejoindre la</div>
+                      <div>communauté</div>
+                    </div>
+                    <div className="text-base font-bold">Omra Bons Plans</div>
                   </div>
                   
                   {/* Animated Background Effect */}
