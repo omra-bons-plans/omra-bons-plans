@@ -540,10 +540,7 @@ const Index = () => {
                   
                   {/* Text Content */}
                   <div className="relative z-10 flex-1 text-center">
-                    <div className="text-base font-bold leading-tight">
-                      <div>Rejoindre la</div>
-                      <div>communauté</div>
-                    </div>
+                    <div className="text-base font-bold">Rejoignez la communauté</div>
                     <div className="text-base font-bold">Omra Bons Plans</div>
                   </div>
                   
