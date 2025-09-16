@@ -365,7 +365,7 @@ const Index = () => {
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
-                  <span className="text-white drop-shadow-lg">Trouvez facilement des bons plans pour le Hajj & la Omra : chauffeurs, logements, agences, guides et plus encore</span>
+                  <span className="text-white drop-shadow-lg">Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</span>
                 </p>
               </div>
 
