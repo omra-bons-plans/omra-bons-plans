@@ -121,14 +121,14 @@ export const RichTextEditor = ({
       // Convert bold **text** to <strong>text</strong>
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       // Convert images ![alt](url) to <img src="url" alt="alt">
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto rounded-lg shadow-sm my-4" />')
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin: 16px 0; display: block;" />')
       // Convert links [text](url) to <a href="url">text</a>
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">$1</a>')
       // Convert line breaks to <br>
       .replace(/\n/g, '<br>');
     
     return <div 
-      className="prose max-w-none text-foreground"
+      className="max-w-none text-foreground space-y-4"
       dangerouslySetInnerHTML={{ __html: html }}
     />;
   };
