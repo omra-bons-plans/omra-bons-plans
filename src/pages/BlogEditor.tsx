@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Save, Eye, MapPin, Image, Video, Tag, User } from 'lucide-react';
+import { ArrowLeft, Save, Eye, MapPin, Image, Video, Tag, User, Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,6 +19,11 @@ import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { SEOAnalyzer } from '@/components/ui/SEOAnalyzer';
 import CountrySelect from '@/components/ui/CountrySelect';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import { cn } from '@/lib/utils';
 
 interface BlogPostFormData {
   title: string;
@@ -29,6 +34,7 @@ interface BlogPostFormData {
   video_url: string;
   category: 'general' | 'restaurants' | 'associations' | 'vendeurs';
   is_published: boolean;
+  scheduled_publish_at: Date | null;
   location_address: string;
   location_city: string;
   tags: string[];
@@ -56,6 +62,7 @@ const BlogEditor = () => {
     video_url: '',
     category: 'general',
     is_published: false,
+    scheduled_publish_at: null,
     location_address: '',
     location_city: '',
     tags: [],
@@ -100,6 +107,7 @@ const BlogEditor = () => {
         video_url: data.video_url || '',
         category: (data.category as 'general' | 'restaurants' | 'associations' | 'vendeurs') || 'general',
         is_published: data.is_published || false,
+        scheduled_publish_at: data.scheduled_publish_at ? new Date(data.scheduled_publish_at) : null,
         location_address: data.location_address || '',
         location_city: data.location_city || '',
         tags: data.tags || [],
