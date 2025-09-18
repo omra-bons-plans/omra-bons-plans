@@ -317,8 +317,8 @@ export default function ComparatifAgences() {
           </p>
         </header>
 
-        <div className="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative flex-1 max-w-md">
+        <div className="mb-6 flex flex-col gap-4">
+          <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Rechercher une agence ou spécialité..."
@@ -328,11 +328,12 @@ export default function ComparatifAgences() {
             />
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={sortBy === 'rating' ? 'default' : 'outline'}
               onClick={() => setSortBy('rating')}
               size="sm"
+              className="flex-1 sm:flex-initial"
             >
               Par Note
             </Button>
@@ -340,6 +341,7 @@ export default function ComparatifAgences() {
               variant={sortBy === 'reviews' ? 'default' : 'outline'}
               onClick={() => setSortBy('reviews')}
               size="sm"
+              className="flex-1 sm:flex-initial"
             >
               Par Avis
             </Button>
@@ -347,13 +349,81 @@ export default function ComparatifAgences() {
               variant={sortBy === 'name' ? 'default' : 'outline'}
               onClick={() => setSortBy('name')}
               size="sm"
+              className="flex-1 sm:flex-initial"
             >
               Par Nom
             </Button>
           </div>
         </div>
 
-        <Card>
+        {/* Mobile Card View (visible on small screens) */}
+        <div className="block lg:hidden space-y-4">
+          {filteredAgencies.map((agency) => (
+            <Card key={agency.name} className="p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg">{agency.name}</h3>
+                    {agency.highlight && (
+                      <p className="text-sm text-primary mt-1">{agency.highlight}</p>
+                    )}
+                  </div>
+                  <Badge 
+                    variant="outline"
+                    className={
+                      agency.priceRange === 'Premium' ? 'border-purple-500 text-purple-700' :
+                      agency.priceRange === 'Économique' ? 'border-green-500 text-green-700' :
+                      'border-blue-500 text-blue-700'
+                    }
+                  >
+                    {agency.priceRange}
+                  </Badge>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="flex">{renderStars(agency.googleRating)}</div>
+                    <Badge className={getRatingColor(agency.googleRating)}>
+                      {agency.googleRating}
+                    </Badge>
+                  </div>
+                  <Badge variant="outline">{agency.reviewCount} avis</Badge>
+                </div>
+                
+                <div className="flex flex-wrap gap-1">
+                  {agency.specialties.slice(0, 3).map((specialty) => (
+                    <Badge key={specialty} variant="secondary" className="text-xs">
+                      {specialty}
+                    </Badge>
+                  ))}
+                  {agency.specialties.length > 3 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{agency.specialties.length - 3}
+                    </Badge>
+                  )}
+                </div>
+                
+                <Button 
+                  className="w-full"
+                  asChild
+                >
+                  <a 
+                    href={agency.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2"
+                  >
+                    Visiter l'agence
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {/* Desktop Table View (hidden on small screens) */}
+        <Card className="hidden lg:block">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Star className="h-5 w-5 text-yellow-400" />

@@ -227,9 +227,9 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
       {/* Agency Selection */}
       <div className="mb-8">
         <h3 className="text-lg font-semibold mb-4">Sélectionner les agences à comparer (max 4)</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {agenciesFeatures.map((agency) => (
-            <div key={agency.name} className="flex items-center space-x-2">
+            <div key={agency.name} className="flex items-center space-x-2 p-2 rounded-lg border border-border hover:bg-muted/30">
               <Checkbox
                 id={agency.name}
                 checked={selectedAgencies.includes(agency.name)}
@@ -238,7 +238,7 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
               />
               <label
                 htmlFor={agency.name}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1"
               >
                 {agency.name}
               </label>
@@ -247,113 +247,182 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
         </div>
       </div>
 
-      {/* Comparison Table */}
-      <div className="overflow-x-auto">
-        <div className="min-w-fit">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr>
-                <td className="w-64 p-0">
-                  <Card className="border-2 border-muted bg-muted/20 h-full">
-                    <CardHeader className="text-center pb-4">
-                      <div className="h-16 flex items-center justify-center">
-                        <h3 className="font-bold text-lg text-muted-foreground">Fonctionnalités</h3>
-                      </div>
-                      <div className="h-20"></div>
-                    </CardHeader>
-                  </Card>
-                </td>
-                {filteredAgencies.map((agency) => (
-                  <td key={agency.name} className="w-72 p-0 pl-4" style={{ position: 'relative', paddingTop: agency.isRecommended ? '24px' : '0' }}>
-                    {agency.isRecommended && (
-                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-50">
-                        <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-lg whitespace-nowrap">
-                          ⭐ Recommandé
-                        </Badge>
-                      </div>
-                    )}
-                    <Card className={`transition-all duration-300 ${
-                      agency.isRecommended 
-                        ? 'border-2 border-primary shadow-glow transform scale-105 mt-2' 
-                        : 'border border-border hover:border-primary/30'
-                    }`}>
-                      <CardHeader className="text-center relative pt-6">
-                        <div className="space-y-3">
-                          <h3 className="font-bold text-lg">{agency.name}</h3>
-                          <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
-                          <div className="text-center">
-                            <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
-                            <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
-                          </div>
-                          <Badge className={getPriceRangeColor(agency.priceRange)}>
-                            {agency.priceRange}
-                          </Badge>
-                          {agency.highlight && (
-                            <p className="text-xs text-primary font-medium">{agency.highlight}</p>
-                          )}
-                        </div>
-                      </CardHeader>
-                    </Card>
-                  </td>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(featureLabels).map(([key, label]) => (
-                <tr key={key}>
-                  <td className="w-64 p-0 align-top">
-                    <div className="h-16 flex items-center text-sm font-medium text-muted-foreground border-b border-muted/30 px-4 bg-muted/5">
-                      {label}
-                    </div>
-                  </td>
-                  {filteredAgencies.map((agency) => (
-                    <td key={agency.name} className="w-72 p-0 pl-4 align-top">
-                      <div className="h-16 flex items-center justify-center border-b border-muted/30">
-                        {agency.features[key as keyof typeof agency.features] ? (
-                          <Check className="h-6 w-6 text-success font-bold stroke-[3]" />
-                        ) : (
-                          <X className="h-6 w-6 text-destructive font-bold stroke-[3]" />
-                        )}
-                      </div>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-              <tr>
-                <td className="w-64 p-0"></td>
-                {filteredAgencies.map((agency) => (
-                  <td key={agency.name} className="w-72 p-0 pl-4">
-                    <div className="h-20 flex items-center justify-center p-4">
-                      <Button 
-                        className={`w-full ${
-                          agency.isRecommended 
-                            ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
-                            : 'variant-outline'
-                        }`}
-                        asChild
-                      >
-                        <a 
-                          href={agency.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2"
-                        >
-                          Voir l'agence <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </Button>
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {selectedAgencies.length === 0 && (
+      {selectedAgencies.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-muted-foreground">Sélectionnez au moins une agence pour voir la comparaison</p>
         </div>
+      ) : (
+        <>
+          {/* Mobile Card View */}
+          <div className="block xl:hidden space-y-6">
+            {filteredAgencies.map((agency) => (
+              <Card key={agency.name} className={`transition-all duration-300 ${
+                agency.isRecommended 
+                  ? 'border-2 border-primary shadow-lg' 
+                  : 'border border-border'
+              }`}>
+                <CardHeader className="pb-4">
+                  {agency.isRecommended && (
+                    <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-lg w-fit mb-2">
+                      ⭐ Recommandé
+                    </Badge>
+                  )}
+                  <div className="space-y-3">
+                    <h3 className="font-bold text-xl">{agency.name}</h3>
+                    <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
+                      <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
+                    </div>
+                    <div className="flex justify-center">
+                      <Badge className={getPriceRangeColor(agency.priceRange)}>
+                        {agency.priceRange}
+                      </Badge>
+                    </div>
+                    {agency.highlight && (
+                      <p className="text-sm text-primary font-medium text-center">{agency.highlight}</p>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {Object.entries(featureLabels).map(([key, label]) => (
+                      <div key={key} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                        <span className="text-sm font-medium text-muted-foreground">{label}</span>
+                        {agency.features[key as keyof typeof agency.features] ? (
+                          <Check className="h-5 w-5 text-success font-bold stroke-[3]" />
+                        ) : (
+                          <X className="h-5 w-5 text-destructive font-bold stroke-[3]" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <Button 
+                    className={`w-full ${
+                      agency.isRecommended 
+                        ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
+                        : ''
+                    }`}
+                    variant={agency.isRecommended ? 'default' : 'outline'}
+                    asChild
+                  >
+                    <a 
+                      href={agency.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2"
+                    >
+                      Voir l'agence <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Desktop Comparison Table */}
+          <div className="hidden xl:block overflow-x-auto">
+            <div className="min-w-fit">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <td className="w-64 p-0">
+                      <Card className="border-2 border-muted bg-muted/20 h-full">
+                        <CardHeader className="text-center pb-4">
+                          <div className="h-16 flex items-center justify-center">
+                            <h3 className="font-bold text-lg text-muted-foreground">Fonctionnalités</h3>
+                          </div>
+                          <div className="h-20"></div>
+                        </CardHeader>
+                      </Card>
+                    </td>
+                    {filteredAgencies.map((agency) => (
+                      <td key={agency.name} className="w-72 p-0 pl-4" style={{ position: 'relative', paddingTop: agency.isRecommended ? '24px' : '0' }}>
+                        {agency.isRecommended && (
+                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-50">
+                            <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-bold shadow-lg whitespace-nowrap">
+                              ⭐ Recommandé
+                            </Badge>
+                          </div>
+                        )}
+                        <Card className={`transition-all duration-300 ${
+                          agency.isRecommended 
+                            ? 'border-2 border-primary shadow-glow transform scale-105 mt-2' 
+                            : 'border border-border hover:border-primary/30'
+                        }`}>
+                          <CardHeader className="text-center relative pt-6">
+                            <div className="space-y-3">
+                              <h3 className="font-bold text-lg">{agency.name}</h3>
+                              <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
+                              <div className="text-center">
+                                <div className="text-2xl font-bold text-primary">{agency.googleRating}/5</div>
+                                <div className="text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
+                              </div>
+                              <Badge className={getPriceRangeColor(agency.priceRange)}>
+                                {agency.priceRange}
+                              </Badge>
+                              {agency.highlight && (
+                                <p className="text-xs text-primary font-medium">{agency.highlight}</p>
+                              )}
+                            </div>
+                          </CardHeader>
+                        </Card>
+                      </td>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(featureLabels).map(([key, label]) => (
+                    <tr key={key}>
+                      <td className="w-64 p-0 align-top">
+                        <div className="h-16 flex items-center text-sm font-medium text-muted-foreground border-b border-muted/30 px-4 bg-muted/5">
+                          {label}
+                        </div>
+                      </td>
+                      {filteredAgencies.map((agency) => (
+                        <td key={agency.name} className="w-72 p-0 pl-4 align-top">
+                          <div className="h-16 flex items-center justify-center border-b border-muted/30">
+                            {agency.features[key as keyof typeof agency.features] ? (
+                              <Check className="h-6 w-6 text-success font-bold stroke-[3]" />
+                            ) : (
+                              <X className="h-6 w-6 text-destructive font-bold stroke-[3]" />
+                            )}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                  <tr>
+                    <td className="w-64 p-0"></td>
+                    {filteredAgencies.map((agency) => (
+                      <td key={agency.name} className="w-72 p-0 pl-4">
+                        <div className="h-20 flex items-center justify-center p-4">
+                          <Button 
+                            className={`w-full ${
+                              agency.isRecommended 
+                                ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
+                                : 'variant-outline'
+                            }`}
+                            asChild
+                          >
+                            <a 
+                              href={agency.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2"
+                            >
+                              Voir l'agence <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

@@ -25,8 +25,10 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   structuredData
 }) => {
   const optimizedTitle = generateSEOTitle(title);
-  const optimizedDescription = generateMetaDescription(description, keywords);
-  const canonicalUrl = generateCleanCanonicalUrl(path);
+  const optimizedDescription = generateMetaDescription(description);
+  const canonicalUrl = path.includes('/blog/') 
+    ? generateCleanCanonicalUrl('general', path.split('/').pop() || 'default')
+    : `https://omrabonsplans.fr${path}`;
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
   

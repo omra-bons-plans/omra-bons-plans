@@ -151,7 +151,7 @@ const CategoryPage = () => {
         title={`${categoryInfo.name} Omra & Hajj - ${sortedListings.length} Annonces 2025`}
         description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2025. ${categoryInfo.description} au meilleur prix.`}
         keywords={`${categoryInfo.name.toLowerCase()} omra, hajj ${categoryInfo.name.toLowerCase()}, ${category} omra 2025`}
-        canonical={generateCleanCanonicalUrl(`/category/${category}`)}
+        canonical={`https://omrabonsplans.fr/category/${category}`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
