@@ -107,7 +107,7 @@ const BlogEditor = () => {
         video_url: data.video_url || '',
         category: (data.category as 'general' | 'restaurants' | 'associations' | 'vendeurs') || 'general',
         is_published: data.is_published || false,
-        scheduled_publish_at: data.scheduled_publish_at ? new Date(data.scheduled_publish_at) : null,
+        scheduled_publish_at: (data as any).scheduled_publish_at ? new Date((data as any).scheduled_publish_at) : null,
         location_address: data.location_address || '',
         location_city: data.location_city || '',
         tags: data.tags || [],
@@ -166,7 +166,8 @@ const BlogEditor = () => {
         ...formData,
         content: formattedContent,
         author_id: user?.id,
-        excerpt: formData.excerpt || formData.content.substring(0, 200)
+        excerpt: formData.excerpt || formData.content.substring(0, 200),
+        scheduled_publish_at: formData.scheduled_publish_at ? formData.scheduled_publish_at.toISOString() : null
       };
 
       let error;
@@ -342,13 +343,98 @@ const BlogEditor = () => {
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="is_published"
-                  checked={formData.is_published}
-                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
-                />
-                <Label htmlFor="is_published">Publier immédiatement</Label>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="is_published"
+                    checked={formData.is_published}
+                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
+                  />
+                  <Label htmlFor="is_published">Publier immédiatement</Label>
+                </div>
+
+                {/* Publication programmée */}
+                {!formData.is_published && (
+                  <div className="space-y-2 p-4 bg-muted/50 rounded-lg border">
+                    <Label className="flex items-center text-sm font-medium">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Programmer la publication
+                    </Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !formData.scheduled_publish_at && "text-muted-foreground"
+                          )}
+                        >
+                          <Calendar className="mr-2 h-4 w-4" />
+                          {formData.scheduled_publish_at ? (
+                            format(formData.scheduled_publish_at, "PPP 'à' HH:mm", { locale: fr })
+                          ) : (
+                            <span>Sélectionner une date et heure</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <CalendarComponent
+                          mode="single"
+                          selected={formData.scheduled_publish_at || undefined}
+                          onSelect={(date) => {
+                            if (date) {
+                              // Si une date existante est sélectionnée, conserver l'heure
+                              const newDate = new Date(date);
+                              if (formData.scheduled_publish_at) {
+                                newDate.setHours(formData.scheduled_publish_at.getHours());
+                                newDate.setMinutes(formData.scheduled_publish_at.getMinutes());
+                              } else {
+                                // Par défaut, programmer à 9h00
+                                newDate.setHours(9, 0, 0, 0);
+                              }
+                              setFormData(prev => ({ ...prev, scheduled_publish_at: newDate }));
+                            } else {
+                              setFormData(prev => ({ ...prev, scheduled_publish_at: null }));
+                            }
+                          }}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                          className="pointer-events-auto"
+                        />
+                        {formData.scheduled_publish_at && (
+                          <div className="p-3 border-t">
+                            <Label className="text-sm font-medium mb-2 block">Heure de publication</Label>
+                            <div className="flex space-x-2">
+                              <Input
+                                type="time"
+                                value={format(formData.scheduled_publish_at, "HH:mm")}
+                                onChange={(e) => {
+                                  const [hours, minutes] = e.target.value.split(':');
+                                  const newDate = new Date(formData.scheduled_publish_at!);
+                                  newDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                                  setFormData(prev => ({ ...prev, scheduled_publish_at: newDate }));
+                                }}
+                                className="flex-1"
+                              />
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setFormData(prev => ({ ...prev, scheduled_publish_at: null }))}
+                              >
+                                Effacer
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </PopoverContent>
+                    </Popover>
+                    {formData.scheduled_publish_at && (
+                      <p className="text-xs text-muted-foreground">
+                        L'article sera publié automatiquement le {format(formData.scheduled_publish_at, "PPP 'à' HH:mm", { locale: fr })}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

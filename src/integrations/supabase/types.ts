@@ -414,6 +414,7 @@ export type Database = {
           location_latitude: number | null
           location_longitude: number | null
           published_at: string | null
+          scheduled_publish_at: string | null
           tags: string[] | null
           title: string
           updated_at: string
@@ -438,6 +439,7 @@ export type Database = {
           location_latitude?: number | null
           location_longitude?: number | null
           published_at?: string | null
+          scheduled_publish_at?: string | null
           tags?: string[] | null
           title: string
           updated_at?: string
@@ -462,6 +464,7 @@ export type Database = {
           location_latitude?: number | null
           location_longitude?: number | null
           published_at?: string | null
+          scheduled_publish_at?: string | null
           tags?: string[] | null
           title?: string
           updated_at?: string
