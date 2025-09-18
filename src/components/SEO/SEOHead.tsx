@@ -36,16 +36,17 @@ export const SEOHead = ({
       meta.setAttribute('content', content);
     };
 
-    // Update or create link tags
+    // Update or create link tags (remove duplicates first)
     const updateLinkTag = (rel: string, href: string) => {
-      let link = document.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement;
+      // Remove all existing tags with the same rel to avoid duplicates
+      const existingLinks = document.querySelectorAll(`link[rel="${rel}"]`);
+      existingLinks.forEach(link => link.remove());
       
-      if (!link) {
-        link = document.createElement('link');
-        link.setAttribute('rel', rel);
-        document.head.appendChild(link);
-      }
+      // Create new tag
+      const link = document.createElement('link');
+      link.setAttribute('rel', rel);
       link.setAttribute('href', href);
+      document.head.appendChild(link);
     };
 
     // Basic meta tags
