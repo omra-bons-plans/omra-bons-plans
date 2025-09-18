@@ -101,6 +101,36 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- Comparatifs et agences -->
+  <url>
+    <loc>https://omrabonsplans.fr/comparatif-agences</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://omrabonsplans.fr/agences-liste</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://omrabonsplans.fr/comparatif-visuel</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Discussions communautaires -->
+  <url>
+    <loc>https://omrabonsplans.fr/discussions</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Catégories de blog -->
   <url>
     <loc>https://omrabonsplans.fr/blog/conseils-omra</loc>
