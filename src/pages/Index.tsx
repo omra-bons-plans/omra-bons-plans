@@ -325,7 +325,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 z-0 hidden md:block"
           style={{
-            backgroundImage: `url(/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png)`,
+            backgroundImage: `url(/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed'
@@ -338,7 +338,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 z-0 block md:hidden"
           style={{
-            backgroundImage: `url(/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8.png)`,
+            backgroundImage: `url(/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
