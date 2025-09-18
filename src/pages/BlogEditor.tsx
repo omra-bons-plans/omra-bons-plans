@@ -450,6 +450,9 @@ const BlogEditor = () => {
             <CardContent className="space-y-6 p-4 sm:p-6">
               <div className="space-y-2">
                 <Label>Image de couverture</Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  L'image sera automatiquement optimisée pour de meilleures performances SEO
+                </p>
                 <ImageUpload
                   images={formData.cover_image ? [formData.cover_image] : []}
                   onImagesChange={(images) => setFormData(prev => ({ 
@@ -464,6 +467,9 @@ const BlogEditor = () => {
 
               <div className="space-y-2">
                 <Label>Images supplémentaires</Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Toutes les images seront compressées automatiquement (max 500KB chacune)
+                </p>
                 <ImageUpload
                   images={formData.images}
                   onImagesChange={(images) => setFormData(prev => ({ 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { compressImage } from '@/utils/imageCompression';
 
 export interface ImageUploadResult {
   url: string;
@@ -20,21 +21,60 @@ export const useImageUpload = (bucketName: string = 'ad-images') => {
         return null;
       }
 
-      // Validate file size (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('La taille du fichier ne doit pas dépasser 5MB');
+      // Validate file size (10MB avant compression)
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('La taille du fichier ne doit pas dépasser 10MB');
         return null;
       }
 
-      // Generate unique filename
-      const fileExt = file.name.split('.').pop();
+      // Compresser automatiquement l'image selon le contexte
+      let processedFile = file;
+      
+      // Pour les blogs, compression plus agressive pour le SEO
+      if (bucketName === 'blog-images') {
+        toast.info('Compression de l\'image en cours...');
+        processedFile = await compressImage(file, {
+          maxWidth: 1200,
+          maxHeight: 1200,
+          quality: 0.85,
+          maxSizeKB: 500 // Max 500KB pour les images de blog
+        });
+        
+        const compressionRatio = ((file.size - processedFile.size) / file.size * 100).toFixed(1);
+        console.log(`Image compressée: ${file.size} -> ${processedFile.size} bytes (${compressionRatio}% de réduction)`);
+        
+        if (compressionRatio !== '0.0') {
+          toast.success(`Image optimisée: ${compressionRatio}% de réduction de taille`);
+        }
+      } else {
+        // Pour les autres images (annonces), compression plus modérée
+        if (file.size > 2 * 1024 * 1024) { // Si > 2MB
+          toast.info('Optimisation de l\'image...');
+          processedFile = await compressImage(file, {
+            maxWidth: 1920,
+            maxHeight: 1920,
+            quality: 0.85,
+            maxSizeKB: 1024 // Max 1MB pour les annonces
+          });
+          
+          const compressionRatio = ((file.size - processedFile.size) / file.size * 100).toFixed(1);
+          console.log(`Image optimisée: ${file.size} -> ${processedFile.size} bytes (${compressionRatio}% de réduction)`);
+          
+          if (compressionRatio !== '0.0') {
+            toast.success(`Image optimisée: ${compressionRatio}% de réduction de taille`);
+          }
+        }
+      }
+
+      // Generate unique filename with correct extension
+      const fileExt = processedFile.name.split('.').pop();
       const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
       const filePath = folder ? `${folder}/${fileName}` : fileName;
 
       // Upload to Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from(bucketName)
-        .upload(filePath, file);
+        .upload(filePath, processedFile);
 
       if (uploadError) {
         console.error('Upload error:', uploadError);
