@@ -415,6 +415,7 @@ export type Database = {
           location_longitude: number | null
           published_at: string | null
           scheduled_publish_at: string | null
+          slug: string | null
           tags: string[] | null
           title: string
           updated_at: string
@@ -440,6 +441,7 @@ export type Database = {
           location_longitude?: number | null
           published_at?: string | null
           scheduled_publish_at?: string | null
+          slug?: string | null
           tags?: string[] | null
           title: string
           updated_at?: string
@@ -465,6 +467,7 @@ export type Database = {
           location_longitude?: number | null
           published_at?: string | null
           scheduled_publish_at?: string | null
+          slug?: string | null
           tags?: string[] | null
           title?: string
           updated_at?: string
@@ -980,6 +983,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_blog_slug: {
+        Args: { post_id?: string; title_text: string }
+        Returns: string
+      }
       generate_profile_slug: {
         Args: {
           user_first_name: string

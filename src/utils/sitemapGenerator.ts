@@ -149,9 +149,9 @@ export const addUrlToSitemap = (url: SitemapUrl): void => {
 /**
  * Génère automatiquement des URLs pour les articles de blog
  */
-export const generateBlogUrls = (blogPosts: { id: string; slug?: string; updatedAt?: string }[]): SitemapUrl[] => {
+export const generateBlogUrls = (blogPosts: { id: string; slug?: string; category: string; updatedAt?: string }[]): SitemapUrl[] => {
   return blogPosts.map(post => ({
-    loc: `https://omrabonsplans.fr/blog/${post.slug || post.id}`,
+    loc: `https://omrabonsplans.fr/blog/${post.category}/${post.slug || post.id}`,
     lastmod: post.updatedAt ? new Date(post.updatedAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
     changefreq: 'weekly' as const,
     priority: 0.7

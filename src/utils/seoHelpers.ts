@@ -1,117 +1,93 @@
 /**
- * Utilitaires SEO pour optimiser automatiquement le contenu
+ * Utilitaires pour l'optimisation SEO automatique
  */
 
 /**
- * Génère des meta descriptions optimisées
+ * Génère un titre SEO optimisé
  */
-export const generateMetaDescription = (
-  content: string, 
-  keywords: string[] = [], 
-  maxLength: number = 160
-): string => {
-  const keywordText = keywords.length > 0 ? ` ${keywords.join(', ')}` : '';
-  const description = `${content}${keywordText}`;
-  
-  if (description.length <= maxLength) {
-    return description;
-  }
-  
-  return description.substring(0, maxLength - 3) + '...';
+export const generateSEOTitle = (title: string, suffix = " | Omra Bons Plans"): string => {
+  return title + suffix;
 };
 
 /**
- * Génère des titres SEO optimisés
+ * Génère un slug URL-friendly à partir d'un titre
  */
-export const generateSEOTitle = (
-  title: string, 
-  suffix: string = 'Omra Bons Plans', 
-  maxLength: number = 60
-): string => {
-  const fullTitle = `${title} - ${suffix}`;
-  
-  if (fullTitle.length <= maxLength) {
-    return fullTitle;
-  }
-  
-  // Raccourcir le titre principal si nécessaire
-  const availableLength = maxLength - suffix.length - 3; // 3 pour " - "
-  const shortTitle = title.substring(0, availableLength);
-  return `${shortTitle} - ${suffix}`;
+export const generateSlug = (title: string): string => {
+  return title
+    .toLowerCase()
+    .trim()
+    // Remplacer les caractères accentués
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    // Remplacer les caractères spéciaux et espaces par des tirets
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[\s]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    // Limiter la longueur
+    .substring(0, 100)
+    .replace(/-$/, '');
 };
 
 /**
- * Génère du structured data pour les annonces
+ * Génère une URL canonique propre
  */
-export const generateAdStructuredData = (ad: any) => {
-  const baseData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": ad.title,
-    "description": ad.subtitle || ad.description,
-    "provider": {
-      "@type": "Organization",
-      "name": "Omra Bons Plans"
-    },
-    "areaServed": ad.location,
-    "url": `https://omrabonsplans.fr/ad/${ad.id}`
-  };
+export const generateCleanCanonicalUrl = (category: string, slug: string): string => {
+  return `https://omrabonsplans.fr/blog/${category}/${slug}`;
+};
 
-  // Ajouter le prix si disponible
-  if (ad.price && ['sejours', 'vols', 'hebergement'].includes(ad.type)) {
-    return {
-      ...baseData,
-      "@type": "Product",
-      "offers": {
-        "@type": "Offer",
-        "price": ad.price.toString().replace(/[€\s]/g, ''),
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock"
-      }
-    };
+/**
+ * Génère une URL canonique pour un article
+ */
+export const generateCanonicalUrl = (category: string, slug: string): string => {
+  return `https://omrabonsplans.fr/blog/${category}/${slug}`;
+};
+
+/**
+ * Génère une description meta à partir du contenu
+ */
+export const generateMetaDescription = (content: string, maxLength = 160): string => {
+  // Nettoyer le markdown et HTML
+  const cleanContent = content
+    .replace(/#{1,6}\s+/g, '') // Supprimer les titres markdown
+    .replace(/\*\*(.*?)\*\*/g, '$1') // Supprimer le bold markdown
+    .replace(/\*(.*?)\*/g, '$1') // Supprimer l'italic markdown
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Supprimer les liens markdown
+    .replace(/<[^>]*>/g, '') // Supprimer les tags HTML
+    .replace(/\n+/g, ' ') // Remplacer les sauts de ligne par des espaces
+    .trim();
+
+  // Tronquer à la longueur maximale
+  if (cleanContent.length <= maxLength) {
+    return cleanContent;
   }
 
-  return baseData;
+  // Couper au dernier mot complet
+  const truncated = cleanContent.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  
+  return lastSpace > 0 
+    ? truncated.substring(0, lastSpace) + '...'
+    : truncated + '...';
 };
 
 /**
- * Optimise les images pour le SEO
+ * Génère des mots-clés SEO à partir du contenu
  */
-export const generateImageAlt = (
-  context: string, 
-  title: string, 
-  index?: number
-): string => {
-  const baseAlt = `${title} - ${context}`;
-  return index !== undefined ? `${baseAlt} ${index + 1}` : baseAlt;
-};
+export const extractKeywords = (title: string, content: string, maxKeywords = 10): string[] => {
+  // Mots-clés de base liés au site
+  const baseKeywords = ['omra', 'hajj', 'musulman', 'islam', 'voyage'];
+  
+  // Extraire les mots du titre
+  const titleWords = title
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(word => word.length > 3)
+    .slice(0, 5);
 
-/**
- * Génère des URLs canoniques en supprimant les paramètres de requête
- */
-export const generateCanonicalUrl = (path: string): string => {
-  const baseUrl = 'https://omrabonsplans.fr';
-  // Supprimer les paramètres de requête pour éviter le duplicate content
-  const cleanPath = path.split('?')[0].split('#')[0];
-  return `${baseUrl}${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
-};
-
-/**
- * Génère une URL canonique propre pour les pages avec filtres
- */
-export const generateCleanCanonicalUrl = (pathname: string): string => {
-  const baseUrl = 'https://omrabonsplans.fr';
-  // Toujours utiliser le path de base sans paramètres de filtres
-  const cleanPath = pathname.split('?')[0];
-  return `${baseUrl}${cleanPath}`;
-};
-
-/**
- * Valide et optimise les mots-clés
- */
-export const optimizeKeywords = (keywords: string[]): string[] => {
-  return keywords
-    .map(keyword => keyword.toLowerCase().trim())
-    .filter((keyword, index, array) => array.indexOf(keyword) === index) // Supprimer les doublons
-    .slice(0, 10); // Limiter à 10 mots-clés max
+  // Combiner toutes les sources
+  const allKeywords = [...baseKeywords, ...titleWords];
+  
+  // Supprimer les doublons et limiter au nombre max
+  return [...new Set(allKeywords)].slice(0, maxKeywords);
 };

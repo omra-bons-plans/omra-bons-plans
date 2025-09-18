@@ -34,6 +34,7 @@ interface BlogPost {
   created_at: string;
   updated_at: string;
   published_at?: string;
+  slug: string;
   author?: {
     full_name?: string;
     first_name?: string;
@@ -465,7 +466,7 @@ const AdminBlog = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => navigate(`/blog/${post.category}/${post.id}`, { state: { fromAdmin: true } })}
+                              onClick={() => navigate(`/blog/${post.category}/${post.slug}`, { state: { fromAdmin: true } })}
                             >
                               <Eye className="w-4 h-4" />
                             </Button>

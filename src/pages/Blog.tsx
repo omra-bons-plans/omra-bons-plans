@@ -29,6 +29,7 @@ interface BlogPost {
   views_count: number;
   created_at: string;
   published_at?: string;
+  slug: string;
   author?: {
     full_name?: string;
     first_name?: string;
@@ -85,7 +86,8 @@ const Blog = () => {
           created_at,
           updated_at,
           published_at,
-          author_id
+          author_id,
+          slug
         `)
         .eq('is_published', true)
         .order('published_at', { ascending: false, nullsFirst: false });
@@ -125,7 +127,7 @@ const Blog = () => {
       console.error('Erreur lors de la mise à jour des vues:', error);
     }
 
-    navigate(`/blog/${post.category}/${post.id}`);
+    navigate(`/blog/${post.category}/${post.slug}`);
   };
 
   const getCategoryName = (cat: string) => {

@@ -33,6 +33,7 @@ interface BlogPost {
   views_count: number;
   created_at: string;
   published_at?: string;
+  slug: string;
   author?: {
     full_name?: string;
     first_name?: string;
@@ -43,25 +44,25 @@ interface BlogPost {
 const BlogPost = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category, id } = useParams();
+  const { category, slug } = useParams();
   const { user } = useAuth();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) {
+    if (slug) {
       fetchPost();
     }
-  }, [id]);
+  }, [slug]);
 
   const fetchPost = async () => {
-    if (!id) return;
+    if (!slug) return;
 
     try {
       setLoading(true);
       
-      // Récupérer l'article
+      // Récupérer l'article par slug
       const { data: postData, error: postError } = await supabase
         .from('blog_posts')
         .select(`
@@ -84,13 +85,20 @@ const BlogPost = () => {
           created_at,
           updated_at,
           published_at,
-          author_id
+          author_id,
+          slug
         `)
-        .eq('id', id)
+        .eq('slug', slug)
         .eq('is_published', true)
-        .single();
+        .maybeSingle();
 
       if (postError) throw postError;
+      
+      if (!postData) {
+        toast.error('Article non trouvé');
+        navigate('/blog');
+        return;
+      }
 
       const postWithAuthor = {
         ...postData,
@@ -103,7 +111,7 @@ const BlogPost = () => {
       await supabase
         .from('blog_posts')
         .update({ views_count: postWithAuthor.views_count + 1 })
-        .eq('id', id);
+        .eq('id', postWithAuthor.id);
 
       // Récupérer les articles similaires
       const { data: relatedData, error: relatedError } = await supabase
@@ -120,11 +128,12 @@ const BlogPost = () => {
           published_at,
           created_at,
           views_count,
-          author_id
+          author_id,
+          slug
         `)
         .eq('is_published', true)
         .eq('category', postWithAuthor.category)
-        .neq('id', id)
+        .neq('id', postWithAuthor.id)
         .order('published_at', { ascending: false })
         .limit(3);
 
@@ -435,7 +444,7 @@ const BlogPost = () => {
                     <Card 
                       key={relatedPost.id}
                       className="cursor-pointer hover:shadow-lg transition-shadow"
-                      onClick={() => navigate(`/blog/${relatedPost.category}/${relatedPost.id}`)}
+                      onClick={() => navigate(`/blog/${relatedPost.category}/${relatedPost.slug}`)}
                     >
                       {relatedPost.cover_image && (
                         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
