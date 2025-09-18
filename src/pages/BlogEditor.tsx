@@ -17,6 +17,7 @@ import UserMenu from '@/components/ui/UserMenu';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
+import { SEOAnalyzer } from '@/components/ui/SEOAnalyzer';
 import CountrySelect from '@/components/ui/CountrySelect';
 
 interface BlogPostFormData {
@@ -507,6 +508,15 @@ const BlogEditor = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* SEO Analysis */}
+          <SEOAnalyzer
+            title={formData.title}
+            excerpt={formData.excerpt}
+            content={formData.content}
+            images={formData.images}
+            coverImage={formData.cover_image}
+          />
 
           {/* Preview */}
           <Card>
