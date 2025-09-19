@@ -45,10 +45,12 @@ export interface FormattedListing {
   isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
 }
 
-export const useAds = () => {
+export const useAds = (limit: number = 15, offset: number = 0) => {
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
+  const [total, setTotal] = useState(0);
 
   const fetchAds = async () => {
     try {
@@ -60,7 +62,19 @@ export const useAds = () => {
       // Calculer la date limite pour les annonces expirées (7 jours avant maintenant)
       const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
       
-      // Fetch published ads that haven't expired OR expired within the last 7 days
+      // Fetch total count first
+      const { count } = await supabase
+        .from('ads')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_published', true)
+        .eq('is_draft', false)
+        .eq('is_paused', false)
+        .gt('publish_end_date', sevenDaysAgo);
+
+      setTotal(count || 0);
+      setHasMore((offset + limit) < (count || 0));
+
+      // Fetch published ads with pagination
       const { data: adsData, error: adsError } = await supabase
         .from('ads')
         .select('*')
@@ -68,7 +82,8 @@ export const useAds = () => {
         .eq('is_draft', false)
         .eq('is_paused', false)
         .gt('publish_end_date', sevenDaysAgo)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
 
       if (adsError) throw adsError;
 
@@ -181,7 +196,11 @@ export const useAds = () => {
       });
 
       console.log('✅ Successfully enriched', enrichedAds.length, 'ads');
-      setAds(enrichedAds);
+      if (offset === 0) {
+        setAds(enrichedAds);
+      } else {
+        setAds(prev => [...prev, ...enrichedAds]);
+      }
     } catch (err) {
       console.error('❌ Error fetching ads:', err);
       setError('Erreur lors du chargement des annonces');
@@ -307,11 +326,23 @@ export const useAds = () => {
     });
   };
 
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      fetchAds();
+    }
+  };
+
   return {
     ads,
     formattedListings: getFormattedListings(),
     loading,
     error,
-    refetch: fetchAds,
+    hasMore,
+    total,
+    loadMore,
+    refetch: () => {
+      setAds([]);
+      fetchAds();
+    },
   };
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useRef, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './AuthContext';
 
@@ -27,11 +27,24 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
+  // Cache pour éviter les requêtes duplicées
+  const adminCache = useRef<Map<string, { isAdmin: boolean; timestamp: number }>>(new Map());
+  const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
   const checkAdminStatus = async () => {
     console.log('🔍 Checking admin status for user:', user?.id, 'email:', user?.email);
     if (!user) {
       console.log('❌ No user found, setting isAdmin to false');
       setIsAdmin(false);
+      setLoading(false);
+      return;
+    }
+
+    // Vérifier le cache d'abord
+    const cached = adminCache.current.get(user.id);
+    if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
+      console.log('📋 Using cached admin status:', cached.isAdmin);
+      setIsAdmin(cached.isAdmin);
       setLoading(false);
       return;
     }
@@ -56,6 +69,13 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
         if (!isAdminUser) {
           console.log('ℹ️ User is not admin. Current user:', user.email, 'Admin user: fafaland@hotmail.fr');
         }
+        
+        // Mettre en cache le résultat
+        adminCache.current.set(user.id, {
+          isAdmin: isAdminUser,
+          timestamp: Date.now()
+        });
+        
         setIsAdmin(isAdminUser);
       }
     } catch (error) {

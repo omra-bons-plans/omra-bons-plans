@@ -22,6 +22,8 @@ import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
+import ImageWithLazyLoading from "@/components/ui/ImageWithLazyLoading";
+import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 
 // Import images
 import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
@@ -95,7 +97,7 @@ const Index = () => {
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
   const { user } = useAuth();
-  const { formattedListings, loading: adsLoading, error: adsError } = useAds();
+  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
@@ -282,6 +284,7 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <SEOHead {...seoConfig.home} />
+      <PerformanceOptimizer />
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -903,7 +906,29 @@ const Index = () => {
                 </div>
               </div>
             )}
-        </div>
+         </div>
+        
+        {/* Load More Button */}
+        {hasMore && filteredListings.length > 0 && (
+          <div className="text-center py-12">
+            <Button 
+              onClick={loadMore}
+              disabled={adsLoading}
+              variant="outline"
+              size="lg"
+              className="px-8 py-3 text-base font-semibold"
+            >
+              {adsLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary mr-2"></div>
+                  Chargement...
+                </>
+              ) : (
+                `Voir plus d'annonces (${total - formattedListings.length} restantes)`
+              )}
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Additional Services */}
