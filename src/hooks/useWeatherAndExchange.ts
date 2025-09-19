@@ -25,9 +25,46 @@ interface WeatherAndExchangeData {
   exchange: ExchangeData;
 }
 
-// Cache simple pour éviter les requêtes répétées de météo
-let weatherCache: { data: WeatherAndExchangeData; timestamp: number } | null = null;
-const WEATHER_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+// Cache séparé pour météo (1h) et taux de change (12h)
+const WEATHER_CACHE_DURATION = 60 * 60 * 1000; // 1 heure
+const EXCHANGE_CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 heures
+
+// Gestion du cache avec localStorage
+const getWeatherCache = () => {
+  try {
+    const cached = localStorage.getItem('weatherCache');
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setWeatherCache = (data: WeatherAndExchangeData['weather']) => {
+  try {
+    localStorage.setItem('weatherCache', JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch {}
+};
+
+const getExchangeCache = () => {
+  try {
+    const cached = localStorage.getItem('exchangeCache');
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setExchangeCache = (data: WeatherAndExchangeData['exchange']) => {
+  try {
+    localStorage.setItem('exchangeCache', JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch {}
+};
 
 export const useWeatherAndExchange = () => {
   const [data, setData] = useState<WeatherAndExchangeData | null>(null);
@@ -43,10 +80,21 @@ export const useWeatherAndExchange = () => {
   });
 
   const fetchData = async (force = false) => {
-    // Vérifier le cache d'abord
     const now = Date.now();
-    if (!force && weatherCache && (now - weatherCache.timestamp) < WEATHER_CACHE_DURATION) {
-      setData(weatherCache.data);
+    
+    // Vérifier les caches séparément
+    const weatherCacheData = getWeatherCache();
+    const exchangeCacheData = getExchangeCache();
+    
+    const needWeather = force || !weatherCacheData || (now - weatherCacheData.timestamp) > WEATHER_CACHE_DURATION;
+    const needExchange = force || !exchangeCacheData || (now - exchangeCacheData.timestamp) > EXCHANGE_CACHE_DURATION;
+    
+    // Si on a déjà tout dans le cache, pas besoin de fetch
+    if (!needWeather && !needExchange) {
+      setData({
+        weather: weatherCacheData.data,
+        exchange: exchangeCacheData.data
+      });
       setLoading(false);
       return;
     }
@@ -55,7 +103,7 @@ export const useWeatherAndExchange = () => {
       setLoading(true);
       setError(null);
       
-      console.log('🌤️ Fetching weather and exchange data...');
+      console.log('🌤️ Fetching weather and exchange data...', { needWeather, needExchange });
 
       const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange', {
         body: { timestamp: now, forceRefresh: force }
@@ -68,11 +116,13 @@ export const useWeatherAndExchange = () => {
 
       console.log('✅ Weather and exchange data received');
       
-      // Mettre en cache
-      weatherCache = {
-        data: functionData,
-        timestamp: now
-      };
+      // Mettre en cache séparément
+      if (needWeather && functionData.weather) {
+        setWeatherCache(functionData.weather);
+      }
+      if (needExchange && functionData.exchange) {
+        setExchangeCache(functionData.exchange);
+      }
       
       setData(functionData);
     } catch (err: any) {
@@ -84,19 +134,45 @@ export const useWeatherAndExchange = () => {
   };
 
   useEffect(() => {
-    // Vérifier d'abord le cache, puis charger si nécessaire
+    // Vérifier d'abord les caches, puis charger si nécessaire
+    const weatherCacheData = getWeatherCache();
+    const exchangeCacheData = getExchangeCache();
     const now = Date.now();
-    if (weatherCache && (now - weatherCache.timestamp) < WEATHER_CACHE_DURATION) {
-      setData(weatherCache.data);
+    
+    const hasValidWeather = weatherCacheData && (now - weatherCacheData.timestamp) < WEATHER_CACHE_DURATION;
+    const hasValidExchange = exchangeCacheData && (now - exchangeCacheData.timestamp) < EXCHANGE_CACHE_DURATION;
+    
+    if (hasValidWeather && hasValidExchange) {
+      setData({
+        weather: weatherCacheData.data,
+        exchange: exchangeCacheData.data
+      });
       setLoading(false);
     } else {
       fetchData();
     }
 
-    // Refresh toutes les heures seulement
-    const interval = setInterval(() => fetchData(true), 60 * 60 * 1000);
+    // Interval pour météo (1h) et taux de change (12h)
+    const weatherInterval = setInterval(() => {
+      const currentWeatherCache = getWeatherCache();
+      const currentNow = Date.now();
+      if (!currentWeatherCache || (currentNow - currentWeatherCache.timestamp) >= WEATHER_CACHE_DURATION) {
+        fetchData();
+      }
+    }, WEATHER_CACHE_DURATION);
 
-    return () => clearInterval(interval);
+    const exchangeInterval = setInterval(() => {
+      const currentExchangeCache = getExchangeCache();
+      const currentNow = Date.now();
+      if (!currentExchangeCache || (currentNow - currentExchangeCache.timestamp) >= EXCHANGE_CACHE_DURATION) {
+        fetchData();
+      }
+    }, EXCHANGE_CACHE_DURATION);
+
+    return () => {
+      clearInterval(weatherInterval);
+      clearInterval(exchangeInterval);
+    };
   }, []);
 
   return { data, loading, error, refetch: fetchData };
