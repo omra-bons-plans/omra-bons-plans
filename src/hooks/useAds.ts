@@ -81,76 +81,64 @@ export const useAds = () => {
 
       console.log('📊 Found', adsData.length, 'ads');
 
-      // Group ads by category for batch fetching
-      const adsByCategory = adsData.reduce((acc: Record<string, any[]>, ad: any) => {
-        if (!acc[ad.category]) acc[ad.category] = [];
-        acc[ad.category].push(ad);
-        return acc;
-      }, {} as Record<string, any[]>);
-
-      // Batch fetch category details
+      // Optimize: Batch fetch category details with proper typing
       const categoryDetailsMap = new Map();
       
-      await Promise.all(Object.entries(adsByCategory).map(async ([category, categoryAds]: [string, any[]]) => {
-        const adIds = categoryAds.map((ad: any) => ad.id);
+      // Group ads by category
+      const adsByCategory = adsData.reduce((acc: Record<string, string[]>, ad: any) => {
+        if (!acc[ad.category]) acc[ad.category] = [];
+        acc[ad.category].push(ad.id);
+        return acc;
+      }, {} as Record<string, string[]>);
+
+      // Batch fetch all category details with Promise.all for better performance
+      const categoryPromises = [];
+
+      if (adsByCategory.sejours?.length) {
+        categoryPromises.push(
+          supabase.from('ads_sejours').select('*').in('ad_id', adsByCategory.sejours)
+        );
+      }
+      if (adsByCategory.vols?.length) {
+        categoryPromises.push(
+          supabase.from('ads_vols').select('*').in('ad_id', adsByCategory.vols)
+        );
+      }
+      if (adsByCategory.guides?.length) {
+        categoryPromises.push(
+          supabase.from('ads_guides').select('*').in('ad_id', adsByCategory.guides)
+        );
+      }
+      if (adsByCategory.chauffeurs?.length) {
+        categoryPromises.push(
+          supabase.from('ads_chauffeurs').select('*').in('ad_id', adsByCategory.chauffeurs)
+        );
+      }
+      if (adsByCategory.babysitting?.length) {
+        categoryPromises.push(
+          supabase.from('ads_babysitting').select('*').in('ad_id', adsByCategory.babysitting)
+        );
+      }
+      if (adsByCategory.hebergement?.length) {
+        categoryPromises.push(
+          supabase.from('ads_hebergements').select('*').in('ad_id', adsByCategory.hebergement)
+        );
+      }
+
+      try {
+        const categoryResults = await Promise.all(categoryPromises);
         
-        try {
-          let categoryData = [];
-          
-          switch (category) {
-            case 'sejours':
-              const { data: sejourData } = await supabase
-                .from('ads_sejours')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = sejourData || [];
-              break;
-            case 'vols':
-              const { data: volData } = await supabase
-                .from('ads_vols')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = volData || [];
-              break;
-            case 'guides':
-              const { data: guideData } = await supabase
-                .from('ads_guides')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = guideData || [];
-              break;
-            case 'chauffeurs':
-              const { data: chauffeurData } = await supabase
-                .from('ads_chauffeurs')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = chauffeurData || [];
-              break;
-            case 'babysitting':
-              const { data: babysittingData } = await supabase
-                .from('ads_babysitting')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = babysittingData || [];
-              break;
-            case 'hebergement':
-              const { data: hebergementData } = await supabase
-                .from('ads_hebergements')
-                .select('*')
-                .in('ad_id', adIds);
-              categoryData = hebergementData || [];
-              break;
+        // Process all results and map to ad IDs
+        categoryResults.forEach(result => {
+          if (result.data) {
+            result.data.forEach((detail: any) => {
+              categoryDetailsMap.set(detail.ad_id, detail);
+            });
           }
-          
-          // Map category details to ad IDs
-          categoryData.forEach(detail => {
-            categoryDetailsMap.set(detail.ad_id, detail);
-          });
-          
-        } catch (categoryError) {
-          console.warn(`Error fetching ${category} details:`, categoryError);
-        }
-      }));
+        });
+      } catch (categoryError) {
+        console.warn('Error fetching category details:', categoryError);
+      }
 
       // Skip ratings for faster loading - use fallback values
       const allAdIds = adsData.map((ad: any) => ad.id);

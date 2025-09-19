@@ -16,14 +16,29 @@ export interface Notification {
   updated_at: string;
 }
 
+// Cache pour éviter les requêtes répétées
+let notificationsCache: { data: Notification[]; timestamp: number; userId: string } | null = null;
+const CACHE_DURATION = 30000; // 30 secondes
+
 export const useNotifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = async (force = false) => {
     if (!user) return;
+    
+    // Vérifier le cache pour éviter les requêtes répétées
+    const now = Date.now();
+    if (!force && notificationsCache && 
+        notificationsCache.userId === user.id && 
+        (now - notificationsCache.timestamp) < CACHE_DURATION) {
+      setNotifications(notificationsCache.data);
+      setUnreadCount(notificationsCache.data.filter(n => !n.is_read).length);
+      setLoading(false);
+      return;
+    }
     
     try {
       const { data, error } = await supabase
@@ -35,8 +50,17 @@ export const useNotifications = () => {
 
       if (error) throw error;
       
-      setNotifications(data || []);
-      setUnreadCount(data?.filter(n => !n.is_read).length || 0);
+      const notificationData = data || [];
+      
+      // Mettre en cache
+      notificationsCache = {
+        data: notificationData,
+        timestamp: now,
+        userId: user.id
+      };
+      
+      setNotifications(notificationData);
+      setUnreadCount(notificationData.filter(n => !n.is_read).length);
     } catch (error) {
       console.error('Erreur lors du chargement des notifications:', error);
     } finally {

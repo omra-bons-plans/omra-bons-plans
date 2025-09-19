@@ -375,7 +375,7 @@ const Index = () => {
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
                   <button
-                    onClick={refetchWeather}
+                    onClick={() => refetchWeather(true)}
                     disabled={weatherLoading}
                     className="absolute top-1 right-1 p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 z-10"
                     title="Actualiser les données"
@@ -439,7 +439,7 @@ const Index = () => {
                   {/* Header with refresh button */}
                   <div className="flex items-center justify-end mb-1">
                     <button
-                      onClick={refetchWeather}
+                      onClick={() => refetchWeather(true)}
                       disabled={weatherLoading}
                       className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
                       title="Actualiser les données"

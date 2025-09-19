@@ -25,6 +25,10 @@ interface WeatherAndExchangeData {
   exchange: ExchangeData;
 }
 
+// Cache simple pour éviter les requêtes répétées de météo
+let weatherCache: { data: WeatherAndExchangeData; timestamp: number } | null = null;
+const WEATHER_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+
 export const useWeatherAndExchange = () => {
   const [data, setData] = useState<WeatherAndExchangeData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -38,53 +42,59 @@ export const useWeatherAndExchange = () => {
     exchangeRate: data?.exchange?.eurToSar 
   });
 
-  const fetchData = async () => {
+  const fetchData = async (force = false) => {
+    // Vérifier le cache d'abord
+    const now = Date.now();
+    if (!force && weatherCache && (now - weatherCache.timestamp) < WEATHER_CACHE_DURATION) {
+      setData(weatherCache.data);
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
       
-      console.log('🌤️ Fetching weather and exchange data with new API key...');
+      console.log('🌤️ Fetching weather and exchange data...');
 
-      // Force fresh data with timestamp and cache busting
-      const timestamp = Date.now();
-      const cacheBreaker = Math.random().toString(36).substring(7);
       const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange', {
-        body: { timestamp, cacheBreaker, forceRefresh: true }
+        body: { timestamp: now, forceRefresh: force }
       });
-
-      console.log('📡 Function response:', { functionData, functionError, timestamp });
 
       if (functionError) {
         console.error('❌ Function error:', functionError);
         throw functionError;
       }
 
-      console.log('✅ Weather and exchange data received:', functionData);
-      console.log('🌡️ Temperature data:', {
-        makkah: functionData?.weather?.makkah?.temperature,
-        madinah: functionData?.weather?.madinah?.temperature,
-        fetchTime: new Date().toLocaleTimeString()
-      });
+      console.log('✅ Weather and exchange data received');
+      
+      // Mettre en cache
+      weatherCache = {
+        data: functionData,
+        timestamp: now
+      };
+      
       setData(functionData);
     } catch (err: any) {
       console.error('💥 Error fetching weather and exchange data:', err);
       setError(err.message || 'Une erreur est survenue');
-      
-      // Don't set fallback data - let the component handle the null state
-      console.log('🔄 API failed, component will show loading or error state');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    // Force immediate data fetch with new API key and clear any cached data
-    console.log('🚀 Forcing fresh weather data fetch with new API key...');
-    setData(null); // Clear existing data to force fresh fetch
-    fetchData();
+    // Vérifier d'abord le cache, puis charger si nécessaire
+    const now = Date.now();
+    if (weatherCache && (now - weatherCache.timestamp) < WEATHER_CACHE_DURATION) {
+      setData(weatherCache.data);
+      setLoading(false);
+    } else {
+      fetchData();
+    }
 
-    // Set up interval to refresh every hour
-    const interval = setInterval(fetchData, 60 * 60 * 1000);
+    // Refresh toutes les heures seulement
+    const interval = setInterval(() => fetchData(true), 60 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
