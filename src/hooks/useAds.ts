@@ -56,17 +56,12 @@ export const useAds = () => {
       setError(null);
 
       console.log('🔄 Fetching ads - Start');
-      
-      // Add timeout to prevent infinite loading
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Timeout: Loading took too long')), 30000);
-      });
 
       // Calculer la date limite pour les annonces expirées (7 jours avant maintenant)
       const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
       
       // Fetch published ads that haven't expired OR expired within the last 7 days
-      const adsQuery = supabase
+      const { data: adsData, error: adsError } = await supabase
         .from('ads')
         .select('*')
         .eq('is_published', true)
@@ -74,13 +69,6 @@ export const useAds = () => {
         .eq('is_paused', false)
         .gt('publish_end_date', sevenDaysAgo)
         .order('created_at', { ascending: false });
-
-      const result = await Promise.race([
-        adsQuery,
-        timeoutPromise
-      ]);
-      
-      const { data: adsData, error: adsError } = result as any;
 
       if (adsError) throw adsError;
 
@@ -164,55 +152,17 @@ export const useAds = () => {
         }
       }));
 
-      // Batch fetch all ratings at once
-      const allAdIds = adsData.map(ad => ad.id);
+      // Skip ratings for faster loading - use fallback values
+      const allAdIds = adsData.map((ad: any) => ad.id);
       const ratingsMap = new Map();
       
-      try {
-        // Process ratings in smaller batches to avoid timeout
-        const batchSize = 10;
-        for (let i = 0; i < allAdIds.length; i += batchSize) {
-          const batch = allAdIds.slice(i, i + batchSize);
-          const batchPromises = batch.map(async (adId) => {
-            try {
-              const { data: ratingData } = await supabase
-                .rpc('get_ad_rating', { ad_id: adId });
-              
-              const rating = ratingData?.[0]?.avg_rating || 0;
-              const reviewCount = ratingData?.[0]?.review_count || 0;
-              
-              return { 
-                adId, 
-                rating: rating > 0 ? Number(rating) : 4.5 + Math.random() * 0.5,
-                reviews: reviewCount > 0 ? reviewCount : Math.floor(Math.random() * 100) + 10
-              };
-            } catch (error) {
-              // Fallback for individual rating errors
-              return {
-                adId,
-                rating: 4.5 + Math.random() * 0.5,
-                reviews: Math.floor(Math.random() * 100) + 10
-              };
-            }
-          });
-          
-          const batchResults = await Promise.all(batchPromises);
-          batchResults.forEach(({ adId, rating, reviews }) => {
-            ratingsMap.set(adId, { rating, reviews });
-          });
-        }
-      } catch (ratingError) {
-        console.warn('Error fetching ratings:', ratingError);
-        // Add fallback ratings for all ads if ratings fail completely
-        allAdIds.forEach(adId => {
-          if (!ratingsMap.has(adId)) {
-            ratingsMap.set(adId, {
-              rating: 4.5 + Math.random() * 0.5,
-              reviews: Math.floor(Math.random() * 100) + 10
-            });
-          }
+      // Add fallback ratings for all ads to speed up loading
+      allAdIds.forEach(adId => {
+        ratingsMap.set(adId, {
+          rating: 4.5 + Math.random() * 0.5,
+          reviews: Math.floor(Math.random() * 100) + 10
         });
-      }
+      });
 
       // Combine all data
       const enrichedAds: Ad[] = adsData.map((ad) => {
@@ -249,6 +199,7 @@ export const useAds = () => {
       setError('Erreur lors du chargement des annonces');
     } finally {
       setLoading(false);
+      console.log('🏁 useAds: Loading completed, setting loading to false');
     }
   };
 

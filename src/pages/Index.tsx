@@ -251,7 +251,6 @@ const Index = () => {
 
   // Show loading state
   if (adsLoading) {
-    console.log('⏳ Index page: Loading ads...');
     return (
       <ResponsiveLayout>
         <div className="min-h-screen bg-background flex items-center justify-center">
