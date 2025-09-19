@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
+import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface AdData {
   id: string;
@@ -506,7 +507,7 @@ const AdminAds = () => {
                         <TableCell>
                           <div className="max-w-xs">
                             <div className="font-medium truncate">{ad.title}</div>
-                            <div className="text-sm text-muted-foreground truncate">{ad.description}</div>
+                            <div className="text-sm text-muted-foreground truncate">{maskPhoneNumbers(ad.description)}</div>
                             {ad.location && (
                               <div className="text-xs text-muted-foreground flex items-center mt-1">
                                 <MapPin className="w-3 h-3 mr-1" />

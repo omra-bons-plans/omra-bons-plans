@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageDisplay } from './ImageDisplay';
 import VideoPlayer from './VideoPlayer';
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from 'lucide-react';
+import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 // Function to convert airline IATA code to full name
 const getAirlineName = (code: string): string => {
@@ -124,7 +125,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
-            {ad.description}
+            {maskPhoneNumbers(ad.description)}
           </p>
         </CardContent>
       </Card>
@@ -194,11 +195,11 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                       <Badge variant="outline">Autres services</Badge>
                     )}
                   </div>
-                  {ad.categoryDetails.other_services_description && (
-                    <p className="text-sm text-muted-foreground mt-2">
-                      {ad.categoryDetails.other_services_description}
-                    </p>
-                  )}
+                   {ad.categoryDetails.other_services_description && (
+                     <p className="text-sm text-muted-foreground mt-2">
+                       {maskPhoneNumbers(ad.categoryDetails.other_services_description)}
+                     </p>
+                   )}
                 </div>
               </>
             )}

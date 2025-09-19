@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface UserAd {
   id: string;
@@ -387,7 +388,7 @@ const MyAds = () => {
                                       </Badge>
                                     </div>
                                     <p className="text-muted-foreground text-sm line-clamp-2">
-                                      {ad.description}
+                                      {maskPhoneNumbers(ad.description)}
                                     </p>
                                   </div>
                                   <div className="flex items-center gap-2">

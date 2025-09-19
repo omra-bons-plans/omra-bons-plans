@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface AdDetails {
   id: string;
@@ -370,7 +371,7 @@ const AdSummary = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground whitespace-pre-wrap">
-                      {ad.description}
+                      {maskPhoneNumbers(ad.description)}
                     </p>
                   </CardContent>
                 </Card>

@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { useClickTracking } from '@/hooks/useClickTracking';
+import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface UserProfile {
   id: string;
@@ -634,7 +635,7 @@ const PublicProfile = () => {
                         </CardHeader>
                         <CardContent className="pt-0">
                           <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                            {ad.description}
+                            {maskPhoneNumbers(ad.description)}
                           </p>
                           
                           <div className="flex items-center justify-between">
