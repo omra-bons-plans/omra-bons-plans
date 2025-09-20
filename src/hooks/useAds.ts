@@ -262,7 +262,10 @@ export const useAds = (limit: number = 15, offset: number = 0) => {
             const accommodationType = ad.categoryDetails.accommodation_type === 'apartment' ? 'Appartement' :
                                     ad.categoryDetails.accommodation_type === 'appartement' ? 'Appartement' : 
                                     ad.categoryDetails.accommodation_type === 'hotel' ? 'Hôtel' : 
-                                    ad.categoryDetails.accommodation_type;
+                                    ad.categoryDetails.accommodation_type === 'villa' ? 'Villa' :
+                                    ad.categoryDetails.accommodation_type === 'maison' ? 'Maison' :
+                                    ad.categoryDetails.accommodation_type === 'studio' ? 'Studio' :
+                                    ad.categoryDetails.accommodation_type.charAt(0).toUpperCase() + ad.categoryDetails.accommodation_type.slice(1);
             let accommodationInfo = accommodationType;
             if (ad.categoryDetails.rooms_count) {
               accommodationInfo += ` • ${ad.categoryDetails.rooms_count} chambres`;
