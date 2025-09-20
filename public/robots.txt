@@ -22,6 +22,10 @@ Allow: /services/*
 Allow: /horaires-prieres
 Allow: /calendrier-islamique
 Allow: /dates-ramadan-hajj
+Allow: /agences-liste
+Allow: /comparatif-agences
+Allow: /comparatif-visuel
+Allow: /discussions
 
 # Crawl delay (optional)
 Crawl-delay: 1
