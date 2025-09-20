@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
+import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -81,11 +82,11 @@ const Contact = () => {
 
   return (
     <ResponsiveLayout>
+      <CanonicalUrl />
       <Helmet>
         <title>Contact - Omra Bons Plans | Contactez-nous</title>
         <meta name="description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions. Support client réactif pour tous vos besoins." />
         <meta name="keywords" content="contact omra bons plans, support client, aide pèlerinage, questions omra hajj" />
-        <link rel="canonical" href="https://omrabonsplans.fr/contact" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Contact - Omra Bons Plans | Contactez-nous" />
         <meta property="og:description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions." />

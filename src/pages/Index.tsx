@@ -24,6 +24,8 @@ import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
 import { Helmet } from "react-helmet-async";
 import ImageWithLazyLoading from "@/components/ui/ImageWithLazyLoading";
+import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
+import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 
 // Import images
@@ -284,11 +286,11 @@ const Index = () => {
 
   return (
     <ResponsiveLayout>
+      <CanonicalUrl />
       <Helmet>
         <title>Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
         <meta name="keywords" content="omra pas cher, hajj 2026, comparateur omra, voyage omra, mecque médine, séjour omra, vol omra, hébergement omra, guide omra, pèlerinage islam, agence omra france" />
-        <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         
         {/* Enhanced Open Graph */}
