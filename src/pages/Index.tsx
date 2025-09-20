@@ -285,15 +285,15 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>🕋 Omra Bons Plans - Comparateur #1 Omra & Hajj | Meilleurs Prix 2025</title>
-        <meta name="description" content="✅ Trouvez les meilleures offres Omra et Hajj 2025 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
-        <meta name="keywords" content="omra pas cher, hajj 2025, comparateur omra, voyage omra, mecque médine, séjour omra, vol omra, hébergement omra, guide omra, pèlerinage islam, agence omra france" />
+        <title>Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
+        <meta name="description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
+        <meta name="keywords" content="omra pas cher, hajj 2026, comparateur omra, voyage omra, mecque médine, séjour omra, vol omra, hébergement omra, guide omra, pèlerinage islam, agence omra france" />
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         
         {/* Enhanced Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="🕋 Omra Bons Plans - Comparateur #1 Omra & Hajj | Meilleurs Prix 2025" />
-        <meta property="og:description" content="✅ Trouvez les meilleures offres Omra et Hajj 2025 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
+        <meta property="og:title" content="Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra" />
+        <meta property="og:description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
         <meta property="og:url" content="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta property="og:image:width" content="1200" />
@@ -303,8 +303,8 @@ const Index = () => {
         
         {/* Enhanced Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="🕋 Omra Bons Plans - Comparateur #1 Omra & Hajj" />
-        <meta name="twitter:description" content="✅ Trouvez les meilleures offres Omra et Hajj 2025 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine." />
+        <meta name="twitter:title" content="Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra" />
+        <meta name="twitter:description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine." />
         <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:creator" content="@omrabonsplans" />
         
