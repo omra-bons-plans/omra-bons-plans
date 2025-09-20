@@ -131,33 +131,6 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Catégories de blog -->
-  <url>
-    <loc>https://omrabonsplans.fr/blog/conseils-omra</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/blog/preparation-hajj</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/blog/guides-pratiques</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/blog/spiritualite</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Les catégories de blog seront ajoutées dynamiquement quand elles existeront -->
 
 </urlset>

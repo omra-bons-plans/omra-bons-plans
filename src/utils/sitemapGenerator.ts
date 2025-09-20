@@ -171,10 +171,35 @@ export const generateAdUrls = (ads: { id: string; category?: string; updatedAt?:
 };
 
 /**
+ * Supprime les URLs obsolètes du sitemap
+ */
+export const removeObsoleteUrls = (urlsToRemove: string[]): void => {
+  const existingSitemap = localStorage.getItem('dynamicSitemap') || '';
+  let newSitemapContent = existingSitemap;
+  
+  urlsToRemove.forEach(url => {
+    const urlPattern = new RegExp(`\\s*<url>\\s*<loc>${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</loc>.*?</url>\\s*`, 'g');
+    newSitemapContent = newSitemapContent.replace(urlPattern, '');
+  });
+  
+  localStorage.setItem('dynamicSitemap', newSitemapContent);
+};
+
+/**
  * Hook pour initialiser et maintenir le sitemap automatiquement
  */
 export const initializeSitemap = async (): Promise<void> => {
   try {
+    // Vérifier que toutes les URLs du sitemap existent réellement
+    const obsoleteUrls = [
+      'https://omrabonsplans.fr/blog/conseils-omra',
+      'https://omrabonsplans.fr/blog/preparation-hajj', 
+      'https://omrabonsplans.fr/blog/guides-pratiques',
+      'https://omrabonsplans.fr/blog/spiritualite'
+    ];
+    
+    removeObsoleteUrls(obsoleteUrls);
+    
     // Récupérer les données dynamiques (blog posts, annonces, etc.)
     // const blogPosts = await fetchBlogPosts();
     // const ads = await fetchAds();

@@ -22,6 +22,7 @@ import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
+import { Helmet } from "react-helmet-async";
 import ImageWithLazyLoading from "@/components/ui/ImageWithLazyLoading";
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 
@@ -283,6 +284,45 @@ const Index = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Omra Bons Plans - Services Hajj & Omra | Séjours, Vols, Hébergements</title>
+        <meta name="description" content="Plateforme #1 pour organiser votre Hajj et Omra. Trouvez les meilleurs séjours, vols, hébergements, guides et chauffeurs. Comparaisons, avis authentiques et conseils experts." />
+        <meta name="keywords" content="omra, hajj, séjour omra, vol omra, hébergement makkah, guide omra, chauffeur makkah, pèlerinage, agence omra" />
+        <link rel="canonical" href="https://omrabonsplans.fr/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Omra Bons Plans - Services Hajj & Omra" />
+        <meta property="og:description" content="Plateforme #1 pour organiser votre Hajj et Omra. Trouvez les meilleurs séjours, vols, hébergements, guides et chauffeurs." />
+        <meta property="og:url" content="https://omrabonsplans.fr/" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Omra Bons Plans - Services Hajj & Omra" />
+        <meta name="twitter:description" content="Plateforme #1 pour organiser votre Hajj et Omra. Trouvez les meilleurs séjours, vols, hébergements, guides et chauffeurs." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Omra Bons Plans",
+            "url": "https://omrabonsplans.fr",
+            "description": "Plateforme #1 pour organiser votre Hajj et Omra",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://omrabonsplans.fr/?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Omra Bons Plans",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+              }
+            }
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.home} />
       <PerformanceOptimizer />
       <div className="min-h-screen bg-background">
