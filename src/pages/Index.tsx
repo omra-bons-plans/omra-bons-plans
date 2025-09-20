@@ -473,9 +473,9 @@ const Index = () => {
             <div className="space-y-6 md:space-y-10 max-w-4xl">
               <div className="space-y-2 md:space-y-6">
                 <h1 className="text-4xl md:text-8xl font-bold leading-tight">
-                  <span className="text-white drop-shadow-lg">Tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Hajj & Omra</span><br />
-                  <span className="text-white drop-shadow-lg">en un seul endroit</span>
+                  <span className="text-white drop-shadow-lg">Comparateur Services Hajj & Omra</span><br />
+                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl drop-shadow-lg">Trouvez Facilement</span><br />
+                  <span className="text-white drop-shadow-lg">Logements, Guides & Séjours</span>
                 </h1>
                 
                 <p className="text-lg md:text-3xl font-bold leading-relaxed mt-4">
@@ -867,7 +867,7 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Votre plateforme de services pour le hajj et la omra</h2>
+                <h2 className="text-4xl font-bold mb-4">Services Hajj & Omra</h2>
                 <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
               </div>
             </div>
@@ -1048,7 +1048,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl font-bold">Services complémentaires pour votre pèlerinage</h2>
+              <h2 className="text-4xl font-bold">Services Complémentaires</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 Découvrez nos services exclusifs pour enrichir votre voyage spirituel en Arabie Saoudite : 
                 restaurants halal certifiés, transport ferroviaire haute vitesse entre les villes saintes.
@@ -1060,7 +1060,7 @@ const Index = () => {
                     <UtensilsCrossed className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants</h3>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants Halal</h3>
                     <p className="text-sm text-muted-foreground">Guide des meilleurs restaurants à La Mecque et Médine</p>
                   </div>
                 </Link>
