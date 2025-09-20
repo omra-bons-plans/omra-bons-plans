@@ -80,9 +80,27 @@ export const SEOBreadcrumb = ({ items, className }: SEOBreadcrumbProps) => {
     };
   }, [structuredData]);
 
-  // Don't show breadcrumb on homepage
+  // Don't show visual breadcrumb on homepage, but still inject structured data
   if (location.pathname === '/') {
-    return null;
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Accueil",
+                "item": "https://omrabonsplans.fr/"
+              }
+            ]
+          })
+        }}
+      />
+    );
   }
 
   return (

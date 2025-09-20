@@ -26,6 +26,7 @@ import { Helmet } from "react-helmet-async";
 import ImageWithLazyLoading from "@/components/ui/ImageWithLazyLoading";
 import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 
 // Import images
@@ -287,6 +288,7 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <CanonicalUrl />
+      <SEOBreadcrumb />
       <Helmet>
         <title>Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
