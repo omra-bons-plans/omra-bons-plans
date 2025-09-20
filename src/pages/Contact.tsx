@@ -10,6 +10,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -80,6 +81,31 @@ const Contact = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Contact - Omra Bons Plans | Contactez-nous</title>
+        <meta name="description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions. Support client réactif pour tous vos besoins." />
+        <meta name="keywords" content="contact omra bons plans, support client, aide pèlerinage, questions omra hajj" />
+        <link rel="canonical" href="https://omrabonsplans.fr/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Contact - Omra Bons Plans | Contactez-nous" />
+        <meta property="og:description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions." />
+        <meta property="og:url" content="https://omrabonsplans.fr/contact" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact - Omra Bons Plans | Contactez-nous" />
+        <meta name="twitter:description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact - Omra Bons Plans",
+            "url": "https://omrabonsplans.fr/contact",
+            "description": "Contactez l'équipe Omra Bons Plans pour toute question sur les services Omra et Hajj"
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.contact} />
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">

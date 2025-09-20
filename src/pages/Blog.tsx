@@ -14,6 +14,7 @@ import VendorAssociationForm from '@/components/ui/VendorAssociationForm';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
+import { Helmet } from "react-helmet-async";
 
 interface BlogPost {
   id: string;
@@ -186,6 +187,39 @@ const Blog = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>{category ? `Blog ${getCategoryName(category)} - Omra Bons Plans` : 'Blog - Omra Bons Plans | Guides et Conseils Omra Hajj'}</title>
+        <meta name="description" content={category 
+          ? `Découvrez nos articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage. Conseils experts, guides pratiques et informations essentielles.`
+          : "Blog Omra Bons Plans : guides complets, conseils d'experts et informations pratiques pour organiser votre pèlerinage Omra et Hajj en toute sérénité."
+        } />
+        <meta name="keywords" content="blog omra, conseils hajj, guide pèlerinage, articles omra, spiritualité islam" />
+        <link rel="canonical" href={`https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={category ? `Blog ${getCategoryName(category)} - Omra Bons Plans` : 'Blog - Omra Bons Plans | Guides et Conseils'} />
+        <meta property="og:description" content={category 
+          ? `Découvrez nos articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage.`
+          : "Guides complets, conseils d'experts et informations pratiques pour organiser votre pèlerinage."
+        } />
+        <meta property="og:url" content={`https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`} />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "Blog Omra Bons Plans",
+            "url": `https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`,
+            "description": "Blog dédié aux guides et conseils pour le pèlerinage Omra et Hajj",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Omra Bons Plans",
+              "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+            }
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.blog} />
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="min-h-screen bg-background">

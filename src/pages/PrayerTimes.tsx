@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { Helmet } from "react-helmet-async";
 
 interface PrayerTime {
   Fajr: string;
@@ -125,6 +126,30 @@ const PrayerTimes = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Horaires de Prière - Omra Bons Plans | Qibla et Prières Islamiques</title>
+        <meta name="description" content="Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha. Calendrier islamique et direction de la Qibla." />
+        <meta name="keywords" content="horaires prière islam, qibla direction, prières musulmanes, calendrier islamique, salat times" />
+        <link rel="canonical" href="https://omrabonsplans.fr/horaires-prieres" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Horaires de Prière - Omra Bons Plans" />
+        <meta property="og:description" content="Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha." />
+        <meta property="og:url" content="https://omrabonsplans.fr/horaires-prieres" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Horaires de Prière",
+            "url": "https://omrabonsplans.fr/horaires-prieres",
+            "description": "Application pour trouver les horaires de prière musulmane selon votre ville",
+            "applicationCategory": "ReligiousApplication",
+            "operatingSystem": "Web Browser"
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.prayerTimes} />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="space-y-6">

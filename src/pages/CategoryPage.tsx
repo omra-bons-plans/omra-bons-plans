@@ -14,6 +14,7 @@ import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { SEOHead } from "@/components/SEO/SEOHead";
 import { SEOBreadcrumb } from "@/components/SEO/SEOBreadcrumb";
 import { generateCleanCanonicalUrl } from "@/utils/seoHelpers";
+import { Helmet } from "react-helmet-async";
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();

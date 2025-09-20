@@ -7,6 +7,8 @@ import { Star, TrendingUp, TrendingDown, Search, ExternalLink, Eye, ArrowRightLe
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 interface AgencyData {
   name: string;
@@ -294,14 +296,41 @@ export default function AgencesListe() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Liste Agences de Voyages Omra & Hajj 2025-2026"
-        description="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs."
-        keywords="agence omra, hajj 2025, agence voyage mecque, avis google"
-      />
+    <ResponsiveLayout>
+      <Helmet>
+        <title>Liste Agences Omra & Hajj 2025 | Comparatif Avis Google</title>
+        <meta name="description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google authentiques, avis clients, points forts et tarifs comparés." />
+        <meta name="keywords" content="agence omra 2025, hajj agence voyage, avis google agences, comparatif agences omra" />
+        <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Liste Agences Omra & Hajj 2025 | Comparatif Avis" />
+        <meta property="og:description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj avec notes Google authentiques." />
+        <meta property="og:url" content="https://omrabonsplans.fr/agences-liste" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Liste Agences Omra & Hajj",
+            "description": "Collection des meilleures agences de voyage pour Omra et Hajj",
+            "url": "https://omrabonsplans.fr/agences-liste",
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Agences de Voyage Omra et Hajj"
+            }
+          })}
+        </script>
+      </Helmet>
+      <div className="min-h-screen bg-background">
+        <SEOHead 
+          title="Liste Agences de Voyages Omra & Hajj 2025-2026"
+          description="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs."
+          keywords="agence omra, hajj 2025, agence voyage mecque, avis google"
+        />
 
-      <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8">
         <SEOBreadcrumb 
           items={[
             { name: 'Accueil', url: '/' },
@@ -446,5 +475,6 @@ export default function AgencesListe() {
         </div>
       </div>
     </div>
+    </ResponsiveLayout>
   );
 }

@@ -4,6 +4,7 @@ import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
 
 const RamadanHajjDates = () => {
   const ramadanDates = [
@@ -59,6 +60,29 @@ const RamadanHajjDates = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage Islam</title>
+        <meta name="description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha. Planning complet pour votre pèlerinage." />
+        <meta name="keywords" content="dates ramadan 2025, hajj 2026, calendrier hajj, arafat date, eid dates" />
+        <link rel="canonical" href="https://omrabonsplans.fr/dates-ramadan-hajj" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage" />
+        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
+        <meta property="og:url" content="https://omrabonsplans.fr/dates-ramadan-hajj" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": "Calendrier Ramadan et Hajj",
+            "description": "Dates officielles du Ramadan et du Hajj pour les années 2025-2027",
+            "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
+            "eventAttendanceMode": "OnlineEventAttendanceMode"
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.ramadanHajj} />
       <main className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto p-6">

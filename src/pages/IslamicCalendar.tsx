@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { Helmet } from "react-helmet-async";
 
 interface HijriDate {
   date: string;
@@ -113,6 +114,30 @@ const IslamicCalendar = () => {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Calendrier Islamique - Conversion Hégire | Omra Bons Plans</title>
+        <meta name="description" content="Convertissez facilement les dates grégoriennes en dates hégiriennes avec notre calendrier islamique. Outil de conversion précis pour vos dates religieuses." />
+        <meta name="keywords" content="calendrier islamique, calendrier hégirien, conversion date islamique, hijri calendar" />
+        <link rel="canonical" href="https://omrabonsplans.fr/calendrier-islamique" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Calendrier Islamique - Conversion Hégire" />
+        <meta property="og:description" content="Convertissez facilement les dates grégoriennes en dates hégiriennes avec notre calendrier islamique." />
+        <meta property="og:url" content="https://omrabonsplans.fr/calendrier-islamique" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Calendrier Islamique",
+            "url": "https://omrabonsplans.fr/calendrier-islamique",
+            "description": "Outil de conversion des dates grégoriennes en dates hégiriennes",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Web Browser"
+          })}
+        </script>
+      </Helmet>
       <SEOHead {...seoConfig.islamicCalendar} />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
