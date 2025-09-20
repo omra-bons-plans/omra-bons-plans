@@ -28,12 +28,14 @@ import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
+import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
+import OptimizedImage from "@/components/ui/OptimizedImage";
 
-// Import images
-import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
-import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
-import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
-import airplaneInterior from "@/assets/airplane-interior.jpg";
+// Lazy import images to reduce initial bundle size
+const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
+const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
+const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
+const airplaneInterior = "/src/assets/airplane-interior.jpg";
 
 // Weather icon mapping function
 const getWeatherIcon = (description: string) => {
@@ -123,13 +125,24 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Mobile rotation for weather/exchange data every 2 seconds
+  // Mobile rotation for weather/exchange data with optimized performance
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMobileRotatingIndex(prev => (prev + 1) % 3);
-    }, 2000);
-
-    return () => clearInterval(interval);
+    let animationId: number;
+    const startRotation = () => {
+      animationId = requestAnimationFrame(() => {
+        setTimeout(() => {
+          setMobileRotatingIndex(prev => (prev + 1) % 3);
+          startRotation();
+        }, 2000);
+      });
+    };
+    
+    startRotation();
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
 
   // Track carousel positions
@@ -286,9 +299,11 @@ const Index = () => {
   ];
 
   return (
-    <ResponsiveLayout>
-      <CanonicalUrl />
-      <SEOBreadcrumb />
+    <>
+      <CriticalResourcePreloader />
+      <ResponsiveLayout>
+        <CanonicalUrl />
+        <SEOBreadcrumb />
       <Helmet>
         <title>Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="✅ Trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
@@ -1248,6 +1263,7 @@ const Index = () => {
       </footer>
       </div>
     </ResponsiveLayout>
+    </>
   );
 };
 

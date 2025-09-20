@@ -16,14 +16,25 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
           ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
           supabase: ['@supabase/supabase-js'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod']
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          lucide: ['lucide-react'],
+          utils: ['date-fns', 'clsx', 'tailwind-merge']
         },
       },
     },
     chunkSizeWarningLimit: 1000,
+    target: 'es2015',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
   plugins: [
     react(),

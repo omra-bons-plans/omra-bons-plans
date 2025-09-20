@@ -27,24 +27,20 @@ const PerformanceOptimizer = () => {
       window.addEventListener('load', measureLoadTime);
     }
 
-    // Précharger les images critiques
-    const preloadCriticalImages = () => {
-      const criticalImages = [
-        '/ad-placeholder.jpg',
-        '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png',
-        '/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png'
-      ];
-
-      criticalImages.forEach(src => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
-      });
+    // Optimiser les performances avec des métriques détaillées
+    const optimizePerformance = () => {
+      // Réduire les reflows/repaints
+      document.documentElement.style.fontSize = '16px';
+      
+      // Optimiser les animations
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          document.body.style.willChange = 'auto';
+        });
+      }
     };
 
-    preloadCriticalImages();
+    optimizePerformance();
 
     return () => {
       window.removeEventListener('load', measureLoadTime);
