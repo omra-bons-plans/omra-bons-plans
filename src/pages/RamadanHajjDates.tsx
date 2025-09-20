@@ -75,11 +75,44 @@ const RamadanHajjDates = () => {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Event",
-            "name": "Calendrier Ramadan et Hajj",
-            "description": "Dates officielles du Ramadan et du Hajj pour les années 2025-2027",
+            "@type": "EventSeries", 
+            "name": "Calendrier Ramadan & Hajj 2025-2027",
+            "description": "Dates importantes du Ramadan et Hajj pour planifier votre voyage religieux",
             "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
-            "eventAttendanceMode": "OnlineEventAttendanceMode"
+            "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+            "organizer": {
+              "@type": "Organization",
+              "name": "Omra Bons Plans",
+              "url": "https://omrabonsplans.fr"
+            },
+            "subEvent": [
+              {
+                "@type": "Event",
+                "name": "Ramadan 2025",
+                "startDate": "2025-02-28",
+                "endDate": "2025-03-30",
+                "location": {
+                  "@type": "Place",
+                  "name": "Monde entier",
+                  "address": "Observance mondiale"
+                },
+                "eventStatus": "EventScheduled",
+                "eventAttendanceMode": "OfflineEventAttendanceMode"
+              },
+              {
+                "@type": "Event", 
+                "name": "Hajj 2025",
+                "startDate": "2025-06-05",
+                "endDate": "2025-06-10",
+                "location": {
+                  "@type": "Place",
+                  "name": "La Mecque",
+                  "address": "La Mecque, Arabie Saoudite"
+                },
+                "eventStatus": "EventScheduled",
+                "eventAttendanceMode": "OfflineEventAttendanceMode"
+              }
+            ]
           })}
         </script>
       </Helmet>
