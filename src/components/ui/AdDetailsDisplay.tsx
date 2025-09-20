@@ -523,7 +523,12 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                   <div className="flex items-center space-x-2">
                     <Home className="w-4 h-4 text-muted-foreground" />
                     <span className="font-medium">Type:</span>
-                    <span>{ad.categoryDetails.accommodation_type}</span>
+                    <span>{ad.categoryDetails.accommodation_type === 'apartment' || ad.categoryDetails.accommodation_type === 'appartement' ? 'Appartement' : 
+                          ad.categoryDetails.accommodation_type === 'hotel' ? 'Hôtel' : 
+                          ad.categoryDetails.accommodation_type === 'villa' ? 'Villa' :
+                          ad.categoryDetails.accommodation_type === 'maison' ? 'Maison' :
+                          ad.categoryDetails.accommodation_type === 'studio' ? 'Studio' : 
+                          ad.categoryDetails.accommodation_type.charAt(0).toUpperCase() + ad.categoryDetails.accommodation_type.slice(1)}</span>
                   </div>
                 )}
 
