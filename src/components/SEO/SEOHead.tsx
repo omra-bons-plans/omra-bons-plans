@@ -176,9 +176,38 @@ export const seoConfig = {
     canonical: 'https://omrabonsplans.fr/dates-ramadan-hajj',
     structuredData: {
       "@context": "https://schema.org",
-      "@type": "Event",
+      "@type": "EventSeries",
       "name": "Calendrier Ramadan & Hajj 2025-2027",
-      "description": "Dates importantes du Ramadan et Hajj pour planifier votre voyage religieux"
+      "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
+      "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
+      "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+      "startDate": "2025-02-28",
+      "endDate": "2027-05-16",
+      "eventStatus": "EventScheduled",
+      "eventAttendanceMode": "MixedEventAttendanceMode",
+      "location": {
+        "@type": "VirtualLocation",
+        "name": "Calendrier en ligne",
+        "url": "https://omrabonsplans.fr/dates-ramadan-hajj"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Omra Bons Plans",
+        "url": "https://omrabonsplans.fr",
+        "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "InStock",
+        "validFrom": "2025-01-01"
+      },
+      "performer": {
+        "@type": "Organization",
+        "name": "Omra Bons Plans",
+        "url": "https://omrabonsplans.fr"
+      }
     }
   }
 };
