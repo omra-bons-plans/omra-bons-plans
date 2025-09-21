@@ -1,2 +1,16 @@
+# Redirections françaises vers anglaises (consolidation SEO)
+/a-propos /about 301
+/calendrier-islamique /islamic-calendar 301
+/dates-ramadan-hajj /ramadan-hajj-dates 301
+/horaires-prieres /prayer-times 301
+
+# Redirections services vers catégories
+/services/babysitting-omra /category/babysitting 301
+/services/guides-omra /category/guides 301
+/services/hebergement-omra /category/hebergement 301
+/services/sejours-omra /category/sejours 301
+/services/transport-omra /category/chauffeurs 301
+/services/vols-omra /category/vols 301
+
 # SPA fallback - redirect all routes to index.html for client-side routing
 /*    /index.html   200

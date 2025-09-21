@@ -4,10 +4,32 @@ RewriteEngine On
 # Set index file
 DirectoryIndex index.html
 
+# Redirection des URLs françaises vers les URLs anglaises (pour consolider le SEO)
+RewriteRule ^a-propos/?$ /about [R=301,L]
+RewriteRule ^calendrier-islamique/?$ /islamic-calendar [R=301,L]
+RewriteRule ^dates-ramadan-hajj/?$ /ramadan-hajj-dates [R=301,L]
+RewriteRule ^horaires-prieres/?$ /prayer-times [R=301,L]
+
+# Redirection des services vers les catégories
+RewriteRule ^services/babysitting-omra/?$ /category/babysitting [R=301,L]
+RewriteRule ^services/guides-omra/?$ /category/guides [R=301,L]
+RewriteRule ^services/hebergement-omra/?$ /category/hebergement [R=301,L]
+RewriteRule ^services/sejours-omra/?$ /category/sejours [R=301,L]
+RewriteRule ^services/transport-omra/?$ /category/chauffeurs [R=301,L]
+RewriteRule ^services/vols-omra/?$ /category/vols [R=301,L]
+
+# Supprimer les trailing slashes (sauf pour la racine)
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_URI} (.*)/$
+RewriteRule ^(.*)/$  /$1 [R=301,L]
+
 # Handle client-side routing (SPA)
 # If the request is for a file or directory that exists, serve it
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+# Handle 404 errors with custom page first, then SPA routing
+RewriteCond %{REQUEST_URI} !^/404\.html$
+RewriteRule ^404/?$ /404.html [R=404,L]
 # Otherwise, serve index.html for all routes
 RewriteRule . /index.html [L]
 

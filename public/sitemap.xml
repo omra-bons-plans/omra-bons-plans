@@ -8,22 +8,22 @@
   <!-- Page d'accueil -->
   <url>
     <loc>https://omrabonsplans.fr/</loc>
-    <lastmod>2025-09-20</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Pages principales -->
+  <!-- Pages principales avec URLs canoniques anglaises -->
   <url>
-    <loc>https://omrabonsplans.fr/a-propos</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/about</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://omrabonsplans.fr/contact</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -31,106 +31,104 @@
   <!-- Blog -->
   <url>
     <loc>https://omrabonsplans.fr/blog</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Catégories de services -->
+  <!-- Catégories de services (URLs canoniques) -->
   <url>
-    <loc>https://omrabonsplans.fr/services/sejours-omra</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/category/sejours</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://omrabonsplans.fr/services/vols-omra</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/category/vols</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://omrabonsplans.fr/services/hebergement-omra</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/services/guides-omra</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/services/transport-omra</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://omrabonsplans.fr/services/babysitting</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/category/hebergement</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
 
-  <!-- Outils religieux -->
   <url>
-    <loc>https://omrabonsplans.fr/horaires-prieres</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://omrabonsplans.fr/category/guides</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://omrabonsplans.fr/category/chauffeurs</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://omrabonsplans.fr/category/babysitting</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Outils religieux (URLs canoniques anglaises) -->
   <url>
-    <loc>https://omrabonsplans.fr/calendrier-islamique</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/prayer-times</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://omrabonsplans.fr/islamic-calendar</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://omrabonsplans.fr/dates-ramadan-hajj</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://omrabonsplans.fr/ramadan-hajj-dates</loc>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- Comparatifs et agences -->
   <url>
     <loc>https://omrabonsplans.fr/comparatif-agences</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://omrabonsplans.fr/agences-liste</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://omrabonsplans.fr/comparatif-visuel</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- Discussions communautaires -->
   <url>
     <loc>https://omrabonsplans.fr/discussions</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
-
-  <!-- Les catégories de blog seront ajoutées dynamiquement quand elles existeront -->
 
 </urlset>

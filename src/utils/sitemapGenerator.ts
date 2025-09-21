@@ -9,7 +9,7 @@ interface SitemapUrl {
   priority?: number;
 }
 
-// Routes statiques du site
+// Routes statiques du site avec URLs canoniques uniquement
 const staticRoutes: SitemapUrl[] = [
   {
     loc: 'https://omrabonsplans.fr/',
@@ -18,7 +18,7 @@ const staticRoutes: SitemapUrl[] = [
     priority: 1.0
   },
   {
-    loc: 'https://omrabonsplans.fr/a-propos',
+    loc: 'https://omrabonsplans.fr/about',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'monthly',
     priority: 0.8
@@ -35,59 +35,86 @@ const staticRoutes: SitemapUrl[] = [
     changefreq: 'daily',
     priority: 0.9
   },
+  // Catégories principales avec URLs canoniques
   {
-    loc: 'https://omrabonsplans.fr/services/sejour',
+    loc: 'https://omrabonsplans.fr/category/sejours',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'daily',
     priority: 0.9
   },
   {
-    loc: 'https://omrabonsplans.fr/services/vol',
+    loc: 'https://omrabonsplans.fr/category/vols',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'daily',
     priority: 0.9
   },
   {
-    loc: 'https://omrabonsplans.fr/services/hebergement',
+    loc: 'https://omrabonsplans.fr/category/guides',
     lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'daily',
-    priority: 0.9
-  },
-  {
-    loc: 'https://omrabonsplans.fr/services/guide',
-    lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'daily',
+    changefreq: 'weekly',
     priority: 0.8
   },
   {
-    loc: 'https://omrabonsplans.fr/services/chauffeur',
+    loc: 'https://omrabonsplans.fr/category/chauffeurs',
     lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'daily',
+    changefreq: 'weekly',
     priority: 0.8
   },
   {
-    loc: 'https://omrabonsplans.fr/services/babysitting',
+    loc: 'https://omrabonsplans.fr/category/hebergement',
     lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'daily',
+    changefreq: 'weekly',
+    priority: 0.8
+  },
+  {
+    loc: 'https://omrabonsplans.fr/category/babysitting',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'weekly',
     priority: 0.7
   },
+  // Pages utilitaires
   {
-    loc: 'https://omrabonsplans.fr/horaires-prieres',
+    loc: 'https://omrabonsplans.fr/prayer-times',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'daily',
     priority: 0.8
   },
   {
-    loc: 'https://omrabonsplans.fr/calendrier-islamique',
+    loc: 'https://omrabonsplans.fr/islamic-calendar',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'monthly',
     priority: 0.7
   },
   {
-    loc: 'https://omrabonsplans.fr/dates-ramadan-hajj',
+    loc: 'https://omrabonsplans.fr/ramadan-hajj-dates',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'yearly',
     priority: 0.8
+  },
+  // Pages agences et comparatifs
+  {
+    loc: 'https://omrabonsplans.fr/agences-liste',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'weekly',
+    priority: 0.8
+  },
+  {
+    loc: 'https://omrabonsplans.fr/comparatif-agences',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'monthly',
+    priority: 0.7
+  },
+  {
+    loc: 'https://omrabonsplans.fr/comparatif-visuel',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'monthly',
+    priority: 0.6
+  },
+  {
+    loc: 'https://omrabonsplans.fr/discussions',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'daily',
+    priority: 0.6
   }
 ];
 

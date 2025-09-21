@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ui/ScrollToTop";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
+import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -74,8 +75,9 @@ const App = () => (
             <BrowserRouter>
               <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
               <ScrollToTop />
-              <Suspense fallback={<PageLoader />}>
-                <Routes>
+              <CanonicalRedirect>
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={
@@ -196,18 +198,18 @@ const App = () => (
                   <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                   
                   {/* Redirections vers les URLs françaises */}
-                  <Route path="/a-propos" element={<About />} />
-                  <Route path="/calendrier-islamique" element={<IslamicCalendar />} />
-                  <Route path="/dates-ramadan-hajj" element={<RamadanHajjDates />} />
-                  <Route path="/horaires-prieres" element={<PrayerTimes />} />
+                  <Route path="/a-propos" element={<Navigate to="/about" replace />} />
+                  <Route path="/calendrier-islamique" element={<Navigate to="/islamic-calendar" replace />} />
+                  <Route path="/dates-ramadan-hajj" element={<Navigate to="/ramadan-hajj-dates" replace />} />
+                  <Route path="/horaires-prieres" element={<Navigate to="/prayer-times" replace />} />
                   
-                  {/* Routes des services */}
-                  <Route path="/services/babysitting-omra" element={<CategoryPage />} />
-                  <Route path="/services/guides-omra" element={<CategoryPage />} />
-                  <Route path="/services/hebergement-omra" element={<CategoryPage />} />
-                  <Route path="/services/sejours-omra" element={<CategoryPage />} />
-                  <Route path="/services/transport-omra" element={<CategoryPage />} />
-                  <Route path="/services/vols-omra" element={<CategoryPage />} />
+                  {/* Redirections des services vers les catégories */}
+                  <Route path="/services/babysitting-omra" element={<Navigate to="/category/babysitting" replace />} />
+                  <Route path="/services/guides-omra" element={<Navigate to="/category/guides" replace />} />
+                  <Route path="/services/hebergement-omra" element={<Navigate to="/category/hebergement" replace />} />
+                  <Route path="/services/sejours-omra" element={<Navigate to="/category/sejours" replace />} />
+                  <Route path="/services/transport-omra" element={<Navigate to="/category/chauffeurs" replace />} />
+                  <Route path="/services/vols-omra" element={<Navigate to="/category/vols" replace />} />
                   
                   {/* Redirections pour les anciennes URLs obsolètes */}
                   <Route path="/home" element={<Navigate to="/" replace />} />
@@ -236,8 +238,9 @@ const App = () => (
                   
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
+                  </Routes>
+                </Suspense>
+              </CanonicalRedirect>
               <BackToTopButton />
             </BrowserRouter>
           </TooltipProvider>
