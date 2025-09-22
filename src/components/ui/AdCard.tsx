@@ -4,15 +4,16 @@ import { Star, MapPin, Zap, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import { FormattedListing } from "@/hooks/useAds";
-import ImageWithLazyLoading from "./ImageWithLazyLoading";
+import FastImage from "./FastImage";
 
 interface AdCardProps {
   listing: FormattedListing;
   className?: string;
   imageHeight?: string;
+  priority?: boolean; // Nouveau prop pour les images prioritaires
 }
 
-const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) => {
+const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = false }: AdCardProps) => {
   const cardClasses = `
     card-modern overflow-hidden border-border/20 bg-card/50 transition-all duration-300
     ${!listing.isExpired ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50 grayscale'}
@@ -26,10 +27,11 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
       <Card className={cardClasses}>
         <div className="relative group">
           <div className={`w-full ${imageHeight} overflow-hidden`}>
-            <ImageWithLazyLoading
+            <FastImage
               src={listing.image}
               alt={listing.title}
               className="w-full h-full"
+              priority={priority}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
           </div>
@@ -74,12 +76,13 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56" }: AdCardProps) 
       <Card className={cardClasses}>
       <div className="relative group">
         <div className={`w-full ${imageHeight} overflow-hidden`}>
-          <ImageWithLazyLoading
+          <FastImage
             src={listing.image}
             alt={listing.title}
             className={`w-full h-full transition-all duration-500 ${
               !listing.isExpired ? 'group-hover:scale-110' : ''
             }`}
+            priority={priority}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         </div>

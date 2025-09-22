@@ -1,11 +1,42 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
+ * Optimise une URL d'image Supabase avec des paramètres de transformation
+ * @param url - URL de base
+ * @param options - Options d'optimisation
+ */
+const optimizeSupabaseImage = (url: string, options: {
+  width?: number;
+  height?: number;
+  quality?: number;
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+} = {}) => {
+  const { width = 800, height, quality = 80, format = 'webp' } = options;
+  
+  // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
+  if (url.includes('supabase.co/storage/v1/object/public/')) {
+    const params = new URLSearchParams();
+    params.append('width', width.toString());
+    if (height) params.append('height', height.toString());
+    params.append('quality', quality.toString());
+    params.append('format', format);
+    
+    return `${url}?${params.toString()}`;
+  }
+  
+  return url;
+};
+
+/**
  * Get the public URL for an image in the ad-images bucket
  * @param imagePath - The path of the image in the bucket
+ * @param optimize - Options d'optimisation
  * @returns The public URL or placeholder image
  */
-export const getImageUrl = (imagePath: string | null | undefined): string => {
+export const getImageUrl = (
+  imagePath: string | null | undefined, 
+  optimize: { width?: number; height?: number; quality?: number } = {}
+): string => {
   console.log('🖼️ getImageUrl called with:', imagePath);
   
   if (!imagePath) {
@@ -13,10 +44,10 @@ export const getImageUrl = (imagePath: string | null | undefined): string => {
     return '/ad-placeholder.jpg';
   }
   
-  // If it's already a full URL, return as is
+  // If it's already a full URL, optimize it
   if (imagePath.startsWith('http')) {
     console.log('✅ Already full URL:', imagePath);
-    return imagePath;
+    return optimizeSupabaseImage(imagePath, optimize);
   }
   
   try {
@@ -24,8 +55,9 @@ export const getImageUrl = (imagePath: string | null | undefined): string => {
       .from('ad-images')
       .getPublicUrl(imagePath);
     
-    console.log('✅ Generated URL:', data.publicUrl);
-    return data.publicUrl;
+    const optimizedUrl = optimizeSupabaseImage(data.publicUrl, optimize);
+    console.log('✅ Generated optimized URL:', optimizedUrl);
+    return optimizedUrl;
   } catch (error) {
     console.error('💥 Error getting image URL:', error);
     return '/ad-placeholder.jpg';
@@ -33,10 +65,39 @@ export const getImageUrl = (imagePath: string | null | undefined): string => {
 };
 
 /**
- * Get multiple image URLs
+ * Get multiple image URLs with optimization
  * @param imagePaths - Array of image paths
+ * @param optimize - Options d'optimisation
  * @returns Array of public URLs
  */
-export const getImageUrls = (imagePaths: string[]): string[] => {
-  return imagePaths.map(path => getImageUrl(path));
+export const getImageUrls = (
+  imagePaths: string[], 
+  optimize?: { width?: number; height?: number; quality?: number }
+): string[] => {
+  return imagePaths.map(path => getImageUrl(path, optimize));
+};
+
+/**
+ * Précharge une image de manière optimisée
+ * @param src - URL de l'image
+ * @param priority - Si l'image est prioritaire
+ */
+export const preloadImage = (src: string, priority = false) => {
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = src;
+  if (priority) link.fetchPriority = 'high';
+  
+  link.onload = () => console.log('🚀 Image préchargée:', src);
+  link.onerror = () => console.warn('⚠️ Échec préchargement:', src);
+  
+  document.head.appendChild(link);
+  
+  // Nettoyer après 10 secondes
+  setTimeout(() => {
+    if (document.head.contains(link)) {
+      document.head.removeChild(link);
+    }
+  }, 10000);
 };

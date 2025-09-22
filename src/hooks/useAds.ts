@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { getImageUrl } from '@/utils/imageUtils';
+import { getImageUrl, preloadImage } from '@/utils/imageUtils';
 
 export interface Ad {
   id: string;
@@ -216,7 +216,7 @@ export const useAds = (limit: number = 15, offset: number = 0) => {
 
   // Transform ads to formatted listings for display
   const getFormattedListings = (): FormattedListing[] => {
-    return ads.map((ad) => {
+    return ads.map((ad, index) => {
       const discount = ad.originalPrice && ad.price 
         ? Math.round(((ad.originalPrice - ad.price) / ad.originalPrice) * 100)
         : 0;
@@ -298,12 +298,17 @@ export const useAds = (limit: number = 15, offset: number = 0) => {
       // Détermine l'image de couverture : cover_image ou première image avec "cover-" ou première image disponible
       let coverImageUrl = '/ad-placeholder.jpg';
       if (ad.coverImage) {
-        coverImageUrl = getImageUrl(ad.coverImage);
+        coverImageUrl = getImageUrl(ad.coverImage, { width: 400, height: 300, quality: 85 });
       } else if (ad.images && ad.images.length > 0) {
         // Cherche une image qui commence par "cover-" dans le nom
         const coverImage = ad.images.find(img => img.includes('/cover-'));
         const imageToUse = coverImage || ad.images[0];
-        coverImageUrl = getImageUrl(imageToUse);
+        coverImageUrl = getImageUrl(imageToUse, { width: 400, height: 300, quality: 85 });
+      }
+
+      // Précharger les 3 premières images pour améliorer les performances
+      if (index < 3 && coverImageUrl !== '/ad-placeholder.jpg') {
+        preloadImage(coverImageUrl, true);
       }
 
       return {
