@@ -36,6 +36,7 @@ const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
 const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
 const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
 const airplaneInterior = "/src/assets/airplane-interior.jpg";
+const meccaMosqueMobile = "/src/assets/mecca-mosque-mobile.jpg";
 
 // Weather icon mapping function
 const getWeatherIcon = (description: string) => {
@@ -472,7 +473,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 z-0 block md:hidden"
           style={{
-            backgroundImage: `url(/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png)`,
+            backgroundImage: `url(${meccaMosqueMobile})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
