@@ -4,6 +4,10 @@ Allow: /
 # Sitemap
 Sitemap: https://omrabonsplans.fr/sitemap.xml
 
+# Google verification
+Allow: /google-site-verification.html
+Allow: /BingSiteAuth.xml
+
 # Disallow admin and private areas
 Disallow: /admin/
 Disallow: /profile/
