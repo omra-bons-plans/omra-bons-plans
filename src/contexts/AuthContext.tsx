@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Check for recovery mode IMMEDIATELY when component mounts
     const urlHash = window.location.hash;
     if (urlHash.includes('type=recovery')) {
-      console.log('🔐 Recovery mode detected in AuthContext, setting password reset mode');
       sessionStorage.setItem('password_reset_mode', 'true');
       // Redirect to auth page immediately
       window.location.href = '/auth';
@@ -47,8 +46,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       (event, session) => {
         // Check if we're in password reset mode
         const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
-        
-        console.log('🔐 Auth state change:', { event, isPasswordResetMode, hasSession: !!session });
         
         // If we're in password reset mode and this is a SIGNED_IN event from recovery
         // don't fully authenticate the user to prevent redirect

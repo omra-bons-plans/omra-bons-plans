@@ -19,9 +19,6 @@ const MobileSidebar = () => {
   const { unreadCount } = useNotifications();
   const navigate = useNavigate();
 
-  // Debug logs pour vérifier l'état d'authentification
-  console.log('📱 MobileSidebar - User:', user?.email, 'isAdmin:', isAdmin);
-
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -442,10 +439,7 @@ const MobileSidebar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    onClick={() => {
-                      console.log('📱 Admin link clicked - isAdmin:', isAdmin, 'user:', user?.email);
-                      setIsOpen(false);
-                    }}
+                    onClick={() => setIsOpen(false)}
                     className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
                   >
                     <Shield className="w-5 h-5 text-muted-foreground" />

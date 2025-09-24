@@ -36,13 +36,8 @@ const Auth = () => {
   useEffect(() => {
     // FIRST: Check URL hash for Supabase recovery callback
     const urlHash = window.location.hash;
-    console.log('🔐 Auth page check:', {
-      search: window.location.search,
-      hash: urlHash
-    });
     
     if (urlHash.includes('type=recovery')) {
-      console.log('🔐 Supabase recovery detected from email link');
       sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
       setShowResetForm(false);
@@ -58,7 +53,6 @@ const Auth = () => {
     
     // If we have reset token from email, verify it and show password form
     if (resetToken && email) {
-      console.log('🔐 Reset token detected from custom email, verifying...');
       handleTokenVerification(resetToken, email);
       return;
     }
@@ -66,7 +60,6 @@ const Auth = () => {
     // Check if we were previously in reset mode
     const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
     if (isPasswordResetMode && !showUpdatePasswordForm) {
-      console.log('🔐 Resuming password reset mode');
       setShowUpdatePasswordForm(true);
     }
   }, [searchParams, showUpdatePasswordForm]);
@@ -74,8 +67,6 @@ const Auth = () => {
   // Handle token verification from email link
   const handleTokenVerification = async (token: string, email: string) => {
     try {
-      console.log('Verifying OTP token for password reset...');
-      
       // Set flag IMMEDIATELY to prevent any redirects
       sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
@@ -91,17 +82,14 @@ const Auth = () => {
       });
 
       if (error) {
-        console.error('Token verification failed:', error);
         toast.error('Lien de réinitialisation invalide ou expiré. Demandez un nouveau lien.');
         setShowUpdatePasswordForm(false);
         sessionStorage.removeItem('password_reset_mode');
         return;
       }
 
-      console.log('Token verified successfully - ready for password update');
       toast.success('Lien vérifié ! Vous pouvez maintenant changer votre mot de passe.');
     } catch (err) {
-      console.error('Token verification error:', err);
       toast.error('Erreur lors de la vérification du lien. Réessayez.');
       setShowUpdatePasswordForm(false);
       sessionStorage.removeItem('password_reset_mode');
@@ -115,16 +103,8 @@ const Auth = () => {
     
     const isInResetMode = isPasswordResetMode || showUpdatePasswordForm || resetToken;
 
-    console.log('🚦 Redirect check:', {
-      user: !!user,
-      isInResetMode,
-      showUpdatePasswordForm,
-      resetToken: !!resetToken
-    });
-
     // NEVER redirect if we're in any reset mode
     if (user && !isInResetMode) {
-      console.log('🚦 Redirecting to home');
       navigate('/');
     }
   }, [user, navigate, searchParams, showUpdatePasswordForm]);

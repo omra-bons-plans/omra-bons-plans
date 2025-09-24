@@ -246,8 +246,6 @@ const SejourDetails = () => {
         return;
       }
 
-      console.log('✅ User authenticated:', user.email);
-
       const selectedFormula = sessionStorage.getItem('selectedFormula');
 
       if (isEditMode && editAdId) {
