@@ -48,39 +48,32 @@ const Auth = () => {
     const accessToken = hashParams.get('access_token');
     const tokenType = hashParams.get('type');
     
-    console.log('Auth page - URL params check:', {
-      mode,
-      type,
-      token: !!token,
-      email,
-      accessToken: !!accessToken,
-      tokenType,
-      isPasswordResetMode,
-      hash: window.location.hash,
-      search: window.location.search,
-      showUpdatePasswordForm
-    });
+    // If we already showed the form, don't process again
+    if (showUpdatePasswordForm) {
+      return;
+    }
     
     // If we have the reset mode flag from sessionStorage, show the form
     if (isPasswordResetMode) {
-      console.log('Password reset mode detected from sessionStorage');
       setShowUpdatePasswordForm(true);
       return;
     }
     
     // Handle direct token from email (preferred method)
     if (type === 'recovery' && token && email) {
-      console.log('Direct token detected, verifying OTP...');
       handleTokenVerification(token, email);
       return;
     }
     
     // Fallback for hash-based tokens or manual mode setting
     if (mode === 'reset-password' || tokenType === 'recovery' || accessToken) {
-      console.log('Setting showUpdatePasswordForm to true');
+      // Mark as password reset mode and show form
+      sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
+      // Clean URL to prevent loops
+      window.history.replaceState({}, document.title, '/auth');
     }
-  }, [searchParams]);
+  }, [searchParams, showUpdatePasswordForm]);
 
   // Handle token verification from email link
   const handleTokenVerification = async (token: string, email: string) => {
@@ -122,18 +115,22 @@ const Auth = () => {
     const type = searchParams.get('type');
     const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
     
-    console.log('Auth page - Redirect check:', {
-      user: !!user,
-      mode,
-      type,
-      showUpdatePasswordForm,
-      isPasswordResetMode,
-      shouldRedirect: user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm && !isPasswordResetMode
-    });
+    // Check hash for recovery tokens
+    const hash = window.location.hash.substring(1);
+    const hashParams = new URLSearchParams(hash);
+    const tokenType = hashParams.get('type');
+    const accessToken = hashParams.get('access_token');
     
-    // Don't redirect if we're in password reset mode or if the session is for password recovery
-    if (user && mode !== 'reset-password' && type !== 'recovery' && !showUpdatePasswordForm && !isPasswordResetMode) {
-      console.log('Redirecting to home page');
+    // Don't redirect if we're in password reset mode
+    const isInResetMode = isPasswordResetMode || 
+                         showUpdatePasswordForm || 
+                         mode === 'reset-password' || 
+                         type === 'recovery' || 
+                         tokenType === 'recovery' || 
+                         accessToken;
+
+    // Only redirect to home if user is authenticated and NOT in reset mode
+    if (user && !isInResetMode) {
       navigate('/');
     }
   }, [user, navigate, searchParams, showUpdatePasswordForm]);
