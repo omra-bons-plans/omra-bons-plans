@@ -1,9 +1,11 @@
 import React from 'npm:react@18.3.1'
+import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0'
 import { Resend } from 'npm:resend@4.0.0'
 import { renderAsync } from 'npm:@react-email/components@0.0.22'
 import { ResetPasswordEmail } from './_templates/reset-password-email.tsx'
 
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string)
+const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -25,23 +27,34 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const payload = await req.json()
+    const payload = await req.text()
+    const headers = Object.fromEntries(req.headers)
     
-    const {
-      user,
-      email_data: { token, token_hash, redirect_to, email_action_type },
-    } = payload as {
-      user: {
-        email: string
+    let user, email_data
+    
+    if (hookSecret) {
+      // Use webhook verification if secret is configured
+      const wh = new Webhook(hookSecret)
+      const webhookPayload = wh.verify(payload, headers) as {
+        user: { email: string }
+        email_data: {
+          token: string
+          token_hash: string
+          redirect_to: string
+          email_action_type: string
+          site_url: string
+        }
       }
-      email_data: {
-        token: string
-        token_hash: string
-        redirect_to: string
-        email_action_type: string
-        site_url: string
-      }
+      user = webhookPayload.user
+      email_data = webhookPayload.email_data
+    } else {
+      // Fallback to direct JSON parsing for testing
+      const jsonPayload = JSON.parse(payload)
+      user = jsonPayload.user
+      email_data = jsonPayload.email_data
     }
+    
+    const { token, token_hash, redirect_to, email_action_type } = email_data
 
     // Only handle password recovery
     if (email_action_type !== 'recovery') {
