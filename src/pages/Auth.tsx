@@ -34,19 +34,31 @@ const Auth = () => {
 
   // Check for password reset in URL parameters
   useEffect(() => {
-    // Check URL parameters for reset token from email
+    // FIRST: Check URL hash for Supabase recovery callback
+    const urlHash = window.location.hash;
+    console.log('🔐 Auth page check:', {
+      search: window.location.search,
+      hash: urlHash
+    });
+    
+    if (urlHash.includes('type=recovery')) {
+      console.log('🔐 Supabase recovery detected from email link');
+      sessionStorage.setItem('password_reset_mode', 'true');
+      setShowUpdatePasswordForm(true);
+      setShowResetForm(false);
+      
+      // Clean the hash from URL
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      return;
+    }
+    
+    // SECOND: Check URL parameters for reset token from custom email
     const resetToken = searchParams.get('reset_token');
     const email = searchParams.get('email');
     
-    console.log('🔐 Auth page check:', {
-      search: window.location.search,
-      resetToken: !!resetToken,
-      email: !!email
-    });
-    
     // If we have reset token from email, verify it and show password form
     if (resetToken && email) {
-      console.log('🔐 Reset token detected from email, verifying...');
+      console.log('🔐 Reset token detected from custom email, verifying...');
       handleTokenVerification(resetToken, email);
       return;
     }
