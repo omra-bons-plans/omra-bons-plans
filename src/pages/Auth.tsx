@@ -32,41 +32,22 @@ const Auth = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Check for password reset in URL parameters or hash
+  // Check for password reset in URL parameters
   useEffect(() => {
-    // Check hash parameters first (Supabase recovery URLs use hash)
-    const hash = window.location.hash.substring(1);
-    const hashParams = new URLSearchParams(hash);
-    const accessToken = hashParams.get('access_token');
-    const tokenType = hashParams.get('type');
-    const refreshToken = hashParams.get('refresh_token');
-    
-    console.log('🔐 Auth page check:', {
-      hash: window.location.hash,
-      search: window.location.search,
-      accessToken: !!accessToken,
-      tokenType,
-      refreshToken: !!refreshToken
-    });
-    
-    // If we detect a recovery session from Supabase, show password form immediately
-    if (tokenType === 'recovery' && accessToken) {
-      console.log('🔐 Recovery session detected, showing password form');
-      sessionStorage.setItem('password_reset_mode', 'true');
-      setShowUpdatePasswordForm(true);
-      // Clean URL immediately to prevent redirect loops
-      window.history.replaceState({}, document.title, '/auth');
-      return;
-    }
-    
-    // Check URL parameters for fallback
-    const type = searchParams.get('type');
-    const token = searchParams.get('token');
+    // Check URL parameters for reset token from email
+    const resetToken = searchParams.get('reset_token');
     const email = searchParams.get('email');
     
-    // Handle direct token verification if provided (fallback)
-    if (type === 'recovery' && token && email) {
-      handleTokenVerification(token, email);
+    console.log('🔐 Auth page check:', {
+      search: window.location.search,
+      resetToken: !!resetToken,
+      email: !!email
+    });
+    
+    // If we have reset token from email, verify it and show password form
+    if (resetToken && email) {
+      console.log('🔐 Reset token detected from email, verifying...');
+      handleTokenVerification(resetToken, email);
       return;
     }
     
@@ -81,7 +62,16 @@ const Auth = () => {
   // Handle token verification from email link
   const handleTokenVerification = async (token: string, email: string) => {
     try {
-      console.log('Verifying OTP token...');
+      console.log('Verifying OTP token for password reset...');
+      
+      // Set flag IMMEDIATELY to prevent any redirects
+      sessionStorage.setItem('password_reset_mode', 'true');
+      setShowUpdatePasswordForm(true);
+      
+      // Clean URL immediately
+      window.history.replaceState({}, document.title, '/auth');
+      
+      // Verify the token but don't sign in the user yet
       const { data, error } = await supabase.auth.verifyOtp({
         token_hash: token,
         type: 'recovery',
@@ -91,50 +81,33 @@ const Auth = () => {
       if (error) {
         console.error('Token verification failed:', error);
         toast.error('Lien de réinitialisation invalide ou expiré. Demandez un nouveau lien.');
+        setShowUpdatePasswordForm(false);
+        sessionStorage.removeItem('password_reset_mode');
         return;
       }
 
-      console.log('Token verified successfully, user logged in');
-      
-      // IMPORTANT: Set flag BEFORE cleaning URL to prevent redirect
-      setShowUpdatePasswordForm(true);
-      
-      // Store in sessionStorage to persist across redirects
-      sessionStorage.setItem('password_reset_mode', 'true');
-      
-      // Clean URL
-      window.history.replaceState({}, document.title, '/auth');
-      
+      console.log('Token verified successfully - ready for password update');
       toast.success('Lien vérifié ! Vous pouvez maintenant changer votre mot de passe.');
     } catch (err) {
       console.error('Token verification error:', err);
       toast.error('Erreur lors de la vérification du lien. Réessayez.');
+      setShowUpdatePasswordForm(false);
+      sessionStorage.removeItem('password_reset_mode');
     }
   };
 
   // Redirect if already authenticated (except in reset password mode)
   useEffect(() => {
-    const type = searchParams.get('type');
     const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+    const resetToken = searchParams.get('reset_token');
     
-    // Check hash for recovery tokens
-    const hash = window.location.hash.substring(1);
-    const hashParams = new URLSearchParams(hash);
-    const tokenType = hashParams.get('type');
-    const accessToken = hashParams.get('access_token');
-    
-    const isInResetMode = isPasswordResetMode || 
-                         showUpdatePasswordForm || 
-                         type === 'recovery' || 
-                         tokenType === 'recovery' || 
-                         accessToken;
+    const isInResetMode = isPasswordResetMode || showUpdatePasswordForm || resetToken;
 
     console.log('🚦 Redirect check:', {
       user: !!user,
       isInResetMode,
       showUpdatePasswordForm,
-      type,
-      tokenType
+      resetToken: !!resetToken
     });
 
     // NEVER redirect if we're in any reset mode
