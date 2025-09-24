@@ -873,6 +873,39 @@ export type Database = {
         }
         Relationships: []
       }
+      role_audit_log: {
+        Row: {
+          action_timestamp: string
+          admin_user_id: string
+          id: string
+          ip_address: unknown | null
+          new_role: Database["public"]["Enums"]["app_role"]
+          old_role: Database["public"]["Enums"]["app_role"] | null
+          target_user_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          action_timestamp?: string
+          admin_user_id: string
+          id?: string
+          ip_address?: unknown | null
+          new_role: Database["public"]["Enums"]["app_role"]
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          target_user_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          action_timestamp?: string
+          admin_user_id?: string
+          id?: string
+          ip_address?: unknown | null
+          new_role?: Database["public"]["Enums"]["app_role"]
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          target_user_id?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       topic_requests: {
         Row: {
           created_at: string
@@ -1046,6 +1079,17 @@ export type Database = {
           website: string
         }[]
       }
+      get_recent_role_changes: {
+        Args: { limit_count?: number }
+        Returns: {
+          action_timestamp: string
+          admin_email: string
+          ip_address: unknown
+          new_role: Database["public"]["Enums"]["app_role"]
+          old_role: Database["public"]["Enums"]["app_role"]
+          target_email: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1064,6 +1108,15 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      secure_role_change: {
+        Args: {
+          admin_ip?: unknown
+          admin_user_agent?: string
+          new_role: Database["public"]["Enums"]["app_role"]
+          target_user_id: string
+        }
+        Returns: Json
       }
       should_auto_delete_ad: {
         Args: { publish_end_date: string }

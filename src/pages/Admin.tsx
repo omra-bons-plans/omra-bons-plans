@@ -159,30 +159,41 @@ const Admin = () => {
 
   const handleRoleChange = async (userId: string, newRole: 'admin' | 'user') => {
     try {
-      // Supprimer le rôle existant
-      await supabase
-        .from('user_roles')
-        .delete()
-        .eq('user_id', userId);
-
-      // Ajouter le nouveau rôle
-      const { error } = await supabase
-        .from('user_roles')
-        .insert({ user_id: userId, role: newRole });
+      // Utiliser la fonction sécurisée avec audit
+      const { data, error } = await supabase.rpc('secure_role_change', {
+        target_user_id: userId,
+        new_role: newRole,
+        admin_ip: null, // Optionnel: pourrait être récupéré côté client
+        admin_user_agent: navigator.userAgent
+      });
 
       if (error) throw error;
 
+      const result = data as { success: boolean; error?: string; message?: string; old_role?: string; new_role?: string; admin_email?: string; target_email?: string };
+
+      if (!result.success) {
+        throw new Error(result.error || 'Échec du changement de rôle');
+      }
+
       toast({
-        title: "Succès",
-        description: `Rôle mis à jour vers ${newRole}`,
+        title: "✅ Sécurité renforcée",
+        description: `Rôle mis à jour: ${result.old_role} → ${result.new_role}. Action auditée.`,
+      });
+
+      // Log de sécurité côté client
+      console.log('🔐 Role change audit:', {
+        admin: result.admin_email,
+        target: result.target_email,
+        change: `${result.old_role} → ${result.new_role}`,
+        timestamp: new Date().toISOString()
       });
 
       fetchUsers();
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour du rôle:', error);
+    } catch (error: any) {
+      console.error('🚨 Échec du changement de rôle sécurisé:', error);
       toast({
-        title: "Erreur",
-        description: "Impossible de mettre à jour le rôle",
+        title: "🛡️ Accès refusé",
+        description: error.message || "Action non autorisée par les protections de sécurité",
         variant: "destructive",
       });
     }
@@ -359,6 +370,16 @@ const Admin = () => {
                     className="text-sm"
                   >
                     Demandes de sujets
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/security-audit');
+                      navigate('/admin/security-audit');
+                    }}
+                    className="text-sm"
+                  >
+                    🛡️ Audit Sécurité
                   </Button>
                 </>
               )}

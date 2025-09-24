@@ -51,6 +51,7 @@ const ComparatifVisuel = lazy(() => import("./pages/ComparatifVisuel"));
 const ComparatifAgences = lazy(() => import("./pages/ComparatifAgences"));
 const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
+const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 
 // Loading component
 const PageLoader = () => (
@@ -160,6 +161,11 @@ const App = () => (
                   <Route path="/admin/topic-requests" element={
                     <ProtectedRoute>
                       <AdminTopicRequests />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/security-audit" element={
+                    <ProtectedRoute>
+                      <AdminSecurityAudit />
                     </ProtectedRoute>
                   } />
                   <Route path="/admin/ads" element={
