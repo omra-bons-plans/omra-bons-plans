@@ -34,44 +34,47 @@ const Auth = () => {
 
   // Check for password reset in URL parameters or hash
   useEffect(() => {
-    const mode = searchParams.get('mode');
     const type = searchParams.get('type');
     const token = searchParams.get('token');
     const email = searchParams.get('email');
     
-    // Check if we're returning from a password reset
-    const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+    console.log('🔐 Auth page URL check:', {
+      type,
+      token: !!token,
+      email,
+      hash: window.location.hash,
+      search: window.location.search
+    });
     
-    // Also check hash parameters for Supabase redirects
+    // Check hash parameters (Supabase often uses hash for tokens)
     const hash = window.location.hash.substring(1);
     const hashParams = new URLSearchParams(hash);
     const accessToken = hashParams.get('access_token');
     const tokenType = hashParams.get('type');
     
-    // If we already showed the form, don't process again
-    if (showUpdatePasswordForm) {
-      return;
-    }
+    console.log('🔐 Hash params:', { accessToken: !!accessToken, tokenType });
     
-    // If we have the reset mode flag from sessionStorage, show the form
-    if (isPasswordResetMode) {
+    // If we detect a recovery token, show the password form immediately
+    if (type === 'recovery' || tokenType === 'recovery' || accessToken) {
+      console.log('🔐 Recovery detected, showing password form');
+      sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
+      // Clean URL immediately
+      window.history.replaceState({}, document.title, '/auth');
       return;
     }
     
-    // Handle direct token from email (preferred method)
+    // Handle direct token verification if provided
     if (type === 'recovery' && token && email) {
       handleTokenVerification(token, email);
       return;
     }
     
-    // Fallback for hash-based tokens or manual mode setting
-    if (mode === 'reset-password' || tokenType === 'recovery' || accessToken) {
-      // Mark as password reset mode and show form
-      sessionStorage.setItem('password_reset_mode', 'true');
+    // Check if we were previously in reset mode
+    const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+    if (isPasswordResetMode && !showUpdatePasswordForm) {
+      console.log('🔐 Resuming password reset mode');
       setShowUpdatePasswordForm(true);
-      // Clean URL to prevent loops
-      window.history.replaceState({}, document.title, '/auth');
     }
   }, [searchParams, showUpdatePasswordForm]);
 
@@ -111,7 +114,6 @@ const Auth = () => {
 
   // Redirect if already authenticated (except in reset password mode)
   useEffect(() => {
-    const mode = searchParams.get('mode');
     const type = searchParams.get('type');
     const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
     
@@ -121,16 +123,23 @@ const Auth = () => {
     const tokenType = hashParams.get('type');
     const accessToken = hashParams.get('access_token');
     
-    // Don't redirect if we're in password reset mode
     const isInResetMode = isPasswordResetMode || 
                          showUpdatePasswordForm || 
-                         mode === 'reset-password' || 
                          type === 'recovery' || 
                          tokenType === 'recovery' || 
                          accessToken;
 
-    // Only redirect to home if user is authenticated and NOT in reset mode
+    console.log('🚦 Redirect check:', {
+      user: !!user,
+      isInResetMode,
+      showUpdatePasswordForm,
+      type,
+      tokenType
+    });
+
+    // NEVER redirect if we're in any reset mode
     if (user && !isInResetMode) {
+      console.log('🚦 Redirecting to home');
       navigate('/');
     }
   }, [user, navigate, searchParams, showUpdatePasswordForm]);
