@@ -34,37 +34,37 @@ const Auth = () => {
 
   // Check for password reset in URL parameters or hash
   useEffect(() => {
-    const type = searchParams.get('type');
-    const token = searchParams.get('token');
-    const email = searchParams.get('email');
-    
-    console.log('🔐 Auth page URL check:', {
-      type,
-      token: !!token,
-      email,
-      hash: window.location.hash,
-      search: window.location.search
-    });
-    
-    // Check hash parameters (Supabase often uses hash for tokens)
+    // Check hash parameters first (Supabase recovery URLs use hash)
     const hash = window.location.hash.substring(1);
     const hashParams = new URLSearchParams(hash);
     const accessToken = hashParams.get('access_token');
     const tokenType = hashParams.get('type');
+    const refreshToken = hashParams.get('refresh_token');
     
-    console.log('🔐 Hash params:', { accessToken: !!accessToken, tokenType });
+    console.log('🔐 Auth page check:', {
+      hash: window.location.hash,
+      search: window.location.search,
+      accessToken: !!accessToken,
+      tokenType,
+      refreshToken: !!refreshToken
+    });
     
-    // If we detect a recovery token, show the password form immediately
-    if (type === 'recovery' || tokenType === 'recovery' || accessToken) {
-      console.log('🔐 Recovery detected, showing password form');
+    // If we detect a recovery session from Supabase, show password form immediately
+    if (tokenType === 'recovery' && accessToken) {
+      console.log('🔐 Recovery session detected, showing password form');
       sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
-      // Clean URL immediately
+      // Clean URL immediately to prevent redirect loops
       window.history.replaceState({}, document.title, '/auth');
       return;
     }
     
-    // Handle direct token verification if provided
+    // Check URL parameters for fallback
+    const type = searchParams.get('type');
+    const token = searchParams.get('token');
+    const email = searchParams.get('email');
+    
+    // Handle direct token verification if provided (fallback)
     if (type === 'recovery' && token && email) {
       handleTokenVerification(token, email);
       return;

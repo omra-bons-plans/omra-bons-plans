@@ -61,7 +61,7 @@ export const ResetPasswordEmail = ({
           {/* CTA Button */}
           <Section style={buttonContainer}>
             <Link
-              href={`${new URL(redirect_to).origin}/auth?token=${token}&type=recovery&email=${user_email}`}
+              href={`${supabase_url}/auth/v1/verify?token=${token_hash}&type=recovery&redirect_to=${encodeURIComponent(redirect_to)}`}
               style={button}
             >
               Réinitialiser mon mot de passe
@@ -73,7 +73,7 @@ export const ResetPasswordEmail = ({
           </Text>
           
           <Text style={linkText}>
-            {`${new URL(redirect_to).origin}/auth?token=${token}&type=recovery&email=${user_email}`}
+            {`${supabase_url}/auth/v1/verify?token=${token_hash}&type=recovery&redirect_to=${encodeURIComponent(redirect_to)}`}
           </Text>
 
           <Hr style={divider} />
