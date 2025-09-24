@@ -35,7 +35,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        // Logs supprimés pour la sécurité - ne pas exposer les tokens
+        // Check if we're in password reset mode
+        const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+        
+        // If we're in password reset mode and this is a SIGNED_IN event from recovery
+        // don't fully authenticate the user to prevent redirect
+        if (isPasswordResetMode && event === 'SIGNED_IN') {
+          // Keep the session for password update but don't set user to prevent redirect
+          setSession(session);
+          setUser(null); // Keep user null to prevent auto-redirect
+          setLoading(false);
+          return;
+        }
+        
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -44,7 +56,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      // Logs supprimés pour la sécurité - ne pas exposer les tokens
+      const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+      
+      // Same logic for initial session check
+      if (isPasswordResetMode && session) {
+        setSession(session);
+        setUser(null); // Keep user null during password reset
+        setLoading(false);
+        return;
+      }
+      
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

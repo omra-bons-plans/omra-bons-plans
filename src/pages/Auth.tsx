@@ -268,6 +268,14 @@ const Auth = () => {
     } else {
       // Clear the password reset mode flag
       sessionStorage.removeItem('password_reset_mode');
+      
+      // Re-trigger auth state to properly authenticate the user
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        // Force a re-authentication state update
+        window.location.reload();
+      }
+      
       toast.success('Mot de passe mis à jour avec succès !');
       navigate('/');
     }
