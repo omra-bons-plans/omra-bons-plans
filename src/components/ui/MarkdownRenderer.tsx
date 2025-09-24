@@ -78,10 +78,35 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         return;
       }
       
+      // Check for images first ![alt](url)
+      const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imageMatch) {
+        const altText = imageMatch[1] || 'Image';
+        const imageUrl = imageMatch[2];
+        elements.push(
+          <div key={`image-${index}`} className="my-6">
+            <img 
+              src={imageUrl} 
+              alt={altText}
+              className="max-w-full h-auto rounded-lg shadow-sm border border-border/20 mx-auto"
+              loading="lazy"
+            />
+            {altText && altText !== 'Image' && (
+              <p className="text-sm text-muted-foreground text-center mt-2 italic">
+                {altText}
+              </p>
+            )}
+          </div>
+        );
+        return;
+      }
+      
       // Process regular text with all markdown elements
       let processedLine = line
         // Convert bold **text** to <strong>text</strong>
         .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>')
+        // Convert images ![alt](url) to <img> (for inline images in text)
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1" style="max-height: 200px;" loading="lazy" />')
         // Convert links [text](url) to <a href="url">text</a>
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-2 transition-colors">$1</a>');
       
