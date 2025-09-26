@@ -52,6 +52,7 @@ const ComparatifAgences = lazy(() => import("./pages/ComparatifAgences"));
 const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
+const Search = lazy(() => import("./pages/Search"));
 
 // Loading component
 const PageLoader = () => (
@@ -201,9 +202,10 @@ const App = () => (
                   <Route path="/comparatif-agences" element={<ComparatifAgences />} />
                   <Route path="/agences-liste" element={<AgencesListe />} />
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
-                  <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
-                  
-                  {/* Redirections vers les URLs françaises */}
+                   <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+                   <Route path="/search" element={<Search />} />
+                   
+                   {/* Redirections vers les URLs françaises */}
                   <Route path="/a-propos" element={<Navigate to="/about" replace />} />
                   <Route path="/calendrier-islamique" element={<Navigate to="/islamic-calendar" replace />} />
                   <Route path="/dates-ramadan-hajj" element={<Navigate to="/ramadan-hajj-dates" replace />} />
