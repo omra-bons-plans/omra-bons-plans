@@ -7,10 +7,13 @@
 # Redirections services vers catégories
 /services/babysitting-omra /category/babysitting 301
 /services/guides-omra /category/guides 301
-/services/hebergement-omra /category/hebergement 301
+/services/hebergement-omra /category/hebergements 301
 /services/sejours-omra /category/sejours 301
 /services/transport-omra /category/chauffeurs 301
 /services/vols-omra /category/vols 301
+
+# Redirections de normalisation des URLs de catégories (singulier vers pluriel)
+/category/hebergement /category/hebergements 301
 
 # SPA fallback - redirect all routes to index.html for client-side routing
 /*    /index.html   200
