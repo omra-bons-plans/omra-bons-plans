@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface MarkdownRendererProps {
   content: string;
@@ -82,7 +83,16 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
       const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
       if (imageMatch) {
         const altText = imageMatch[1] || 'Image';
-        const imageUrl = imageMatch[2];
+        let imageUrl = imageMatch[2];
+        
+        // Optimize blog images if they're from Supabase storage
+        if (imageUrl.includes('blog-images') || (!imageUrl.startsWith('http') && imageUrl.includes('blog/'))) {
+          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 85 }, 'blog-images');
+        } else if (!imageUrl.startsWith('http')) {
+          // For other relative paths, try ad-images bucket
+          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 85 });
+        }
+        
         elements.push(
           <div key={`image-${index}`} className="my-6">
             <img 
@@ -112,8 +122,16 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
       let processedLine = line
         // Convert bold **text** to <strong>text</strong>
         .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>')
-        // Convert images ![alt](url) to <img> (for inline images in text)
-        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" onError="console.error(\'❌ Erreur image inline:\', \'$2\'); this.style.display=\'none\';" onLoad="console.log(\'✅ Image inline chargée:\', \'$2\');" />')
+        // Convert images ![alt](url) to <img> (for inline images in text) with optimization
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
+          let optimizedUrl = url;
+          if (url.includes('blog-images') || (!url.startsWith('http') && url.includes('blog/'))) {
+            optimizedUrl = getImageUrl(url, { width: 400, quality: 85 }, 'blog-images');
+          } else if (!url.startsWith('http')) {
+            optimizedUrl = getImageUrl(url, { width: 400, quality: 85 });
+          }
+          return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" onError="console.error('❌ Erreur image inline:', '${optimizedUrl}'); this.style.display='none';" onLoad="console.log('✅ Image inline chargée:', '${optimizedUrl}');" />`;
+        })
         // Convert links [text](url) to <a href="url">text</a>
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-2 transition-colors">$1</a>');
       

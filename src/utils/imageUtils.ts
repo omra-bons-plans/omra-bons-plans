@@ -28,16 +28,18 @@ const optimizeSupabaseImage = (url: string, options: {
 };
 
 /**
- * Get the public URL for an image in the ad-images bucket
+ * Get the public URL for an image from a Supabase bucket
  * @param imagePath - The path of the image in the bucket
- * @param optimize - Options d'optimisation
- * @returns The public URL or placeholder image
+ * @param optimize - Optional optimization parameters
+ * @param bucketName - The bucket name (defaults to 'ad-images')
+ * @returns The public URL of the image
  */
 export const getImageUrl = (
   imagePath: string | null | undefined, 
-  optimize: { width?: number; height?: number; quality?: number } = {}
+  optimize: { width?: number; height?: number; quality?: number } = {},
+  bucketName: string = 'ad-images'
 ): string => {
-  console.log('🖼️ getImageUrl called with:', imagePath);
+  console.log('🖼️ getImageUrl called with:', imagePath, 'bucket:', bucketName);
   
   if (!imagePath) {
     console.log('❌ No image path provided, returning placeholder');
@@ -52,7 +54,7 @@ export const getImageUrl = (
   
   try {
     const { data } = supabase.storage
-      .from('ad-images')
+      .from(bucketName)
       .getPublicUrl(imagePath);
     
     const optimizedUrl = optimizeSupabaseImage(data.publicUrl, optimize);
@@ -65,16 +67,18 @@ export const getImageUrl = (
 };
 
 /**
- * Get multiple image URLs with optimization
+ * Get multiple image URLs from an array of paths
  * @param imagePaths - Array of image paths
- * @param optimize - Options d'optimisation
+ * @param optimize - Optional optimization parameters
+ * @param bucketName - The bucket name (defaults to 'ad-images')
  * @returns Array of public URLs
  */
 export const getImageUrls = (
   imagePaths: string[], 
-  optimize?: { width?: number; height?: number; quality?: number }
+  optimize?: { width?: number; height?: number; quality?: number },
+  bucketName?: string
 ): string[] => {
-  return imagePaths.map(path => getImageUrl(path, optimize));
+  return imagePaths.map(path => getImageUrl(path, optimize, bucketName));
 };
 
 /**
