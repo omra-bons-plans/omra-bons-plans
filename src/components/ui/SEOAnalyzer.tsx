@@ -170,10 +170,22 @@ export const SEOAnalyzer = ({ title, excerpt, content, images, coverImage }: SEO
       suggestions.push('Le contenu est trop court (minimum 300 mots recommandé)');
     }
 
-    // Structure des titres
-    const h1Count = (content.match(/^# /gm) || []).length;
-    const h2Count = (content.match(/^## /gm) || []).length;
-    const h3Count = (content.match(/^### /gm) || []).length;
+    // Structure des titres - recherche des titres Markdown ET HTML
+    const markdownH1 = (content.match(/^# /gm) || []).length;
+    const markdownH2 = (content.match(/^## /gm) || []).length;
+    const markdownH3 = (content.match(/^### /gm) || []).length;
+    
+    // Recherche des titres HTML dans le contenu
+    const htmlH1 = (content.match(/<h1[^>]*>/gi) || []).length;
+    const htmlH2 = (content.match(/<h2[^>]*>/gi) || []).length;
+    const htmlH3 = (content.match(/<h3[^>]*>/gi) || []).length;
+    
+    // Recherche des titres H1 dans la page actuelle (DOM)
+    const pageH1Count = document.querySelectorAll('h1').length;
+    
+    const h1Count = markdownH1 + htmlH1 + (pageH1Count > 0 ? 1 : 0);
+    const h2Count = markdownH2 + htmlH2;
+    const h3Count = markdownH3 + htmlH3;
 
     const headings = { h1: h1Count, h2: h2Count, h3: h3Count };
 
