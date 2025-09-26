@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTitle } from './dialog';
 import { Button } from './button';
 import { Card } from './card';
 import { getImageUrl } from '@/utils/imageUtils';
+import UniversalImage from './UniversalImage';
 
 interface ImageDisplayProps {
   images: string[];
@@ -86,14 +87,11 @@ export const ImageDisplay = ({
         {/* Main Image */}
         <Card className="overflow-hidden cursor-pointer" onClick={() => openModal(0)}>
           <div className="aspect-video relative">
-            <img
+            <UniversalImage
               src={allImages[0]}
               alt={`${title} - Image principale`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              onError={(e) => {
-                const img = e.target as HTMLImageElement;
-                img.src = '/ad-placeholder.jpg';
-              }}
+              optimize={{ width: 800, height: 600, quality: 85 }}
             />
             
             {allImages.length > 1 && (
@@ -187,14 +185,11 @@ export const ImageDisplay = ({
             </div>
 
             {/* Main Image */}
-            <img
+            <UniversalImage
               src={allImages[currentImageIndex]}
               alt={`${title} - Image ${currentImageIndex + 1}`}
               className="max-w-[90vw] max-h-[85vh] object-contain"
-              onError={(e) => {
-                const img = e.target as HTMLImageElement;
-                img.src = '/ad-placeholder.jpg';
-              }}
+              optimize={{ width: 1200, height: 1200, quality: 90 }}
             />
 
              {/* Navigation Buttons */}

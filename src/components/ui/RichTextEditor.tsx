@@ -7,6 +7,7 @@ import { Label } from './label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { Badge } from './badge';
 import { useImageUpload } from '@/hooks/useImageUpload';
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface RichTextEditorProps {
   value: string;
@@ -116,18 +117,26 @@ export const RichTextEditor = ({
   };
 
   const renderPreview = (text: string) => {
-    // Convert markdown to HTML
+    // Convert markdown to HTML with proper image optimization
     let html = text
       // Convert bold **text** to <strong>text</strong>
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      // Convert images ![alt](url) to <img src="url" alt="alt">
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin: 16px 0; display: block;" />')
+      // Convert images ![alt](url) to <img src="url" alt="alt"> with optimization
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
+        let optimizedUrl = url;
+        if (url.includes('blog-images') || (!url.startsWith('http') && url.includes('blog/'))) {
+          optimizedUrl = getImageUrl(url, { width: 600, quality: 85 }, 'blog-images');
+        } else if (!url.startsWith('http')) {
+          optimizedUrl = getImageUrl(url, { width: 600, quality: 85 });
+        }
+        return `<img src="${optimizedUrl}" alt="${alt}" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin: 16px 0; display: block;" loading="lazy" />`;
+      })
       // Convert links [text](url) to <a href="url">text</a>
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">$1</a>')
       // Convert line breaks to <br>
       .replace(/\n/g, '<br>');
     
-    return <div 
+    return <div
       className="max-w-none text-foreground space-y-4"
       dangerouslySetInnerHTML={{ __html: html }}
     />;

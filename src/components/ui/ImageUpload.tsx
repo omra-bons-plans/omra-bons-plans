@@ -4,6 +4,7 @@ import { Button } from './button';
 import { Card } from './card';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { toast } from 'sonner';
+import UniversalImage from './UniversalImage';
 
 interface ImageUploadProps {
   images: string[];
@@ -115,14 +116,11 @@ export const ImageUpload = ({
           {images.map((image, index) => (
             <Card key={index} className="relative overflow-hidden group">
               <div className="aspect-square relative">
-                <img
+                <UniversalImage
                   src={image}
                   alt={`Image ${index + 1}`}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const img = e.target as HTMLImageElement;
-                    img.src = '/ad-placeholder.jpg';
-                  }}
+                  optimize={{ width: 400, height: 300, quality: 85 }}
                 />
                 
                 {/* Overlay with delete button */}
