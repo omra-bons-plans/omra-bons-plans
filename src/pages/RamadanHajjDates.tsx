@@ -64,59 +64,66 @@ const RamadanHajjDates = () => {
         <title>Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage Islam</title>
         <meta name="description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha. Planning complet pour votre pèlerinage." />
         <meta name="keywords" content="dates ramadan 2025, hajj 2026, calendrier hajj, arafat date, eid dates" />
-        <link rel="canonical" href="https://omrabonsplans.fr/dates-ramadan-hajj" />
+        <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage" />
         <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
-        <meta property="og:url" content="https://omrabonsplans.fr/dates-ramadan-hajj" />
+        <meta property="og:url" content="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "EventSeries", 
-            "name": "Calendrier Ramadan & Hajj 2025-2027",
-            "description": "Dates importantes du Ramadan et Hajj pour planifier votre voyage religieux",
-            "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
+            "@type": "WebPage",
+            "name": "Dates Ramadan & Hajj 2025-2027",
+            "description": "Calendrier officiel des dates du Ramadan et du Hajj 2025-2027 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
+            "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
             "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
-            "organizer": {
+            "publisher": {
               "@type": "Organization",
               "name": "Omra Bons Plans",
-              "url": "https://omrabonsplans.fr"
-            },
-            "subEvent": [
-              {
-                "@type": "Event",
-                "name": "Ramadan 2025",
-                "startDate": "2025-02-28",
-                "endDate": "2025-03-30",
-                "location": {
-                  "@type": "Place",
-                  "name": "Monde entier",
-                  "address": "Observance mondiale"
-                },
-                "eventStatus": "EventScheduled",
-                "eventAttendanceMode": "OfflineEventAttendanceMode"
-              },
-              {
-                "@type": "Event", 
-                "name": "Hajj 2025",
-                "startDate": "2025-06-05",
-                "endDate": "2025-06-10",
-                "location": {
-                  "@type": "Place",
-                  "name": "La Mecque",
-                  "address": "La Mecque, Arabie Saoudite"
-                },
-                "eventStatus": "EventScheduled",
-                "eventAttendanceMode": "OfflineEventAttendanceMode"
+              "url": "https://omrabonsplans.fr",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
               }
-            ]
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Calendrier Islamique 2025-2027",
+              "itemListElement": [
+                {
+                  "@type": "Event",
+                  "name": "Ramadan 2025",
+                  "startDate": "2025-02-28",
+                  "endDate": "2025-03-30",
+                  "location": {
+                    "@type": "Place",
+                    "name": "Observance mondiale"
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Hajj 2025", 
+                  "startDate": "2025-06-05",
+                  "endDate": "2025-06-10",
+                  "location": {
+                    "@type": "Place",
+                    "name": "La Mecque",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": "La Mecque",
+                      "addressCountry": "Arabie Saoudite"
+                    }
+                  }
+                }
+              ]
+            }
           })}
         </script>
       </Helmet>
-      <SEOHead {...seoConfig.ramadanHajj} />
+      
       <main className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto p-6">
           {/* Header */}
