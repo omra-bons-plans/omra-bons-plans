@@ -512,7 +512,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="airportJeddahToMakkah">Aéroport Jeddah → Makkah (SAR)</Label>
+                  <Label htmlFor="airportJeddahToMakkah">Aéroport Jeddah → Makkah (€)</Label>
                   <Input
                     id="airportJeddahToMakkah"
                     type="number"
@@ -524,7 +524,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="airportJeddahToMedina">Aéroport Jeddah → Médine (SAR)</Label>
+                  <Label htmlFor="airportJeddahToMedina">Aéroport Jeddah → Médine (€)</Label>
                   <Input
                     id="airportJeddahToMedina"
                     type="number"
@@ -536,7 +536,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="airportMedinaToMedina">Aéroport Médine → Médine (SAR)</Label>
+                  <Label htmlFor="airportMedinaToMedina">Aéroport Médine → Médine (€)</Label>
                   <Input
                     id="airportMedinaToMedina"
                     type="number"
@@ -548,7 +548,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="makkahToMedina">Makkah → Médine (SAR)</Label>
+                  <Label htmlFor="makkahToMedina">Makkah → Médine (€)</Label>
                   <Input
                     id="makkahToMedina"
                     type="number"
@@ -560,7 +560,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="medinaToMakkah">Médine → Makkah (SAR)</Label>
+                  <Label htmlFor="medinaToMakkah">Médine → Makkah (€)</Label>
                   <Input
                     id="medinaToMakkah"
                     type="number"
@@ -572,7 +572,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="visitMedina">Visite de Médine (SAR)</Label>
+                  <Label htmlFor="visitMedina">Visite de Médine (€)</Label>
                   <Input
                     id="visitMedina"
                     type="number"
@@ -584,7 +584,7 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="visitMakkah">Visite de Makkah (SAR)</Label>
+                  <Label htmlFor="visitMakkah">Visite de Makkah (€)</Label>
                   <Input
                     id="visitMakkah"
                     type="number"

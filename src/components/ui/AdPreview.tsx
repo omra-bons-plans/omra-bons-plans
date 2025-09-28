@@ -252,43 +252,43 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
               {data.pricing.airportJeddahToMakkah && (
                 <div className="flex justify-between">
                   <span>Aéroport Jeddah → Makkah:</span>
-                  <span className="font-medium">{data.pricing.airportJeddahToMakkah} SAR</span>
+                  <span className="font-medium">{data.pricing.airportJeddahToMakkah} €</span>
                 </div>
               )}
               {data.pricing.airportJeddahToMedina && (
                 <div className="flex justify-between">
                   <span>Aéroport Jeddah → Médine:</span>
-                  <span className="font-medium">{data.pricing.airportJeddahToMedina} SAR</span>
+                  <span className="font-medium">{data.pricing.airportJeddahToMedina} €</span>
                 </div>
               )}
               {data.pricing.airportMedinaToMedina && (
                 <div className="flex justify-between">
                   <span>Aéroport Médine → Médine:</span>
-                  <span className="font-medium">{data.pricing.airportMedinaToMedina} SAR</span>
+                  <span className="font-medium">{data.pricing.airportMedinaToMedina} €</span>
                 </div>
               )}
               {data.pricing.makkahToMedina && (
                 <div className="flex justify-between">
                   <span>Makkah → Médine:</span>
-                  <span className="font-medium">{data.pricing.makkahToMedina} SAR</span>
+                  <span className="font-medium">{data.pricing.makkahToMedina} €</span>
                 </div>
               )}
               {data.pricing.medinaToMakkah && (
                 <div className="flex justify-between">
                   <span>Médine → Makkah:</span>
-                  <span className="font-medium">{data.pricing.medinaToMakkah} SAR</span>
+                  <span className="font-medium">{data.pricing.medinaToMakkah} €</span>
                 </div>
               )}
               {data.pricing.visitMedina && (
                 <div className="flex justify-between">
                   <span>Visite de Médine:</span>
-                  <span className="font-medium">{data.pricing.visitMedina} SAR</span>
+                  <span className="font-medium">{data.pricing.visitMedina} €</span>
                 </div>
               )}
               {data.pricing.visitMakkah && (
                 <div className="flex justify-between">
                   <span>Visite de Makkah:</span>
-                  <span className="font-medium">{data.pricing.visitMakkah} SAR</span>
+                  <span className="font-medium">{data.pricing.visitMakkah} €</span>
                 </div>
               )}
             </div>
