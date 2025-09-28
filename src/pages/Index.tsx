@@ -1062,12 +1062,12 @@ const Index = () => {
       </section>
 
       {/* Additional Services */}
-      <section className="py-20 px-6 bg-card">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <h2 className="text-4xl font-bold">Services Complémentaires</h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-card">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="space-y-6 md:space-y-8">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words">Services Complémentaires</h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed break-words">
                 Découvrez nos services exclusifs pour enrichir votre voyage spirituel en Arabie Saoudite : 
                 restaurants halal certifiés, transport ferroviaire haute vitesse entre les villes saintes.
               </p>
