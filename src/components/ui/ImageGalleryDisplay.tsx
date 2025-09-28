@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ImageComponent } from './ImageComponent';
-import { MobileImageGallery } from './MobileImageGallery';
+import { SwipeImageGallery } from './SwipeImageGallery';
 import { getImageUrl } from '@/utils/imageUtils';
 
 interface ImageGalleryDisplayProps {
@@ -75,7 +75,7 @@ export const ImageGalleryDisplay = ({
         </div>
       )}
 
-      <MobileImageGallery
+      <SwipeImageGallery
         images={images}
         coverImage={coverImage}
         title={title}
