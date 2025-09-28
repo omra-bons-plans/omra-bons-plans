@@ -208,38 +208,38 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                      <div className="flex items-center space-x-2 mb-3">
                        <span className="font-semibold text-lg">💰 Tarifs</span>
                      </div>
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                       {ad.categoryDetails.pricing.omraBadal && (
-                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                           <span>Omra Badal (défunt)</span>
-                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.omraBadal} €</span>
-                         </div>
-                       )}
-                       {ad.categoryDetails.pricing.omraGuidance && (
-                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                           <span>Accompagnement Omra</span>
-                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.omraGuidance} €</span>
-                         </div>
-                       )}
-                       {ad.categoryDetails.pricing.wheelchairHelp && (
-                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                           <span>Aide fauteuil roulant</span>
-                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.wheelchairHelp} €</span>
-                         </div>
-                       )}
-                       {ad.categoryDetails.pricing.visitMedina && (
-                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                           <span>Visite de Médine</span>
-                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMedina} €</span>
-                         </div>
-                       )}
-                       {ad.categoryDetails.pricing.visitMakkah && (
-                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                           <span>Visite de Makkah</span>
-                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMakkah} €</span>
-                         </div>
-                       )}
-                     </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        {ad.categoryDetails.pricing.omraBadal && (
+                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                            <span>Omra Badal (défunt)</span>
+                            <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.omraBadal} €</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.pricing.omraGuidance && (
+                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                            <span>Accompagnement Omra</span>
+                            <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.omraGuidance} €</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.pricing.wheelchairHelp && (
+                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                            <span>Aide fauteuil roulant</span>
+                            <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.wheelchairHelp} €</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.pricing.visitMedina && (
+                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                            <span>Visite de Médine</span>
+                            <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.visitMedina} €</span>
+                          </div>
+                        )}
+                        {ad.categoryDetails.pricing.visitMakkah && (
+                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                            <span>Visite de Makkah</span>
+                            <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.visitMakkah} €</span>
+                          </div>
+                        )}
+                      </div>
                    </div>
                  )}
               </>
@@ -297,50 +297,50 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                      <div className="flex items-center space-x-2 mb-3">
                        <span className="font-semibold text-lg">💰 Tarifs</span>
                      </div>
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                        {ad.categoryDetails.pricing.airportJeddahToMakkah && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Aéroport Jeddah → Makkah</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportJeddahToMakkah} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.airportJeddahToMedina && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Aéroport Jeddah → Médine</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportJeddahToMedina} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.airportMedinaToMedina && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Aéroport Médine → Médine</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportMedinaToMedina} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.makkahToMedina && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Makkah → Médine</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.makkahToMedina} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.medinaToMakkah && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Médine → Makkah</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.medinaToMakkah} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.visitMedina && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Visite de Médine</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMedina} €</span>
-                          </div>
-                        )}
-                        {ad.categoryDetails.pricing.visitMakkah && (
-                          <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                            <span>Visite de Makkah</span>
-                            <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMakkah} €</span>
-                          </div>
-                        )}
-                     </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                         {ad.categoryDetails.pricing.airportJeddahToMakkah && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Aéroport Jeddah → Makkah</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.airportJeddahToMakkah} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.airportJeddahToMedina && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Aéroport Jeddah → Médine</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.airportJeddahToMedina} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.airportMedinaToMedina && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Aéroport Médine → Médine</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.airportMedinaToMedina} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.makkahToMedina && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Makkah → Médine</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.makkahToMedina} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.medinaToMakkah && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Médine → Makkah</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.medinaToMakkah} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.visitMedina && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Visite de Médine</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.visitMedina} €</span>
+                           </div>
+                         )}
+                         {ad.categoryDetails.pricing.visitMakkah && (
+                           <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                             <span>Visite de Makkah</span>
+                             <span className="font-bold text-primary">à partir de {ad.categoryDetails.pricing.visitMakkah} €</span>
+                           </div>
+                         )}
+                      </div>
                    </div>
                  )}
               </>

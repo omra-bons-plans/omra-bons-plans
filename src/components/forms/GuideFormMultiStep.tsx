@@ -564,7 +564,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="omraBadal">Omra Badal (pour un défunt) (€)</Label>
+                  <Label htmlFor="omraBadal">Omra Badal (pour un défunt) - à partir de (€)</Label>
                   <Input
                     id="omraBadal"
                     type="number"
@@ -576,7 +576,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="omraGuidance">Accompagnement Omra (€)</Label>
+                  <Label htmlFor="omraGuidance">Accompagnement Omra - à partir de (€)</Label>
                   <Input
                     id="omraGuidance"
                     type="number"
@@ -588,7 +588,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="wheelchairHelp">Accompagnement fauteuil roulant (€)</Label>
+                  <Label htmlFor="wheelchairHelp">Accompagnement fauteuil roulant - à partir de (€)</Label>
                   <Input
                     id="wheelchairHelp"
                     type="number"
@@ -600,7 +600,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="visitMedina">Visite de Médine (€)</Label>
+                  <Label htmlFor="visitMedina">Visite de Médine - à partir de (€)</Label>
                   <Input
                     id="visitMedina"
                     type="number"
@@ -612,7 +612,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="visitMakkah">Visite de Makkah (€)</Label>
+                  <Label htmlFor="visitMakkah">Visite de Makkah - à partir de (€)</Label>
                   <Input
                     id="visitMakkah"
                     type="number"
