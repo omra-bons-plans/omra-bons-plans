@@ -187,9 +187,6 @@ export const ImageDisplay = ({
           </DialogTitle>
           <div 
             className="relative w-full h-full flex items-center justify-center overflow-hidden"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
           >
             {/* Close Button */}
             <Button
@@ -207,12 +204,19 @@ export const ImageDisplay = ({
             </div>
 
             {/* Main Image */}
-            <UniversalImage
-              src={allImages[currentImageIndex]}
-              alt={`${title} - Image ${currentImageIndex + 1}`}
-              className="max-w-[90vw] max-h-[85vh] object-contain"
-              optimize={{ width: 1200, height: 1200, quality: 90 }}
-            />
+            <div
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className="touch-none select-none"
+            >
+              <UniversalImage
+                src={allImages[currentImageIndex]}
+                alt={`${title} - Image ${currentImageIndex + 1}`}
+                className="max-w-[90vw] max-h-[85vh] object-contain"
+                optimize={{ width: 1200, height: 1200, quality: 90 }}
+              />
+            </div>
 
              {/* Navigation Buttons */}
              {allImages.length > 1 && (
