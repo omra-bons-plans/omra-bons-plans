@@ -244,6 +244,57 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
           </div>
         )}
 
+        {/* Tarifs (pour chauffeurs) */}
+        {category === 'chauffeurs' && data.pricing && Object.keys(data.pricing).some(key => data.pricing[key]) && (
+          <div className="space-y-2">
+            <h4 className="font-semibold text-sm">Tarifs</h4>
+            <div className="space-y-1 text-xs">
+              {data.pricing.airportJeddahToMakkah && (
+                <div className="flex justify-between">
+                  <span>Aéroport Jeddah → Makkah:</span>
+                  <span className="font-medium">{data.pricing.airportJeddahToMakkah} SAR</span>
+                </div>
+              )}
+              {data.pricing.airportJeddahToMedina && (
+                <div className="flex justify-between">
+                  <span>Aéroport Jeddah → Médine:</span>
+                  <span className="font-medium">{data.pricing.airportJeddahToMedina} SAR</span>
+                </div>
+              )}
+              {data.pricing.airportMedinaToMedina && (
+                <div className="flex justify-between">
+                  <span>Aéroport Médine → Médine:</span>
+                  <span className="font-medium">{data.pricing.airportMedinaToMedina} SAR</span>
+                </div>
+              )}
+              {data.pricing.makkahToMedina && (
+                <div className="flex justify-between">
+                  <span>Makkah → Médine:</span>
+                  <span className="font-medium">{data.pricing.makkahToMedina} SAR</span>
+                </div>
+              )}
+              {data.pricing.medinaToMakkah && (
+                <div className="flex justify-between">
+                  <span>Médine → Makkah:</span>
+                  <span className="font-medium">{data.pricing.medinaToMakkah} SAR</span>
+                </div>
+              )}
+              {data.pricing.visitMedina && (
+                <div className="flex justify-between">
+                  <span>Visite de Médine:</span>
+                  <span className="font-medium">{data.pricing.visitMedina} SAR</span>
+                </div>
+              )}
+              {data.pricing.visitMakkah && (
+                <div className="flex justify-between">
+                  <span>Visite de Makkah:</span>
+                  <span className="font-medium">{data.pricing.visitMakkah} SAR</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Contact */}
         <div className="space-y-2">
           <h4 className="font-semibold text-sm">Contact</h4>

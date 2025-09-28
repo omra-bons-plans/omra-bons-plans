@@ -165,6 +165,15 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         city: categoryData?.city || '',
         vehicleSeats: categoryData?.vehicle_seats || 4,
         languages: categoryData?.languages || ['français'],
+        pricing: categoryData?.pricing || {
+          airportJeddahToMakkah: undefined,
+          airportJeddahToMedina: undefined,
+          airportMedinaToMedina: undefined,
+          makkahToMedina: undefined,
+          medinaToMakkah: undefined,
+          visitMedina: undefined,
+          visitMakkah: undefined,
+        },
       };
 
       case 'babysitting':

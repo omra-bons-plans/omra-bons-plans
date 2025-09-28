@@ -22,6 +22,15 @@ interface ChauffeurFormData {
   showPhone: boolean;
   showWhatsapp: boolean;
   showProfessionalPhone: boolean;
+  pricing: {
+    airportJeddahToMakkah?: number;
+    airportJeddahToMedina?: number;
+    airportMedinaToMedina?: number;
+    makkahToMedina?: number;
+    medinaToMakkah?: number;
+    visitMedina?: number;
+    visitMakkah?: number;
+  };
 }
 
 interface ChauffeurFormMultiStepProps {
@@ -49,10 +58,19 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
       showProfessionalPhone: initialData?.showProfessionalPhone ?? false,
       languages: initialData?.languages || ['francais'],
       city: initialData?.city || [],
+      pricing: initialData?.pricing || {
+        airportJeddahToMakkah: undefined,
+        airportJeddahToMedina: undefined,
+        airportMedinaToMedina: undefined,
+        makkahToMedina: undefined,
+        medinaToMakkah: undefined,
+        visitMedina: undefined,
+        visitMakkah: undefined,
+      },
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   // Initialize selected languages and cities from initial data
   useEffect(() => {
@@ -134,6 +152,9 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
         }
         break;
       case 4:
+        // Étape tarifs - pas de validation car optionnel
+        break;
+      case 5:
         // Récapitulatif - pas de validation nécessaire
         break;
     }
@@ -477,6 +498,108 @@ const ChauffeurFormMultiStep = ({ onSubmit, onBack, initialData }: ChauffeurForm
         );
 
       case 4:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-center">
+                Tarifs (optionnel)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="text-sm text-muted-foreground mb-4">
+                Tous les tarifs sont optionnels. Remplissez uniquement ceux que vous proposez.
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="airportJeddahToMakkah">Aéroport Jeddah → Makkah (SAR)</Label>
+                  <Input
+                    id="airportJeddahToMakkah"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.airportJeddahToMakkah", { valueAsNumber: true })}
+                    placeholder="Ex: 150"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="airportJeddahToMedina">Aéroport Jeddah → Médine (SAR)</Label>
+                  <Input
+                    id="airportJeddahToMedina"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.airportJeddahToMedina", { valueAsNumber: true })}
+                    placeholder="Ex: 200"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="airportMedinaToMedina">Aéroport Médine → Médine (SAR)</Label>
+                  <Input
+                    id="airportMedinaToMedina"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.airportMedinaToMedina", { valueAsNumber: true })}
+                    placeholder="Ex: 50"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="makkahToMedina">Makkah → Médine (SAR)</Label>
+                  <Input
+                    id="makkahToMedina"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.makkahToMedina", { valueAsNumber: true })}
+                    placeholder="Ex: 120"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="medinaToMakkah">Médine → Makkah (SAR)</Label>
+                  <Input
+                    id="medinaToMakkah"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.medinaToMakkah", { valueAsNumber: true })}
+                    placeholder="Ex: 120"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="visitMedina">Visite de Médine (SAR)</Label>
+                  <Input
+                    id="visitMedina"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.visitMedina", { valueAsNumber: true })}
+                    placeholder="Ex: 80"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="visitMakkah">Visite de Makkah (SAR)</Label>
+                  <Input
+                    id="visitMakkah"
+                    type="number"
+                    min="0"
+                    step="10"
+                    {...register("pricing.visitMakkah", { valueAsNumber: true })}
+                    placeholder="Ex: 100"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+
+      case 5:
         return (
           <div className="space-y-6">
             {/* Header Section */}

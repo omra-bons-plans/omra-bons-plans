@@ -127,6 +127,7 @@ export type Database = {
           city: string[]
           gender: string
           languages: string[]
+          pricing: Json | null
           vehicle_seats: number
         }
         Insert: {
@@ -134,6 +135,7 @@ export type Database = {
           city: string[]
           gender: string
           languages?: string[]
+          pricing?: Json | null
           vehicle_seats: number
         }
         Update: {
@@ -141,6 +143,7 @@ export type Database = {
           city?: string[]
           gender?: string
           languages?: string[]
+          pricing?: Json | null
           vehicle_seats?: number
         }
         Relationships: [

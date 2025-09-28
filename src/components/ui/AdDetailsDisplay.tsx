@@ -242,13 +242,66 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                    </div>
                  )}
 
-                {ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
-                  <div className="flex items-center space-x-2">
-                    <Languages className="w-4 h-4 text-muted-foreground" />
-                    <span className="font-medium">Langues:</span>
-                    <span>{formatLanguages(ad.categoryDetails.languages)}</span>
-                  </div>
-                )}
+                 {ad.categoryDetails.languages && ad.categoryDetails.languages.length > 0 && (
+                   <div className="flex items-center space-x-2">
+                     <Languages className="w-4 h-4 text-muted-foreground" />
+                     <span className="font-medium">Langues:</span>
+                     <span>{formatLanguages(ad.categoryDetails.languages)}</span>
+                   </div>
+                 )}
+
+                 {/* Tarifs pour chauffeurs */}
+                 {ad.categoryDetails.pricing && Object.keys(ad.categoryDetails.pricing).some(key => ad.categoryDetails.pricing[key]) && (
+                   <div className="space-y-2 border-t pt-4">
+                     <div className="flex items-center space-x-2 mb-3">
+                       <span className="font-semibold text-lg">💰 Tarifs</span>
+                     </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                       {ad.categoryDetails.pricing.airportJeddahToMakkah && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Aéroport Jeddah → Makkah</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportJeddahToMakkah} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.airportJeddahToMedina && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Aéroport Jeddah → Médine</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportJeddahToMedina} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.airportMedinaToMedina && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Aéroport Médine → Médine</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.airportMedinaToMedina} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.makkahToMedina && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Makkah → Médine</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.makkahToMedina} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.medinaToMakkah && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Médine → Makkah</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.medinaToMakkah} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.visitMedina && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Visite de Médine</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMedina} SAR</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.visitMakkah && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Visite de Makkah</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMakkah} SAR</span>
+                         </div>
+                       )}
+                     </div>
+                   </div>
+                 )}
               </>
             )}
 

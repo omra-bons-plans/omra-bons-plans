@@ -194,6 +194,7 @@ const ChauffeurDetails = () => {
           city: data.city,
           vehicle_seats: data.vehicleSeats || 4,
           languages: data.languages || [],
+          pricing: data.pricing,
         };
 
         await saveDraft(adData, categoryData);
@@ -253,6 +254,7 @@ const ChauffeurDetails = () => {
         city: data.city,
         vehicle_seats: data.vehicleSeats,
         languages: data.languages,
+        pricing: data.pricing,
       };
 
       let chauffeurError;
