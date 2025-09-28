@@ -235,6 +235,7 @@
     background: hsl(var(--card));
     backdrop-filter: blur(8px);
     border: 1px solid hsl(var(--border) / 0.1);
+    border-radius: 1.5rem !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
