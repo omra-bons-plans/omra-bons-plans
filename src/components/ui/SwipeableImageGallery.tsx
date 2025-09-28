@@ -23,10 +23,8 @@ export const SwipeableImageGallery = ({
   initialIndex = 0
 }: SwipeableImageGalleryProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialIndex);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const startXRef = useRef<number>(0);
-  const startYRef = useRef<number>(0);
-  const isDraggingRef = useRef(false);
+  const touchStartX = useRef<number>(0);
+  const touchMoved = useRef<boolean>(false);
 
   // Combine cover image and additional images
   const allImagePaths = coverImage 
@@ -47,62 +45,47 @@ export const SwipeableImageGallery = ({
     setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
   };
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (allImages.length <= 1) return;
-    
-    startXRef.current = e.clientX;
-    startYRef.current = e.clientY;
-    isDraggingRef.current = true;
-    
-    if (containerRef.current) {
-      containerRef.current.setPointerCapture(e.pointerId);
-    }
-    
-    console.log('🟢 Pointer Down:', e.clientX);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchMoved.current = false;
+    console.log('🟢 Touch Start:', touchStartX.current);
   };
 
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current || allImages.length <= 1) return;
-    
-    const deltaX = e.clientX - startXRef.current;
-    const deltaY = e.clientY - startYRef.current;
-    
-    // Prevent scrolling if horizontal movement is dominant
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
-      e.preventDefault();
-    }
-    
-    console.log('🔄 Moving - Delta X:', deltaX);
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartX.current) return;
+    touchMoved.current = true;
+    console.log('🔄 Touch Move:', e.touches[0].clientX);
   };
 
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current || allImages.length <= 1) return;
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchMoved.current || allImages.length <= 1) {
+      console.log('❌ Pas de mouvement ou une seule image');
+      return;
+    }
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchStartX.current - touchEndX;
+    const threshold = 20; // Très sensible
     
-    const deltaX = e.clientX - startXRef.current;
-    const threshold = 30; // Réduit de 50 à 30 pixels
-    
-    console.log('🔴 Pointer Up - Delta:', deltaX, 'Threshold:', threshold);
+    console.log('🔴 Touch End - Start:', touchStartX.current, 'End:', touchEndX, 'Delta:', deltaX);
     
     if (Math.abs(deltaX) > threshold) {
       e.preventDefault();
       e.stopPropagation();
       
       if (deltaX > 0) {
-        console.log('⬅️ Swipe Right - Previous Image');
-        prevImage();
-      } else {
         console.log('➡️ Swipe Left - Next Image');
         nextImage();
+      } else {
+        console.log('⬅️ Swipe Right - Previous Image');
+        prevImage();
       }
     } else {
       console.log('❌ Mouvement trop court:', Math.abs(deltaX), 'vs', threshold);
     }
-    
-    isDraggingRef.current = false;
-    
-    if (containerRef.current) {
-      containerRef.current.releasePointerCapture(e.pointerId);
-    }
+
+    touchStartX.current = 0;
+    touchMoved.current = false;
   };
 
   if (allImages.length === 0) {
@@ -117,14 +100,14 @@ export const SwipeableImageGallery = ({
         </DialogTitle>
         
         <div 
-          ref={containerRef}
           className="relative w-full h-full flex items-center justify-center overflow-hidden"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           style={{ 
-            touchAction: 'pan-y pinch-zoom',
-            userSelect: 'none'
+            touchAction: 'pan-y',
+            userSelect: 'none',
+            WebkitUserSelect: 'none'
           }}
         >
           {/* Close Button */}
