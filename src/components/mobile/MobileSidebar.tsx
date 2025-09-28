@@ -362,14 +362,14 @@ const MobileSidebar = () => {
                     </div>
                   </Link>
 
-                  <Link to="/blog?category=associations" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
+                  <Link to="/blog/associations" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
                     <div className="flex items-center space-x-3">
                       <HelpingHand className="w-5 h-5 text-muted-foreground" />
                       <span className="font-medium">Association</span>
                     </div>
                   </Link>
 
-                  <Link to="/blog?category=vendeurs" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
+                  <Link to="/blog/vendeurs" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
                     <div className="flex items-center space-x-3">
                       <Leaf className="w-5 h-5 text-muted-foreground" />
                       <span className="font-medium">Produit naturel</span>
