@@ -1,10 +1,8 @@
-import { useState, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Dialog, DialogContent, DialogTitle } from './dialog';
-import { Button } from './button';
+import { useState } from 'react';
 import { Card } from './card';
 import { getImageUrl } from '@/utils/imageUtils';
 import UniversalImage from './UniversalImage';
+import { SwipeableImageGallery } from './SwipeableImageGallery';
 
 interface ImageDisplayProps {
   images: string[];
@@ -19,10 +17,8 @@ export const ImageDisplay = ({
   title = 'Images', 
   className = '' 
 }: ImageDisplayProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Combine cover image and additional images, converting paths to URLs
   const allImagePaths = coverImage 
@@ -41,72 +37,16 @@ export const ImageDisplay = ({
     );
   }
 
-  const openModal = (index: number) => {
-    setCurrentImageIndex(index);
-    setIsModalOpen(true);
-  };
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    console.log('🔄 TouchStart détecté:', e.targetTouches[0].clientX);
-    touchStartX.current = e.targetTouches[0].clientX;
-    touchEndX.current = null;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!touchStartX.current) return;
-    touchEndX.current = e.targetTouches[0].clientX;
-    console.log('🔄 TouchMove:', touchEndX.current);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    console.log('🔄 TouchEnd - Start:', touchStartX.current, 'End:', touchEndX.current);
-    
-    if (!touchStartX.current || !touchEndX.current) {
-      console.log('❌ Pas de coordonnées de touch valides');
-      touchStartX.current = null;
-      touchEndX.current = null;
-      return;
-    }
-    
-    const distance = touchStartX.current - touchEndX.current;
-    const threshold = 50;
-    
-    console.log('📏 Distance swipe:', distance, 'Seuil:', threshold);
-    
-    if (Math.abs(distance) > threshold && allImages.length > 1) {
-      console.log('✅ Swipe détecté! Direction:', distance > 0 ? 'Gauche (suivant)' : 'Droite (précédent)');
-      e.preventDefault();
-      e.stopPropagation();
-      
-      if (distance > 0) {
-        console.log('➡️ Passage à l\'image suivante');
-        nextImage();
-      } else {
-        console.log('⬅️ Passage à l\'image précédente');
-        prevImage();
-      }
-    } else {
-      console.log('❌ Swipe trop court ou une seule image');
-    }
-
-    // Reset touch values
-    touchStartX.current = null;
-    touchEndX.current = null;
+  const openGallery = (index: number = 0) => {
+    setSelectedImageIndex(index);
+    setIsGalleryOpen(true);
   };
 
   return (
     <>
       <div className={`space-y-4 ${className}`}>
         {/* Main Image */}
-        <Card className="overflow-hidden cursor-pointer" onClick={() => openModal(0)}>
+        <Card className="overflow-hidden cursor-pointer" onClick={() => openGallery(0)}>
           <div className="aspect-video relative">
             <UniversalImage
               src={allImages[0]}
@@ -128,7 +68,7 @@ export const ImageDisplay = ({
                       key={index}
                       onClick={(e) => {
                         e.stopPropagation();
-                        openModal(index);
+                        openGallery(index);
                       }}
                       className={`w-2 h-2 rounded-full transition-all duration-200 ${
                         index === 0 
@@ -153,7 +93,7 @@ export const ImageDisplay = ({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  openModal(index + 1);
+                  openGallery(index + 1);
                 }}
               >
                 <div className="aspect-square relative">
@@ -179,96 +119,15 @@ export const ImageDisplay = ({
         )}
       </div>
 
-      {/* Image Modal */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black">
-          <DialogTitle className="sr-only">
-            {title} - Image {currentImageIndex + 1} sur {allImages.length}
-          </DialogTitle>
-          <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-            {/* Close Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
-            >
-              <X className="w-6 h-6" />
-            </Button>
-
-            {/* Image Counter */}
-            <div className="absolute top-4 left-4 z-50 bg-black/50 text-white px-3 py-1 rounded">
-              {currentImageIndex + 1} / {allImages.length}
-            </div>
-
-            {/* Swipe Area - Couvre tout l'écran */}
-            <div 
-              className="absolute inset-0 z-30 cursor-pointer"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              style={{ touchAction: 'none' }}
-            />
-
-            {/* Main Image */}
-            <UniversalImage
-              src={allImages[currentImageIndex]}
-              alt={`${title} - Image ${currentImageIndex + 1}`}
-              className="max-w-[90vw] max-h-[85vh] object-contain pointer-events-none select-none"
-              optimize={{ width: 1200, height: 1200, quality: 90 }}
-            />
-
-             {/* Navigation Buttons */}
-             {allImages.length > 1 && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      prevImage();
-                    }}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-40"
-                    disabled={allImages.length <= 1}
-                  >
-                    <ChevronLeft className="w-8 h-8" />
-                  </Button>
-                  
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      nextImage();
-                    }}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-40"
-                    disabled={allImages.length <= 1}
-                  >
-                    <ChevronRight className="w-8 h-8" />
-                  </Button>
-
-                  {/* Modal Pagination dots */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-40">
-                    {allImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setCurrentImageIndex(index);
-                        }}
-                        className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                          index === currentImageIndex 
-                            ? 'bg-white' 
-                            : 'bg-white/50 hover:bg-white/70'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-           </div>
-        </DialogContent>
-      </Dialog>
+      {/* Swipeable Gallery Modal */}
+      <SwipeableImageGallery
+        images={images}
+        coverImage={coverImage}
+        title={title}
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+        initialIndex={selectedImageIndex}
+      />
     </>
   );
 };
