@@ -185,88 +185,88 @@ export const ImageDisplay = ({
           <DialogTitle className="sr-only">
             {title} - Image {currentImageIndex + 1} sur {allImages.length}
           </DialogTitle>
-          <div 
-            className="relative w-full h-full flex items-center justify-center overflow-hidden"
-          >
+          <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
             {/* Close Button */}
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 z-10 text-white hover:bg-white/20"
+              className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
             >
               <X className="w-6 h-6" />
             </Button>
 
             {/* Image Counter */}
-            <div className="absolute top-4 left-4 z-10 bg-black/50 text-white px-3 py-1 rounded">
+            <div className="absolute top-4 left-4 z-50 bg-black/50 text-white px-3 py-1 rounded">
               {currentImageIndex + 1} / {allImages.length}
             </div>
 
-            {/* Main Image */}
-            <div
+            {/* Swipe Area - Couvre tout l'écran */}
+            <div 
+              className="absolute inset-0 z-30 cursor-pointer"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className="touch-none select-none"
-            >
-              <UniversalImage
-                src={allImages[currentImageIndex]}
-                alt={`${title} - Image ${currentImageIndex + 1}`}
-                className="max-w-[90vw] max-h-[85vh] object-contain"
-                optimize={{ width: 1200, height: 1200, quality: 90 }}
-              />
-            </div>
+              style={{ touchAction: 'none' }}
+            />
+
+            {/* Main Image */}
+            <UniversalImage
+              src={allImages[currentImageIndex]}
+              alt={`${title} - Image ${currentImageIndex + 1}`}
+              className="max-w-[90vw] max-h-[85vh] object-contain pointer-events-none select-none"
+              optimize={{ width: 1200, height: 1200, quality: 90 }}
+            />
 
              {/* Navigation Buttons */}
              {allImages.length > 1 && (
-               <>
-                 <Button
-                   variant="ghost"
-                   size="sm"
-                   onClick={(e) => {
-                     e.stopPropagation();
-                     prevImage();
-                   }}
-                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-20"
-                   disabled={allImages.length <= 1}
-                 >
-                   <ChevronLeft className="w-8 h-8" />
-                 </Button>
-                 
-                 <Button
-                   variant="ghost"
-                   size="sm"
-                   onClick={(e) => {
-                     e.stopPropagation();
-                     nextImage();
-                   }}
-                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-20"
-                   disabled={allImages.length <= 1}
-                 >
-                   <ChevronRight className="w-8 h-8" />
-                 </Button>
+                <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevImage();
+                    }}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-40"
+                    disabled={allImages.length <= 1}
+                  >
+                    <ChevronLeft className="w-8 h-8" />
+                  </Button>
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextImage();
+                    }}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-40"
+                    disabled={allImages.length <= 1}
+                  >
+                    <ChevronRight className="w-8 h-8" />
+                  </Button>
 
-                 {/* Modal Pagination dots */}
-                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                   {allImages.map((_, index) => (
-                     <button
-                       key={index}
-                       onClick={(e) => {
-                         e.stopPropagation();
-                         setCurrentImageIndex(index);
-                       }}
-                       className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                         index === currentImageIndex 
-                           ? 'bg-white' 
-                           : 'bg-white/50 hover:bg-white/70'
-                       }`}
-                     />
-                   ))}
-                 </div>
-               </>
-             )}
-          </div>
+                  {/* Modal Pagination dots */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-40">
+                    {allImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentImageIndex(index);
+                        }}
+                        className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                          index === currentImageIndex 
+                            ? 'bg-white' 
+                            : 'bg-white/50 hover:bg-white/70'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+           </div>
         </DialogContent>
       </Dialog>
     </>
