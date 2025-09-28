@@ -70,25 +70,33 @@ export const MobileImageGallery = ({
   };
 
   const handleTouchEnd = () => {
-    console.log('🔴 TOUCH END - Start:', touchStartX.current, 'End:', touchEndX.current, 'Dragging:', isDragging.current);
-    
-    if (!isDragging.current) return;
-    
-    const deltaX = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 30; // Réduit de 50 à 30
-    
-    console.log('📏 Delta X:', deltaX, 'Min distance:', minSwipeDistance);
-    
-    if (Math.abs(deltaX) > minSwipeDistance) {
-      if (deltaX > 0) {
-        console.log('➡️ SWIPE LEFT -> NEXT');
-        nextImage();
-      } else {
-        console.log('⬅️ SWIPE RIGHT -> PREV');
-        prevImage();
+    try {
+      console.log('🔴 TOUCH END - Start:', touchStartX.current, 'End:', touchEndX.current, 'Dragging:', isDragging.current);
+      
+      if (!isDragging.current) {
+        console.log('❌ Not dragging, exiting');
+        return;
       }
-    } else {
-      console.log('❌ Swipe distance insufficient');
+      
+      const deltaX = touchStartX.current - touchEndX.current;
+      const minSwipeDistance = 30;
+      
+      console.log('📏 Delta X:', deltaX, 'Min distance:', minSwipeDistance, 'Abs delta:', Math.abs(deltaX));
+      
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        console.log('✅ Swipe detected!');
+        if (deltaX > 0) {
+          console.log('➡️ SWIPE LEFT -> NEXT');
+          nextImage();
+        } else {
+          console.log('⬅️ SWIPE RIGHT -> PREV');
+          prevImage();
+        }
+      } else {
+        console.log('❌ Swipe distance insufficient:', Math.abs(deltaX), 'needed:', minSwipeDistance);
+      }
+    } catch (error) {
+      console.error('🚨 Error in handleTouchEnd:', error);
     }
   };
 
