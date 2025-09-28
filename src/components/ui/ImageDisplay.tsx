@@ -55,6 +55,7 @@ export const ImageDisplay = ({
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    console.log('🔄 TouchStart détecté:', e.targetTouches[0].clientX);
     touchStartX.current = e.targetTouches[0].clientX;
     touchEndX.current = null;
   };
@@ -62,29 +63,38 @@ export const ImageDisplay = ({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStartX.current) return;
     touchEndX.current = e.targetTouches[0].clientX;
+    console.log('🔄 TouchMove:', touchEndX.current);
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
+    console.log('🔄 TouchEnd - Start:', touchStartX.current, 'End:', touchEndX.current);
+    
     if (!touchStartX.current || !touchEndX.current) {
+      console.log('❌ Pas de coordonnées de touch valides');
       touchStartX.current = null;
       touchEndX.current = null;
       return;
     }
     
     const distance = touchStartX.current - touchEndX.current;
-    const threshold = 50; // Distance minimale pour un swipe
+    const threshold = 50;
+    
+    console.log('📏 Distance swipe:', distance, 'Seuil:', threshold);
     
     if (Math.abs(distance) > threshold && allImages.length > 1) {
+      console.log('✅ Swipe détecté! Direction:', distance > 0 ? 'Gauche (suivant)' : 'Droite (précédent)');
       e.preventDefault();
       e.stopPropagation();
       
       if (distance > 0) {
-        // Swipe vers la gauche = image suivante
+        console.log('➡️ Passage à l\'image suivante');
         nextImage();
       } else {
-        // Swipe vers la droite = image précédente
+        console.log('⬅️ Passage à l\'image précédente');
         prevImage();
       }
+    } else {
+      console.log('❌ Swipe trop court ou une seule image');
     }
 
     // Reset touch values
