@@ -156,6 +156,13 @@ export const convertAdDataToFormData = (adData: any, categoryData: any, category
         offersOmraBadal: categoryData?.offers_omra_badal || false,
         offersOther: categoryData?.offers_other || false,
         otherServicesDescription: categoryData?.other_services_description || '',
+        pricing: categoryData?.pricing || {
+          omraBadal: undefined,
+          omraGuidance: undefined,
+          wheelchairHelp: undefined,
+          visitMedina: undefined,
+          visitMakkah: undefined,
+        },
       };
 
     case 'chauffeurs':

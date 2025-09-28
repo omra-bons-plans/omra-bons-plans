@@ -169,6 +169,7 @@ export type Database = {
           offers_visits: boolean | null
           offers_wheelchair_help: boolean | null
           other_services_description: string | null
+          pricing: Json | null
           years_experience: number
         }
         Insert: {
@@ -183,6 +184,7 @@ export type Database = {
           offers_visits?: boolean | null
           offers_wheelchair_help?: boolean | null
           other_services_description?: string | null
+          pricing?: Json | null
           years_experience: number
         }
         Update: {
@@ -197,6 +199,7 @@ export type Database = {
           offers_visits?: boolean | null
           offers_wheelchair_help?: boolean | null
           other_services_description?: string | null
+          pricing?: Json | null
           years_experience?: number
         }
         Relationships: [

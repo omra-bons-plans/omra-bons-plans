@@ -295,6 +295,45 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
           </div>
         )}
 
+        {/* Tarifs (pour guides) */}
+        {category === 'guides' && data.pricing && Object.keys(data.pricing).some(key => data.pricing[key]) && (
+          <div className="space-y-2">
+            <h4 className="font-semibold text-sm">Tarifs</h4>
+            <div className="space-y-1 text-xs">
+              {data.pricing.omraBadal && (
+                <div className="flex justify-between">
+                  <span>Omra Badal (défunt):</span>
+                  <span className="font-medium">{data.pricing.omraBadal} €</span>
+                </div>
+              )}
+              {data.pricing.omraGuidance && (
+                <div className="flex justify-between">
+                  <span>Accompagnement Omra:</span>
+                  <span className="font-medium">{data.pricing.omraGuidance} €</span>
+                </div>
+              )}
+              {data.pricing.wheelchairHelp && (
+                <div className="flex justify-between">
+                  <span>Aide fauteuil roulant:</span>
+                  <span className="font-medium">{data.pricing.wheelchairHelp} €</span>
+                </div>
+              )}
+              {data.pricing.visitMedina && (
+                <div className="flex justify-between">
+                  <span>Visite de Médine:</span>
+                  <span className="font-medium">{data.pricing.visitMedina} €</span>
+                </div>
+              )}
+              {data.pricing.visitMakkah && (
+                <div className="flex justify-between">
+                  <span>Visite de Makkah:</span>
+                  <span className="font-medium">{data.pricing.visitMakkah} €</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Contact */}
         <div className="space-y-2">
           <h4 className="font-semibold text-sm">Contact</h4>

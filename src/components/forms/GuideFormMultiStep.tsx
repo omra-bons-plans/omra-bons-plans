@@ -25,6 +25,13 @@ interface GuideFormData {
   offersWheelchairHelp: boolean;
   offersOther: boolean;
   otherServicesDescription?: string;
+  pricing?: {
+    omraBadal?: number;
+    omraGuidance?: number;
+    wheelchairHelp?: number;
+    visitMedina?: number;
+    visitMakkah?: number;
+  };
   showEmail: boolean;
   showPhone: boolean;
   showWhatsapp: boolean;
@@ -62,10 +69,17 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
       offersWheelchairHelp: initialData?.offersWheelchairHelp ?? false,
       offersOther: initialData?.offersOther ?? false,
       otherServicesDescription: initialData?.otherServicesDescription || '',
+      pricing: {
+        omraBadal: initialData?.pricing?.omraBadal || undefined,
+        omraGuidance: initialData?.pricing?.omraGuidance || undefined,
+        wheelchairHelp: initialData?.pricing?.wheelchairHelp || undefined,
+        visitMedina: initialData?.pricing?.visitMedina || undefined,
+        visitMakkah: initialData?.pricing?.visitMakkah || undefined,
+      },
     }
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
   const offersOther = watch('offersOther');
 
   // Initialize selected languages from initial data
@@ -133,6 +147,9 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
         // Pour l'étape 3, pas d'autres validations de formulaire nécessaires
         break;
       case 4:
+        // Pour l'étape des tarifs, pas de validation nécessaire (tous optionnels)
+        break;
+      case 5:
         // Récapitulatif - pas de validation nécessaire
         break;
     }
@@ -150,11 +167,12 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
   };
 
   const handlePublish = (data: GuideFormData) => {
-    const formDataWithImages = {
-      ...data,
-      images: images,
-      coverImage: coverImage,
-    };
+          const formDataWithImages = {
+            ...data,
+            images: images,
+            coverImage: coverImage,
+            pricing: data.pricing && Object.keys(data.pricing).some(key => data.pricing[key]) ? data.pricing : undefined,
+          };
     
     onSubmit(formDataWithImages, false);
   };
@@ -164,6 +182,7 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
       ...data,
       images: images,
       coverImage: coverImage,
+      pricing: data.pricing && Object.keys(data.pricing).some(key => data.pricing[key]) ? data.pricing : undefined,
     };
     
     onSubmit(formDataWithImages, true);
@@ -531,6 +550,84 @@ const GuideFormMultiStep = ({ onSubmit, onBack, initialData }: GuideFormMultiSte
         );
 
       case 4:
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-center">
+                Tarifs (optionnel)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="text-sm text-muted-foreground mb-4">
+                Tous les tarifs sont optionnels. Remplissez uniquement ceux que vous proposez.
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="omraBadal">Omra Badal (pour un défunt) (€)</Label>
+                  <Input
+                    id="omraBadal"
+                    type="number"
+                    min="0"
+                    step="50"
+                    {...register("pricing.omraBadal", { valueAsNumber: true })}
+                    placeholder="Ex: 1500"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="omraGuidance">Accompagnement Omra (€)</Label>
+                  <Input
+                    id="omraGuidance"
+                    type="number"
+                    min="0"
+                    step="50"
+                    {...register("pricing.omraGuidance", { valueAsNumber: true })}
+                    placeholder="Ex: 800"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="wheelchairHelp">Accompagnement fauteuil roulant (€)</Label>
+                  <Input
+                    id="wheelchairHelp"
+                    type="number"
+                    min="0"
+                    step="20"
+                    {...register("pricing.wheelchairHelp", { valueAsNumber: true })}
+                    placeholder="Ex: 200"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="visitMedina">Visite de Médine (€)</Label>
+                  <Input
+                    id="visitMedina"
+                    type="number"
+                    min="0"
+                    step="20"
+                    {...register("pricing.visitMedina", { valueAsNumber: true })}
+                    placeholder="Ex: 80"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="visitMakkah">Visite de Makkah (€)</Label>
+                  <Input
+                    id="visitMakkah"
+                    type="number"
+                    min="0"
+                    step="20"
+                    {...register("pricing.visitMakkah", { valueAsNumber: true })}
+                    placeholder="Ex: 100"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+
+      case 5:
         return (
           <div className="space-y-6">
             {/* Header Section */}

@@ -175,6 +175,7 @@ const GuideDetails = () => {
           offers_wheelchair_help: data.offersWheelchairHelp,
           offers_other: data.offersOther,
           other_services_description: data.otherServicesDescription,
+          pricing: data.pricing,
         };
 
         await saveDraft(adData, categoryData);
@@ -235,6 +236,7 @@ const GuideDetails = () => {
         offers_wheelchair_help: data.offersWheelchairHelp,
         offers_other: data.offersOther,
         other_services_description: data.otherServicesDescription,
+        pricing: data.pricing,
       };
 
       let guideError;

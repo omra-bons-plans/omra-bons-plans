@@ -200,7 +200,48 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
                        {maskPhoneNumbers(ad.categoryDetails.other_services_description)}
                      </p>
                    )}
-                </div>
+                 </div>
+
+                 {/* Tarifs pour guides */}
+                 {ad.categoryDetails.pricing && Object.keys(ad.categoryDetails.pricing).some(key => ad.categoryDetails.pricing[key]) && (
+                   <div className="space-y-2 border-t pt-4">
+                     <div className="flex items-center space-x-2 mb-3">
+                       <span className="font-semibold text-lg">💰 Tarifs</span>
+                     </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                       {ad.categoryDetails.pricing.omraBadal && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Omra Badal (défunt)</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.omraBadal} €</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.omraGuidance && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Accompagnement Omra</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.omraGuidance} €</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.wheelchairHelp && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Aide fauteuil roulant</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.wheelchairHelp} €</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.visitMedina && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Visite de Médine</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMedina} €</span>
+                         </div>
+                       )}
+                       {ad.categoryDetails.pricing.visitMakkah && (
+                         <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
+                           <span>Visite de Makkah</span>
+                           <span className="font-bold text-primary">{ad.categoryDetails.pricing.visitMakkah} €</span>
+                         </div>
+                       )}
+                     </div>
+                   </div>
+                 )}
               </>
             )}
 
