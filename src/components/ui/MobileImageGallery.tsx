@@ -60,25 +60,35 @@ export const MobileImageGallery = ({
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     isDragging.current = false;
+    console.log('🟢 TOUCH START:', touchStartX.current);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
     isDragging.current = true;
+    console.log('🔄 TOUCH MOVE:', touchEndX.current);
   };
 
   const handleTouchEnd = () => {
+    console.log('🔴 TOUCH END - Start:', touchStartX.current, 'End:', touchEndX.current, 'Dragging:', isDragging.current);
+    
     if (!isDragging.current) return;
     
     const deltaX = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 50;
+    const minSwipeDistance = 30; // Réduit de 50 à 30
+    
+    console.log('📏 Delta X:', deltaX, 'Min distance:', minSwipeDistance);
     
     if (Math.abs(deltaX) > minSwipeDistance) {
       if (deltaX > 0) {
+        console.log('➡️ SWIPE LEFT -> NEXT');
         nextImage();
       } else {
+        console.log('⬅️ SWIPE RIGHT -> PREV');
         prevImage();
       }
+    } else {
+      console.log('❌ Swipe distance insufficient');
     }
   };
 
@@ -92,6 +102,11 @@ export const MobileImageGallery = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      style={{ 
+        touchAction: 'pan-y', 
+        WebkitUserSelect: 'none',
+        userSelect: 'none'
+      }}
     >
       {/* Close Button */}
       <Button
