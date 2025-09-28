@@ -17,7 +17,7 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
   const cardClasses = `
     card-modern overflow-hidden border-border/20 bg-card/50 transition-all duration-300
     ${!listing.isExpired ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50 grayscale'}
-    lg:mx-0 mx-[-1rem] !rounded-[2rem]
+    !rounded-[2rem]
     ${className}
   `;
 
