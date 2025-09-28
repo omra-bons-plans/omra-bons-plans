@@ -56,7 +56,7 @@ export const SwipeImageGallery = ({
     if (startX === null) return;
     
     const diff = startX - clientX;
-    const threshold = 50;
+    const threshold = 20; // Réduit à 20px pour plus de sensibilité
     
     console.log('Difference:', diff, 'Threshold:', threshold);
     
@@ -68,6 +68,8 @@ export const SwipeImageGallery = ({
         console.log('Swiped right - going to previous');
         prevImage();
       }
+    } else {
+      console.log('Tap detected, no swipe movement');
     }
     
     setStartX(null);
@@ -118,9 +120,14 @@ export const SwipeImageGallery = ({
         <X className="w-6 h-6" />
       </Button>
 
-      {/* Image Counter */}
+      {/* Image Counter et Instructions */}
       <div className="absolute top-4 left-4 z-[10000] bg-black/70 text-white px-3 py-1 rounded">
         {currentIndex + 1} / {allImages.length}
+      </div>
+      
+      {/* Instructions de swipe */}
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-[10000] bg-black/70 text-white px-4 py-2 rounded text-sm text-center">
+        ← Glissez pour naviguer →
       </div>
 
       {/* Main Image */}
