@@ -56,33 +56,35 @@ export const ImageDisplay = ({
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
+    touchEndX.current = null;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStartX.current) return;
-    e.preventDefault(); // Empêcher le scroll de la page
     touchEndX.current = e.targetTouches[0].clientX;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!touchStartX.current || !touchEndX.current) {
-      // Reset touch values
       touchStartX.current = null;
       touchEndX.current = null;
       return;
     }
     
     const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe && allImages.length > 1) {
+    const threshold = 50; // Distance minimale pour un swipe
+    
+    if (Math.abs(distance) > threshold && allImages.length > 1) {
       e.preventDefault();
-      nextImage();
-    }
-    if (isRightSwipe && allImages.length > 1) {
-      e.preventDefault();
-      prevImage();
+      e.stopPropagation();
+      
+      if (distance > 0) {
+        // Swipe vers la gauche = image suivante
+        nextImage();
+      } else {
+        // Swipe vers la droite = image précédente
+        prevImage();
+      }
     }
 
     // Reset touch values
