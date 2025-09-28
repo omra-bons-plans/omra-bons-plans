@@ -68,20 +68,25 @@ export const SwipeableImageGallery = ({
     const deltaY = e.clientY - startYRef.current;
     
     // Prevent scrolling if horizontal movement is dominant
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
       e.preventDefault();
     }
+    
+    console.log('🔄 Moving - Delta X:', deltaX);
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
     if (!isDraggingRef.current || allImages.length <= 1) return;
     
     const deltaX = e.clientX - startXRef.current;
-    const threshold = 50;
+    const threshold = 30; // Réduit de 50 à 30 pixels
     
-    console.log('🔴 Pointer Up - Delta:', deltaX);
+    console.log('🔴 Pointer Up - Delta:', deltaX, 'Threshold:', threshold);
     
     if (Math.abs(deltaX) > threshold) {
+      e.preventDefault();
+      e.stopPropagation();
+      
       if (deltaX > 0) {
         console.log('⬅️ Swipe Right - Previous Image');
         prevImage();
@@ -89,6 +94,8 @@ export const SwipeableImageGallery = ({
         console.log('➡️ Swipe Left - Next Image');
         nextImage();
       }
+    } else {
+      console.log('❌ Mouvement trop court:', Math.abs(deltaX), 'vs', threshold);
     }
     
     isDraggingRef.current = false;
