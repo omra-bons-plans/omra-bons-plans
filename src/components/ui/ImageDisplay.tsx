@@ -59,20 +59,29 @@ export const ImageDisplay = ({
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartX.current) return;
+    e.preventDefault(); // Empêcher le scroll de la page
     touchEndX.current = e.targetTouches[0].clientX;
   };
 
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartX.current || !touchEndX.current) {
+      // Reset touch values
+      touchStartX.current = null;
+      touchEndX.current = null;
+      return;
+    }
     
     const distance = touchStartX.current - touchEndX.current;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
 
     if (isLeftSwipe && allImages.length > 1) {
+      e.preventDefault();
       nextImage();
     }
     if (isRightSwipe && allImages.length > 1) {
+      e.preventDefault();
       prevImage();
     }
 
@@ -128,24 +137,25 @@ export const ImageDisplay = ({
             {allImages.slice(1, 5).map((image, index) => (
               <Card 
                 key={index} 
-                className="overflow-hidden cursor-pointer"
-                onClick={() => openModal(index + 1)}
+                className="overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary/50 transition-all"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  openModal(index + 1);
+                }}
               >
                 <div className="aspect-square relative">
-                  <img
+                  <UniversalImage
                     src={image}
                     alt={`${title} - Image ${index + 2}`}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.src = '/ad-placeholder.jpg';
-                    }}
+                    optimize={{ width: 200, height: 200, quality: 85 }}
                   />
                   
                   {/* Show "+X more" overlay on last thumbnail if there are more images */}
                   {index === 3 && allImages.length > 5 && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <span className="text-white font-semibold">
+                      <span className="text-white font-semibold text-sm">
                         +{allImages.length - 5}
                       </span>
                     </div>
@@ -198,8 +208,12 @@ export const ImageDisplay = ({
                  <Button
                    variant="ghost"
                    size="sm"
-                   onClick={prevImage}
-                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
+                   onClick={(e) => {
+                     e.stopPropagation();
+                     prevImage();
+                   }}
+                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-20"
+                   disabled={allImages.length <= 1}
                  >
                    <ChevronLeft className="w-8 h-8" />
                  </Button>
@@ -207,19 +221,26 @@ export const ImageDisplay = ({
                  <Button
                    variant="ghost"
                    size="sm"
-                   onClick={nextImage}
-                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
+                   onClick={(e) => {
+                     e.stopPropagation();
+                     nextImage();
+                   }}
+                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-20"
+                   disabled={allImages.length <= 1}
                  >
                    <ChevronRight className="w-8 h-8" />
                  </Button>
 
                  {/* Modal Pagination dots */}
-                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
                    {allImages.map((_, index) => (
                      <button
                        key={index}
-                       onClick={() => setCurrentImageIndex(index)}
-                       className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                       onClick={(e) => {
+                         e.stopPropagation();
+                         setCurrentImageIndex(index);
+                       }}
+                       className={`w-3 h-3 rounded-full transition-all duration-200 ${
                          index === currentImageIndex 
                            ? 'bg-white' 
                            : 'bg-white/50 hover:bg-white/70'
