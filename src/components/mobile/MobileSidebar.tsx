@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Activity, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home, MessageCircle } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Train, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -362,26 +362,32 @@ const MobileSidebar = () => {
                     </div>
                   </Link>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3">
+                  <Link to="/blog?category=associations" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
                     <div className="flex items-center space-x-3">
                       <HelpingHand className="w-5 h-5 text-muted-foreground" />
                       <span className="font-medium">Association</span>
                     </div>
-                  </div>
+                  </Link>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3">
+                  <Link to="/blog?category=vendeurs" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
                     <div className="flex items-center space-x-3">
                       <Leaf className="w-5 h-5 text-muted-foreground" />
                       <span className="font-medium">Produit naturel</span>
                     </div>
-                  </div>
+                  </Link>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3">
+                  <a 
+                    href="https://sar.hhr.sa/timetable#" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <div className="flex items-center space-x-3">
-                      <Activity className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Activité</span>
+                      <Train className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Billets de train</span>
                     </div>
-                  </div>
+                  </a>
                 </div>
               )}
             </div>
