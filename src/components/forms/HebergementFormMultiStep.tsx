@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { getImageUrl } from "@/utils/imageUtils";
-import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import { ImageComponent } from "@/components/ui/ImageComponent";
 import { compressImage, isImageFile, formatFileSize } from "@/utils/imageCompression";
 import { toast } from "sonner";
 
@@ -806,7 +806,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                           </div>
                         ) : initialData?.coverImageUrl ? (
                           <div className="relative">
-                            <ImageWithFallback
+                            <ImageComponent
                               src={getImageUrl(initialData.coverImageUrl)}
                               alt="Couverture existante"
                               className="mx-auto h-32 w-48 object-cover rounded-lg"
@@ -858,7 +858,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                       {/* Existing images from database */}
                       {existingImages.map((imageUrl, index) => (
                         <div key={`existing-${index}`} className="relative">
-                          <ImageWithFallback
+                          <ImageComponent
                             src={getImageUrl(imageUrl)}
                             alt={`Photo existante ${index + 1}`}
                             className="h-24 w-full object-cover rounded-lg"
@@ -1159,7 +1159,7 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                   </div>
                 ) : initialData?.coverImageUrl ? (
                   <div className="relative h-full">
-                    <ImageWithFallback
+                    <ImageComponent
                       src={getImageUrl(initialData.coverImageUrl)}
                       alt="Photo de couverture"
                       className="w-full h-full object-cover"

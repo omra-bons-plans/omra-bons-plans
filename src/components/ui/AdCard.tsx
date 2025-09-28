@@ -4,7 +4,7 @@ import { Star, MapPin, Zap, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import { FormattedListing } from "@/hooks/useAds";
-import FastImage from "./FastImage";
+import { ImageComponent } from "./ImageComponent";
 
 interface AdCardProps {
   listing: FormattedListing;
@@ -27,11 +27,10 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
       <Card className={cardClasses}>
         <div className="relative group">
           <div className={`w-full ${imageHeight} overflow-hidden`}>
-            <FastImage
+            <ImageComponent
               src={listing.image}
               alt={listing.title}
               className="w-full h-full"
-              priority={priority}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
           </div>
@@ -76,13 +75,12 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
       <Card className={cardClasses}>
       <div className="relative group">
         <div className={`w-full ${imageHeight} overflow-hidden`}>
-          <FastImage
+          <ImageComponent
             src={listing.image}
             alt={listing.title}
             className={`w-full h-full transition-all duration-500 ${
               !listing.isExpired ? 'group-hover:scale-110' : ''
             }`}
-            priority={priority}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         </div>

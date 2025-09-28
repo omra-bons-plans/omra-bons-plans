@@ -23,13 +23,11 @@ import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { useTopics } from '@/hooks/useTopics';
 import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
 import { Helmet } from "react-helmet-async";
-// import ImageWithLazyLoading from "@/components/ui/ImageWithLazyLoading"; // Remplacé par FastImage
 import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
-import FastImage from "@/components/ui/FastImage";
 
 // Lazy import images to reduce initial bundle size
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";

@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
-import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import { ImageComponent } from '@/components/ui/ImageComponent';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface AdDetails {
@@ -332,7 +332,7 @@ const AdSummary = () => {
                       {/* Cover Image */}
                       {ad.coverImage && (
                         <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                          <ImageWithFallback 
+                          <ImageComponent 
                             src={getImageUrl(ad.coverImage)} 
                             alt="Image de couverture"
                             className="w-full h-full object-cover"
@@ -345,7 +345,7 @@ const AdSummary = () => {
                         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                           {ad.images.map((image, index) => (
                             <div key={index} className="aspect-square bg-muted rounded-lg overflow-hidden">
-                              <ImageWithFallback 
+                              <ImageComponent 
                                 src={getImageUrl(image)} 
                                 alt={`Image ${index + 1}`}
                                 className="w-full h-full object-cover"

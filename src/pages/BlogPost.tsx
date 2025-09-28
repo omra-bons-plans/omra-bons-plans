@@ -4,7 +4,7 @@ import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Inst
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ImageDisplay } from '@/components/ui/ImageDisplay';
+import { ImageGalleryDisplay } from '@/components/ui/ImageGalleryDisplay';
 import { ContactModal } from '@/components/ui/ContactModal';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import { supabase } from '@/integrations/supabase/client';
@@ -336,7 +336,7 @@ const BlogPost = () => {
           {/* Images Gallery */}
           {(post.cover_image || (post.images && post.images.length > 0)) && (
             <div className="mb-8 max-w-4xl">
-              <ImageDisplay
+              <ImageGalleryDisplay
                 images={post.images ? post.images.map(img => getImageUrl(img, { width: 800, quality: 85 }, 'blog-images')) : []}
                 coverImage={post.cover_image ? getImageUrl(post.cover_image, { width: 1200, quality: 90 }, 'blog-images') : undefined}
                 title={`Images - ${post.title}`}

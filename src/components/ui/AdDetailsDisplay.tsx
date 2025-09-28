@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ImageDisplay } from './ImageDisplay';
+import { ImageGalleryDisplay } from './ImageGalleryDisplay';
 import VideoPlayer from './VideoPlayer';
 import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from 'lucide-react';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
@@ -101,7 +101,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
   return (
     <div className="space-y-6">
       {/* Images Section */}
-      <ImageDisplay
+      <ImageGalleryDisplay
         images={ad.images || []}
         coverImage={ad.cover_image}
         title={ad.title}

@@ -11,7 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
-import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import { ImageComponent } from '@/components/ui/ImageComponent';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface UserAd {
@@ -364,7 +364,7 @@ const MyAds = () => {
                               {/* Image */}
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                  {ad.coverImage ? (
-                                   <ImageWithFallback 
+                                   <ImageComponent 
                                      src={getImageUrl(ad.coverImage)} 
                                      alt={ad.title}
                                      className="w-full h-full object-cover"
