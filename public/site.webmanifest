@@ -8,11 +8,6 @@
       "sizes": "512x512",
       "type": "image/png"
     },
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
   ],
   "theme_color": "#0B1E3A",
   "background_color": "#ffffff",
