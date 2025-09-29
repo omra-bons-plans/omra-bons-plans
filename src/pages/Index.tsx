@@ -718,166 +718,120 @@ const Index = () => {
             </TabsList>
 
             <TabsContent value="annonces" className="space-y-0">
-              {/* Flash Sales Section */}
-              <section className="pb-20">
-        <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
-          <div className="mb-16">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
-              <div>
-                <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
-                <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
-              </div>
-              
-            </div>
-          </div>
+              {/* Flash Sales Section - Only show if there are flash sales */}
+              {filteredFlashSalesListings.length > 0 && (
+                <section className="pb-20">
+                  <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
+                    <div className="mb-16">
+                      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
+                        <div>
+                          <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
+                          <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
+                        </div>
+                        
+                      </div>
+                    </div>
 
-          {/* Category Pills - Horizontal Scroll on Mobile */}
-          <div className="horizontal-scroll-container flash-sales-tabs-container">
-            <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
-              <div className="flex gap-3 min-w-max md:min-w-0">
-                <Button 
-                  onClick={() => setSelectedCategory("all")}
-                  className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
-                    selectedCategory === "all" 
-                      ? "btn-modern text-primary-foreground" 
-                      : "glass border-2 border-primary/30 hover:bg-primary/10"
-                  }`}
-                  variant={selectedCategory === "all" ? "default" : "outline"}
-                >
-                  Tous
-                </Button>
-                {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
-                {getOrderedCategories().map((category) => (
-                  <Button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
-                      selectedCategory === category.id 
-                        ? "btn-modern text-primary-foreground" 
-                        : "glass border-2 border-primary/30 hover:bg-primary/10"
-                    }`}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
-                  >
-                    {category.name}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </div>
+                    {/* Category Pills - Horizontal Scroll on Mobile */}
+                    <div className="horizontal-scroll-container flash-sales-tabs-container">
+                      <div className="flex gap-3 mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
+                        <div className="flex gap-3 min-w-max md:min-w-0">
+                          <Button 
+                            onClick={() => setSelectedCategory("all")}
+                            className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
+                              selectedCategory === "all" 
+                                ? "btn-modern text-primary-foreground" 
+                                : "glass border-2 border-primary/30 hover:bg-primary/10"
+                            }`}
+                            variant={selectedCategory === "all" ? "default" : "outline"}
+                          >
+                            Tous
+                          </Button>
+                          {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
+                          {getOrderedCategories().map((category) => (
+                            <Button
+                              key={category.id}
+                              onClick={() => setSelectedCategory(category.id)}
+                              className={`rounded-full px-8 py-3 text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit ${
+                                selectedCategory === category.id 
+                                  ? "btn-modern text-primary-foreground" 
+                                  : "glass border-2 border-primary/30 hover:bg-primary/10"
+                              }`}
+                              variant={selectedCategory === category.id ? "default" : "outline"}
+                            >
+                              {category.name}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
 
-          {/* Desktop: Grid Layout */}
-          {filteredFlashSalesListings.length > 0 ? (
-            <div className="hidden lg:grid grid-cols-4 gap-8">
-              {filteredFlashSalesListings.map((listing) => (
-                <AdCard 
-                  key={listing.id} 
-                  listing={listing}
-                  imageHeight="h-56"
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6">
-              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">✏️</span>
-              </div>
-              <div className="text-center space-y-3 max-w-md">
-                <h3 className="text-2xl font-bold text-foreground">
-                  Aucune annonce n'est disponible pour cette recherche pour le moment
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                </p>
-              </div>
-            </div>
-          )}
+                    {/* Desktop: Grid Layout */}
+                    <div className="hidden lg:grid grid-cols-4 gap-8">
+                      {filteredFlashSalesListings.map((listing) => (
+                        <AdCard 
+                          key={listing.id} 
+                          listing={listing}
+                          imageHeight="h-56"
+                        />
+                      ))}
+                    </div>
 
-          {/* Tablet: Carousel with 2 items */}
-          {filteredFlashSalesListings.length > 0 ? (
-            <div className="hidden md:block lg:hidden carousel-item-peek">
-              <Carousel className="w-full">
-                <CarouselContent className="-ml-4">
-                  {filteredFlashSalesListings.map((listing) => (
-                  <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                    <AdCard 
-                      key={listing.id}
-                      listing={listing} 
-                      className="w-full"
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden sm:flex" />
-              <CarouselNext className="hidden sm:flex" />
-            </Carousel>
-          </div>
-          ) : (
-            <div className="hidden md:block lg:hidden flex flex-col items-center justify-center py-20 space-y-6">
-              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">✏️</span>
-              </div>
-              <div className="text-center space-y-3 max-w-md">
-                <h3 className="text-2xl font-bold text-foreground">
-                  Aucune annonce n'est disponible pour cette recherche pour le moment
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                </p>
-              </div>
-            </div>
-          )}
+                    {/* Tablet: Carousel with 2 items */}
+                    <div className="hidden md:block lg:hidden carousel-item-peek">
+                      <Carousel className="w-full">
+                        <CarouselContent className="-ml-4">
+                          {filteredFlashSalesListings.map((listing) => (
+                          <CarouselItem key={listing.id} className="pl-4 basis-1/2">
+                            <AdCard 
+                              key={listing.id}
+                              listing={listing} 
+                              className="w-full"
+                            />
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="hidden sm:flex" />
+                      <CarouselNext className="hidden sm:flex" />
+                    </Carousel>
+                  </div>
 
-          {/* Mobile: Carousel with 1 item */}
-          {filteredFlashSalesListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
-              <Carousel 
-                className="w-full scroll-hint"
-                setApi={setFlashSalesCarouselApi}
-              >
-                <CarouselContent>
-                  {filteredFlashSalesListings.map((listing) => (
-                    <CarouselItem key={listing.id}>
-                      <AdCard 
-                        listing={listing}
-                        imageHeight="h-56"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden sm:flex" />
-                <CarouselNext className="hidden sm:flex" />
-              </Carousel>
-              
-              {/* Pagination dots for mobile */}
-              <div className="flex justify-center space-x-2 mt-6">
-                {filteredFlashSalesListings.map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-2 h-2 rounded-full transition-colors duration-200"
-                    style={{
-                      backgroundColor: index === flashSalesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6">
-              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">✏️</span>
-              </div>
-              <div className="text-center space-y-3 max-w-md px-6">
-                <h3 className="text-xl font-bold text-foreground">
-                  Aucune annonce n'est disponible pour cette recherche pour le moment
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+                  {/* Mobile: Carousel with 1 item */}
+                  <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
+                    <Carousel 
+                      className="w-full scroll-hint"
+                      setApi={setFlashSalesCarouselApi}
+                    >
+                      <CarouselContent>
+                        {filteredFlashSalesListings.map((listing) => (
+                          <CarouselItem key={listing.id}>
+                            <AdCard 
+                              listing={listing}
+                              imageHeight="h-56"
+                            />
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="hidden sm:flex" />
+                      <CarouselNext className="hidden sm:flex" />
+                    </Carousel>
+                    
+                    {/* Pagination dots for mobile */}
+                    <div className="flex justify-center space-x-2 mt-6">
+                      {filteredFlashSalesListings.map((_, index) => (
+                        <div
+                          key={index}
+                          className="w-2 h-2 rounded-full transition-colors duration-200"
+                          style={{
+                            backgroundColor: index === flashSalesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
       {/* All Services Section - Now first */}
       <section className="py-20 px-0 md:px-6">
