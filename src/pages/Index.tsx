@@ -750,10 +750,10 @@ const Index = () => {
                   <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
                     <div className="mb-16">
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
-                        <div>
-                          <h2 className="text-4xl font-bold mb-4">Ventes Flash</h2>
-                          <p className="text-muted-foreground text-lg">Offres limitées à saisir rapidement</p>
-                        </div>
+                      <div>
+                        <h2 className="text-4xl font-bold mb-4">Ventes Flash Omra & Hajj 2026 : Séjours, vols et hébergements à prix réduits</h2>
+                        <p className="text-muted-foreground text-lg">Profitez de nos offres promotionnelles limitées sur les packages tout inclus, billets d'avion et hôtels près du Haram</p>
+                      </div>
                         
                       </div>
                     </div>
@@ -1046,10 +1046,9 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="space-y-6 md:space-y-8">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words">Services Complémentaires</h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words">Services Complémentaires pour votre séjour à La Mecque et Médine : restaurants halal et transports</h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed break-words">
-                Découvrez nos services exclusifs pour enrichir votre voyage spirituel en Arabie Saoudite : 
-                restaurants halal certifiés, transport ferroviaire haute vitesse entre les villes saintes.
+                Enrichissez votre voyage spirituel avec nos guides pratiques : trouvez les meilleurs restaurants halal certifiés à proximité du Haram, réservez vos billets pour le train haute vitesse Haramain Express reliant La Mecque, Médine et Jeddah pour des déplacements confortables.
               </p>
               
               <div className="space-y-6">
@@ -1220,9 +1219,9 @@ const Index = () => {
 
             <TabsContent value="discussions" className="space-y-0">
               <div className="py-8">
-                <div className="text-center mb-8">
-                  <h2 className="text-4xl font-bold mb-4">Discussions</h2>
-                  <p className="text-muted-foreground text-lg">Échangez avec la communauté OmraBonsPlans</p>
+          <div className="text-center mb-8">
+                  <h2 className="text-4xl font-bold mb-4">Forum de discussions Omra & Hajj : conseils, témoignages et entraide entre pèlerins francophones</h2>
+                  <p className="text-muted-foreground text-lg">Rejoignez notre communauté de pèlerins pour poser vos questions, partager vos expériences et bénéficier des conseils de voyageurs qui ont déjà accompli leur Omra ou Hajj</p>
                 </div>
                 <div className="max-w-6xl mx-auto">
                   {/* New Discussion System */}
@@ -1252,8 +1251,8 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Articles récents</h2>
-            <p className="text-muted-foreground text-lg">Découvrez nos derniers conseils et guides pour votre pèlerinage</p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
+            <p className="text-muted-foreground text-lg">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1324,10 +1323,10 @@ const Index = () => {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-4 mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
-                Aidez-nous à nous améliorer
+                Partagez vos suggestions pour améliorer Omra Bons Plans : votre avis compte
               </h2>
               <p className="text-primary-foreground/90 text-xl leading-relaxed">
-                Vos idées et conseils sont précieux ! Partagez vos suggestions pour améliorer notre plateforme
+                Votre expérience et vos idées sont essentielles pour nous aider à améliorer notre plateforme. Partagez vos suggestions, demandes de nouvelles fonctionnalités ou retours d'expérience pour rendre Omra Bons Plans encore plus utile à la communauté
               </p>
             </div>
             
