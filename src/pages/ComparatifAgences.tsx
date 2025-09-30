@@ -297,6 +297,7 @@ export default function ComparatifAgences() {
         title="Comparatif Agences de Voyages Omra & Hajj 2025-2026"
         description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
         keywords="comparatif agence omra, hajj 2025, agence voyage mecque, avis google, tawaf, omra du savoir"
+        canonical="https://omrabonsplans.fr/comparatif-agences"
       />
 
       <div className="container mx-auto px-4 py-8">

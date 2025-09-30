@@ -18,6 +18,8 @@ import { useReviews } from '@/hooks/useReviews';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 interface AdData {
   id: string;
@@ -272,40 +274,62 @@ export default function AdDetails() {
   const canEditReview = user && userReview;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              const fromCategory = location.state?.fromCategory;
-              const fromAdmin = location.state?.fromAdmin;
-              if (fromAdmin) {
-                navigate('/admin/ads');
-              } else if (fromCategory) {
-                navigate(`/category/${fromCategory}`);
-              } else {
-                navigate('/');
-              }
-            }}
-            className="flex items-center space-x-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Retour</span>
-          </Button>
+    <ResponsiveLayout>
+      <DynamicSEO
+        title={ad.title}
+        description={ad.description.substring(0, 160)}
+        keywords={[ad.category, 'omra', 'hajj', ad.location]}
+        type="product"
+        image={ad.cover_image || ad.images[0] || undefined}
+        path={`/ad/${id}`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": ad.title,
+          "description": ad.description,
+          "image": ad.cover_image || ad.images[0],
+          "offers": {
+            "@type": "Offer",
+            "price": ad.price,
+            "priceCurrency": ad.currency,
+            "availability": "https://schema.org/InStock"
+          }
+        }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+        <div className="container mx-auto px-4 py-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                const fromCategory = location.state?.fromCategory;
+                const fromAdmin = location.state?.fromAdmin;
+                if (fromAdmin) {
+                  navigate('/admin/ads');
+                } else if (fromCategory) {
+                  navigate(`/category/${fromCategory}`);
+                } else {
+                  navigate('/');
+                }
+              }}
+              className="flex items-center space-x-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Retour</span>
+            </Button>
 
-          <Button
-            variant="outline"
-            onClick={handleShareAd}
-            className="flex items-center space-x-2"
-          >
-            <Share2 className="w-4 h-4" />
-            <span>Partager</span>
-          </Button>
-        </div>
+            <Button
+              variant="outline"
+              onClick={handleShareAd}
+              className="flex items-center space-x-2"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Partager</span>
+            </Button>
+          </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Ad Preview */}
@@ -584,8 +608,9 @@ export default function AdDetails() {
               </div>
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </ResponsiveLayout>
   );
 }

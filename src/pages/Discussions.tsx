@@ -34,7 +34,7 @@ const Discussions = () => {
         title="Discussions - OmraBonsPlans.fr"
         description="Rejoignez notre communauté de pèlerins. Discutez, partagez vos expériences et posez vos questions sur l'Omra et le Hajj."
         keywords="discussions omra, communauté pèlerins, forum hajj, questions omra, conseils pèlerinage"
-        canonical="/discussions"
+        canonical="https://omrabonsplans.fr/discussions"
       />
       
       <div className="min-h-screen bg-background">

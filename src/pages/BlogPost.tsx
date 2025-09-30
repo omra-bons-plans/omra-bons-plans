@@ -14,6 +14,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { TableOfContents } from '@/components/ui/TableOfContents';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getImageUrl } from '@/utils/imageUtils';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface BlogPost {
   id: string;
@@ -231,6 +232,26 @@ const BlogPost = () => {
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title={post.title}
+        description={post.excerpt || post.content.substring(0, 160)}
+        keywords={post.tags}
+        type="article"
+        image={post.cover_image || undefined}
+        path={`/blog/${category}/${slug}`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.excerpt || post.content.substring(0, 160),
+          "image": post.cover_image,
+          "datePublished": post.published_at || post.created_at,
+          "author": {
+            "@type": "Person",
+            "name": post.author?.full_name || post.author?.first_name || 'Omra Bons Plans'
+          }
+        }}
+      />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">

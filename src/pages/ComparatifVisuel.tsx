@@ -15,6 +15,7 @@ export default function ComparatifVisuel() {
         title="Comparatif Visuel Agences Omra & Hajj - Outil Interactif"
         description="Outil de comparaison visuel interactif pour choisir la meilleure agence de voyage Omra et Hajj. Comparez jusqu'à 4 agences simultanément."
         keywords="comparatif visuel agences omra, hajj comparateur, outil comparaison agences"
+        canonical="https://omrabonsplans.fr/comparatif-visuel"
       />
 
       <div className="container mx-auto px-4 py-8">

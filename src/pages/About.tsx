@@ -15,11 +15,11 @@ const About = () => {
 
   return (
     <ResponsiveLayout>
-      <CanonicalUrl />
       <Helmet>
         <title>À Propos - Omra Bons Plans | Notre Histoire et Mission</title>
         <meta name="description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj. Notre mission, nos valeurs et notre expertise." />
         <meta name="keywords" content="à propos omra bons plans, équipe omra, mission hajj, plateforme pèlerinage, expertise arabie saoudite" />
+        <link rel="canonical" href="https://omrabonsplans.fr/about" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
         <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
