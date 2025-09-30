@@ -248,6 +248,13 @@ const Blog = () => {
             <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-4">
               {getCategoryName(selectedCategory)}
             </h1>
+            <h2 className="text-base sm:text-xl text-muted-foreground mb-2 font-semibold">
+              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2025-2026"}
+              {selectedCategory === 'restaurants' && "Sélection des meilleurs restaurants halal certifiés à La Mecque et Médine"}
+              {selectedCategory === 'associations' && "Associations musulmanes et organisations caritatives œuvrant pour la communauté"}
+              {selectedCategory === 'vendeurs' && "Annuaire des commerçants et artisans de confiance pour vos besoins"}
+              {selectedCategory === 'all' && "Tous nos articles, guides et ressources pour votre pèlerinage"}
+            </h2>
             <p className="text-xs sm:text-base text-muted-foreground max-w-2xl mx-auto hidden sm:block">
               {selectedCategory === 'general' && "Découvrez nos articles sur l'Omra, le Hajj, et la vie spirituelle"}
               {selectedCategory === 'restaurants' && "Les meilleurs restaurants halal pour votre séjour"}

@@ -64,6 +64,7 @@ const About = () => {
           <Card>
             <CardHeader>
               <h1 className="text-3xl font-bold text-center mb-4">À Propos de Nous</h1>
+              <h2 className="text-xl text-muted-foreground text-center">Découvrez l'histoire et la mission de la première plateforme dédiée aux services Omra et Hajj</h2>
             </CardHeader>
             <CardContent className="prose prose-lg max-w-none">
               <div className="space-y-6 text-muted-foreground leading-relaxed">

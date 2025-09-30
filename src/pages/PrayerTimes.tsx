@@ -155,7 +155,8 @@ const PrayerTimes = () => {
         <div className="space-y-6">
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-3xl font-bold text-foreground">Horaires de Prière</h1>
+            <h1 className="text-3xl font-bold text-foreground">Horaires de Prière Musulmane - Salat Times</h1>
+            <h2 className="text-xl text-muted-foreground">Consultez les horaires des 5 prières quotidiennes pour votre ville : Fajr, Dhuhr, Asr, Maghrib et Isha</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Trouvez les horaires de prière musulmane précis pour votre ville. 
               Entrez simplement le nom de votre ville pour obtenir les horaires quotidiens.

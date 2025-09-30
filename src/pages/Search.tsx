@@ -117,8 +117,13 @@ const Search = () => {
           {/* Header et barre de recherche */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              {searchQuery ? `Résultats pour "${searchQuery}"` : 'Recherche'}
+              {searchQuery ? `Résultats de recherche pour "${searchQuery}"` : 'Moteur de Recherche Omra & Hajj'}
             </h1>
+            <h2 className="text-xl text-muted-foreground mb-4 font-semibold">
+              {searchQuery 
+                ? `Explorez toutes les annonces, articles et services correspondant à votre recherche` 
+                : 'Trouvez rapidement les meilleures offres de séjours, vols, hébergements et services pour votre pèlerinage'}
+            </h2>
             <p className="text-lg text-muted-foreground mb-6">
               Trouvez des annonces, articles et services pour votre Omra
             </p>

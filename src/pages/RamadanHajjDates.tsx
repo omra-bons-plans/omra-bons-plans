@@ -155,7 +155,10 @@ const RamadanHajjDates = () => {
             <div>
               <div className="flex items-center space-x-2 mb-6">
                 <Calendar className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold text-foreground">Ramadan</h2>
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2025-2027</h2>
+                  <p className="text-sm text-muted-foreground mt-1">Calendrier complet des dates de jeûne et de l'Aïd al-Fitr</p>
+                </div>
               </div>
 
               <div className="space-y-4">
@@ -190,7 +193,10 @@ const RamadanHajjDates = () => {
             <div>
               <div className="flex items-center space-x-2 mb-6">
                 <MapPin className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold text-foreground">Hajj</h2>
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2025-2027</h2>
+                  <p className="text-sm text-muted-foreground mt-1">Calendrier des dates officielles du pèlerinage à La Mecque et de l'Aïd al-Adha</p>
+                </div>
               </div>
 
               <div className="space-y-4">

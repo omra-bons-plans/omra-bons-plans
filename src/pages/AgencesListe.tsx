@@ -340,8 +340,11 @@ export default function AgencesListe() {
 
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Comparatif Agences de Voyages Omra & Hajj
+            Liste Complète des Agences Omra & Hajj 2025-2026
           </h1>
+          <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
+            Comparatif détaillé des meilleures agences de voyage pour votre pèlerinage avec avis Google authentiques
+          </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Analysez et comparez les meilleures agences de voyage pour votre pèlerinage. 
             Notes Google authentiques, avis clients et analyse détaillée des services.

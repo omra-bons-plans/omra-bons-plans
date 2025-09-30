@@ -31,12 +31,12 @@ const CategoryPage = () => {
   // Get category info
   const getCategoryInfo = (categoryId: string) => {
     const categoryMap = {
-      sejours: { name: "Séjours", icon: Building, description: "Packages complets Omra", h1: "Séjours Omra Hajj Packages Complets" },
-      vols: { name: "Vols", icon: Plane, description: "Billets d'avion", h1: "Vols Omra Hajj Billets Avion" },
-      hebergements: { name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", h1: "Hébergements Omra Hajj Mecca Medina" },
-      guides: { name: "Guides", icon: BookOpen, description: "Guides spirituels", h1: "Guides Spirituels Omra Hajj Expérimentés" },
-      chauffeurs: { name: "Chauffeurs", icon: Car, description: "Transport privé", h1: "Chauffeurs Privés Omra Hajj Transport" },
-      babysitting: { name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", h1: "Services Baby-sitting Omra et Hajj" }
+      sejours: { name: "Séjours", icon: Building, description: "Packages complets Omra", h1: "Séjours Omra Hajj Packages Complets", h2: "Découvrez notre sélection de packages tout inclus pour votre pèlerinage : vols, hébergement, transferts et accompagnement spirituel" },
+      vols: { name: "Vols", icon: Plane, description: "Billets d'avion", h1: "Vols Omra Hajj Billets Avion", h2: "Comparez les meilleurs tarifs de vols directs et avec escale vers Jeddah et Médine pour votre Omra ou Hajj" },
+      hebergements: { name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", h1: "Hébergements Omra Hajj Mecca Medina", h2: "Trouvez l'hébergement idéal à La Mecque et Médine : hôtels face au Haram, appartements familiaux et résidences de luxe" },
+      guides: { name: "Guides", icon: BookOpen, description: "Guides spirituels", h1: "Guides Spirituels Omra Hajj Expérimentés", h2: "Accompagnement spirituel personnalisé par des guides francophones expérimentés pour accomplir vos rites en toute sérénité" },
+      chauffeurs: { name: "Chauffeurs", icon: Car, description: "Transport privé", h1: "Chauffeurs Privés Omra Hajj Transport", h2: "Service de transport privé avec chauffeur francophone pour vos déplacements entre La Mecque, Médine et les lieux saints" },
+      babysitting: { name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", h1: "Services Baby-sitting Omra et Hajj", h2: "Services de garde d'enfants professionnels et sécurisés pour vous permettre d'accomplir votre pèlerinage en toute tranquillité" }
     };
     return categoryMap[categoryId as keyof typeof categoryMap];
   };
@@ -184,6 +184,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -206,6 +209,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -228,6 +234,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -250,6 +259,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -272,6 +284,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -294,6 +309,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-white/80 text-lg">
                   {categoryInfo.description}
                 </p>
@@ -311,6 +329,9 @@ const CategoryPage = () => {
                   <Icon className="w-8 h-8" />
                   <h1 className="text-3xl lg:text-4xl font-bold">{categoryInfo.h1}</h1>
                 </div>
+                <h2 className="text-lg lg:text-xl text-primary-foreground/90 font-semibold max-w-3xl mx-auto">
+                  {categoryInfo.h2}
+                </h2>
                 <p className="text-primary-foreground/80 text-lg">
                   {categoryInfo.description}
                 </p>

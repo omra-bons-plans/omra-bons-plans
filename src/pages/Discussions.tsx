@@ -43,8 +43,11 @@ const Discussions = () => {
           <div className="container mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <MessageCircle className="w-8 h-8" />
-              <h1 className="text-4xl font-bold">Discussions</h1>
+              <h1 className="text-4xl font-bold">Forum de Discussion Omra & Hajj</h1>
             </div>
+            <h2 className="text-2xl text-primary-foreground mb-3 font-semibold">
+              Communauté francophone de pèlerins : conseils, témoignages et entraide pour votre voyage spirituel
+            </h2>
             <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
               Rejoignez notre communauté de pèlerins. Partagez vos expériences, posez vos questions et échangez des conseils précieux pour votre voyage spirituel.
             </p>

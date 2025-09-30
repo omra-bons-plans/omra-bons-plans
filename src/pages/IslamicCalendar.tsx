@@ -142,10 +142,13 @@ const IslamicCalendar = () => {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">
-            Calendrier Islamique
+            Calendrier Islamique - Convertisseur de Dates Hégirien
           </h1>
+          <h2 className="text-xl text-muted-foreground mb-2">
+            Outil de conversion gratuit entre calendrier grégorien et calendrier hégirien islamique
+          </h2>
           <p className="text-muted-foreground text-lg">
-            Convertissez les dates grégoriennes en dates hégiriennes
+            Convertissez les dates grégoriennes en dates hégiriennes pour vos événements religieux
           </p>
         </div>
 
