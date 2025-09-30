@@ -1282,7 +1282,7 @@ const Index = () => {
                   Vous partez pour votre première Omra et vous vous posez mille questions ? Ce guide complet vous accompagne pas à pas : du visa aux rites, en passant par les erreurs à éviter et les conseils pratiques essentiels pour un pèlerinage réussi.
                 </p>
                 <Link 
-                  to="/blog" 
+                  to="/blog/general/guide-complet-de-la-omra-tapes-rituels-et-conseils-pratique" 
                   className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
                 >
                   Lire la suite
