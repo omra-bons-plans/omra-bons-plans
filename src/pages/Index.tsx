@@ -1098,6 +1098,78 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Bons Plans Section - SEO */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Bons Plans Omra & Hajj</h2>
+            <p className="text-muted-foreground text-lg">Trouvez les meilleures offres et conseils pour votre pèlerinage</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Carte Omra pas chère */}
+            <div className="bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">💰</span>
+                  </div>
+                  <h3 className="text-2xl font-bold">Omra pas chère</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Découvrez nos conseils pour trouver une <strong className="text-foreground">Omra pas chère</strong> adaptée à votre budget. Nous comparons pour vous les meilleures offres afin que vous puissiez accomplir votre pèlerinage dans les meilleures conditions, sans mauvaise surprise.
+                </p>
+              </div>
+            </div>
+
+            {/* Carte Prix Omra */}
+            <div className="bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">💵</span>
+                  </div>
+                  <h3 className="text-2xl font-bold">Prix Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Comparez le <strong className="text-foreground">prix Omra 2025/2026</strong> avec nos guides détaillés. Nous analysons pour vous les formules proposées par différentes agences Omra afin de vous aider à choisir la plus transparente et la plus fiable.
+                </p>
+              </div>
+            </div>
+
+            {/* Carte Visa Omra */}
+            <div className="bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">📋</span>
+                  </div>
+                  <h3 className="text-2xl font-bold">Visa Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Obtenir son <strong className="text-foreground">visa Omra</strong> peut sembler compliqué, mais avec nos explications étape par étape, vous saurez exactement quels documents préparer et comment éviter les erreurs fréquentes.
+                </p>
+              </div>
+            </div>
+
+            {/* Carte Agence Omra */}
+            <div className="bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🏢</span>
+                  </div>
+                  <h3 className="text-2xl font-bold">Agence Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Trouver la bonne <strong className="text-foreground">agence Omra</strong> est essentiel pour voyager en confiance. Sur Omra Bons Plans, nous partageons nos retours d'expérience et nos recommandations pour sélectionner une agence sérieuse et adaptée à vos besoins.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Notre Mission Section - SEO */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-br from-background via-card to-background relative overflow-hidden">
         <div className="absolute inset-0 islamic-pattern-modern opacity-5"></div>
@@ -1171,6 +1243,75 @@ const Index = () => {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* Articles récents Section */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Articles récents</h2>
+            <p className="text-muted-foreground text-lg">Découvrez nos derniers conseils et guides pour votre pèlerinage</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Article 1 - Types de Hajj */}
+            <div className="bg-background rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <h3 className="text-xl font-bold">Quels sont les trois types de Hajj ?</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Savez-vous qu'il existe trois manières d'accomplir le Hajj ? Le Tamattu', le Qiran et l'Ifrad. Dans cet article, je partage mon expérience et j'explique en détail leurs différences, leurs avantages et la sagesse derrière ces rites.
+                </p>
+                <Link 
+                  to="/blog" 
+                  className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  Lire la suite
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Article 2 - Préparation Omra */}
+            <div className="bg-background rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <h3 className="text-xl font-bold">Comment préparer sa première Omra ?</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Vous partez pour votre première Omra et vous vous posez mille questions ? Ce guide complet vous accompagne pas à pas : du visa aux rites, en passant par les erreurs à éviter et les conseils pratiques essentiels pour un pèlerinage réussi.
+                </p>
+                <Link 
+                  to="/blog" 
+                  className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  Lire la suite
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Article 3 - Choisir son agence */}
+            <div className="bg-background rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6 space-y-4">
+                <h3 className="text-xl font-bold">Comment choisir son agence Omra ?</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Face à la multitude d'offres, comment s'y retrouver ? Dans cet article, je vous donne les critères essentiels pour identifier une agence Omra sérieuse et fiable. Tarifs, transparence, avis clients : tout ce qu'il faut savoir avant de réserver.
+                </p>
+                <Link 
+                  to="/blog" 
+                  className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  Lire la suite
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
