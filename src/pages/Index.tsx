@@ -695,20 +695,19 @@ const Index = () => {
                 <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg">
                   <p className="text-gray-800 text-base md:text-lg leading-relaxed text-center md:text-left space-y-4">
                     <span className="block">
-                      Bienvenue sur <strong className="text-primary font-semibold">Omra Bons Plans</strong>, votre guide pour préparer votre <strong className="font-semibold">voyage Omra et Hajj 2026</strong> en toute sérénité.
-                      Après plus de <strong className="font-semibold">10 années passées à Makkah</strong> et l'accompagnement de plus de <strong className="font-semibold">5000 pèlerins</strong>, j'ai décidé de mettre mon expérience au service de tous les musulmans francophones.
+                      Bienvenue sur <strong className="text-primary font-semibold">Omra Bons Plans</strong>, le site dédié à la préparation du <strong className="font-semibold">voyage Omra et Hajj 2026</strong> en toute sérénité.
                     </span>
                     <span className="block">
-                      Ici, vous trouverez :
+                      Ici, les pèlerins francophones trouveront :
                     </span>
                     <ul className="list-disc list-inside space-y-2 ml-4">
-                      <li>Des conseils pratiques pour effectuer votre <strong className="font-semibold">Omra</strong> facilement.</li>
-                      <li>Des comparatifs d'<strong className="font-semibold">agences Omra</strong> fiables et transparentes.</li>
-                      <li>Des astuces pour trouver une <strong className="font-semibold">Omra pas chère</strong> sans compromis sur la qualité.</li>
-                      <li>Des rappels spirituels et des guides pour mieux vivre votre pèlerinage.</li>
+                      <li>Des conseils pratiques pour effectuer leur <strong className="font-semibold">Omra</strong> facilement.</li>
+                      <li>Des comparatifs d{"'"}agences <strong className="font-semibold">Omra</strong> fiables et transparentes.</li>
+                      <li>Des astuces pour voyager à moindre coût et trouver une <strong className="font-semibold">Omra pas chère</strong> sans compromis sur la qualité.</li>
+                      <li>Des rappels spirituels et des guides détaillés pour mieux vivre leur pèlerinage.</li>
                     </ul>
                     <span className="block">
-                      Mon objectif : vous aider à réaliser votre <strong className="font-semibold">Omra</strong> ou votre <strong className="font-semibold">Hajj 2026</strong> avec moins de stress, moins de dépenses inutiles.
+                      L{"'"}objectif de ce site est simple : aider chaque pèlerin à accomplir son <strong className="font-semibold">Omra</strong> ou son <strong className="font-semibold">Hajj 2026</strong> avec moins de stress, moins de dépenses inutiles et plus de sérénité spirituelle.
                     </span>
                   </p>
                 </div>
