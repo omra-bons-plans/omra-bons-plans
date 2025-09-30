@@ -16,6 +16,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import UserMenu from '@/components/ui/UserMenu';
 import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
+import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
+import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 
 interface UserProfile {
   id: string;
@@ -475,6 +477,12 @@ const Admin = () => {
 
           {/* Image Migration Panel */}
           <ImageMigrationPanel />
+
+          {/* Performance Monitor */}
+          <PerformanceMonitor />
+
+          {/* Image Format Tester */}
+          <ImageFormatTester />
 
           {/* Filters */}
           <Card>
