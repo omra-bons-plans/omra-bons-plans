@@ -142,8 +142,15 @@ export const useAdminVerification = () => {
         return false;
       }
 
+      // 🔒 Générer le device fingerprint
+      const { generateDeviceFingerprint } = await import('@/utils/deviceFingerprint');
+      const deviceFingerprint = generateDeviceFingerprint();
+
       const { data, error } = await supabase.functions.invoke('send-admin-code', {
-        body: { email: user.email }
+        body: { 
+          email: user.email,
+          device_fingerprint: deviceFingerprint
+        }
       });
 
       if (error) {
@@ -156,6 +163,17 @@ export const useAdminVerification = () => {
         return false;
       }
 
+      // 🚨 Vérifier si le device est bloqué
+      if (data?.blocked) {
+        toast({
+          title: "🚨 Accès bloqué",
+          description: data.error || "Nouvel appareil détecté. Vérifiez votre email.",
+          variant: "destructive",
+          duration: 10000
+        });
+        return false;
+      }
+
       toast({
         title: "✅ Code envoyé",
         description: `Un code de vérification a été envoyé à ${user.email}. Valide pendant 5 minutes.`,
@@ -164,11 +182,22 @@ export const useAdminVerification = () => {
       return true;
     } catch (error: any) {
       console.error('Request code error:', error);
-      toast({
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue",
-        variant: "destructive"
-      });
+      
+      // Gérer l'erreur 429 (trop de tentatives)
+      if (error.message?.includes('429')) {
+        toast({
+          title: "⏱️ Trop de tentatives",
+          description: "Vous avez atteint la limite de demandes. Réessayez plus tard.",
+          variant: "destructive",
+          duration: 10000
+        });
+      } else {
+        toast({
+          title: "Erreur",
+          description: error.message || "Une erreur est survenue",
+          variant: "destructive"
+        });
+      }
       return false;
     } finally {
       setIsSendingCode(false);

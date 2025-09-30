@@ -23,6 +23,8 @@ export type Database = {
           id: string
           ip_address: unknown | null
           last_activity_at: string | null
+          last_request_at: string | null
+          request_count: number | null
           session_expires_at: string | null
           session_ip: unknown | null
           session_token: string | null
@@ -38,6 +40,8 @@ export type Database = {
           id?: string
           ip_address?: unknown | null
           last_activity_at?: string | null
+          last_request_at?: string | null
+          request_count?: number | null
           session_expires_at?: string | null
           session_ip?: unknown | null
           session_token?: string | null
@@ -53,6 +57,8 @@ export type Database = {
           id?: string
           ip_address?: unknown | null
           last_activity_at?: string | null
+          last_request_at?: string | null
+          request_count?: number | null
           session_expires_at?: string | null
           session_ip?: unknown | null
           session_token?: string | null
@@ -1070,7 +1076,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_admin_code_rate_limit: {
+        Args: { p_user_id: string }
+        Returns: Json
+      }
+      check_admin_device_fingerprint: {
+        Args: {
+          p_device_fingerprint: string
+          p_ip_address: unknown
+          p_user_agent: string
+          p_user_id: string
+        }
+        Returns: Json
+      }
       cleanup_expired_admin_codes: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      cleanup_old_admin_codes: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }

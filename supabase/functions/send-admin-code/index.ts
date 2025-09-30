@@ -13,6 +13,7 @@ const corsHeaders = {
 
 interface RequestBody {
   email: string;
+  device_fingerprint?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -75,11 +76,98 @@ const handler = async (req: Request): Promise<Response> => {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
 
-    // Récupérer IP et User-Agent
+    // Récupérer les données de requête
     const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0] || req.headers.get("x-real-ip") || null;
     const userAgent = req.headers.get("user-agent") || null;
+    const { device_fingerprint } = await req.json();
 
-    // Enregistrer le code en base de données
+    // 🔒 SÉCURITÉ 1: Vérifier le rate limiting (max 3 codes/heure)
+    const { data: rateLimitCheck, error: rateLimitError } = await supabase
+      .rpc('check_admin_code_rate_limit', { p_user_id: user.id });
+
+    if (rateLimitError) {
+      console.error("Rate limit check error:", rateLimitError);
+      return new Response(
+        JSON.stringify({ error: "Erreur de vérification de sécurité" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const rateLimitResult = rateLimitCheck as { allowed: boolean; error?: string; retry_after?: string };
+    if (!rateLimitResult.allowed) {
+      console.warn(`🚨 Rate limit exceeded for user ${user.email}`);
+      return new Response(
+        JSON.stringify({ 
+          error: rateLimitResult.error,
+          retry_after: rateLimitResult.retry_after 
+        }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // 🔒 SÉCURITÉ 2: Détecter les nouveaux devices/IP
+    const { data: deviceCheck, error: deviceError } = await supabase
+      .rpc('check_admin_device_fingerprint', {
+        p_user_id: user.id,
+        p_ip_address: ipAddress,
+        p_user_agent: userAgent,
+        p_device_fingerprint: device_fingerprint
+      });
+
+    if (deviceError) {
+      console.error("Device check error:", deviceError);
+      return new Response(
+        JSON.stringify({ error: "Erreur de vérification de sécurité" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const deviceResult = deviceCheck as { is_new_device: boolean; warning?: string; requires_confirmation?: boolean };
+    
+    // Si c'est un nouveau device, envoyer une alerte et bloquer
+    if (deviceResult.is_new_device && deviceResult.requires_confirmation) {
+      console.warn(`🚨 New device detected for user ${user.email}: IP=${ipAddress}, UA=${userAgent}`);
+      
+      // Envoyer une alerte de sécurité par email
+      await resend.emails.send({
+        from: "OmraBonsPlans Sécurité <onboarding@resend.dev>",
+        to: [email],
+        subject: "🚨 Alerte de sécurité: Tentative de connexion depuis un nouvel appareil",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff3cd; border: 2px solid #ffc107;">
+            <h1 style="color: #856404;">🚨 Tentative de connexion suspecte détectée</h1>
+            <p style="font-size: 16px; color: #856404;">Bonjour,</p>
+            <p style="font-size: 16px; color: #856404;">
+              Une tentative de connexion à votre compte admin a été détectée depuis un <strong>nouvel appareil ou une nouvelle adresse IP</strong>.
+            </p>
+            <div style="background-color: #fff; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; margin: 20px 0;">
+              <p><strong>Adresse IP:</strong> ${ipAddress || 'Non disponible'}</p>
+              <p><strong>Navigateur:</strong> ${userAgent || 'Non disponible'}</p>
+              <p><strong>Date/Heure:</strong> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}</p>
+            </div>
+            <p style="font-size: 14px; color: #856404;">
+              <strong>Si c'était vous:</strong> Contactez l'administrateur système pour autoriser ce nouvel appareil.
+            </p>
+            <p style="font-size: 14px; color: #dc3545;">
+              <strong>Si ce n'était PAS vous:</strong> Votre compte pourrait être compromis. Changez immédiatement votre mot de passe Supabase.
+            </p>
+            <hr style="border: none; border-top: 1px solid #ffc107; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #6c757d; text-align: center;">OmraBonsPlans - Système de sécurité avancé</p>
+          </div>
+        `,
+      });
+
+      return new Response(
+        JSON.stringify({ 
+          error: "🚨 Nouvel appareil détecté. Un email de sécurité vous a été envoyé. Contactez l'administrateur système pour autoriser ce device.",
+          blocked: true,
+          device_warning: deviceResult.warning
+        }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Enregistrer le code en base de données avec device fingerprint
     const { error: insertError } = await supabase
       .from("admin_access_codes")
       .insert({
@@ -88,6 +176,7 @@ const handler = async (req: Request): Promise<Response> => {
         expires_at: expiresAt.toISOString(),
         ip_address: ipAddress,
         user_agent: userAgent,
+        device_fingerprint: device_fingerprint,
       });
 
     if (insertError) {

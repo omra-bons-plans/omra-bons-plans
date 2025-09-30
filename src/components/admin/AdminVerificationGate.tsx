@@ -92,6 +92,13 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
                     Ce code sera valide pendant <strong>5 minutes</strong>.
                   </span>
                 </p>
+                <p className="flex items-start gap-2 mt-2 text-xs">
+                  <Shield className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong>Protection active:</strong> Max 3 codes/heure. 
+                    Les nouveaux appareils nécessitent une autorisation.
+                  </span>
+                </p>
               </div>
               <Button 
                 onClick={handleRequestCode}
