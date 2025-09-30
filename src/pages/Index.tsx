@@ -1301,7 +1301,7 @@ const Index = () => {
                   Face à la multitude d'offres, comment s'y retrouver ? Dans cet article, je vous donne les critères essentiels pour identifier une agence Omra sérieuse et fiable. Tarifs, transparence, avis clients : tout ce qu'il faut savoir avant de réserver.
                 </p>
                 <Link 
-                  to="/blog" 
+                  to="/blog/general/hajj-ou-omra-quelle-agence-choisir" 
                   className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
                 >
                   Lire la suite
