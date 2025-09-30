@@ -18,6 +18,7 @@ import UserMenu from '@/components/ui/UserMenu';
 import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
 import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
 import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
+import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
 
 interface UserProfile {
   id: string;
@@ -483,6 +484,9 @@ const Admin = () => {
 
           {/* Image Format Tester */}
           <ImageFormatTester />
+
+          {/* LCP Optimization Guide */}
+          <LCPOptimizationGuide />
 
           {/* Filters */}
           <Card>

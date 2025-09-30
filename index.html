@@ -8,6 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
+    <!-- Preload critical font for faster LCP -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"></noscript>
+    
     <!-- Favicons pour différents navigateurs et appareils -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
@@ -20,9 +25,9 @@
     <meta name="msapplication-TileImage" content="/favicon.png">
     <meta name="msapplication-TileColor" content="#0B1E3A">
     
-    <!-- Preload critical images -->
-    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)">
-    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)">
+    <!-- Preload critical hero images with high priority for LCP optimization -->
+    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Omra Bons Plans</title>
