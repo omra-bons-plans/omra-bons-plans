@@ -702,13 +702,13 @@ const Index = () => {
                       Ici, vous trouverez :
                     </span>
                     <ul className="list-disc list-inside space-y-2 ml-4">
-                      <li>Des conseils pratiques pour obtenir votre <strong className="font-semibold">visa Omra</strong> facilement.</li>
+                      <li>Des conseils pratiques pour effectuer votre <strong className="font-semibold">Omra</strong> facilement.</li>
                       <li>Des comparatifs d'<strong className="font-semibold">agences Omra</strong> fiables et transparentes.</li>
                       <li>Des astuces pour trouver une <strong className="font-semibold">Omra pas chère</strong> sans compromis sur la qualité.</li>
                       <li>Des rappels spirituels et des guides pour mieux vivre votre pèlerinage.</li>
                     </ul>
                     <span className="block">
-                      Mon objectif : vous aider à réaliser votre <strong className="font-semibold">Omra</strong> ou votre <strong className="font-semibold">Hajj</strong> avec moins de stress, moins de dépenses inutiles, et un cœur plein de foi.
+                      Mon objectif : vous aider à réaliser votre <strong className="font-semibold">Omra</strong> ou votre <strong className="font-semibold">Hajj 2026</strong> avec moins de stress, moins de dépenses inutiles.
                     </span>
                   </p>
                 </div>
