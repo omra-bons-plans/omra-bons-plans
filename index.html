@@ -46,9 +46,49 @@
     <meta name="msapplication-TileImage" content="/favicon.png">
     <meta name="msapplication-TileColor" content="#0B1E3A">
     
-    <!-- Preload critical hero images with high priority for LCP optimization -->
-    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high">
+    <!-- Preload critical hero images with highest priority for LCP optimization -->
+    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high" imagesrcset="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png 800w" imagesizes="100vw">
+    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high" imagesrcset="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png 1920w" imagesizes="100vw">
+    
+    <!-- Critical CSS inline for immediate rendering -->
+    <style>
+      /* Critical hero section styles */
+      .hero-section-critical {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .hero-bg-critical {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: linear-gradient(135deg, #0B1E3A 0%, #1a3a5c 100%);
+      }
+      .hero-bg-critical img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-content-critical {
+        position: relative;
+        z-index: 20;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        text-align: center;
+      }
+      .hero-title-critical {
+        font-size: clamp(2rem, 5vw, 6rem);
+        font-weight: 900;
+        line-height: 1.2;
+        color: white;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        margin-bottom: 1rem;
+      }
+    </style>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Omra Bons Plans</title>
