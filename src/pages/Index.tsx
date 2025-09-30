@@ -306,6 +306,7 @@ const Index = () => {
         <title>Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
         <meta name="keywords" content="omra pas cher, hajj 2026, comparateur omra, voyage omra, mecque médine, séjour omra, vol omra, hébergement omra, guide omra, pèlerinage islam, agence omra france" />
+        <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         
         {/* Enhanced Open Graph */}
