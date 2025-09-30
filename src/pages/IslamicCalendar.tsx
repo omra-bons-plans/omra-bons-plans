@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
 
 interface HijriDate {
@@ -139,6 +140,7 @@ const IslamicCalendar = () => {
         </script>
       </Helmet>
       <SEOHead {...seoConfig.islamicCalendar} />
+      <SEOBreadcrumb className="container mx-auto px-4 pt-4" />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">

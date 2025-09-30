@@ -26,6 +26,7 @@ import { Helmet } from "react-helmet-async";
 import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
 
@@ -302,6 +303,7 @@ const Index = () => {
       <ResponsiveLayout>
         <CanonicalUrl />
         <SEOBreadcrumb />
+        <OrganizationSchema />
       <Helmet>
         <title>Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -111,7 +112,7 @@ const Search = () => {
         keywords={['recherche', 'omra', 'annonces', searchQuery].filter(Boolean)}
         path="/search"
       />
-      
+      <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <main className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto p-6">
           {/* Header et barre de recherche */}

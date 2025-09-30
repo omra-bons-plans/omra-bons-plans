@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
 
 interface PrayerTime {
@@ -151,6 +152,7 @@ const PrayerTimes = () => {
         </script>
       </Helmet>
       <SEOHead {...seoConfig.prayerTimes} />
+      <SEOBreadcrumb className="container mx-auto px-4 pt-4" />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="space-y-6">
           {/* Header */}

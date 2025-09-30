@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import { useSEOOptimizations } from '@/hooks/useSEOOptimizations';
 import { Helmet } from "react-helmet-async";
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
@@ -48,6 +49,7 @@ const About = () => {
         </script>
       </Helmet>
       <SEOHead {...seoConfig.about} />
+      <OrganizationSchema />
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-4xl mx-auto">

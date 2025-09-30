@@ -6,6 +6,7 @@ import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead } from '@/components/SEO/SEOHead';
+import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Discussions = () => {
@@ -36,7 +37,7 @@ const Discussions = () => {
         keywords="discussions omra, communauté pèlerins, forum hajj, questions omra, conseils pèlerinage"
         canonical="https://omrabonsplans.fr/discussions"
       />
-      
+      <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <div className="bg-gradient-primary text-primary-foreground py-12 px-6">
