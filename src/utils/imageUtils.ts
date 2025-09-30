@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
  * @param url - URL de base
  * @param options - Options d'optimisation
  */
-const optimizeSupabaseImage = (url: string, options: {
+export const optimizeSupabaseImage = (url: string, options: {
   width?: number;
   height?: number;
   quality?: number;

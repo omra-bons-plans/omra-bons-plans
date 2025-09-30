@@ -46,9 +46,9 @@
     <meta name="msapplication-TileImage" content="/favicon.png">
     <meta name="msapplication-TileColor" content="#0B1E3A">
     
-    <!-- Preload critical hero images with highest priority for LCP optimization -->
-    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high" imagesrcset="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png 800w" imagesizes="100vw">
-    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high" imagesrcset="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png 1920w" imagesizes="100vw">
+    <!-- Preload critical hero images with WebP format for LCP optimization -->
+    <link rel="preload" as="image" href="https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/render/image/public/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png?width=800&height=1200&quality=75&format=webp&resize=cover" fetchpriority="high" type="image/webp" media="(max-width: 767px)">
+    <link rel="preload" as="image" href="https://lptyhenryzhztdwpkvsc.supabase.co/storage/v1/render/image/public/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png?width=1920&height=1080&quality=80&format=webp&resize=cover" fetchpriority="high" type="image/webp" media="(min-width: 768px)">
     
     <!-- Critical CSS inline for immediate rendering -->
     <style>

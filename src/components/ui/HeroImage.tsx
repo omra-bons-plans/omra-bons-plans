@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { optimizeSupabaseImage } from '@/utils/imageUtils';
 
 interface HeroImageProps {
   mobileSrc: string;
@@ -12,37 +13,66 @@ const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Optimiser les images via Supabase transformation API avec WebP
+  const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
+    width: 1920,
+    height: 1080,
+    quality: 80,
+    format: 'webp',
+    resize: 'cover'
+  });
+
+  const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
+    width: 800,
+    height: 1200,
+    quality: 75,
+    format: 'webp',
+    resize: 'cover'
+  });
+
   return (
     <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0B1E3A] via-[#1a3a5c] to-[#0B1E3A]">
-      {/* Desktop Image */}
-      <img
-        src={isLoaded ? desktopSrc : PLACEHOLDER}
-        alt={alt}
-        width="1920"
-        height="1080"
-        className={`absolute inset-0 w-full h-full object-cover hidden md:block transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        onLoad={() => setIsLoaded(true)}
-      />
+      {/* Desktop Image avec picture element pour formats modernes */}
+      <picture className="hidden md:block absolute inset-0">
+        <source 
+          srcSet={optimizedDesktop} 
+          type="image/webp" 
+        />
+        <img
+          src={isLoaded ? desktopSrc : PLACEHOLDER}
+          alt={alt}
+          width="1920"
+          height="1080"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          onLoad={() => setIsLoaded(true)}
+        />
+      </picture>
       
-      {/* Mobile Image */}
-      <img
-        src={isLoaded ? mobileSrc : PLACEHOLDER}
-        alt={alt}
-        width="800"
-        height="1200"
-        className={`absolute inset-0 w-full h-full object-cover block md:hidden transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        onLoad={() => setIsLoaded(true)}
-      />
+      {/* Mobile Image avec picture element */}
+      <picture className="block md:hidden absolute inset-0">
+        <source 
+          srcSet={optimizedMobile} 
+          type="image/webp" 
+        />
+        <img
+          src={isLoaded ? mobileSrc : PLACEHOLDER}
+          alt={alt}
+          width="800"
+          height="1200"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          onLoad={() => setIsLoaded(true)}
+        />
+      </picture>
       
       {/* Overlay */}
       <div className="hero-overlay absolute inset-0"></div>
