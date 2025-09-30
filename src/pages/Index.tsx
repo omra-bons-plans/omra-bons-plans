@@ -919,9 +919,9 @@ const Index = () => {
                 <span className="text-3xl">✏️</span>
               </div>
               <div className="text-center space-y-3 max-w-md">
-                <h3 className="text-2xl font-bold text-foreground">
+                <p className="text-2xl font-bold text-foreground">
                   Aucune annonce n'est disponible pour cette recherche pour le moment
-                </h3>
+                </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
                 </p>
@@ -954,9 +954,9 @@ const Index = () => {
                 <span className="text-3xl">✏️</span>
               </div>
               <div className="text-center space-y-3 max-w-md px-6">
-                <h3 className="text-xl font-bold text-foreground">
+                <p className="text-xl font-bold text-foreground">
                   Aucune annonce n'est disponible pour cette recherche pour le moment
-                </h3>
+                </p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
                 </p>
@@ -1004,9 +1004,9 @@ const Index = () => {
                   <span className="text-3xl">✏️</span>
                 </div>
                 <div className="text-center space-y-3 max-w-md px-6">
-                  <h3 className="text-xl font-bold text-foreground">
+                  <p className="text-xl font-bold text-foreground">
                     Aucune annonce n'est disponible pour cette recherche pour le moment
-                  </h3>
+                  </p>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
                   </p>
@@ -1381,7 +1381,7 @@ const Index = () => {
             
             {/* A propos */}
             <div>
-              <h4 className="font-bold text-lg mb-6">A propos</h4>
+              <h3 className="font-bold text-lg mb-6">A propos</h3>
               <ul className="space-y-4 text-muted-foreground text-sm">
                 <li><Link to="/about" className="hover:text-primary transition-colors">Qui sommes nous ?</Link></li>
                 <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
@@ -1393,7 +1393,7 @@ const Index = () => {
             
             {/* Service */}
             <div>
-              <h4 className="font-bold text-lg mb-6">Service</h4>
+              <h3 className="font-bold text-lg mb-6">Service</h3>
               <ul className="space-y-4 text-muted-foreground text-sm">
                 <li><Link to="/comparatif-agences" className="hover:text-primary transition-colors">Comparatif Agences</Link></li>
                 <li><Link to="/prayer-times" className="hover:text-primary transition-colors">Horaires de Prière</Link></li>
@@ -1404,7 +1404,7 @@ const Index = () => {
             
             {/* Autre */}
             <div>
-              <h4 className="font-bold text-lg mb-6">Autre</h4>
+              <h3 className="font-bold text-lg mb-6">Autre</h3>
               <ul className="space-y-4 text-muted-foreground text-sm">
                 <li><Link to="#" className="hover:text-primary transition-colors">Voyage</Link></li>
                 <li><Link to="#" className="hover:text-primary transition-colors">Restauration</Link></li>
