@@ -316,6 +316,18 @@ const Admin = () => {
             <MessageCircle className="w-4 h-4 mr-2" />
             Demandes de sujets
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/device-authorizations from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/device-authorizations');
+            }}
+            className="justify-start"
+          >
+            <Shield className="w-4 h-4 mr-2" />
+            Autorisations Appareils
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -384,6 +396,16 @@ const Admin = () => {
                     className="text-sm"
                   >
                     🛡️ Audit Sécurité
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/device-authorizations');
+                      navigate('/admin/device-authorizations');
+                    }}
+                    className="text-sm"
+                  >
+                    🔒 Appareils
                   </Button>
                 </>
               )}

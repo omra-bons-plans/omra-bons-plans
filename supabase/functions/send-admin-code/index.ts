@@ -104,67 +104,87 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // 🔒 SÉCURITÉ 2: Détecter les nouveaux devices/IP
-    const { data: deviceCheck, error: deviceError } = await supabase
-      .rpc('check_admin_device_fingerprint', {
-        p_user_id: user.id,
-        p_ip_address: ipAddress,
-        p_user_agent: userAgent,
-        p_device_fingerprint: device_fingerprint
-      });
+    // 🔒 SÉCURITÉ 2: Vérifier l'autorisation d'appareil
+    const { data: authCheck, error: authCheckError } = await supabase.rpc(
+      "check_device_authorization",
+      {
+        p_admin_user_id: user.id,
+        p_device_fingerprint: device_fingerprint,
+      }
+    );
 
-    if (deviceError) {
-      console.error("Device check error:", deviceError);
-      return new Response(
-        JSON.stringify({ error: "Erreur de vérification de sécurité" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    if (authCheckError) {
+      console.error("🚨 Authorization check error:", authCheckError);
     }
 
-    const deviceResult = deviceCheck as { is_new_device: boolean; warning?: string; requires_confirmation?: boolean };
-    
-    // Si c'est un nouveau device, envoyer une alerte et bloquer
-    if (deviceResult.is_new_device && deviceResult.requires_confirmation) {
-      console.warn(`🚨 New device detected for user ${user.email}: IP=${ipAddress}, UA=${userAgent}`);
-      
-      // Envoyer une alerte de sécurité par email
+    // Si l'appareil n'est pas autorisé, créer une demande d'autorisation
+    if (!authCheck?.authorized) {
+      console.warn(
+        `🚨 Unauthorized device for user ${user.email}: IP=${ipAddress}, Fingerprint=${device_fingerprint}`
+      );
+
+      // Créer une demande d'autorisation
+      const { data: requestId, error: requestError } = await supabase.rpc(
+        "request_device_authorization",
+        {
+          p_admin_user_id: user.id,
+          p_device_fingerprint: device_fingerprint,
+          p_ip_address: ipAddress,
+          p_user_agent: userAgent,
+        }
+      );
+
+      if (requestError) {
+        console.error("❌ Failed to create authorization request:", requestError);
+      } else {
+        console.log("✅ Authorization request created:", requestId);
+      }
+
+      // Envoyer email d'alerte avec lien vers l'autorisation
       await resend.emails.send({
-        from: "OmraBonsPlans Sécurité <onboarding@resend.dev>",
+        from: "MRA Omra Sécurité <onboarding@resend.dev>",
         to: [email],
-        subject: "🚨 Alerte de sécurité: Tentative de connexion depuis un nouvel appareil",
+        subject: "🚨 ALERTE: Autorisation d'appareil requise pour l'accès admin",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff3cd; border: 2px solid #ffc107;">
-            <h1 style="color: #856404;">🚨 Tentative de connexion suspecte détectée</h1>
+            <h1 style="color: #856404;">🚨 Autorisation d'appareil requise</h1>
             <p style="font-size: 16px; color: #856404;">Bonjour,</p>
             <p style="font-size: 16px; color: #856404;">
-              Une tentative de connexion à votre compte admin a été détectée depuis un <strong>nouvel appareil ou une nouvelle adresse IP</strong>.
+              Une tentative de connexion admin depuis un <strong>nouvel appareil non autorisé</strong> a été détectée.
             </p>
             <div style="background-color: #fff; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; margin: 20px 0;">
               <p><strong>Adresse IP:</strong> ${ipAddress || 'Non disponible'}</p>
               <p><strong>Navigateur:</strong> ${userAgent || 'Non disponible'}</p>
-              <p><strong>Date/Heure:</strong> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}</p>
+              <p><strong>Date/Heure:</strong> ${new Date().toLocaleString('fr-FR')}</p>
             </div>
             <p style="font-size: 14px; color: #856404;">
-              <strong>Si c'était vous:</strong> Contactez l'administrateur système pour autoriser ce nouvel appareil.
+              <strong>Une demande d'autorisation a été créée automatiquement.</strong>
+            </p>
+            <p style="font-size: 14px; color: #856404;">
+              Un super-administrateur doit approuver cet appareil avant que vous puissiez accéder à l'interface admin.
             </p>
             <p style="font-size: 14px; color: #dc3545;">
-              <strong>Si ce n'était PAS vous:</strong> Votre compte pourrait être compromis. Changez immédiatement votre mot de passe Supabase.
+              <strong>Si ce n'était PAS vous:</strong> Changez immédiatement votre mot de passe.
             </p>
             <hr style="border: none; border-top: 1px solid #ffc107; margin: 20px 0;" />
-            <p style="font-size: 12px; color: #6c757d; text-align: center;">OmraBonsPlans - Système de sécurité avancé</p>
+            <p style="font-size: 12px; color: #6c757d; text-align: center;">MRA Omra - Système de sécurité avancé</p>
           </div>
         `,
       });
 
+      console.log("✅ Security alert email sent successfully");
+
       return new Response(
-        JSON.stringify({ 
-          error: "🚨 Nouvel appareil détecté. Un email de sécurité vous a été envoyé. Contactez l'administrateur système pour autoriser ce device.",
-          blocked: true,
-          device_warning: deviceResult.warning
+        JSON.stringify({
+          error: "⚠️ SÉCURITÉ: Cet appareil doit être autorisé par un super-admin. Une demande d'autorisation a été créée et un email a été envoyé.",
+          requires_device_authorization: true,
+          request_id: requestId,
         }),
         { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    console.log("✅ Device authorized - proceeding with code generation");
 
     // Enregistrer le code en base de données avec device fingerprint
     const { error: insertError } = await supabase

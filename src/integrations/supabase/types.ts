@@ -68,6 +68,51 @@ export type Database = {
         }
         Relationships: []
       }
+      admin_device_authorizations: {
+        Row: {
+          admin_user_id: string
+          authorized_at: string | null
+          authorized_by: string | null
+          created_at: string
+          device_fingerprint: string
+          expires_at: string | null
+          id: string
+          ip_address: unknown | null
+          notes: string | null
+          status: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          admin_user_id: string
+          authorized_at?: string | null
+          authorized_by?: string | null
+          created_at?: string
+          device_fingerprint: string
+          expires_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          admin_user_id?: string
+          authorized_at?: string | null
+          authorized_by?: string | null
+          created_at?: string
+          device_fingerprint?: string
+          expires_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       ads: {
         Row: {
           category: string
@@ -1076,6 +1121,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      authorize_admin_device: {
+        Args: {
+          p_action: string
+          p_authorizer_id: string
+          p_expiry_days?: number
+          p_notes?: string
+          p_request_id: string
+        }
+        Returns: Json
+      }
       check_admin_code_rate_limit: {
         Args: { p_user_id: string }
         Returns: Json
@@ -1087,6 +1142,10 @@ export type Database = {
           p_user_agent: string
           p_user_id: string
         }
+        Returns: Json
+      }
+      check_device_authorization: {
+        Args: { p_admin_user_id: string; p_device_fingerprint: string }
         Returns: Json
       }
       cleanup_expired_admin_codes: {
@@ -1189,6 +1248,15 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      request_device_authorization: {
+        Args: {
+          p_admin_user_id: string
+          p_device_fingerprint: string
+          p_ip_address: unknown
+          p_user_agent: string
+        }
+        Returns: string
       }
       secure_role_change: {
         Args: {
