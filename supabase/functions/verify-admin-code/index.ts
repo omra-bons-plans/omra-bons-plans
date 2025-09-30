@@ -137,6 +137,28 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // 🔒 SÉCURITÉ AUTO-AUTORISATION: Approuver automatiquement l'appareil après code valide
+    if (codeData.device_fingerprint) {
+      console.log("🔐 Auto-authorizing device after successful code verification");
+      
+      const { data: authResult, error: authError } = await supabase.rpc(
+        "authorize_admin_device_auto",
+        {
+          p_admin_user_id: user.id,
+          p_device_fingerprint: codeData.device_fingerprint,
+          p_ip_address: ipAddress,
+          p_user_agent: codeData.user_agent,
+          p_expiry_days: 90
+        }
+      );
+
+      if (authError) {
+        console.error("❌ Failed to auto-authorize device:", authError);
+      } else {
+        console.log("✅ Device auto-authorized:", authResult);
+      }
+    }
+
     console.log("Code verified successfully for user:", user.id, "Session token created");
 
     // Envoyer l'alerte de sécurité par email en arrière-plan
