@@ -163,6 +163,14 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="font-size: 14px; color: #856404;">
               Un super-administrateur doit approuver cet appareil avant que vous puissiez accéder à l'interface admin.
             </p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="https://0d32be0f-306d-480b-b7fd-a00d6f7142c4.lovableproject.com/admin/device-authorizations" 
+                 style="display: inline-block; background-color: #0B1E3A; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                🔒 Voir les autorisations en attente
+              </a>
+            </div>
+            
             <p style="font-size: 14px; color: #dc3545;">
               <strong>Si ce n'était PAS vous:</strong> Changez immédiatement votre mot de passe.
             </p>
