@@ -45,7 +45,7 @@ export interface FormattedListing {
   isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
 }
 
-export const useAds = (limit: number = 15, offset: number = 0, enabled: boolean = true) => {
+export const useAds = (limit: number = 15, offset: number = 0) => {
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -211,10 +211,8 @@ export const useAds = (limit: number = 15, offset: number = 0, enabled: boolean 
   };
 
   useEffect(() => {
-    if (enabled) {
-      fetchAds();
-    }
-  }, [enabled]);
+    fetchAds();
+  }, []);
 
   // Transform ads to formatted listings for display
   const getFormattedListings = (): FormattedListing[] => {

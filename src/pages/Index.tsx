@@ -26,6 +26,7 @@ import { Helmet } from "react-helmet-async";
 import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
+import { HeroImage } from '@/components/ui/HeroImage';
 import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
@@ -101,25 +102,8 @@ const Index = () => {
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { user } = useAuth();
-  
-  // Différer le chargement de la météo et des annonces pour améliorer le LCP
-  const [shouldLoadData, setShouldLoadData] = useState(false);
-  
-  useEffect(() => {
-    // Attendre que le contenu principal soit chargé avant de charger les données
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        setShouldLoadData(true);
-      }, { timeout: 500 });
-    } else {
-      // Fallback pour les navigateurs qui ne supportent pas requestIdleCallback
-      const timer = setTimeout(() => setShouldLoadData(true), 300);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-  
   const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
-  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0, shouldLoadData);
+  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
@@ -473,45 +457,19 @@ const Index = () => {
 
       {/* Hero Section - Optimized for LCP */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background avec gradient fallback pour rendu immédiat */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0B1E3A] via-[#1a3a5c] to-[#0B1E3A]">
-          {/* Image Desktop - Chargement ultra-prioritaire */}
-          <img
-            src="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
-            alt="Mosquée de La Mecque"
-            width="1920"
-            height="1080"
-            className="absolute inset-0 w-full h-full object-cover hidden md:block"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-          
-          {/* Image Mobile - Chargement ultra-prioritaire */}
-          <img
-            src="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
-            alt="Mosquée de La Mecque"
-            width="800"
-            height="1200"
-            className="absolute inset-0 w-full h-full object-cover block md:hidden"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-          
-          {/* Overlay après l'image */}
-          <div className="hero-overlay absolute inset-0"></div>
-        </div>
+        <HeroImage 
+          mobileSrc="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
+          desktopSrc="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
+          alt="Mosquée de La Mecque"
+        />
 
-        {/* Éléments décoratifs différés pour ne pas bloquer le LCP */}
-        {shouldLoadData && (
-          <>
-            <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
-            <div className="absolute top-20 right-20 w-16 h-16 bg-secondary/20 rounded-full blur-sm float"></div>
-            <div className="absolute top-40 right-40 w-8 h-8 bg-primary/30 rounded-full blur-sm float" style={{animationDelay: '2s'}}></div>
-            <div className="absolute bottom-32 left-20 w-12 h-12 bg-warning/20 rounded-full blur-sm float" style={{animationDelay: '4s'}}></div>
-          </>
-        )}
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
+        
+        {/* Floating Decorative Elements */}
+        <div className="absolute top-20 right-20 w-16 h-16 bg-secondary/20 rounded-full blur-sm float"></div>
+        <div className="absolute top-40 right-40 w-8 h-8 bg-primary/30 rounded-full blur-sm float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-32 left-20 w-12 h-12 bg-warning/20 rounded-full blur-sm float" style={{animationDelay: '4s'}}></div>
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="flex flex-col items-center justify-start text-center min-h-screen pt-20 md:pt-32">
@@ -528,10 +486,9 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Compact Weather & Exchange Widget - Différé pour ne pas bloquer LCP */}
-              {shouldLoadData && (
-                <div className="bg-white/95 backdrop-blur-sm p-2 rounded-2xl shadow-soft mx-auto border border-border/20 
-                               w-fit min-w-[150px] max-w-[200px] sm:max-w-[280px] lg:max-w-xs animate-fade-in">
+              {/* Compact Weather & Exchange Widget */}
+              <div className="bg-white/95 backdrop-blur-sm p-2 rounded-2xl shadow-soft mx-auto border border-border/20 
+                             w-fit min-w-[150px] max-w-[200px] sm:max-w-[280px] lg:max-w-xs">
                 
                 {/* Mobile: Single rotating field */}
                 <div className="block sm:hidden">
@@ -684,11 +641,9 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              )}
 
-              {/* WhatsApp Community Button - Différé pour ne pas bloquer LCP */}
-              {shouldLoadData && (
-                <div className="mt-8 max-w-[320px] mx-auto animate-fade-in">
+              {/* WhatsApp Community Button */}
+              <div className="mt-8 max-w-[320px] mx-auto">
                 <button
                   onClick={() => window.open('https://whatsapp.com/channel/0029VaFFu5P5PO18w7fmTB0M', '_blank')}
                   className="group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3 w-full"
@@ -719,11 +674,9 @@ const Index = () => {
                   </p>
                 </div>
               </div>
-              )}
 
-              {/* SEO Content - Hero Section - Différé pour ne pas bloquer LCP */}
-              {shouldLoadData && (
-                <div className="mt-12 max-w-3xl mx-auto animate-fade-in">
+              {/* SEO Content - Hero Section */}
+              <div className="mt-12 max-w-3xl mx-auto">
                 <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg">
                   <p className="text-gray-800 text-base md:text-lg leading-relaxed text-center md:text-left space-y-4">
                     <span className="block">
@@ -744,7 +697,6 @@ const Index = () => {
                   </p>
                 </div>
               </div>
-              )}
 
             </div>
           </div>
