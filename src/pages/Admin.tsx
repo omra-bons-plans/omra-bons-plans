@@ -19,6 +19,7 @@ import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
 import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
 import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
+import { LCPDiagnostic } from '@/components/admin/LCPDiagnostic';
 
 interface UserProfile {
   id: string;
@@ -484,6 +485,9 @@ const Admin = () => {
 
           {/* Image Format Tester */}
           <ImageFormatTester />
+
+          {/* LCP Diagnostic en temps réel */}
+          <LCPDiagnostic />
 
           {/* LCP Optimization Guide */}
           <LCPOptimizationGuide />

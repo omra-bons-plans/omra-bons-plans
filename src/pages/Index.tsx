@@ -100,9 +100,26 @@ const Index = () => {
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
-  const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
   const { user } = useAuth();
-  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0);
+  
+  // Différer le chargement de la météo et des annonces pour améliorer le LCP
+  const [shouldLoadData, setShouldLoadData] = useState(false);
+  
+  useEffect(() => {
+    // Attendre que le contenu principal soit chargé avant de charger les données
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        setShouldLoadData(true);
+      }, { timeout: 500 });
+    } else {
+      // Fallback pour les navigateurs qui ne supportent pas requestIdleCallback
+      const timer = setTimeout(() => setShouldLoadData(true), 300);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+  
+  const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
+  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0, shouldLoadData);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
