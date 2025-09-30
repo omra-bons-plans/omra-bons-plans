@@ -864,7 +864,7 @@ const Index = () => {
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
                 <h2 className="text-4xl font-bold mb-4">Services Hajj & Omra</h2>
-                <p className="text-muted-foreground text-lg">Découvrez tous nos services pour un voyage parfait</p>
+                <p className="text-muted-foreground text-lg">Découvrez nos conseils pour trouver une <strong>Omra pas chère</strong> adaptée à votre budget</p>
               </div>
             </div>
           </div>
