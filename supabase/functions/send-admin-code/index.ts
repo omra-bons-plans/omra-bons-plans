@@ -62,7 +62,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const { email }: RequestBody = await req.json();
+    const { email, device_fingerprint }: RequestBody = await req.json();
 
     // Vérifier que l'email correspond à celui de l'utilisateur
     if (email !== user.email) {
@@ -79,7 +79,6 @@ const handler = async (req: Request): Promise<Response> => {
     // Récupérer les données de requête
     const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0] || req.headers.get("x-real-ip") || null;
     const userAgent = req.headers.get("user-agent") || null;
-    const { device_fingerprint } = await req.json();
 
     // 🔒 SÉCURITÉ 1: Vérifier le rate limiting (max 3 codes/heure)
     const { data: rateLimitCheck, error: rateLimitError } = await supabase
