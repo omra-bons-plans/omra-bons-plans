@@ -57,6 +57,10 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
     }
   };
 
+  const handleGoToAuthorizations = () => {
+    window.location.href = '/admin/device-authorizations';
+  };
+
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await verifyCode(code);
@@ -118,6 +122,16 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
                   </>
                 )}
               </Button>
+              <Button
+                variant="outline"
+                onClick={handleGoToAuthorizations}
+                className="w-full"
+              >
+                🔒 Gérer les autorisations d'appareils
+              </Button>
+              <p className="text-xs text-muted-foreground text-center mt-2">
+                Si vous recevez une erreur d'appareil non autorisé, cliquez sur le bouton ci-dessus
+              </p>
             </div>
           ) : (
             <form onSubmit={handleVerifyCode} className="space-y-4">
