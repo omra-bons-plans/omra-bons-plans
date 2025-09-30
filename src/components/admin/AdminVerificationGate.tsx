@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2, Mail, Shield } from 'lucide-react';
+import { Loader2, Mail, Shield, AlertTriangle } from 'lucide-react';
 import { useAdminVerification } from '@/hooks/useAdminVerification';
 
 interface AdminVerificationGateProps {
@@ -57,10 +57,6 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
     }
   };
 
-  const handleGoToAuthorizations = () => {
-    window.location.href = '/admin/device-authorizations';
-  };
-
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await verifyCode(code);
@@ -103,6 +99,12 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
                     Les nouveaux appareils nécessitent une autorisation.
                   </span>
                 </p>
+                <p className="flex items-start gap-2 mt-3 text-xs text-amber-600 dark:text-amber-400">
+                  <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong>Nouvel appareil :</strong> La vérification du code autorisera automatiquement cet appareil pour 90 jours.
+                  </span>
+                </p>
               </div>
               <Button 
                 onClick={handleRequestCode}
@@ -122,16 +124,6 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
                   </>
                 )}
               </Button>
-              <Button
-                variant="outline"
-                onClick={handleGoToAuthorizations}
-                className="w-full"
-              >
-                🔒 Gérer les autorisations d'appareils
-              </Button>
-              <p className="text-xs text-muted-foreground text-center mt-2">
-                Si vous recevez une erreur d'appareil non autorisé, cliquez sur le bouton ci-dessus
-              </p>
             </div>
           ) : (
             <form onSubmit={handleVerifyCode} className="space-y-4">

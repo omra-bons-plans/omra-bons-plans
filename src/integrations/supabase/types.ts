@@ -1131,6 +1131,16 @@ export type Database = {
         }
         Returns: Json
       }
+      authorize_admin_device_auto: {
+        Args: {
+          p_admin_user_id: string
+          p_device_fingerprint: string
+          p_expiry_days?: number
+          p_ip_address: unknown
+          p_user_agent: string
+        }
+        Returns: Json
+      }
       check_admin_code_rate_limit: {
         Args: { p_user_id: string }
         Returns: Json

@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { ArrowLeft, CheckCircle, XCircle, Shield, Clock, AlertTriangle } from "lucide-react";
 import UserMenu from "@/components/ui/UserMenu";
+import { AdminVerificationGate } from "@/components/admin/AdminVerificationGate";
 
 interface DeviceAuthorization {
   id: string;
@@ -147,7 +148,8 @@ export default function AdminDeviceAuthorizations() {
   const processedAuthorizations = authorizations.filter((a) => a.status !== "pending");
 
   return (
-    <ResponsiveLayout>
+    <AdminVerificationGate>
+      <ResponsiveLayout>
       <SEOHead 
         title="Autorisations d'Appareils Admin"
         description="Gérer les demandes d'autorisation d'appareils pour l'accès administrateur"
@@ -323,5 +325,6 @@ export default function AdminDeviceAuthorizations() {
         )}
       </div>
     </ResponsiveLayout>
+    </AdminVerificationGate>
   );
 }
