@@ -21,6 +21,7 @@ import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
 import { LCPDiagnostic } from '@/components/admin/LCPDiagnostic';
 import { AdminVerificationGate } from '@/components/admin/AdminVerificationGate';
+import { AdminSessionStatus } from '@/components/admin/AdminSessionStatus';
 
 interface UserProfile {
   id: string;
@@ -386,6 +387,7 @@ const Admin = () => {
                   </Button>
                 </>
               )}
+              <AdminSessionStatus />
               <UserMenu />
             </div>
           </div>

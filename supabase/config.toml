@@ -83,6 +83,9 @@ verify_jwt = true
 [functions.verify-admin-code]
 verify_jwt = true
 
+[functions.validate-admin-session]
+verify_jwt = true
+
 [edge_runtime]
 enabled = true
 port = 54328

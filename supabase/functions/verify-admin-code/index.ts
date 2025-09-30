@@ -1,6 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Resend } from "npm:resend@2.0.0";
+import React from 'npm:react@18.3.1';
+import { renderAsync } from 'npm:@react-email/components@0.0.22';
+import { AdminAlertEmail } from './_templates/admin-alert-email.tsx';
 
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
 const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -105,10 +110,23 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Marquer le code comme utilisé
+    // Générer un token de session sécurisé
+    const sessionToken = crypto.randomUUID() + '-' + Date.now();
+    const sessionExpiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+    const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0] || 
+                     req.headers.get("x-real-ip") || 
+                     null;
+
+    // Marquer le code comme utilisé et créer la session
     const { error: updateError } = await supabase
       .from("admin_access_codes")
-      .update({ used_at: new Date().toISOString() })
+      .update({ 
+        used_at: new Date().toISOString(),
+        session_token: sessionToken,
+        session_ip: ipAddress,
+        session_expires_at: sessionExpiresAt.toISOString(),
+        last_activity_at: new Date().toISOString()
+      })
       .eq("id", codeData.id);
 
     if (updateError) {
@@ -119,13 +137,45 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log("Code verified successfully for user:", user.id);
+    console.log("Code verified successfully for user:", user.id, "Session token created");
+
+    // Envoyer l'alerte de sécurité par email en arrière-plan
+    EdgeRuntime.waitUntil((async () => {
+      try {
+        const timestamp = new Date().toLocaleString('fr-FR', { 
+          dateStyle: 'full', 
+          timeStyle: 'long',
+          timeZone: 'Europe/Paris'
+        });
+
+        const html = await renderAsync(
+          React.createElement(AdminAlertEmail, {
+            ipAddress: ipAddress || 'Non disponible',
+            userAgent: req.headers.get("user-agent") || 'Non disponible',
+            timestamp
+          })
+        );
+
+        await resend.emails.send({
+          from: "OmraBonsPlans Sécurité <onboarding@resend.dev>",
+          to: [user.email!],
+          subject: "🔒 Alerte: Connexion admin détectée",
+          html,
+        });
+
+        console.log("Security alert email sent to:", user.email);
+      } catch (emailError) {
+        console.error("Failed to send alert email:", emailError);
+      }
+    })());
 
     return new Response(
       JSON.stringify({ 
         valid: true,
-        message: "Code valide",
-        expiresAt: expiresAt.toISOString()
+        message: "Code valide - Session sécurisée créée",
+        sessionToken,
+        sessionExpiresAt: sessionExpiresAt.toISOString(),
+        sessionIp: ipAddress
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

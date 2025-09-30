@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,17 @@ interface AdminVerificationGateProps {
   children: React.ReactNode;
 }
 
+// Context pour exposer la fonction logout
+const AdminVerificationContext = createContext<{ logout: () => void } | null>(null);
+
+export const useAdminVerificationContext = () => {
+  const context = useContext(AdminVerificationContext);
+  if (!context) {
+    throw new Error('useAdminVerificationContext must be used within AdminVerificationGate');
+  }
+  return context;
+};
+
 export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) => {
   const [code, setCode] = useState('');
   const [showCodeInput, setShowCodeInput] = useState(false);
@@ -19,7 +30,8 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
     isSendingCode,
     isVerifyingCode,
     requestCode,
-    verifyCode
+    verifyCode,
+    logout
   } = useAdminVerification();
 
   if (isLoading) {
@@ -31,7 +43,11 @@ export const AdminVerificationGate = ({ children }: AdminVerificationGateProps) 
   }
 
   if (isVerified) {
-    return <>{children}</>;
+    return (
+      <AdminVerificationContext.Provider value={{ logout }}>
+        {children}
+      </AdminVerificationContext.Provider>
+    );
   }
 
   const handleRequestCode = async () => {

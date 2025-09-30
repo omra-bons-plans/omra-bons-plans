@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
-const ADMIN_VERIFICATION_KEY = 'admin_verification_expires_at';
+const ADMIN_SESSION_TOKEN_KEY = 'admin_session_token';
+const ADMIN_SESSION_EXPIRES_KEY = 'admin_session_expires_at';
+const ADMIN_SESSION_IP_KEY = 'admin_session_ip';
+const SESSION_CHECK_INTERVAL = 60000; // Vérifier toutes les minutes
 
 export const useAdminVerification = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -10,30 +13,108 @@ export const useAdminVerification = () => {
   const [isSendingCode, setIsSendingCode] = useState(false);
   const [isVerifyingCode, setIsVerifyingCode] = useState(false);
   const { toast } = useToast();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     checkVerification();
+    
+    // Démarrer la vérification périodique
+    intervalRef.current = setInterval(() => {
+      validateSession();
+    }, SESSION_CHECK_INTERVAL);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
-  const checkVerification = () => {
-    const expiresAt = sessionStorage.getItem(ADMIN_VERIFICATION_KEY);
+  const checkVerification = async () => {
+    const sessionToken = sessionStorage.getItem(ADMIN_SESSION_TOKEN_KEY);
+    const expiresAt = sessionStorage.getItem(ADMIN_SESSION_EXPIRES_KEY);
     
-    if (expiresAt) {
+    if (sessionToken && expiresAt) {
       const expiry = new Date(expiresAt);
       const now = new Date();
       
       if (now < expiry) {
-        setIsVerified(true);
-        setIsLoading(false);
-        return;
-      } else {
-        sessionStorage.removeItem(ADMIN_VERIFICATION_KEY);
+        // Valider la session côté serveur
+        const isValid = await validateSession();
+        if (isValid) {
+          setIsVerified(true);
+          setIsLoading(false);
+          return;
+        }
       }
+      
+      // Session expirée ou invalide
+      clearSession();
     }
     
     setIsVerified(false);
     setIsLoading(false);
   };
+
+  const clearSession = () => {
+    sessionStorage.removeItem(ADMIN_SESSION_TOKEN_KEY);
+    sessionStorage.removeItem(ADMIN_SESSION_EXPIRES_KEY);
+    sessionStorage.removeItem(ADMIN_SESSION_IP_KEY);
+    setIsVerified(false);
+  };
+
+  const validateSession = useCallback(async (): Promise<boolean> => {
+    const sessionToken = sessionStorage.getItem(ADMIN_SESSION_TOKEN_KEY);
+    
+    if (!sessionToken) {
+      return false;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('validate-admin-session', {
+        body: { sessionToken }
+      });
+
+      if (error) {
+        console.error('Session validation error:', error);
+        clearSession();
+        return false;
+      }
+
+      if (!data?.valid) {
+        if (data?.expired) {
+          toast({
+            title: "⏱️ Session expirée",
+            description: "Votre session admin a expiré. Reconnexion requise.",
+            variant: "destructive"
+          });
+        }
+        clearSession();
+        return false;
+      }
+
+      // Alerte en cas de changement d'IP
+      if (data.warning) {
+        console.warn('🚨 Security alert:', data.warning);
+        toast({
+          title: "⚠️ Alerte de sécurité",
+          description: data.warning,
+          variant: "destructive"
+        });
+      }
+
+      // Mettre à jour l'expiration de la session
+      if (data.sessionExpiresAt) {
+        sessionStorage.setItem(ADMIN_SESSION_EXPIRES_KEY, data.sessionExpiresAt);
+      }
+
+      return true;
+    } catch (error: any) {
+      console.error('Session validation failed:', error);
+      clearSession();
+      return false;
+    }
+  }, [toast]);
 
   const requestCode = async () => {
     setIsSendingCode(true);
@@ -132,16 +213,27 @@ export const useAdminVerification = () => {
         return false;
       }
 
-      // Stocker l'expiration dans sessionStorage
-      const expiresAt = data.expiresAt || new Date(Date.now() + 5 * 60 * 1000).toISOString();
-      sessionStorage.setItem(ADMIN_VERIFICATION_KEY, expiresAt);
+      // Stocker la session sécurisée
+      sessionStorage.setItem(ADMIN_SESSION_TOKEN_KEY, data.sessionToken);
+      sessionStorage.setItem(ADMIN_SESSION_EXPIRES_KEY, data.sessionExpiresAt);
+      if (data.sessionIp) {
+        sessionStorage.setItem(ADMIN_SESSION_IP_KEY, data.sessionIp);
+      }
       
       setIsVerified(true);
       
       toast({
-        title: "✅ Accès autorisé",
-        description: "Code valide, accès admin accordé",
+        title: "🔒 Accès sécurisé autorisé",
+        description: "Session admin active (30 min d'inactivité max)",
       });
+
+      // Démarrer la surveillance de session
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      intervalRef.current = setInterval(() => {
+        validateSession();
+      }, SESSION_CHECK_INTERVAL);
 
       return true;
     } catch (error: any) {
@@ -158,8 +250,14 @@ export const useAdminVerification = () => {
   };
 
   const logout = () => {
-    sessionStorage.removeItem(ADMIN_VERIFICATION_KEY);
-    setIsVerified(false);
+    clearSession();
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    toast({
+      title: "Déconnexion",
+      description: "Session admin terminée",
+    });
   };
 
   return {

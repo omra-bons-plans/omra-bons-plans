@@ -18,9 +18,14 @@ export type Database = {
         Row: {
           code: string
           created_at: string
+          device_fingerprint: string | null
           expires_at: string
           id: string
           ip_address: unknown | null
+          last_activity_at: string | null
+          session_expires_at: string | null
+          session_ip: unknown | null
+          session_token: string | null
           used_at: string | null
           user_agent: string | null
           user_id: string
@@ -28,9 +33,14 @@ export type Database = {
         Insert: {
           code: string
           created_at?: string
+          device_fingerprint?: string | null
           expires_at: string
           id?: string
           ip_address?: unknown | null
+          last_activity_at?: string | null
+          session_expires_at?: string | null
+          session_ip?: unknown | null
+          session_token?: string | null
           used_at?: string | null
           user_agent?: string | null
           user_id: string
@@ -38,9 +48,14 @@ export type Database = {
         Update: {
           code?: string
           created_at?: string
+          device_fingerprint?: string | null
           expires_at?: string
           id?: string
           ip_address?: unknown | null
+          last_activity_at?: string | null
+          session_expires_at?: string | null
+          session_ip?: unknown | null
+          session_token?: string | null
           used_at?: string | null
           user_agent?: string | null
           user_id?: string
@@ -1164,6 +1179,14 @@ export type Database = {
       should_auto_delete_ad: {
         Args: { publish_end_date: string }
         Returns: boolean
+      }
+      verify_admin_session: {
+        Args: {
+          p_current_ip: unknown
+          p_session_token: string
+          p_user_id: string
+        }
+        Returns: Json
       }
     }
     Enums: {
