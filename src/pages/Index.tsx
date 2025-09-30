@@ -693,7 +693,7 @@ const Index = () => {
               {/* SEO Content - Hero Section */}
               <div className="mt-12 max-w-3xl mx-auto">
                 <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg">
-                  <p className="text-gray-800 text-base md:text-lg leading-relaxed text-left space-y-4">
+                  <p className="text-gray-800 text-base md:text-lg leading-relaxed text-center md:text-left space-y-4">
                     <span className="block">
                       Bienvenue sur <strong className="text-primary font-semibold">Omra Bons Plans</strong>, votre guide pour préparer votre <strong className="font-semibold">voyage Omra et Hajj 2026</strong> en toute sérénité.
                       Après plus de <strong className="font-semibold">10 années passées à Makkah</strong> et l'accompagnement de plus de <strong className="font-semibold">5000 pèlerins</strong>, j'ai décidé de mettre mon expérience au service de tous les musulmans francophones.
