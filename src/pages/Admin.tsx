@@ -15,6 +15,7 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import UserMenu from '@/components/ui/UserMenu';
+import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
 
 interface UserProfile {
   id: string;
@@ -471,6 +472,9 @@ const Admin = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Image Migration Panel */}
+          <ImageMigrationPanel />
 
           {/* Filters */}
           <Card>

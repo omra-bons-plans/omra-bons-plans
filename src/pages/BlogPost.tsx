@@ -358,8 +358,8 @@ const BlogPost = () => {
           {(post.cover_image || (post.images && post.images.length > 0)) && (
             <div className="mb-8 max-w-4xl">
               <ImageGalleryDisplay
-                images={post.images ? post.images.map(img => getImageUrl(img, { width: 800, quality: 85 }, 'blog-images')) : []}
-                coverImage={post.cover_image ? getImageUrl(post.cover_image, { width: 1200, quality: 90 }, 'blog-images') : undefined}
+                images={post.images ? post.images.map(img => getImageUrl(img, { width: 800, quality: 70 }, 'blog-images')) : []}
+                coverImage={post.cover_image ? getImageUrl(post.cover_image, { width: 1200, quality: 75 }, 'blog-images') : undefined}
                 title={`Images - ${post.title}`}
               />
             </div>
@@ -469,13 +469,13 @@ const BlogPost = () => {
                       onClick={() => navigate(`/blog/${relatedPost.category}/${relatedPost.slug}`)}
                     >
                        {relatedPost.cover_image && (
-                         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                           <img 
-                             src={getImageUrl(relatedPost.cover_image, { width: 400, height: 300, quality: 85 }, 'blog-images')} 
-                             alt={relatedPost.title}
-                             className="w-full h-full object-cover"
-                           />
-                         </div>
+                          <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                            <img 
+                              src={getImageUrl(relatedPost.cover_image, { width: 400, height: 300, quality: 70 }, 'blog-images')} 
+                              alt={relatedPost.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
                        )}
                       <CardHeader className="pb-2">
                         <CardTitle className="text-base leading-tight line-clamp-2">
