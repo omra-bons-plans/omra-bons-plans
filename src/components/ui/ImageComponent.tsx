@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getImageUrl } from '@/utils/imageUtils';
+import { optimizeSupabaseImage } from '@/utils/imageUtils';
 
 interface ImageComponentProps {
   src: string | null | undefined;
@@ -7,6 +7,9 @@ interface ImageComponentProps {
   className?: string;
   fallbackSrc?: string;
   onClick?: () => void;
+  width?: number;
+  height?: number;
+  quality?: number;
 }
 
 export const ImageComponent = ({
@@ -14,31 +17,57 @@ export const ImageComponent = ({
   alt,
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
-  onClick
+  onClick,
+  width = 800,
+  height,
+  quality = 70
 }: ImageComponentProps) => {
   const [hasError, setHasError] = useState(false);
-  const [currentSrc, setCurrentSrc] = useState(() => {
-    if (!src) return fallbackSrc;
-    return getImageUrl(src);
-  });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (!src || hasError) {
+    return (
+      <img
+        src={fallbackSrc}
+        alt={alt}
+        className={className}
+        onClick={onClick}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+
+  // URLs optimisées pour différents formats
+  const avifUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'avif' });
+  const webpUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'webp' });
+  const jpegUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'jpeg' });
 
   const handleError = () => {
     if (!hasError) {
       setHasError(true);
-      setCurrentSrc(fallbackSrc);
     }
   };
 
   return (
-    <img
-      src={currentSrc}
-      alt={alt}
-      className={className}
-      onError={handleError}
-      onClick={onClick}
-      loading="lazy"
-      decoding="async"
-    />
+    <picture className={className} onClick={onClick}>
+      {/* AVIF - Meilleure compression */}
+      <source type="image/avif" srcSet={avifUrl} />
+      
+      {/* WebP - Fallback moderne */}
+      <source type="image/webp" srcSet={webpUrl} />
+      
+      {/* JPEG - Fallback universel */}
+      <img
+        src={jpegUrl}
+        alt={alt}
+        className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+        onError={handleError}
+        onLoad={() => setIsLoaded(true)}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
   );
 };
 
