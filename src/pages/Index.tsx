@@ -690,6 +690,30 @@ const Index = () => {
                 </div>
               </div>
 
+              {/* SEO Content - Hero Section */}
+              <div className="mt-12 max-w-3xl mx-auto">
+                <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg">
+                  <p className="text-gray-800 text-base md:text-lg leading-relaxed text-left space-y-4">
+                    <span className="block">
+                      Bienvenue sur <strong className="text-primary font-semibold">Omra Bons Plans</strong>, votre guide pour préparer votre <strong className="font-semibold">voyage Omra et Hajj 2026</strong> en toute sérénité.
+                      Après plus de <strong className="font-semibold">10 années passées à Makkah</strong> et l'accompagnement de plus de <strong className="font-semibold">5000 pèlerins</strong>, j'ai décidé de mettre mon expérience au service de tous les musulmans francophones.
+                    </span>
+                    <span className="block">
+                      Ici, vous trouverez :
+                    </span>
+                    <ul className="list-disc list-inside space-y-2 ml-4">
+                      <li>Des conseils pratiques pour obtenir votre <strong className="font-semibold">visa Omra</strong> facilement.</li>
+                      <li>Des comparatifs d'<strong className="font-semibold">agences Omra</strong> fiables et transparentes.</li>
+                      <li>Des astuces pour trouver une <strong className="font-semibold">Omra pas chère</strong> sans compromis sur la qualité.</li>
+                      <li>Des rappels spirituels et des guides pour mieux vivre votre pèlerinage.</li>
+                    </ul>
+                    <span className="block">
+                      Mon objectif : vous aider à réaliser votre <strong className="font-semibold">Omra</strong> ou votre <strong className="font-semibold">Hajj</strong> avec moins de stress, moins de dépenses inutiles, et un cœur plein de foi.
+                    </span>
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1073,6 +1097,51 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Notre Mission Section - SEO */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-br from-background via-card to-background relative overflow-hidden">
+        <div className="absolute inset-0 islamic-pattern-modern opacity-5"></div>
+        <div className="container mx-auto max-w-4xl relative z-10">
+          <div className="text-center space-y-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              Notre mission : faciliter votre Omra et Hajj
+            </h2>
+            
+            <div className="prose prose-lg max-w-none text-left">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+                Depuis plus de dix ans à Makkah, j'ai accompagné plus de 5000 pèlerins dans leur Omra et leur Hajj. J'ai pu voir leurs joies, leurs difficultés, leurs questions, et surtout leur soif de bien faire.
+              </p>
+              
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+                C'est pour répondre à ces besoins que j'ai créé <strong className="text-primary font-semibold">Omra Bons Plans</strong>. Ce site n'est pas une agence, mais un guide indépendant qui vous aide à :
+              </p>
+              
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start">
+                  <span className="text-primary mr-3 mt-1">✓</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Choisir une <strong className="font-semibold">Omra adaptée à votre budget</strong>.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary mr-3 mt-1">✓</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Comprendre les <strong className="font-semibold">différences de prix Omra</strong> entre les offres.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary mr-3 mt-1">✓</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Trouver la bonne <strong className="font-semibold">agence Omra</strong> selon votre situation.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-primary mr-3 mt-1">✓</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2026</strong>, étape par étape.</span>
+                </li>
+              </ul>
+              
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                Mon but est simple : vous accompagner avec sincérité et bienveillance, en partageant des informations fiables et des rappels spirituels, afin que votre voyage soit un succès matériel et surtout spirituel.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
             </TabsContent>
 
             <TabsContent value="discussions" className="space-y-0">
@@ -1202,6 +1271,18 @@ const Index = () => {
                 <li><Link to="#" className="hover:text-primary transition-colors">Activité</Link></li>
                 <li><Link to="#" className="hover:text-primary transition-colors">Hôtels</Link></li>
               </ul>
+            </div>
+          </div>
+          
+          {/* SEO Footer Content */}
+          <div className="border-t border-border pt-8 pb-8">
+            <div className="max-w-3xl mx-auto text-center space-y-4">
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                <strong className="text-foreground">Omra Bons Plans</strong> est le site de référence pour préparer votre <strong className="text-foreground">voyage Omra</strong> et votre <strong className="text-foreground">Hajj 2026</strong>. Avec des conseils pratiques, des comparatifs d'<strong className="text-foreground">agences Omra</strong>, des explications claires sur le <strong className="text-foreground">visa Omra</strong>, et des astuces pour trouver une <strong className="text-foreground">Omra pas chère</strong>, nous vous aidons à vivre votre pèlerinage dans les meilleures conditions.
+              </p>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                Que vous soyez en pleine préparation spirituelle ou à la recherche d'informations pratiques, ce site est là pour vous accompagner à chaque étape.
+              </p>
             </div>
           </div>
           
