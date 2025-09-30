@@ -1263,7 +1263,7 @@ const Index = () => {
                   Savez-vous qu'il existe trois manières d'accomplir le Hajj ? Le Tamattu', le Qiran et l'Ifrad. Dans cet article, je partage mon expérience et j'explique en détail leurs différences, leurs avantages et la sagesse derrière ces rites.
                 </p>
                 <Link 
-                  to="/blog" 
+                  to="/blog/general/quels-sont-les-trois-types-de-hajj" 
                   className="inline-flex items-center text-primary hover:text-primary/80 font-semibold transition-colors"
                 >
                   Lire la suite
