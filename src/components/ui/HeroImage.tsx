@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { optimizeSupabaseImage } from '@/utils/imageUtils';
 
 interface HeroImageProps {
   mobileSrc: string;
@@ -13,28 +12,14 @@ const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimiser les images via Supabase transformation API avec WebP ultra-compressé
-  const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
-    width: 1920,
-    height: 1080,
-    quality: 40, // Qualité ultra-agressive pour LCP optimal
-    format: 'webp',
-    resize: 'cover'
-  });
-
-  const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
-    width: 800,
-    height: 1200,
-    quality: 40, // Qualité ultra-agressive pour mobile
-    format: 'webp',
-    resize: 'cover'
-  });
+  // Les images sont dans public/, pas besoin d'optimisation Supabase
+  // Elles sont déjà optimisées (-optimized.png)
 
   return (
     <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0B1E3A] via-[#1a3a5c] to-[#0B1E3A]">
-      {/* Desktop Image - WebP uniquement avec fallback inline */}
+      {/* Desktop Image - PNG optimisé */}
       <img
-        src={optimizedDesktop}
+        src={desktopSrc}
         alt={alt}
         width="1920"
         height="1080"
@@ -51,9 +36,9 @@ export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
         onLoad={() => setIsLoaded(true)}
       />
       
-      {/* Mobile Image - WebP uniquement */}
+      {/* Mobile Image - PNG optimisé */}
       <img
-        src={optimizedMobile}
+        src={mobileSrc}
         alt={alt}
         width="800"
         height="1200"
