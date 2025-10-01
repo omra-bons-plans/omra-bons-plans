@@ -16,6 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import UserMenu from '@/components/ui/UserMenu';
 import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
+import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
 import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
 import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
@@ -320,7 +321,8 @@ const Admin = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <AdminVerificationGate>
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-4 md:px-6 py-4">
@@ -788,6 +790,7 @@ const Admin = () => {
         </div>
       </div>
     </div>
+    </AdminVerificationGate>
   );
 };
 

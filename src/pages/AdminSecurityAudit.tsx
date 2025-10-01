@@ -11,6 +11,7 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import UserMenu from '@/components/ui/UserMenu';
+import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
 
 interface RoleAuditLog {
   action_timestamp: string;
@@ -98,7 +99,8 @@ const AdminSecurityAudit = () => {
   }
 
   return (
-    <ResponsiveLayout>
+    <AdminVerificationGate>
+      <ResponsiveLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -247,7 +249,8 @@ const AdminSecurityAudit = () => {
           </div>
         </div>
       </div>
-    </ResponsiveLayout>
+      </ResponsiveLayout>
+    </AdminVerificationGate>
   );
 };
 
