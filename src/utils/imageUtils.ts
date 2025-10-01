@@ -15,13 +15,23 @@ export const optimizeSupabaseImage = (url: string, options: {
   const { 
     width = 800, 
     height, 
-    quality = 70, // Qualité plus agressive pour SEO
-    format = 'avif', // AVIF par défaut (meilleur que WebP)
+    quality = 60, // Qualité ultra-agressive pour WebP (gain ~50%)
+    format = 'webp', // WebP pour compatibilité maximale
     resize = 'cover'
   } = options;
   
+  // Convertir les chemins relatifs Supabase en URLs complètes
+  let fullUrl = url;
+  if (url.startsWith('/lovable-uploads/') || url.startsWith('lovable-uploads/')) {
+    const path = url.replace(/^\//, ''); // Enlever le / initial si présent
+    const { data } = supabase.storage
+      .from('ad-images')
+      .getPublicUrl(path);
+    fullUrl = data.publicUrl;
+  }
+  
   // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
-  if (url.includes('supabase.co/storage/v1/object/public/')) {
+  if (fullUrl.includes('supabase.co/storage/v1/object/public/')) {
     const params = new URLSearchParams();
     
     // Paramètres de transformation Supabase
@@ -34,13 +44,13 @@ export const optimizeSupabaseImage = (url: string, options: {
     // Cache headers agressifs (1 an)
     params.append('t', Date.now().toString().slice(0, -7)); // Cache bust par jour seulement
     
-    const optimizedUrl = `${url}?${params.toString()}`;
+    const optimizedUrl = `${fullUrl}?${params.toString()}`;
     console.log('🔧 URL optimisée:', optimizedUrl);
     
     return optimizedUrl;
   }
   
-  return url;
+  return fullUrl;
 };
 
 /**
