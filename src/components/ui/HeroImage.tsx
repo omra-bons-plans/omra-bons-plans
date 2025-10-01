@@ -13,22 +13,9 @@ const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimiser les images via Supabase transformation API avec WebP
-  const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
-    width: 1920,
-    height: 1080,
-    quality: 80,
-    format: 'webp',
-    resize: 'cover'
-  });
-
-  const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
-    width: 800,
-    height: 1200,
-    quality: 75,
-    format: 'webp',
-    resize: 'cover'
-  });
+  // Use direct image URLs from Supabase Storage
+  const optimizedDesktop = optimizeSupabaseImage(desktopSrc);
+  const optimizedMobile = optimizeSupabaseImage(mobileSrc);
 
   return (
     <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0B1E3A] via-[#1a3a5c] to-[#0B1E3A]">
