@@ -20,14 +20,16 @@ export const optimizeSupabaseImage = (url: string, options: {
     resize = 'cover'
   } = options;
   
-  // Les images dans /lovable-uploads/ sont dans le dossier public/, pas Supabase
-  // On les retourne telles quelles sans transformation
-  if (url.startsWith('/lovable-uploads/') || url.startsWith('lovable-uploads/')) {
-    console.log('⚠️ Image dans public/, pas d\'optimisation Supabase:', url);
-    return url;
-  }
-  
+  // Convertir les chemins lovable-uploads vers Supabase Storage pour optimisation
   let fullUrl = url;
+  if (url.startsWith('/lovable-uploads/') || url.startsWith('lovable-uploads/')) {
+    const path = url.replace(/^\//, '');
+    const { data } = supabase.storage
+      .from('ad-images')
+      .getPublicUrl(path);
+    fullUrl = data.publicUrl;
+    console.log('📍 URL générée depuis Supabase:', fullUrl);
+  }
   
   // Ajouter les paramètres de transformation Supabase
   if (fullUrl.includes('supabase.co/storage/v1/object/public/')) {
