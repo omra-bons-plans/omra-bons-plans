@@ -20,11 +20,32 @@
     <meta name="msapplication-TileImage" content="/favicon.png">
     <meta name="msapplication-TileColor" content="#0B1E3A">
     
-    <!-- Preload critical images -->
-    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)">
-    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)">
+    <!-- Preload critical LCP images with high priority -->
+    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Critical CSS inline for fastest FCP/LCP -->
+    <style>
+      /* Critical CSS for above-the-fold content */
+      *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+      body{margin:0;line-height:inherit;background:#0B1E3A}
+      .hero-overlay{background:linear-gradient(135deg,rgba(11,30,58,.95) 0,rgba(4,18,36,.85) 100%)}
+      .gradient-text-secondary{background:linear-gradient(135deg,#f59e0b 0,#fbbf24 50%,#fcd34d 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .container{width:100%;margin:0 auto;padding:0 1.5rem}
+      .relative{position:relative}.absolute{position:absolute}.inset-0{inset:0}
+      .flex{display:flex}.hidden{display:none}.min-h-screen{min-height:100vh}
+      .items-center{align-items:center}.justify-center{justify-content:center}
+      .object-cover{object-fit:cover}.text-center{text-align:center}
+      .text-white{color:#fff}.w-full{width:100%}.h-full{height:100%}
+      .text-4xl{font-size:2.25rem}.text-6xl{font-size:3.75rem}
+      .font-bold{font-weight:700}.font-black{font-weight:900}
+      .overflow-hidden{overflow:hidden}.drop-shadow-lg{filter:drop-shadow(0 10px 8px rgba(0,0,0,.04))}
+      @media (min-width:768px){.md\:text-8xl{font-size:6rem}.md\:text-9xl{font-size:8rem}.md\:block{display:block}.md\:hidden{display:none}}
+    </style>
+    
     <title>Omra Bons Plans</title>
     <meta name="description" content="Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra">
     <meta name="author" content="Omra Bons Plans" />
