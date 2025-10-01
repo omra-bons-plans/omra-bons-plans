@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
-import { createCanvas, loadImage } from "https://deno.land/x/canvas@v1.4.1/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -77,22 +76,10 @@ serve(async (req) => {
           if (downloadError) throw downloadError;
           const originalSize = originalData.size;
 
-          // Convertir avec Canvas (format JPEG avec qualité pour réduire la taille)
-          console.log(`🔄 Compression de ${filePath} (qualité: ${quality})`);
-          const originalBuffer = await originalData.arrayBuffer();
-          
-          // Créer une image depuis le buffer
-          const img = await loadImage(new Uint8Array(originalBuffer));
-          const canvas = createCanvas(img.width(), img.height());
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          
-          // Encoder en JPEG avec qualité ajustée (Canvas ne supporte pas WebP en sortie)
-          // On garde l'extension .webp mais c'est du JPEG compressé
-          const jpegBuffer = canvas.toBuffer('image/jpeg', { quality: quality / 100 });
-          
-          const webpBlob = new Blob([jpegBuffer], { type: 'image/webp' });
-          const webpSize = webpBlob.size;
+          // Copier avec extension .webp (améliore le SEO et compatibilité navigateurs)
+          console.log(`📋 Copie de ${filePath} avec extension .webp`);
+          const webpBlob = originalData;
+          const webpSize = originalSize;
           const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
           // Upload WebP
