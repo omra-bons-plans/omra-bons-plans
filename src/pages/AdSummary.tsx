@@ -333,9 +333,10 @@ const AdSummary = () => {
                       {ad.coverImage && (
                         <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                           <ImageComponent 
-                            src={getImageUrl(ad.coverImage)} 
+                            src={ad.coverImage} 
                             alt="Image de couverture"
                             className="w-full h-full object-cover"
+                            bucketName="ad-images"
                           />
                         </div>
                       )}
@@ -346,9 +347,10 @@ const AdSummary = () => {
                           {ad.images.map((image, index) => (
                             <div key={index} className="aspect-square bg-muted rounded-lg overflow-hidden">
                               <ImageComponent 
-                                src={getImageUrl(image)} 
+                                src={image} 
                                 alt={`Image ${index + 1}`}
                                 className="w-full h-full object-cover"
+                                bucketName="ad-images"
                               />
                             </div>
                           ))}

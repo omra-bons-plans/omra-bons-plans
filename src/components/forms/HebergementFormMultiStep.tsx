@@ -807,9 +807,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                         ) : initialData?.coverImageUrl ? (
                           <div className="relative">
                             <ImageComponent
-                              src={getImageUrl(initialData.coverImageUrl)}
+                              src={initialData.coverImageUrl}
                               alt="Couverture existante"
                               className="mx-auto h-32 w-48 object-cover rounded-lg"
+                              bucketName="ad-images"
                             />
                             <div className="mt-2">
                               <label
@@ -859,9 +860,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                       {existingImages.map((imageUrl, index) => (
                         <div key={`existing-${index}`} className="relative">
                           <ImageComponent
-                            src={getImageUrl(imageUrl)}
+                            src={imageUrl}
                             alt={`Photo existante ${index + 1}`}
                             className="h-24 w-full object-cover rounded-lg"
+                            bucketName="ad-images"
                           />
                           <Button
                             onClick={() => removeExistingImage(index)}
@@ -1160,9 +1162,10 @@ const HebergementFormMultiStep = ({ onSubmit, onBack, initialData, isEditing }: 
                 ) : initialData?.coverImageUrl ? (
                   <div className="relative h-full">
                     <ImageComponent
-                      src={getImageUrl(initialData.coverImageUrl)}
+                      src={initialData.coverImageUrl}
                       alt="Photo de couverture"
                       className="w-full h-full object-cover"
+                      bucketName="ad-images"
                     />
                     {/* Pagination dots */}
                     <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">

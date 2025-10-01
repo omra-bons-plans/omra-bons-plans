@@ -15,6 +15,7 @@ import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { Helmet } from "react-helmet-async";
+import { getImageUrl } from '@/utils/imageUtils';
 
 interface BlogPost {
   id: string;
@@ -378,7 +379,7 @@ const Blog = () => {
                   {post.cover_image && (
                     <div className="aspect-video w-full overflow-hidden">
                       <img 
-                        src={post.cover_image} 
+                        src={getImageUrl(post.cover_image, undefined, 'blog-images')} 
                         alt={post.title}
                         className="w-full h-full object-cover"
                       />

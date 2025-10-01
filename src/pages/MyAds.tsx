@@ -365,9 +365,10 @@ const MyAds = () => {
                               <div className="w-full lg:w-48 h-32 lg:h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                  {ad.coverImage ? (
                                    <ImageComponent 
-                                     src={getImageUrl(ad.coverImage)} 
+                                     src={ad.coverImage} 
                                      alt={ad.title}
                                      className="w-full h-full object-cover"
+                                     bucketName="ad-images"
                                    />
                                 ) : (
                                    <div className="w-full h-full bg-muted flex flex-col items-center justify-center">
