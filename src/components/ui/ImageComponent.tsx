@@ -10,6 +10,7 @@ interface ImageComponentProps {
   width?: number;
   height?: number;
   quality?: number;
+  bucketName?: string;
 }
 
 export const ImageComponent = ({
@@ -20,12 +21,13 @@ export const ImageComponent = ({
   onClick,
   width,
   height,
-  quality
+  quality,
+  bucketName = 'ad-images'
 }: ImageComponentProps) => {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const imageUrl = getImageUrl(src, { width, height, quality });
+  const imageUrl = getImageUrl(src, { width, height, quality }, bucketName);
 
   const handleError = () => {
     if (!hasError) {

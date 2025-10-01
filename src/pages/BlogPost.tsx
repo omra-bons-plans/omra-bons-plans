@@ -358,9 +358,10 @@ const BlogPost = () => {
           {(post.cover_image || (post.images && post.images.length > 0)) && (
             <div className="mb-8 max-w-4xl">
               <ImageGalleryDisplay
-                images={post.images ? post.images.map(img => getImageUrl(img, { width: 800, quality: 70 }, 'blog-images')) : []}
-                coverImage={post.cover_image ? getImageUrl(post.cover_image, { width: 1200, quality: 75 }, 'blog-images') : undefined}
+                images={post.images || []}
+                coverImage={post.cover_image || undefined}
                 title={`Images - ${post.title}`}
+                bucketName="blog-images"
               />
             </div>
           )}
