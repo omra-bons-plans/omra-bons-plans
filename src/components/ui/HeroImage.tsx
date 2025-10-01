@@ -17,15 +17,16 @@ export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
     width: 1920,
     height: 1080,
-    quality: 30, // Qualité très basse pour 4G lent
+    quality: 30,
     format: 'webp',
     resize: 'cover'
   });
 
+  // Mobile : dimensions et qualité drastiquement réduites pour LCP optimal
   const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
-    width: 800,
-    height: 1200,
-    quality: 25, // Qualité très basse pour mobile
+    width: 640, // Réduit de 800 à 640px
+    height: 960, // Réduit de 1200 à 960px
+    quality: 15, // Qualité extrêmement basse (réduit de 25 à 15)
     format: 'webp',
     resize: 'cover'
   });
@@ -51,12 +52,12 @@ export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
         onLoad={() => setIsLoaded(true)}
       />
       
-      {/* Mobile Image - WebP ultra-compressé */}
+      {/* Mobile Image - WebP ultra-compressé avec dimensions réduites */}
       <img
         src={optimizedMobile}
         alt={alt}
-        width="800"
-        height="1200"
+        width="640"
+        height="960"
         className={`block md:hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
