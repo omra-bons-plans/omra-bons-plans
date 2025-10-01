@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+// @ts-ignore - Sharp pour Deno
+import sharp from 'npm:sharp@0.33.2';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -76,11 +78,16 @@ serve(async (req) => {
           if (downloadError) throw downloadError;
           const originalSize = originalData.size;
 
-          // L'API de transformation Supabase ne fonctionne pas (HTTP 400)
-          // Solution: simplement copier les fichiers avec extension .webp
-          // Supabase peut faire la conversion automatiquement si configuré
-          const webpBlob = originalData;
-          const webpSize = originalSize; // Pas de vraie compression sans transformation
+          // Convertir en WebP avec Sharp
+          console.log(`🔄 Compression de ${filePath} avec Sharp (qualité: ${quality})`);
+          const originalBuffer = await originalData.arrayBuffer();
+          
+          const webpBuffer = await sharp(Buffer.from(originalBuffer))
+            .webp({ quality })
+            .toBuffer();
+          
+          const webpBlob = new Blob([webpBuffer], { type: 'image/webp' });
+          const webpSize = webpBlob.size;
           const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
           // Upload WebP
