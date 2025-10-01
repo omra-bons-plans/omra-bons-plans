@@ -15,8 +15,8 @@ export const optimizeSupabaseImage = (url: string, options: {
   const { 
     width = 800, 
     height, 
-    quality = 50, // Qualité très agressive pour réduire le LCP
-    format = 'origin', // Garder le format original (PNG optimisé est déjà présent)
+    quality = 40, // Qualité ultra-agressive pour LCP
+    format = 'webp', // WebP par défaut pour compression maximale
     resize = 'cover'
   } = options;
   
@@ -43,6 +43,7 @@ export const optimizeSupabaseImage = (url: string, options: {
     params.append('width', width.toString());
     if (height) params.append('height', height.toString());
     params.append('quality', quality.toString());
+    params.append('format', format);
     params.append('resize', resize);
     
     const optimizedUrl = `${transformUrl}?${params.toString()}`;

@@ -13,11 +13,11 @@ const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimiser les images via Supabase transformation API avec WebP
+  // Optimiser les images via Supabase transformation API avec WebP ultra-compressé
   const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
     width: 1920,
     height: 1080,
-    quality: 65, // Réduit de 80 à 65 pour WebP (gain ~40% sans perte visible)
+    quality: 40, // Qualité ultra-agressive pour LCP optimal
     format: 'webp',
     resize: 'cover'
   });
@@ -25,7 +25,7 @@ export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
     width: 800,
     height: 1200,
-    quality: 60, // Réduit de 75 à 60 pour mobile (gain ~45%)
+    quality: 40, // Qualité ultra-agressive pour mobile
     format: 'webp',
     resize: 'cover'
   });
