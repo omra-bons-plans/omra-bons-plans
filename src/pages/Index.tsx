@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Sun, Cloud, CloudRain, CloudSnow, Cloudy, RefreshCw } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,30 +12,32 @@ import ResponsiveLayout from "@/components/ResponsiveLayout";
 import Logo from "@/components/ui/Logo";
 import { Helmet } from "react-helmet-async";
 import DynamicIcon from "@/components/ui/DynamicIcon";
-
-// Lazy load non-critical components
-const Card = lazy(() => import("@/components/ui/card").then(m => ({ default: m.Card })));
-const CardContent = lazy(() => import("@/components/ui/card").then(m => ({ default: m.CardContent })));
-const Badge = lazy(() => import("@/components/ui/badge").then(m => ({ default: m.Badge })));
-const CountdownTimer = lazy(() => import("@/components/ui/CountdownTimer"));
-const UserMenu = lazy(() => import("@/components/ui/UserMenu"));
-const FeedbackForm = lazy(() => import("@/components/ui/FeedbackForm"));
-const AdCard = lazy(() => import("@/components/ui/AdCard"));
-const Carousel = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.Carousel })));
-const CarouselContent = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselContent })));
-const CarouselItem = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselItem })));
-const CarouselNext = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselNext })));
-const CarouselPrevious = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselPrevious })));
-const DropdownMenu = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenu })));
-const DropdownMenuContent = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuContent })));
-const DropdownMenuItem = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuItem })));
-const DropdownMenuTrigger = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuTrigger })));
-const Tabs = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.Tabs })));
-const TabsContent = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsContent })));
-const TabsList = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsList })));
-const TabsTrigger = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsTrigger })));
-const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
-const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import UserMenu from "@/components/ui/UserMenu";
+import AdCard from "@/components/ui/AdCard";
+import FeedbackForm from "@/components/ui/FeedbackForm";
+import TopicsList from '@/components/ui/TopicsList';
+import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 
 // Lazy import images to reduce initial bundle size
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
@@ -116,57 +118,44 @@ const Index = () => {
   const allServicesTabsRef = useRef<HTMLDivElement>(null);
   const allServicesCardsRef = useRef<HTMLDivElement>(null);
 
-  // Allow manual city selection for weather
-  const toggleWeatherCity = () => {
-    setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
-  };
-
-  // Différer les animations après le chargement initial
+  // Auto-rotation météo et mobile rotation - désactivés initialement
   useEffect(() => {
-    // Délai de 2 secondes pour laisser la page se charger
-    const timer = setTimeout(() => {
-      // Auto-switch météo toutes les 3s
+    const weatherTimer = setTimeout(() => {
       const weatherInterval = setInterval(() => {
         setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
       }, 3000);
+      return () => clearInterval(weatherInterval);
+    }, 3000);
 
-      // Mobile rotation
-      let animationId: number;
-      const startRotation = () => {
-        animationId = requestAnimationFrame(() => {
-          setTimeout(() => {
-            setMobileRotatingIndex(prev => (prev + 1) % 3);
-            startRotation();
-          }, 2000);
-        });
-      };
-      startRotation();
+    const rotationTimer = setTimeout(() => {
+      const rotationInterval = setInterval(() => {
+        setMobileRotatingIndex(prev => (prev + 1) % 3);
+      }, 2000);
+      return () => clearInterval(rotationInterval);
+    }, 3000);
 
-      return () => {
-        clearInterval(weatherInterval);
-        if (animationId) cancelAnimationFrame(animationId);
-      };
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(weatherTimer);
+      clearTimeout(rotationTimer);
+    };
   }, []);
 
-  // Track carousel - différé
+  // Tracking carousel simplifié
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (flashSalesCarouselApi) {
-        flashSalesCarouselApi.on("select", () => {
-          setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
-        });
-      }
-      if (allServicesCarouselApi) {
-        allServicesCarouselApi.on("select", () => {
-          setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
-        });
-      }
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [flashSalesCarouselApi, allServicesCarouselApi]);
+    if (!flashSalesCarouselApi) return;
+    setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
+    flashSalesCarouselApi.on("select", () => {
+      setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
+    });
+  }, [flashSalesCarouselApi]);
+
+  useEffect(() => {
+    if (!allServicesCarouselApi) return;
+    setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
+    allServicesCarouselApi.on("select", () => {
+      setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
+    });
+  }, [allServicesCarouselApi]);
 
   const getCategoryCount = (categoryId: string) => {
     return formattedListings.filter(listing => listing.type === categoryId).length;
@@ -724,18 +713,14 @@ const Index = () => {
                 value="annonces" 
                 className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
               >
-                <Suspense fallback={<div className="w-4 h-4 mr-2" />}>
-                  <DynamicIcon name="building" className="w-4 h-4 mr-2" />
-                </Suspense>
+                <DynamicIcon name="building" className="w-4 h-4 mr-2" />
                 Annonces
               </TabsTrigger>
               <TabsTrigger 
                 value="discussions" 
                 className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
               >
-                <Suspense fallback={<div className="w-4 h-4 mr-2" />}>
-                  <DynamicIcon name="message-circle" className="w-4 h-4 mr-2" />
-                </Suspense>
+                <DynamicIcon name="message-circle" className="w-4 h-4 mr-2" />
                 Discussions
               </TabsTrigger>
             </TabsList>
@@ -1051,9 +1036,7 @@ const Index = () => {
               <div className="space-y-6">
                 <Link to="/blog?category=restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Suspense fallback={<div className="w-6 h-6" />}>
-                      <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
-                    </Suspense>
+                    <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants Halal</h3>
@@ -1365,9 +1348,7 @@ const Index = () => {
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
                 >
-                  <Suspense fallback={<div className="w-4 h-4" />}>
-                    <DynamicIcon name="instagram" className="w-4 h-4 text-primary" />
-                  </Suspense>
+                  <DynamicIcon name="instagram" className="w-4 h-4 text-primary" />
                 </a>
                 <a 
                   href="https://www.tiktok.com/@omrabonsplans.fr?_t=ZS-8ze7UP4jLne&_r=1"
