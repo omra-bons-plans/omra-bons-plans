@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle, Lock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,17 +50,163 @@ const Admin = () => {
     totalContactViews: 0,
     totalClicks: 0
   });
+  
+  // États pour l'authentification par code
+  const [showCodeAuth, setShowCodeAuth] = useState(false);
+  const [adminEmail, setAdminEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [codeSent, setCodeSent] = useState(false);
+  const [sendingCode, setSendingCode] = useState(false);
+  const [verifyingCode, setVerifyingCode] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
 
+  // Vérifier la session admin au chargement
   useEffect(() => {
-    if (!adminLoading && !isAdmin) {
-      navigate('/');
+    const checkAdminSession = () => {
+      const sessionToken = localStorage.getItem('admin_session_token');
+      const sessionExpiry = localStorage.getItem('admin_session_expiry');
+      
+      if (sessionToken && sessionExpiry) {
+        const expiryDate = new Date(sessionExpiry);
+        if (expiryDate > new Date()) {
+          // Session valide
+          setShowCodeAuth(false);
+          return true;
+        } else {
+          // Session expirée
+          localStorage.removeItem('admin_session_token');
+          localStorage.removeItem('admin_session_expiry');
+        }
+      }
+      return false;
+    };
+
+    if (!adminLoading) {
+      if (!user) {
+        navigate('/auth');
+        return;
+      }
+      
+      if (!isAdmin) {
+        navigate('/');
+        return;
+      }
+
+      // Si admin, vérifier la session de code
+      const hasValidSession = checkAdminSession();
+      if (!hasValidSession) {
+        setShowCodeAuth(true);
+      } else {
+        fetchUsers();
+      }
+    }
+  }, [isAdmin, adminLoading, navigate, user]);
+
+  // Timer pour le compte à rebours
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [timeLeft]);
+
+  const handleSendCode = async () => {
+    if (!adminEmail) {
+      toast({
+        title: "Email requis",
+        description: "Veuillez entrer votre adresse email admin",
+        variant: "destructive"
+      });
       return;
     }
-    
-    if (isAdmin) {
-      fetchUsers();
+
+    setSendingCode(true);
+    try {
+      const { error } = await supabase.functions.invoke('send-admin-code', {
+        body: {
+          email: adminEmail,
+          ipAddress: '', // Optionnel
+          userAgent: navigator.userAgent
+        }
+      });
+
+      if (error) throw error;
+
+      setCodeSent(true);
+      setTimeLeft(300); // 5 minutes
+      toast({
+        title: "Code envoyé",
+        description: "Un code à 6 chiffres a été envoyé à votre email. Il est valable 5 minutes.",
+      });
+    } catch (error: any) {
+      console.error('Error sending code:', error);
+      toast({
+        title: "Erreur",
+        description: error.message || "Impossible d'envoyer le code",
+        variant: "destructive"
+      });
+    } finally {
+      setSendingCode(false);
     }
-  }, [isAdmin, adminLoading, navigate]);
+  };
+
+  const handleVerifyCode = async () => {
+    if (code.length !== 6) {
+      toast({
+        title: "Code invalide",
+        description: "Le code doit contenir 6 chiffres",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setVerifyingCode(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-admin-code', {
+        body: {
+          email: adminEmail,
+          code,
+          ipAddress: '',
+          userAgent: navigator.userAgent,
+          deviceFingerprint: '' // Optionnel
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        // Stocker le token de session
+        localStorage.setItem('admin_session_token', data.sessionToken);
+        localStorage.setItem('admin_session_expiry', data.expiresAt);
+        
+        setShowCodeAuth(false);
+        toast({
+          title: "Accès accordé",
+          description: "Bienvenue dans l'interface d'administration",
+        });
+        
+        // Charger les données
+        fetchUsers();
+      } else {
+        throw new Error(data.error || 'Code invalide');
+      }
+    } catch (error: any) {
+      console.error('Error verifying code:', error);
+      toast({
+        title: "Erreur",
+        description: error.message || "Code invalide ou expiré",
+        variant: "destructive"
+      });
+    } finally {
+      setVerifyingCode(false);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const fetchUsers = async () => {
     try {
@@ -316,6 +462,88 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Formulaire d'authentification par code */}
+      {showCodeAuth ? (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10 px-4">
+          <Card className="w-full max-w-md">
+            <CardHeader className="space-y-1">
+              <div className="flex items-center justify-center mb-4">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <Lock className="w-8 h-8 text-primary" />
+                </div>
+              </div>
+              <CardTitle className="text-2xl text-center">Accès Administrateur</CardTitle>
+              <CardDescription className="text-center">
+                {!codeSent 
+                  ? "Entrez votre email pour recevoir un code d'accès"
+                  : "Entrez le code à 6 chiffres reçu par email"
+                }
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {!codeSent ? (
+                <>
+                  <div className="space-y-2">
+                    <Input
+                      type="email"
+                      placeholder="Email admin"
+                      value={adminEmail}
+                      onChange={(e) => setAdminEmail(e.target.value)}
+                      disabled={sendingCode}
+                      className="text-center"
+                    />
+                  </div>
+                  <Button 
+                    onClick={handleSendCode}
+                    disabled={sendingCode || !adminEmail}
+                    className="w-full"
+                  >
+                    {sendingCode ? "Envoi en cours..." : "Recevoir le code"}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    <Input
+                      type="text"
+                      placeholder="Code à 6 chiffres"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      disabled={verifyingCode}
+                      className="text-center text-2xl font-mono tracking-widest"
+                      maxLength={6}
+                    />
+                    {timeLeft > 0 && (
+                      <p className="text-sm text-center text-muted-foreground">
+                        Code valide pendant : <span className="font-mono font-bold">{formatTime(timeLeft)}</span>
+                      </p>
+                    )}
+                  </div>
+                  <Button 
+                    onClick={handleVerifyCode}
+                    disabled={verifyingCode || code.length !== 6}
+                    className="w-full"
+                  >
+                    {verifyingCode ? "Vérification..." : "Valider le code"}
+                  </Button>
+                  <Button 
+                    variant="ghost"
+                    onClick={() => {
+                      setCodeSent(false);
+                      setCode('');
+                      setTimeLeft(0);
+                    }}
+                    className="w-full"
+                  >
+                    Renvoyer un nouveau code
+                  </Button>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      ) : (
+        <>
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-4 md:px-6 py-4">
@@ -767,6 +995,8 @@ const Admin = () => {
           </Card>
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 };
