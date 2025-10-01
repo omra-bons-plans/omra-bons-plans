@@ -15,45 +15,32 @@ export const optimizeSupabaseImage = (url: string, options: {
   const { 
     width = 800, 
     height, 
-    quality = 40, // Qualité ultra-agressive pour LCP
-    format = 'webp', // WebP par défaut pour compression maximale
+    quality = 70, // Qualité plus agressive pour SEO
+    format = 'avif', // AVIF par défaut (meilleur que WebP)
     resize = 'cover'
   } = options;
   
-  // Convertir les chemins lovable-uploads vers Supabase Storage pour optimisation
-  let fullUrl = url;
-  if (url.startsWith('/lovable-uploads/') || url.startsWith('lovable-uploads/')) {
-    const path = url.replace(/^\//, '');
-    const { data } = supabase.storage
-      .from('ad-images')
-      .getPublicUrl(path);
-    fullUrl = data.publicUrl;
-    console.log('📍 URL générée depuis Supabase:', fullUrl);
-  }
-  
-  // Ajouter les paramètres de transformation Supabase
-  if (fullUrl.includes('supabase.co/storage/v1/object/public/')) {
-    // Utiliser l'API de transformation Supabase
-    const transformUrl = fullUrl.replace(
-      '/storage/v1/object/public/',
-      '/storage/v1/render/image/public/'
-    );
-    
+  // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
+  if (url.includes('supabase.co/storage/v1/object/public/')) {
     const params = new URLSearchParams();
+    
+    // Paramètres de transformation Supabase
     params.append('width', width.toString());
     if (height) params.append('height', height.toString());
     params.append('quality', quality.toString());
     params.append('format', format);
     params.append('resize', resize);
     
-    const optimizedUrl = `${transformUrl}?${params.toString()}`;
-    console.log('🎯 URL optimisée finale:', optimizedUrl);
+    // Cache headers agressifs (1 an)
+    params.append('t', Date.now().toString().slice(0, -7)); // Cache bust par jour seulement
+    
+    const optimizedUrl = `${url}?${params.toString()}`;
+    console.log('🔧 URL optimisée:', optimizedUrl);
     
     return optimizedUrl;
   }
   
-  console.log('⚠️ URL non Supabase, retour sans optimisation:', fullUrl);
-  return fullUrl;
+  return url;
 };
 
 /**

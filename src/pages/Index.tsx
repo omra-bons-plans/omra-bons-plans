@@ -458,8 +458,8 @@ const Index = () => {
       {/* Hero Section - Optimized for LCP */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
         <HeroImage 
-          mobileSrc="lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
-          desktopSrc="lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
+          mobileSrc="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
+          desktopSrc="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
           alt="Mosquée de La Mecque"
         />
 
