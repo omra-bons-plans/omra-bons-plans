@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { optimizeSupabaseImage } from '@/utils/imageUtils';
 
 interface HeroImageProps {
   mobileSrc: string;
@@ -13,29 +12,14 @@ const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimisation WebP ultra-agressive via Supabase pour mobile 4G
-  const optimizedDesktop = optimizeSupabaseImage(desktopSrc, {
-    width: 1920,
-    height: 1080,
-    quality: 30,
-    format: 'webp',
-    resize: 'cover'
-  });
-
-  // Mobile : dimensions et qualité drastiquement réduites pour LCP optimal
-  const optimizedMobile = optimizeSupabaseImage(mobileSrc, {
-    width: 640, // Réduit de 800 à 640px
-    height: 960, // Réduit de 1200 à 960px
-    quality: 15, // Qualité extrêmement basse (réduit de 25 à 15)
-    format: 'webp',
-    resize: 'cover'
-  });
+  // Utiliser les PNG optimisés directement depuis public/ sans transformation
+  // Ils sont déjà compressés (-optimized.png)
 
   return (
     <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0B1E3A] via-[#1a3a5c] to-[#0B1E3A]">
-      {/* Desktop Image - WebP ultra-compressé */}
+      {/* Desktop Image */}
       <img
-        src={optimizedDesktop}
+        src={`/${desktopSrc}`}
         alt={alt}
         width="1920"
         height="1080"
@@ -52,12 +36,12 @@ export const HeroImage = ({ mobileSrc, desktopSrc, alt }: HeroImageProps) => {
         onLoad={() => setIsLoaded(true)}
       />
       
-      {/* Mobile Image - WebP ultra-compressé avec dimensions réduites */}
+      {/* Mobile Image */}
       <img
-        src={optimizedMobile}
+        src={`/${mobileSrc}`}
         alt={alt}
-        width="640"
-        height="960"
+        width="800"
+        height="1200"
         className={`block md:hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
