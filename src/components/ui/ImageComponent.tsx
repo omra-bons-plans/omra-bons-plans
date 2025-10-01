@@ -26,21 +26,30 @@ export const ImageComponent = ({
   });
 
   const handleError = () => {
-    if (hasError) return; // Déjà en erreur, ne rien faire
+    if (hasError) return;
     
-    // Extensions à essayer dans l'ordre
     const extensions = ['webp', 'jpeg', 'jpg', 'png', 'avif'];
     
-    if (retryCount < extensions.length && src && !src.startsWith('http')) {
-      // Extraire le chemin sans extension
-      const pathWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
-      const newExt = extensions[retryCount];
-      const newPath = `${pathWithoutExt}.${newExt}`;
+    if (retryCount < extensions.length && src) {
+      let newSrc: string;
       
-      console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: Essai avec .${newExt}`);
+      // Pour les URLs complètes, remplacer l'extension dans l'URL
+      if (src.startsWith('http')) {
+        const urlWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
+        const newExt = extensions[retryCount];
+        newSrc = `${urlWithoutExt}.${newExt}`;
+        console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: ${newSrc}`);
+      } else {
+        // Pour les chemins relatifs
+        const pathWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
+        const newExt = extensions[retryCount];
+        const newPath = `${pathWithoutExt}.${newExt}`;
+        newSrc = getImageUrl(newPath, undefined, bucketName);
+        console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: Essai avec .${newExt}`);
+      }
       
       setRetryCount(prev => prev + 1);
-      setCurrentSrc(getImageUrl(newPath, undefined, bucketName));
+      setCurrentSrc(newSrc);
     } else {
       console.error('❌ Toutes les extensions ont échoué, affichage du fallback');
       setHasError(true);
