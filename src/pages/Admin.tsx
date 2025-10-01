@@ -21,6 +21,7 @@ import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
 import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
 import { LCPDiagnostic } from '@/components/admin/LCPDiagnostic';
+import { WebPConverter } from '@/components/admin/WebPConverter';
 
 interface UserProfile {
   id: string;
@@ -493,6 +494,9 @@ const Admin = () => {
 
           {/* LCP Optimization Guide */}
           <LCPOptimizationGuide />
+
+          {/* WebP Converter */}
+          <WebPConverter />
 
           {/* Filters */}
           <Card>
