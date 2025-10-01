@@ -1,11 +1,33 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Optimise une URL d'image Supabase (retourne l'URL telle quelle)
- * Note: Les paramètres d'optimisation ne sont pas supportés par défaut
+ * Optimise une URL d'image Supabase avec les transformations natives
+ * @param url - URL de base de l'image
+ * @param optimize - Paramètres d'optimisation
  */
-const optimizeSupabaseImage = (url: string) => {
-  return url;
+const optimizeSupabaseImage = (
+  url: string,
+  optimize?: { width?: number; height?: number; quality?: number }
+) => {
+  if (!optimize) return url;
+  
+  const params = new URLSearchParams();
+  
+  // Toujours utiliser WebP pour une meilleure compression
+  params.append('format', 'webp');
+  
+  // Ajouter les dimensions si spécifiées
+  if (optimize.width) params.append('width', optimize.width.toString());
+  if (optimize.height) params.append('height', optimize.height.toString());
+  
+  // Qualité par défaut à 80% pour un bon équilibre taille/qualité
+  const quality = optimize.quality || 80;
+  params.append('quality', quality.toString());
+  
+  // Mode resize pour éviter la déformation
+  params.append('resize', 'cover');
+  
+  return `${url}?${params.toString()}`;
 };
 
 /**
@@ -56,10 +78,12 @@ export const getImageUrl = (
       .from(bucketName)
       .getPublicUrl(imagePath);
     
-    console.log('✅ Generated URL (will try multiple extensions on error):', data.publicUrl);
+    // Appliquer les optimisations Supabase si demandées
+    const optimizedUrl = optimize ? optimizeSupabaseImage(data.publicUrl, optimize) : data.publicUrl;
     
-    // Retourner l'URL avec un attribut data personnalisé pour les extensions alternatives
-    return data.publicUrl;
+    console.log('✅ Generated URL:', optimizedUrl, optimize ? '(optimized)' : '');
+    
+    return optimizedUrl;
   } catch (error) {
     console.error('💥 Error getting image URL:', error);
     return '/ad-placeholder.jpg';
