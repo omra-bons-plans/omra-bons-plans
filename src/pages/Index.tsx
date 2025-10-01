@@ -1,34 +1,41 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Search, MapPin, Star, Clock, Zap, TrendingUp, Users, Calendar, Shield, Sun, Cloud, CloudRain, CloudSnow, Cloudy, Building, Plane, Hotel, BookOpen, Car, Heart, ChevronDown, UtensilsCrossed, HelpingHand, Leaf, Activity, MessageCircle, RefreshCw, Instagram } from "lucide-react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { Search, Sun, Cloud, CloudRain, CloudSnow, Cloudy, RefreshCw } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAds } from "@/hooks/useAds";
-import CountdownTimer from "@/components/ui/CountdownTimer";
-import UserMenu from "@/components/ui/UserMenu";
-import ResponsiveLayout from "@/components/ResponsiveLayout";
-import FeedbackForm from "@/components/ui/FeedbackForm";
-import AdCard from "@/components/ui/AdCard";
-import Logo from "@/components/ui/Logo";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TopicsList from '@/components/ui/TopicsList';
-import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { useTopics } from '@/hooks/useTopics';
-import { SEOHead, seoConfig } from "@/components/SEO/SEOHead";
+import ResponsiveLayout from "@/components/ResponsiveLayout";
+import Logo from "@/components/ui/Logo";
 import { Helmet } from "react-helmet-async";
-import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
-import CanonicalUrl from '@/components/SEO/CanonicalUrl';
-import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
-import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
-import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
-import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
+import DynamicIcon from "@/components/ui/DynamicIcon";
+
+// Lazy load non-critical components
+const Card = lazy(() => import("@/components/ui/card").then(m => ({ default: m.Card })));
+const CardContent = lazy(() => import("@/components/ui/card").then(m => ({ default: m.CardContent })));
+const Badge = lazy(() => import("@/components/ui/badge").then(m => ({ default: m.Badge })));
+const CountdownTimer = lazy(() => import("@/components/ui/CountdownTimer"));
+const UserMenu = lazy(() => import("@/components/ui/UserMenu"));
+const FeedbackForm = lazy(() => import("@/components/ui/FeedbackForm"));
+const AdCard = lazy(() => import("@/components/ui/AdCard"));
+const Carousel = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.Carousel })));
+const CarouselContent = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselContent })));
+const CarouselItem = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselItem })));
+const CarouselNext = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselNext })));
+const CarouselPrevious = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselPrevious })));
+const DropdownMenu = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenu })));
+const DropdownMenuContent = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuContent })));
+const DropdownMenuItem = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuItem })));
+const DropdownMenuTrigger = lazy(() => import("@/components/ui/dropdown-menu").then(m => ({ default: m.DropdownMenuTrigger })));
+const Tabs = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.Tabs })));
+const TabsContent = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsContent })));
+const TabsList = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsList })));
+const TabsTrigger = lazy(() => import("@/components/ui/tabs").then(m => ({ default: m.TabsTrigger })));
+const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
+const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
 
 // Lazy import images to reduce initial bundle size
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
@@ -94,10 +101,9 @@ const Index = () => {
   const isMobile = useIsMobile();
   const { topics } = useTopics();
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
-  
   const selectedTopic = selectedTopicId ? topics.find(t => t.id === selectedTopicId) : null;
-  const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<CarouselApi>();
-  const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
+  const [flashSalesCarouselApi, setFlashSalesCarouselApi] = useState<any>();
+  const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<any>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
@@ -115,89 +121,86 @@ const Index = () => {
     setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
   };
 
-  // Auto-switch between cities every 3 seconds
+  // Différer les animations après le chargement initial
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
-    }, 3000);
+    // Délai de 2 secondes pour laisser la page se charger
+    const timer = setTimeout(() => {
+      // Auto-switch météo toutes les 3s
+      const weatherInterval = setInterval(() => {
+        setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
+      }, 3000);
 
-    return () => clearInterval(interval);
+      // Mobile rotation
+      let animationId: number;
+      const startRotation = () => {
+        animationId = requestAnimationFrame(() => {
+          setTimeout(() => {
+            setMobileRotatingIndex(prev => (prev + 1) % 3);
+            startRotation();
+          }, 2000);
+        });
+      };
+      startRotation();
+
+      return () => {
+        clearInterval(weatherInterval);
+        if (animationId) cancelAnimationFrame(animationId);
+      };
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Mobile rotation for weather/exchange data with optimized performance
+  // Track carousel - différé
   useEffect(() => {
-    let animationId: number;
-    const startRotation = () => {
-      animationId = requestAnimationFrame(() => {
-        setTimeout(() => {
-          setMobileRotatingIndex(prev => (prev + 1) % 3);
-          startRotation();
-        }, 2000);
-      });
-    };
-    
-    startRotation();
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
+    const timer = setTimeout(() => {
+      if (flashSalesCarouselApi) {
+        flashSalesCarouselApi.on("select", () => {
+          setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
+        });
       }
-    };
-  }, []);
-
-  // Track carousel positions
-  useEffect(() => {
-    console.log('💡 Index page: Setting up flash sales carousel');
-    if (!flashSalesCarouselApi) return;
-
-    flashSalesCarouselApi.on("select", () => {
-      setFlashSalesCurrent(flashSalesCarouselApi.selectedScrollSnap());
-    });
-  }, [flashSalesCarouselApi]);
-
-  useEffect(() => {
-    if (!allServicesCarouselApi) return;
-
-    allServicesCarouselApi.on("select", () => {
-      setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
-    });
-  }, [allServicesCarouselApi]);
+      if (allServicesCarouselApi) {
+        allServicesCarouselApi.on("select", () => {
+          setAllServicesCurrent(allServicesCarouselApi.selectedScrollSnap());
+        });
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [flashSalesCarouselApi, allServicesCarouselApi]);
 
   const getCategoryCount = (categoryId: string) => {
     return formattedListings.filter(listing => listing.type === categoryId).length;
   };
 
   const categories = [
-    { id: "sejours", name: "Séjours", icon: Building, description: "Packages complets Omra", count: getCategoryCount("sejours") },
-    { id: "vols", name: "Vols", icon: Plane, description: "Billets d'avion", count: getCategoryCount("vols") },
-    { id: "hebergement", name: "Hébergements", icon: Hotel, description: "Hôtels et appartements", count: getCategoryCount("hebergement") },
-    { id: "guides", name: "Guides", icon: BookOpen, description: "Guides spirituels", count: getCategoryCount("guides") },
-    { id: "chauffeurs", name: "Chauffeurs", icon: Car, description: "Transport privé", count: getCategoryCount("chauffeurs") },
-    { id: "babysitting", name: "Baby-sitting", icon: Heart, description: "Garde d'enfants", count: getCategoryCount("babysitting") }
+    { id: "sejours", name: "Séjours", icon: "building", description: "Packages complets Omra", count: getCategoryCount("sejours") },
+    { id: "vols", name: "Vols", icon: "plane", description: "Billets d'avion", count: getCategoryCount("vols") },
+    { id: "hebergement", name: "Hébergements", icon: "hotel", description: "Hôtels et appartements", count: getCategoryCount("hebergement") },
+    { id: "guides", name: "Guides", icon: "book-open", description: "Guides spirituels", count: getCategoryCount("guides") },
+    { id: "chauffeurs", name: "Chauffeurs", icon: "car", description: "Transport privé", count: getCategoryCount("chauffeurs") },
+    { id: "babysitting", name: "Baby-sitting", icon: "heart", description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll pour mobile uniquement - Version simplifiée
+  // Auto-scroll différé après chargement complet
   useEffect(() => {
     if (!isMobile) return;
     
-    const performScroll = (selector: string, name: string) => {
-      const element = document.querySelector(selector) as HTMLElement;
-      if (element) {
-        console.log(`✅ Scroll ${name}:`, element);
-        element.scrollTo({ left: 150, behavior: 'smooth' });
-        setTimeout(() => {
-          element.scrollTo({ left: 0, behavior: 'smooth' });
-        }, 1000);
-      } else {
-        console.log(`❌ Element not found: ${name} - ${selector}`);
-      }
-    };
+    const timer = setTimeout(() => {
+      const performScroll = (selector: string) => {
+        const element = document.querySelector(selector) as HTMLElement;
+        if (element) {
+          element.scrollTo({ left: 150, behavior: 'smooth' });
+          setTimeout(() => element.scrollTo({ left: 0, behavior: 'smooth' }), 1000);
+        }
+      };
 
-    // Animation séquentielle sur mobile avec décalage marqué
-    setTimeout(() => performScroll('.flash-sales-tabs-container .overflow-x-auto', 'Flash Sales Tabs'), 2000);
-    setTimeout(() => performScroll('.flash-sales-cards-container [data-embla-scroll-container]', 'Flash Sales Cards'), 5000);
-    setTimeout(() => performScroll('.all-services-tabs-container .overflow-x-auto', 'All Services Tabs'), 8000);
-    setTimeout(() => performScroll('.all-services-cards-container [data-embla-scroll-container]', 'All Services Cards'), 11000);
+      setTimeout(() => performScroll('.flash-sales-tabs-container .overflow-x-auto'), 2000);
+      setTimeout(() => performScroll('.flash-sales-cards-container [data-embla-scroll-container]'), 5000);
+      setTimeout(() => performScroll('.all-services-tabs-container .overflow-x-auto'), 8000);
+      setTimeout(() => performScroll('.all-services-cards-container [data-embla-scroll-container]'), 11000);
+    }, 3000); // Délai de 3s après le chargement
     
+    return () => clearTimeout(timer);
   }, [isMobile]);
 
   // Use real ads from database, fallback to sample data if no ads exist
@@ -291,19 +294,14 @@ const Index = () => {
     : undefined;
 
   const stats = [
-    { value: "+15M", label: "visiteurs par an", icon: TrendingUp },
-    { value: "450", label: "jours / an", icon: Calendar },
-    { value: "28", label: "ans d'expertise", icon: Shield },
-    { value: "46K+", label: "satisfactions", icon: Users }
+    { value: "+15M", label: "visiteurs par an", icon: "trending-up" },
+    { value: "450", label: "jours / an", icon: "calendar" },
+    { value: "28", label: "ans d'expertise", icon: "shield" },
+    { value: "46K+", label: "satisfactions", icon: "users" }
   ];
 
   return (
-    <>
-      <CriticalResourcePreloader />
-      <ResponsiveLayout>
-        <CanonicalUrl />
-        <SEOBreadcrumb />
-        <OrganizationSchema />
+    <ResponsiveLayout>
       <Helmet>
         <title>Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
@@ -416,8 +414,6 @@ const Index = () => {
           })}
         </script>
       </Helmet>
-      {/* Removed duplicate SEOHead component to avoid meta tag conflicts */}
-      <PerformanceOptimizer />
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -728,14 +724,18 @@ const Index = () => {
                 value="annonces" 
                 className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
               >
-                <Building className="w-4 h-4 mr-2" />
+                <Suspense fallback={<div className="w-4 h-4 mr-2" />}>
+                  <DynamicIcon name="building" className="w-4 h-4 mr-2" />
+                </Suspense>
                 Annonces
               </TabsTrigger>
               <TabsTrigger 
                 value="discussions" 
                 className="rounded-lg font-semibold text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <Suspense fallback={<div className="w-4 h-4 mr-2" />}>
+                  <DynamicIcon name="message-circle" className="w-4 h-4 mr-2" />
+                </Suspense>
                 Discussions
               </TabsTrigger>
             </TabsList>
@@ -1051,7 +1051,9 @@ const Index = () => {
               <div className="space-y-6">
                 <Link to="/blog?category=restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <UtensilsCrossed className="w-6 h-6 text-primary" />
+                    <Suspense fallback={<div className="w-6 h-6" />}>
+                      <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
+                    </Suspense>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants Halal</h3>
@@ -1363,7 +1365,9 @@ const Index = () => {
                   rel="noopener noreferrer"
                   className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
                 >
-                  <Instagram className="w-4 h-4 text-primary" />
+                  <Suspense fallback={<div className="w-4 h-4" />}>
+                    <DynamicIcon name="instagram" className="w-4 h-4 text-primary" />
+                  </Suspense>
                 </a>
                 <a 
                   href="https://www.tiktok.com/@omrabonsplans.fr?_t=ZS-8ze7UP4jLne&_r=1"
@@ -1435,7 +1439,6 @@ const Index = () => {
       </footer>
       </div>
     </ResponsiveLayout>
-    </>
   );
 };
 
