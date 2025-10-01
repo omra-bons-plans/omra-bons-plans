@@ -1,45 +1,11 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Optimise une URL d'image Supabase avec des paramètres de transformation ultra-agressifs
+ * Retourne l'URL directe sans transformation
  * @param url - URL de base
- * @param options - Options d'optimisation
+ * @param options - Options (ignorées pour compatibilité)
  */
-export const optimizeSupabaseImage = (url: string, options: {
-  width?: number;
-  height?: number;
-  quality?: number;
-  format?: 'webp' | 'avif' | 'jpeg' | 'png';
-  resize?: 'cover' | 'contain' | 'fill';
-} = {}) => {
-  const { 
-    width = 800, 
-    height, 
-    quality = 70, // Qualité plus agressive pour SEO
-    format = 'avif', // AVIF par défaut (meilleur que WebP)
-    resize = 'cover'
-  } = options;
-  
-  // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
-  if (url.includes('supabase.co/storage/v1/object/public/')) {
-    const params = new URLSearchParams();
-    
-    // Paramètres de transformation Supabase
-    params.append('width', width.toString());
-    if (height) params.append('height', height.toString());
-    params.append('quality', quality.toString());
-    params.append('format', format);
-    params.append('resize', resize);
-    
-    // Cache headers agressifs (1 an)
-    params.append('t', Date.now().toString().slice(0, -7)); // Cache bust par jour seulement
-    
-    const optimizedUrl = `${url}?${params.toString()}`;
-    console.log('🔧 URL optimisée:', optimizedUrl);
-    
-    return optimizedUrl;
-  }
-  
+export const optimizeSupabaseImage = (url: string, options?: any) => {
   return url;
 };
 
