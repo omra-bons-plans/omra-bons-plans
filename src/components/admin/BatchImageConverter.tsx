@@ -24,10 +24,14 @@ export const BatchImageConverter = () => {
   const [summary, setSummary] = useState<ConversionSummary | null>(null);
 
   const handleBatchConvert = async () => {
+    console.log('🔵 handleBatchConvert appelée');
+    
     if (!confirm('⚠️ Attention ! Cette opération va convertir TOUTES les images du site en WebP.\n\nCela peut prendre plusieurs minutes.\n\nVoulez-vous continuer ?')) {
+      console.log('🔴 Conversion annulée par l\'utilisateur');
       return;
     }
 
+    console.log('🟢 Conversion confirmée, démarrage...');
     setIsConverting(true);
     setSummary(null);
 
@@ -36,11 +40,22 @@ export const BatchImageConverter = () => {
         description: 'Cela peut prendre plusieurs minutes selon le nombre d\'images'
       });
 
+      console.log('📡 Appel de l\'edge function avec quality:', quality);
+      
       const { data, error } = await supabase.functions.invoke('batch-convert-images', {
         body: { quality }
       });
 
-      if (error) throw error;
+      console.log('📥 Réponse reçue:', { data, error });
+
+      if (error) {
+        console.error('❌ Erreur retournée par l\'edge function:', error);
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('Aucune donnée retournée par la fonction');
+      }
 
       console.log('✅ Batch conversion result:', data);
       
@@ -59,8 +74,14 @@ export const BatchImageConverter = () => {
 
     } catch (error) {
       console.error('❌ Batch conversion error:', error);
-      toast.error('Erreur lors de la conversion en masse');
+      console.error('❌ Error type:', typeof error);
+      console.error('❌ Error details:', JSON.stringify(error, null, 2));
+      
+      toast.error('Erreur lors de la conversion en masse', {
+        description: error instanceof Error ? error.message : 'Erreur inconnue'
+      });
     } finally {
+      console.log('🏁 Conversion terminée (succès ou échec)');
       setIsConverting(false);
     }
   };
