@@ -24,7 +24,7 @@ export const UniversalImage = ({
   alt,
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
-  optimize = { width: 1200, quality: 80 },
+  optimize, // Pas de valeur par défaut pour éviter les transformations
   loading = 'lazy',
   onLoad,
   onError

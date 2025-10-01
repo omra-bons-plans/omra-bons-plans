@@ -1,7 +1,7 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Optimise une URL d'image Supabase avec les transformations natives
+ * Optimise une URL d'image Supabase (désactivé pour éviter le délai de transformation)
  * @param url - URL de base de l'image
  * @param optimize - Paramètres d'optimisation
  */
@@ -9,25 +9,9 @@ const optimizeSupabaseImage = (
   url: string,
   optimize?: { width?: number; height?: number; quality?: number }
 ) => {
-  if (!optimize) return url;
-  
-  const params = new URLSearchParams();
-  
-  // Toujours utiliser WebP pour une meilleure compression
-  params.append('format', 'webp');
-  
-  // Ajouter les dimensions si spécifiées
-  if (optimize.width) params.append('width', optimize.width.toString());
-  if (optimize.height) params.append('height', optimize.height.toString());
-  
-  // Qualité par défaut à 80% pour un bon équilibre taille/qualité
-  const quality = optimize.quality || 80;
-  params.append('quality', quality.toString());
-  
-  // Mode resize pour éviter la déformation
-  params.append('resize', 'cover');
-  
-  return `${url}?${params.toString()}`;
+  // DÉSACTIVÉ: Les transformations Supabase ajoutent trop de délai au LCP
+  // Retourner l'URL originale sans transformation
+  return url;
 };
 
 /**

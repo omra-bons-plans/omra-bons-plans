@@ -22,8 +22,8 @@ export const ImageComponent = ({
   const [retryCount, setRetryCount] = useState(0);
   const [currentSrc, setCurrentSrc] = useState(() => {
     if (!src) return fallbackSrc;
-    // Optimisation automatique: 1200px max, qualité 80%, format WebP
-    return getImageUrl(src, { width: 1200, quality: 80 }, bucketName);
+    // Pas d'optimisation pour éviter le délai de transformation
+    return getImageUrl(src, undefined, bucketName);
   });
 
   const handleError = () => {
