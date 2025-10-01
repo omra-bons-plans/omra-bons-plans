@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
+import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,3 +25,6 @@ createRoot(document.getElementById("root")!).render(
     </HelmetProvider>
   </React.StrictMode>
 );
+
+// Enregistrer le Service Worker pour optimiser le cache des images et ressources
+registerServiceWorker();
