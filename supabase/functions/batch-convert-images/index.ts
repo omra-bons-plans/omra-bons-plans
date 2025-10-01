@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
-// @ts-ignore - Sharp pour Deno
-import sharp from 'npm:sharp@0.33.2';
+import { Image } from "https://deno.land/x/imagescript@1.2.15/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -78,13 +77,15 @@ serve(async (req) => {
           if (downloadError) throw downloadError;
           const originalSize = originalData.size;
 
-          // Convertir en WebP avec Sharp
-          console.log(`🔄 Compression de ${filePath} avec Sharp (qualité: ${quality})`);
+          // Convertir en WebP avec ImageScript
+          console.log(`🔄 Compression de ${filePath} avec ImageScript (qualité: ${quality})`);
           const originalBuffer = await originalData.arrayBuffer();
           
-          const webpBuffer = await sharp(Buffer.from(originalBuffer))
-            .webp({ quality })
-            .toBuffer();
+          // Décoder l'image
+          const image = await Image.decode(new Uint8Array(originalBuffer));
+          
+          // Encoder en WebP avec qualité spécifiée
+          const webpBuffer = await image.encodeWebP(quality);
           
           const webpBlob = new Blob([webpBuffer], { type: 'image/webp' });
           const webpSize = webpBlob.size;
