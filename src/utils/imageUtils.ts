@@ -1,29 +1,10 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Optimise une URL d'image Supabase avec des paramètres de transformation
- * @param url - URL de base
- * @param options - Options d'optimisation
+ * Optimise une URL d'image Supabase (retourne l'URL telle quelle)
+ * Note: Les paramètres d'optimisation ne sont pas supportés par défaut
  */
-const optimizeSupabaseImage = (url: string, options: {
-  width?: number;
-  height?: number;
-  quality?: number;
-  format?: 'webp' | 'avif' | 'jpeg' | 'png';
-} = {}) => {
-  const { width = 800, height, quality = 80, format = 'webp' } = options;
-  
-  // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
-  if (url.includes('supabase.co/storage/v1/object/public/')) {
-    const params = new URLSearchParams();
-    params.append('width', width.toString());
-    if (height) params.append('height', height.toString());
-    params.append('quality', quality.toString());
-    params.append('format', format);
-    
-    return `${url}?${params.toString()}`;
-  }
-  
+const optimizeSupabaseImage = (url: string) => {
   return url;
 };
 
@@ -36,7 +17,7 @@ const optimizeSupabaseImage = (url: string, options: {
  */
 export const getImageUrl = (
   imagePath: string | null | undefined, 
-  optimize: { width?: number; height?: number; quality?: number } = {},
+  optimize?: { width?: number; height?: number; quality?: number },
   bucketName: string = 'ad-images'
 ): string => {
   console.log('🖼️ getImageUrl called with:', imagePath, 'bucket:', bucketName);
@@ -46,10 +27,10 @@ export const getImageUrl = (
     return '/ad-placeholder.jpg';
   }
   
-  // If it's already a full URL, optimize it
+  // If it's already a full URL, return it as is
   if (imagePath.startsWith('http')) {
     console.log('✅ Already full URL:', imagePath);
-    return optimizeSupabaseImage(imagePath, optimize);
+    return imagePath;
   }
   
   try {
@@ -57,9 +38,8 @@ export const getImageUrl = (
       .from(bucketName)
       .getPublicUrl(imagePath);
     
-    const optimizedUrl = optimizeSupabaseImage(data.publicUrl, optimize);
-    console.log('✅ Generated optimized URL:', optimizedUrl);
-    return optimizedUrl;
+    console.log('✅ Generated URL:', data.publicUrl);
+    return data.publicUrl;
   } catch (error) {
     console.error('💥 Error getting image URL:', error);
     return '/ad-placeholder.jpg';
