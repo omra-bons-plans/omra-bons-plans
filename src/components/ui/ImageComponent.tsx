@@ -38,10 +38,8 @@ export const ImageComponent = ({
     );
   }
 
-  // URLs optimisées pour différents formats
-  const avifUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'avif' });
-  const webpUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'webp' });
-  const jpegUrl = optimizeSupabaseImage(src, { width, height, quality, format: 'jpeg' });
+  // URL simple sans transformations
+  const imageUrl = optimizeSupabaseImage(src, { width, height, quality });
 
   const handleError = () => {
     if (!hasError) {
@@ -50,24 +48,16 @@ export const ImageComponent = ({
   };
 
   return (
-    <picture className={className} onClick={onClick}>
-      {/* AVIF - Meilleure compression */}
-      <source type="image/avif" srcSet={avifUrl} />
-      
-      {/* WebP - Fallback moderne */}
-      <source type="image/webp" srcSet={webpUrl} />
-      
-      {/* JPEG - Fallback universel */}
-      <img
-        src={jpegUrl}
-        alt={alt}
-        className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-        onError={handleError}
-        onLoad={() => setIsLoaded(true)}
-        loading="lazy"
-        decoding="async"
-      />
-    </picture>
+    <img
+      src={imageUrl}
+      alt={alt}
+      className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+      onError={handleError}
+      onLoad={() => setIsLoaded(true)}
+      loading="lazy"
+      decoding="async"
+      onClick={onClick}
+    />
   );
 };
 
