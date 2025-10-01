@@ -27,23 +27,9 @@ serve(async (req) => {
 
     const { quality = 40 } = await req.json();
 
-    console.log('🚀 Starting batch conversion with quality:', quality);
+    console.log('🚀 Batch conversion démarrée, quality:', quality);
 
-    // List all files in ad-images bucket
-    const { data: files, error: listError } = await supabase.storage
-      .from('ad-images')
-      .list('', {
-        limit: 1000,
-        sortBy: { column: 'name', order: 'asc' }
-      });
-
-    if (listError) {
-      throw listError;
-    }
-
-    console.log(`📁 Found ${files?.length || 0} items in root`);
-
-    // Recursively list all files
+    // Lister tous les fichiers récursivement
     const allFiles: string[] = [];
     
     async function listRecursive(prefix: string = '') {
@@ -56,114 +42,104 @@ serve(async (req) => {
       for (const item of items) {
         const fullPath = prefix ? `${prefix}/${item.name}` : item.name;
         
-        if (item.metadata) {
-          // It's a file
+        if (item.id) {
           const ext = item.name.split('.').pop()?.toLowerCase();
           if (['png', 'jpg', 'jpeg'].includes(ext || '')) {
             allFiles.push(fullPath);
           }
         } else {
-          // It's a folder, recurse
           await listRecursive(fullPath);
         }
       }
     }
 
     await listRecursive();
-    console.log(`📊 Total images to convert: ${allFiles.length}`);
+    console.log(`📊 ${allFiles.length} images à convertir`);
 
-    // Convert each image
     const results: ConversionResult[] = [];
     let converted = 0;
     let failed = 0;
 
-    for (const filePath of allFiles) {
-      try {
-        console.log(`🔄 Converting ${converted + 1}/${allFiles.length}: ${filePath}`);
+    // Traiter par batch de 5 pour limiter la charge
+    const BATCH_SIZE = 5;
+    
+    for (let i = 0; i < allFiles.length; i += BATCH_SIZE) {
+      const batch = allFiles.slice(i, i + BATCH_SIZE);
+      
+      await Promise.all(batch.map(async (filePath) => {
+        try {
+          // Télécharger l'image
+          const { data: originalData, error: downloadError } = await supabase.storage
+            .from('ad-images')
+            .download(filePath);
 
-        // Download original
-        const { data: originalData, error: downloadError } = await supabase.storage
-          .from('ad-images')
-          .download(filePath);
+          if (downloadError) throw downloadError;
+          const originalSize = originalData.size;
 
-        if (downloadError) throw downloadError;
-
-        const originalSize = originalData.size;
-
-        // Determine dimensions based on file path
-        let width = 800;
-        let height = 600;
-        
-        if (filePath.includes('hero') || filePath.includes('lovable-uploads')) {
-          if (filePath.includes('desktop')) {
-            width = 1920;
-            height = 1080;
-          } else if (filePath.includes('mobile') || filePath.includes('d5128689')) {
-            width = 640;
-            height = 960;
+          // Dimensions selon le type d'image
+          let width = 800, height = 600;
+          if (filePath.includes('lovable-uploads')) {
+            if (filePath.includes('d5128689')) {
+              width = 640; height = 960; // mobile
+            } else if (filePath.includes('81c64f5d')) {
+              width = 1920; height = 1080; // desktop
+            }
           }
-        }
 
-        // Convert via Supabase transformation API
-        const transformUrl = `${supabaseUrl}/storage/v1/render/image/public/ad-images/${filePath}`;
-        const params = new URLSearchParams({
-          width: width.toString(),
-          height: height.toString(),
-          quality: quality.toString(),
-          format: 'webp',
-          resize: 'cover'
-        });
+          // URL de transformation Supabase Storage
+          const encodedPath = encodeURIComponent(filePath);
+          const transformUrl = `${supabaseUrl}/storage/v1/render/image/public/ad-images/${encodedPath}?width=${width}&height=${height}&quality=${quality}&format=webp`;
+          
+          const res = await fetch(transformUrl);
+          
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+          }
 
-        const transformResponse = await fetch(`${transformUrl}?${params}`);
-        if (!transformResponse.ok) throw new Error('Transform failed');
+          const webpBlob = await res.blob();
+          const webpSize = webpBlob.size;
+          const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
-        const webpBlob = await transformResponse.blob();
-        const webpSize = webpBlob.size;
+          // Upload WebP
+          const { error: uploadError } = await supabase.storage
+            .from('ad-images')
+            .upload(webpPath, webpBlob, {
+              contentType: 'image/webp',
+              upsert: true
+            });
 
-        // Generate WebP path
-        const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+          if (uploadError) throw uploadError;
 
-        // Upload WebP
-        const { error: uploadError } = await supabase.storage
-          .from('ad-images')
-          .upload(webpPath, webpBlob, {
-            contentType: 'image/webp',
-            upsert: true
+          const compressionPercent = Math.round((1 - webpSize / originalSize) * 100);
+          results.push({
+            path: filePath,
+            success: true,
+            originalSize,
+            webpSize,
+            compression: compressionPercent
           });
 
-        if (uploadError) throw uploadError;
+          converted++;
+          console.log(`✅ ${filePath} → ${webpPath} (${compressionPercent}%)`);
 
-        const compressionPercent = Math.round((1 - webpSize / originalSize) * 100);
-
-        results.push({
-          path: filePath,
-          success: true,
-          originalSize,
-          webpSize,
-          compression: compressionPercent
-        });
-
-        converted++;
-        console.log(`✅ Converted ${filePath} -> ${webpPath} (${compressionPercent}% compression)`);
-
-      } catch (error) {
-        failed++;
-        console.error(`❌ Failed to convert ${filePath}:`, error);
-        results.push({
-          path: filePath,
-          success: false,
-          originalSize: 0,
-          webpSize: 0,
-          compression: 0,
-          error: error instanceof Error ? error.message : 'Unknown error'
-        });
-      }
+        } catch (error) {
+          failed++;
+          console.error(`❌ ${filePath}:`, error);
+          results.push({
+            path: filePath,
+            success: false,
+            originalSize: 0,
+            webpSize: 0,
+            compression: 0,
+            error: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
+      }));
     }
 
-    // Update database references
-    console.log('🔄 Updating database references...');
+    // Mise à jour des références BDD
+    console.log('🔄 Mise à jour BDD...');
     
-    // Update ads table
     const { data: ads } = await supabase
       .from('ads')
       .select('id, cover_image, images')
@@ -171,31 +147,21 @@ serve(async (req) => {
 
     if (ads) {
       for (const ad of ads) {
-        let updated = false;
         const updates: any = {};
-
         if (ad.cover_image?.match(/\.(png|jpg|jpeg)$/i)) {
           updates.cover_image = ad.cover_image.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-          updated = true;
         }
-
-        if (ad.images && Array.isArray(ad.images)) {
+        if (ad.images?.length) {
           updates.images = ad.images.map((img: string) => 
             img.replace(/\.(png|jpg|jpeg)$/i, '.webp')
           );
-          updated = true;
         }
-
-        if (updated) {
-          await supabase
-            .from('ads')
-            .update(updates)
-            .eq('id', ad.id);
+        if (Object.keys(updates).length) {
+          await supabase.from('ads').update(updates).eq('id', ad.id);
         }
       }
     }
 
-    // Update blog_posts table
     const { data: posts } = await supabase
       .from('blog_posts')
       .select('id, cover_image, images')
@@ -203,35 +169,26 @@ serve(async (req) => {
 
     if (posts) {
       for (const post of posts) {
-        let updated = false;
         const updates: any = {};
-
         if (post.cover_image?.match(/\.(png|jpg|jpeg)$/i)) {
           updates.cover_image = post.cover_image.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-          updated = true;
         }
-
-        if (post.images && Array.isArray(post.images)) {
+        if (post.images?.length) {
           updates.images = post.images.map((img: string) => 
             img.replace(/\.(png|jpg|jpeg)$/i, '.webp')
           );
-          updated = true;
         }
-
-        if (updated) {
-          await supabase
-            .from('blog_posts')
-            .update(updates)
-            .eq('id', post.id);
+        if (Object.keys(updates).length) {
+          await supabase.from('blog_posts').update(updates).eq('id', post.id);
         }
       }
     }
 
-    console.log('✅ Database references updated');
-
     const totalOriginalSize = results.reduce((sum, r) => sum + r.originalSize, 0);
     const totalWebpSize = results.reduce((sum, r) => sum + r.webpSize, 0);
-    const totalCompression = Math.round((1 - totalWebpSize / totalOriginalSize) * 100);
+    const totalCompression = totalOriginalSize > 0 
+      ? Math.round((1 - totalWebpSize / totalOriginalSize) * 100) 
+      : 0;
 
     return new Response(
       JSON.stringify({
@@ -241,8 +198,8 @@ serve(async (req) => {
         total: allFiles.length,
         results,
         summary: {
-          totalOriginalSize: Math.round(totalOriginalSize / 1024 / 1024), // MB
-          totalWebpSize: Math.round(totalWebpSize / 1024 / 1024), // MB
+          totalOriginalSize: Math.round(totalOriginalSize / 1024 / 1024),
+          totalWebpSize: Math.round(totalWebpSize / 1024 / 1024),
           totalCompression
         }
       }),
@@ -250,7 +207,7 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('💥 Batch conversion error:', error);
+    console.error('💥 Erreur:', error);
     return new Response(
       JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
