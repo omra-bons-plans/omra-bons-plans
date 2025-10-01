@@ -14,105 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      admin_access_codes: {
-        Row: {
-          code: string
-          created_at: string
-          device_fingerprint: string | null
-          expires_at: string
-          id: string
-          ip_address: unknown | null
-          last_activity_at: string | null
-          last_request_at: string | null
-          request_count: number | null
-          session_expires_at: string | null
-          session_ip: unknown | null
-          session_token: string | null
-          used_at: string | null
-          user_agent: string | null
-          user_id: string
-        }
-        Insert: {
-          code: string
-          created_at?: string
-          device_fingerprint?: string | null
-          expires_at: string
-          id?: string
-          ip_address?: unknown | null
-          last_activity_at?: string | null
-          last_request_at?: string | null
-          request_count?: number | null
-          session_expires_at?: string | null
-          session_ip?: unknown | null
-          session_token?: string | null
-          used_at?: string | null
-          user_agent?: string | null
-          user_id: string
-        }
-        Update: {
-          code?: string
-          created_at?: string
-          device_fingerprint?: string | null
-          expires_at?: string
-          id?: string
-          ip_address?: unknown | null
-          last_activity_at?: string | null
-          last_request_at?: string | null
-          request_count?: number | null
-          session_expires_at?: string | null
-          session_ip?: unknown | null
-          session_token?: string | null
-          used_at?: string | null
-          user_agent?: string | null
-          user_id?: string
-        }
-        Relationships: []
-      }
-      admin_device_authorizations: {
-        Row: {
-          admin_user_id: string
-          authorized_at: string | null
-          authorized_by: string | null
-          created_at: string
-          device_fingerprint: string
-          expires_at: string | null
-          id: string
-          ip_address: unknown | null
-          notes: string | null
-          status: string
-          updated_at: string
-          user_agent: string | null
-        }
-        Insert: {
-          admin_user_id: string
-          authorized_at?: string | null
-          authorized_by?: string | null
-          created_at?: string
-          device_fingerprint: string
-          expires_at?: string | null
-          id?: string
-          ip_address?: unknown | null
-          notes?: string | null
-          status?: string
-          updated_at?: string
-          user_agent?: string | null
-        }
-        Update: {
-          admin_user_id?: string
-          authorized_at?: string | null
-          authorized_by?: string | null
-          created_at?: string
-          device_fingerprint?: string
-          expires_at?: string | null
-          id?: string
-          ip_address?: unknown | null
-          notes?: string | null
-          status?: string
-          updated_at?: string
-          user_agent?: string | null
-        }
-        Relationships: []
-      }
       ads: {
         Row: {
           category: string
@@ -1121,51 +1022,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      authorize_admin_device: {
-        Args: {
-          p_action: string
-          p_authorizer_id: string
-          p_expiry_days?: number
-          p_notes?: string
-          p_request_id: string
-        }
-        Returns: Json
-      }
-      authorize_admin_device_auto: {
-        Args: {
-          p_admin_user_id: string
-          p_device_fingerprint: string
-          p_expiry_days?: number
-          p_ip_address: unknown
-          p_user_agent: string
-        }
-        Returns: Json
-      }
-      check_admin_code_rate_limit: {
-        Args: { p_user_id: string }
-        Returns: Json
-      }
-      check_admin_device_fingerprint: {
-        Args: {
-          p_device_fingerprint: string
-          p_ip_address: unknown
-          p_user_agent: string
-          p_user_id: string
-        }
-        Returns: Json
-      }
-      check_device_authorization: {
-        Args: { p_admin_user_id: string; p_device_fingerprint: string }
-        Returns: Json
-      }
-      cleanup_expired_admin_codes: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_old_admin_codes: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
       generate_blog_slug: {
         Args: { post_id?: string; title_text: string }
         Returns: string
@@ -1259,15 +1115,6 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
-      request_device_authorization: {
-        Args: {
-          p_admin_user_id: string
-          p_device_fingerprint: string
-          p_ip_address: unknown
-          p_user_agent: string
-        }
-        Returns: string
-      }
       secure_role_change: {
         Args: {
           admin_ip?: unknown
@@ -1280,14 +1127,6 @@ export type Database = {
       should_auto_delete_ad: {
         Args: { publish_end_date: string }
         Returns: boolean
-      }
-      verify_admin_session: {
-        Args: {
-          p_current_ip: unknown
-          p_session_token: string
-          p_user_id: string
-        }
-        Returns: Json
       }
     }
     Enums: {

@@ -20,8 +20,6 @@ import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
 import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
 import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
 import { LCPDiagnostic } from '@/components/admin/LCPDiagnostic';
-import { AdminVerificationGate } from '@/components/admin/AdminVerificationGate';
-import { AdminSessionStatus } from '@/components/admin/AdminSessionStatus';
 
 interface UserProfile {
   id: string;
@@ -316,26 +314,13 @@ const Admin = () => {
             <MessageCircle className="w-4 h-4 mr-2" />
             Demandes de sujets
           </Button>
-          <Button
-            variant="outline"
-            onClick={() => {
-              console.log('📱 Navigating to /admin/device-authorizations from mobile menu');
-              setMobileSheetOpen(false);
-              navigate('/admin/device-authorizations');
-            }}
-            className="justify-start"
-          >
-            <Shield className="w-4 h-4 mr-2" />
-            Autorisations Appareils
-          </Button>
         </div>
       </SheetContent>
     </Sheet>
   );
 
   return (
-    <AdminVerificationGate>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-4 md:px-6 py-4">
@@ -397,19 +382,8 @@ const Admin = () => {
                   >
                     🛡️ Audit Sécurité
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      console.log('🖥️ Desktop: Navigating to /admin/device-authorizations');
-                      navigate('/admin/device-authorizations');
-                    }}
-                    className="text-sm"
-                  >
-                    🔒 Appareils
-                  </Button>
                 </>
               )}
-              <AdminSessionStatus />
               <UserMenu />
             </div>
           </div>
@@ -814,7 +788,6 @@ const Admin = () => {
         </div>
       </div>
     </div>
-    </AdminVerificationGate>
   );
 };
 

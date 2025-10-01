@@ -52,7 +52,6 @@ const ComparatifAgences = lazy(() => import("./pages/ComparatifAgences"));
 const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
-const AdminDeviceAuthorizations = lazy(() => import("./pages/AdminDeviceAuthorizations"));
 const Search = lazy(() => import("./pages/Search"));
 
 // Loading component
@@ -168,11 +167,6 @@ const App = () => (
                   <Route path="/admin/security-audit" element={
                     <ProtectedRoute>
                       <AdminSecurityAudit />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/admin/device-authorizations" element={
-                    <ProtectedRoute>
-                      <AdminDeviceAuthorizations />
                     </ProtectedRoute>
                   } />
                   <Route path="/admin/ads" element={
