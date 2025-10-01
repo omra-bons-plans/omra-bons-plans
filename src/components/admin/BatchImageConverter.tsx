@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,14 +22,12 @@ export const BatchImageConverter = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [quality, setQuality] = useState(40);
   const [summary, setSummary] = useState<ConversionSummary | null>(null);
+  const [autoStarted, setAutoStarted] = useState(false);
 
-  // Log au montage du composant
-  console.log('🟦 BatchImageConverter monté, isConverting:', isConverting);
-
-  const handleBatchConvert = async () => {
-    console.log('🔵 handleBatchConvert appelée');
+  const handleBatchConvert = async (skipConfirm = false) => {
+    console.log('🔵 handleBatchConvert appelée, skipConfirm:', skipConfirm);
     
-    if (!confirm('⚠️ Attention ! Cette opération va convertir TOUTES les images du site en WebP.\n\nCela peut prendre plusieurs minutes.\n\nVoulez-vous continuer ?')) {
+    if (!skipConfirm && !confirm('⚠️ Attention ! Cette opération va convertir TOUTES les images du site en WebP.\n\nCela peut prendre plusieurs minutes.\n\nVoulez-vous continuer ?')) {
       console.log('🔴 Conversion annulée par l\'utilisateur');
       return;
     }
@@ -88,6 +86,15 @@ export const BatchImageConverter = () => {
       setIsConverting(false);
     }
   };
+
+  // Lancer automatiquement la conversion au montage du composant
+  React.useEffect(() => {
+    if (!autoStarted && !isConverting && !summary) {
+      console.log('🚀 Auto-démarrage de la conversion...');
+      setAutoStarted(true);
+      handleBatchConvert(true); // skipConfirm = true
+    }
+  }, [autoStarted, isConverting, summary]);
 
   return (
     <Card className="border-primary/20">
