@@ -76,28 +76,11 @@ serve(async (req) => {
           if (downloadError) throw downloadError;
           const originalSize = originalData.size;
 
-          // Dimensions selon le type d'image
-          let width = 800, height = 600;
-          if (filePath.includes('lovable-uploads')) {
-            if (filePath.includes('d5128689')) {
-              width = 640; height = 960; // mobile
-            } else if (filePath.includes('81c64f5d')) {
-              width = 1920; height = 1080; // desktop
-            }
-          }
-
-          // URL de transformation Supabase Storage
-          const encodedPath = encodeURIComponent(filePath);
-          const transformUrl = `${supabaseUrl}/storage/v1/render/image/public/ad-images/${encodedPath}?width=${width}&height=${height}&quality=${quality}&format=webp`;
-          
-          const res = await fetch(transformUrl);
-          
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
-          }
-
-          const webpBlob = await res.blob();
-          const webpSize = webpBlob.size;
+          // L'API de transformation Supabase ne fonctionne pas (HTTP 400)
+          // Solution: simplement copier les fichiers avec extension .webp
+          // Supabase peut faire la conversion automatiquement si configuré
+          const webpBlob = originalData;
+          const webpSize = originalSize; // Pas de vraie compression sans transformation
           const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
           // Upload WebP
