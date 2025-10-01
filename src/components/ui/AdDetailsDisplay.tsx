@@ -105,6 +105,7 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
         images={ad.images || []}
         coverImage={ad.cover_image}
         title={ad.title}
+        bucketName="ad-images"
       />
 
       {/* Title and Category */}

@@ -9,6 +9,7 @@ interface SimpleImageViewerProps {
   isOpen: boolean;
   onClose: () => void;
   initialIndex?: number;
+  bucketName?: string;
 }
 
 export const SimpleImageViewer = ({ 
@@ -17,7 +18,8 @@ export const SimpleImageViewer = ({
   title = 'Images',
   isOpen,
   onClose,
-  initialIndex = 0
+  initialIndex = 0,
+  bucketName = 'ad-images'
 }: SimpleImageViewerProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
@@ -26,7 +28,7 @@ export const SimpleImageViewer = ({
     ? [coverImage, ...images.filter(img => img !== coverImage)]
     : images;
   
-  const allImages = allImagePaths.map(path => getImageUrl(path));
+  const allImages = allImagePaths.map(path => getImageUrl(path, undefined, bucketName));
 
   useEffect(() => {
     setCurrentIndex(initialIndex);

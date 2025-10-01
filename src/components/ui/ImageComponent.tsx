@@ -7,6 +7,7 @@ interface ImageComponentProps {
   className?: string;
   fallbackSrc?: string;
   onClick?: () => void;
+  bucketName?: string;
 }
 
 export const ImageComponent = ({
@@ -14,12 +15,13 @@ export const ImageComponent = ({
   alt,
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
-  onClick
+  onClick,
+  bucketName = 'ad-images'
 }: ImageComponentProps) => {
   const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(() => {
     if (!src) return fallbackSrc;
-    return getImageUrl(src);
+    return getImageUrl(src, undefined, bucketName);
   });
 
   const handleError = () => {
