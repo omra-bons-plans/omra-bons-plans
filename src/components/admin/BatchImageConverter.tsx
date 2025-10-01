@@ -132,7 +132,10 @@ export const BatchImageConverter = () => {
 
         {/* Action Button */}
         <Button 
-          onClick={handleBatchConvert} 
+          onClick={(e) => {
+            console.log('🔴 CLICK DÉTECTÉ sur le bouton!', e);
+            handleBatchConvert();
+          }}
           disabled={isConverting}
           className="w-full"
           size="lg"
