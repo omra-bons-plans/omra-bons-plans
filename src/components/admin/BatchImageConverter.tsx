@@ -23,6 +23,9 @@ export const BatchImageConverter = () => {
   const [quality, setQuality] = useState(40);
   const [summary, setSummary] = useState<ConversionSummary | null>(null);
 
+  // Log au montage du composant
+  console.log('🟦 BatchImageConverter monté, isConverting:', isConverting);
+
   const handleBatchConvert = async () => {
     console.log('🔵 handleBatchConvert appelée');
     
