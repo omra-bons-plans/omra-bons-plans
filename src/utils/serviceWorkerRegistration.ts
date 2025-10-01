@@ -13,13 +13,17 @@ export const registerServiceWorker = async () => {
           window.addEventListener('load', resolve);
         }
       });
+      
+      // CRITICAL: Délai de 3 secondes pour ne pas impacter le LCP
+      await new Promise(resolve => setTimeout(resolve, 3000));
 
       // Enregistrer le service worker
       const registration = await navigator.serviceWorker.register('/sw.js', {
-        scope: '/'
+        scope: '/',
+        updateViaCache: 'none' // Toujours vérifier les updates
       });
 
-      console.log('✅ Service Worker enregistré avec succès:', registration.scope);
+      console.log('✅ Service Worker enregistré (après délai pour LCP):', registration.scope);
 
       // Gérer les mises à jour
       registration.addEventListener('updatefound', () => {

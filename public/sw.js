@@ -1,15 +1,18 @@
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 
-// Ressources critiques à mettre en cache lors de l'installation
+// CRITICAL: Images hero à ne JAMAIS intercepter (chargement direct)
+const CRITICAL_HERO_IMAGES = [
+  '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png',
+  '/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png'
+];
+
+// Ressources à mettre en cache lors de l'installation (SANS les hero images)
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
   '/critical.css',
-  '/src/assets/mecca-mosque-hero.jpg',
-  '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png'
+  '/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png' // Logo uniquement
 ];
 
 // Durées de cache (en millisecondes)
@@ -86,6 +89,12 @@ function isCacheValid(response, maxAge) {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+  
+  // CRITICAL: Ne JAMAIS intercepter les images hero critiques
+  if (CRITICAL_HERO_IMAGES.some(img => url.pathname.includes(img))) {
+    console.log('[SW] Hero image - chargement direct (pas de cache)');
+    return; // Laisser passer sans interception
+  }
 
   // Stratégie pour les images Supabase
   if (url.hostname.includes('supabase.co') && 
