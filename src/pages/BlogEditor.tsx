@@ -15,7 +15,6 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
 import { ImageUpload } from '@/components/ui/ImageUpload';
-import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
 import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { SEOAnalyzer } from '@/components/ui/SEOAnalyzer';
@@ -249,8 +248,7 @@ const BlogEditor = () => {
   }
 
   return (
-    <AdminVerificationGate>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-40 border-b border-border/20 pt-16 lg:pt-0">
         <div className="container mx-auto px-4 sm:px-6 py-4">
@@ -662,7 +660,6 @@ const BlogEditor = () => {
         </div>
       </div>
     </div>
-    </AdminVerificationGate>
   );
 };
 

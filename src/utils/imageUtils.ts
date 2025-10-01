@@ -1,11 +1,29 @@
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Retourne l'URL directe sans transformation
+ * Optimise une URL d'image Supabase avec des paramètres de transformation
  * @param url - URL de base
- * @param options - Options (ignorées pour compatibilité)
+ * @param options - Options d'optimisation
  */
-export const optimizeSupabaseImage = (url: string, options?: any) => {
+const optimizeSupabaseImage = (url: string, options: {
+  width?: number;
+  height?: number;
+  quality?: number;
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+} = {}) => {
+  const { width = 800, height, quality = 80, format = 'webp' } = options;
+  
+  // Si c'est une URL Supabase Storage, ajouter les paramètres d'optimisation
+  if (url.includes('supabase.co/storage/v1/object/public/')) {
+    const params = new URLSearchParams();
+    params.append('width', width.toString());
+    if (height) params.append('height', height.toString());
+    params.append('quality', quality.toString());
+    params.append('format', format);
+    
+    return `${url}?${params.toString()}`;
+  }
+  
   return url;
 };
 

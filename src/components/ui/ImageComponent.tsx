@@ -7,10 +7,6 @@ interface ImageComponentProps {
   className?: string;
   fallbackSrc?: string;
   onClick?: () => void;
-  width?: number;
-  height?: number;
-  quality?: number;
-  bucketName?: string;
 }
 
 export const ImageComponent = ({
@@ -18,44 +14,28 @@ export const ImageComponent = ({
   alt,
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
-  onClick,
-  width,
-  height,
-  quality,
-  bucketName = 'ad-images'
+  onClick
 }: ImageComponentProps) => {
   const [hasError, setHasError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const imageUrl = getImageUrl(src, { width, height, quality }, bucketName);
+  const [currentSrc, setCurrentSrc] = useState(() => {
+    if (!src) return fallbackSrc;
+    return getImageUrl(src);
+  });
 
   const handleError = () => {
     if (!hasError) {
       setHasError(true);
+      setCurrentSrc(fallbackSrc);
     }
   };
 
-  if (!src || hasError) {
-    return (
-      <img
-        src={fallbackSrc}
-        alt={alt}
-        className={className}
-        onClick={onClick}
-        loading="lazy"
-        decoding="async"
-      />
-    );
-  }
-
   return (
     <img
-      src={imageUrl}
+      src={currentSrc}
       alt={alt}
-      className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-      onClick={onClick}
+      className={className}
       onError={handleError}
-      onLoad={() => setIsLoaded(true)}
+      onClick={onClick}
       loading="lazy"
       decoding="async"
     />

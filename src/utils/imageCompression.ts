@@ -1,6 +1,5 @@
 /**
  * Utilitaires pour la compression d'images dans le navigateur
- * Optimisé pour AVIF > WebP > JPEG avec compression ultra-agressive
  */
 
 interface CompressionOptions {
@@ -8,30 +7,25 @@ interface CompressionOptions {
   maxHeight?: number;
   quality?: number;
   maxSizeKB?: number;
-  format?: 'avif' | 'webp' | 'jpeg' | 'auto';
 }
 
 /**
- * Compresse une image File avec AVIF prioritaire, puis WebP, puis JPEG
- * Compression ultra-agressive pour SEO optimal
+ * Compresse une image File en réduisant sa taille et/ou qualité avec support WebP
  */
 export const compressImage = async (
   file: File, 
   options: CompressionOptions = {}
 ): Promise<File> => {
   const {
-    maxWidth = 1200,
-    maxHeight = 1200,
-    quality = 0.7, // Qualité plus agressive par défaut
-    maxSizeKB = 150, // Taille cible drastiquement réduite
-    format = 'auto'
+    maxWidth = 1920,
+    maxHeight = 1920,
+    quality = 0.8,
+    maxSizeKB = 1024 // 1MB par défaut
   } = options;
-
-  console.log(`📸 Compression de ${file.name} (${formatFileSize(file.size)})`);
 
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = async () => {
+    img.onload = () => {
       try {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -52,37 +46,13 @@ export const compressImage = async (
         canvas.width = width;
         canvas.height = height;
         
-        // Dessiner l'image redimensionnée avec antialiasing
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
+        // Dessiner l'image redimensionnée
         ctx.drawImage(img, 0, 0, width, height);
         
-        // Détecter le support des formats modernes
-        const supportsAVIF = await testFormatSupport(canvas, 'image/avif');
+        // Détecter le support WebP du navigateur
         const supportsWebP = canvas.toDataURL('image/webp').startsWith('data:image/webp');
-        
-        // Déterminer le meilleur format selon priorité: AVIF > WebP > JPEG
-        let outputFormat: string;
-        let fileExtension: string;
-        
-        if (format === 'auto') {
-          if (supportsAVIF) {
-            outputFormat = 'image/avif';
-            fileExtension = 'avif';
-            console.log('✨ Format AVIF utilisé (meilleure compression)');
-          } else if (supportsWebP) {
-            outputFormat = 'image/webp';
-            fileExtension = 'webp';
-            console.log('✅ Format WebP utilisé');
-          } else {
-            outputFormat = 'image/jpeg';
-            fileExtension = 'jpg';
-            console.log('📷 Format JPEG utilisé (fallback)');
-          }
-        } else {
-          outputFormat = `image/${format}`;
-          fileExtension = format === 'jpeg' ? 'jpg' : format;
-        }
+        const outputFormat = supportsWebP ? 'image/webp' : 'image/jpeg';
+        const fileExtension = supportsWebP ? 'webp' : 'jpg';
         
         // Fonction pour créer le blob avec la qualité donnée
         const createBlob = (currentQuality: number): Promise<Blob> => {
@@ -102,35 +72,27 @@ export const compressImage = async (
         };
 
         // Compresser avec ajustement dynamique de la qualité si nécessaire
-        const compressWithQuality = async (currentQuality: number, attempts = 0): Promise<File> => {
+        const compressWithQuality = async (currentQuality: number): Promise<File> => {
           const blob = await createBlob(currentQuality);
           const sizeKB = blob.size / 1024;
           
-          console.log(`🔄 Tentative ${attempts + 1}: ${sizeKB.toFixed(1)}KB avec qualité ${(currentQuality * 100).toFixed(0)}%`);
-          
           // Si la taille est acceptable ou qu'on a atteint la qualité minimale
-          if (sizeKB <= maxSizeKB || currentQuality <= 0.3 || attempts >= 8) {
+          if (sizeKB <= maxSizeKB || currentQuality <= 0.1) {
+            // Générer le nouveau nom de fichier avec l'extension appropriée
             const originalName = file.name.replace(/\.[^/.]+$/, '');
-            const originalSizeKB = file.size / 1024;
-            const compressionRatio = ((originalSizeKB - sizeKB) / originalSizeKB * 100).toFixed(1);
-            
-            console.log(`✅ Compression terminée: ${originalSizeKB.toFixed(1)}KB → ${sizeKB.toFixed(1)}KB (-${compressionRatio}%)`);
-            
             return new File([blob], `${originalName}.${fileExtension}`, {
               type: outputFormat,
               lastModified: Date.now(),
             });
           }
           
-          // Réduire la qualité plus agressivement
-          return compressWithQuality(currentQuality - 0.08, attempts + 1);
+          // Réduire la qualité et réessayer
+          return compressWithQuality(currentQuality - 0.1);
         };
 
-        const result = await compressWithQuality(quality);
-        resolve(result);
+        compressWithQuality(quality).then(resolve).catch(reject);
         
       } catch (error) {
-        console.error('❌ Erreur compression:', error);
         reject(error);
       }
     };
@@ -144,25 +106,12 @@ export const compressImage = async (
 };
 
 /**
- * Teste si un format d'image est supporté par le navigateur
+ * Convertit automatiquement une image en WebP si le navigateur le supporte
  */
-const testFormatSupport = (canvas: HTMLCanvasElement, format: string): Promise<boolean> => {
-  return new Promise((resolve) => {
-    canvas.toBlob(
-      (blob) => resolve(blob !== null && blob.type === format),
-      format,
-      0.5
-    );
-  });
-};
-
-/**
- * Convertit automatiquement une image en AVIF ou WebP selon le support du navigateur
- */
-export const convertToWebP = async (file: File, quality = 0.7): Promise<File> => {
-  return new Promise(async (resolve, reject) => {
+export const convertToWebP = async (file: File, quality = 0.8): Promise<File> => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = async () => {
+    img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
@@ -175,24 +124,11 @@ export const convertToWebP = async (file: File, quality = 0.7): Promise<File> =>
       canvas.height = img.naturalHeight;
       ctx.drawImage(img, 0, 0);
 
-      // Vérifier le support AVIF en priorité
-      const supportsAVIF = await testFormatSupport(canvas, 'image/avif');
+      // Vérifier le support WebP
       const supportsWebP = canvas.toDataURL('image/webp').startsWith('data:image/webp');
       
-      let format: string;
-      let mimeType: string;
-      let extension: string;
-      
-      if (supportsAVIF) {
-        format = 'image/avif';
-        mimeType = 'image/avif';
-        extension = 'avif';
-      } else if (supportsWebP) {
-        format = 'image/webp';
-        mimeType = 'image/webp';
-        extension = 'webp';
-      } else {
-        // Retourner le fichier original si ni AVIF ni WebP ne sont supportés
+      if (!supportsWebP) {
+        // Retourner le fichier original si WebP n'est pas supporté
         resolve(file);
         return;
       }
@@ -201,23 +137,16 @@ export const convertToWebP = async (file: File, quality = 0.7): Promise<File> =>
         (blob) => {
           if (blob) {
             const originalName = file.name.replace(/\.[^/.]+$/, '');
-            const convertedFile = new File([blob], `${originalName}.${extension}`, {
-              type: mimeType,
+            const webpFile = new File([blob], `${originalName}.webp`, {
+              type: 'image/webp',
               lastModified: Date.now(),
             });
-            
-            const originalSizeKB = file.size / 1024;
-            const newSizeKB = blob.size / 1024;
-            const savings = ((originalSizeKB - newSizeKB) / originalSizeKB * 100).toFixed(1);
-            
-            console.log(`✅ Conversion ${extension.toUpperCase()}: ${originalSizeKB.toFixed(1)}KB → ${newSizeKB.toFixed(1)}KB (-${savings}%)`);
-            
-            resolve(convertedFile);
+            resolve(webpFile);
           } else {
-            reject(new Error(`Erreur lors de la conversion ${extension.toUpperCase()}`));
+            reject(new Error('Erreur lors de la conversion WebP'));
           }
         },
-        format,
+        'image/webp',
         quality
       );
     };
@@ -225,17 +154,6 @@ export const convertToWebP = async (file: File, quality = 0.7): Promise<File> =>
     img.onerror = () => reject(new Error('Erreur lors du chargement de l\'image'));
     img.src = URL.createObjectURL(file);
   });
-};
-
-/**
- * Convertit les images HEIC/HEIF en JPEG (pour les photos iPhone)
- */
-export const convertHEICtoJPEG = async (file: File): Promise<File> => {
-  // Pour HEIC, on doit utiliser une bibliothèque externe ou un service
-  // Pour l'instant, on retourne le fichier tel quel
-  // TODO: Implémenter conversion HEIC si nécessaire
-  console.warn('⚠️ Conversion HEIC non implémentée, fichier retourné tel quel');
-  return file;
 };
 
 /**

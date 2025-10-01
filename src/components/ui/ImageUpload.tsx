@@ -120,7 +120,7 @@ export const ImageUpload = ({
                   src={image}
                   alt={`Image ${index + 1}`}
                   className="w-full h-full object-cover"
-                  optimize={{ width: 400, height: 300, quality: 70 }}
+                  optimize={{ width: 400, height: 300, quality: 85 }}
                 />
                 
                 {/* Overlay with delete button */}

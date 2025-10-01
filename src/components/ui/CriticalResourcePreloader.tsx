@@ -5,16 +5,21 @@ import { useEffect } from 'react';
  */
 const CriticalResourcePreloader = () => {
   useEffect(() => {
-    // Les images hero sont maintenant préchargées directement dans index.html avec fetchpriority="high"
-    // Cela optimise le LCP car le preload est fait avant même le parsing du React
-    
-    // Précharger uniquement le logo qui n'est pas dans le HTML
-    const logoLink = document.createElement('link');
-    logoLink.rel = 'preload';
-    logoLink.as = 'image';
-    logoLink.href = '/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
-    logoLink.fetchPriority = 'high';
-    document.head.appendChild(logoLink);
+    // Précharger les images critiques above-the-fold
+    const criticalImages = [
+      '/src/assets/mecca-mosque-hero.jpg', // Image hero principale
+      '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png', // Image hero
+      '/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png' // Logo
+    ];
+
+    criticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      link.fetchPriority = 'high';
+      document.head.appendChild(link);
+    });
 
     // Précharger les polices critiques
     const criticalFonts = [

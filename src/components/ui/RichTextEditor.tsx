@@ -125,9 +125,9 @@ export const RichTextEditor = ({
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
         let optimizedUrl = url;
         if (url.includes('blog-images') || (!url.startsWith('http') && url.includes('blog/'))) {
-          optimizedUrl = getImageUrl(url, { width: 600, quality: 70 }, 'blog-images');
+          optimizedUrl = getImageUrl(url, { width: 600, quality: 85 }, 'blog-images');
         } else if (!url.startsWith('http')) {
-          optimizedUrl = getImageUrl(url, { width: 600, quality: 70 });
+          optimizedUrl = getImageUrl(url, { width: 600, quality: 85 });
         }
         return `<img src="${optimizedUrl}" alt="${alt}" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin: 16px 0; display: block;" loading="lazy" />`;
       })

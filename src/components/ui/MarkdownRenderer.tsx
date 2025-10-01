@@ -87,10 +87,10 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         
         // Optimize blog images if they're from Supabase storage
         if (imageUrl.includes('blog-images') || (!imageUrl.startsWith('http') && imageUrl.includes('blog/'))) {
-          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 70 }, 'blog-images');
+          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 85 }, 'blog-images');
         } else if (!imageUrl.startsWith('http')) {
           // For other relative paths, try ad-images bucket
-          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 70 });
+          imageUrl = getImageUrl(imageUrl, { width: 800, quality: 85 });
         }
         
         elements.push(
@@ -126,9 +126,9 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
           let optimizedUrl = url;
           if (url.includes('blog-images') || (!url.startsWith('http') && url.includes('blog/'))) {
-            optimizedUrl = getImageUrl(url, { width: 400, quality: 70 }, 'blog-images');
+            optimizedUrl = getImageUrl(url, { width: 400, quality: 85 }, 'blog-images');
           } else if (!url.startsWith('http')) {
-            optimizedUrl = getImageUrl(url, { width: 400, quality: 70 });
+            optimizedUrl = getImageUrl(url, { width: 400, quality: 85 });
           }
           return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" onError="console.error('❌ Erreur image inline:', '${optimizedUrl}'); this.style.display='none';" onLoad="console.log('✅ Image inline chargée:', '${optimizedUrl}');" />`;
         })

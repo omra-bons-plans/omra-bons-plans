@@ -15,9 +15,8 @@ export const useImageUpload = (bucketName: string = 'ad-images') => {
     try {
       setUploading(true);
 
-      // Validate file type (inclure HEIC pour iPhone)
-      const isImage = file.type.startsWith('image/') || file.name.toLowerCase().endsWith('.heic');
-      if (!isImage) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
         toast.error('Veuillez sélectionner un fichier image');
         return null;
       }
@@ -28,57 +27,43 @@ export const useImageUpload = (bucketName: string = 'ad-images') => {
         return null;
       }
 
-      const originalSizeKB = file.size / 1024;
-      console.log(`📤 Upload de ${file.name} (${originalSizeKB.toFixed(1)}KB)`);
-
-      // Compresser SYSTÉMATIQUEMENT toutes les images avec paramètres ultra-agressifs
+      // Compresser automatiquement l'image selon le contexte
       let processedFile = file;
-      toast.info('🗜️ Optimisation de l\'image...');
       
-      // Détection HEIC (photos iPhone)
-      if (file.name.toLowerCase().endsWith('.heic') || file.type === 'image/heic') {
-        console.log('📱 Photo iPhone HEIC détectée, conversion en cours...');
-        toast.info('Conversion de la photo iPhone...');
-        // Note: Pour une vraie conversion HEIC, il faudrait une lib externe
-        // Pour l'instant on laisse passer et la compression gérera
-      }
-      
-      // Définir les paramètres selon le contexte et le type d'image
-      const isCover = folder.includes('cover') || folder === '';
-      
+      // Pour les blogs, compression plus agressive pour le SEO
       if (bucketName === 'blog-images') {
-        // Blog: compression ULTRA-AGRESSIVE pour SEO
+        toast.info('Compression de l\'image en cours...');
         processedFile = await compressImage(file, {
-          maxWidth: isCover ? 1200 : 800,
-          maxHeight: isCover ? 800 : 600,
-          quality: 0.7,
-          maxSizeKB: isCover ? 100 : 80, // 100KB max pour couvertures, 80KB pour autres
-          format: 'auto' // AVIF prioritaire
+          maxWidth: 1200,
+          maxHeight: 1200,
+          quality: 0.85,
+          maxSizeKB: 500 // Max 500KB pour les images de blog
         });
+        
+        const compressionRatio = ((file.size - processedFile.size) / file.size * 100).toFixed(1);
+        console.log(`Image compressée: ${file.size} -> ${processedFile.size} bytes (${compressionRatio}% de réduction)`);
+        
+        if (compressionRatio !== '0.0') {
+          toast.success(`Image optimisée: ${compressionRatio}% de réduction de taille`);
+        }
       } else {
-        // Annonces: compression agressive mais moins drastique
-        processedFile = await compressImage(file, {
-          maxWidth: isCover ? 1400 : 1000,
-          maxHeight: isCover ? 900 : 750,
-          quality: 0.7,
-          maxSizeKB: isCover ? 150 : 120, // 150KB max pour couvertures, 120KB pour supplémentaires
-          format: 'auto' // AVIF prioritaire
-        });
-      }
-      
-      const newSizeKB = processedFile.size / 1024;
-      const compressionRatio = ((originalSizeKB - newSizeKB) / originalSizeKB * 100).toFixed(1);
-      
-      console.log(`✅ Optimisation: ${originalSizeKB.toFixed(1)}KB → ${newSizeKB.toFixed(1)}KB (-${compressionRatio}%)`);
-      
-      if (parseFloat(compressionRatio) > 5) {
-        toast.success(`✨ Image optimisée: -${compressionRatio}% (${newSizeKB.toFixed(0)}KB)`);
-      }
-      
-      // Alerter si l'image est encore trop grosse
-      if (newSizeKB > 200) {
-        console.warn(`⚠️ Image encore volumineuse: ${newSizeKB.toFixed(1)}KB`);
-        toast.warning(`Image volumineuse (${newSizeKB.toFixed(0)}KB), considérez une résolution inférieure`);
+        // Pour les autres images (annonces), compression plus modérée
+        if (file.size > 2 * 1024 * 1024) { // Si > 2MB
+          toast.info('Optimisation de l\'image...');
+          processedFile = await compressImage(file, {
+            maxWidth: 1920,
+            maxHeight: 1920,
+            quality: 0.85,
+            maxSizeKB: 1024 // Max 1MB pour les annonces
+          });
+          
+          const compressionRatio = ((file.size - processedFile.size) / file.size * 100).toFixed(1);
+          console.log(`Image optimisée: ${file.size} -> ${processedFile.size} bytes (${compressionRatio}% de réduction)`);
+          
+          if (compressionRatio !== '0.0') {
+            toast.success(`Image optimisée: ${compressionRatio}% de réduction de taille`);
+          }
+        }
       }
 
       // Generate unique filename with correct extension

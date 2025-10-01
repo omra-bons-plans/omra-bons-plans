@@ -14,7 +14,6 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/ui/UserMenu';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
-import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
 
 interface AdData {
   id: string;
@@ -319,8 +318,7 @@ const AdminAds = () => {
   }
 
   return (
-    <AdminVerificationGate>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-6 py-4">
@@ -623,7 +621,6 @@ const AdminAds = () => {
         </div>
       </div>
     </div>
-    </AdminVerificationGate>
   );
 };
 

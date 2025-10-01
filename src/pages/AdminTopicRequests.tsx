@@ -10,7 +10,6 @@ import TopicRequestsManager from '@/components/ui/TopicRequestsManager';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { useEffect } from 'react';
-import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
 
 const AdminTopicRequests = () => {
   const navigate = useNavigate();
@@ -41,8 +40,7 @@ const AdminTopicRequests = () => {
   }
 
   return (
-    <AdminVerificationGate>
-      <ResponsiveLayout>
+    <ResponsiveLayout>
       <SEOHead 
         title="Gestion des demandes de sujets - Administration"
         description="Gérez les demandes de nouveaux sujets de discussion de la communauté."
@@ -102,8 +100,7 @@ const AdminTopicRequests = () => {
           </div>
         </div>
       </div>
-      </ResponsiveLayout>
-    </AdminVerificationGate>
+    </ResponsiveLayout>
   );
 };
 

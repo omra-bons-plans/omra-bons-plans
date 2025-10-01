@@ -74,15 +74,6 @@ verify_jwt = false
 [functions.cleanup-expired-ads]
 verify_jwt = false
 
-[functions.migrate-optimize-images]
-verify_jwt = true
-
-[functions.request-admin-code]
-verify_jwt = false
-
-[functions.verify-admin-code]
-verify_jwt = false
-
 [edge_runtime]
 enabled = true
 port = 54328

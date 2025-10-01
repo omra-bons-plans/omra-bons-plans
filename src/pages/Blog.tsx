@@ -14,7 +14,6 @@ import VendorAssociationForm from '@/components/ui/VendorAssociationForm';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
-import { ImageComponent } from '@/components/ui/ImageComponent';
 import { Helmet } from "react-helmet-async";
 
 interface BlogPost {
@@ -378,14 +377,10 @@ const Blog = () => {
                 >
                   {post.cover_image && (
                     <div className="aspect-video w-full overflow-hidden">
-                      <ImageComponent
-                        src={post.cover_image}
+                      <img 
+                        src={post.cover_image} 
                         alt={post.title}
                         className="w-full h-full object-cover"
-                        width={400}
-                        height={225}
-                        quality={75}
-                        bucketName="blog-images"
                       />
                     </div>
                   )}

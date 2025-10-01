@@ -15,12 +15,6 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import UserMenu from '@/components/ui/UserMenu';
-import { ImageMigrationPanel } from '@/components/admin/ImageMigrationPanel';
-import AdminVerificationGate from '@/components/admin/AdminVerificationGate';
-import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
-import { ImageFormatTester } from '@/components/admin/ImageFormatTester';
-import { LCPOptimizationGuide } from '@/components/admin/LCPOptimizationGuide';
-import { LCPDiagnostic } from '@/components/admin/LCPDiagnostic';
 
 interface UserProfile {
   id: string;
@@ -321,8 +315,7 @@ const Admin = () => {
   );
 
   return (
-    <AdminVerificationGate>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-strong sticky top-0 z-50 border-b border-border/20">
         <div className="container mx-auto px-4 md:px-6 py-4">
@@ -478,21 +471,6 @@ const Admin = () => {
               </CardContent>
             </Card>
           </div>
-
-          {/* Image Migration Panel */}
-          <ImageMigrationPanel />
-
-          {/* Performance Monitor */}
-          <PerformanceMonitor />
-
-          {/* Image Format Tester */}
-          <ImageFormatTester />
-
-          {/* LCP Diagnostic en temps réel */}
-          <LCPDiagnostic />
-
-          {/* LCP Optimization Guide */}
-          <LCPOptimizationGuide />
 
           {/* Filters */}
           <Card>
@@ -790,7 +768,6 @@ const Admin = () => {
         </div>
       </div>
     </div>
-    </AdminVerificationGate>
   );
 };
 

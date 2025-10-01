@@ -26,7 +26,6 @@ import { Helmet } from "react-helmet-async";
 import { useCanonicalUrl } from '@/hooks/useCanonicalUrl';
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
-import { HeroImage } from '@/components/ui/HeroImage';
 import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import PerformanceOptimizer from "@/components/ui/PerformanceOptimizer";
 import CriticalResourcePreloader from "@/components/ui/CriticalResourcePreloader";
@@ -101,8 +100,8 @@ const Index = () => {
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<CarouselApi>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
-  const { user } = useAuth();
   const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
+  const { user } = useAuth();
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0);
 
   // Refs pour les sections de scroll
@@ -455,13 +454,32 @@ const Index = () => {
           </div>
         </header>
 
-      {/* Hero Section - Optimized for LCP */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        <HeroImage 
-          mobileSrc="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
-          desktopSrc="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
-          alt="Mosquée de La Mecque"
-        />
+        {/* Background Image - Desktop */}
+        <div 
+          className="absolute inset-0 z-0 hidden md:block"
+          style={{
+            backgroundImage: `url(/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          <div className="hero-overlay absolute inset-0"></div>
+        </div>
+
+        {/* Background Image - Mobile uniquement */}
+        <div 
+          className="absolute inset-0 z-0 block md:hidden"
+          style={{
+            backgroundImage: `url(/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div className="hero-overlay absolute inset-0"></div>
+        </div>
 
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
