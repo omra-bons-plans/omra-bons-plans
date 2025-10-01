@@ -130,10 +130,32 @@ export const BatchImageConverter = () => {
           </div>
         </div>
 
-        {/* Action Button */}
+        {/* Test Button HTML natif */}
+        <button 
+          onClick={(e) => {
+            console.log('🔴 CLICK HTML NATIF DÉTECTÉ!', e);
+            handleBatchConvert();
+          }}
+          disabled={isConverting}
+          style={{
+            width: '100%',
+            padding: '12px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: '600'
+          }}
+        >
+          {isConverting ? '⏳ Conversion en cours...' : '⚡ CLIQUEZ ICI - Test bouton natif'}
+        </button>
+
+        {/* Action Button shadcn */}
         <Button 
           onClick={(e) => {
-            console.log('🔴 CLICK DÉTECTÉ sur le bouton!', e);
+            console.log('🟣 CLICK SHADCN DÉTECTÉ!', e);
             handleBatchConvert();
           }}
           disabled={isConverting}
@@ -149,7 +171,7 @@ export const BatchImageConverter = () => {
           ) : (
             <>
               <Zap className="mr-2 h-4 w-4" />
-              Lancer la conversion massive
+              Lancer la conversion massive (shadcn)
             </>
           )}
         </Button>
