@@ -158,9 +158,9 @@ export const seoConfig = {
     }
   },
   islamicCalendar: {
-    title: 'Calendrier Islamique Hijri 2025 | Omra Bons Plans',
-    description: 'Consultez le calendrier islamique (Hijri) complet 2025 avec dates importantes. Planifiez votre Omra aux meilleures périodes spirituelles.',
-    keywords: 'calendrier hijri, calendrier islamique 2025, dates importantes islam, calendrier hégirien, planning omra',
+    title: 'Calendrier Islamique Hijri 2026 | Omra Bons Plans',
+    description: 'Consultez le calendrier islamique (Hijri) complet 2026 avec dates importantes. Planifiez votre Omra aux meilleures périodes spirituelles.',
+    keywords: 'calendrier hijri, calendrier islamique 2026, dates importantes islam, calendrier hégirien, planning omra',
     canonical: 'https://omrabonsplans.fr/calendrier-islamique',
     structuredData: {
       "@context": "https://schema.org",
@@ -170,19 +170,19 @@ export const seoConfig = {
     }
   },
   ramadanHajj: {
-    title: 'Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage',
-    description: 'Dates officielles du Ramadan et Hajj 2025, 2026, 2027. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé des événements religieux.',
-    keywords: 'dates ramadan 2025, dates hajj 2025, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
+    title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
+    description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé des événements religieux.',
+    keywords: 'dates ramadan 2026, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
     canonical: 'https://omrabonsplans.fr/dates-ramadan-hajj',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "EventSeries",
-      "name": "Calendrier Ramadan & Hajj 2025-2027",
+      "name": "Calendrier Ramadan & Hajj 2026-2028",
       "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
       "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
       "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
-      "startDate": "2025-02-28",
-      "endDate": "2027-05-16",
+      "startDate": "2026-02-18",
+      "endDate": "2028-05-15",
       "eventStatus": "EventScheduled",
       "eventAttendanceMode": "MixedEventAttendanceMode",
       "location": {
@@ -201,7 +201,7 @@ export const seoConfig = {
         "price": "0",
         "priceCurrency": "EUR",
         "availability": "InStock",
-        "validFrom": "2025-01-01"
+        "validFrom": "2026-01-01"
       },
       "performer": {
         "@type": "Organization",

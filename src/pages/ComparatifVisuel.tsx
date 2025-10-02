@@ -38,7 +38,7 @@ export default function ComparatifVisuel() {
 
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Comparatif Visuel Interactif des Agences Omra & Hajj 2025
+            Comparatif Visuel Interactif des Agences Omra & Hajj 2026
           </h1>
           <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
             Comparez jusqu'à 4 agences côte à côte : tarifs, services inclus, notes et spécialités

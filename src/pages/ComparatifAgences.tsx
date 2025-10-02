@@ -294,9 +294,9 @@ export default function ComparatifAgences() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Comparatif Agences de Voyages Omra & Hajj 2025-2026"
+        title="Comparatif Agences de Voyages Omra & Hajj 2026-2027"
         description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
-        keywords="comparatif agence omra, hajj 2025, agence voyage mecque, avis google, tawaf, omra du savoir"
+        keywords="comparatif agence omra, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
         canonical="https://omrabonsplans.fr/comparatif-agences"
       />
 
@@ -310,7 +310,7 @@ export default function ComparatifAgences() {
 
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Comparatif Détaillé des Agences de Voyages Omra & Hajj 2025-2026
+            Comparatif Détaillé des Agences de Voyages Omra & Hajj 2026-2027
           </h1>
           <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
             Tableau comparatif complet : tarifs, services, notes Google et avis clients vérifiés

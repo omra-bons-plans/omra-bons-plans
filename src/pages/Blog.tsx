@@ -251,7 +251,7 @@ const Blog = () => {
               {getCategoryName(selectedCategory)}
             </h1>
             <h2 className="text-base sm:text-xl text-muted-foreground mb-2 font-semibold">
-              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2025-2026"}
+              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2026-2027"}
               {selectedCategory === 'restaurants' && "Sélection des meilleurs restaurants halal certifiés à La Mecque et Médine"}
               {selectedCategory === 'associations' && "Associations musulmanes et organisations caritatives œuvrant pour la communauté"}
               {selectedCategory === 'vendeurs' && "Annuaire des commerçants et artisans de confiance pour vos besoins"}

@@ -968,7 +968,7 @@ const Index = () => {
                   <h3 className="text-2xl font-bold">Prix Omra</h3>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
-                  Comparez le <strong className="text-foreground">prix Omra 2025/2026</strong> avec nos guides détaillés. Nous analysons pour vous les formules proposées par différentes agences Omra afin de vous aider à choisir la plus transparente et la plus fiable.
+                  Comparez le <strong className="text-foreground">prix Omra 2026/2027</strong> avec nos guides détaillés. Nous analysons pour vous les formules proposées par différentes agences Omra afin de vous aider à choisir la plus transparente et la plus fiable.
                 </p>
               </div>
             </div>
@@ -1039,7 +1039,7 @@ const Index = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-3 mt-1">✓</span>
-                  <span className="text-muted-foreground text-base md:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2026</strong>, étape par étape.</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2027</strong>, étape par étape.</span>
                 </li>
               </ul>
               
@@ -1086,7 +1086,7 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2027 : rituels, visa, choix d'agence</h2>
             <p className="text-muted-foreground text-lg">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
           </div>
 
@@ -1155,9 +1155,9 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans pour organiser votre Omra 2025 ou Omra 2026 ?</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans pour organiser votre Omra 2026 ou Omra 2027 ?</h2>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
-              <strong className="text-foreground">Omra Bons Plans</strong> est votre <strong className="text-foreground">comparateur Omra</strong> de référence pour trouver les <strong className="text-foreground">meilleures offres Omra 2025</strong> et <strong className="text-foreground">Omra 2026</strong>. Simplifiez la recherche des meilleures agences pour organiser votre <strong className="text-foreground">pèlerinage à la Mecque et Médine</strong> avec notre plateforme intuitive.
+              <strong className="text-foreground">Omra Bons Plans</strong> est votre <strong className="text-foreground">comparateur Omra</strong> de référence pour trouver les <strong className="text-foreground">meilleures offres Omra 2026</strong> et <strong className="text-foreground">Omra 2027</strong>. Simplifiez la recherche des meilleures agences pour organiser votre <strong className="text-foreground">pèlerinage à la Mecque et Médine</strong> avec notre plateforme intuitive.
             </p>
           </div>
 
@@ -1181,7 +1181,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Explorez les <strong className="text-foreground">meilleurs prix Omra 2025</strong> et <strong className="text-foreground">2026</strong>. Comparez facilement les <strong className="text-foreground">tarifs Omra</strong>, les <strong className="text-foreground">itinéraires</strong>, et les <strong className="text-foreground">prestations</strong> des agences spécialisées pour économiser temps et argent.
+                  Explorez les <strong className="text-foreground">meilleurs prix Omra 2026</strong> et <strong className="text-foreground">2027</strong>. Comparez facilement les <strong className="text-foreground">tarifs Omra</strong>, les <strong className="text-foreground">itinéraires</strong>, et les <strong className="text-foreground">prestations</strong> des agences spécialisées pour économiser temps et argent.
                 </p>
               </div>
             </Card>
@@ -1193,7 +1193,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-bold">Agences vérifiées</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Accédez à une sélection des <strong className="text-foreground">meilleures agences Omra 2025 et 2026</strong>, reconnues pour leur fiabilité. Réservez votre <strong className="text-foreground">pèlerinage Omra</strong> en toute confiance avec des professionnels certifiés.
+                  Accédez à une sélection des <strong className="text-foreground">meilleures agences Omra 2026 et 2027</strong>, reconnues pour leur fiabilité. Réservez votre <strong className="text-foreground">pèlerinage Omra</strong> en toute confiance avec des professionnels certifiés.
                 </p>
               </div>
             </Card>
@@ -1201,10 +1201,10 @@ const Index = () => {
 
           {/* Guide complet Omra */}
           <div className="bg-card rounded-2xl p-8 md:p-12 shadow-lg">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">Comment organiser votre Omra 2025 ou Omra 2026 : guide complet</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">Comment organiser votre Omra 2026 ou Omra 2027 : guide complet</h3>
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p>
-                Organiser une <strong className="text-foreground">Omra 2025</strong> ou <strong className="text-foreground">Omra 2026</strong> nécessite une préparation minutieuse. Que vous recherchiez une <strong className="text-foreground">Omra pas chère</strong> ou un <strong className="text-foreground">forfait Omra confort</strong>, notre <strong className="text-foreground">comparateur de voyages Omra</strong> vous accompagne à chaque étape.
+                Organiser une <strong className="text-foreground">Omra 2026</strong> ou <strong className="text-foreground">Omra 2027</strong> nécessite une préparation minutieuse. Que vous recherchiez une <strong className="text-foreground">Omra pas chère</strong> ou un <strong className="text-foreground">forfait Omra confort</strong>, notre <strong className="text-foreground">comparateur de voyages Omra</strong> vous accompagne à chaque étape.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">

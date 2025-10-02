@@ -10,13 +10,6 @@ import { Helmet } from "react-helmet-async";
 const RamadanHajjDates = () => {
   const ramadanDates = [
     {
-      year: '2025',
-      startDate: '28 février 2025',
-      endDate: '30 mars 2025',
-      eidDate: '30 mars 2025',
-      hijriYear: '1446'
-    },
-    {
       year: '2026',
       startDate: '18 février 2026',
       endDate: '19 mars 2026',
@@ -29,18 +22,17 @@ const RamadanHajjDates = () => {
       endDate: '8 mars 2027',
       eidDate: '8 mars 2027',
       hijriYear: '1448'
+    },
+    {
+      year: '2028',
+      startDate: '27 janvier 2028',
+      endDate: '26 février 2028',
+      eidDate: '26 février 2028',
+      hijriYear: '1449'
     }
   ];
 
   const hajjDates = [
-    {
-      year: '2025',
-      startDate: '5 juin 2025',
-      endDate: '10 juin 2025',
-      arafatDate: '6 juin 2025',
-      eidDate: '7 juin 2025',
-      hijriYear: '1446'
-    },
     {
       year: '2026',
       startDate: '26 mai 2026',
@@ -56,19 +48,27 @@ const RamadanHajjDates = () => {
       arafatDate: '16 mai 2027',
       eidDate: '17 mai 2027',
       hijriYear: '1448'
+    },
+    {
+      year: '2028',
+      startDate: '4 mai 2028',
+      endDate: '9 mai 2028',
+      arafatDate: '5 mai 2028',
+      eidDate: '6 mai 2028',
+      hijriYear: '1449'
     }
   ];
 
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage Islam</title>
-        <meta name="description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha. Planning complet pour votre pèlerinage." />
-        <meta name="keywords" content="dates ramadan 2025, hajj 2026, calendrier hajj, arafat date, eid dates" />
+        <title>Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage Islam</title>
+        <meta name="description" content="Calendrier officiel des dates du Ramadan et du Hajj 2026-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha. Planning complet pour votre pèlerinage." />
+        <meta name="keywords" content="dates ramadan 2026, hajj 2027, calendrier hajj, arafat date, eid dates" />
         <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Dates Ramadan & Hajj 2025-2027 | Calendrier Pèlerinage" />
-        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2025-2027. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
+        <meta property="og:title" content="Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage" />
+        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2026-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
         <meta property="og:url" content="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -77,8 +77,8 @@ const RamadanHajjDates = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Dates Ramadan & Hajj 2025-2027",
-            "description": "Calendrier officiel des dates du Ramadan et du Hajj 2025-2027 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
+            "name": "Dates Ramadan & Hajj 2026-2028",
+            "description": "Calendrier officiel des dates du Ramadan et du Hajj 2026-2028 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
             "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
             "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
             "publisher": {
@@ -92,13 +92,13 @@ const RamadanHajjDates = () => {
             },
             "mainEntity": {
               "@type": "ItemList",
-              "name": "Calendrier Islamique 2025-2027",
+              "name": "Calendrier Islamique 2026-2028",
               "itemListElement": [
                 {
                   "@type": "Event",
-                  "name": "Ramadan 2025",
-                  "startDate": "2025-02-28",
-                  "endDate": "2025-03-30",
+                  "name": "Ramadan 2026",
+                  "startDate": "2026-02-18",
+                  "endDate": "2026-03-19",
                   "location": {
                     "@type": "Place",
                     "name": "Observance mondiale"
@@ -106,9 +106,9 @@ const RamadanHajjDates = () => {
                 },
                 {
                   "@type": "Event",
-                  "name": "Hajj 2025", 
-                  "startDate": "2025-06-05",
-                  "endDate": "2025-06-10",
+                  "name": "Hajj 2026", 
+                  "startDate": "2026-05-26",
+                  "endDate": "2026-05-31",
                   "location": {
                     "@type": "Place",
                     "name": "La Mecque",
@@ -133,7 +133,7 @@ const RamadanHajjDates = () => {
               Dates du Ramadan et du Hajj
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Calendrier des dates importantes du Ramadan et du Hajj pour les années 2025, 2026 et 2027
+              Calendrier des dates importantes du Ramadan et du Hajj pour les années 2026, 2027 et 2028
             </p>
           </div>
 
@@ -157,7 +157,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <Calendar className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2025-2027</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2026-2028</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier complet des dates de jeûne et de l'Aïd al-Fitr</p>
                 </div>
               </div>
@@ -195,7 +195,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <MapPin className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2025-2027</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2026-2028</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier des dates officielles du pèlerinage à La Mecque et de l'Aïd al-Adha</p>
                 </div>
               </div>

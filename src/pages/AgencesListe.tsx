@@ -298,12 +298,12 @@ export default function AgencesListe() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Liste Agences Omra & Hajj 2025 | Comparatif Avis Google</title>
+        <title>Liste Agences Omra & Hajj 2026 | Comparatif Avis Google</title>
         <meta name="description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google authentiques, avis clients, points forts et tarifs comparés." />
-        <meta name="keywords" content="agence omra 2025, hajj agence voyage, avis google agences, comparatif agences omra" />
+        <meta name="keywords" content="agence omra 2026, hajj agence voyage, avis google agences, comparatif agences omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Liste Agences Omra & Hajj 2025 | Comparatif Avis" />
+        <meta property="og:title" content="Liste Agences Omra & Hajj 2026 | Comparatif Avis" />
         <meta property="og:description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj avec notes Google authentiques." />
         <meta property="og:url" content="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
@@ -325,9 +325,9 @@ export default function AgencesListe() {
       </Helmet>
       <div className="min-h-screen bg-background">
         <SEOHead 
-          title="Liste Agences de Voyages Omra & Hajj 2025-2026"
+          title="Liste Agences de Voyages Omra & Hajj 2026-2027"
           description="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs."
-          keywords="agence omra, hajj 2025, agence voyage mecque, avis google"
+          keywords="agence omra, hajj 2026, agence voyage mecque, avis google"
         />
 
         <div className="container mx-auto px-4 py-8">
@@ -340,7 +340,7 @@ export default function AgencesListe() {
 
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Liste Complète des Agences Omra & Hajj 2025-2026
+            Liste Complète des Agences Omra & Hajj 2026-2027
           </h1>
           <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
             Comparatif détaillé des meilleures agences de voyage pour votre pèlerinage avec avis Google authentiques
