@@ -33,11 +33,19 @@ export const UniversalImage = ({
   const [currentSrc, setCurrentSrc] = useState(() => {
     if (!src) return fallbackSrc;
     
-    // Détection automatique du bucket
+    // Si c'est déjà une URL complète, la retourner directement
+    if (typeof src === 'string' && src.startsWith('http')) {
+      return src;
+    }
+    
+    // Détection automatique du bucket basée sur le chemin
     let bucketName = 'ad-images'; // défaut
     
     if (typeof src === 'string') {
-      if (src.includes('blog-images') || src.includes('/blog/')) {
+      // Priorité à la détection par le chemin du fichier
+      if (src.startsWith('blog/') || src.includes('/blog/')) {
+        bucketName = 'blog-images';
+      } else if (src.includes('blog-images')) {
         bucketName = 'blog-images';
       } else if (src.includes('ad-images') || src.includes('/ads/')) {
         bucketName = 'ad-images';  
