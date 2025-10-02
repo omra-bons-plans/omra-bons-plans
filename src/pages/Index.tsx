@@ -41,6 +41,7 @@ import {
 
 // Lazy import images to reduce initial bundle size
 import kaabaHero from "@/assets/kaaba-hero.jpg";
+import kaabaMobileHero from "@/assets/kaaba-mobile-hero.jpg";
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
 const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
 const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
@@ -260,8 +261,9 @@ const Index = () => {
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
-        {/* ⚡ CRITICAL: Preload hero image only on desktop */}
+        {/* ⚡ CRITICAL: Preload hero images */}
         <link rel="preload" as="image" href={kaabaHero} fetchPriority="high" media="(min-width: 768px)" />
+        <link rel="preload" as="image" href={kaabaMobileHero} fetchPriority="high" media="(max-width: 767px)" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
@@ -312,8 +314,15 @@ const Index = () => {
         />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 
-        {/* Mobile: Gradient background (no image for better LCP) */}
-        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary via-primary-dark to-accent"></div>
+        {/* Mobile: Kaaba Hero Image */}
+        <img 
+          src={kaabaMobileHero}
+          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
+          className="absolute inset-0 w-full h-full object-cover block md:hidden"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+        />
         <div className="hero-overlay absolute inset-0 block md:hidden"></div>
 
         {/* Animated Background Pattern */}
