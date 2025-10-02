@@ -110,7 +110,9 @@ const Index = () => {
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
   const { user } = useAuth();
-  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(15, 0);
+  // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
+  const adsLimit = isMobile ? 6 : 15;
+  const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
@@ -118,27 +120,7 @@ const Index = () => {
   const allServicesTabsRef = useRef<HTMLDivElement>(null);
   const allServicesCardsRef = useRef<HTMLDivElement>(null);
 
-  // Auto-rotation météo et mobile rotation - désactivés initialement
-  useEffect(() => {
-    const weatherTimer = setTimeout(() => {
-      const weatherInterval = setInterval(() => {
-        setCurrentWeatherCity(prev => prev === 'makkah' ? 'madinah' : 'makkah');
-      }, 3000);
-      return () => clearInterval(weatherInterval);
-    }, 3000);
-
-    const rotationTimer = setTimeout(() => {
-      const rotationInterval = setInterval(() => {
-        setMobileRotatingIndex(prev => (prev + 1) % 3);
-      }, 2000);
-      return () => clearInterval(rotationInterval);
-    }, 3000);
-
-    return () => {
-      clearTimeout(weatherTimer);
-      clearTimeout(rotationTimer);
-    };
-  }, []);
+  // ❌ REMOVED: Auto-rotation was blocking main thread during LCP
 
   // Tracking carousel simplifié
   useEffect(() => {
@@ -170,27 +152,7 @@ const Index = () => {
     { id: "babysitting", name: "Baby-sitting", icon: "heart", description: "Garde d'enfants", count: getCategoryCount("babysitting") }
   ];
 
-  // Auto-scroll différé après chargement complet
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const timer = setTimeout(() => {
-      const performScroll = (selector: string) => {
-        const element = document.querySelector(selector) as HTMLElement;
-        if (element) {
-          element.scrollTo({ left: 150, behavior: 'smooth' });
-          setTimeout(() => element.scrollTo({ left: 0, behavior: 'smooth' }), 1000);
-        }
-      };
-
-      setTimeout(() => performScroll('.flash-sales-tabs-container .overflow-x-auto'), 2000);
-      setTimeout(() => performScroll('.flash-sales-cards-container [data-embla-scroll-container]'), 5000);
-      setTimeout(() => performScroll('.all-services-tabs-container .overflow-x-auto'), 8000);
-      setTimeout(() => performScroll('.all-services-cards-container [data-embla-scroll-container]'), 11000);
-    }, 3000); // Délai de 3s après le chargement
-    
-    return () => clearTimeout(timer);
-  }, [isMobile]);
+  // ❌ REMOVED: Auto-scroll was blocking main thread during LCP
 
   // Use real ads from database, fallback to sample data if no ads exist
   const sampleListings = [
@@ -292,116 +254,13 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
-        <meta name="description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
-        <meta name="keywords" content="omra pas cher, hajj 2026, comparateur omra, voyage omra, mecque médine, séjour omra, vol omra, hébergement omra, guide omra, pèlerinage islam, agence omra france" />
+        <title>Omra Bons Plans - Comparateur Omra & Hajj 2026</title>
+        <meta name="description" content="Trouvez les meilleures offres Omra et Hajj 2026 : séjours, vols, hébergements Mecque/Médine." />
         <link rel="canonical" href="https://omrabonsplans.fr/" />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        
-        {/* Enhanced Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra" />
-        <meta property="og:description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine. + de 1000 avis clients vérifiés." />
-        <meta property="og:url" content="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Omra Bons Plans" />
-        <meta property="og:locale" content="fr_FR" />
         
-        {/* Enhanced Twitter Cards */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Omra Bons Plans : Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra" />
-        <meta name="twitter:description" content="Avec Omra Bons Plans trouvez les meilleures offres Omra et Hajj 2026 ! Comparateur français officiel : séjours, vols, hébergements Mecque/Médine." />
-        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
-        <meta name="twitter:creator" content="@omrabonsplans" />
-        
-        {/* Enhanced robots and SEO directives */}
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <meta name="bingbot" content="index, follow" />
-        
-        {/* Additional SEO meta tags */}
-        <meta name="author" content="Omra Bons Plans" />
-        <meta name="publisher" content="Omra Bons Plans" />
-        <meta name="copyright" content="© 2025 Omra Bons Plans" />
-        <meta name="language" content="fr" />
-        <meta name="geo.region" content="FR" />
-        <meta name="geo.country" content="France" />
-        <meta name="distribution" content="global" />
-        <meta name="rating" content="general" />
-        <meta name="revisit-after" content="1 days" />
-        
-        {/* Mobile and technical */}
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        
-        {/* Enhanced JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Omra Bons Plans",
-            "alternateName": "OmraBonsPlans.fr",
-            "url": "https://omrabonsplans.fr",
-            "description": "Comparateur français #1 pour services Omra et Hajj. Trouvez les meilleures offres de séjours, vols, hébergements, guides et services pour votre pèlerinage en Arabie Saoudite.",
-            "inLanguage": "fr-FR",
-            "publisher": {
-              "@type": "Organization",
-              "name": "Omra Bons Plans",
-              "url": "https://omrabonsplans.fr",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
-                "width": 400,
-                "height": 400
-              },
-              "sameAs": [
-                "https://www.instagram.com/omrabonsplans.fr",
-                "https://www.tiktok.com/@omrabonsplans.fr"
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "contactType": "customer service",
-                "availableLanguage": ["French", "Arabic"]
-              }
-            },
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://omrabonsplans.fr/?search={search_term_string}",
-              "query-input": "required name=search_term_string"
-            },
-            "mainEntity": {
-              "@type": "Service",
-              "name": "Comparateur Services Omra et Hajj",
-              "description": "Service de comparaison pour voyages religieux, hébergements, vols et guides en Arabie Saoudite",
-              "provider": {
-                "@type": "Organization",
-                "name": "Omra Bons Plans"
-              },
-              "serviceType": "Travel Comparison Service",
-              "areaServed": {
-                "@type": "Country",
-                "name": "France"
-              },
-              "audience": {
-                "@type": "Audience",
-                "audienceType": "Muslims seeking pilgrimage services",
-                "geographicArea": {
-                  "@type": "Country",
-                  "name": "France"
-                }
-              }
-            },
-            "offers": {
-              "@type": "AggregateOffer",
-              "description": "Offres comparatives pour services Omra et Hajj",
-              "priceCurrency": "EUR",
-              "availability": "https://schema.org/InStock"
-            }
-          })}
-        </script>
+        {/* ⚡ CRITICAL: Preload ONLY the hero image */}
+        <link rel="preload" as="image" href="/src/assets/mecca-mosque-hero.jpg" fetchPriority="high" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
