@@ -41,7 +41,7 @@ import {
 
 // Lazy import images to reduce initial bundle size
 import kaabaHero from "@/assets/kaaba-hero.jpg";
-import kaabaMobileHero from "@/assets/kaaba-mobile-hero.jpg";
+import kaabaMobileHero from "@/assets/kaaba-mobile-hero-optimized.jpg";
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
 const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
 const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
@@ -311,10 +311,12 @@ const Index = () => {
           fetchPriority="high"
           loading="eager"
           decoding="async"
+          width="1920"
+          height="1080"
         />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 
-        {/* Mobile: Kaaba Hero Image */}
+        {/* Mobile: Kaaba Hero Image - Optimized */}
         <img 
           src={kaabaMobileHero}
           alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
@@ -322,6 +324,8 @@ const Index = () => {
           fetchPriority="high"
           loading="eager"
           decoding="async"
+          width="512"
+          height="910"
         />
         <div className="hero-overlay absolute inset-0 block md:hidden"></div>
 
