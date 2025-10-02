@@ -1150,6 +1150,222 @@ const Index = () => {
         </div>
       </section>
 
+      {/* SEO Content Section - Pourquoi choisir Omra Bons Plans */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans pour organiser votre Omra 2025 ou Omra 2026 ?</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
+              <strong className="text-foreground">Omra Bons Plans</strong> est votre <strong className="text-foreground">comparateur Omra</strong> de référence pour trouver les <strong className="text-foreground">meilleures offres Omra 2025</strong> et <strong className="text-foreground">Omra 2026</strong>. Simplifiez la recherche des meilleures agences pour organiser votre <strong className="text-foreground">pèlerinage à la Mecque et Médine</strong> avec notre plateforme intuitive.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="search" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Recherche facilitée</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Trouvez rapidement les <strong className="text-foreground">meilleures agences Omra</strong> parmi notre sélection rigoureuse de spécialistes. Comparez en un clic les <strong className="text-foreground">offres Omra économiques</strong> et <strong className="text-foreground">forfaits premium</strong> pour votre <strong className="text-foreground">voyage spirituel</strong>.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="trending-up" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Explorez les <strong className="text-foreground">meilleurs prix Omra 2025</strong> et <strong className="text-foreground">2026</strong>. Comparez facilement les <strong className="text-foreground">tarifs Omra</strong>, les <strong className="text-foreground">itinéraires</strong>, et les <strong className="text-foreground">prestations</strong> des agences spécialisées pour économiser temps et argent.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="shield" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Agences vérifiées</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Accédez à une sélection des <strong className="text-foreground">meilleures agences Omra 2025 et 2026</strong>, reconnues pour leur fiabilité. Réservez votre <strong className="text-foreground">pèlerinage Omra</strong> en toute confiance avec des professionnels certifiés.
+                </p>
+              </div>
+            </Card>
+          </div>
+
+          {/* Guide complet Omra */}
+          <div className="bg-card rounded-2xl p-8 md:p-12 shadow-lg">
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">Comment organiser votre Omra 2025 ou Omra 2026 : guide complet</h3>
+            <div className="space-y-6 text-muted-foreground leading-relaxed">
+              <p>
+                Organiser une <strong className="text-foreground">Omra 2025</strong> ou <strong className="text-foreground">Omra 2026</strong> nécessite une préparation minutieuse. Que vous recherchiez une <strong className="text-foreground">Omra pas chère</strong> ou un <strong className="text-foreground">forfait Omra confort</strong>, notre <strong className="text-foreground">comparateur de voyages Omra</strong> vous accompagne à chaque étape.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                <div className="space-y-3">
+                  <h4 className="font-bold text-foreground text-lg">✈️ Vols pour la Omra</h4>
+                  <p>
+                    Comparez les <strong className="text-foreground">billets d'avion Omra</strong> au meilleur prix. Trouvez des <strong className="text-foreground">vols directs</strong> vers Jeddah depuis Paris, Lyon, Marseille et d'autres villes de France. Profitez de nos offres de <strong className="text-foreground">vols Omra économiques</strong> toute l'année.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-bold text-foreground text-lg">🏨 Hébergements Mecque et Médine</h4>
+                  <p>
+                    Découvrez notre sélection d'<strong className="text-foreground">hôtels à la Mecque</strong> et <strong className="text-foreground">hébergements Médine</strong> proches des <strong className="text-foreground">lieux saints</strong>. Du 3 étoiles au 5 étoiles, trouvez l'<strong className="text-foreground">hôtel Haram</strong> idéal pour votre séjour spirituel.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-bold text-foreground text-lg">🚗 Transferts et Transport</h4>
+                  <p>
+                    Réservez vos <strong className="text-foreground">transferts aéroport Jeddah</strong>, <strong className="text-foreground">chauffeur privé Mecque</strong>, et <strong className="text-foreground">transport Médine</strong>. Bénéficiez de services de <strong className="text-foreground">taxi Omra</strong> fiables pour vos déplacements entre les villes saintes.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-bold text-foreground text-lg">👨‍🏫 Guides spirituels</h4>
+                  <p>
+                    Profitez de l'accompagnement de <strong className="text-foreground">guides Omra francophones</strong> expérimentés. Apprenez les <strong className="text-foreground">rites de la Omra</strong> et visitez les <strong className="text-foreground">sites historiques islamiques</strong> avec des experts certifiés.
+                  </p>
+                </div>
+              </div>
+
+              <p>
+                Notre plateforme rassemble toutes les informations essentielles pour votre <strong className="text-foreground">voyage Omra</strong> : <strong className="text-foreground">visa Omra Arabie Saoudite</strong>, <strong className="text-foreground">vaccinations obligatoires</strong>, <strong className="text-foreground">assurance voyage</strong>, et <strong className="text-foreground">conseils pratiques</strong> pour un pèlerinage réussi.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Section - Omra selon les périodes */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Quand partir pour votre Omra ? Trouvez la meilleure période</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
+              Chaque période de l'année offre une expérience unique pour votre <strong className="text-foreground">pèlerinage Omra</strong>. Découvrez les avantages de chaque saison pour planifier votre <strong className="text-foreground">voyage spirituel</strong>.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="text-3xl mb-2">🌙</div>
+                <h3 className="text-xl font-bold">Omra Ramadan 2025 et 2026</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2025</strong> ou <strong className="text-foreground">2026</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="text-3xl mb-2">☀️</div>
+                <h3 className="text-xl font-bold">Omra vacances scolaires</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Partez en <strong className="text-foreground">Omra famille</strong> pendant les <strong className="text-foreground">vacances d'été</strong>, <strong className="text-foreground">Toussaint</strong> ou <strong className="text-foreground">vacances hiver</strong>. Profitez d'<strong className="text-foreground">offres Omra groupe</strong> adaptées aux familles avec des <strong className="text-foreground">hébergements spacieux</strong>.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="text-3xl mb-2">🎯</div>
+                <h3 className="text-xl font-bold">Omra dernière minute</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Saisissez nos <strong className="text-foreground">promotions Omra dernière minute</strong> et <strong className="text-foreground">offres flash</strong> pour partir rapidement à <strong className="text-foreground">petit prix</strong>. Consultez régulièrement nos <strong className="text-foreground">deals Omra</strong> et <strong className="text-foreground">réductions exceptionnelles</strong>.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section SEO */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Questions fréquentes sur l'organisation de votre Omra</h2>
+            <p className="text-muted-foreground text-lg">Toutes les réponses à vos questions pour préparer sereinement votre pèlerinage</p>
+          </div>
+
+          <div className="space-y-6">
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold mb-3">Quel est le prix moyen d'une Omra en 2025 ?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Le <strong className="text-foreground">prix Omra 2025</strong> varie selon la période, la durée et le confort choisi. Comptez entre <strong className="text-foreground">1200€ et 3000€</strong> pour un <strong className="text-foreground">forfait Omra tout compris</strong>. Les <strong className="text-foreground">offres Omra économiques</strong> démarrent à partir de 1000€ hors saison, tandis que les <strong className="text-foreground">forfaits Omra Ramadan</strong> sont plus élevés en raison de la forte demande.
+              </p>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold mb-3">Comment obtenir le visa Omra ?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Le <strong className="text-foreground">visa Omra Arabie Saoudite</strong> peut être obtenu via une <strong className="text-foreground">agence Omra agréée</strong> ou en ligne sur le portail officiel. Les <strong className="text-foreground">démarches visa Omra</strong> incluent un passeport valide 6 mois, des photos d'identité, et les <strong className="text-foreground">vaccinations obligatoires</strong> (méningite). Le <strong className="text-foreground">coût visa Omra</strong> est généralement inclus dans les forfaits d'agence.
+              </p>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold mb-3">Quelle est la durée idéale pour une Omra ?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                La <strong className="text-foreground">durée Omra</strong> recommandée est de <strong className="text-foreground">7 à 15 jours</strong>. Un <strong className="text-foreground">séjour Omra court</strong> de 7 jours permet d'accomplir les rites essentiels, tandis qu'un <strong className="text-foreground">séjour Omra long</strong> de 15 jours offre plus de temps pour la méditation et les visites des <strong className="text-foreground">sites historiques islamiques</strong> à Médine et La Mecque.
+              </p>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold mb-3">Quelles sont les étapes de la Omra ?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Les <strong className="text-foreground">rites de la Omra</strong> comprennent 4 piliers : l'<strong className="text-foreground">Ihram</strong> (état de sacralisation), le <strong className="text-foreground">Tawaf</strong> (7 tours autour de la Kaaba), le <strong className="text-foreground">Sa'i</strong> (parcours entre Safa et Marwa), et la <strong className="text-foreground">Tahalul</strong> (désacralisation). Nos <strong className="text-foreground">guides Omra</strong> vous accompagnent pour accomplir ces rites correctement.
+              </p>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold mb-3">Peut-on faire plusieurs Omra lors d'un même voyage ?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Oui, il est possible d'effectuer plusieurs <strong className="text-foreground">Omra pendant un séjour</strong>. Beaucoup de pèlerins choisissent de faire une <strong className="text-foreground">deuxième Omra</strong> ou même plus durant leur voyage. Il suffit de se mettre en état d'<strong className="text-foreground">Ihram</strong> depuis un <strong className="text-foreground">Miqat</strong> (comme la mosquée Aisha) pour chaque nouvelle Omra.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Final SEO Text Block */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
+        <div className="container mx-auto max-w-5xl">
+          <div className="bg-background rounded-2xl p-8 md:p-12 shadow-lg space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Omra Bons Plans : Votre comparateur de référence pour la Omra 2025 et 2026</h2>
+            
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                <strong className="text-foreground">Omra Bons Plans</strong> est la plateforme incontournable pour comparer et trouver les <strong className="text-foreground">meilleures offres Omra</strong>. Que vous planifiez votre <strong className="text-foreground">Omra 2025</strong> ou <strong className="text-foreground">Omra 2026</strong>, notre <strong className="text-foreground">comparateur Omra</strong> vous permet d'accéder en quelques clics aux offres les plus compétitives du marché.
+              </p>
+
+              <p>
+                Nous référençons une large sélection d'<strong className="text-foreground">agences Omra agréées</strong> proposant des <strong className="text-foreground">forfaits Omra</strong> adaptés à tous les budgets : <strong className="text-foreground">Omra économique</strong>, <strong className="text-foreground">Omra confort</strong>, et <strong className="text-foreground">Omra premium</strong>. Trouvez facilement des <strong className="text-foreground">offres Omra tout compris</strong> incluant <strong className="text-foreground">vols</strong>, <strong className="text-foreground">hébergements</strong>, <strong className="text-foreground">transferts</strong>, <strong className="text-foreground">visa</strong>, et <strong className="text-foreground">accompagnement spirituel</strong>.
+              </p>
+
+              <p>
+                Notre site vous guide également dans toutes les étapes de préparation de votre <strong className="text-foreground">voyage Omra</strong> : obtention du <strong className="text-foreground">visa Omra</strong>, choix de la <strong className="text-foreground">meilleure période</strong>, réservation d'<strong className="text-foreground">hôtels proches du Haram</strong>, et conseils pratiques pour réussir votre <strong className="text-foreground">pèlerinage</strong>. Profitez de nos <strong className="text-foreground">comparatifs d'agences Omra</strong>, <strong className="text-foreground">avis clients vérifiés</strong>, et <strong className="text-foreground">guides détaillés</strong> pour organiser sereinement votre voyage spirituel.
+              </p>
+
+              <p>
+                Que vous recherchiez une <strong className="text-foreground">Omra Ramadan</strong>, une <strong className="text-foreground">Omra dernière minute</strong>, une <strong className="text-foreground">Omra en famille</strong>, ou une <strong className="text-foreground">Omra pour femme seule</strong>, <strong className="text-foreground">Omra Bons Plans</strong> centralise toutes les informations nécessaires pour faire le bon choix. Comparez les <strong className="text-foreground">prix Omra 2025</strong>, les <strong className="text-foreground">services proposés</strong>, et les <strong className="text-foreground">avis pèlerins</strong> pour réserver en toute confiance.
+              </p>
+
+              <p>
+                Rejoignez des milliers de pèlerins satisfaits qui ont trouvé leur <strong className="text-foreground">forfait Omra idéal</strong> sur <strong className="text-foreground">Omra Bons Plans</strong>. Commencez dès maintenant à planifier votre <strong className="text-foreground">voyage à La Mecque et Médine</strong> avec le leader du <strong className="text-foreground">comparateur de voyages Omra</strong> en France.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Feedback Section */}
       <section className="py-20 px-6 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 islamic-pattern-modern opacity-20"></div>
