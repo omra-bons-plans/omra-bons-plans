@@ -16,6 +16,7 @@ import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { Helmet } from "react-helmet-async";
 import { getImageUrl } from '@/utils/imageUtils';
+import UniversalImage from '@/components/ui/UniversalImage';
 
 interface BlogPost {
   id: string;
@@ -378,19 +379,12 @@ const Blog = () => {
                 >
                   {post.cover_image && (
                     <div className="aspect-video w-full overflow-hidden bg-muted">
-                      <img 
-                        src={post.cover_image.startsWith('http') ? post.cover_image : getImageUrl(post.cover_image, undefined, 'blog-images')} 
-                        alt={post.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        onError={(e) => {
-                          console.error('❌ Erreur chargement image blog:', post.cover_image);
-                          e.currentTarget.src = '/ad-placeholder.jpg';
-                        }}
-                        onLoad={() => {
-                          console.log('✅ Image blog chargée:', post.cover_image);
-                        }}
-                      />
+                            <UniversalImage 
+                              src={post.cover_image} 
+                              alt={post.title}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
                     </div>
                   )}
                   <CardHeader className="pb-3 p-4 sm:p-6">
