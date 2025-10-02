@@ -472,6 +472,7 @@ export default function AdDetails() {
                     }}
                     ownerName={ad.profile?.full_name || ad.profile?.first_name || 'Utilisateur'}
                     isAuthenticated={!!user}
+                    adId={id!}
                   />
                 </div>
               </CardContent>

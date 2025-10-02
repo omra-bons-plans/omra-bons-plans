@@ -25,9 +25,10 @@ interface ContactModalProps {
   };
   ownerName: string;
   isAuthenticated: boolean;
+  adId?: string;
 }
 
-export function ContactModal({ contactInfo, showOptions, ownerName, isAuthenticated }: ContactModalProps) {
+export function ContactModal({ contactInfo, showOptions, ownerName, isAuthenticated, adId }: ContactModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Helper functions for phone formatting
@@ -171,7 +172,16 @@ export function ContactModal({ contactInfo, showOptions, ownerName, isAuthentica
                     className="bg-green-500 hover:bg-green-600 text-white"
                     onClick={() => {
                       const whatsappNumber = formatPhoneForWhatsApp(contactInfo.whatsapp!, contactInfo.whatsapp_country || '+33');
-                      window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+                      let whatsappUrl = `https://wa.me/${whatsappNumber}`;
+                      
+                      if (adId) {
+                        const adUrl = `https://omrabonsplans.fr/annonce/${adId}`;
+                        const message = `Assalam aleykoum, je vous contacte suite à votre annonce sur omrabonsplans.fr\n\n${adUrl}`;
+                        const encodedMessage = encodeURIComponent(message);
+                        whatsappUrl += `?text=${encodedMessage}`;
+                      }
+                      
+                      window.open(whatsappUrl, '_blank');
                     }}
                   >
                     Ouvrir

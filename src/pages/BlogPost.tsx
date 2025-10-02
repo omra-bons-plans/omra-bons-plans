@@ -441,6 +441,7 @@ const BlogPost = () => {
                     }}
                     ownerName="le vendeur"
                     isAuthenticated={!!user}
+                    adId={post.id}
                   />
                   {post.contact_instagram && user && (
                     <div className="mt-3">
