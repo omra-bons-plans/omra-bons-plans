@@ -77,8 +77,8 @@ const App = () => (
             <BrowserRouter>
               <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
               <ScrollToTop />
-              <CanonicalRedirect>
-                <Suspense fallback={<PageLoader />}>
+              <Suspense fallback={<PageLoader />}>
+                <CanonicalRedirect>
                   <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
@@ -244,12 +244,12 @@ const App = () => (
                   <Route path="/use-the-right-partner-to-sell-your-products" element={<Navigate to="/blog" replace />} />
                   <Route path="/why-online-free-classified-sites-are-essential-for-marketing" element={<Navigate to="/blog" replace />} />
                   
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </CanonicalRedirect>
-              <BackToTopButton />
+                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                   <Route path="*" element={<NotFound />} />
+                   </Routes>
+                 </CanonicalRedirect>
+               </Suspense>
+               <BackToTopButton />
             </BrowserRouter>
           </TooltipProvider>
         </AdminProvider>
