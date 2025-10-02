@@ -1340,11 +1340,11 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
         <div className="container mx-auto max-w-5xl">
           <div className="bg-background rounded-2xl p-8 md:p-12 shadow-lg space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Omra Bons Plans : Votre comparateur de référence pour la Omra 2025 et 2026</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Omra Bons Plans : Votre comparateur de référence pour la Omra 2026 et 2027</h2>
             
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                <strong className="text-foreground">Omra Bons Plans</strong> est la plateforme incontournable pour comparer et trouver les <strong className="text-foreground">meilleures offres Omra</strong>. Que vous planifiez votre <strong className="text-foreground">Omra 2025</strong> ou <strong className="text-foreground">Omra 2026</strong>, notre <strong className="text-foreground">comparateur Omra</strong> vous permet d'accéder en quelques clics aux offres les plus compétitives du marché.
+                <strong className="text-foreground">Omra Bons Plans</strong> est la plateforme incontournable pour comparer et trouver les <strong className="text-foreground">meilleures offres Omra</strong>. Que vous planifiez votre <strong className="text-foreground">Omra 2026</strong> ou <strong className="text-foreground">Omra 2027</strong>, notre <strong className="text-foreground">comparateur Omra</strong> vous permet d'accéder en quelques clics aux offres les plus compétitives du marché.
               </p>
 
               <p>
