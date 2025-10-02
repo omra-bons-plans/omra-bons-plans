@@ -79,9 +79,11 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         return;
       }
       
-      // Check for images first ![alt](url)
-      const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-      if (imageMatch) {
+      // Check for images first ![alt](url) ou [Image](url)
+      const imageMatch = trimmed.match(/^!?\[([^\]]*)\]\(([^)]+)\)$/);
+      const isImage = trimmed.startsWith('![') || (imageMatch && imageMatch[1]?.toLowerCase() === 'image');
+      
+      if (imageMatch && isImage) {
         const altText = imageMatch[1] || 'Image';
         let imageUrl = imageMatch[2];
         
