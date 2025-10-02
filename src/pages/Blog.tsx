@@ -377,11 +377,19 @@ const Blog = () => {
                   onClick={() => handlePostClick(post)}
                 >
                   {post.cover_image && (
-                    <div className="aspect-video w-full overflow-hidden">
+                    <div className="aspect-video w-full overflow-hidden bg-muted">
                       <img 
-                        src={getImageUrl(post.cover_image, undefined, 'blog-images')} 
+                        src={post.cover_image.startsWith('http') ? post.cover_image : getImageUrl(post.cover_image, undefined, 'blog-images')} 
                         alt={post.title}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error('❌ Erreur chargement image blog:', post.cover_image);
+                          e.currentTarget.src = '/ad-placeholder.jpg';
+                        }}
+                        onLoad={() => {
+                          console.log('✅ Image blog chargée:', post.cover_image);
+                        }}
                       />
                     </div>
                   )}
