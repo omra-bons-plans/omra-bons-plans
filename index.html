@@ -10,10 +10,21 @@
     
     <!-- Favicons pour différents navigateurs et appareils -->
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
     <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Favicon supplémentaires pour une meilleure compatibilité -->
     <meta name="msapplication-TileImage" content="/favicon.png">
     <meta name="msapplication-TileColor" content="#0B1E3A">
+    
+    <!-- Preload critical LCP images with high priority -->
+    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Critical CSS inline for fastest FCP/LCP -->
     <style>
@@ -51,6 +62,6 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx" defer></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

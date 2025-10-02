@@ -10,13 +10,10 @@ interface AdCardProps {
   listing: FormattedListing;
   className?: string;
   imageHeight?: string;
-  priority?: boolean; // Pour les premières images visibles (LCP)
-  index?: number; // Index pour déterminer la priorité
+  priority?: boolean; // Nouveau prop pour les images prioritaires
 }
 
-const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = false, index = 0 }: AdCardProps) => {
-  // Les 4 premières images sont prioritaires pour le LCP
-  const shouldPrioritize = priority || index < 4;
+const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = false }: AdCardProps) => {
   const cardClasses = `
     card-modern overflow-hidden border-border/20 bg-card/50 transition-all duration-300
     ${!listing.isExpired ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50 grayscale'}
@@ -30,15 +27,10 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
       <Card className={cardClasses}>
         <div className="relative group">
           <div className={`w-full ${imageHeight} overflow-hidden rounded-t-[2rem]`}>
-            <img
-              src={listing.image || '/ad-placeholder.jpg'}
+            <ImageComponent
+              src={listing.image}
               alt={listing.title}
-              className="w-full h-full object-cover"
-              loading={shouldPrioritize ? "eager" : "lazy"}
-              decoding={shouldPrioritize ? "sync" : "async"}
-              fetchPriority={shouldPrioritize ? "high" : "low"}
-              width="400"
-              height="224"
+              className="w-full h-full"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
           </div>
@@ -83,17 +75,12 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
       <Card className={cardClasses}>
       <div className="relative group">
         <div className={`w-full ${imageHeight} overflow-hidden rounded-t-[2rem]`}>
-          <img
-            src={listing.image || '/ad-placeholder.jpg'}
+          <ImageComponent
+            src={listing.image}
             alt={listing.title}
-            className={`w-full h-full object-cover transition-all duration-500 ${
+            className={`w-full h-full transition-all duration-500 ${
               !listing.isExpired ? 'group-hover:scale-110' : ''
             }`}
-            loading={shouldPrioritize ? "eager" : "lazy"}
-            decoding={shouldPrioritize ? "sync" : "async"}
-            fetchPriority={shouldPrioritize ? "high" : "low"}
-            width="400"
-            height="224"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         </div>

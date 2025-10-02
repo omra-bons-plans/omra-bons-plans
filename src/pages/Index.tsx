@@ -41,7 +41,6 @@ import {
 
 // Lazy import images to reduce initial bundle size
 import kaabaHero from "@/assets/kaaba-hero.jpg";
-import kaabaMobileHero from "@/assets/kaaba-mobile-hero-optimized.jpg";
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
 const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
 const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
@@ -261,6 +260,8 @@ const Index = () => {
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
+        {/* ⚡ CRITICAL: Preload hero image only on desktop */}
+        <link rel="preload" as="image" href={kaabaHero} fetchPriority="high" media="(min-width: 768px)" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
@@ -300,9 +301,20 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Gradient Background - All devices */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-accent"></div>
-        <div className="hero-overlay absolute inset-0"></div>
+        {/* Background Image - Desktop only (as IMG for better LCP) */}
+        <img 
+          src={kaabaHero}
+          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+        />
+        <div className="hero-overlay absolute inset-0 hidden md:block"></div>
+
+        {/* Mobile: Gradient background (no image for better LCP) */}
+        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary via-primary-dark to-accent"></div>
+        <div className="hero-overlay absolute inset-0 block md:hidden"></div>
 
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
@@ -617,13 +629,11 @@ const Index = () => {
 
                     {/* Desktop: Grid Layout */}
                     <div className="hidden lg:grid grid-cols-4 gap-8">
-                      {filteredFlashSalesListings.map((listing, index) => (
+                      {filteredFlashSalesListings.map((listing) => (
                         <AdCard 
                           key={listing.id} 
                           listing={listing}
                           imageHeight="h-56"
-                          index={index}
-                          priority={index < 4}
                         />
                       ))}
                     </div>
@@ -632,14 +642,12 @@ const Index = () => {
                     <div className="hidden md:block lg:hidden carousel-item-peek">
                       <Carousel className="w-full">
                         <CarouselContent className="-ml-4">
-                          {filteredFlashSalesListings.map((listing, index) => (
+                          {filteredFlashSalesListings.map((listing) => (
                           <CarouselItem key={listing.id} className="pl-4 basis-1/2">
                             <AdCard 
                               key={listing.id}
                               listing={listing} 
                               className="w-full"
-                              index={index}
-                              priority={index < 2}
                             />
                           </CarouselItem>
                         ))}
@@ -656,13 +664,11 @@ const Index = () => {
                       setApi={setFlashSalesCarouselApi}
                     >
                       <CarouselContent>
-                        {filteredFlashSalesListings.map((listing, index) => (
+                        {filteredFlashSalesListings.map((listing) => (
                           <CarouselItem key={listing.id}>
                             <AdCard 
                               listing={listing}
                               imageHeight="h-56"
-                              index={index}
-                              priority={index === 0}
                             />
                           </CarouselItem>
                         ))}
@@ -737,12 +743,11 @@ const Index = () => {
           {/* Desktop: Grid Layout */}
           {filteredListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8 mb-16">
-              {filteredListings.map((listing, index) => (
+              {filteredListings.map((listing) => (
                 <AdCard 
                   key={listing.id} 
                   listing={listing}
                   imageHeight="h-56"
-                  index={index + 4}
                 />
               ))}
             </div>
