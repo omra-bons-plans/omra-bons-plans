@@ -259,8 +259,8 @@ const Index = () => {
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
-        {/* ⚡ CRITICAL: Preload ONLY the hero image */}
-        <link rel="preload" as="image" href="/src/assets/mecca-mosque-hero.jpg" fetchPriority="high" />
+        {/* ⚡ CRITICAL: Preload hero image only on desktop */}
+        <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" fetchPriority="high" media="(min-width: 768px)" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
@@ -300,7 +300,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop (as IMG for better LCP) */}
+        {/* Background Image - Desktop only (as IMG for better LCP) */}
         <img 
           src="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
           alt="Mosquée de La Mecque - Hajj et Omra"
@@ -311,15 +311,8 @@ const Index = () => {
         />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 
-        {/* Background Image - Mobile (as IMG for better LCP) */}
-        <img 
-          src="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
-          alt="Mosquée de La Mecque - Hajj et Omra"
-          className="absolute inset-0 w-full h-full object-cover block md:hidden"
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-        />
+        {/* Mobile: Gradient background (no image for better LCP) */}
+        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary via-primary-dark to-accent"></div>
         <div className="hero-overlay absolute inset-0 block md:hidden"></div>
 
         {/* Animated Background Pattern */}
