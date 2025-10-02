@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/tabs";
 
 // Lazy import images to reduce initial bundle size
+import kaabaHero from "@/assets/kaaba-hero.jpg";
 const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
 const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
 const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
@@ -260,7 +261,7 @@ const Index = () => {
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
         {/* ⚡ CRITICAL: Preload hero image only on desktop */}
-        <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" fetchPriority="high" media="(min-width: 768px)" />
+        <link rel="preload" as="image" href={kaabaHero} fetchPriority="high" media="(min-width: 768px)" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
@@ -302,8 +303,8 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
         {/* Background Image - Desktop only (as IMG for better LCP) */}
         <img 
-          src="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png"
-          alt="Mosquée de La Mecque - Hajj et Omra"
+          src={kaabaHero}
+          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
           className="absolute inset-0 w-full h-full object-cover hidden md:block"
           fetchPriority="high"
           loading="eager"
