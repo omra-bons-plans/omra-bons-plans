@@ -261,9 +261,6 @@ const Index = () => {
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
-        {/* ⚡ CRITICAL: Preload hero images */}
-        <link rel="preload" as="image" href={kaabaHero} fetchPriority="high" media="(min-width: 768px)" />
-        <link rel="preload" as="image" href={kaabaMobileHero} fetchPriority="high" media="(max-width: 767px)" />
       </Helmet>
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
@@ -303,31 +300,9 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop only (as IMG for better LCP) */}
-        <img 
-          src={kaabaHero}
-          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
-          className="absolute inset-0 w-full h-full object-cover hidden md:block"
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-          width="1920"
-          height="1080"
-        />
-        <div className="hero-overlay absolute inset-0 hidden md:block"></div>
-
-        {/* Mobile: Kaaba Hero Image - Optimized */}
-        <img 
-          src={kaabaMobileHero}
-          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
-          className="absolute inset-0 w-full h-full object-cover block md:hidden"
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-          width="512"
-          height="910"
-        />
-        <div className="hero-overlay absolute inset-0 block md:hidden"></div>
+        {/* Gradient Background - All devices */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-accent"></div>
+        <div className="hero-overlay absolute inset-0"></div>
 
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
