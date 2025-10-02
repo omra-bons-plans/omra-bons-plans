@@ -1039,7 +1039,7 @@ const Index = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-3 mt-1">✓</span>
-                  <span className="text-muted-foreground text-base md:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2027</strong>, étape par étape.</span>
+                  <span className="text-muted-foreground text-base md:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2026</strong>, étape par étape.</span>
                 </li>
               </ul>
               
@@ -1086,7 +1086,7 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2027 : rituels, visa, choix d'agence</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
             <p className="text-muted-foreground text-lg">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
           </div>
 

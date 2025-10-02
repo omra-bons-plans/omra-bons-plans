@@ -327,7 +327,7 @@ export default function AgencesListe() {
         <SEOHead 
           title="Liste Agences de Voyages Omra & Hajj 2026-2027"
           description="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs."
-          keywords="agence omra, hajj 2026, agence voyage mecque, avis google"
+          keywords="agence omra 2026, hajj 2026, agence voyage mecque, avis google"
         />
 
         <div className="container mx-auto px-4 py-8">

@@ -296,7 +296,7 @@ export default function ComparatifAgences() {
       <SEOHead 
         title="Comparatif Agences de Voyages Omra & Hajj 2026-2027"
         description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
-        keywords="comparatif agence omra, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
+        keywords="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
         canonical="https://omrabonsplans.fr/comparatif-agences"
       />
 
