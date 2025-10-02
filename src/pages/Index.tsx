@@ -1259,9 +1259,9 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="text-3xl mb-2">🌙</div>
-                <h3 className="text-xl font-bold">Omra Ramadan 2025 et 2026</h3>
+                <h3 className="text-xl font-bold">Omra Ramadan 2026 et 2027</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2025</strong> ou <strong className="text-foreground">2026</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
+                  La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2026</strong> ou <strong className="text-foreground">2027</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
                 </p>
               </div>
             </Card>
