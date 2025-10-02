@@ -1299,9 +1299,9 @@ const Index = () => {
 
           <div className="space-y-6">
             <Card className="p-6 hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold mb-3">Quel est le prix moyen d'une Omra en 2025 ?</h3>
+              <h3 className="text-xl font-bold mb-3">Quel est le prix moyen d'une Omra en 2026 ?</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Le <strong className="text-foreground">prix Omra 2025</strong> varie selon la période, la durée et le confort choisi. Comptez entre <strong className="text-foreground">1200€ et 3000€</strong> pour un <strong className="text-foreground">forfait Omra tout compris</strong>. Les <strong className="text-foreground">offres Omra économiques</strong> démarrent à partir de 1000€ hors saison, tandis que les <strong className="text-foreground">forfaits Omra Ramadan</strong> sont plus élevés en raison de la forte demande.
+                Le <strong className="text-foreground">prix Omra 2026</strong> varie selon la période, la durée et le confort choisi. Comptez entre <strong className="text-foreground">1200€ et 3000€</strong> pour un <strong className="text-foreground">forfait Omra tout compris</strong>. Les <strong className="text-foreground">offres Omra économiques</strong> démarrent à partir de 1000€ hors saison, tandis que les <strong className="text-foreground">forfaits Omra Ramadan</strong> sont plus élevés en raison de la forte demande.
               </p>
             </Card>
 
@@ -1356,7 +1356,7 @@ const Index = () => {
               </p>
 
               <p>
-                Que vous recherchiez une <strong className="text-foreground">Omra Ramadan</strong>, une <strong className="text-foreground">Omra dernière minute</strong>, une <strong className="text-foreground">Omra en famille</strong>, ou une <strong className="text-foreground">Omra pour femme seule</strong>, <strong className="text-foreground">Omra Bons Plans</strong> centralise toutes les informations nécessaires pour faire le bon choix. Comparez les <strong className="text-foreground">prix Omra 2025</strong>, les <strong className="text-foreground">services proposés</strong>, et les <strong className="text-foreground">avis pèlerins</strong> pour réserver en toute confiance.
+                Que vous recherchiez une <strong className="text-foreground">Omra Ramadan</strong>, une <strong className="text-foreground">Omra dernière minute</strong>, une <strong className="text-foreground">Omra en famille</strong>, ou une <strong className="text-foreground">Omra pour femme seule</strong>, <strong className="text-foreground">Omra Bons Plans</strong> centralise toutes les informations nécessaires pour faire le bon choix. Comparez les <strong className="text-foreground">prix Omra 2026</strong>, les <strong className="text-foreground">services proposés</strong>, et les <strong className="text-foreground">avis pèlerins</strong> pour réserver en toute confiance.
               </p>
 
               <p>
