@@ -617,11 +617,13 @@ const Index = () => {
 
                     {/* Desktop: Grid Layout */}
                     <div className="hidden lg:grid grid-cols-4 gap-8">
-                      {filteredFlashSalesListings.map((listing) => (
+                      {filteredFlashSalesListings.map((listing, index) => (
                         <AdCard 
                           key={listing.id} 
                           listing={listing}
                           imageHeight="h-56"
+                          index={index}
+                          priority={index < 4}
                         />
                       ))}
                     </div>
@@ -630,12 +632,14 @@ const Index = () => {
                     <div className="hidden md:block lg:hidden carousel-item-peek">
                       <Carousel className="w-full">
                         <CarouselContent className="-ml-4">
-                          {filteredFlashSalesListings.map((listing) => (
+                          {filteredFlashSalesListings.map((listing, index) => (
                           <CarouselItem key={listing.id} className="pl-4 basis-1/2">
                             <AdCard 
                               key={listing.id}
                               listing={listing} 
                               className="w-full"
+                              index={index}
+                              priority={index < 2}
                             />
                           </CarouselItem>
                         ))}
@@ -652,11 +656,13 @@ const Index = () => {
                       setApi={setFlashSalesCarouselApi}
                     >
                       <CarouselContent>
-                        {filteredFlashSalesListings.map((listing) => (
+                        {filteredFlashSalesListings.map((listing, index) => (
                           <CarouselItem key={listing.id}>
                             <AdCard 
                               listing={listing}
                               imageHeight="h-56"
+                              index={index}
+                              priority={index === 0}
                             />
                           </CarouselItem>
                         ))}
@@ -731,11 +737,12 @@ const Index = () => {
           {/* Desktop: Grid Layout */}
           {filteredListings.length > 0 ? (
             <div className="hidden lg:grid grid-cols-4 gap-8 mb-16">
-              {filteredListings.map((listing) => (
+              {filteredListings.map((listing, index) => (
                 <AdCard 
                   key={listing.id} 
                   listing={listing}
                   imageHeight="h-56"
+                  index={index + 4}
                 />
               ))}
             </div>
