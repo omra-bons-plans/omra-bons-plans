@@ -115,6 +115,7 @@ const Admin = () => {
       if (!hasValidSession) {
         console.log('⚠️ No valid code session, showing code auth');
         setShowCodeAuth(true);
+        setLoading(false); // Important: arrêter le loading pour afficher le formulaire
       } else {
         console.log('✅ Valid code session, fetching users');
         fetchUsers();
