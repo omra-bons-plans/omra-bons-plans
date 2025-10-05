@@ -255,8 +255,8 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Bons Plans - Comparateur Omra & Hajj 2026</title>
-        <meta name="description" content="Trouvez les meilleures offres Omra et Hajj 2026 : séjours, vols, hébergements Mecque/Médine." />
+        <title>Omra Bons Plans - Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
+        <meta name="description" content="Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra." />
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         
