@@ -148,7 +148,7 @@ const Admin = () => {
       const { error } = await supabase.functions.invoke('send-admin-code', {
         body: {
           email: adminEmail,
-          ipAddress: '', // Optionnel
+          ipAddress: null,
           userAgent: navigator.userAgent
         }
       });
@@ -189,9 +189,9 @@ const Admin = () => {
         body: {
           email: adminEmail,
           code,
-          ipAddress: '',
+          ipAddress: null,
           userAgent: navigator.userAgent,
-          deviceFingerprint: '' // Optionnel
+          deviceFingerprint: null
         }
       });
 
