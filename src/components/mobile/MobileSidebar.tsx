@@ -43,6 +43,7 @@ const MobileSidebar = () => {
             size="sm"
             onClick={() => setIsOpen(true)}
             className="p-2"
+            aria-label="Ouvrir le menu"
           >
             <Menu className="w-6 h-6" />
           </Button>
@@ -56,7 +57,7 @@ const MobileSidebar = () => {
               <>
                 {/* Notification Bell */}
                 <Link to="/notifications" className="relative">
-                  <Button variant="ghost" size="sm" className="p-2">
+                  <Button variant="ghost" size="sm" className="p-2" aria-label="Voir les notifications">
                     <Bell className="w-5 h-5" />
                     {unreadCount > 0 && (
                       <Badge 
@@ -102,6 +103,7 @@ const MobileSidebar = () => {
               size="sm"
               onClick={() => setIsOpen(false)}
               className="p-2"
+              aria-label="Fermer le menu"
             >
               <X className="w-5 h-5" />
             </Button>
@@ -145,6 +147,8 @@ const MobileSidebar = () => {
               <button
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                aria-label={categoriesOpen ? "Fermer les catégories" : "Ouvrir les catégories"}
+                aria-expanded={categoriesOpen}
               >
                 <h3 className="text-sm font-semibold text-muted-foreground">Catégories</h3>
                 {categoriesOpen ? (
@@ -230,6 +234,8 @@ const MobileSidebar = () => {
               <button
                 onClick={() => setComparatifsOpen(!comparatifsOpen)}
                 className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                aria-label={comparatifsOpen ? "Fermer les comparatifs" : "Ouvrir les comparatifs"}
+                aria-expanded={comparatifsOpen}
               >
                 <h3 className="text-sm font-semibold text-muted-foreground">Comparatifs</h3>
                 {comparatifsOpen ? (
@@ -282,6 +288,8 @@ const MobileSidebar = () => {
               <button
                 onClick={() => setServicesOpen(!servicesOpen)}
                 className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                aria-label={servicesOpen ? "Fermer les services" : "Ouvrir les services"}
+                aria-expanded={servicesOpen}
               >
                 <h3 className="text-sm font-semibold text-muted-foreground">Services</h3>
                 {servicesOpen ? (
@@ -311,6 +319,7 @@ const MobileSidebar = () => {
                       setIsOpen(false);
                     }}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors w-full ml-3"
+                    aria-label="Aller au blog"
                   >
                     <div className="flex items-center space-x-3">
                       <UtensilsCrossed className="w-5 h-5 text-muted-foreground" />
