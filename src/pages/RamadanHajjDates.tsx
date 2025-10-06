@@ -63,7 +63,7 @@ const RamadanHajjDates = () => {
     <ResponsiveLayout>
       <Helmet>
         <title>Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage Islam</title>
-        <meta name="description" content="Calendrier officiel des dates du Ramadan et du Hajj 2026-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha. Planning complet pour votre pèlerinage." />
+        <meta name="description" content="Découvrez les dates officielles du Ramadan et du Hajj 2026-2028 : début et fin du jeûne, jour d'Arafat, Aïd al-Fitr et Aïd al-Adha. Planifiez votre pèlerinage." />
         <meta name="keywords" content="dates ramadan 2026, hajj 2027, calendrier hajj, arafat date, eid dates" />
         <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
