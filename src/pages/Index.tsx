@@ -430,6 +430,7 @@ const Index = () => {
                             ? 'bg-amber-500 shadow-sm' 
                             : 'bg-gray-300 hover:bg-gray-400'
                         }`}
+                        aria-label="Afficher la météo de Médine"
                       />
                       <button
                         onClick={() => setCurrentWeatherCity('makkah')}
@@ -438,6 +439,7 @@ const Index = () => {
                             ? 'bg-amber-500 shadow-sm' 
                             : 'bg-gray-300 hover:bg-gray-400'
                         }`}
+                        aria-label="Afficher la météo de La Mecque"
                       />
                     </div>
 
