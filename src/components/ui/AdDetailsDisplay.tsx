@@ -91,7 +91,16 @@ const AdDetailsDisplay = ({ ad }: AdDetailsDisplayProps) => {
   const formatCity = (city: string) => {
     try {
       if (!city || typeof city !== 'string') return '';
-      return city.charAt(0).toUpperCase() + city.slice(1);
+      
+      // Handle specific city mappings
+      const cityMap: { [key: string]: string } = {
+        'both': 'Makkah et Médine',
+        'makkah': 'Makkah',
+        'medina': 'Médine',
+        'jeddah': 'Jeddah'
+      };
+      
+      return cityMap[city.toLowerCase()] || city.charAt(0).toUpperCase() + city.slice(1);
     } catch (error) {
       console.error('Error formatting city:', error, city);
       return '';
