@@ -46,22 +46,64 @@ RewriteRule . /index.html [L]
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-# Set cache headers
+# Set cache headers for optimal performance
 <IfModule mod_expires.c>
     ExpiresActive on
+    # CSS et JS avec cache long (1 an)
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    
+    # Images avec cache long (1 an)
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    
+    # Fonts avec cache long (1 an)
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    
+    # HTML avec cache court (1 jour)
+    ExpiresByType text/html "access plus 1 day"
 </IfModule>
 
-# Security headers
+# Add Cache-Control headers for better performance
 <IfModule mod_headers.c>
+    # CSS et JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Images
+    <FilesMatch "\.(png|jpg|jpeg|webp|svg|avif|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Fonts
+    <FilesMatch "\.(woff2|woff|ttf|otf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # HTML
+    <FilesMatch "\.html$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+</IfModule>
+
+# Security and performance headers
+<IfModule mod_headers.c>
+    # Security
     Header always set X-Content-Type-Options nosniff
     Header always set X-Frame-Options DENY
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Performance - Preconnect hints for critical origins
+    Header always set Link "</lovable-uploads>; rel=preconnect"
 </IfModule>
