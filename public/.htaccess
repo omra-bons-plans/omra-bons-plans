@@ -33,7 +33,7 @@ RewriteRule ^404/?$ /404.html [R=404,L]
 # Otherwise, serve index.html for all routes
 RewriteRule . /index.html [L]
 
-# Enable compression
+# Enable compression for better mobile performance
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -44,6 +44,19 @@ RewriteRule . /index.html [L]
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    
+    # Set compression level (1-9, 9 being highest)
+    DeflateCompressionLevel 6
+</IfModule>
+
+# Enable Brotli compression if available (better than gzip)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+    AddOutputFilterByType BROTLI_COMPRESS application/xml application/rss+xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
 </IfModule>
 
 # Set cache headers for optimal performance

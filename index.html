@@ -31,28 +31,24 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Critical CSS inline for fastest FCP/LCP -->
+    <!-- Critical CSS inline for fastest FCP/LCP - Mobile Optimized -->
     <style>
       /* Critical CSS for above-the-fold content - Optimized for LCP */
       *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
       html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-display:swap}
-      body{margin:0;line-height:inherit;background:#0B1E3A}
+      body{margin:0;line-height:inherit;background:#0B1E3A;overflow-x:hidden}
       
       /* Hero section critical styles */
       .hero-overlay{background:linear-gradient(135deg,rgba(11,30,58,.95) 0,rgba(4,18,36,.85) 100%)}
-      .gradient-text-secondary{background:linear-gradient(135deg,#f59e0b 0,#fbbf24 50%,#fcd34d 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .gradient-text-secondary{background:linear-gradient(135deg,#f59e0b 0,#fbbf24 50%,#fcd34d 100%);-webkit-background-clip:text;background-clip:text;color:transparent;will-change:transform}
       
       /* Layout utilities */
-      .container{width:100%;margin:0 auto;padding:0 1.5rem}
-      @media(min-width:640px){.container{max-width:640px}}
-      @media(min-width:768px){.container{max-width:768px}}
-      @media(min-width:1024px){.container{max-width:1024px}}
-      @media(min-width:1280px){.container{max-width:1280px}}
+      .container{width:100%;margin:0 auto;padding:0 1.5rem;max-width:1280px}
       
       /* Critical utilities */
       .relative{position:relative}
       .absolute{position:absolute}
-      .inset-0{inset:0}
+      .inset-0{top:0;right:0;bottom:0;left:0}
       .z-10{z-index:10}
       .z-20{z-index:20}
       .flex{display:flex}
@@ -62,8 +58,8 @@
       .items-center{align-items:center}
       .justify-center{justify-content:center}
       .justify-start{justify-content:flex-start}
-      .space-y-6>*+*{margin-top:1.5rem}
-      .space-y-2>*+*{margin-top:.5rem}
+      .space-y-6>:not([hidden])~:not([hidden]){margin-top:1.5rem}
+      .space-y-2>:not([hidden])~:not([hidden]){margin-top:.5rem}
       .object-cover{object-fit:cover}
       .text-center{text-align:center}
       .text-white{color:#fff}
@@ -71,7 +67,7 @@
       .h-full{height:100%}
       .max-w-4xl{max-width:56rem}
       
-      /* Typography */
+      /* Typography - Mobile first */
       .text-4xl{font-size:2.25rem;line-height:2.5rem}
       .text-6xl{font-size:3.75rem;line-height:1}
       .text-lg{font-size:1.125rem;line-height:1.75rem}
@@ -84,23 +80,41 @@
       .overflow-hidden{overflow:hidden}
       .drop-shadow-lg{filter:drop-shadow(0 10px 8px rgba(0,0,0,.04)) drop-shadow(0 4px 3px rgba(0,0,0,.1))}
       
-      /* Responsive */
+      /* Spacing - Mobile optimized */
+      .pt-16{padding-top:4rem}
+      .pt-20{padding-top:5rem}
+      .px-6{padding-left:1.5rem;padding-right:1.5rem}
+      .mt-4{margin-top:1rem}
+      
+      /* Mobile-specific optimizations */
+      @media(max-width:767px){
+        .text-4xl{font-size:2rem;line-height:2.25rem}
+        .text-6xl{font-size:3rem;line-height:1.1}
+        .text-lg{font-size:1rem;line-height:1.5rem}
+        .space-y-6>:not([hidden])~:not([hidden]){margin-top:1rem}
+        .pt-20{padding-top:3rem}
+        body{font-size:16px}
+      }
+      
+      /* Tablet and Desktop */
       @media(min-width:768px){
         .md\:text-8xl{font-size:6rem;line-height:1}
         .md\:text-9xl{font-size:8rem;line-height:1}
         .md\:text-3xl{font-size:1.875rem;line-height:2.25rem}
         .md\:block{display:block}
         .md\:hidden{display:none}
-        .md\:space-y-10>*+*{margin-top:2.5rem}
-        .md\:space-y-6>*+*{margin-top:1.5rem}
+        .md\:space-y-10>:not([hidden])~:not([hidden]){margin-top:2.5rem}
+        .md\:space-y-6>:not([hidden])~:not([hidden]){margin-top:1.5rem}
         .md\:pt-32{padding-top:8rem}
       }
       
-      /* Spacing */
-      .pt-16{padding-top:4rem}
-      .pt-20{padding-top:5rem}
-      .px-6{padding-left:1.5rem;padding-right:1.5rem}
-      .mt-4{margin-top:1rem}
+      /* Prevent layout shift */
+      img[fetchpriority="high"]{content-visibility:auto}
+      
+      /* Optimize for touch devices */
+      @media(hover:none){
+        *{-webkit-tap-highlight-color:transparent}
+      }
     </style>
     
     <title>Omra Bons Plans</title>
@@ -119,6 +133,7 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Defer script loading for faster LCP -->
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
