@@ -33,7 +33,7 @@ RewriteRule ^404/?$ /404.html [R=404,L]
 # Otherwise, serve index.html for all routes
 RewriteRule . /index.html [L]
 
-# Enable compression for better mobile performance
+# Enable compression
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -44,79 +44,24 @@ RewriteRule . /index.html [L]
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
-    AddOutputFilterByType DEFLATE application/json
-    AddOutputFilterByType DEFLATE image/svg+xml
-    
-    # Set compression level (1-9, 9 being highest)
-    DeflateCompressionLevel 6
 </IfModule>
 
-# Enable Brotli compression if available (better than gzip)
-<IfModule mod_brotli.c>
-    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
-    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
-    AddOutputFilterByType BROTLI_COMPRESS application/xml application/rss+xml
-    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
-</IfModule>
-
-# Set cache headers for optimal performance
+# Set cache headers
 <IfModule mod_expires.c>
     ExpiresActive on
-    # CSS et JS avec cache long (1 an)
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType application/x-javascript "access plus 1 year"
-    
-    # Images avec cache long (1 an)
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
-    ExpiresByType image/avif "access plus 1 year"
-    
-    # Fonts avec cache long (1 an)
-    ExpiresByType font/woff2 "access plus 1 year"
-    ExpiresByType font/woff "access plus 1 year"
-    ExpiresByType font/ttf "access plus 1 year"
-    ExpiresByType font/otf "access plus 1 year"
-    
-    # HTML avec cache court (1 jour)
-    ExpiresByType text/html "access plus 1 day"
 </IfModule>
 
-# Add Cache-Control headers for better performance
+# Security headers
 <IfModule mod_headers.c>
-    # CSS et JS
-    <FilesMatch "\.(css|js)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-    
-    # Images
-    <FilesMatch "\.(png|jpg|jpeg|webp|svg|avif|ico)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-    
-    # Fonts
-    <FilesMatch "\.(woff2|woff|ttf|otf)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-    
-    # HTML
-    <FilesMatch "\.html$">
-        Header set Cache-Control "public, max-age=86400"
-    </FilesMatch>
-</IfModule>
-
-# Security and performance headers
-<IfModule mod_headers.c>
-    # Security
     Header always set X-Content-Type-Options nosniff
     Header always set X-Frame-Options DENY
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    
-    # Performance - Preconnect hints for critical origins
-    Header always set Link "</lovable-uploads>; rel=preconnect"
 </IfModule>

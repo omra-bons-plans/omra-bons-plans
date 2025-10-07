@@ -3,46 +3,40 @@
 ## 🎯 Objectif
 Réduire le LCP de **22.5s → < 2.5s** sur mobile
 
-## ✅ Optimisations Implémentées (Mise à jour 2025-10-07)
+## ✅ Optimisations Implémentées
 
-### 1. **Critical CSS Inline Amélioré** ⭐ IMPACT MAJEUR
-- ✅ **Expansion du CSS inline** dans `<head>` de ~500 bytes à ~2KB
-- Ajout de toutes les classes critiques pour le hero section
-- Ajout de `font-display: swap` pour éviter FOIT (Flash of Invisible Text)
-- Media queries critiques incluses pour responsive
-
-**Gain estimé:** -2 à -4 secondes sur FCP/LCP
-
-### 2. **Preconnect Optimisé** ⭐ IMPACT MOYEN
-- ✅ Ajout de `crossorigin` à Supabase preconnect
-- ✅ Preload des fonts critiques Inter (Regular + Bold)
-- URLs directes vers fonts.gstatic.com pour éviter redirects
-
-**Gain estimé:** -300ms à -800ms sur LCP
-
-### 3. **Headers de Cache Optimisés** ⭐ IMPACT LONG TERME
-```apache
-# Cache-Control immutable pour assets statiques
-Cache-Control: public, max-age=31536000, immutable
-```
-- CSS/JS: 1 an + immutable
-- Images: 1 an + immutable  
-- Fonts: 1 an + immutable
-- HTML: 1 jour
-
-**Gain estimé:** -2 à -5 secondes sur visites répétées (économie de 5291 Kio)
-
-### 4. **Image Hero Optimisée** ⭐ IMPACT MAJEUR (Déjà fait)
-- ✅ Vraie balise `<img>` avec `fetchpriority="high"`
-- ✅ Preload dans `<head>` avec media queries
-- ✅ Mobile: Pas d'image (gradient uniquement) pour LCP ultra-rapide
-
+### 1. **Image Hero Optimisée** ⭐ IMPACT MAJEUR
+- ❌ **AVANT:** Background CSS (`backgroundImage: url()`)
+- ✅ **APRÈS:** Vraie balise `<img>` avec attributs optimisés
+  - `fetchpriority="high"` - Priorité maximale
+  - `loading="eager"` - Chargement immédiat
+  - `decoding="async"` - Décodage asynchrone
+  
 **Gain estimé:** -5 à -10 secondes sur LCP
 
-### 5. **Fonts Optimization**
-- ✅ Preload des fonts critiques Inter
-- ✅ `font-display: swap` dans critical CSS
-- ✅ Crossorigin sur preconnect fonts
+### 2. **Preload Optimisé dans `<head>`**
+```html
+<link rel="preload" as="image" 
+      href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" 
+      media="(max-width: 768px)" 
+      fetchpriority="high">
+```
+- Précharge l'image hero AVANT le JS
+- Media queries pour charger uniquement la bonne version (mobile/desktop)
+
+**Gain estimé:** -2 à -4 secondes sur LCP
+
+### 3. **Critical CSS Inline**
+- CSS critique dans `<head>` pour rendu immédiat
+- Évite le blocage du rendu en attendant le CSS
+- Seulement ~1.5KB de CSS inline pour hero section
+
+**Gain estimé:** -1 à -2 secondes sur FCP/LCP
+
+### 4. **Optimisation du Preloader**
+- Suppression des preloads d'images redondants
+- Focus sur les fonts uniquement
+- Préchargement des données en `requestIdleCallback`
 
 **Gain estimé:** -500ms sur FCP
 
