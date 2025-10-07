@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.0.1';
+const CACHE_VERSION = 'v1.0.2';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
@@ -60,8 +60,9 @@ function cacheSupabaseImage(request, response) {
   const responseToCache = response.clone();
   
   caches.open(IMAGE_CACHE).then((cache) => {
-    // Ajouter un timestamp pour gérer l'expiration
+    // Modifier les en-têtes pour forcer un cache long
     const headers = new Headers(responseToCache.headers);
+    headers.set('Cache-Control', 'public, max-age=2592000, immutable'); // 30 jours
     headers.append('sw-cached-at', Date.now().toString());
     
     const modifiedResponse = new Response(responseToCache.body, {
@@ -73,7 +74,15 @@ function cacheSupabaseImage(request, response) {
     cache.put(request, modifiedResponse);
   });
   
-  return response;
+  // Retourner une réponse modifiée avec les bons en-têtes de cache
+  const headers = new Headers(response.headers);
+  headers.set('Cache-Control', 'public, max-age=2592000, immutable');
+  
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: headers
+  });
 }
 
 // Vérifier si une réponse en cache est encore valide
