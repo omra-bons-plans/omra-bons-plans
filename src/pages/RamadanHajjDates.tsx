@@ -97,6 +97,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Ramadan 2026",
+                  "description": "Mois sacré du jeûne musulman du 18 février au 19 mars 2026 avec l'Aïd al-Fitr le 19 mars 2026",
                   "startDate": "2026-02-18",
                   "endDate": "2026-03-19",
                   "location": {
@@ -110,7 +111,8 @@ const RamadanHajjDates = () => {
                 },
                 {
                   "@type": "Event",
-                  "name": "Hajj 2026", 
+                  "name": "Hajj 2026",
+                  "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2026 avec le jour d'Arafat le 27 mai et l'Aïd al-Adha le 28 mai 2026",
                   "startDate": "2026-05-26",
                   "endDate": "2026-05-31",
                   "location": {
@@ -126,6 +128,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Ramadan 2027",
+                  "description": "Mois sacré du jeûne musulman du 7 février au 8 mars 2027 avec l'Aïd al-Fitr le 8 mars 2027",
                   "startDate": "2027-02-07",
                   "endDate": "2027-03-08",
                   "location": {
@@ -140,6 +143,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Hajj 2027",
+                  "description": "Pèlerinage annuel à La Mecque du 15 au 20 mai 2027 avec le jour d'Arafat le 16 mai et l'Aïd al-Adha le 17 mai 2027",
                   "startDate": "2027-05-15",
                   "endDate": "2027-05-20",
                   "location": {
@@ -155,6 +159,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Ramadan 2028",
+                  "description": "Mois sacré du jeûne musulman du 27 janvier au 26 février 2028 avec l'Aïd al-Fitr le 26 février 2028",
                   "startDate": "2028-01-27",
                   "endDate": "2028-02-26",
                   "location": {
@@ -169,6 +174,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Hajj 2028",
+                  "description": "Pèlerinage annuel à La Mecque du 4 au 9 mai 2028 avec le jour d'Arafat le 5 mai et l'Aïd al-Adha le 6 mai 2028",
                   "startDate": "2028-05-04",
                   "endDate": "2028-05-09",
                   "location": {
