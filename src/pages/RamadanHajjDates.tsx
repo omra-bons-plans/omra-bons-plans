@@ -101,7 +101,11 @@ const RamadanHajjDates = () => {
                   "endDate": "2026-03-19",
                   "location": {
                     "@type": "Place",
-                    "name": "Observance mondiale"
+                    "name": "Observance mondiale",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressCountry": "Monde"
+                    }
                   }
                 },
                 {
@@ -109,6 +113,64 @@ const RamadanHajjDates = () => {
                   "name": "Hajj 2026", 
                   "startDate": "2026-05-26",
                   "endDate": "2026-05-31",
+                  "location": {
+                    "@type": "Place",
+                    "name": "La Mecque",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": "La Mecque",
+                      "addressCountry": "Arabie Saoudite"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Ramadan 2027",
+                  "startDate": "2027-02-07",
+                  "endDate": "2027-03-08",
+                  "location": {
+                    "@type": "Place",
+                    "name": "Observance mondiale",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressCountry": "Monde"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Hajj 2027",
+                  "startDate": "2027-05-15",
+                  "endDate": "2027-05-20",
+                  "location": {
+                    "@type": "Place",
+                    "name": "La Mecque",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": "La Mecque",
+                      "addressCountry": "Arabie Saoudite"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Ramadan 2028",
+                  "startDate": "2028-01-27",
+                  "endDate": "2028-02-26",
+                  "location": {
+                    "@type": "Place",
+                    "name": "Observance mondiale",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressCountry": "Monde"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Hajj 2028",
+                  "startDate": "2028-05-04",
+                  "endDate": "2028-05-09",
                   "location": {
                     "@type": "Place",
                     "name": "La Mecque",
