@@ -10,12 +10,15 @@ interface UniversalImageProps {
   loading?: 'lazy' | 'eager';
   onLoad?: () => void;
   onError?: () => void;
+  responsive?: boolean;
+  sizes?: string;
 }
 
 /**
  * Composant d'image universel qui gère automatiquement :
  * - La détection du bucket (blog-images, ad-images, etc.)
  * - L'optimisation des images Supabase
+ * - Les images responsives avec srcset
  * - Les fallbacks en cas d'erreur
  * - Le lazy loading
  */
@@ -24,12 +27,47 @@ export const UniversalImage = ({
   alt,
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
-  optimize, // Pas de valeur par défaut pour éviter les transformations
+  optimize,
   loading = 'lazy',
   onLoad,
-  onError
+  onError,
+  responsive = true,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
 }: UniversalImageProps) => {
   const [hasError, setHasError] = useState(false);
+
+  // Détection automatique du bucket
+  const detectBucket = (imagePath: string | null | undefined): string => {
+    if (!imagePath || typeof imagePath !== 'string') return 'ad-images';
+    
+    if (imagePath.startsWith('blog/') || imagePath.includes('/blog/')) {
+      return 'blog-images';
+    } else if (imagePath.includes('blog-images')) {
+      return 'blog-images';
+    } else if (imagePath.includes('ad-images') || imagePath.includes('/ads/')) {
+      return 'ad-images';  
+    }
+    
+    return 'ad-images';
+  };
+
+  const bucketName = detectBucket(src);
+  
+  // Generate srcset for responsive images
+  const generateSrcSet = (imagePath: string) => {
+    if (!responsive || !imagePath || imagePath.startsWith('http')) {
+      return undefined;
+    }
+    
+    const widths = [320, 640, 768, 1024, 1280, 1536];
+    return widths
+      .map(width => {
+        const url = getImageUrl(imagePath, { width, quality: 80 }, bucketName);
+        return `${url} ${width}w`;
+      })
+      .join(', ');
+  };
+
   const [currentSrc, setCurrentSrc] = useState(() => {
     if (!src) return fallbackSrc;
     
@@ -38,21 +76,14 @@ export const UniversalImage = ({
       return src;
     }
     
-    // Détection automatique du bucket basée sur le chemin
-    let bucketName = 'ad-images'; // défaut
-    
-    if (typeof src === 'string') {
-      // Priorité à la détection par le chemin du fichier
-      if (src.startsWith('blog/') || src.includes('/blog/')) {
-        bucketName = 'blog-images';
-      } else if (src.includes('blog-images')) {
-        bucketName = 'blog-images';
-      } else if (src.includes('ad-images') || src.includes('/ads/')) {
-        bucketName = 'ad-images';  
-      }
-    }
-    
-    return getImageUrl(src, optimize, bucketName);
+    // Optimiser selon les paramètres fournis ou utiliser des valeurs par défaut pour mobile
+    const optimizeParams = optimize || (responsive ? { width: 640, quality: 80 } : undefined);
+    return getImageUrl(src, optimizeParams, bucketName);
+  });
+
+  const [srcSet, setSrcSet] = useState(() => {
+    if (!src) return undefined;
+    return generateSrcSet(src);
   });
 
   const handleError = () => {
@@ -60,6 +91,7 @@ export const UniversalImage = ({
     if (!hasError) {
       setHasError(true);
       setCurrentSrc(fallbackSrc);
+      setSrcSet(undefined);
     }
     onError?.();
   };
@@ -72,6 +104,8 @@ export const UniversalImage = ({
   return (
     <img
       src={currentSrc}
+      srcSet={srcSet}
+      sizes={responsive ? sizes : undefined}
       alt={alt}
       className={className}
       loading={loading}

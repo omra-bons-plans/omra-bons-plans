@@ -8,6 +8,8 @@ interface ImageComponentProps {
   fallbackSrc?: string;
   onClick?: () => void;
   bucketName?: string;
+  responsive?: boolean; // Activer les images responsives
+  sizes?: string; // Custom sizes attribute
 }
 
 export const ImageComponent = ({
@@ -16,14 +18,37 @@ export const ImageComponent = ({
   className = '',
   fallbackSrc = '/ad-placeholder.jpg',
   onClick,
-  bucketName = 'ad-images'
+  bucketName = 'ad-images',
+  responsive = true,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
 }: ImageComponentProps) => {
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  
+  // Generate srcset for responsive images
+  const generateSrcSet = (imagePath: string) => {
+    if (!responsive || !imagePath || imagePath.startsWith('http')) {
+      return undefined;
+    }
+    
+    const widths = [320, 640, 768, 1024, 1280, 1536];
+    return widths
+      .map(width => {
+        const url = getImageUrl(imagePath, { width, quality: 80 }, bucketName);
+        return `${url} ${width}w`;
+      })
+      .join(', ');
+  };
+
   const [currentSrc, setCurrentSrc] = useState(() => {
     if (!src) return fallbackSrc;
-    // Pas d'optimisation pour éviter le délai de transformation
-    return getImageUrl(src, undefined, bucketName);
+    // Optimiser pour mobile par défaut (640px de large)
+    return getImageUrl(src, responsive ? { width: 640, quality: 80 } : undefined, bucketName);
+  });
+
+  const [srcSet, setSrcSet] = useState(() => {
+    if (!src) return undefined;
+    return generateSrcSet(src);
   });
 
   const handleError = () => {
@@ -45,7 +70,8 @@ export const ImageComponent = ({
         const pathWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
         const newExt = extensions[retryCount];
         const newPath = `${pathWithoutExt}.${newExt}`;
-        newSrc = getImageUrl(newPath, undefined, bucketName);
+        newSrc = getImageUrl(newPath, responsive ? { width: 640, quality: 80 } : undefined, bucketName);
+        setSrcSet(generateSrcSet(newPath));
         console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: Essai avec .${newExt}`);
       }
       
@@ -55,12 +81,15 @@ export const ImageComponent = ({
       console.error('❌ Toutes les extensions ont échoué, affichage du fallback');
       setHasError(true);
       setCurrentSrc(fallbackSrc);
+      setSrcSet(undefined);
     }
   };
 
   return (
     <img
       src={currentSrc}
+      srcSet={srcSet}
+      sizes={responsive ? sizes : undefined}
       alt={alt}
       className={className}
       onError={handleError}
