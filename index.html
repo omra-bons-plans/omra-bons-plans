@@ -46,6 +46,17 @@
       @media (min-width:768px){.md\:text-8xl{font-size:6rem}.md\:text-9xl{font-size:8rem}.md\:block{display:block}.md\:hidden{display:none}}
     </style>
     
+    <!-- Async CSS loading to prevent render blocking -->
+    <script>
+      // Load non-critical CSS asynchronously
+      (function() {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/critical.css';
+        document.head.appendChild(link);
+      })();
+    </script>
+    
     <title>Omra Bons Plans</title>
     <meta name="description" content="Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra">
     <meta name="author" content="Omra Bons Plans" />
@@ -62,6 +73,6 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
