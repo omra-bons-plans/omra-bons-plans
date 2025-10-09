@@ -273,6 +273,76 @@ export default function AdDetails() {
   const canReview = user && user.id !== ad.user_id && !userReview;
   const canEditReview = user && userReview;
 
+  // Build structured data with optional fields
+  const structuredData: any = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": ad.title,
+    "description": ad.description,
+    "image": ad.cover_image || ad.images[0],
+    "offers": {
+      "@type": "Offer",
+      "price": ad.price,
+      "priceCurrency": ad.currency,
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": ad.publish_end_date,
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "FR",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 14
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "FR"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 1,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 0,
+            "unitCode": "DAY"
+          }
+        }
+      }
+    }
+  };
+
+  // Add aggregateRating if reviews exist
+  if (stats.totalReviews > 0) {
+    structuredData.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": stats.averageRating,
+      "reviewCount": stats.totalReviews
+    };
+  }
+
+  // Add reviews if they exist
+  if (reviews && reviews.length > 0) {
+    structuredData.review = reviews.slice(0, 5).map(review => ({
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": review.rating
+      },
+      "author": {
+        "@type": "Person",
+        "name": review.reviewer_name || "Utilisateur"
+      },
+      "reviewBody": review.comment,
+      "datePublished": review.created_at
+    }));
+  }
+
   return (
     <ResponsiveLayout>
       <DynamicSEO
@@ -282,47 +352,7 @@ export default function AdDetails() {
         type="product"
         image={ad.cover_image || ad.images[0] || undefined}
         path={`/ad/${id}`}
-        structuredData={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": ad.title,
-          "description": ad.description,
-          "image": ad.cover_image || ad.images[0],
-          "offers": {
-            "@type": "Offer",
-            "price": ad.price,
-            "priceCurrency": ad.currency,
-            "availability": "https://schema.org/InStock",
-            "hasMerchantReturnPolicy": {
-              "@type": "MerchantReturnPolicy",
-              "applicableCountry": "FR",
-              "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-              "merchantReturnDays": 14
-            },
-            "shippingDetails": {
-              "@type": "OfferShippingDetails",
-              "shippingDestination": {
-                "@type": "DefinedRegion",
-                "addressCountry": "FR"
-              },
-              "deliveryTime": {
-                "@type": "ShippingDeliveryTime",
-                "handlingTime": {
-                  "@type": "QuantitativeValue",
-                  "minValue": 0,
-                  "maxValue": 1,
-                  "unitCode": "DAY"
-                },
-                "transitTime": {
-                  "@type": "QuantitativeValue",
-                  "minValue": 0,
-                  "maxValue": 0,
-                  "unitCode": "DAY"
-                }
-              }
-            }
-          }
-        }}
+        structuredData={structuredData}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
         <div className="container mx-auto px-4 py-8">
