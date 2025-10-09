@@ -198,7 +198,7 @@ const RamadanHajjDates = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Dates du Ramadan et du Hajj
+              Dates du Ramadan 2026 et du Hajj 2026
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Calendrier des dates importantes du Ramadan et du Hajj pour les années 2026, 2027 et 2028
