@@ -201,7 +201,19 @@ export const seoConfig = {
         "price": "0",
         "priceCurrency": "EUR",
         "availability": "InStock",
-        "validFrom": "2026-01-01"
+        "validFrom": "2026-01-01",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "FR",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "FR"
+          }
+        }
       },
       "performer": {
         "@type": "Organization",
