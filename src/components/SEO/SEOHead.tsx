@@ -15,7 +15,7 @@ export const SEOHead = ({
   description,
   keywords = 'omra, hajj, pèlerinage, arabie saoudite, la mecque, médine, voyage religieux, islam',
   canonical,
-  ogImage = 'https://lovable.dev/opengraph-image-p98pqg.png',
+  ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
   ogType = 'website',
   structuredData
 }: SEOHeadProps) => {
