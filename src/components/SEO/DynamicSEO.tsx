@@ -10,6 +10,7 @@ interface DynamicSEOProps {
   image?: string;
   path: string;
   structuredData?: any;
+  customMeta?: Array<{ name: string; content: string }>;
 }
 
 /**
@@ -22,7 +23,8 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   type = 'page',
   image,
   path,
-  structuredData
+  structuredData,
+  customMeta
 }) => {
   const optimizedTitle = generateSEOTitle(title);
   const optimizedDescription = generateMetaDescription(description);
@@ -58,6 +60,7 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
       ogImage={defaultImage}
       ogType={type === 'article' ? 'article' : 'website'}
       structuredData={defaultStructuredData}
+      customMeta={customMeta}
     />
   );
 };

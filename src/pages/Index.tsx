@@ -257,6 +257,7 @@ const Index = () => {
       <Helmet>
         <title>Omra Bons Plans - Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
         <meta name="description" content="Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra." />
+        <meta name="jungleup" content="822db95a1aca279e7634fcff78005ff9" />
         <link rel="canonical" href="https://omrabonsplans.fr/" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         

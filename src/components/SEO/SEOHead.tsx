@@ -8,6 +8,7 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: string;
   structuredData?: object;
+  customMeta?: Array<{ name: string; content: string }>;
 }
 
 export const SEOHead = ({
@@ -17,7 +18,8 @@ export const SEOHead = ({
   canonical,
   ogImage = 'https://lovable.dev/opengraph-image-p98pqg.png',
   ogType = 'website',
-  structuredData
+  structuredData,
+  customMeta = []
 }: SEOHeadProps) => {
   useEffect(() => {
     // Update document title
@@ -68,6 +70,11 @@ export const SEOHead = ({
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);
 
+    // Custom meta tags
+    customMeta.forEach(meta => {
+      updateMetaTag(meta.name, meta.content);
+    });
+
     // Canonical URL
     if (canonical) {
       updateLinkTag('canonical', canonical);
@@ -84,7 +91,7 @@ export const SEOHead = ({
       }
       scriptTag.textContent = JSON.stringify(structuredData);
     }
-  }, [title, description, keywords, canonical, ogImage, ogType, structuredData]);
+  }, [title, description, keywords, canonical, ogImage, ogType, structuredData, customMeta]);
 
   return null;
 };
