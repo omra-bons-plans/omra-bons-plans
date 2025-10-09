@@ -343,6 +343,32 @@ export default function AdDetails() {
     }));
   }
 
+  // Add aggregateRating if reviews exist
+  if (stats.totalReviews > 0) {
+    structuredData.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": stats.averageRating,
+      "reviewCount": stats.totalReviews
+    };
+  }
+
+  // Add reviews if they exist
+  if (reviews && reviews.length > 0) {
+    structuredData.review = reviews.slice(0, 5).map(review => ({
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": review.rating
+      },
+      "author": {
+        "@type": "Person",
+        "name": review.reviewer_name || "Utilisateur"
+      },
+      "reviewBody": review.comment,
+      "datePublished": review.created_at
+    }));
+  }
+
   return (
     <ResponsiveLayout>
       <DynamicSEO

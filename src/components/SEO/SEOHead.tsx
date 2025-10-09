@@ -202,6 +202,7 @@ export const seoConfig = {
         "priceCurrency": "EUR",
         "availability": "InStock",
         "validFrom": "2026-01-01",
+        "priceValidUntil": "2028-12-31",
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
           "applicableCountry": "FR",
