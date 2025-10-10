@@ -4,14 +4,14 @@
   "description": "Trouvez facilement des annonces logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/favicon.ico",
-      "sizes": "192x192",
-      "type": "image/x-icon"
+      "src": "/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "theme_color": "#0B1E3A",
