@@ -10,7 +10,7 @@ import { useAds } from "@/hooks/useAds";
 import { useTopics } from '@/hooks/useTopics';
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import Logo from "@/components/ui/Logo";
-import { Helmet } from "react-helmet-async";
+import { SEOHead } from "@/components/SEO/SEOHead";
 import DynamicIcon from "@/components/ui/DynamicIcon";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -254,15 +254,41 @@ const Index = () => {
 
   return (
     <ResponsiveLayout>
-      <Helmet>
-        <title>Omra Bons Plans - Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra</title>
-        <meta name="description" content="Trouvez facilement des annonces de logements, chauffeurs, guides, séjours et plus encore pour le Hajj & la Omra." />
-        <link rel="canonical" href="https://omrabonsplans.fr/" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
-        
-        {/* ⚡ CRITICAL: Preload hero image only on desktop */}
-        <link rel="preload" as="image" href={kaabaHero} fetchPriority="high" media="(min-width: 768px)" />
-      </Helmet>
+      <SEOHead
+        title="Omra Bons Plans - Plateforme #1 d'Annonces Omra & Hajj 2026"
+        description="Trouvez les meilleures offres pour votre Omra et Hajj 2026. Comparez séjours, vols, hébergements, guides et chauffeurs en Arabie Saoudite. Conseils d'experts pour une Omra pas chère."
+        keywords="omra pas cher, hajj 2026, voyage omra, séjours omra, vol omra, hébergement mecque, guide omra, chauffeur arabie saoudite, visa omra, agence omra"
+        canonical="https://omrabonsplans.fr/"
+        ogImage="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Omra Bons Plans",
+          "url": "https://omrabonsplans.fr",
+          "description": "Plateforme de comparaison et d'annonces pour services Omra et Hajj en Arabie Saoudite",
+          "inLanguage": "fr-FR",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://omrabonsplans.fr/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Omra Bons Plans",
+            "url": "https://omrabonsplans.fr",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+              "width": 512,
+              "height": 512
+            },
+            "sameAs": [
+              "https://www.instagram.com/omrabonsplans",
+              "https://www.tiktok.com/@omrabonsplans.fr"
+            ]
+          }
+        }}
+      />
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
@@ -695,6 +721,28 @@ const Index = () => {
                 </div>
               </section>
             )}
+
+      {/* Introduction SEO Section */}
+      <section className="py-16 px-6 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto max-w-4xl">
+          <div className="space-y-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Préparez votre Omra 2026 avec Omra Bons Plans
+            </h2>
+            <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed">
+              <p>
+                Bienvenue sur <strong className="text-foreground">Omra Bons Plans</strong>, la première plateforme française dédiée à l'organisation de votre pèlerinage en Arabie Saoudite. Que vous recherchiez un <strong className="text-foreground">séjour Omra tout compris</strong>, des <strong className="text-foreground">vols pas chers vers Jeddah</strong>, un <strong className="text-foreground">hébergement près du Haram</strong> à La Mecque ou Médine, ou encore un <strong className="text-foreground">guide spirituel expérimenté</strong>, nous centralisons toutes les offres pour faciliter vos recherches.
+              </p>
+              <p>
+                Notre mission est de vous aider à trouver une <strong className="text-foreground">Omra pas chère</strong> sans compromis sur la qualité. Comparez les prix, consultez les avis authentiques des pèlerins, et accédez à des conseils d'experts pour préparer votre voyage religieux sereinement. Du <strong className="text-foreground">visa Omra</strong> aux formalités administratives, en passant par les meilleures périodes pour partir, nous vous accompagnons à chaque étape de votre préparation.
+              </p>
+              <p>
+                Avec plus de 450 annonces vérifiées, des <Link to="/comparatif-agences" className="text-primary hover:underline font-semibold">comparatifs d'agences</Link> détaillés, et des <Link to="/blog" className="text-primary hover:underline font-semibold">guides pratiques sur notre blog</Link>, Omra Bons Plans est votre partenaire de confiance pour réaliser le voyage spirituel de votre vie. Consultez également notre <Link to="/prayer-times" className="text-primary hover:underline font-semibold">outil des horaires de prière</Link> et notre <Link to="/islamic-calendar" className="text-primary hover:underline font-semibold">calendrier islamique</Link> pour planifier votre séjour aux dates les plus propices.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* All Services Section - Now first */}
       <section className="py-20 px-0 md:px-6">
