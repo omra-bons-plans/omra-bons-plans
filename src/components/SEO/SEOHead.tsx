@@ -55,18 +55,29 @@ export const SEOHead = ({
     updateMetaTag('author', 'Omra Bons Plans');
     updateMetaTag('robots', 'index, follow');
 
-    // Open Graph tags
+    // Open Graph tags (Complete set for better SEO)
     updateMetaTag('og:title', title, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:type', ogType, true);
     updateMetaTag('og:image', ogImage, true);
+    updateMetaTag('og:image:width', '1200', true);
+    updateMetaTag('og:image:height', '630', true);
+    updateMetaTag('og:image:alt', title, true);
     updateMetaTag('og:site_name', 'Omra Bons Plans', true);
+    updateMetaTag('og:locale', 'fr_FR', true);
+    
+    // Add og:url if canonical is provided
+    if (canonical) {
+      updateMetaTag('og:url', canonical, true);
+    }
 
-    // Twitter tags
+    // Twitter tags (Complete set)
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);
+    updateMetaTag('twitter:image:alt', title);
+    updateMetaTag('twitter:site', '@omrabonsplans');
 
     // Canonical URL
     if (canonical) {

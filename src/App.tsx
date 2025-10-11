@@ -12,6 +12,7 @@ import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
+import SEOChecker from "./components/SEO/SEOChecker";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -76,6 +77,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+              <SEOChecker />
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>

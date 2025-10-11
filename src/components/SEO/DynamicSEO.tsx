@@ -26,9 +26,13 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
 }) => {
   const optimizedTitle = generateSEOTitle(title);
   const optimizedDescription = generateMetaDescription(description);
-  const canonicalUrl = path.includes('/blog/') 
-    ? generateCleanCanonicalUrl('general', path.split('/').pop() || 'default')
-    : `https://omrabonsplans.fr${path}`;
+  
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  
+  const canonicalUrl = normalizedPath.includes('/blog/') 
+    ? generateCleanCanonicalUrl('general', normalizedPath.split('/').pop() || 'default')
+    : `https://omrabonsplans.fr${normalizedPath}`;
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
   
@@ -39,9 +43,13 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
     "description": optimizedDescription,
     "url": canonicalUrl,
     "image": defaultImage,
+    "datePublished": new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "inLanguage": "fr-FR",
     "publisher": {
       "@type": "Organization",
       "name": "Omra Bons Plans",
+      "url": "https://omrabonsplans.fr",
       "logo": {
         "@type": "ImageObject",
         "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
