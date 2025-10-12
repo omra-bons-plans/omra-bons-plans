@@ -370,88 +370,134 @@ const Blog = () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 px-2 sm:px-0">
-              {filteredPosts.map((post) => (
-                <Card 
-                  key={post.id} 
-                  className="cursor-pointer hover:shadow-lg transition-shadow bg-card border rounded-2xl overflow-hidden"
-                  onClick={() => handlePostClick(post)}
-                >
-                  {post.cover_image && (
-                    <div className="aspect-video w-full overflow-hidden bg-muted">
-                            <UniversalImage 
-                              src={post.cover_image} 
-                              alt={post.title}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                    </div>
-                  )}
-                  <CardHeader className="pb-3 p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 space-y-2 sm:space-y-0">
-                      <Badge className={`${getCategoryColor(post.category)} text-xs px-3 py-1 rounded-full w-fit`}>
-                        {getCategoryName(post.category)}
-                      </Badge>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Eye className="w-3 h-3 mr-1" />
-                        {post.views_count}
+            <>
+              {/* Mobile List View */}
+              <div className="sm:hidden space-y-4 px-2">
+                {filteredPosts.map((post) => (
+                  <div 
+                    key={post.id}
+                    className="flex gap-3 cursor-pointer hover:bg-muted/50 transition-colors p-2 rounded-lg"
+                    onClick={() => handlePostClick(post)}
+                  >
+                    {/* Image à gauche - carrée */}
+                    {post.cover_image && (
+                      <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-muted">
+                        <UniversalImage 
+                          src={post.cover_image} 
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
-                    <CardTitle className="text-lg sm:text-xl leading-tight line-clamp-2 font-semibold">
-                      {post.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0 p-4 sm:p-6 sm:pt-0">
-                    <div className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
-                      <MarkdownRenderer 
-                        content={(post.excerpt || post.content.substring(0, 150)) + (post.excerpt && post.excerpt.length <= 150 ? '' : '...')}
-                        className="text-sm"
-                      />
-                    </div>
+                    )}
                     
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground space-y-2 sm:space-y-0">
-                      <div className="flex items-center">
-                        <User className="w-4 h-4 mr-2 flex-shrink-0" />
-                        <span className="truncate font-medium">{post.author?.full_name || post.author?.first_name || 'Anonyme'}</span>
+                    {/* Contenu à droite */}
+                    <div className="flex-1 flex flex-col justify-between min-w-0">
+                      <div>
+                        {/* Catégorie */}
+                        <Badge variant="secondary" className="text-xs mb-1.5 bg-blue-100 text-blue-700">
+                          {getCategoryName(post.category).split(' ')[0]}
+                        </Badge>
+                        
+                        {/* Titre */}
+                        <h3 className="font-semibold text-sm leading-tight text-foreground line-clamp-3">
+                          {post.title}
+                        </h3>
                       </div>
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                        {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR')}
-                      </div>
+                      
+                      {/* Auteur */}
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {post.author?.full_name || post.author?.first_name || 'Omra Bons Plans'}
+                      </p>
                     </div>
+                  </div>
+                ))}
+              </div>
 
-                    {post.location_city && (
-                      <div className="flex items-center text-xs text-muted-foreground mt-3">
-                        <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-                        <span className="truncate">{post.location_city}</span>
+              {/* Desktop Grid View */}
+              <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredPosts.map((post) => (
+                  <Card 
+                    key={post.id} 
+                    className="cursor-pointer hover:shadow-lg transition-shadow bg-card border rounded-2xl overflow-hidden"
+                    onClick={() => handlePostClick(post)}
+                  >
+                    {post.cover_image && (
+                      <div className="aspect-video w-full overflow-hidden bg-muted">
+                        <UniversalImage 
+                          src={post.cover_image} 
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                       </div>
                     )}
-
-                    {post.video_url && (
-                      <div className="flex items-center text-xs text-blue-600 mt-3">
-                        <Video className="w-4 h-4 mr-2 flex-shrink-0" />
-                        Contient une vidéo
+                    <CardHeader className="pb-3 p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge className={`${getCategoryColor(post.category)} text-xs px-3 py-1 rounded-full w-fit`}>
+                          {getCategoryName(post.category)}
+                        </Badge>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Eye className="w-3 h-3 mr-1" />
+                          {post.views_count}
+                        </div>
                       </div>
-                    )}
-
-                    {post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {post.tags.slice(0, 2).map((tag, index) => (
-                          <Badge key={index} variant="outline" className="text-xs px-3 py-1 rounded-full">
-                            {tag}
-                          </Badge>
-                        ))}
-                        {post.tags.length > 2 && (
-                          <Badge variant="outline" className="text-xs px-3 py-1 rounded-full">
-                            +{post.tags.length - 2}
-                          </Badge>
-                        )}
+                      <CardTitle className="text-xl leading-tight line-clamp-2 font-semibold">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0 p-6">
+                      <div className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
+                        <MarkdownRenderer 
+                          content={(post.excerpt || post.content.substring(0, 150)) + (post.excerpt && post.excerpt.length <= 150 ? '' : '...')}
+                          className="text-sm"
+                        />
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                      
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <div className="flex items-center">
+                          <User className="w-4 h-4 mr-2 flex-shrink-0" />
+                          <span className="truncate font-medium">{post.author?.full_name || post.author?.first_name || 'Anonyme'}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                          {new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR')}
+                        </div>
+                      </div>
+
+                      {post.location_city && (
+                        <div className="flex items-center text-xs text-muted-foreground mt-3">
+                          <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                          <span className="truncate">{post.location_city}</span>
+                        </div>
+                      )}
+
+                      {post.video_url && (
+                        <div className="flex items-center text-xs text-blue-600 mt-3">
+                          <Video className="w-4 h-4 mr-2 flex-shrink-0" />
+                          Contient une vidéo
+                        </div>
+                      )}
+
+                      {post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {post.tags.slice(0, 2).map((tag, index) => (
+                            <Badge key={index} variant="outline" className="text-xs px-3 py-1 rounded-full">
+                              {tag}
+                            </Badge>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <Badge variant="outline" className="text-xs px-3 py-1 rounded-full">
+                              +{post.tags.length - 2}
+                            </Badge>
+                          )}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </>
           )}
 
           {/* Contact Form for Vendors and Associations - Displayed at bottom */}
