@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Ce fichier redirige vers le sitemap dynamique généré par notre edge function.
+  Le sitemap dynamique se met à jour automatiquement avec le contenu du site.
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/generate-sitemap</loc>
+    <lastmod>2025-01-12</lastmod>
+  </sitemap>
+</sitemapindex>

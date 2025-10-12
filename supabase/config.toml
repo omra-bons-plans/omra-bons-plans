@@ -95,3 +95,7 @@ schedule = "0 * * * *"
 name = "update-exchange-rates"
 # Run every 12 hours at midnight and noon
 schedule = "0 0,12 * * *"
+
+# Public function for dynamic sitemap generation
+[functions.generate-sitemap]
+verify_jwt = false
