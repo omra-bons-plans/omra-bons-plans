@@ -61,7 +61,7 @@ const staticRoutes: SitemapUrl[] = [
     priority: 0.8
   },
   {
-    loc: 'https://omrabonsplans.fr/category/hebergement',
+    loc: 'https://omrabonsplans.fr/category/hebergements',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'weekly',
     priority: 0.8
