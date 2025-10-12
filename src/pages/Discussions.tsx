@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { MessageCircle, Hash, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTopics } from '@/hooks/useTopics';
 import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
@@ -214,6 +215,31 @@ const Discussions = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Liens utiles */}
+        <div className="container mx-auto px-6 mt-8 mb-8">
+          <Card className="bg-muted/30">
+            <CardHeader>
+              <CardTitle className="text-lg">Ressources utiles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="/category/sejours" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                  <h3 className="font-semibold mb-1">Séjours Omra</h3>
+                  <p className="text-sm text-muted-foreground">Découvrez nos packages complets pour l'Omra</p>
+                </a>
+                <a href="/agences-liste" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                  <h3 className="font-semibold mb-1">Agences Omra</h3>
+                  <p className="text-sm text-muted-foreground">Comparez les meilleures agences de voyage Omra</p>
+                </a>
+                <a href="/blog" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                  <h3 className="font-semibold mb-1">Blog</h3>
+                  <p className="text-sm text-muted-foreground">Conseils et guides pour votre pèlerinage</p>
+                </a>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ResponsiveLayout>

@@ -278,6 +278,29 @@ const PrayerTimes = () => {
             </div>
           )}
         </div>
+
+        {/* Liens utiles */}
+        <Card className="mt-8 bg-muted/30">
+          <CardHeader>
+            <CardTitle className="text-lg">Ressources utiles</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <a href="/islamic-calendar" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Calendrier Islamique</h3>
+                <p className="text-sm text-muted-foreground">Convertissez les dates grégoriennes en dates hégiriennes</p>
+              </a>
+              <a href="/ramadan-hajj-dates" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Dates Ramadan & Hajj</h3>
+                <p className="text-sm text-muted-foreground">Consultez les dates du Ramadan et du Hajj 2026-2028</p>
+              </a>
+              <a href="/category/sejours" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Séjours Omra</h3>
+                <p className="text-sm text-muted-foreground">Découvrez nos packages complets pour l'Omra</p>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </ResponsiveLayout>
   );

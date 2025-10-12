@@ -2,6 +2,7 @@ import React from 'react';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AgencyComparison from '@/components/ui/AgencyComparison';
@@ -50,6 +51,29 @@ export default function ComparatifVisuel() {
         </header>
 
         <AgencyComparison />
+
+        {/* Liens utiles */}
+        <Card className="mt-8 bg-muted/30">
+          <CardHeader>
+            <CardTitle className="text-lg">Ressources utiles</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <a href="/agences-liste" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Liste des Agences</h3>
+                <p className="text-sm text-muted-foreground">Voir toutes les agences Omra et leurs détails</p>
+              </a>
+              <a href="/comparatif-agences" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Comparatif Détaillé</h3>
+                <p className="text-sm text-muted-foreground">Analyse approfondie des agences de voyage Omra</p>
+              </a>
+              <a href="/category/sejours" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+                <h3 className="font-semibold mb-1">Séjours Omra</h3>
+                <p className="text-sm text-muted-foreground">Découvrez nos packages complets pour l'Omra</p>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
