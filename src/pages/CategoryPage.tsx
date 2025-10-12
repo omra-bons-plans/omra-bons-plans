@@ -457,6 +457,74 @@ const CategoryPage = () => {
             </CardContent>
           </Card>
 
+          {/* Section informative SEO */}
+          <Card className="mb-8 bg-muted/30">
+            <CardContent className="pt-6">
+              <div className="prose prose-sm max-w-none text-muted-foreground">
+                {category === 'sejours' && (
+                  <div className="space-y-4">
+                    <p>
+                      Découvrez notre sélection exclusive de <strong>packages Omra et Hajj 2026</strong> tout inclus proposés par des agences de voyage certifiées. Chaque séjour comprend les vols internationaux, les hébergements en hôtels 4 ou 5 étoiles situés à proximité immédiate du Haram de La Mecque et de la Mosquée du Prophète à Médine, les transferts terrestres climatisés, les visas, l&apos;accompagnement spirituel par des guides francophones expérimentés, et l&apos;assurance voyage complète.
+                    </p>
+                    <p>
+                      Nos séjours s&apos;adaptent à tous les budgets et toutes les durées : formules économiques de 7 jours pour une première Omra, packages standards de 10 à 15 jours pour une expérience complète, ou séjours premium de 21 jours avec services VIP et chambres face au Haram. Voyagez en groupe avec d&apos;autres pèlerins francophones ou optez pour un séjour individuel personnalisé selon vos dates et préférences.
+                    </p>
+                  </div>
+                )}
+                {category === 'vols' && (
+                  <div className="space-y-4">
+                    <p>
+                      Comparez et réservez vos <strong>billets d&apos;avion vers Jeddah et Médine</strong> au meilleur prix pour votre Omra ou Hajj 2026. Nous proposons des vols directs et avec escale au départ des principales villes françaises (Paris, Lyon, Marseille, Toulouse, Nantes, Nice) vers l&apos;Arabie Saoudite. Les vols directs sur compagnies régulières (Saudi Airlines, Air France, Turkish Airlines) offrent un confort optimal avec une durée de vol de 5 à 6 heures, tandis que les vols avec escale permettent d&apos;économiser sur le budget tout en garantissant un bon service.
+                    </p>
+                    <p>
+                      Profitez de nos tarifs négociés avec les compagnies aériennes partenaires et bénéficiez de conditions avantageuses : bagages en soute généreux (2x23kg minimum), repas halal à bord, flexibilité de modification, et assurance annulation incluse. Réservez vos vols en avance pour garantir les meilleures disponibilités, particulièrement pendant les périodes de forte affluence comme le Ramadan et les vacances scolaires.
+                    </p>
+                  </div>
+                )}
+                {category === 'hebergements' && (
+                  <div className="space-y-4">
+                    <p>
+                      Trouvez l&apos;<strong>hébergement idéal pour votre séjour Omra ou Hajj</strong> parmi notre large sélection d&apos;hôtels, appartements meublés et résidences hôtelières à La Mecque et Médine. Les hôtels situés à proximité directe du Haram Sharif offrent un accès privilégié aux lieux saints : marchez seulement 2 à 5 minutes à pied pour rejoindre la Kaaba ou la mosquée du Prophète. Pour les familles nombreuses, les appartements spacieux avec cuisine équipée permettent plus d&apos;intimité et d&apos;économies sur les repas.
+                    </p>
+                    <p>
+                      Notre gamme comprend toutes les catégories : hôtels économiques 3 étoiles à partir de 50€/nuit pour les budgets serrés, hôtels confort 4 étoiles autour de 100€/nuit avec vue sur le Haram, et hôtels de luxe 5 étoiles comme Hilton, Fairmont ou Swissôtel avec services premium (spa, restaurants gastronomiques, room service 24h). Tous les hébergements sont vérifiés et garantissent propreté, sécurité et respect des normes islamiques.
+                    </p>
+                  </div>
+                )}
+                {category === 'guides' && (
+                  <div className="space-y-4">
+                    <p>
+                      Bénéficiez de l&apos;accompagnement spirituel d&apos;un <strong>guide Omra francophone expérimenté</strong> pour vivre pleinement votre pèlerinage en Arabie Saoudite. Nos guides diplômés possèdent une connaissance approfondie des rites du Hajj et de la Omra, maîtrisent parfaitement l&apos;arabe et le français, et ont accompagné des centaines de pèlerins au fil des années. Ils vous enseigneront les invocations authentiques (douas), vous expliqueront la signification spirituelle de chaque rituel, et vous aideront à accomplir correctement tous les piliers du pèlerinage.
+                    </p>
+                    <p>
+                      L&apos;accompagnement comprend généralement les services suivants : explication détaillée des rites avant le départ, assistance pendant le Ihram et le Tawaf autour de la Kaaba, guidance pour le Sa&apos;i entre Safa et Marwa, enseignement des prières spécifiques, visites des sites historiques (grotte de Hira, mont Uhud, cimetière Al-Baqi), conférences religieuses quotidiennes, et disponibilité 24h/24 pour répondre à toutes vos questions. Optez pour un guide privé pour un service personnalisé ou rejoignez un groupe de 15-20 pèlerins pour partager cette expérience spirituelle enrichissante.
+                    </p>
+                  </div>
+                )}
+                {category === 'chauffeurs' && (
+                  <div className="space-y-4">
+                    <p>
+                      Réservez votre <strong>chauffeur privé professionnel</strong> pour tous vos déplacements en Arabie Saoudite pendant votre Omra ou Hajj. Nos chauffeurs expérimentés connaissent parfaitement les routes entre Jeddah, La Mecque, Médine et tous les sites importants du pèlerinage. Ils conduisent des véhicules modernes climatisés et confortables (berlines, minibus 7-15 places) parfaitement entretenus et respectant toutes les normes de sécurité saoudiennes.
+                    </p>
+                    <p>
+                      Les services proposés incluent : transfert aéroport vers votre hôtel, navettes quotidiennes entre votre hébergement et le Haram, excursions vers les sites historiques (grotte de Hira, mont Arafat, mosquée de Quba), déplacements pour le shopping dans les souks traditionnels, et transport inter-villes (trajet Médine-La Mecque en 5h). Nos chauffeurs francophones peuvent également servir de guides touristiques et vous donner des conseils pratiques sur les meilleures adresses pour manger, faire des courses, et découvrir l&apos;Arabie Saoudite authentique. Tarifs dégressifs pour les réservations longue durée et les groupes familiaux.
+                    </p>
+                  </div>
+                )}
+                {category === 'babysitting' && (
+                  <div className="space-y-4">
+                    <p>
+                      Profitez pleinement de votre <strong>pèlerinage spirituel</strong> en confiant vos enfants à nos services de <strong>garde professionnels et sécurisés</strong> à La Mecque et Médine. Nos baby-sitters qualifiées sont des femmes musulmanes pratiquantes, parfaitement bilingues français-arabe, formées aux premiers secours, et expérimentées dans la garde d&apos;enfants de tous âges (nourrissons, bambins, enfants). Elles créent un environnement chaleureux, éducatif et amusant pendant que vous accomplissez vos rites religieux en toute tranquillité d&apos;esprit.
+                    </p>
+                    <p>
+                      Les services incluent : garde à l&apos;hôtel pendant vos prières au Haram (minimum 2h, maximum 8h par jour), activités ludiques et éducatives adaptées à l&apos;âge (jeux islamiques, apprentissage du Coran, contes du prophète), préparation et service des repas pour les enfants, aide aux devoirs pour les enfants scolarisés, et couchers selon les routines habituelles. Toutes nos baby-sitters ont été vérifiées avec certificat de bonne moralité, références contrôlées, et assurance responsabilité civile. Réservation flexible à la journée, à la demi-journée, ou pour toute la durée de votre séjour avec tarifs dégressifs. Service de garde de nuit disponible sur demande pour les parents souhaitant prier Tahajjud au Haram.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Results Header */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold">

@@ -42,11 +42,21 @@ export default function ComparatifVisuel() {
             Comparatif Visuel Interactif des Agences Omra & Hajj 2026
           </h1>
           <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
-            Comparez jusqu'à 4 agences côte à côte : tarifs, services inclus, notes et spécialités
+            Comparez jusqu&apos;à 4 agences côte à côte : tarifs, services inclus, notes Google et spécialités
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Analysez et comparez les meilleures agences de voyage pour votre pèlerinage. 
-            Notes Google authentiques, avis clients et analyse détaillée des services.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
+            Trouvez l&apos;agence de voyage Omra ou Hajj idéale grâce à notre outil de comparaison visuel innovant. 
+            Sélectionnez jusqu&apos;à 4 agences parmi les meilleures du marché francophone et comparez instantanément 
+            leurs offres : fourchettes de prix, services inclus (vols, hébergement, transferts, accompagnement spirituel), 
+            notes Google authentiques basées sur des centaines d&apos;avis clients réels, et spécialités de chaque agence. 
+            Notre comparateur transparent vous aide à prendre une décision éclairée pour votre voyage spirituel en 
+            visualisant clairement les différences entre les agences. Comparez les tarifs des packages tout compris, 
+            vérifiez la proximité des hôtels par rapport au Haram de La Mecque et de Médine, analysez les services 
+            d&apos;accompagnement spirituel proposés, et découvrez les points forts de chaque agence certifiée. 
+            Que vous recherchiez une formule économique, un séjour de luxe ou un accompagnement personnalisé avec 
+            guide francophone, notre outil vous permet de comparer objectivement toutes les options disponibles 
+            pour votre Omra 2026 ou Hajj 2026. Gagnez du temps en évitant de consulter des dizaines de sites web 
+            différents et prenez votre décision en toute confiance.
           </p>
         </header>
 

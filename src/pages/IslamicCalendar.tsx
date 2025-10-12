@@ -149,8 +149,13 @@ const IslamicCalendar = () => {
           <h2 className="text-xl text-muted-foreground mb-2">
             Outil de conversion gratuit entre calendrier grégorien et calendrier hégirien islamique
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Convertissez les dates grégoriennes en dates hégiriennes pour vos événements religieux
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            Convertissez facilement et instantanément les dates grégoriennes en dates hégiriennes islamiques. 
+            Notre outil de conversion précis vous permet de planifier vos événements religieux, vérifier les dates 
+            du Ramadan, du Hajj, de l&apos;Aïd et d&apos;autres occasions importantes selon le calendrier lunaire islamique. 
+            Le calendrier hégirien, qui commence avec l&apos;Hégire du Prophète Muhammad (que la paix soit sur lui) en 622 CE, 
+            est essentiel pour tout musulman souhaitant organiser ses pratiques religieuses et célébrations selon 
+            les traditions islamiques authentiques.
           </p>
         </div>
 

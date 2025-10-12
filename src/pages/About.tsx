@@ -71,23 +71,60 @@ const About = () => {
             <CardContent className="prose prose-lg max-w-none">
               <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p>
-                  Nous sommes une équipe passionnée qui a eu le privilège de vivre de nombreuses années en Arabie saoudite et d'accompagner des milliers de pèlerins en tant que guides.
+                  Bienvenue sur Omra Bons Plans, la première plateforme francophone entièrement dédiée au pèlerinage musulman. 
+                  Nous sommes une équipe passionnée composée d&apos;anciens guides spirituels ayant vécu de nombreuses années 
+                  en Arabie saoudite et accompagné des milliers de pèlerins dans leur voyage sacré vers La Mecque et Médine.
                 </p>
                 
+                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Notre Histoire</h3>
                 <p>
-                  Au fil du temps, nous avons constaté une réalité : beaucoup de pèlerins recherchent des services fiables et adaptés à leurs besoins, mais peinent à trouver les bons prestataires. De l'autre côté, de nombreux prestataires souhaitent proposer leurs services, sans toujours avoir la visibilité nécessaire pour atteindre les futurs pèlerins.
+                  Au fil des années passées sur les terres saintes, nous avons été témoins d&apos;une problématique récurrente : 
+                  de nombreux pèlerins francophones recherchent désespérément des services fiables, transparents et adaptés 
+                  à leurs besoins spécifiques, mais peinent à trouver les bons prestataires dans la multitude d&apos;offres disponibles. 
+                  Parallèlement, de nombreux prestataires sérieux et professionnels souhaitent proposer leurs services de qualité, 
+                  sans toujours disposer de la visibilité nécessaire pour atteindre efficacement les futurs pèlerins.
                 </p>
 
                 <p>
-                  C'est de ce constat qu'est née <strong className="text-primary font-bold">omrabonsplans.fr</strong>, la première plateforme au monde dédiée à mettre en relation les futurs pèlerins avec des prestataires de confiance.
+                  C&apos;est précisément de ce double constat, fruit de notre expérience terrain et de notre proximité avec 
+                  la communauté musulmane francophone, qu&apos;est née <strong className="text-primary font-bold">omrabonsplans.fr</strong>. 
+                  Nous avons créé la première plateforme au monde spécialement conçue pour mettre en relation directe les futurs 
+                  pèlerins avec des prestataires de confiance vérifiés, dans un environnement sécurisé et transparent.
                 </p>
 
+                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Notre Mission</h3>
                 <p>
-                  Notre mission est simple : <strong className="text-foreground">faciliter l'organisation du voyage religieux</strong> en offrant un espace sécurisé, transparent et accessible où chacun peut trouver ou proposer les services qui correspondent à ses attentes.
+                  Notre mission est claire et ambitieuse : <strong className="text-foreground">faciliter l&apos;organisation complète 
+                  du voyage religieux</strong> en offrant un espace digital sécurisé, transparent et accessible où chacun peut 
+                  facilement trouver ou proposer les services qui correspondent précisément à ses attentes et à son budget. 
+                  Nous croyons fermement que la préparation d&apos;un pèlerinage ne devrait pas être source de stress ou d&apos;inquiétude, 
+                  mais plutôt une étape sereine et joyeuse du voyage spirituel.
                 </p>
 
+                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Nos Services</h3>
                 <p>
-                  Avec omrabonsplans.fr, nous souhaitons apporter plus de sérénité et de clarté dans la préparation de la Omra, afin que chaque pèlerin puisse se concentrer sur l'essentiel : son adoration et sa spiritualité.
+                  Sur Omra Bons Plans, vous trouverez une gamme complète de services pour votre pèlerinage :
+                </p>
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                  <li>Comparaison détaillée des agences de voyage Omra et Hajj certifiées</li>
+                  <li>Annonces de vols directs et avec escale vers Jeddah et Médine</li>
+                  <li>Hébergements variés : hôtels face au Haram, appartements familiaux, résidences</li>
+                  <li>Services de guides spirituels francophones expérimentés</li>
+                  <li>Transport privé avec chauffeurs professionnels</li>
+                  <li>Services de garde d&apos;enfants certifiés</li>
+                  <li>Forum communautaire pour échanger avec d&apos;autres pèlerins</li>
+                  <li>Blog avec guides pratiques et conseils d&apos;experts</li>
+                  <li>Outils religieux : horaires de prière, calendrier islamique, dates du Ramadan et Hajj</li>
+                </ul>
+
+                <p className="mt-6">
+                  Avec omrabonsplans.fr, nous souhaitons apporter plus de sérénité, de clarté et de confiance dans la préparation 
+                  de la Omra et du Hajj, afin que chaque pèlerin puisse se concentrer sur l&apos;essentiel : son adoration, 
+                  sa spiritualité et sa connexion avec Allah dans les lieux les plus sacrés de l&apos;Islam.
+                </p>
+
+                <p className="mt-6 text-primary font-semibold">
+                  Qu&apos;Allah accepte votre pèlerinage et facilite votre voyage spirituel. Amin.
                 </p>
               </div>
             </CardContent>

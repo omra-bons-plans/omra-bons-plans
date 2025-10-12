@@ -50,8 +50,16 @@ const Discussions = () => {
             <h2 className="text-2xl text-primary-foreground mb-3 font-semibold">
               Communauté francophone de pèlerins : conseils, témoignages et entraide pour votre voyage spirituel
             </h2>
-            <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-              Rejoignez notre communauté de pèlerins. Partagez vos expériences, posez vos questions et échangez des conseils précieux pour votre voyage spirituel.
+            <p className="text-primary-foreground/80 text-lg max-w-3xl mx-auto">
+              Bienvenue sur le premier forum francophone dédié aux pèlerins musulmans ! Notre communauté bienveillante 
+              réunit des milliers de frères et sœurs qui partagent leurs expériences du pèlerinage Omra et Hajj. 
+              Que vous prépariez votre première Omra, que vous cherchiez des conseils pratiques sur les hébergements 
+              à La Mecque ou Médine, ou que vous souhaitiez partager vos moments spirituels, vous êtes au bon endroit. 
+              Échangez avec des pèlerins expérimentés, posez vos questions sans hésitation, découvrez les meilleures 
+              astuces pour voyager sereinement, et trouvez des recommandations sur les agences de voyage, les guides 
+              spirituels francophones et les services sur place. Notre forum couvre tous les aspects du pèlerinage : 
+              préparation spirituelle et physique, démarches administratives, budget et bons plans, rituels du Hajj 
+              et de la Omra, vie quotidienne en Arabie Saoudite, et bien plus encore.
             </p>
           </div>
         </div>

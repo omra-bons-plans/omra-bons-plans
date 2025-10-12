@@ -127,11 +127,14 @@ const Contact = () => {
             <CardHeader>
               <h1 className="text-3xl font-bold text-center mb-4">Contactez-nous</h1>
               <h2 className="text-xl text-muted-foreground text-center mb-2">
-                Une question sur votre Omra ou Hajj ? Besoin d'aide pour vos réservations ?
+                Une question sur votre Omra ou Hajj ? Besoin d&apos;aide pour vos réservations ?
               </h2>
-              <p className="text-muted-foreground text-center">
-                Vous avez une question ou souhaitez nous faire part de vos commentaires ? 
-                N'hésitez pas à nous contacter !
+              <p className="text-muted-foreground text-center max-w-xl mx-auto">
+                Notre équipe d&apos;experts en pèlerinage musulman est à votre écoute pour répondre à toutes vos questions. 
+                Que ce soit pour obtenir des conseils sur le choix d&apos;une agence, des informations sur les meilleures périodes 
+                pour partir en Omra, des recommandations d&apos;hébergements à La Mecque ou Médine, ou tout autre sujet lié à 
+                votre voyage spirituel, n&apos;hésitez pas à nous contacter. Nous nous engageons à vous répondre dans les 24 à 48 heures. 
+                Votre satisfaction et la réussite de votre pèlerinage sont notre priorité absolue.
               </p>
             </CardHeader>
             <CardContent>
@@ -198,6 +201,49 @@ const Contact = () => {
                   {isLoading ? 'Envoi en cours...' : 'Envoyer'}
                 </Button>
               </form>
+            </CardContent>
+          </Card>
+
+          {/* Informations supplémentaires */}
+          <Card className="mt-8 bg-muted/30">
+            <CardHeader>
+              <CardTitle className="text-xl">Pourquoi nous contacter ?</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4 text-muted-foreground">
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Questions sur les services</h3>
+                  <p className="text-sm">
+                    Vous avez des questions sur les annonces publiées, les agences listées, ou les services proposés 
+                    sur notre plateforme ? Notre équipe connaît parfaitement l&apos;écosystème du pèlerinage et peut vous 
+                    orienter vers les meilleures options selon vos besoins et votre budget.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Assistance technique</h3>
+                  <p className="text-sm">
+                    Vous rencontrez un problème technique sur le site ? Une difficulté pour publier une annonce ou 
+                    contacter un prestataire ? Nous sommes là pour vous aider à résoudre rapidement tout problème 
+                    technique et vous guider dans l&apos;utilisation de notre plateforme.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Suggestions et partenariats</h3>
+                  <p className="text-sm">
+                    Vous avez des idées pour améliorer Omra Bons Plans ? Vous êtes une agence ou un prestataire 
+                    souhaitant établir un partenariat ? Nous sommes toujours à l&apos;écoute des suggestions de notre 
+                    communauté et ouverts aux opportunités de collaboration bénéfiques pour les pèlerins.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Délai de réponse</h3>
+                  <p className="text-sm">
+                    Nous nous engageons à traiter votre demande dans les meilleurs délais. En général, vous recevrez 
+                    une réponse sous 24 à 48 heures ouvrées. Pour les questions urgentes, n&apos;hésitez pas à le préciser 
+                    dans votre message.
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>

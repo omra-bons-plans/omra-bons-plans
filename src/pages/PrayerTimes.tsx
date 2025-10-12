@@ -160,10 +160,48 @@ const PrayerTimes = () => {
             <h1 className="text-3xl font-bold text-foreground">Horaires de Prière Musulmane - Salat Times</h1>
             <h2 className="text-xl text-muted-foreground">Consultez les horaires des 5 prières quotidiennes pour votre ville : Fajr, Dhuhr, Asr, Maghrib et Isha</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Trouvez les horaires de prière musulmane précis pour votre ville. 
-              Entrez simplement le nom de votre ville pour obtenir les horaires quotidiens.
+              Trouvez les horaires de prière musulmane précis pour votre ville partout dans le monde. 
+              Notre outil utilise les calculs astronomiques les plus précis pour vous fournir les horaires exacts 
+              des cinq prières quotidiennes obligatoires. Que vous soyez à Paris, Londres, New York ou dans n&apos;importe 
+              quelle ville, obtenez instantanément les horaires de Fajr (l&apos;aube), Dhuhr (midi), Asr (après-midi), 
+              Maghrib (coucher du soleil) et Isha (nuit). Nos horaires sont calculés selon la méthode de la Ligue Islamique Mondiale 
+              (MWL) avec des angles de 18° pour Fajr et 17° pour Isha, garantissant une précision optimale pour votre pratique religieuse.
             </p>
           </div>
+
+          {/* Introduction détaillée */}
+          <Card className="bg-muted/30">
+            <CardContent className="pt-6">
+              <div className="prose prose-sm max-w-none text-muted-foreground">
+                <p className="mb-4">
+                  La prière (Salat) est le deuxième pilier de l&apos;Islam et constitue un acte d&apos;adoration fondamental 
+                  pour tout musulman. Elle établit un lien direct entre le croyant et Allah, offrant des moments de 
+                  recueillement spirituel tout au long de la journée. Les cinq prières quotidiennes sont réparties 
+                  à des moments spécifiques basés sur la position du soleil.
+                </p>
+                <p className="mb-4">
+                  <strong>Fajr</strong> : La prière de l&apos;aube commence lorsque la lueur blanche apparaît à l&apos;horizon 
+                  et se termine juste avant le lever du soleil. C&apos;est un moment béni où le monde est encore calme.
+                </p>
+                <p className="mb-4">
+                  <strong>Dhuhr</strong> : La prière de midi débute juste après que le soleil ait dépassé son zénith 
+                  et dure jusqu&apos;au début de la prière d&apos;Asr. C&apos;est une pause spirituelle au milieu de la journée.
+                </p>
+                <p className="mb-4">
+                  <strong>Asr</strong> : La prière de l&apos;après-midi commence lorsque l&apos;ombre d&apos;un objet est égale 
+                  à sa hauteur et se termine juste avant le coucher du soleil.
+                </p>
+                <p className="mb-4">
+                  <strong>Maghrib</strong> : La prière du coucher du soleil commence immédiatement après que le soleil 
+                  soit complètement descendu sous l&apos;horizon et dure environ 15-20 minutes.
+                </p>
+                <p>
+                  <strong>Isha</strong> : La prière de la nuit commence lorsque la lueur rouge du crépuscule disparaît 
+                  et peut être accomplie jusqu&apos;à minuit ou avant l&apos;aube selon les écoles juridiques.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Search Form */}
           <Card>

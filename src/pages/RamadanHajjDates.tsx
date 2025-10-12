@@ -200,8 +200,17 @@ const RamadanHajjDates = () => {
             <h1 className="text-4xl font-bold text-foreground mb-4">
               Dates du Ramadan 2026 et du Hajj 2026
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Calendrier des dates importantes du Ramadan et du Hajj pour les années 2026, 2027 et 2028
+            <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
+              Calendrier complet des dates officielles du Ramadan et du Hajj pour 2026, 2027 et 2028
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Planifiez dès maintenant votre voyage spirituel avec notre calendrier détaillé des dates du Ramadan 
+              et du Hajj pour les prochaines années. Le Ramadan est le mois sacré du jeûne musulman, un pilier 
+              fondamental de l&apos;Islam où les croyants s&apos;abstiennent de manger et de boire de l&apos;aube au coucher du soleil. 
+              Le Hajj, pèlerinage annuel à La Mecque, est une obligation religieuse que tout musulman doit accomplir 
+              au moins une fois dans sa vie s&apos;il en a les moyens. Ces dates vous permettront de préparer votre 
+              pèlerinage Omra ou Hajj en réservant vos billets d&apos;avion et votre hébergement au meilleur moment, 
+              tout en évitant les périodes de forte affluence.
             </p>
           </div>
 
