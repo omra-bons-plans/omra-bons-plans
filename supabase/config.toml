@@ -84,3 +84,14 @@ verify_jwt = false
 enabled = true
 port = 54328
 ip_version = "ipv4"
+
+# Scheduled functions to update weather and exchange rates
+[[edge_runtime.scheduled_functions]]
+name = "update-weather-data"
+# Run every hour
+schedule = "0 * * * *"
+
+[[edge_runtime.scheduled_functions]]
+name = "update-exchange-rates"
+# Run every 12 hours at midnight and noon
+schedule = "0 0,12 * * *"

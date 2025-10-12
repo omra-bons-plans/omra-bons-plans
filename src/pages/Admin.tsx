@@ -723,6 +723,84 @@ const Admin = () => {
             </Card>
           </div>
 
+          {/* System Maintenance */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg md:text-xl flex items-center gap-2">
+                <Settings className="w-5 h-5" />
+                Maintenance Système
+              </CardTitle>
+              <CardDescription>
+                Mise à jour manuelle des données externes
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Button
+                  onClick={async () => {
+                    try {
+                      toast({
+                        title: "Mise à jour en cours...",
+                        description: "Récupération des données météo"
+                      });
+                      
+                      const { data, error } = await supabase.functions.invoke('update-weather-data');
+                      
+                      if (error) throw error;
+                      
+                      toast({
+                        title: "✅ Météo mise à jour",
+                        description: `Makkah: ${data.weather[0]?.temperature}°C, Médine: ${data.weather[1]?.temperature}°C`
+                      });
+                    } catch (error: any) {
+                      toast({
+                        title: "Erreur",
+                        description: error.message,
+                        variant: "destructive"
+                      });
+                    }
+                  }}
+                  variant="outline"
+                  className="w-full"
+                >
+                  <Activity className="w-4 h-4 mr-2" />
+                  Actualiser Météo
+                </Button>
+                
+                <Button
+                  onClick={async () => {
+                    try {
+                      toast({
+                        title: "Mise à jour en cours...",
+                        description: "Récupération du taux de change"
+                      });
+                      
+                      const { data, error } = await supabase.functions.invoke('update-exchange-rates');
+                      
+                      if (error) throw error;
+                      
+                      toast({
+                        title: "✅ Taux de change mis à jour",
+                        description: `1€ = ${data.rate} SAR`
+                      });
+                    } catch (error: any) {
+                      toast({
+                        title: "Erreur",
+                        description: error.message,
+                        variant: "destructive"
+                      });
+                    }
+                  }}
+                  variant="outline"
+                  className="w-full"
+                >
+                  <Activity className="w-4 h-4 mr-2" />
+                  Actualiser Taux de Change
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Filters */}
           <Card>
             <CardHeader>
