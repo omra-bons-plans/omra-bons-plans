@@ -90,7 +90,8 @@ export const useWeatherAndExchange = () => {
     const needExchange = force || !exchangeCacheData || (now - exchangeCacheData.timestamp) > EXCHANGE_CACHE_DURATION;
     
     // Si on a déjà tout dans le cache, pas besoin de fetch
-    if (!needWeather && !needExchange) {
+    if (!needWeather && !needExchange && !force) {
+      console.log('📦 Using cached data');
       setData({
         weather: weatherCacheData.data,
         exchange: exchangeCacheData.data
@@ -103,7 +104,7 @@ export const useWeatherAndExchange = () => {
       setLoading(true);
       setError(null);
       
-      console.log('🌤️ Fetching weather and exchange data...', { needWeather, needExchange });
+      console.log('🌤️ Fetching weather and exchange data...', { needWeather, needExchange, force });
 
       const { data: functionData, error: functionError } = await supabase.functions.invoke('weather-and-exchange', {
         body: { timestamp: now, forceRefresh: force }
@@ -111,23 +112,53 @@ export const useWeatherAndExchange = () => {
 
       if (functionError) {
         console.error('❌ Function error:', functionError);
+        // En cas d'erreur, utiliser les données du cache si disponibles
+        if (weatherCacheData && exchangeCacheData) {
+          console.log('⚠️ Using cached data as fallback');
+          setData({
+            weather: weatherCacheData.data,
+            exchange: exchangeCacheData.data
+          });
+          setError('Données en cache (connexion temporaire impossible)');
+          setLoading(false);
+          return;
+        }
         throw functionError;
       }
 
-      console.log('✅ Weather and exchange data received');
+      if (!functionData || !functionData.weather || !functionData.exchange) {
+        console.error('❌ Invalid data structure received:', functionData);
+        throw new Error('Données invalides reçues du serveur');
+      }
+
+      console.log('✅ Weather and exchange data received:', {
+        makkah: functionData.weather?.makkah?.temperature,
+        madinah: functionData.weather?.madinah?.temperature,
+        eurToSar: functionData.exchange?.eurToSar
+      });
       
       // Mettre en cache séparément
-      if (needWeather && functionData.weather) {
+      if (functionData.weather) {
         setWeatherCache(functionData.weather);
       }
-      if (needExchange && functionData.exchange) {
+      if (functionData.exchange) {
         setExchangeCache(functionData.exchange);
       }
       
       setData(functionData);
     } catch (err: any) {
       console.error('💥 Error fetching weather and exchange data:', err);
-      setError(err.message || 'Une erreur est survenue');
+      // En cas d'erreur, utiliser les données du cache si disponibles
+      if (weatherCacheData && exchangeCacheData) {
+        console.log('⚠️ Using cached data as fallback');
+        setData({
+          weather: weatherCacheData.data,
+          exchange: exchangeCacheData.data
+        });
+        setError('Données en cache (erreur de connexion)');
+      } else {
+        setError(err.message || 'Une erreur est survenue');
+      }
     } finally {
       setLoading(false);
     }
