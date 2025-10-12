@@ -555,30 +555,6 @@ const Index = () => {
                   </p>
                 </div>
               </div>
-
-              {/* SEO Content - Hero Section */}
-              <div className="mt-12 max-w-3xl mx-auto">
-                <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg">
-                  <p className="text-gray-800 text-base md:text-lg leading-relaxed text-center md:text-left space-y-4">
-                    <span className="block">
-                      Bienvenue sur <strong className="text-primary font-semibold">Omra Bons Plans</strong>, le site dédié à la préparation du <strong className="font-semibold">voyage Omra et Hajj 2026</strong> en toute sérénité.
-                    </span>
-                    <span className="block">
-                      Ici, les pèlerins francophones trouveront :
-                    </span>
-                    <ul className="list-disc list-inside space-y-2 ml-4">
-                      <li>Des conseils pratiques pour effectuer leur <strong className="font-semibold">Omra</strong> facilement.</li>
-                      <li>Des comparatifs d{"'"}agences <strong className="font-semibold">Omra</strong> fiables et transparentes.</li>
-                      <li>Des astuces pour voyager à moindre coût et trouver une <strong className="font-semibold">Omra pas chère</strong> sans compromis sur la qualité.</li>
-                      <li>Des rappels spirituels et des guides détaillés pour mieux vivre leur pèlerinage.</li>
-                    </ul>
-                    <span className="block">
-                      L{"'"}objectif de ce site est simple : aider chaque pèlerin à accomplir son <strong className="font-semibold">Omra</strong> ou son <strong className="font-semibold">Hajj 2026</strong> avec moins de stress, moins de dépenses inutiles et plus de sérénité spirituelle.
-                    </span>
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
