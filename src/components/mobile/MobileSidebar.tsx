@@ -49,7 +49,7 @@ const MobileSidebar = () => {
           </Button>
           
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center cursor-pointer" onClick={() => navigate('/')}>
-            <Logo size={48} className="text-primary object-contain" />
+            <Logo size={72} className="text-primary object-contain" />
           </div>
 
           <div className="flex items-center space-x-2">
