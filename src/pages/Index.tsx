@@ -41,10 +41,10 @@ import {
 
 // Lazy import images to reduce initial bundle size
 import kaabaHero from "@/assets/kaaba-hero.jpg";
-const meccaMosqueHero = "/src/assets/mecca-mosque-hero.jpg";
-const luxuryHotelMecca = "/src/assets/luxury-hotel-mecca.jpg";
-const tourGuideMecca = "/src/assets/tour-guide-mecca.jpg";
-const airplaneInterior = "/src/assets/airplane-interior.jpg";
+import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
+import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
+import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
+import airplaneInterior from "@/assets/airplane-interior.jpg";
 
 // Weather icon mapping function
 const getWeatherIcon = (description: string) => {
