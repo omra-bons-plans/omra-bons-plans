@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Search, Sun, Cloud, CloudRain, CloudSnow, Cloudy, RefreshCw } from "lucide-react";
+import { Search } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useWeatherAndExchange } from "@/hooks/useWeatherAndExchange";
+
 import { useAuth } from "@/contexts/AuthContext";
 import { useAds } from "@/hooks/useAds";
 import { useTopics } from '@/hooks/useTopics';
@@ -46,61 +46,12 @@ import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
 import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
 import airplaneInterior from "@/assets/airplane-interior.jpg";
 
-// Weather icon mapping function
-const getWeatherIcon = (description: string) => {
-  const desc = description.toLowerCase();
-  
-  if (desc.includes('clear') || desc.includes('sunny') || desc.includes('dégagé')) {
-    return <Sun className="w-8 h-8 text-yellow-500" />;
-  }
-  if (desc.includes('cloud') || desc.includes('nuageux') || desc.includes('couvert')) {
-    return <Cloudy className="w-8 h-8 text-gray-500" />;
-  }
-  if (desc.includes('rain') || desc.includes('pluie') || desc.includes('averse')) {
-    return <CloudRain className="w-8 h-8 text-blue-500" />;
-  }
-  if (desc.includes('snow') || desc.includes('neige')) {
-    return <CloudSnow className="w-8 h-8 text-blue-300" />;
-  }
-  if (desc.includes('partly') || desc.includes('partiellement')) {
-    return <Cloud className="w-8 h-8 text-gray-400" />;
-  }
-  
-  // Default sunny icon
-  return <Sun className="w-8 h-8 text-yellow-500" />;
-};
-
-// Function to translate weather descriptions
-const translateWeatherDescription = (description: string) => {
-  const desc = description.toLowerCase();
-  
-  if (desc.includes('sunny') || desc.includes('clear')) {
-    return 'Ensoleillé';
-  }
-  if (desc.includes('cloudy') || desc.includes('overcast')) {
-    return 'Nuageux';
-  }
-  if (desc.includes('partly cloudy')) {
-    return 'Partiellement nuageux';
-  }
-  if (desc.includes('rain')) {
-    return 'Pluvieux';
-  }
-  if (desc.includes('snow')) {
-    return 'Neigeux';
-  }
-  
-  // Return original if no translation found
-  return description;
-};
 
 const Index = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [currentWeatherCity, setCurrentWeatherCity] = useState<'makkah' | 'madinah'>('makkah');
-  const [mobileRotatingIndex, setMobileRotatingIndex] = useState(0);
   const isMobile = useIsMobile();
   const { topics } = useTopics();
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
@@ -109,7 +60,6 @@ const Index = () => {
   const [allServicesCarouselApi, setAllServicesCarouselApi] = useState<any>();
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
-  const { data: weatherAndExchange, loading: weatherLoading, refetch: refetchWeather } = useWeatherAndExchange();
   const { user } = useAuth();
   // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
   const adsLimit = isMobile ? 6 : 15;
@@ -365,163 +315,6 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Compact Weather & Exchange Widget */}
-              <div className="bg-white/95 backdrop-blur-sm p-2 rounded-2xl shadow-soft mx-auto border border-border/20 
-                             w-fit min-w-[150px] max-w-[200px] sm:max-w-[280px] lg:max-w-xs">
-                
-                {/* Mobile: Single rotating field */}
-                <div className="block sm:hidden">
-                  <button
-                    onClick={() => refetchWeather(true)}
-                    disabled={weatherLoading}
-                    className="absolute top-1 right-1 p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 z-10"
-                    title="Actualiser les données"
-                  >
-                    <RefreshCw className={`w-2 h-2 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
-                  </button>
-                  
-                  <div className="py-1 min-h-[45px] flex items-center justify-center">
-                    {(() => {
-                      const items = [
-                        {
-                          icon: weatherAndExchange?.weather ? getWeatherIcon(weatherAndExchange.weather.makkah?.description || 'Sunny') : null,
-                          title: 'Makkah',
-                          value: `${weatherAndExchange?.weather?.makkah?.temperature || '--'}°`,
-                          subtitle: translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
-                        },
-                        {
-                          icon: weatherAndExchange?.weather ? getWeatherIcon(weatherAndExchange.weather.madinah?.description || 'Sunny') : null,
-                          title: 'Médine',
-                          value: `${weatherAndExchange?.weather?.madinah?.temperature || '--'}°`,
-                          subtitle: translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')
-                        },
-                        {
-                          icon: null,
-                          title: 'Taux du jour',
-                          value: `1€ = ${weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'} Sar`,
-                          subtitle: 'Euro vers Riyal'
-                        }
-                      ];
-
-                      const currentItem = items[mobileRotatingIndex];
-
-                      if (currentItem.icon) {
-                        return (
-                          <div key={mobileRotatingIndex} className="animate-fade-in flex items-center space-x-2">
-                            <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                              {currentItem.icon}
-                            </div>
-                            <div className="text-left">
-                              <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
-                              <div className="text-sm font-bold text-amber-500">{currentItem.value}</div>
-                              <div className="text-[7px] text-gray-500 capitalize">{currentItem.subtitle}</div>
-                            </div>
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div key={mobileRotatingIndex} className="animate-fade-in text-center">
-                            <div className="text-xs font-semibold text-gray-800">{currentItem.title}</div>
-                            <div className="text-sm font-bold text-amber-500">{currentItem.value}</div>
-                            <div className="text-[7px] text-gray-500 capitalize">{currentItem.subtitle}</div>
-                          </div>
-                        );
-                      }
-                    })()}
-                  </div>
-                </div>
-
-                {/* Desktop/Tablet: Original layout */}
-                <div className="hidden sm:flex flex-col gap-1 sm:gap-2">
-                  {/* Header with refresh button */}
-                  <div className="flex items-center justify-end mb-1">
-                    <button
-                      onClick={() => refetchWeather(true)}
-                      disabled={weatherLoading}
-                      className="p-1 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
-                      title="Actualiser les données"
-                    >
-                      <RefreshCw className={`w-2 h-2 sm:w-3 sm:h-3 text-gray-600 ${weatherLoading ? 'animate-spin' : ''}`} />
-                    </button>
-                  </div>
-                  
-                  {/* Weather Section - Compact */}
-                  <div className="flex items-center space-x-1 sm:space-x-2">
-                    {/* City Indicator Dots */}
-                    <div className="flex flex-col space-y-0.5 sm:space-y-1">
-                      <button
-                        onClick={() => setCurrentWeatherCity('madinah')}
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
-                          currentWeatherCity === 'madinah' 
-                            ? 'bg-amber-500 shadow-sm' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                        aria-label="Afficher la météo de Médine"
-                      />
-                      <button
-                        onClick={() => setCurrentWeatherCity('makkah')}
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
-                          currentWeatherCity === 'makkah' 
-                            ? 'bg-amber-500 shadow-sm' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                        aria-label="Afficher la météo de La Mecque"
-                      />
-                    </div>
-
-                    {/* Weather Icon - Smaller */}
-                    <div className="flex items-center justify-center">
-                      <div className="w-3 h-3 sm:w-4 sm:h-4">
-                        {weatherAndExchange?.weather && 
-                          getWeatherIcon(
-                            currentWeatherCity === 'makkah' 
-                              ? (weatherAndExchange.weather.makkah?.description || 'Sunny')
-                              : (weatherAndExchange.weather.madinah?.description || 'Sunny')
-                          )
-                        }
-                      </div>
-                    </div>
-
-                    {/* Weather Info - Compact */}
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[9px] sm:text-xs text-gray-600 font-medium">
-                        {(() => {
-                          const today = new Date();
-                          const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-                          return days[today.getDay()];
-                        })()}
-                      </div>
-                      <div className="text-xs sm:text-sm font-semibold text-gray-800 truncate">
-                        {currentWeatherCity === 'makkah' ? 'Makkah, Arabie saoudite' : 'Médine, Arabie saoudite'}
-                      </div>
-                      <div className="text-[9px] sm:text-xs text-gray-500 capitalize truncate">
-                        {currentWeatherCity === 'makkah' 
-                          ? translateWeatherDescription(weatherAndExchange?.weather?.makkah?.description || 'Ensoleillé')
-                          : translateWeatherDescription(weatherAndExchange?.weather?.madinah?.description || 'Ensoleillé')}
-                      </div>
-                    </div>
-
-                    {/* Temperature - Compact */}
-                    <div className="text-lg sm:text-2xl font-bold text-amber-500">
-                      {weatherAndExchange?.weather 
-                        ? (currentWeatherCity === 'makkah' 
-                            ? `${weatherAndExchange.weather.makkah?.temperature || '--'}°`
-                            : `${weatherAndExchange.weather.madinah?.temperature || '--'}°`)
-                        : '--°'}
-                    </div>
-                  </div>
-
-                  {/* Exchange Rate Section - Compact */}
-                  <div className="text-center pt-1 sm:pt-2 border-t border-gray-200">
-                    <div className="text-[9px] sm:text-xs text-gray-600 font-medium mb-1">Taux du jour</div>
-                    <div className="text-base sm:text-lg font-bold text-gray-800">
-                      1€ = <span className="text-amber-500">
-                        {weatherAndExchange?.exchange?.eurToSar ? weatherAndExchange.exchange.eurToSar.toFixed(2) : '4.39'}
-                      </span> Sar
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               {/* WhatsApp Community Button */}
               <div className="mt-8 max-w-[320px] mx-auto">
