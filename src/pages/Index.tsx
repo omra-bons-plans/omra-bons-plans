@@ -240,7 +240,7 @@ const Index = () => {
         }}
       />
       {/* Desktop Header - Fixed at top */}
-      <header className="hidden lg:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20">
+      <header className="hidden lg:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo - Left aligned on desktop */}
@@ -272,12 +272,12 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background pt-0 mt-0">
 
       {/* Hero Section - Ratio intrinsèque pour LCP instantané */}
-      <section className="hero-wrapper" style={{ marginTop: '80px' }}>
+      <section className="hero-wrapper lg:mt-[80px] mt-0">
         <div className="hero-media">
-          <img 
+          <img
             src="/hero-kaaba-2025-optimized.avif"
             alt="Omra Bons Plans – La Kaaba sacrée à La Mecque"
             width="1600"
