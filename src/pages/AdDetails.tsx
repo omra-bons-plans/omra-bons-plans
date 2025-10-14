@@ -438,11 +438,11 @@ export default function AdDetails() {
 
                   <TabsContent value="reviews" className="mt-6">
                     <div className="space-y-6">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold">
-                          Avis des utilisateurs
-                        </h3>
-                        <RatingDisplay stats={stats} size="lg" />
+                     <div className="flex items-center justify-between">
+                       <div className="text-lg font-semibold">
+                         Avis des utilisateurs
+                       </div>
+                       <RatingDisplay stats={stats} size="lg" />
                       </div>
 
                       <ReviewsList
@@ -461,11 +461,11 @@ export default function AdDetails() {
                   <TabsContent value="leave-review" className="mt-6">
                     {user && user.id === ad.user_id ? (
                       <Card>
-                        <CardContent className="p-6 text-center">
-                          <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                          <h3 className="text-lg font-medium mb-2">
-                            Vous ne pouvez pas laisser d'avis
-                          </h3>
+                       <CardContent className="p-6 text-center">
+                         <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                         <div className="text-lg font-medium mb-2">
+                           Vous ne pouvez pas laisser d'avis
+                         </div>
                           <p className="text-muted-foreground">
                             Vous ne pouvez pas laisser un avis sur votre propre annonce.
                           </p>
@@ -565,7 +565,7 @@ export default function AdDetails() {
             {/* Ad Info */}
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Informations</h3>
+                <h3 className="font-semibold mb-4">Informations sur l'annonce</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center space-x-2">
                     <MapPin className="w-4 h-4 text-muted-foreground" />
@@ -593,7 +593,7 @@ export default function AdDetails() {
             {/* Desktop Seller Info - Only visible on desktop */}
             <Card className="hidden lg:block">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Annonceur</h3>
+                <h3 className="font-semibold mb-4">Profil de l'annonceur</h3>
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                     <User className="w-6 h-6 text-white" />
@@ -628,12 +628,12 @@ export default function AdDetails() {
                 </TabsList>
 
                 <TabsContent value="reviews" className="mt-6">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold">
-                        Avis des utilisateurs
-                      </h3>
-                      <RatingDisplay stats={stats} size="lg" />
+                   <div className="space-y-6">
+                     <div className="flex items-center justify-between">
+                       <h3 className="text-lg font-semibold">
+                         Commentaires et notes
+                       </h3>
+                       <RatingDisplay stats={stats} size="lg" />
                     </div>
 
                     <ReviewsList
@@ -651,12 +651,12 @@ export default function AdDetails() {
 
                 <TabsContent value="leave-review" className="mt-6">
                   {user && user.id === ad.user_id ? (
-                    <Card>
-                      <CardContent className="p-6 text-center">
-                        <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <h3 className="text-lg font-medium mb-2">
-                          Vous ne pouvez pas laisser d'avis
-                        </h3>
+                     <Card>
+                       <CardContent className="p-6 text-center">
+                         <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                         <div className="text-lg font-medium mb-2">
+                           Impossible de laisser un avis
+                         </div>
                         <p className="text-muted-foreground">
                           Vous ne pouvez pas laisser un avis sur votre propre annonce.
                         </p>
@@ -677,7 +677,7 @@ export default function AdDetails() {
           {/* Mobile Seller Info - Shows at very bottom on mobile */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Annonceur</h3>
+              <h3 className="font-semibold mb-4">Contactez l'annonceur</h3>
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
