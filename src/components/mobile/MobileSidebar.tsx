@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, Leaf, Train, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home, MessageCircle } from 'lucide-react';
+import { User, Settings, LogOut, Menu, X, Plus, FileText, Bell, Shield, Building, Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, Utensils, HelpingHand, Leaf, Train, ChevronRight, ChevronDown, Clock, Calendar, Info, Mail, Home, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
@@ -368,6 +368,20 @@ const MobileSidebar = () => {
                     <div className="flex items-center space-x-3">
                       <Calendar className="w-5 h-5 text-muted-foreground" />
                       <span className="font-medium">Calendrier islamique</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/blog/general" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
+                    <div className="flex items-center space-x-3">
+                      <BookOpen className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Blog Général</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/blog/restaurants" className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer ml-3" onClick={() => setIsOpen(false)}>
+                    <div className="flex items-center space-x-3">
+                      <Utensils className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Restaurants Halal</span>
                     </div>
                   </Link>
 

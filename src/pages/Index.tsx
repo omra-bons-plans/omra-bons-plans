@@ -706,7 +706,7 @@ const Index = () => {
               </p>
               
               <div className="space-y-6">
-                <Link to="/blog?category=restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
+                <Link to="/blog/restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
                     <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
                   </div>
@@ -1262,6 +1262,17 @@ const Index = () => {
                 <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
                 <li><Link to="/comparatif-agences" className="hover:text-primary transition-colors">Comparatif Agences</Link></li>
                 <li><Link to="#" className="hover:text-primary transition-colors">Vip</Link></li>
+              </ul>
+            </div>
+            
+            {/* Blog Categories */}
+            <div>
+              <h3 className="font-bold text-lg mb-6">Blog & Guides</h3>
+              <ul className="space-y-4 text-muted-foreground text-sm">
+                <li><Link to="/blog/general" className="hover:text-primary transition-colors">Blog Général</Link></li>
+                <li><Link to="/blog/restaurants" className="hover:text-primary transition-colors">Restaurants Halal</Link></li>
+                <li><Link to="/blog/associations" className="hover:text-primary transition-colors">Associations</Link></li>
+                <li><Link to="/blog/vendeurs" className="hover:text-primary transition-colors">Vendeurs & Commerçants</Link></li>
               </ul>
             </div>
             
