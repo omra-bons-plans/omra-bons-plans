@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     
     <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://lptyhenryzhztdwpkvsc.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://lptyhenryzhztdwpkvsc.supabase.co https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://*.supabase.co https://www.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     
     <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="//lptyhenryzhztdwpkvsc.supabase.co">
@@ -24,9 +24,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     
-    <!-- Preload critical LCP images with high priority -->
-    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png" media="(min-width: 769px)" fetchpriority="high">
+    <!-- Preload ONLY the critical hero image for mobile -->
+    <link rel="preload" as="image" href="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png" fetchpriority="high" imagesrcset="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png 768w" imagesizes="100vw">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -80,6 +79,6 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx" defer></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
