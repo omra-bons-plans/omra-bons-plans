@@ -18,31 +18,32 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
           supabase: ['@supabase/supabase-js'],
           forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-          lucide: ['lucide-react'],
-          utils: ['date-fns', 'clsx', 'tailwind-merge']
         },
-        // Optimize file naming for better caching
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 1000,
-    target: 'es2015',
+    chunkSizeWarningLimit: 500,
+    target: 'es2020',
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        passes: 2,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      },
+      mangle: {
+        safari10: true
       }
     },
     cssMinify: true,
     cssCodeSplit: true,
-    reportCompressedSize: false, // Speed up build
-    sourcemap: false // Disable sourcemaps in production for better performance
+    reportCompressedSize: false,
+    sourcemap: false
   },
   plugins: [
     react(),

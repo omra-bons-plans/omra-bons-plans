@@ -277,22 +277,19 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop only with AVIF optimization */}
+        {/* LCP Image - AVIF 1600x900 optimized */}
         <img 
-          src="/hero-kaaba-avif.jpg"
-          alt="La Kaaba sacrée à La Mecque - Pèlerins en ihram effectuant le tawaf pendant l'heure dorée"
-          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          src="/hero-kaaba-2025-optimized.avif"
+          alt="Omra Bons Plans - La Kaaba sacrée à La Mecque lors du Hajj et de la Omra, pèlerins en ihram"
+          className="absolute inset-0 w-full h-full object-cover"
           fetchPriority="high"
           loading="eager"
           decoding="async"
-          width="1400"
-          height="788"
+          width="1600"
+          height="900"
+          style={{ width: '100%', height: 'auto', objectFit: 'cover', aspectRatio: '16/9' }}
         />
-        <div className="hero-overlay absolute inset-0 hidden md:block"></div>
-
-        {/* Mobile: Gradient background (no image for better LCP) */}
-        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary via-primary-dark to-accent"></div>
-        <div className="hero-overlay absolute inset-0 block md:hidden"></div>
+        <div className="hero-overlay absolute inset-0"></div>
 
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
