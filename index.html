@@ -30,8 +30,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Preload WOFF2 fonts with font-display swap (weights 400, 600 only) -->
-    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2" crossorigin>
     
     <!-- Preload critical LCP hero image AVIF -->
     <link rel="preload" as="image" href="/hero-kaaba-2025-optimized.avif" type="image/avif" fetchpriority="high">
@@ -51,23 +49,28 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Critical CSS inline for fastest FCP/LCP (ultra-optimized) -->
+    <!-- Critical CSS inline - Optimized for instant LCP render (<500ms delay) -->
     <style>
       *,::before,::after{box-sizing:border-box;margin:0;padding:0}
-      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
       body{margin:0;background:#f5f5f0}
-      .hero-overlay{background:linear-gradient(135deg,rgba(0,0,0,.6) 0,rgba(0,0,0,.5) 50%,rgba(0,0,0,.7) 100%)}
+      
+      /* Hero ratio intrinsèque - Aucun calcul JS/police requis */
+      .hero-wrapper{position:relative;margin:0 auto;max-width:100%;overflow:hidden}
+      .hero-media{position:relative;aspect-ratio:16/9;width:100%;max-height:100vh}
+      .hero-media>img{display:block;width:100%;height:100%;object-fit:cover}
+      
+      /* Overlay non bloquant - police système */
+      .hero-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,0,0,.5) 0,rgba(0,0,0,.4) 50%,rgba(0,0,0,.6) 100%);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+      
       .gradient-text-secondary{background:linear-gradient(135deg,#f59e0b 0,#fbbf24 50%,#fcd34d 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
       .container{width:100%;max-width:1280px;margin:0 auto;padding:0 1.5rem}
-      .relative{position:relative}.absolute{position:absolute}.inset-0{inset:0}
-      .flex{display:flex}.hidden{display:none}.min-h-screen{min-height:100vh}
-      .items-center{align-items:center}.object-cover{object-fit:cover}
-      .text-white{color:#fff}.w-full{width:100%}.h-full{height:100%}
+      .relative{position:relative}.absolute{position:absolute}.flex{display:flex}.hidden{display:none}
+      .items-center{align-items:center}.text-white{color:#fff}.w-full{width:100%}
       .text-4xl{font-size:2.25rem}.text-6xl{font-size:3.75rem}
       .font-bold{font-weight:700}.font-black{font-weight:900}
       .z-10{z-index:10}.z-20{z-index:20}
-      img{display:block;max-width:100%;height:auto;aspect-ratio:attr(width)/attr(height)}
-      @media(min-width:768px){.md\:text-8xl{font-size:6rem}.md\:text-9xl{font-size:8rem}.md\:block{display:block}.md\:hidden{display:none}}
+      @media(min-width:768px){.md\:text-8xl{font-size:6rem}}
     </style>
     
     <title>Omra Bons Plans</title>
@@ -91,17 +94,21 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Defer non-critical scripts (Analytics) - Load after 3.5s -->
+    <!-- Webfonts chargées après first render (idle callback) -->
+    <script>
+      (window.requestIdleCallback||function(f){setTimeout(f,1500)})(function(){
+        var p=document.createElement('link');p.rel='preconnect';p.href='https://fonts.gstatic.com';p.crossOrigin='';
+        var f=document.createElement('link');f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap';
+        document.head.append(p,f);
+      });
+    </script>
+    
+    <!-- Defer non-critical scripts (Analytics, widgets) - Load after 3.5s -->
     <script>
       window.addEventListener('load',function(){
         setTimeout(function(){
-          var scripts=["https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"];
-          scripts.forEach(function(url){
-            var s=document.createElement('script');
-            s.src=url;
-            s.async=true;
-            s.defer=true;
-            document.head.appendChild(s);
+          ['https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX'].forEach(function(u){
+            var s=document.createElement('script');s.src=u;s.async=true;s.defer=true;document.head.appendChild(s);
           });
         },3500);
       });
