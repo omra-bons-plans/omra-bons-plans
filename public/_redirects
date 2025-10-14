@@ -1,3 +1,6 @@
+# Redirection WWW vers non-WWW (consolidation SEO)
+https://www.omrabonsplans.fr/* https://omrabonsplans.fr/:splat 301!
+
 # Redirections françaises vers anglaises (consolidation SEO)
 /a-propos /about 301
 /calendrier-islamique /islamic-calendar 301
