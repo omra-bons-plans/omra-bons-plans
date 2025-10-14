@@ -88,7 +88,7 @@ export const seoConfig = {
     title: 'À Propos - Omra Bons Plans | Notre Mission & Équipe',
     description: 'Découvrez qui nous sommes : une équipe experte en pèlerinage qui facilite votre voyage religieux en Arabie Saoudite grâce à notre plateforme de confiance.',
     keywords: 'équipe omra bons plans, mission, expérience arabie saoudite, guide omra expert, confiance pèlerinage',
-    canonical: 'https://omrabonsplans.fr/a-propos',
+    canonical: 'https://omrabonsplans.fr/about',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "AboutPage",
@@ -123,7 +123,7 @@ export const seoConfig = {
     title: 'Heures de Prière - La Mecque & Médine | Omra Bons Plans',
     description: 'Consultez les horaires des 5 prières quotidiennes à La Mecque et Médine en temps réel. Outil essentiel pour votre séjour spiritual en Arabie Saoudite.',
     keywords: 'horaire prière mecque, heures prière médine, qibla, salat, horaires prières arabie saoudite',
-    canonical: 'https://omrabonsplans.fr/horaires-prieres',
+    canonical: 'https://omrabonsplans.fr/prayer-times',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -135,7 +135,7 @@ export const seoConfig = {
     title: 'Calendrier Islamique Hijri 2026 | Omra Bons Plans',
     description: 'Consultez le calendrier islamique (Hijri) complet 2026 avec dates importantes. Planifiez votre Omra aux meilleures périodes spirituelles.',
     keywords: 'calendrier hijri, calendrier islamique 2026, dates importantes islam, calendrier hégirien, planning omra',
-    canonical: 'https://omrabonsplans.fr/calendrier-islamique',
+    canonical: 'https://omrabonsplans.fr/islamic-calendar',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -147,7 +147,7 @@ export const seoConfig = {
     title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
     description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé des événements religieux.',
     keywords: 'dates ramadan 2026, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
-    canonical: 'https://omrabonsplans.fr/dates-ramadan-hajj',
+    canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "EventSeries",

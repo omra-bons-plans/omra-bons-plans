@@ -1,5 +1,5 @@
 // Minimal service worker for caching
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `omra-bons-plans-${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   '/',
