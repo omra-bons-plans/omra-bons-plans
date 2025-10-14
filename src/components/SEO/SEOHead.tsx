@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface SEOHeadProps {
   title: string;
@@ -19,85 +19,48 @@ export const SEOHead = ({
   ogType = 'website',
   structuredData
 }: SEOHeadProps) => {
-  useEffect(() => {
-    // Update document title
-    document.title = title;
-
-    // Function to update or create meta tags
-    const updateMetaTag = (name: string, content: string, isProperty = false) => {
-      const attribute = isProperty ? 'property' : 'name';
-      let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
+  return (
+    <Helmet>
+      {/* Title */}
+      <title>{title}</title>
       
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute(attribute, name);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    };
-
-    // Update or create link tags (remove duplicates first)
-    const updateLinkTag = (rel: string, href: string) => {
-      // Remove all existing tags with the same rel to avoid duplicates
-      const existingLinks = document.querySelectorAll(`link[rel="${rel}"]`);
-      existingLinks.forEach(link => link.remove());
+      {/* Basic meta tags */}
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content="Omra Bons Plans" />
+      <meta name="robots" content="index, follow" />
       
-      // Create new tag
-      const link = document.createElement('link');
-      link.setAttribute('rel', rel);
-      link.setAttribute('href', href);
-      document.head.appendChild(link);
-    };
-
-    // Basic meta tags
-    updateMetaTag('description', description);
-    updateMetaTag('keywords', keywords);
-    updateMetaTag('author', 'Omra Bons Plans');
-    updateMetaTag('robots', 'index, follow');
-
-    // Open Graph tags (Complete set for better SEO)
-    updateMetaTag('og:title', title, true);
-    updateMetaTag('og:description', description, true);
-    updateMetaTag('og:type', ogType, true);
-    updateMetaTag('og:image', ogImage, true);
-    updateMetaTag('og:image:width', '1200', true);
-    updateMetaTag('og:image:height', '630', true);
-    updateMetaTag('og:image:alt', title, true);
-    updateMetaTag('og:site_name', 'Omra Bons Plans', true);
-    updateMetaTag('og:locale', 'fr_FR', true);
-    
-    // Add og:url if canonical is provided
-    if (canonical) {
-      updateMetaTag('og:url', canonical, true);
-    }
-
-    // Twitter tags (Complete set)
-    updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:title', title);
-    updateMetaTag('twitter:description', description);
-    updateMetaTag('twitter:image', ogImage);
-    updateMetaTag('twitter:image:alt', title);
-    updateMetaTag('twitter:site', '@omrabonsplans');
-
-    // Canonical URL
-    if (canonical) {
-      updateLinkTag('canonical', canonical);
-    }
-
-    // Structured data
-    if (structuredData) {
-      let scriptTag = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
+      {/* Canonical URL */}
+      {canonical && <link rel="canonical" href={canonical} />}
       
-      if (!scriptTag) {
-        scriptTag = document.createElement('script');
-        scriptTag.setAttribute('type', 'application/ld+json');
-        document.head.appendChild(scriptTag);
-      }
-      scriptTag.textContent = JSON.stringify(structuredData);
-    }
-  }, [title, description, keywords, canonical, ogImage, ogType, structuredData]);
-
-  return null;
+      {/* Open Graph tags */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={title} />
+      <meta property="og:site_name" content="Omra Bons Plans" />
+      <meta property="og:locale" content="fr_FR" />
+      {canonical && <meta property="og:url" content={canonical} />}
+      
+      {/* Twitter tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={title} />
+      <meta name="twitter:site" content="@omrabonsplans" />
+      
+      {/* Structured data */}
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
+    </Helmet>
+  );
 };
 
 // SEO configuration for each page
