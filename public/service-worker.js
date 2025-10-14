@@ -1,5 +1,5 @@
 // Minimal service worker for caching
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `omra-bons-plans-${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   '/',
@@ -31,18 +31,14 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - Network first strategy to avoid stale cache issues
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests
+  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-      
-      return fetch(event.request).then((response) => {
+    fetch(event.request)
+      .then((response) => {
         // Cache successful responses
         if (response && response.status === 200) {
           const responseToCache = response.clone();
@@ -51,7 +47,10 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return response;
-      });
-    })
+      })
+      .catch(() => {
+        // Fallback to cache only if network fails
+        return caches.match(event.request);
+      })
   );
 });
