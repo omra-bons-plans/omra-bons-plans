@@ -11,7 +11,7 @@ import ScrollToTop from "./components/ui/ScrollToTop";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
-import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
+// import CanonicalRedirect from "./components/SEO/CanonicalRedirect"; // Removed to fix PageSpeed
 import SEOChecker from "./components/SEO/SEOChecker";
 
 // Lazy load pages for better performance
@@ -80,7 +80,6 @@ const App = () => (
               <SEOChecker />
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
-                <CanonicalRedirect>
                   <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
@@ -249,7 +248,6 @@ const App = () => (
                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                    <Route path="*" element={<NotFound />} />
                    </Routes>
-                 </CanonicalRedirect>
                </Suspense>
                <BackToTopButton />
             </BrowserRouter>
