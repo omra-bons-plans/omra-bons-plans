@@ -39,12 +39,12 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 
-// Lazy import images to reduce initial bundle size - use dynamic imports for non-critical images
-const kaabaHero = "/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png";
-const meccaMosqueHero = "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.png";
-const luxuryHotelMecca = "/lovable-uploads/3c50d8af-60ac-440c-8d0e-00a3fa82d43e.png";
-const tourGuideMecca = "/lovable-uploads/2ca6155f-3ded-4f14-9525-569582b6e18b.png";
-const airplaneInterior = "/lovable-uploads/5918566f-ff7c-4389-9910-1902eba8f5d6.png";
+// Lazy import images to reduce initial bundle size
+import kaabaHero from "@/assets/kaaba-hero.jpg";
+import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
+import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
+import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
+import airplaneInterior from "@/assets/airplane-interior.jpg";
 
 
 const Index = () => {
@@ -279,30 +279,17 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
         {/* Background Image - Desktop only (as IMG for better LCP) */}
         <img 
-          src={meccaMosqueHero}
-          alt="La grande mosquée de La Mecque - Hajj et Omra"
+          src={kaabaHero}
+          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
           className="absolute inset-0 w-full h-full object-cover hidden md:block"
           fetchPriority="high"
           loading="eager"
           decoding="async"
-          width="1920"
-          height="1080"
         />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 
-        {/* Mobile: Gradient background with optimized image */}
-        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary/95 via-primary-dark/90 to-accent/85 backdrop-blur-sm">
-          <img 
-            src="/lovable-uploads/d5128689-bda3-4612-9ae8-6910ed21a8c8-optimized.png"
-            alt="La Kaaba sacrée - Hajj et Omra"
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-            width="768"
-            height="1024"
-          />
-        </div>
+        {/* Mobile: Gradient background (no image for better LCP) */}
+        <div className="absolute inset-0 block md:hidden bg-gradient-to-br from-primary via-primary-dark to-accent"></div>
         <div className="hero-overlay absolute inset-0 block md:hidden"></div>
 
         {/* Animated Background Pattern */}

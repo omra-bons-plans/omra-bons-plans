@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 interface SEOHeadProps {
   title: string;
@@ -19,48 +19,85 @@ export const SEOHead = ({
   ogType = 'website',
   structuredData
 }: SEOHeadProps) => {
-  return (
-    <Helmet>
-      {/* Title */}
-      <title>{title}</title>
+  useEffect(() => {
+    // Update document title
+    document.title = title;
+
+    // Function to update or create meta tags
+    const updateMetaTag = (name: string, content: string, isProperty = false) => {
+      const attribute = isProperty ? 'property' : 'name';
+      let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
       
-      {/* Basic meta tags */}
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      <meta name="author" content="Omra Bons Plans" />
-      <meta name="robots" content="index, follow" />
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(attribute, name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    };
+
+    // Update or create link tags (remove duplicates first)
+    const updateLinkTag = (rel: string, href: string) => {
+      // Remove all existing tags with the same rel to avoid duplicates
+      const existingLinks = document.querySelectorAll(`link[rel="${rel}"]`);
+      existingLinks.forEach(link => link.remove());
       
-      {/* Canonical URL */}
-      {canonical && <link rel="canonical" href={canonical} />}
+      // Create new tag
+      const link = document.createElement('link');
+      link.setAttribute('rel', rel);
+      link.setAttribute('href', href);
+      document.head.appendChild(link);
+    };
+
+    // Basic meta tags
+    updateMetaTag('description', description);
+    updateMetaTag('keywords', keywords);
+    updateMetaTag('author', 'Omra Bons Plans');
+    updateMetaTag('robots', 'index, follow');
+
+    // Open Graph tags (Complete set for better SEO)
+    updateMetaTag('og:title', title, true);
+    updateMetaTag('og:description', description, true);
+    updateMetaTag('og:type', ogType, true);
+    updateMetaTag('og:image', ogImage, true);
+    updateMetaTag('og:image:width', '1200', true);
+    updateMetaTag('og:image:height', '630', true);
+    updateMetaTag('og:image:alt', title, true);
+    updateMetaTag('og:site_name', 'Omra Bons Plans', true);
+    updateMetaTag('og:locale', 'fr_FR', true);
+    
+    // Add og:url if canonical is provided
+    if (canonical) {
+      updateMetaTag('og:url', canonical, true);
+    }
+
+    // Twitter tags (Complete set)
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', title);
+    updateMetaTag('twitter:description', description);
+    updateMetaTag('twitter:image', ogImage);
+    updateMetaTag('twitter:image:alt', title);
+    updateMetaTag('twitter:site', '@omrabonsplans');
+
+    // Canonical URL
+    if (canonical) {
+      updateLinkTag('canonical', canonical);
+    }
+
+    // Structured data
+    if (structuredData) {
+      let scriptTag = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
       
-      {/* Open Graph tags */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content={ogType} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={title} />
-      <meta property="og:site_name" content="Omra Bons Plans" />
-      <meta property="og:locale" content="fr_FR" />
-      {canonical && <meta property="og:url" content={canonical} />}
-      
-      {/* Twitter tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={title} />
-      <meta name="twitter:site" content="@omrabonsplans" />
-      
-      {/* Structured data */}
-      {structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-      )}
-    </Helmet>
-  );
+      if (!scriptTag) {
+        scriptTag = document.createElement('script');
+        scriptTag.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(scriptTag);
+      }
+      scriptTag.textContent = JSON.stringify(structuredData);
+    }
+  }, [title, description, keywords, canonical, ogImage, ogType, structuredData]);
+
+  return null;
 };
 
 // SEO configuration for each page
@@ -88,7 +125,7 @@ export const seoConfig = {
     title: 'À Propos - Omra Bons Plans | Notre Mission & Équipe',
     description: 'Découvrez qui nous sommes : une équipe experte en pèlerinage qui facilite votre voyage religieux en Arabie Saoudite grâce à notre plateforme de confiance.',
     keywords: 'équipe omra bons plans, mission, expérience arabie saoudite, guide omra expert, confiance pèlerinage',
-    canonical: 'https://omrabonsplans.fr/about',
+    canonical: 'https://omrabonsplans.fr/a-propos',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "AboutPage",
@@ -123,7 +160,7 @@ export const seoConfig = {
     title: 'Heures de Prière - La Mecque & Médine | Omra Bons Plans',
     description: 'Consultez les horaires des 5 prières quotidiennes à La Mecque et Médine en temps réel. Outil essentiel pour votre séjour spiritual en Arabie Saoudite.',
     keywords: 'horaire prière mecque, heures prière médine, qibla, salat, horaires prières arabie saoudite',
-    canonical: 'https://omrabonsplans.fr/prayer-times',
+    canonical: 'https://omrabonsplans.fr/horaires-prieres',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -135,7 +172,7 @@ export const seoConfig = {
     title: 'Calendrier Islamique Hijri 2026 | Omra Bons Plans',
     description: 'Consultez le calendrier islamique (Hijri) complet 2026 avec dates importantes. Planifiez votre Omra aux meilleures périodes spirituelles.',
     keywords: 'calendrier hijri, calendrier islamique 2026, dates importantes islam, calendrier hégirien, planning omra',
-    canonical: 'https://omrabonsplans.fr/islamic-calendar',
+    canonical: 'https://omrabonsplans.fr/calendrier-islamique',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -147,7 +184,7 @@ export const seoConfig = {
     title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
     description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé des événements religieux.',
     keywords: 'dates ramadan 2026, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
-    canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates',
+    canonical: 'https://omrabonsplans.fr/dates-ramadan-hajj',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "EventSeries",

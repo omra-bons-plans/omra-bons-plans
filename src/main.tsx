@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
+// Service Worker désactivé temporairement pour optimiser LCP
+// import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,7 +13,6 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60 * 5, // 5 minutes
       gcTime: 1000 * 60 * 10, // 10 minutes
       refetchOnWindowFocus: false,
-      retry: 1, // Reduce retries for faster failures
     },
   },
 });
@@ -25,3 +26,6 @@ createRoot(document.getElementById("root")!).render(
     </HelmetProvider>
   </React.StrictMode>
 );
+
+// Service Worker désactivé temporairement pour optimiser LCP
+// registerServiceWorker();

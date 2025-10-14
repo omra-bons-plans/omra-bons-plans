@@ -24,7 +24,7 @@ const About = () => {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
         <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
-        <meta property="og:url" content="https://omrabonsplans.fr/about" />
+        <meta property="og:url" content="https://omrabonsplans.fr/a-propos" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
@@ -36,7 +36,7 @@ const About = () => {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "À Propos - Omra Bons Plans",
-            "url": "https://omrabonsplans.fr/about",
+            "url": "https://omrabonsplans.fr/a-propos",
             "description": "Découvrez l'équipe passionnée derrière Omra Bons Plans",
             "mainEntity": {
               "@type": "Organization",

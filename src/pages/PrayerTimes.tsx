@@ -131,11 +131,11 @@ const PrayerTimes = () => {
         <title>Horaires de Prière - Omra Bons Plans | Qibla et Prières Islamiques</title>
         <meta name="description" content="Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha. Calendrier islamique et direction de la Qibla." />
         <meta name="keywords" content="horaires prière islam, qibla direction, prières musulmanes, calendrier islamique, salat times" />
-        <link rel="canonical" href="https://omrabonsplans.fr/prayer-times" />
+        <link rel="canonical" href="https://omrabonsplans.fr/horaires-prieres" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Horaires de Prière - Omra Bons Plans" />
         <meta property="og:description" content="Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha." />
-        <meta property="og:url" content="https://omrabonsplans.fr/prayer-times" />
+        <meta property="og:url" content="https://omrabonsplans.fr/horaires-prieres" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
