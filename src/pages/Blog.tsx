@@ -284,28 +284,16 @@ const Blog = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   {categories.map((cat) => (
-                    <DropdownMenuItem
-                      key={cat.value}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('🎯 Navigating to category:', cat.value);
-                        try {
-                          if (cat.value === 'all') {
-                            navigate('/blog', { replace: true });
-                          } else {
-                            navigate(`/blog/${cat.value}`, { replace: true });
-                          }
-                        } catch (error) {
-                          console.error('❌ Navigation error:', error);
-                        }
-                      }}
-                      className={selectedCategory === cat.value ? "bg-muted" : ""}
-                    >
-                      <span className="flex-1">{cat.label}</span>
-                      <Badge variant="secondary" className="ml-2 text-xs">
-                        {cat.count}
-                      </Badge>
+                    <DropdownMenuItem key={cat.value} asChild>
+                      <a 
+                        href={cat.value === 'all' ? '/blog' : `/blog/${cat.value}`}
+                        className={`flex items-center justify-between w-full ${selectedCategory === cat.value ? "bg-muted" : ""}`}
+                      >
+                        <span className="flex-1">{cat.label}</span>
+                        <Badge variant="secondary" className="ml-2 text-xs">
+                          {cat.count}
+                        </Badge>
+                      </a>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -318,25 +306,15 @@ const Blog = () => {
                 <Button
                   key={cat.value}
                   variant={selectedCategory === cat.value ? "default" : "outline"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log('🎯 Desktop navigation to category:', cat.value);
-                    try {
-                      if (cat.value === 'all') {
-                        navigate('/blog', { replace: true });
-                      } else {
-                        navigate(`/blog/${cat.value}`, { replace: true });
-                      }
-                    } catch (error) {
-                      console.error('❌ Desktop navigation error:', error);
-                    }
-                  }}
                   className="flex items-center justify-center text-sm h-12 w-full lg:w-auto"
+                  asChild
                 >
-                  <span className="truncate">{cat.label}</span>
-                  <Badge variant="secondary" className="ml-2 text-xs">
-                    {cat.count}
-                  </Badge>
+                  <a href={cat.value === 'all' ? '/blog' : `/blog/${cat.value}`}>
+                    <span className="truncate">{cat.label}</span>
+                    <Badge variant="secondary" className="ml-2 text-xs">
+                      {cat.count}
+                    </Badge>
+                  </a>
                 </Button>
               ))}
             </div>

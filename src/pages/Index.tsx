@@ -506,7 +506,7 @@ const Index = () => {
                 Notre mission est de vous aider à trouver une <strong className="text-foreground">Omra pas chère</strong> sans compromis sur la qualité. Comparez les prix, consultez les avis authentiques des pèlerins, et accédez à des conseils d'experts pour préparer votre voyage religieux sereinement. Du <strong className="text-foreground">visa Omra</strong> aux formalités administratives, en passant par les meilleures périodes pour partir, nous vous accompagnons à chaque étape de votre préparation.
               </p>
               <p>
-                Avec des annonces vérifiées, des <Link to="/comparatif-agences" className="text-primary hover:underline font-semibold">comparatifs d'agences</Link> détaillés, et des <Link to="/blog" className="text-primary hover:underline font-semibold">guides pratiques sur notre blog</Link>, Omra Bons Plans est votre partenaire de confiance pour réaliser le voyage spirituel de votre vie. Consultez également notre <Link to="/prayer-times" className="text-primary hover:underline font-semibold">outil des horaires de prière</Link> et notre <Link to="/islamic-calendar" className="text-primary hover:underline font-semibold">calendrier islamique</Link> pour planifier votre séjour aux dates les plus propices.
+                Avec des annonces vérifiées, des <Link to="/comparatif-agences" className="text-primary hover:underline font-semibold">comparatifs d'agences</Link> détaillés, et des <Link to="/blog" className="text-primary hover:underline font-semibold">guides pratiques sur notre blog</Link> (découvrez nos <Link to="/blog/restaurants" className="text-primary hover:underline font-semibold">restaurants halal</Link>, <Link to="/blog/associations" className="text-primary hover:underline font-semibold">associations musulmanes</Link> et <Link to="/blog/general" className="text-primary hover:underline font-semibold">conseils pèlerinage</Link>), Omra Bons Plans est votre partenaire de confiance pour réaliser le voyage spirituel de votre vie. Consultez également notre <Link to="/prayer-times" className="text-primary hover:underline font-semibold">outil des horaires de prière</Link> et notre <Link to="/islamic-calendar" className="text-primary hover:underline font-semibold">calendrier islamique</Link> pour planifier votre séjour aux dates les plus propices.
               </p>
             </div>
           </div>
@@ -706,7 +706,7 @@ const Index = () => {
               </p>
               
               <div className="space-y-6">
-                <Link to="/blog?category=restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
+                <Link to="/blog/restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
                     <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
                   </div>
@@ -907,6 +907,15 @@ const Index = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
             <p className="text-muted-foreground text-lg">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
+            <div className="flex flex-wrap justify-center gap-3 mt-6">
+              <Link to="/blog/general" className="text-sm text-primary hover:underline font-semibold">Guides Pèlerinage</Link>
+              <span className="text-muted-foreground">•</span>
+              <Link to="/blog/restaurants" className="text-sm text-primary hover:underline font-semibold">Restaurants Halal</Link>
+              <span className="text-muted-foreground">•</span>
+              <Link to="/blog/associations" className="text-sm text-primary hover:underline font-semibold">Associations</Link>
+              <span className="text-muted-foreground">•</span>
+              <Link to="/blog/vendeurs" className="text-sm text-primary hover:underline font-semibold">Commerçants</Link>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -966,6 +975,17 @@ const Index = () => {
                 </Link>
               </div>
             </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link to="/blog">
+              <Button size="lg" variant="outline" className="font-semibold">
+                Voir tous les articles du blog
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -1260,8 +1280,9 @@ const Index = () => {
                 <li><Link to="/about" className="hover:text-primary transition-colors">Qui sommes nous ?</Link></li>
                 <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
                 <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
+                <li><Link to="/blog/general" className="hover:text-primary transition-colors">Guides Omra</Link></li>
+                <li><Link to="/blog/restaurants" className="hover:text-primary transition-colors">Restaurants Halal</Link></li>
                 <li><Link to="/comparatif-agences" className="hover:text-primary transition-colors">Comparatif Agences</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Vip</Link></li>
               </ul>
             </div>
             
