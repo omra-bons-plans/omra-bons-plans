@@ -1,6 +1,6 @@
 import React from 'react';
 import { SEOHead } from './SEOHead';
-import { generateMetaDescription, generateSEOTitle, generateCleanCanonicalUrl } from '@/utils/seoHelpers';
+import { generateMetaDescription, generateSEOTitle } from '@/utils/seoHelpers';
 
 interface DynamicSEOProps {
   title: string;
@@ -30,9 +30,8 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   // Ensure path starts with /
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   
-  const canonicalUrl = normalizedPath.includes('/blog/') 
-    ? generateCleanCanonicalUrl('general', normalizedPath.split('/').pop() || 'default')
-    : `https://omrabonsplans.fr${normalizedPath}`;
+  // Generate canonical URL directly from the normalized path
+  const canonicalUrl = `https://omrabonsplans.fr${normalizedPath}`;
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
   
