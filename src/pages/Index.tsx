@@ -277,20 +277,17 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* Background Image - Desktop only with modern formats */}
-        <picture className="absolute inset-0 w-full h-full hidden md:block">
-          <source srcSet="/hero-kaaba-2025.jpg" type="image/jpeg" />
-          <img 
-            src="/hero-kaaba-2025.jpg"
-            alt="La Kaaba sacrée à La Mecque - Pèlerins en ihram effectuant le tawaf pendant l'heure dorée"
-            className="w-full h-full object-cover"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-            width="1600"
-            height="900"
-          />
-        </picture>
+        {/* Background Image - Desktop only with AVIF optimization */}
+        <img 
+          src="/hero-kaaba-avif.jpg"
+          alt="La Kaaba sacrée à La Mecque - Pèlerins en ihram effectuant le tawaf pendant l'heure dorée"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          width="1400"
+          height="788"
+        />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 
         {/* Mobile: Gradient background (no image for better LCP) */}
