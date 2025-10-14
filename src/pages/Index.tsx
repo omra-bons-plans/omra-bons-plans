@@ -239,41 +239,40 @@ const Index = () => {
           }
         }}
       />
-      <div className="min-h-screen bg-background">
-        {/* Desktop Header - Hidden on mobile */}
-        <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-            <div className="flex items-center justify-between w-full">
-              {/* Logo - Left aligned on desktop */}
-              <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <div className="h-16 flex items-center">
-                  <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
-                </div>
+      {/* Desktop Header - Fixed at top */}
+      <header className="hidden lg:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo - Left aligned on desktop */}
+            <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <div className="h-16 flex items-center">
+                <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
               </div>
-              
-              {/* Right buttons */}
-              <div className="flex items-center space-x-2 sm:space-x-4">
-                {user ? (
-                  <UserMenu />
-                ) : (
-                  <Link to="/auth">
-                    <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
-                      Se connecter
-                    </Button>
-                  </Link>
-                )}
-                <Link to="/publish">
-                  <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
-                    <span className="hidden sm:inline">Publier une annonce</span>
-                    <span className="sm:hidden">Publier</span>
+            </div>
+            
+            {/* Right buttons */}
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              {user ? (
+                <UserMenu />
+              ) : (
+                <Link to="/auth">
+                  <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
+                    Se connecter
                   </Button>
                 </Link>
-              </div>
-            </div>
+              )}
+              <Link to="/publish">
+                <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
+                  <span className="hidden sm:inline">Publier une annonce</span>
+                  <span className="sm:hidden">Publier</span>
+                </Button>
+              </Link>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
+
+      <div className="min-h-screen bg-background">
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
