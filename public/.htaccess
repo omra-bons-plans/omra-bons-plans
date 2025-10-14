@@ -68,4 +68,6 @@ RewriteRule . /index.html [L]
     Header always set X-Frame-Options DENY
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://lptyhenryzhztdwpkvsc.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
