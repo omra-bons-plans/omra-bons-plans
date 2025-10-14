@@ -519,7 +519,7 @@ const Index = () => {
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-4">Tous les Services pour votre Hajj & Omra 2026</h2>
+                <h2 className="text-4xl font-bold mb-4">Services Hajj & Omra en 2026</h2>
                 <p className="text-muted-foreground text-lg">Découvrez nos conseils pour trouver une <strong>Omra pas chère</strong> adaptée à votre budget</p>
               </div>
             </div>
@@ -769,10 +769,10 @@ const Index = () => {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">💰</span>
                   </div>
-                <h3 className="text-2xl font-bold">Comment trouver une Omra pas chère ?</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Découvrez nos conseils pour trouver une <strong className="text-foreground">Omra pas chère</strong> adaptée à votre budget. Nous comparons pour vous les meilleures offres afin que vous puissiez accomplir votre pèlerinage dans les meilleures conditions, sans mauvaise surprise.
+                  <h3 className="text-2xl font-bold">Omra pas chère</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Découvrez nos conseils pour trouver une <strong className="text-foreground">Omra pas chère</strong> adaptée à votre budget. Nous comparons pour vous les meilleures offres afin que vous puissiez accomplir votre pèlerinage dans les meilleures conditions, sans mauvaise surprise.
                 </p>
               </div>
             </div>
@@ -784,10 +784,10 @@ const Index = () => {
                   <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">💵</span>
                   </div>
-                <h3 className="text-2xl font-bold">Quel est le prix d'une Omra en 2026 ?</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Comparez le <strong className="text-foreground">prix Omra 2026/2027</strong> avec nos guides détaillés. Nous analysons pour vous les formules proposées par différentes agences Omra afin de vous aider à choisir la plus transparente et la plus fiable.
+                  <h3 className="text-2xl font-bold">Prix Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Comparez le <strong className="text-foreground">prix Omra 2026/2027</strong> avec nos guides détaillés. Nous analysons pour vous les formules proposées par différentes agences Omra afin de vous aider à choisir la plus transparente et la plus fiable.
                 </p>
               </div>
             </div>
@@ -799,10 +799,10 @@ const Index = () => {
                   <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">📋</span>
                   </div>
-                <h3 className="text-2xl font-bold">Comment obtenir le visa Omra ?</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Obtenir son <strong className="text-foreground">visa Omra</strong> peut sembler compliqué, mais avec nos explications étape par étape, vous saurez exactement quels documents préparer et comment éviter les erreurs fréquentes.
+                  <h3 className="text-2xl font-bold">Visa Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Obtenir son <strong className="text-foreground">visa Omra</strong> peut sembler compliqué, mais avec nos explications étape par étape, vous saurez exactement quels documents préparer et comment éviter les erreurs fréquentes.
                 </p>
               </div>
             </div>
@@ -814,10 +814,10 @@ const Index = () => {
                   <div className="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🏢</span>
                   </div>
-                <h3 className="text-2xl font-bold">Quelle agence Omra choisir ?</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Trouver la bonne <strong className="text-foreground">agence Omra</strong> est essentiel pour voyager en confiance. Sur Omra Bons Plans, nous partageons nos retours d'expérience et nos recommandations pour sélectionner une agence sérieuse et adaptée à vos besoins.
+                  <h3 className="text-2xl font-bold">Agence Omra</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Trouver la bonne <strong className="text-foreground">agence Omra</strong> est essentiel pour voyager en confiance. Sur Omra Bons Plans, nous partageons nos retours d'expérience et nos recommandations pour sélectionner une agence sérieuse et adaptée à vos besoins.
                 </p>
               </div>
             </div>
@@ -986,7 +986,7 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <DynamicIcon name="search" className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Une plateforme intuitive</h3>
+                <h3 className="text-xl font-bold">Recherche facilitée</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Trouvez rapidement les <strong className="text-foreground">meilleures agences Omra</strong> parmi notre sélection rigoureuse de spécialistes. Comparez en un clic les <strong className="text-foreground">offres Omra économiques</strong> et <strong className="text-foreground">forfaits premium</strong> pour votre <strong className="text-foreground">voyage spirituel</strong>.
                 </p>
@@ -998,7 +998,7 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <DynamicIcon name="trending-up" className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Comparez les offres facilement</h3>
+                <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Explorez les <strong className="text-foreground">meilleurs prix Omra 2026</strong> et <strong className="text-foreground">2027</strong>. Comparez facilement les <strong className="text-foreground">tarifs Omra</strong>, les <strong className="text-foreground">itinéraires</strong>, et les <strong className="text-foreground">prestations</strong> des agences spécialisées pour économiser temps et argent.
                 </p>
@@ -1010,7 +1010,7 @@ const Index = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <DynamicIcon name="shield" className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Des agences de confiance</h3>
+                <h3 className="text-xl font-bold">Agences vérifiées</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Accédez à une sélection des <strong className="text-foreground">meilleures agences Omra 2026 et 2027</strong>, reconnues pour leur fiabilité. Réservez votre <strong className="text-foreground">pèlerinage Omra</strong> en toute confiance avec des professionnels certifiés.
                 </p>
@@ -1078,7 +1078,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="text-3xl mb-2">🌙</div>
-                <h3 className="text-xl font-bold">Partir pendant le Ramadan</h3>
+                <h3 className="text-xl font-bold">Omra Ramadan 2026 et 2027</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2026</strong> ou <strong className="text-foreground">2027</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
                 </p>
@@ -1088,7 +1088,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="text-3xl mb-2">☀️</div>
-                <h3 className="text-xl font-bold">Pendant les vacances scolaires</h3>
+                <h3 className="text-xl font-bold">Omra vacances scolaires</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Partez en <strong className="text-foreground">Omra famille</strong> pendant les <strong className="text-foreground">vacances d'été</strong>, <strong className="text-foreground">Toussaint</strong> ou <strong className="text-foreground">vacances hiver</strong>. Profitez d'<strong className="text-foreground">offres Omra groupe</strong> adaptées aux familles avec des <strong className="text-foreground">hébergements spacieux</strong>.
                 </p>
@@ -1098,7 +1098,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="text-3xl mb-2">🎯</div>
-                <h3 className="text-xl font-bold">Offres de dernière minute</h3>
+                <h3 className="text-xl font-bold">Omra dernière minute</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Saisissez nos <strong className="text-foreground">promotions Omra dernière minute</strong> et <strong className="text-foreground">offres flash</strong> pour partir rapidement à <strong className="text-foreground">petit prix</strong>. Consultez régulièrement nos <strong className="text-foreground">deals Omra</strong> et <strong className="text-foreground">réductions exceptionnelles</strong>.
                 </p>

@@ -292,12 +292,8 @@ const MyAds = () => {
 
             {/* Desktop Title */}
             <div className="hidden lg:block mb-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-4xl font-bold">Gestion de vos annonces</h2>
-                  <p className="text-muted-foreground mt-2">Gérez vos annonces publiées</p>
-                </div>
-              </div>
+              <h1 className="text-4xl font-bold">Mes annonces</h1>
+              <p className="text-muted-foreground mt-2">Gérez vos annonces publiées</p>
             </div>
 
             {/* Statistics Cards */}

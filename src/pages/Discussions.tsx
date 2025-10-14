@@ -99,9 +99,9 @@ const Discussions = () => {
                       )}
                     </div>
                     <div>
-                      <div className="font-semibold text-card-foreground">
+                      <h2 className="font-semibold text-card-foreground">
                         {selectedTopic?.title || 'Discussion générale'}
-                      </div>
+                      </h2>
                       {selectedTopic?.description && (
                         <p className="text-sm text-muted-foreground">
                           {selectedTopic.description}
