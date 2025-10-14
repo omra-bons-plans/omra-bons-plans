@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => ({
         safari10: true
       }
     },
-    cssMinify: 'lightningcss', // Faster than default
+    cssMinify: true, // esbuild (default) is fast and reliable
     cssCodeSplit: true,
     reportCompressedSize: false,
     sourcemap: false
