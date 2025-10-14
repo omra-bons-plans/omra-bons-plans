@@ -1,4 +1,10 @@
 export function registerServiceWorker() {
+  // ⚠️ Service Worker temporarily disabled to fix PageSpeed issues
+  // Will be re-enabled after testing
+  console.log('⚠️ Service Worker disabled temporarily');
+  return;
+  
+  /* DISABLED
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
@@ -11,4 +17,5 @@ export function registerServiceWorker() {
         });
     });
   }
+  */
 }
