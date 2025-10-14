@@ -39,12 +39,8 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 
-// Lazy import images to reduce initial bundle size
-import kaabaHero from "@/assets/kaaba-hero.jpg";
-import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
-import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
-import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
-import airplaneInterior from "@/assets/airplane-interior.jpg";
+// Images are NOT imported statically to reduce initial JS bundle
+// They will be loaded on-demand via lazy components
 
 
 const Index = () => {
@@ -118,7 +114,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: luxuryHotelMecca,
+      image: "/ad-placeholder.jpg",
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",

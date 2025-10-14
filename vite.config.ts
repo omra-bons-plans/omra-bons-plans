@@ -16,11 +16,15 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
+          // Core essentials - loaded first
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
+          // Heavy UI libs - lazy loaded
+          carousel: ['embla-carousel-react'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast', '@radix-ui/react-tabs'],
           supabase: ['@supabase/supabase-js'],
           forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          // Icons split separately (heavy)
           lucide: ['lucide-react'],
           utils: ['date-fns', 'clsx', 'tailwind-merge']
         },
@@ -30,19 +34,24 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 1000,
-    target: 'es2015',
+    chunkSizeWarningLimit: 500, // Stricter limit for mobile
+    target: 'es2020', // Modern target = smaller code
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        passes: 2, // More aggressive
+        pure_funcs: ['console.info', 'console.debug', 'console.warn']
+      },
+      mangle: {
+        safari10: true
       }
     },
-    cssMinify: true,
+    cssMinify: 'lightningcss', // Faster than default
     cssCodeSplit: true,
-    reportCompressedSize: false, // Speed up build
-    sourcemap: false // Disable sourcemaps in production for better performance
+    reportCompressedSize: false,
+    sourcemap: false
   },
   plugins: [
     react(),
