@@ -274,21 +274,26 @@ const Index = () => {
 
       <div className="min-h-screen bg-background">
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
-        {/* LCP Image - AVIF 1600x900 optimized */}
+      {/* Hero Section - Optimized for LCP */}
+      <section className="relative min-h-screen flex items-center overflow-hidden" style={{ paddingTop: '80px' }}>
+        {/* LCP Image - AVIF 1600x900 - CRITICAL: Must load first */}
         <img 
           src="/hero-kaaba-2025-optimized.avif"
-          alt="Omra Bons Plans - La Kaaba sacrée à La Mecque lors du Hajj et de la Omra, pèlerins en ihram"
-          className="absolute inset-0 w-full h-full object-cover"
+          alt="Hajj et Omra - Trouvez les meilleures offres pour votre voyage spirituel à La Mecque"
+          width="1600"
+          height="900"
           fetchPriority="high"
           loading="eager"
           decoding="async"
-          width="1600"
-          height="900"
-          style={{ width: '100%', height: 'auto', objectFit: 'cover', aspectRatio: '16/9' }}
+          className="absolute inset-0 object-cover"
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover'
+          }}
         />
-        <div className="hero-overlay absolute inset-0"></div>
+        {/* Overlay - Reduced opacity to ensure image is LCP */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%)' }}></div>
 
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 islamic-pattern-modern opacity-30 z-10"></div>
