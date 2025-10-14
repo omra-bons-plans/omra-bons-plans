@@ -239,32 +239,31 @@ const Index = () => {
           }
         }}
       />
-      {/* Desktop Header - Fixed at top */}
-      <header className="hidden lg:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
-        <div className="container mx-auto px-6 py-4">
+      {/* Desktop & Tablet Header - Fixed at top */}
+      <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
+        <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
           <div className="flex items-center justify-between">
-            {/* Logo - Left aligned on desktop */}
+            {/* Logo - Left aligned */}
             <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <div className="h-16 flex items-center">
-                <Logo size={140} className="text-primary object-contain" style={{ maxHeight: '64px' }} />
+              <div className="h-12 md:h-16 flex items-center">
+                <Logo size={120} className="text-primary object-contain md:w-[140px]" style={{ maxHeight: '64px' }} />
               </div>
             </div>
             
             {/* Right buttons */}
-            <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-4">
               {user ? (
                 <UserMenu />
               ) : (
                 <Link to="/auth">
-                  <Button variant="ghost" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground transition-all duration-300">
+                  <Button variant="ghost" className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-all duration-300">
                     Se connecter
                   </Button>
                 </Link>
               )}
               <Link to="/publish">
-                <Button className="btn-modern text-primary-foreground px-3 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base">
-                  <span className="hidden sm:inline">Publier une annonce</span>
-                  <span className="sm:hidden">Publier</span>
+                <Button className="btn-modern text-primary-foreground px-4 md:px-8 py-2 md:py-3 rounded-xl font-semibold text-sm md:text-base">
+                  Publier une annonce
                 </Button>
               </Link>
             </div>
@@ -274,8 +273,8 @@ const Index = () => {
 
       <div className="min-h-screen bg-background pt-0 mt-0">
 
-      {/* Hero Section - Ratio intrinsèque pour LCP instantané */}
-      <section className="hero-wrapper lg:mt-[80px] mt-0">
+      {/* Hero Section - Optimisé mobile/tablette/desktop */}
+      <section className="hero-wrapper md:mt-[64px] lg:mt-[80px] mt-0">
         <div className="hero-media">
           <img
             src="/hero-kaaba-2025-optimized.avif"
