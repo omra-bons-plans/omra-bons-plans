@@ -4,10 +4,6 @@ RewriteEngine On
 # Set index file
 DirectoryIndex index.html
 
-# Redirection WWW vers non-WWW (consolidation SEO)
-RewriteCond %{HTTP_HOST} ^www\.omrabonsplans\.fr$ [NC]
-RewriteRule ^(.*)$ https://omrabonsplans.fr/$1 [R=301,L]
-
 # Redirection des URLs françaises vers les URLs anglaises (pour consolider le SEO)
 RewriteRule ^a-propos/?$ /about [R=301,L]
 RewriteRule ^calendrier-islamique/?$ /islamic-calendar [R=301,L]
