@@ -47,7 +47,7 @@
     <meta name="theme-color" content="#ffffff">
     
     <!-- Preload critical LCP hero image with high priority -->
-    <link rel="preload" as="image" href="/hero-kaaba-optimized.jpg" fetchpriority="high" imagesrcset="/hero-kaaba-optimized.jpg 1600w" imagesizes="100vw" media="(min-width: 768px)">
+    <link rel="preload" as="image" href="/hero-kaaba-2025.jpg" fetchpriority="high" imagesrcset="/hero-kaaba-2025.jpg 1600w" imagesizes="100vw" media="(min-width: 768px)">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -70,19 +70,6 @@
       .overflow-hidden{overflow:hidden}.drop-shadow-lg{filter:drop-shadow(0 10px 8px rgba(0,0,0,.04))}
       @media (min-width:768px){.md\:text-8xl{font-size:6rem}.md\:text-9xl{font-size:8rem}.md\:block{display:block}.md\:hidden{display:none}}
     </style>
-    
-    <!-- Async CSS loading to prevent render blocking -->
-    <script>
-      // Load non-critical CSS asynchronously with preload
-      (function() {
-        var link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'style';
-        link.href = '/critical.css';
-        link.onload = function() { this.rel = 'stylesheet'; };
-        document.head.appendChild(link);
-      })();
-    </script>
     
     <title>Omra Bons Plans</title>
     <!-- Meta description gérée dynamiquement par react-helmet-async dans chaque page -->

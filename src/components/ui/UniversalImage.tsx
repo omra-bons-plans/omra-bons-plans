@@ -101,6 +101,16 @@ export const UniversalImage = ({
     onLoad?.();
   };
 
+  // Extraire width/height du className si présents
+  const dimensions = React.useMemo(() => {
+    const widthMatch = className?.match(/w-\[(\d+)px\]/);
+    const heightMatch = className?.match(/h-\[(\d+)px\]/);
+    return {
+      width: widthMatch ? widthMatch[1] : undefined,
+      height: heightMatch ? heightMatch[1] : undefined
+    };
+  }, [className]);
+
   return (
     <img
       src={currentSrc}
@@ -112,6 +122,8 @@ export const UniversalImage = ({
       onError={handleError}
       onLoad={handleLoad}
       decoding="async"
+      width={dimensions.width}
+      height={dimensions.height}
     />
   );
 };
