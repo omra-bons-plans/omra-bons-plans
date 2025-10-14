@@ -24,10 +24,25 @@ export default defineConfig(({ mode }) => ({
           lucide: ['lucide-react'],
           utils: ['date-fns', 'clsx', 'tailwind-merge']
         },
+        // Optimize file naming for better caching
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
     chunkSizeWarningLimit: 1000,
     target: 'es2015',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
+    cssMinify: true,
+    cssCodeSplit: true,
+    reportCompressedSize: false, // Speed up build
+    sourcemap: false // Disable sourcemaps in production for better performance
   },
   plugins: [
     react(),

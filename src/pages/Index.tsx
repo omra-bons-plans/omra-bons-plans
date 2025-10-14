@@ -279,12 +279,14 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden lg:pt-0 pt-16">
         {/* Background Image - Desktop only (as IMG for better LCP) */}
         <img 
-          src={kaabaHero}
-          alt="La Kaaba sacrée à La Mecque - Hajj et Omra"
+          src="/hero-kaaba-optimized.jpg"
+          alt="La Kaaba sacrée à La Mecque - Pèlerins en ihram effectuant le tawaf pendant l'heure dorée"
           className="absolute inset-0 w-full h-full object-cover hidden md:block"
           fetchPriority="high"
           loading="eager"
           decoding="async"
+          width="1600"
+          height="900"
         />
         <div className="hero-overlay absolute inset-0 hidden md:block"></div>
 

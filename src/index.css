@@ -47,6 +47,18 @@
     --success-foreground: 0 0% 100%;
     --warning: 35 85% 55%;
     --warning-foreground: 25 25% 25%;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2') format('woff2');
+  }
+
+  * {
+    @apply border-border;
 
     /* Border and input system */
     --border: 45 25% 85%;
