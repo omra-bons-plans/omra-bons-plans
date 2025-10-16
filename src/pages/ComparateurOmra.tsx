@@ -417,7 +417,13 @@ export default function ComparateurOmra() {
                   {/* Corps de la carte */}
                   <div className="p-6 space-y-4">
                     <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary" className="font-medium px-3 py-1 capitalize">
+                      <Badge 
+                        className={`font-bold px-4 py-2 text-base capitalize shadow-md ${
+                          offer.formula_type?.toLowerCase() === 'essentiel' 
+                            ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 hover:from-amber-600 hover:to-orange-600' 
+                            : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-purple-600 hover:from-purple-600 hover:to-indigo-700'
+                        }`}
+                      >
                         ✨ {offer.formula_type}
                       </Badge>
                       {offer.flights_included && (
