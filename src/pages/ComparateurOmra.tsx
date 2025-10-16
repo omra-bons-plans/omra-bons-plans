@@ -440,70 +440,79 @@ export default function ComparateurOmra() {
                       )}
                     </div>
 
-                    <div className="space-y-3 text-sm">
+                    <div className="space-y-3">
                       {offer.date_start && offer.date_end ? (
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Calendar className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">Dates</div>
-                            <div>
-                              {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' })} → {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}
-                            </div>
-                            {offer.duration_nights && (
-                              <div className="text-xs">{offer.duration_nights} nuits</div>
-                            )}
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Calendar className="h-5 w-5 text-primary" />
+                            <h4 className="text-xl font-bold text-foreground">
+                              Omra {new Date(offer.date_start).toLocaleDateString('fr-FR', { month: 'long' })}
+                            </h4>
                           </div>
+                          <div className="text-base font-semibold text-foreground">
+                            Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                          </div>
+                          {offer.duration_nights && (
+                            <div className="text-sm text-muted-foreground mt-1">{offer.duration_nights} nuits</div>
+                          )}
                         </div>
                       ) : (
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Calendar className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">Mois de départ</div>
-                            <div>
-                              {offer.month_departure}
-                              {offer.duration_nights && ` - ${offer.duration_nights} nuits`}
-                            </div>
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-5 w-5 text-primary" />
+                            <h4 className="text-xl font-bold text-foreground">
+                              Omra {offer.month_departure}
+                            </h4>
                           </div>
+                          {offer.duration_nights && (
+                            <div className="text-sm text-muted-foreground mt-1">{offer.duration_nights} nuits</div>
+                          )}
                         </div>
                       )}
                       
-                      <div className="flex items-start gap-3 text-muted-foreground">
-                        <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                        <div className="flex-1">
-                          <div className="font-medium text-foreground">Départ</div>
-                          <div>{offer.departure_city}</div>
+                      <div className="grid grid-cols-1 gap-3 bg-muted/50 p-4 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Départ</div>
+                            <div className="text-base font-semibold text-foreground">{offer.departure_city}</div>
+                          </div>
                         </div>
+                        
+                        {(offer.makkah_nights || offer.medina_nights) && (
+                          <div className="flex items-center gap-3">
+                            <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                            <div>
+                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Répartition</div>
+                              <div className="text-base font-semibold text-foreground">
+                                {offer.makkah_nights} nuits La Mecque / {offer.medina_nights} nuits Médine
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       
-                      {(offer.makkah_nights || offer.medina_nights) && (
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Clock className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">Répartition</div>
-                            <div>
-                              {offer.makkah_nights} nuits La Mecque / {offer.medina_nights} nuits Médine
+                      {(offer.hotel_makkah || offer.distance_to_haram_m) && (
+                        <div className="grid grid-cols-1 gap-3 bg-muted/50 p-4 rounded-lg">
+                          {offer.hotel_makkah && (
+                            <div className="flex items-center gap-3">
+                              <Hotel className="h-5 w-5 text-primary flex-shrink-0" />
+                              <div>
+                                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Hôtel</div>
+                                <div className="text-base font-semibold text-foreground line-clamp-2">{offer.hotel_makkah}</div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {offer.hotel_makkah && (
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Hotel className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">Hôtel</div>
-                            <div className="line-clamp-2">{offer.hotel_makkah}</div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {offer.distance_to_haram_m && (
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">Distance</div>
-                            <div>{offer.distance_to_haram_m}m du Haram</div>
-                          </div>
+                          )}
+                          
+                          {offer.distance_to_haram_m && (
+                            <div className="flex items-center gap-3">
+                              <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                              <div>
+                                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Distance</div>
+                                <div className="text-base font-semibold text-foreground">{offer.distance_to_haram_m}m du Haram</div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
