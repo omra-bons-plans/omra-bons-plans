@@ -237,11 +237,56 @@ export const agenciesData: AgencyData[] = [
 ];
 
 export const getAgencyInfo = (agencyName: string): AgencyData | null => {
-  const normalizedName = agencyName?.trim().toLowerCase();
+  const normalizedName = agencyName?.trim().toLowerCase()
+    .replace(/[àáâãäå]/g, 'a')
+    .replace(/[èéêë]/g, 'e')
+    .replace(/[ìíîï]/g, 'i')
+    .replace(/[òóôõö]/g, 'o')
+    .replace(/[ùúûü]/g, 'u')
+    .replace(/[ç]/g, 'c');
+  
+  // Mapping personnalisé pour les variations de noms
+  const nameMapping: Record<string, string> = {
+    'sabile': 'sabile voyages',
+    'pelerin': 'pèlerin hajj',
+    'pelerinhajj': 'pèlerin hajj',
+    'tawaf': 'tawaf',
+    'almaqam': 'al maqam voyages',
+    'al maqam': 'al maqam voyages',
+    'albayt': 'al bayt',
+    'al bayt': 'al bayt',
+    'hayat': 'al hayat voyages',
+    'al hayat': 'al hayat voyages',
+    'omra pour tous': 'omra pour tous',
+    'omrapourtous': 'omra pour tous',
+  };
+  
+  // Chercher dans le mapping
+  const mappedName = nameMapping[normalizedName] || normalizedName;
   
   return agenciesData.find(agency => {
-    const agencyNameLower = agency.name.toLowerCase();
-    // Correspondance exacte ou partielle
-    return agencyNameLower.includes(normalizedName) || normalizedName.includes(agencyNameLower);
+    const agencyNameLower = agency.name.toLowerCase()
+      .replace(/[àáâãäå]/g, 'a')
+      .replace(/[èéêë]/g, 'e')
+      .replace(/[ìíîï]/g, 'i')
+      .replace(/[òóôõö]/g, 'o')
+      .replace(/[ùúûü]/g, 'u')
+      .replace(/[ç]/g, 'c');
+    
+    // Correspondance exacte
+    if (agencyNameLower === mappedName || agencyNameLower === normalizedName) {
+      return true;
+    }
+    
+    // Correspondance partielle (l'un contient l'autre)
+    if (agencyNameLower.includes(mappedName) || mappedName.includes(agencyNameLower)) {
+      return true;
+    }
+    
+    // Vérifier les mots clés
+    const agencyWords = agencyNameLower.split(' ');
+    const searchWords = mappedName.split(' ');
+    
+    return agencyWords.some(word => searchWords.includes(word) && word.length > 3);
   }) || null;
 };
