@@ -112,7 +112,7 @@ export const agenciesData: AgencyData[] = [
     highlight: "Excellence dans l'accompagnement spirituel et l'organisation"
   },
   {
-    name: "Sabile Voyages",
+    name: "Sabil Voyages",
     url: "https://sabilevoyages.com/",
     googleRating: 4.9,
     reviewCount: 154,
@@ -268,7 +268,8 @@ export const getAgencyInfo = (agencyName: string): AgencyData | null => {
   const nameMapping: Record<string, string> = {
     'medin': 'medin voyages',
     'medinvoyages': 'medin voyages',
-    'sabile': 'sabile voyages',
+    'sabil': 'sabil voyages',
+    'sabile': 'sabil voyages',
     'pelerin': 'pèlerin hajj',
     'pelerinhajj': 'pèlerin hajj',
     'tawaf': 'tawaf',

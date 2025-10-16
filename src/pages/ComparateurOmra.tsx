@@ -29,8 +29,8 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Hayat': '/lovable-uploads/logohayat.png',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
-  'Sabile': '/lovable-uploads/logosabilvoyages.png',
-  'Sabile Voyages': '/lovable-uploads/logosabilvoyages.png',
+  'Sabil': '/lovable-uploads/logosabilvoyages.png',
+  'Sabil Voyages': '/lovable-uploads/logosabilvoyages.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
 };
 
@@ -42,9 +42,7 @@ const getAgencyLogo = (agencyName: string): string | null => {
     .replace(/[òóôõö]/g, 'o')
     .replace(/[ùúûü]/g, 'u')
     .replace(/[ç]/g, 'c')
-    .replace(/\s+/g, ''); // Retirer tous les espaces
-  
-  console.log('🔍 Recherche logo pour:', agencyName, '| Normalisé:', normalizedName);
+    .replace(/\s+/g, '');
   
   for (const [key, logo] of Object.entries(AGENCY_LOGOS)) {
     const normalizedKey = key.toLowerCase()
@@ -54,14 +52,12 @@ const getAgencyLogo = (agencyName: string): string | null => {
       .replace(/[òóôõö]/g, 'o')
       .replace(/[ùúûü]/g, 'u')
       .replace(/[ç]/g, 'c')
-      .replace(/\s+/g, ''); // Retirer tous les espaces
+      .replace(/\s+/g, '');
     
     if (normalizedName?.includes(normalizedKey) || normalizedKey.includes(normalizedName)) {
-      console.log('✅ Logo trouvé:', key, '→', logo);
       return logo;
     }
   }
-  console.log('❌ Aucun logo trouvé pour:', agencyName);
   return null;
 };
 
