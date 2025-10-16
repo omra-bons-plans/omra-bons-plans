@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 
@@ -65,6 +66,7 @@ export default function ComparateurOmra() {
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
+  const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [minDuration, setMinDuration] = useState<string>('');
   const [maxDistance, setMaxDistance] = useState<string>('');
@@ -72,8 +74,21 @@ export default function ComparateurOmra() {
   const [showFilters, setShowFilters] = useState(false);
 
   const [offers, setOffers] = useState<any[]>([]);
+  const [allOffers, setAllOffers] = useState<any[]>([]);
+  const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const toggleAgency = (agency: string) => {
+    setSelectedAgencies(prev => {
+      if (prev.includes(agency)) {
+        return prev.filter(a => a !== agency);
+      } else if (prev.length < 4) {
+        return [...prev, agency];
+      }
+      return prev;
+    });
+  };
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -126,23 +141,34 @@ export default function ComparateurOmra() {
           setError(fetchError.message);
         } else {
           // Ajouter l'exemple fake au début
-          let sorted = [fakeOffer, ...(data || [])];
+          const allData = [fakeOffer, ...(data || [])];
+          setAllOffers(allData);
           
+          // Extraire les agences uniques
+          const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
+          setAvailableAgencies(agencies);
+          
+          // Filtrer par agences sélectionnées
+          let filtered = selectedAgencies.length > 0 
+            ? allData.filter(offer => selectedAgencies.includes(offer.agency_name))
+            : allData;
+          
+          // Trier
           switch (sortBy) {
             case 'price_asc':
-              sorted.sort((a, b) => a.price_eur - b.price_eur);
+              filtered.sort((a, b) => a.price_eur - b.price_eur);
               break;
             case 'price_desc':
-              sorted.sort((a, b) => b.price_eur - a.price_eur);
+              filtered.sort((a, b) => b.price_eur - a.price_eur);
               break;
             case 'duration_asc':
-              sorted.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
+              filtered.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
               break;
             case 'duration_desc':
-              sorted.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
+              filtered.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
               break;
           }
-          setOffers(sorted);
+          setOffers(filtered);
           setError(null);
         }
       } catch (err: any) {
@@ -153,12 +179,13 @@ export default function ComparateurOmra() {
     };
 
     fetchOffers();
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies]);
 
   const resetFilters = () => {
     setSelectedMonth('all');
     setSelectedCity('all');
     setSelectedFormula('all');
+    setSelectedAgencies([]);
     setPriceRange([0, 10000]);
     setMinDuration('');
     setMaxDistance('');
@@ -272,6 +299,73 @@ export default function ComparateurOmra() {
 
           {showFilters && (
             <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-primary/10 space-y-4 md:space-y-6 animate-fade-in">
+              {/* Filtre par agence */}
+              <div className="space-y-2 md:space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                    <Building2 className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                    Agences (max 4)
+                  </label>
+                  {selectedAgencies.length > 0 && (
+                    <Badge variant="secondary" className="text-xs">
+                      {selectedAgencies.length}/4 sélectionnées
+                    </Badge>
+                  )}
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+                  {availableAgencies.map(agency => {
+                    const isSelected = selectedAgencies.includes(agency);
+                    const isDisabled = !isSelected && selectedAgencies.length >= 4;
+                    const agencyLogo = getAgencyLogo(agency);
+                    
+                    return (
+                      <button
+                        key={agency}
+                        onClick={() => !isDisabled && toggleAgency(agency)}
+                        disabled={isDisabled}
+                        className={`
+                          relative flex items-center gap-2 p-2 md:p-3 rounded-lg border-2 transition-all
+                          ${isSelected 
+                            ? 'border-primary bg-primary/10 shadow-md' 
+                            : isDisabled
+                              ? 'border-muted bg-muted/5 opacity-50 cursor-not-allowed'
+                              : 'border-border hover:border-primary/50 hover:bg-primary/5'
+                          }
+                        `}
+                      >
+                        <Checkbox 
+                          checked={isSelected}
+                          disabled={isDisabled}
+                          className="pointer-events-none"
+                        />
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          {agencyLogo && (
+                            <img 
+                              src={agencyLogo} 
+                              alt={agency}
+                              className="h-6 w-6 md:h-8 md:w-8 object-contain flex-shrink-0"
+                            />
+                          )}
+                          <span className="text-xs md:text-sm font-medium truncate">
+                            {agency}
+                          </span>
+                        </div>
+                        {isSelected && (
+                          <X 
+                            className="h-3 w-3 text-primary flex-shrink-0" 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleAgency(agency);
+                            }}
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2 md:space-y-3">
                   <label className="text-xs md:text-sm font-medium flex items-center justify-between">
