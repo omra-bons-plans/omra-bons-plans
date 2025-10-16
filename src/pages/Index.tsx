@@ -1346,6 +1346,7 @@ const Index = () => {
               <h3 className="font-bold text-lg mb-6">Service</h3>
               <ul className="space-y-4 text-muted-foreground text-sm">
                 <li><Link to="/comparatif-agences" className="hover:text-primary transition-colors">Comparatif Agences</Link></li>
+                <li><Link to="/comparateur-omra" className="hover:text-primary transition-colors">Comparateur Séjours Omra</Link></li>
                 <li><Link to="/prayer-times" className="hover:text-primary transition-colors">Horaires de Prière</Link></li>
                 <li><Link to="/islamic-calendar" className="hover:text-primary transition-colors">Calendrier Islamique</Link></li>
                 <li><Link to="/ramadan-hajj-dates" className="hover:text-primary transition-colors">Dates Ramadan & Hajj</Link></li>
