@@ -25,7 +25,7 @@ interface OmraOffer {
   date_start: string;
   date_end: string;
   departure_city: string;
-  formula_type: 'standard' | 'confort' | 'premium' | 'elite' | 'autre';
+  formula_type: string;
   visa_included: boolean;
   flights_included: boolean;
   medina_nights: number;
@@ -46,29 +46,107 @@ const ComparateurOmra = () => {
   const [showComparison, setShowComparison] = useState(false);
 
   // Fetch offers
-  const { data: offersData, isLoading } = useQuery({
+  const { data: offersData, isLoading, error: queryError } = useQuery({
     queryKey: ['omra-offers', selectedMonth, priceRange, selectedCities, selectedTypes, sortBy],
     queryFn: async () => {
-      const params = new URLSearchParams({
-        sort: sortBy,
-        page: '1',
-        limit: '24',
-      });
-      
-      if (selectedMonth) params.append('month', selectedMonth);
-      if (priceRange[0] > 0) params.append('priceMin', priceRange[0].toString());
-      if (priceRange[1] < 10000) params.append('priceMax', priceRange[1].toString());
-      if (selectedCities.length > 0) params.append('departure', selectedCities.join(','));
-      if (selectedTypes.length > 0) params.append('type', selectedTypes.join(','));
+      try {
+        const params = new URLSearchParams({
+          sort: sortBy,
+          page: '1',
+          limit: '24',
+        });
+        
+        if (selectedMonth) params.append('month', selectedMonth);
+        if (priceRange[0] > 0) params.append('priceMin', priceRange[0].toString());
+        if (priceRange[1] < 10000) params.append('priceMax', priceRange[1].toString());
+        if (selectedCities.length > 0) params.append('departure', selectedCities.join(','));
+        if (selectedTypes.length > 0) params.append('type', selectedTypes.join(','));
 
-      const { data, error } = await supabase.functions.invoke('omra-offers-api', {
-        method: 'GET',
-        body: params.toString(),
-      });
+        console.log('Fetching offers with params:', params.toString());
 
-      if (error) throw error;
-      return data;
+        // Direct query to database instead of edge function for now
+        let query = supabase
+          .from('omra_offers')
+          .select('*', { count: 'exact' })
+          .eq('status', 'active');
+
+        // Apply filters
+        if (selectedMonth) {
+          query = query.eq('month_departure', selectedMonth);
+        }
+        if (priceRange[0] > 0) {
+          query = query.gte('price_eur', priceRange[0]);
+        }
+        if (priceRange[1] < 10000) {
+          query = query.lte('price_eur', priceRange[1]);
+        }
+        if (selectedCities.length > 0) {
+          query = query.in('departure_city', selectedCities);
+        }
+        if (selectedTypes.length > 0) {
+          query = query.in('formula_type', selectedTypes);
+        }
+
+        // Apply sorting
+        switch (sortBy) {
+          case 'price_desc':
+            query = query.order('price_eur', { ascending: false });
+            break;
+          case 'price_asc':
+            query = query.order('price_eur', { ascending: true });
+            break;
+          case 'duration_desc':
+            query = query.order('duration_nights', { ascending: false });
+            break;
+          case 'duration_asc':
+            query = query.order('duration_nights', { ascending: true });
+            break;
+          case 'distance_asc':
+            query = query.order('distance_to_haram_m', { ascending: true, nullsFirst: false });
+            break;
+          case 'newest':
+            query = query.order('created_at', { ascending: false });
+            break;
+          default:
+            query = query.order('price_eur', { ascending: true });
+        }
+
+        query = query.range(0, 23); // First 24 results
+
+        const { data: offers, error, count } = await query;
+
+        if (error) {
+          console.error('Database error:', error);
+          throw error;
+        }
+
+        // Get last update time
+        const { data: lastUpdateData } = await supabase
+          .from('omra_offers')
+          .select('scraped_at')
+          .order('scraped_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        console.log('Fetched offers:', offers?.length || 0);
+
+        return {
+          offers: offers || [],
+          pagination: {
+            page: 1,
+            limit: 24,
+            total: count || 0,
+            totalPages: Math.ceil((count || 0) / 24),
+          },
+          lastUpdate: lastUpdateData?.scraped_at || null,
+        };
+      } catch (error) {
+        console.error('Error fetching offers:', error);
+        throw error;
+      }
     },
+    retry: 1,
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const offers: OmraOffer[] = offersData?.offers || [];
@@ -248,10 +326,29 @@ const ComparateurOmra = () => {
             {/* Offers Grid */}
             {isLoading ? (
               <div className="text-center py-12">Chargement des offres...</div>
+            ) : queryError ? (
+              <Card className="p-12 text-center">
+                <p className="text-lg mb-4 text-destructive">Erreur lors du chargement des offres</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {queryError instanceof Error ? queryError.message : 'Une erreur inattendue s\'est produite'}
+                </p>
+                <Button onClick={() => window.location.reload()}>Réessayer</Button>
+              </Card>
             ) : offers.length === 0 ? (
               <Card className="p-12 text-center">
-                <p className="text-lg mb-4">Aucune offre ne correspond à vos critères</p>
-                <Button onClick={resetFilters}>Élargir les filtres</Button>
+                <p className="text-lg mb-4">
+                  {selectedMonth || selectedCities.length > 0 || selectedTypes.length > 0 || priceRange[0] > 0 || priceRange[1] < 10000
+                    ? 'Aucune offre ne correspond à vos critères'
+                    : 'Aucune offre disponible pour le moment'}
+                </p>
+                {(selectedMonth || selectedCities.length > 0 || selectedTypes.length > 0 || priceRange[0] > 0 || priceRange[1] < 10000) && (
+                  <Button onClick={resetFilters}>Élargir les filtres</Button>
+                )}
+                {offers.length === 0 && !selectedMonth && selectedCities.length === 0 && (
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Les offres seront ajoutées prochainement via notre système de scraping automatique.
+                  </p>
+                )}
               </Card>
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
