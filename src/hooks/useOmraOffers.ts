@@ -45,7 +45,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
       try {
         setIsLoading(true);
         
-        const { data, error: fetchError } = await supabase.rpc('get_omra_offers', {
+        const { data, error: fetchError } = await (supabase.rpc as any)('get_omra_offers', {
           filter_month: filters.month || null,
           filter_city: filters.city || null,
           filter_formula: filters.formula || null,
@@ -57,7 +57,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
 
         if (fetchError) throw fetchError;
 
-        let sortedData = [...(data || [])] as OmraOffer[];
+        let sortedData = (data || []) as unknown as OmraOffer[];
         
         switch (filters.sortBy) {
           case 'price_asc':

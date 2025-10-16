@@ -790,6 +790,198 @@ export type Database = {
         }
         Relationships: []
       }
+      omra_offers: {
+        Row: {
+          agency_name: string
+          agency_url: string
+          board: string | null
+          created_at: string
+          currency_raw: string | null
+          date_end: string | null
+          date_start: string | null
+          departure_city: string
+          distance_to_haram_m: number | null
+          duration_nights: number | null
+          error_message: string | null
+          flights_included: boolean
+          formula_type: string
+          guide_language: string[] | null
+          hotel_makkah: string | null
+          hotel_medinah: string | null
+          id: string
+          makkah_nights: number | null
+          medina_nights: number | null
+          month_departure: string
+          notes: string | null
+          offer_title: string
+          offer_url: string
+          price_eur: number
+          scraped_at: string
+          source_hash: string
+          status: string
+          updated_at: string
+          visa_included: boolean | null
+        }
+        Insert: {
+          agency_name: string
+          agency_url: string
+          board?: string | null
+          created_at?: string
+          currency_raw?: string | null
+          date_end?: string | null
+          date_start?: string | null
+          departure_city: string
+          distance_to_haram_m?: number | null
+          duration_nights?: number | null
+          error_message?: string | null
+          flights_included?: boolean
+          formula_type: string
+          guide_language?: string[] | null
+          hotel_makkah?: string | null
+          hotel_medinah?: string | null
+          id?: string
+          makkah_nights?: number | null
+          medina_nights?: number | null
+          month_departure: string
+          notes?: string | null
+          offer_title: string
+          offer_url: string
+          price_eur: number
+          scraped_at?: string
+          source_hash: string
+          status?: string
+          updated_at?: string
+          visa_included?: boolean | null
+        }
+        Update: {
+          agency_name?: string
+          agency_url?: string
+          board?: string | null
+          created_at?: string
+          currency_raw?: string | null
+          date_end?: string | null
+          date_start?: string | null
+          departure_city?: string
+          distance_to_haram_m?: number | null
+          duration_nights?: number | null
+          error_message?: string | null
+          flights_included?: boolean
+          formula_type?: string
+          guide_language?: string[] | null
+          hotel_makkah?: string | null
+          hotel_medinah?: string | null
+          id?: string
+          makkah_nights?: number | null
+          medina_nights?: number | null
+          month_departure?: string
+          notes?: string | null
+          offer_title?: string
+          offer_url?: string
+          price_eur?: number
+          scraped_at?: string
+          source_hash?: string
+          status?: string
+          updated_at?: string
+          visa_included?: boolean | null
+        }
+        Relationships: []
+      }
+      omra_scraper_config: {
+        Row: {
+          agency_name: string
+          agency_url: string
+          api_config: Json | null
+          created_at: string
+          error_count: number | null
+          id: string
+          is_active: boolean | null
+          last_scrape_at: string | null
+          last_scrape_status: string | null
+          rate_limit_ms: number | null
+          respect_robots: boolean | null
+          scraper_type: string
+          selectors: Json | null
+          updated_at: string
+        }
+        Insert: {
+          agency_name: string
+          agency_url: string
+          api_config?: Json | null
+          created_at?: string
+          error_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_scrape_at?: string | null
+          last_scrape_status?: string | null
+          rate_limit_ms?: number | null
+          respect_robots?: boolean | null
+          scraper_type?: string
+          selectors?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          agency_name?: string
+          agency_url?: string
+          api_config?: Json | null
+          created_at?: string
+          error_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_scrape_at?: string | null
+          last_scrape_status?: string | null
+          rate_limit_ms?: number | null
+          respect_robots?: boolean | null
+          scraper_type?: string
+          selectors?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      omra_scraper_logs: {
+        Row: {
+          agency_name: string
+          completed_at: string | null
+          duration_ms: number | null
+          error_details: Json | null
+          id: string
+          offers_added: number | null
+          offers_errors: number | null
+          offers_scraped: number | null
+          offers_updated: number | null
+          run_id: string
+          started_at: string
+          status: string
+        }
+        Insert: {
+          agency_name: string
+          completed_at?: string | null
+          duration_ms?: number | null
+          error_details?: Json | null
+          id?: string
+          offers_added?: number | null
+          offers_errors?: number | null
+          offers_scraped?: number | null
+          offers_updated?: number | null
+          run_id: string
+          started_at?: string
+          status: string
+        }
+        Update: {
+          agency_name?: string
+          completed_at?: string | null
+          duration_ms?: number | null
+          error_details?: Json | null
+          id?: string
+          offers_added?: number | null
+          offers_errors?: number | null
+          offers_scraped?: number | null
+          offers_updated?: number | null
+          run_id?: string
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
       profile_views: {
         Row: {
           created_at: string
@@ -1185,6 +1377,39 @@ export type Database = {
           review_count: number
         }[]
       }
+      get_omra_offers: {
+        Args: {
+          filter_city?: string
+          filter_formula?: string
+          filter_month?: string
+          max_distance?: number
+          max_price?: number
+          min_duration?: number
+          min_price?: number
+        }
+        Returns: {
+          agency_name: string
+          agency_url: string
+          board: string
+          date_end: string
+          date_start: string
+          departure_city: string
+          distance_to_haram_m: number
+          duration_nights: number
+          flights_included: boolean
+          formula_type: string
+          hotel_makkah: string
+          hotel_medinah: string
+          id: string
+          makkah_nights: number
+          medina_nights: number
+          month_departure: string
+          offer_title: string
+          offer_url: string
+          price_eur: number
+          visa_included: boolean
+        }[]
+      }
       get_public_profile: {
         Args: { profile_id: string }
         Returns: {
@@ -1258,6 +1483,10 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      mark_stale_omra_offers: {
+        Args: Record<PropertyKey, never>
+        Returns: number
       }
       request_device_authorization: {
         Args: {
