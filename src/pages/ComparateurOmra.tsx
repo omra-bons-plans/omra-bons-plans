@@ -183,11 +183,17 @@ const ComparateurOmra = () => {
           <p className="text-muted-foreground text-lg">
             Filtrez par mois, prix, ville de départ et type de formule. Comparez et réservez auprès de l'agence.
           </p>
-          {lastUpdate && (
-            <p className="text-sm text-muted-foreground mt-2">
-              Dernière mise à jour : {format(new Date(lastUpdate), 'PPP', { locale: fr })}
-            </p>
-          )}
+          {lastUpdate && (() => {
+            try {
+              return (
+                <p className="text-sm text-muted-foreground mt-2">
+                  Dernière mise à jour : {format(new Date(lastUpdate), 'PPP', { locale: fr })}
+                </p>
+              );
+            } catch {
+              return null;
+            }
+          })()}
         </div>
 
         <div className="grid lg:grid-cols-4 gap-6">
@@ -367,7 +373,13 @@ const ComparateurOmra = () => {
                     <div className="space-y-2 mb-4">
                       <p className="text-sm">
                         <span className="font-medium">Départ:</span> {offer.departure_city}
-                        {offer.month_departure && ` - ${format(new Date(offer.month_departure + '-01'), 'MMMM yyyy', { locale: fr })}`}
+                        {offer.month_departure && (() => {
+                          try {
+                            return ` - ${format(new Date(offer.month_departure + '-01'), 'MMMM yyyy', { locale: fr })}`;
+                          } catch {
+                            return '';
+                          }
+                        })()}
                       </p>
                       {offer.hotel_makkah && (
                         <p className="text-sm"><span className="font-medium">Makkah:</span> {offer.hotel_makkah}</p>
