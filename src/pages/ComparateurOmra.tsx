@@ -29,7 +29,7 @@ export default function ComparateurOmra() {
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
 
-  const { offers, isLoading } = useOmraOffers({
+  const { offers, isLoading, error } = useOmraOffers({
     month: selectedMonth,
     city: selectedCity,
     formula: selectedFormula,
@@ -39,6 +39,10 @@ export default function ComparateurOmra() {
     maxDistance: maxDistance ? parseInt(maxDistance) : undefined,
     sortBy
   });
+
+  if (error) {
+    console.error('Error loading offers:', error);
+  }
 
   const resetFilters = () => {
     setSelectedMonth('');
@@ -201,7 +205,19 @@ export default function ComparateurOmra() {
         </div>
 
         {/* Offers Grid */}
-        {isLoading ? (
+        {error ? (
+          <Card className="p-12 text-center border-destructive">
+            <p className="text-destructive text-lg font-semibold mb-2">
+              Erreur lors du chargement des offres
+            </p>
+            <p className="text-muted-foreground text-sm mb-4">
+              {error.message || 'Une erreur inattendue s\'est produite'}
+            </p>
+            <Button onClick={() => window.location.reload()}>
+              Recharger la page
+            </Button>
+          </Card>
+        ) : isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
               <Card key={i} className="p-6">
