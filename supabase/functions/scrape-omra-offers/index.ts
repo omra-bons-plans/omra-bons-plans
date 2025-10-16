@@ -227,6 +227,10 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
     // Pour l'instant, on crée des offres de test basées sur les prix trouvés
     prices.slice(0, 10).forEach((match, index) => {
       const price = parseFloat(match[1]);
+      const monthDeparture = getRandomMonth();
+      const departureCity = 'Paris';
+      const durationNights = Math.floor(Math.random() * 15) + 7;
+      const formulaType = detectFormulaFromHotelInfo(html);
       
       offers.push({
         agency_name: config.agency_name,
@@ -234,17 +238,17 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
         offer_title: `${config.agency_name} - Offre ${index + 1}`,
         price_eur: price,
         currency_raw: 'EUR',
-        month_departure: getRandomMonth(),
-        departure_city: 'Paris',
-        formula_type: getRandomFormula(),
-        duration_nights: Math.floor(Math.random() * 15) + 7,
+        month_departure: monthDeparture,
+        departure_city: departureCity,
+        formula_type: formulaType,
+        duration_nights: durationNights,
         makkah_nights: Math.floor(Math.random() * 7) + 3,
         medina_nights: Math.floor(Math.random() * 5) + 2,
         flights_included: true,
         visa_included: Math.random() > 0.5,
         offer_url: config.agency_url,
         status: 'active',
-        source_hash: `${config.agency_name}-${price}-${index}`,
+        source_hash: `${config.agency_name}-${price}-${monthDeparture}-${departureCity}-${formulaType}-${durationNights}`,
         scraped_at: new Date().toISOString()
       });
     });
@@ -262,7 +266,31 @@ function getRandomMonth(): string {
   return months[Math.floor(Math.random() * months.length)];
 }
 
-function getRandomFormula(): string {
-  const formulas = ['standard', 'confort', 'premium', 'elite'];
-  return formulas[Math.floor(Math.random() * formulas.length)];
+function detectFormulaFromHotelInfo(
+  html: string, 
+  hotelMakkah?: string, 
+  hotelMedinah?: string
+): string {
+  const fiveStarPatterns = [
+    /5\s*étoiles?/gi,
+    /5\s*★/gi,
+    /5\s*\*/gi,
+    /\*{5}/g,
+    /hôtel\s*5/gi,
+    /hotel\s*5/gi,
+    /5\s*stars?/gi,
+    /luxe/gi,
+    /prestige/gi,
+    /cinq\s*étoiles?/gi
+  ];
+  
+  const textToCheck = `${html} ${hotelMakkah || ''} ${hotelMedinah || ''}`;
+  
+  // Si AU MOINS un hôtel est 5★ → confort
+  if (fiveStarPatterns.some(pattern => pattern.test(textToCheck))) {
+    return 'confort';
+  }
+  
+  // Sinon → essentiel
+  return 'essentiel';
 }

@@ -48,7 +48,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
         const { data, error: fetchError } = await (supabase.rpc as any)('get_omra_offers', {
           filter_month: filters.month || null,
           filter_city: filters.city || null,
-          filter_formula: filters.formula || null,
+          filter_formula: filters.formula ? filters.formula.toLowerCase() : null,
           min_price: filters.minPrice || 0,
           max_price: filters.maxPrice || 999999,
           min_duration: filters.minDuration || 0,

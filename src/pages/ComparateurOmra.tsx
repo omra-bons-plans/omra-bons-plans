@@ -16,7 +16,7 @@ const MONTHS = [
   'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 
-const FORMULA_TYPES = ['Économique', 'Confort', 'Premium', 'VIP'];
+const FORMULA_TYPES = ['Essentiel', 'Confort'];
 const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
 
 export default function ComparateurOmra() {
