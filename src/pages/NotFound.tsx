@@ -10,6 +10,12 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+    
+    // Signal to crawlers that this is a 404
+    if (typeof window !== 'undefined') {
+      // @ts-ignore - Set window property for crawlers
+      window.prerender_status_code = 404;
+    }
   }, [location.pathname]);
 
   return (
@@ -18,6 +24,9 @@ const NotFound = () => {
         <title>Page non trouvée - 404 | Omra Bons Plans</title>
         <meta name="description" content="La page que vous recherchez n'existe pas ou a été déplacée. Retournez à l'accueil pour découvrir nos offres Omra." />
         <meta name="robots" content="noindex, follow" />
+        {/* Meta tags pour signaler aux crawlers qu'il s'agit d'une erreur 404 */}
+        <meta name="prerender-status-code" content="404" />
+        <meta httpEquiv="status" content="404 Not Found" />
         <link rel="canonical" href="https://omrabonsplans.fr/404" />
       </Helmet>
       
