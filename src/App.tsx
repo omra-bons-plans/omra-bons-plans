@@ -50,6 +50,8 @@ const AgencesListe = lazy(() => import("./pages/AgencesListe"));
 const AgenceDetails = lazy(() => import("./pages/AgenceDetails"));
 const ComparatifVisuel = lazy(() => import("./pages/ComparatifVisuel"));
 const ComparatifAgences = lazy(() => import("./pages/ComparatifAgences"));
+const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
+const AdminOmra = lazy(() => import("./pages/AdminOmra"));
 const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
@@ -204,7 +206,13 @@ const App = () => (
                   <Route path="/comparatif-agences" element={<ComparatifAgences />} />
                   <Route path="/agences-liste" element={<AgencesListe />} />
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
-                   <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+          <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+          <Route path="/comparateur-omra" element={<ComparateurOmra />} />
+          <Route path="/admin/omra" element={
+            <ProtectedRoute>
+              <AdminOmra />
+            </ProtectedRoute>
+          } />
                    <Route path="/search" element={<Search />} />
                    
                    {/* Redirections vers les URLs françaises */}

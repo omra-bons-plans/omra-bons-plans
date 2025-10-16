@@ -85,6 +85,15 @@ enabled = true
 port = 54328
 ip_version = "ipv4"
 
+[functions.generate-sitemap]
+verify_jwt = false
+
+[functions.omra-offers-api]
+verify_jwt = false
+
+[functions.omra-scraper]
+verify_jwt = false
+
 # Scheduled functions to update weather and exchange rates
 [[edge_runtime.scheduled_functions]]
 name = "update-weather-data"
@@ -96,6 +105,8 @@ name = "update-exchange-rates"
 # Run every 12 hours at midnight and noon
 schedule = "0 0,12 * * *"
 
-# Public function for dynamic sitemap generation
-[functions.generate-sitemap]
-verify_jwt = false
+# Omra scraper - runs every Monday at 06:00 Europe/Paris
+[[edge_runtime.scheduled_functions]]
+name = "omra-scraper"
+# Run every Monday at 06:00 Europe/Paris (05:00 UTC in winter, 04:00 UTC in summer)
+schedule = "0 5 * * 1"
