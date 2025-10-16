@@ -24,11 +24,13 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
+  'Pelerin': '/lovable-uploads/logopelrinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.png',
   'Hayat': '/lovable-uploads/logohayat.png',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
   'Sabile': '/lovable-uploads/logosabile.png',
+  'Sabile Voyages': '/lovable-uploads/logosabile.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
 };
 
