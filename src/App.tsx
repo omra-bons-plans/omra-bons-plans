@@ -54,6 +54,7 @@ const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
+const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
 
 // Loading component
 const PageLoader = () => (
@@ -206,6 +207,7 @@ const App = () => (
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
+                   <Route path="/comparateur-omra" element={<ComparateurOmra />} />
                    
                    {/* Redirections vers les URLs françaises */}
                   <Route path="/a-propos" element={<Navigate to="/about" replace />} />
