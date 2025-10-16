@@ -1186,6 +1186,90 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Blog Categories Section - SEO Internal Links */}
+      <section className="py-20 bg-gradient-to-br from-background via-background to-muted/10">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Découvrez nos Guides & Ressources
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Explorez nos catégories pour trouver toutes les informations essentielles pour votre voyage Omra et Hajj
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Blog Général */}
+            <Link to="/blog/general" className="group">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <DynamicIcon name="book-open" className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                    Blog Général
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Guides complets, conseils d'experts et articles sur l'Omra, le Hajj et la spiritualité
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Restaurants */}
+            <Link to="/blog/restaurants" className="group">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <DynamicIcon name="utensils" className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                    Restaurants Halal
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Sélection des meilleurs restaurants halal certifiés à La Mecque et Médine
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Associations */}
+            <Link to="/blog/associations" className="group">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <DynamicIcon name="heart" className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                    Associations
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Associations musulmanes et organisations caritatives au service de la communauté
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Vendeurs */}
+            <Link to="/blog/vendeurs" className="group">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <DynamicIcon name="store" className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                    Vendeurs & Commerçants
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Annuaire des commerçants et artisans de confiance pour tous vos besoins
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-card border-t border-border py-16 px-6">
         <div className="container mx-auto">
