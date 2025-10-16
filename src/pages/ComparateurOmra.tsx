@@ -285,10 +285,20 @@ export default function ComparateurOmra() {
                   </div>
 
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      <span>{offer.month_departure} - {offer.duration_nights} nuits</span>
-                    </div>
+                    {offer.date_start && offer.date_end ? (
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Calendar className="h-4 w-4" />
+                        <span>
+                          {new Date(offer.date_start).toLocaleDateString('fr-FR')} → {new Date(offer.date_end).toLocaleDateString('fr-FR')}
+                          {offer.duration_nights && ` (${offer.duration_nights} nuits)`}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Calendar className="h-4 w-4" />
+                        <span>{offer.month_departure}{offer.duration_nights && ` - ${offer.duration_nights} nuits`}</span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <MapPin className="h-4 w-4" />
                       <span>Départ: {offer.departure_city}</span>

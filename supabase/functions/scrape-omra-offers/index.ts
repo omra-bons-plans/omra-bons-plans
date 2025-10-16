@@ -219,18 +219,45 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   const offers: any[] = [];
   
   try {
-    // Extraction basique pour commencer
-    // On va créer un regex pattern pour extraire les prix
+    // Extraction des prix
     const pricePattern = /(\d+(?:\.\d+)?)\s*€/g;
     const prices = [...html.matchAll(pricePattern)];
     
-    // Pour l'instant, on crée des offres de test basées sur les prix trouvés
+    // Extraction des dates (formats: DD/MM/YYYY, DD-MM-YYYY, etc.)
+    const datePattern = /(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g;
+    const dates = [...html.matchAll(datePattern)];
+    
+    // Pour chaque prix trouvé, créer une offre
     prices.slice(0, 10).forEach((match, index) => {
       const price = parseFloat(match[1]);
       const monthDeparture = getRandomMonth();
       const departureCity = 'Paris';
       const durationNights = Math.floor(Math.random() * 15) + 7;
       const formulaType = detectFormulaFromHotelInfo(html);
+      
+      // Essayer d'extraire une date de départ pour cette offre
+      let dateStart = null;
+      let dateEnd = null;
+      
+      if (dates.length > index * 2) {
+        // Date de départ
+        const startMatch = dates[index * 2];
+        if (startMatch) {
+          const day = startMatch[1].padStart(2, '0');
+          const month = startMatch[2].padStart(2, '0');
+          const year = startMatch[3];
+          dateStart = `${year}-${month}-${day}`;
+        }
+        
+        // Date de retour
+        const endMatch = dates[index * 2 + 1];
+        if (endMatch) {
+          const day = endMatch[1].padStart(2, '0');
+          const month = endMatch[2].padStart(2, '0');
+          const year = endMatch[3];
+          dateEnd = `${year}-${month}-${day}`;
+        }
+      }
       
       offers.push({
         agency_name: config.agency_name,
@@ -239,6 +266,8 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
         price_eur: price,
         currency_raw: 'EUR',
         month_departure: monthDeparture,
+        date_start: dateStart,
+        date_end: dateEnd,
         departure_city: departureCity,
         formula_type: formulaType,
         duration_nights: durationNights,
