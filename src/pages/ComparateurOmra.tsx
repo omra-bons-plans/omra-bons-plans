@@ -33,7 +33,6 @@ export default function ComparateurOmra() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch offers avec requête directe
   useEffect(() => {
     const fetchOffers = async () => {
       try {
@@ -43,7 +42,6 @@ export default function ComparateurOmra() {
           .select('*')
           .eq('status', 'active');
 
-        // Filtres
         if (selectedMonth) query = query.eq('month_departure', selectedMonth);
         if (selectedCity) query = query.eq('departure_city', selectedCity);
         if (selectedFormula) query = query.eq('formula_type', selectedFormula.toLowerCase());
@@ -58,13 +56,12 @@ export default function ComparateurOmra() {
           setError(fetchError.message);
         } else {
           let sorted = data || [];
-          // Tri
           switch (sortBy) {
             case 'price_asc':
-              sorted.sort((a, b) => (a.price_eur || 0) - (b.price_eur || 0));
+              sorted.sort((a, b) => a.price_eur - b.price_eur);
               break;
             case 'price_desc':
-              sorted.sort((a, b) => (b.price_eur || 0) - (a.price_eur || 0));
+              sorted.sort((a, b) => b.price_eur - a.price_eur);
               break;
             case 'duration_asc':
               sorted.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
@@ -74,6 +71,7 @@ export default function ComparateurOmra() {
               break;
           }
           setOffers(sorted);
+          setError(null);
         }
       } catch (err: any) {
         setError(err.message);
@@ -111,7 +109,6 @@ export default function ComparateurOmra() {
       />
 
       <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Hero Section */}
         <div className="text-center space-y-4 py-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground">
             Votre comparateur séjours OMRA 2025 et 2026
@@ -121,7 +118,6 @@ export default function ComparateurOmra() {
           </h2>
         </div>
 
-        {/* Quick Filters */}
         <Card className="p-6 bg-card/50 backdrop-blur">
           <div className="flex flex-col md:flex-row gap-4 items-end">
             <div className="flex-1 space-y-2">
@@ -179,7 +175,6 @@ export default function ComparateurOmra() {
             </Button>
           </div>
 
-          {/* Advanced Filters */}
           {showFilters && (
             <div className="mt-6 pt-6 border-t space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -227,10 +222,9 @@ export default function ComparateurOmra() {
           )}
         </Card>
 
-        {/* Results Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground">
-            {offers ? `${offers.length} offre${offers.length > 1 ? 's' : ''} trouvée${offers.length > 1 ? 's' : ''}` : 'Chargement...'}
+            {offers.length} offre{offers.length > 1 ? 's' : ''} trouvée{offers.length > 1 ? 's' : ''}
           </p>
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[200px]">
@@ -245,17 +239,13 @@ export default function ComparateurOmra() {
           </Select>
         </div>
 
-        {/* Offers Grid */}
         {error ? (
           <Card className="p-12 text-center border-destructive">
             <p className="text-destructive text-lg font-semibold mb-2">
-              Erreur lors du chargement des offres
-            </p>
-            <p className="text-muted-foreground text-sm mb-4">
-              {error}
+              Erreur: {error}
             </p>
             <Button onClick={() => window.location.reload()}>
-              Recharger la page
+              Recharger
             </Button>
           </Card>
         ) : isLoading ? (
@@ -269,7 +259,7 @@ export default function ComparateurOmra() {
               </Card>
             ))}
           </div>
-        ) : offers && offers.length > 0 ? (
+        ) : offers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {offers.map((offer) => (
               <Card key={offer.id} className="p-6 hover:shadow-lg transition-shadow">
