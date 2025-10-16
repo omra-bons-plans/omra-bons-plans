@@ -76,24 +76,36 @@ serve(async (req) => {
               .from('omra_offers')
               .select('id')
               .eq('source_hash', offer.source_hash)
-              .single();
+              .maybeSingle();
 
             if (existing) {
               // Mettre à jour l'offre existante
-              await supabase
+              const { error: updateError } = await supabase
                 .from('omra_offers')
                 .update({
                   ...offer,
                   scraped_at: new Date().toISOString()
                 })
                 .eq('id', existing.id);
-              offersUpdated++;
+              
+              if (updateError) {
+                console.error(`[${runId}] Error updating offer:`, updateError);
+                offersErrors++;
+              } else {
+                offersUpdated++;
+              }
             } else {
               // Créer une nouvelle offre
-              await supabase
+              const { error: insertError } = await supabase
                 .from('omra_offers')
                 .insert(offer);
-              offersAdded++;
+              
+              if (insertError) {
+                console.error(`[${runId}] Error inserting offer:`, insertError);
+                offersErrors++;
+              } else {
+                offersAdded++;
+              }
             }
           } catch (err) {
             console.error(`[${runId}] Error saving offer:`, err);
