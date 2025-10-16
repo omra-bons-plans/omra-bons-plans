@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
+import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -219,8 +220,7 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   const offers: any[] = [];
   
   try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    const doc = new DOMParser().parseFromString(html, 'text/html');
     
     if (!doc) {
       console.error('Failed to parse HTML');
@@ -273,43 +273,34 @@ function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
   
   offerLinks.forEach((link, index) => {
     try {
-      // Trouver le titre du mois en remontant dans le DOM
-      let parent = link.parentElement;
-      let monthTitle = null;
+      const buttonText = link.querySelector('.elementor-button-text');
+      if (!buttonText) return;
       
-      for (let i = 0; i < 10 && parent; i++) {
-        const heading = parent.querySelector('h2.elementor-heading-title a');
-        if (heading && heading.textContent) {
-          monthTitle = heading.textContent.trim();
-          break;
-        }
-        parent = parent.parentElement;
-      }
+      // Obtenir le HTML interne complet, pas juste le texte visible
+      const fullText = buttonText.innerHTML || '';
       
-      if (monthTitle) {
-        // Extraire le mois du titre (ex: "OMRA OCTOBRE 2025" -> "Octobre")
-        const monthMatch = monthTitle.match(/OMRA\s+(\w+)\s+\d{4}/i);
-        if (monthMatch) {
-          currentMonth = monthMatch[1].charAt(0).toUpperCase() + monthMatch[1].slice(1).toLowerCase();
-        }
+      // Filtrer : garder seulement les boutons qui ont un prix (€) ET des dates
+      if (!fullText.includes('€') || !fullText.match(/<strong>\d{1,2}\s+\w+\./)) {
+        return;
       }
       
       const href = link.getAttribute('href');
       if (!href) return;
       
-      const buttonText = link.querySelector('.elementor-button-text');
-      if (!buttonText) return;
-      
-      const fullText = buttonText.textContent || '';
+      console.log(`Processing offer ${index}: "${fullText.substring(0, 80)}..."`);
       
       // Vérifier si l'offre est complète
       const isComplete = fullText.includes('COMPLET');
-      if (isComplete) return; // Ignorer les offres complètes
+      if (isComplete) {
+        console.log(`Offer ${index}: Skipped (COMPLET)`);
+        return;
+      }
       
       // Extraire le prix (ex: "1950€/pers")
       const priceMatch = fullText.match(/(\d+(?:\s?\d+)*)\s*€/);
       if (!priceMatch) return;
       const price = parseFloat(priceMatch[1].replace(/\s/g, ''));
+      console.log(`Offer ${index}: Price = ${price}€`);
       
       // Extraire les dates (ex: "23 Oct. au 01 Nov. 2025")
       const datePattern = /(\d{1,2})\s+(\w+)\.?\s+au\s+(\d{1,2})\s+(\w+)\.?\s+(\d{4})/i;
