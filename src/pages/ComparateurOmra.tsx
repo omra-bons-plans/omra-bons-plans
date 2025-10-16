@@ -492,24 +492,44 @@ export default function ComparateurOmra() {
                         )}
                       </div>
                       
-                      {(offer.hotel_makkah || offer.distance_to_haram_m) && (
-                        <div className="grid grid-cols-1 gap-3 bg-muted/50 p-4 rounded-lg">
+                      {(offer.hotel_makkah || offer.hotel_medinah || offer.distance_to_haram_m) && (
+                        <div className="space-y-3">
                           {offer.hotel_makkah && (
-                            <div className="flex items-center gap-3">
-                              <Hotel className="h-5 w-5 text-primary flex-shrink-0" />
-                              <div>
-                                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Hôtel</div>
-                                <div className="text-base font-semibold text-foreground line-clamp-2">{offer.hotel_makkah}</div>
+                            <div className="bg-muted/50 p-4 rounded-lg">
+                              <div className="flex items-start gap-3">
+                                <Hotel className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                                <div className="flex-1">
+                                  <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Hôtel La Mecque</div>
+                                  <div className="text-base font-semibold text-foreground mb-1">{offer.hotel_makkah}</div>
+                                  <div className="flex items-center gap-1">
+                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                    ))}
+                                  </div>
+                                  {offer.distance_to_haram_m && (
+                                    <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                                      <MapPin className="h-4 w-4" />
+                                      <span>{offer.distance_to_haram_m}m du Haram</span>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           )}
                           
-                          {offer.distance_to_haram_m && (
-                            <div className="flex items-center gap-3">
-                              <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                              <div>
-                                <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Distance</div>
-                                <div className="text-base font-semibold text-foreground">{offer.distance_to_haram_m}m du Haram</div>
+                          {offer.hotel_medinah && (
+                            <div className="bg-muted/50 p-4 rounded-lg">
+                              <div className="flex items-start gap-3">
+                                <Hotel className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                                <div className="flex-1">
+                                  <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Hôtel Médine</div>
+                                  <div className="text-base font-semibold text-foreground mb-1">{offer.hotel_medinah}</div>
+                                  <div className="flex items-center gap-1">
+                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                    ))}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           )}
