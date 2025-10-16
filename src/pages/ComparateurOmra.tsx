@@ -44,6 +44,8 @@ const getAgencyLogo = (agencyName: string): string | null => {
     .replace(/[ç]/g, 'c')
     .replace(/\s+/g, ''); // Retirer tous les espaces
   
+  console.log('🔍 Recherche logo pour:', agencyName, '| Normalisé:', normalizedName);
+  
   for (const [key, logo] of Object.entries(AGENCY_LOGOS)) {
     const normalizedKey = key.toLowerCase()
       .replace(/[àáâãäå]/g, 'a')
@@ -55,9 +57,11 @@ const getAgencyLogo = (agencyName: string): string | null => {
       .replace(/\s+/g, ''); // Retirer tous les espaces
     
     if (normalizedName?.includes(normalizedKey) || normalizedKey.includes(normalizedName)) {
+      console.log('✅ Logo trouvé:', key, '→', logo);
       return logo;
     }
   }
+  console.log('❌ Aucun logo trouvé pour:', agencyName);
   return null;
 };
 
