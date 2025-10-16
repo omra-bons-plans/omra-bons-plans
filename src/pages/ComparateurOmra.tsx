@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useOmraOffers } from '@/hooks/useOmraOffers';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card } from '@/components/ui/card';
@@ -29,20 +29,61 @@ export default function ComparateurOmra() {
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
 
-  const { offers, isLoading, error } = useOmraOffers({
-    month: selectedMonth,
-    city: selectedCity,
-    formula: selectedFormula,
-    minPrice: priceRange[0],
-    maxPrice: priceRange[1],
-    minDuration: minDuration ? parseInt(minDuration) : undefined,
-    maxDistance: maxDistance ? parseInt(maxDistance) : undefined,
-    sortBy
-  });
+  const [offers, setOffers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (error) {
-    console.error('Error loading offers:', error);
-  }
+  // Fetch offers avec requête directe
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        setIsLoading(true);
+        let query = supabase
+          .from('omra_offers')
+          .select('*')
+          .eq('status', 'active');
+
+        // Filtres
+        if (selectedMonth) query = query.eq('month_departure', selectedMonth);
+        if (selectedCity) query = query.eq('departure_city', selectedCity);
+        if (selectedFormula) query = query.eq('formula_type', selectedFormula.toLowerCase());
+        if (priceRange[0] > 0) query = query.gte('price_eur', priceRange[0]);
+        if (priceRange[1] < 10000) query = query.lte('price_eur', priceRange[1]);
+        if (minDuration) query = query.gte('duration_nights', parseInt(minDuration));
+        if (maxDistance) query = query.lte('distance_to_haram_m', parseInt(maxDistance));
+
+        const { data, error: fetchError } = await query;
+
+        if (fetchError) {
+          setError(fetchError.message);
+        } else {
+          let sorted = data || [];
+          // Tri
+          switch (sortBy) {
+            case 'price_asc':
+              sorted.sort((a, b) => (a.price_eur || 0) - (b.price_eur || 0));
+              break;
+            case 'price_desc':
+              sorted.sort((a, b) => (b.price_eur || 0) - (a.price_eur || 0));
+              break;
+            case 'duration_asc':
+              sorted.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
+              break;
+            case 'duration_desc':
+              sorted.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
+              break;
+          }
+          setOffers(sorted);
+        }
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchOffers();
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy]);
 
   const resetFilters = () => {
     setSelectedMonth('');
@@ -211,7 +252,7 @@ export default function ComparateurOmra() {
               Erreur lors du chargement des offres
             </p>
             <p className="text-muted-foreground text-sm mb-4">
-              {error.message || 'Une erreur inattendue s\'est produite'}
+              {error}
             </p>
             <Button onClick={() => window.location.reload()}>
               Recharger la page
