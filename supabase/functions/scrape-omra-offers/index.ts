@@ -219,67 +219,32 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   const offers: any[] = [];
   
   try {
-    // Extraction des prix
-    const pricePattern = /(\d+(?:\.\d+)?)\s*€/g;
-    const prices = [...html.matchAll(pricePattern)];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
     
-    // Extraction des dates (formats: DD/MM/YYYY, DD-MM-YYYY, etc.)
-    const datePattern = /(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g;
-    const dates = [...html.matchAll(datePattern)];
+    if (!doc) {
+      console.error('Failed to parse HTML');
+      return offers;
+    }
+
+    // Utiliser les sélecteurs de la config si disponibles
+    const selectors = config.selectors || {};
+    const containerSelector = selectors.container || 'article, .offer, .product, .card, [class*="offer"]';
     
-    // Pour chaque prix trouvé, créer une offre
-    prices.slice(0, 10).forEach((match, index) => {
-      const price = parseFloat(match[1]);
-      const monthDeparture = getRandomMonth();
-      const departureCity = 'Paris';
-      const durationNights = Math.floor(Math.random() * 15) + 7;
-      const formulaType = detectFormulaFromHotelInfo(html);
+    const offerElements = doc.querySelectorAll(containerSelector);
+    console.log(`Found ${offerElements.length} potential offer elements for ${config.agency_name}`);
+    
+    offerElements.forEach((element, index) => {
+      if (index >= 20) return; // Limiter à 20 offres max
       
-      // Essayer d'extraire une date de départ pour cette offre
-      let dateStart = null;
-      let dateEnd = null;
-      
-      if (dates.length > index * 2) {
-        // Date de départ
-        const startMatch = dates[index * 2];
-        if (startMatch) {
-          const day = startMatch[1].padStart(2, '0');
-          const month = startMatch[2].padStart(2, '0');
-          const year = startMatch[3];
-          dateStart = `${year}-${month}-${day}`;
+      try {
+        const offerData = extractOfferData(element, config, html);
+        if (offerData && offerData.price_eur > 0) {
+          offers.push(offerData);
         }
-        
-        // Date de retour
-        const endMatch = dates[index * 2 + 1];
-        if (endMatch) {
-          const day = endMatch[1].padStart(2, '0');
-          const month = endMatch[2].padStart(2, '0');
-          const year = endMatch[3];
-          dateEnd = `${year}-${month}-${day}`;
-        }
+      } catch (err) {
+        console.error(`Error extracting offer ${index}:`, err);
       }
-      
-      offers.push({
-        agency_name: config.agency_name,
-        agency_url: config.agency_url,
-        offer_title: `${config.agency_name} - Offre ${index + 1}`,
-        price_eur: price,
-        currency_raw: 'EUR',
-        month_departure: monthDeparture,
-        date_start: dateStart,
-        date_end: dateEnd,
-        departure_city: departureCity,
-        formula_type: formulaType,
-        duration_nights: durationNights,
-        makkah_nights: Math.floor(Math.random() * 7) + 3,
-        medina_nights: Math.floor(Math.random() * 5) + 2,
-        flights_included: true,
-        visa_included: Math.random() > 0.5,
-        offer_url: config.agency_url,
-        status: 'active',
-        source_hash: `${config.agency_name}-${price}-${monthDeparture}-${departureCity}-${formulaType}-${durationNights}`,
-        scraped_at: new Date().toISOString()
-      });
     });
     
   } catch (err) {
@@ -289,11 +254,147 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   return offers;
 }
 
-function getRandomMonth(): string {
-  const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
-                  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-  return months[Math.floor(Math.random() * months.length)];
+function extractOfferData(element: Element, config: ScraperConfig, fullHtml: string): any | null {
+  const selectors = config.selectors || {};
+  
+  // Extraire le prix
+  const priceSelector = selectors.price || '[class*="price"], [class*="prix"], .price, .prix';
+  const priceElement = element.querySelector(priceSelector);
+  const priceText = priceElement?.textContent || element.textContent || '';
+  const priceMatch = priceText.match(/(\d+(?:\s?\d+)*(?:[.,]\d+)?)\s*(?:€|EUR)/);
+  const price = priceMatch ? parseFloat(priceMatch[1].replace(/\s/g, '').replace(',', '.')) : 0;
+  
+  if (price === 0) return null;
+  
+  // Extraire le titre
+  const titleSelector = selectors.title || 'h1, h2, h3, h4, [class*="title"], [class*="titre"]';
+  const titleElement = element.querySelector(titleSelector);
+  const title = titleElement?.textContent?.trim() || `${config.agency_name} - Offre Omra`;
+  
+  // Extraire les dates
+  const fullText = element.textContent || '';
+  const datePattern = /(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/g;
+  const dateMatches = [...fullText.matchAll(datePattern)];
+  
+  let dateStart = null;
+  let dateEnd = null;
+  let monthDeparture = 'Non spécifié';
+  
+  if (dateMatches.length >= 2) {
+    const startMatch = dateMatches[0];
+    const endMatch = dateMatches[1];
+    
+    const startDay = startMatch[1].padStart(2, '0');
+    const startMonth = startMatch[2].padStart(2, '0');
+    let startYear = startMatch[3];
+    if (startYear.length === 2) startYear = '20' + startYear;
+    
+    const endDay = endMatch[1].padStart(2, '0');
+    const endMonth = endMatch[2].padStart(2, '0');
+    let endYear = endMatch[3];
+    if (endYear.length === 2) endYear = '20' + endYear;
+    
+    dateStart = `${startYear}-${startMonth}-${startDay}`;
+    dateEnd = `${endYear}-${endMonth}-${endDay}`;
+    
+    // Calculer le mois de départ
+    const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    monthDeparture = monthNames[parseInt(startMonth) - 1] || 'Non spécifié';
+  } else {
+    // Essayer de trouver un mois dans le texte
+    const monthPattern = /(janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre)/gi;
+    const monthMatch = fullText.match(monthPattern);
+    if (monthMatch) {
+      monthDeparture = monthMatch[0].charAt(0).toUpperCase() + monthMatch[0].slice(1).toLowerCase();
+    }
+  }
+  
+  // Calculer la durée
+  let durationNights = null;
+  if (dateStart && dateEnd) {
+    const start = new Date(dateStart);
+    const end = new Date(dateEnd);
+    durationNights = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+  } else {
+    const durationMatch = fullText.match(/(\d+)\s*(?:nuits?|jours?|j)/i);
+    if (durationMatch) {
+      durationNights = parseInt(durationMatch[1]);
+    }
+  }
+  
+  // Extraire la ville de départ
+  const departurePattern = /(?:départ|au départ de|depuis)\s*:?\s*([A-Za-zÀ-ÿ\s-]+?)(?:\s*[,.\n]|$)/gi;
+  const departureMatch = fullText.match(departurePattern);
+  let departureCity = 'Paris';
+  if (departureMatch) {
+    const cityMatch = departureMatch[0].match(/(?:départ|au départ de|depuis)\s*:?\s*([A-Za-zÀ-ÿ\s-]+?)(?:\s*[,.\n]|$)/i);
+    if (cityMatch) {
+      departureCity = cityMatch[1].trim();
+    }
+  }
+  
+  // Extraire la compagnie aérienne
+  const airlines = ['Saudi', 'Saudia', 'Turkish Airlines', 'Emirates', 'Air France', 'Royal Air Maroc', 'RAM', 'Lufthansa', 'Qatar Airways'];
+  let airline = null;
+  for (const airlineName of airlines) {
+    if (fullText.includes(airlineName)) {
+      airline = airlineName;
+      break;
+    }
+  }
+  
+  // Extraire les nuits Makkah/Médine
+  const makkahMatch = fullText.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*(?:La\s*)?Mecque|Makkah/i);
+  const medinaMatch = fullText.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*Médine|Medina/i);
+  const makkahNights = makkahMatch ? parseInt(makkahMatch[1]) : null;
+  const medinaNights = medinaMatch ? parseInt(medinaMatch[1]) : null;
+  
+  // Extraire les hôtels
+  const hotelPattern = /(?:hôtel|hotel)\s*:?\s*([A-Za-zÀ-ÿ\s\d-]+?)(?:\s*[,.\n]|(?:\d+\s*(?:étoiles?|★|\*)))/gi;
+  const hotelMatches = [...fullText.matchAll(hotelPattern)];
+  let hotelMakkah = null;
+  let hotelMedinah = null;
+  
+  if (hotelMatches.length > 0) {
+    hotelMakkah = hotelMatches[0][1]?.trim() || null;
+  }
+  if (hotelMatches.length > 1) {
+    hotelMedinah = hotelMatches[1][1]?.trim() || null;
+  }
+  
+  // Détecter la formule
+  const formulaType = detectFormulaFromHotelInfo(fullText, hotelMakkah, hotelMedinah);
+  
+  // Créer un hash unique
+  const sourceHash = `${config.agency_name}-${price}-${dateStart || monthDeparture}-${departureCity}-${formulaType}`;
+  
+  return {
+    agency_name: config.agency_name,
+    agency_url: config.agency_url,
+    offer_title: title,
+    price_eur: price,
+    currency_raw: 'EUR',
+    month_departure: monthDeparture,
+    date_start: dateStart,
+    date_end: dateEnd,
+    departure_city: departureCity,
+    formula_type: formulaType,
+    duration_nights: durationNights,
+    makkah_nights: makkahNights,
+    medina_nights: medinaNights,
+    hotel_makkah: hotelMakkah,
+    hotel_medinah: hotelMedinah,
+    airline: airline,
+    flights_included: true,
+    visa_included: fullText.toLowerCase().includes('visa'),
+    offer_url: config.agency_url,
+    status: 'active',
+    source_hash: sourceHash,
+    scraped_at: new Date().toISOString()
+  };
 }
+
 
 function detectFormulaFromHotelInfo(
   html: string, 
