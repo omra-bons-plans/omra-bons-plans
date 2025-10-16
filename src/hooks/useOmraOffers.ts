@@ -46,15 +46,36 @@ export const useOmraOffers = (filters: FilterOptions) => {
         setIsLoading(true);
         console.log('[useOmraOffers] Fetching offers with filters:', filters);
         
-        const { data, error: fetchError } = await supabase.rpc('get_omra_offers', {
-          filter_month: filters.month || null,
-          filter_city: filters.city || null,
-          filter_formula: filters.formula ? filters.formula.toLowerCase() : null,
-          min_price: filters.minPrice || 0,
-          max_price: filters.maxPrice || 999999,
-          min_duration: filters.minDuration || 0,
-          max_distance: filters.maxDistance || 999999
-        }) as { data: any[] | null; error: any };
+        // Requête directe au lieu de RPC
+        let query = supabase
+          .from('omra_offers')
+          .select('*')
+          .eq('status', 'active');
+
+        // Appliquer les filtres
+        if (filters.month) {
+          query = query.eq('month_departure', filters.month);
+        }
+        if (filters.city) {
+          query = query.eq('departure_city', filters.city);
+        }
+        if (filters.formula) {
+          query = query.eq('formula_type', filters.formula.toLowerCase());
+        }
+        if (filters.minPrice !== undefined) {
+          query = query.gte('price_eur', filters.minPrice);
+        }
+        if (filters.maxPrice !== undefined) {
+          query = query.lte('price_eur', filters.maxPrice);
+        }
+        if (filters.minDuration) {
+          query = query.gte('duration_nights', filters.minDuration);
+        }
+        if (filters.maxDistance) {
+          query = query.lte('distance_to_haram_m', filters.maxDistance);
+        }
+
+        const { data, error: fetchError } = await query;
 
         console.log('[useOmraOffers] Response:', { data, error: fetchError });
 
