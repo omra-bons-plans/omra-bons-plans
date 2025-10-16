@@ -342,13 +342,13 @@ export default function ComparateurOmra() {
                         <h3 className="font-bold text-lg line-clamp-2 mb-1 group-hover:text-primary transition-all duration-300 group-hover:scale-[1.02]">
                           {offer.offer_title}
                         </h3>
-                        <p className="text-sm text-muted-foreground flex items-center gap-1">
-                          <CheckCircle2 className="h-3 w-3 text-primary" />
+                        <p className="text-lg font-semibold flex items-center gap-1.5">
+                          <CheckCircle2 className="h-4 w-4 text-primary" />
                           {offer.agency_name}
                         </p>
                       </div>
                       {agencyLogo && (
-                        <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-background border border-primary/20 p-2 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                        <div className="flex-shrink-0 w-24 h-24 rounded-xl bg-background border border-primary/20 p-2 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
                           <img 
                             src={agencyLogo} 
                             alt={offer.agency_name}
@@ -363,9 +363,12 @@ export default function ComparateurOmra() {
                   <div className="px-6 py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="flex items-baseline gap-2 relative">
-                      <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
-                        {offer.price_eur}€
-                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm text-muted-foreground font-medium">à partir de</span>
+                        <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                          {offer.price_eur}€
+                        </span>
+                      </div>
                       <span className="text-sm text-muted-foreground font-medium">/ personne</span>
                     </div>
                   </div>
