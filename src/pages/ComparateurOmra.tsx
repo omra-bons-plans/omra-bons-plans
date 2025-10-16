@@ -450,7 +450,7 @@ export default function ComparateurOmra() {
                             </h4>
                           </div>
                           <div className="text-base font-semibold text-foreground">
-                            Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                            Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
                           </div>
                           {offer.duration_nights && (
                             <div className="text-sm text-muted-foreground mt-1">{offer.duration_nights} nuits</div>
