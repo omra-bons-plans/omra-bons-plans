@@ -101,6 +101,7 @@ export default function ComparateurOmra() {
           board: 'Pension Complète',
           flights_included: true,
           visa_included: true,
+          airline: 'Turkish Airlines',
           offer_title: 'Omra Confort Janvier 2025',
           status: 'active',
           scraped_at: new Date().toISOString()
@@ -509,6 +510,16 @@ export default function ComparateurOmra() {
                             <div className="text-sm md:text-base font-semibold text-foreground">{offer.departure_city}</div>
                           </div>
                         </div>
+                        
+                        {offer.airline && (
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <Plane className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <div>
+                              <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Compagnie</div>
+                              <div className="text-sm md:text-base font-semibold text-foreground">{offer.airline}</div>
+                            </div>
+                          </div>
+                        )}
                         
                         {(offer.makkah_nights || offer.medina_nights) && (
                           <div className="flex items-center gap-2 md:gap-3">
