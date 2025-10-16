@@ -182,98 +182,100 @@ export default function ComparateurOmra() {
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-        <div className="container mx-auto px-4 pt-12 pb-8 relative">
-          <div className="text-center space-y-6 max-w-4xl mx-auto animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-              <Sparkles className="h-4 w-4" />
+        <div className="container mx-auto px-4 pt-8 md:pt-12 pb-6 md:pb-8 relative">
+          <div className="text-center space-y-4 md:space-y-6 max-w-4xl mx-auto animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 rounded-full text-xs md:text-sm font-medium text-primary mb-2 md:mb-4">
+              <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
               <span>Meilleurs prix garantis</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent leading-tight">
+            <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent leading-tight px-2">
               Comparateur Omra 2025 - 2026
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
               Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
             </p>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 space-y-8">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 space-y-4 md:space-y-8">
 
         {/* Filtres principaux */}
-        <Card className="p-6 bg-card/80 backdrop-blur-sm border-primary/10 shadow-lg animate-scale-in">
-          <div className="flex flex-col md:flex-row gap-4 items-end">
-            <div className="flex-1 space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary" />
-                Mois de départ
-              </label>
-              <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                <SelectTrigger className="bg-background/50">
-                  <SelectValue placeholder="Tous les mois" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tous les mois</SelectItem>
-                  {MONTHS.map(month => (
-                    <SelectItem key={month} value={month}>{month}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+        <Card className="p-3 md:p-6 bg-card/80 backdrop-blur-sm border-primary/10 shadow-lg animate-scale-in">
+          <div className="flex flex-col gap-3 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+              <div className="space-y-1.5 md:space-y-2">
+                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                  <Calendar className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                  Mois de départ
+                </label>
+                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
+                    <SelectValue placeholder="Tous les mois" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tous les mois</SelectItem>
+                    {MONTHS.map(month => (
+                      <SelectItem key={month} value={month}>{month}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div className="flex-1 space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" />
-                Ville de départ
-              </label>
-              <Select value={selectedCity} onValueChange={setSelectedCity}>
-                <SelectTrigger className="bg-background/50">
-                  <SelectValue placeholder="Toutes les villes" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Toutes les villes</SelectItem>
-                  {CITIES.map(city => (
-                    <SelectItem key={city} value={city}>{city}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+              <div className="space-y-1.5 md:space-y-2">
+                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                  <MapPin className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                  Ville de départ
+                </label>
+                <Select value={selectedCity} onValueChange={setSelectedCity}>
+                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
+                    <SelectValue placeholder="Toutes les villes" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Toutes les villes</SelectItem>
+                    {CITIES.map(city => (
+                      <SelectItem key={city} value={city}>{city}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div className="flex-1 space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Hotel className="h-4 w-4 text-primary" />
-                Formule
-              </label>
-              <Select value={selectedFormula} onValueChange={setSelectedFormula}>
-                <SelectTrigger className="bg-background/50">
-                  <SelectValue placeholder="Toutes les formules" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Toutes les formules</SelectItem>
-                  {FORMULA_TYPES.map(formula => (
-                    <SelectItem key={formula} value={formula}>{formula}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="space-y-1.5 md:space-y-2">
+                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                  <Hotel className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                  Formule
+                </label>
+                <Select value={selectedFormula} onValueChange={setSelectedFormula}>
+                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
+                    <SelectValue placeholder="Toutes les formules" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Toutes les formules</SelectItem>
+                    {FORMULA_TYPES.map(formula => (
+                      <SelectItem key={formula} value={formula}>{formula}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <Button 
               variant="outline" 
               onClick={() => setShowFilters(!showFilters)}
-              className="whitespace-nowrap hover-scale"
+              className="w-full md:w-auto hover-scale h-9 text-sm"
             >
-              <Filter className="h-4 w-4 mr-2" />
+              <Filter className="h-3.5 w-3.5 mr-1.5" />
               {showFilters ? 'Masquer' : 'Plus de filtres'}
             </Button>
           </div>
 
           {showFilters && (
-            <div className="mt-6 pt-6 border-t border-primary/10 space-y-6 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <label className="text-sm font-medium flex items-center justify-between">
+            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-primary/10 space-y-4 md:space-y-6 animate-fade-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-xs md:text-sm font-medium flex items-center justify-between">
                     <span>Budget</span>
-                    <span className="text-primary font-bold">{priceRange[0]}€ - {priceRange[1]}€</span>
+                    <span className="text-primary font-bold text-xs md:text-sm">{priceRange[0]}€ - {priceRange[1]}€</span>
                   </label>
                   <Slider
                     min={0}
@@ -281,13 +283,13 @@ export default function ComparateurOmra() {
                     step={100}
                     value={priceRange}
                     onValueChange={setPriceRange}
-                    className="py-4"
+                    className="py-3 md:py-4"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" />
+                <div className="space-y-1.5 md:space-y-2">
+                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                    <Clock className="h-3 w-3 md:h-4 md:w-4 text-primary" />
                     Durée minimum (nuits)
                   </label>
                   <Input
@@ -295,13 +297,13 @@ export default function ComparateurOmra() {
                     placeholder="Ex: 10"
                     value={minDuration}
                     onChange={(e) => setMinDuration(e.target.value)}
-                    className="bg-background/50"
+                    className="bg-background/50 h-9 md:h-10 text-sm"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-primary" />
+                <div className="space-y-1.5 md:space-y-2">
+                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                    <MapPin className="h-3 w-3 md:h-4 md:w-4 text-primary" />
                     Distance max du Haram (m)
                   </label>
                   <Input
@@ -309,12 +311,12 @@ export default function ComparateurOmra() {
                     placeholder="Ex: 500"
                     value={maxDistance}
                     onChange={(e) => setMaxDistance(e.target.value)}
-                    className="bg-background/50"
+                    className="bg-background/50 h-9 md:h-10 text-sm"
                   />
                 </div>
 
                 <div className="flex items-end">
-                  <Button variant="outline" onClick={resetFilters} className="w-full hover-scale">
+                  <Button variant="outline" onClick={resetFilters} className="w-full hover-scale h-9 md:h-10 text-sm">
                     Réinitialiser les filtres
                   </Button>
                 </div>
@@ -324,15 +326,15 @@ export default function ComparateurOmra() {
         </Card>
 
         {/* Barre de résultats */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-card/50 p-4 rounded-lg border border-primary/10">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 bg-card/50 p-3 md:p-4 rounded-lg border border-primary/10">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <p className="text-muted-foreground font-medium">
+            <p className="text-xs md:text-sm text-muted-foreground font-medium">
               <span className="text-foreground font-bold">{offers.length}</span> offre{offers.length > 1 ? 's' : ''} disponible{offers.length > 1 ? 's' : ''}
             </p>
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[220px] bg-background/50">
+            <SelectTrigger className="w-full md:w-[220px] bg-background/50 h-9 md:h-10 text-sm">
               <SelectValue placeholder="Trier par" />
             </SelectTrigger>
             <SelectContent>
@@ -382,14 +384,14 @@ export default function ComparateurOmra() {
               return (
                 <Card 
                   key={offer.id} 
-                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in hover-scale"
+                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in"
                 >
                    {/* Header avec logo agence */}
-                  <div className="px-6 pt-6 pb-4 border-b border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-background relative overflow-hidden">
+                  <div className="px-3 md:px-6 pt-3 md:pt-6 pb-3 md:pb-4 border-b border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-background relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex flex-col items-center gap-4 relative">
+                    <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
-                        <div className="flex-shrink-0 w-24 h-24 rounded-xl bg-background border border-primary/20 p-2 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                        <div className="flex-shrink-0 w-16 h-16 md:w-24 md:h-24 rounded-lg md:rounded-xl bg-background border border-primary/20 p-1.5 md:p-2 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
                           <img 
                             src={agencyLogo} 
                             alt={offer.agency_name}
@@ -397,17 +399,17 @@ export default function ComparateurOmra() {
                           />
                         </div>
                       )}
-                      <div className="flex flex-col items-center gap-2">
-                        <h3 className="text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
+                      <div className="flex flex-col items-center gap-1 md:gap-2">
+                        <h3 className="text-lg md:text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
                           {offer.agency_name}
                         </h3>
                         {agencyInfo && (
-                          <div className="flex items-center gap-2">
-                            <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1.5 md:gap-2">
+                            <div className="flex items-center gap-0.5 md:gap-1">
                               {[...Array(5)].map((_, i) => (
                                 <Star
                                   key={i}
-                                  className={`h-4 w-4 ${
+                                  className={`h-3 w-3 md:h-4 md:w-4 ${
                                     i < Math.floor(agencyInfo.googleRating)
                                       ? 'fill-yellow-400 text-yellow-400'
                                       : i < agencyInfo.googleRating
@@ -417,10 +419,10 @@ export default function ComparateurOmra() {
                                 />
                               ))}
                             </div>
-                            <span className="text-sm font-semibold text-muted-foreground">
+                            <span className="text-xs md:text-sm font-semibold text-muted-foreground">
                               {agencyInfo.googleRating.toFixed(1)}
                             </span>
-                            <span className="text-xs text-muted-foreground">
+                            <span className="text-[10px] md:text-xs text-muted-foreground">
                               ({agencyInfo.reviewCount.toLocaleString('fr-FR')} avis)
                             </span>
                           </div>
@@ -430,24 +432,24 @@ export default function ComparateurOmra() {
                   </div>
 
                   {/* Prix en évidence */}
-                  <div className="px-6 py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
+                  <div className="px-3 md:px-6 py-3 md:py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex items-baseline gap-2 relative">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-sm text-muted-foreground font-medium">à partir de</span>
-                        <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                    <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-2 relative text-center md:text-left">
+                      <div className="flex flex-col md:flex-row items-center md:items-baseline gap-1 md:gap-2">
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium">à partir de</span>
+                        <span className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
                           {offer.price_eur}€
                         </span>
                       </div>
-                      <span className="text-sm text-muted-foreground font-medium">/ personne</span>
+                      <span className="text-xs md:text-sm text-muted-foreground font-medium">/ personne</span>
                     </div>
                   </div>
 
                   {/* Corps de la carte */}
-                  <div className="p-6 space-y-4">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="p-3 md:p-6 space-y-3 md:space-y-4">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
                       <Badge 
-                        className={`font-bold px-4 py-2 text-base capitalize shadow-md ${
+                        className={`font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base capitalize shadow-md ${
                           offer.formula_type?.toLowerCase() === 'essentiel' 
                             ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 hover:from-amber-600 hover:to-orange-600' 
                             : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-purple-600 hover:from-purple-600 hover:to-indigo-700'
@@ -456,64 +458,64 @@ export default function ComparateurOmra() {
                         ✨ {offer.formula_type}
                       </Badge>
                       {offer.flights_included && (
-                        <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-3 py-1">
-                          <Plane className="h-3 w-3 mr-1" />
+                        <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          <Plane className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
                           Vol inclus
                         </Badge>
                       )}
                       {offer.visa_included && (
-                        <Badge variant="outline" className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/20 transition-colors px-3 py-1">
-                          <CheckCircle2 className="h-3 w-3 mr-1" />
+                        <Badge variant="outline" className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
                           Visa inclus
                         </Badge>
                       )}
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="space-y-2 md:space-y-3">
                       {offer.date_start && offer.date_end ? (
-                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Calendar className="h-5 w-5 text-primary" />
-                            <h4 className="text-xl font-bold text-foreground">
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-3 md:p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-1.5 md:gap-2 mb-1 md:mb-2">
+                            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <h4 className="text-sm md:text-xl font-bold text-foreground">
                               Omra {new Date(offer.date_start).toLocaleDateString('fr-FR', { month: 'long' })}
                             </h4>
                           </div>
-                          <div className="text-base font-semibold text-foreground">
+                          <div className="text-xs md:text-base font-semibold text-foreground">
                             Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
                           </div>
                           {offer.duration_nights && (
-                            <div className="text-sm text-muted-foreground mt-1">{offer.duration_nights} nuits</div>
+                            <div className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1">{offer.duration_nights} nuits</div>
                           )}
                         </div>
                       ) : (
-                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-5 w-5 text-primary" />
-                            <h4 className="text-xl font-bold text-foreground">
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-3 md:p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-1.5 md:gap-2">
+                            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <h4 className="text-sm md:text-xl font-bold text-foreground">
                               Omra {offer.month_departure}
                             </h4>
                           </div>
                           {offer.duration_nights && (
-                            <div className="text-sm text-muted-foreground mt-1">{offer.duration_nights} nuits</div>
+                            <div className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1">{offer.duration_nights} nuits</div>
                           )}
                         </div>
                       )}
                       
-                      <div className="grid grid-cols-1 gap-3 bg-muted/50 p-4 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                      <div className="grid grid-cols-1 gap-2 md:gap-3 bg-muted/50 p-3 md:p-4 rounded-lg">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
                           <div>
-                            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Départ</div>
-                            <div className="text-base font-semibold text-foreground">{offer.departure_city}</div>
+                            <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Départ</div>
+                            <div className="text-sm md:text-base font-semibold text-foreground">{offer.departure_city}</div>
                           </div>
                         </div>
                         
                         {(offer.makkah_nights || offer.medina_nights) && (
-                          <div className="flex items-center gap-3">
-                            <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <Clock className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
                             <div>
-                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Répartition</div>
-                              <div className="text-base font-semibold text-foreground">
+                              <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Répartition</div>
+                              <div className="text-sm md:text-base font-semibold text-foreground">
                                 {offer.makkah_nights} nuits La Mecque / {offer.medina_nights} nuits Médine
                               </div>
                             </div>
@@ -522,22 +524,22 @@ export default function ComparateurOmra() {
                       </div>
                       
                       {(offer.hotel_makkah || offer.hotel_medinah || offer.distance_to_haram_m) && (
-                        <div className="space-y-3">
+                        <div className="space-y-2 md:space-y-3">
                           {offer.hotel_makkah && (
-                            <div className="bg-muted/50 p-4 rounded-lg">
-                              <div className="flex items-start gap-3">
-                                <Hotel className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                                <div className="flex-1">
-                                  <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Hôtel La Mecque</div>
-                                  <div className="text-base font-semibold text-foreground mb-1">{offer.hotel_makkah}</div>
-                                  <div className="flex items-center gap-1">
+                            <div className="bg-muted/50 p-3 md:p-4 rounded-lg">
+                              <div className="flex items-start gap-2 md:gap-3">
+                                <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel La Mecque</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_makkah}</div>
+                                  <div className="flex items-center gap-0.5 md:gap-1">
                                     {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
-                                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                   </div>
                                   {offer.distance_to_haram_m && (
-                                    <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-                                      <MapPin className="h-4 w-4" />
+                                    <div className="flex items-center gap-1 md:gap-2 mt-1 md:mt-2 text-xs md:text-sm text-muted-foreground">
+                                      <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
                                       <span>{offer.distance_to_haram_m}m du Haram</span>
                                     </div>
                                   )}
@@ -547,15 +549,15 @@ export default function ComparateurOmra() {
                           )}
                           
                           {offer.hotel_medinah && (
-                            <div className="bg-muted/50 p-4 rounded-lg">
-                              <div className="flex items-start gap-3">
-                                <Hotel className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                                <div className="flex-1">
-                                  <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Hôtel Médine</div>
-                                  <div className="text-base font-semibold text-foreground mb-1">{offer.hotel_medinah}</div>
-                                  <div className="flex items-center gap-1">
+                            <div className="bg-muted/50 p-3 md:p-4 rounded-lg">
+                              <div className="flex items-start gap-2 md:gap-3">
+                                <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel Médine</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_medinah}</div>
+                                  <div className="flex items-center gap-0.5 md:gap-1">
                                     {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
-                                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                   </div>
                                 </div>
@@ -568,14 +570,14 @@ export default function ComparateurOmra() {
                   </div>
 
                   {/* Footer avec bouton */}
-                  <div className="px-6 pb-6 pt-2">
+                  <div className="px-3 md:px-6 pb-3 md:pb-6 pt-1 md:pt-2">
                     <Button 
                       asChild 
-                      className="w-full group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300"
+                      className="w-full h-9 md:h-10 group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300 text-sm md:text-base"
                     >
-                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
                         <span className="font-semibold">Voir l'offre</span>
-                        <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                        <ExternalLink className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
                       </a>
                     </Button>
                   </div>
