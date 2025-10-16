@@ -20,9 +20,9 @@ const FORMULA_TYPES = ['Essentiel', 'Confort'];
 const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
 
 export default function ComparateurOmra() {
-  const [selectedMonth, setSelectedMonth] = useState<string>('');
-  const [selectedCity, setSelectedCity] = useState<string>('');
-  const [selectedFormula, setSelectedFormula] = useState<string>('');
+  const [selectedMonth, setSelectedMonth] = useState<string>('all');
+  const [selectedCity, setSelectedCity] = useState<string>('all');
+  const [selectedFormula, setSelectedFormula] = useState<string>('all');
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [minDuration, setMinDuration] = useState<string>('');
   const [maxDistance, setMaxDistance] = useState<string>('');
@@ -42,9 +42,9 @@ export default function ComparateurOmra() {
           .select('*')
           .eq('status', 'active');
 
-        if (selectedMonth) query = query.eq('month_departure', selectedMonth);
-        if (selectedCity) query = query.eq('departure_city', selectedCity);
-        if (selectedFormula) query = query.eq('formula_type', selectedFormula.toLowerCase());
+        if (selectedMonth && selectedMonth !== 'all') query = query.eq('month_departure', selectedMonth);
+        if (selectedCity && selectedCity !== 'all') query = query.eq('departure_city', selectedCity);
+        if (selectedFormula && selectedFormula !== 'all') query = query.eq('formula_type', selectedFormula.toLowerCase());
         if (priceRange[0] > 0) query = query.gte('price_eur', priceRange[0]);
         if (priceRange[1] < 10000) query = query.lte('price_eur', priceRange[1]);
         if (minDuration) query = query.gte('duration_nights', parseInt(minDuration));
@@ -84,9 +84,9 @@ export default function ComparateurOmra() {
   }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy]);
 
   const resetFilters = () => {
-    setSelectedMonth('');
-    setSelectedCity('');
-    setSelectedFormula('');
+    setSelectedMonth('all');
+    setSelectedCity('all');
+    setSelectedFormula('all');
     setPriceRange([0, 10000]);
     setMinDuration('');
     setMaxDistance('');
@@ -127,7 +127,7 @@ export default function ComparateurOmra() {
                   <SelectValue placeholder="Tous les mois" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Tous les mois</SelectItem>
+                  <SelectItem value="all">Tous les mois</SelectItem>
                   {MONTHS.map(month => (
                     <SelectItem key={month} value={month}>{month}</SelectItem>
                   ))}
@@ -142,7 +142,7 @@ export default function ComparateurOmra() {
                   <SelectValue placeholder="Toutes les villes" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Toutes les villes</SelectItem>
+                  <SelectItem value="all">Toutes les villes</SelectItem>
                   {CITIES.map(city => (
                     <SelectItem key={city} value={city}>{city}</SelectItem>
                   ))}
@@ -157,7 +157,7 @@ export default function ComparateurOmra() {
                   <SelectValue placeholder="Toutes les formules" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Toutes les formules</SelectItem>
+                  <SelectItem value="all">Toutes les formules</SelectItem>
                   {FORMULA_TYPES.map(formula => (
                     <SelectItem key={formula} value={formula}>{formula}</SelectItem>
                   ))}
