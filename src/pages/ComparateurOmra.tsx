@@ -19,6 +19,28 @@ const MONTHS = [
 const FORMULA_TYPES = ['Essentiel', 'Confort'];
 const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
 
+const AGENCY_LOGOS: Record<string, string> = {
+  'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
+  'Almaqam': '/lovable-uploads/logoalmaqam.png',
+  'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
+  'Al Bayt': '/lovable-uploads/logoalbayt.png',
+  'Hayat': '/lovable-uploads/logohayat.png',
+  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
+  'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
+  'Sabile': '/lovable-uploads/logosabile.png',
+  'Tawaf': '/lovable-uploads/logotawaf.webp',
+};
+
+const getAgencyLogo = (agencyName: string): string | null => {
+  const normalizedName = agencyName?.trim().toLowerCase();
+  for (const [key, logo] of Object.entries(AGENCY_LOGOS)) {
+    if (normalizedName?.includes(key.toLowerCase())) {
+      return logo;
+    }
+  }
+  return null;
+};
+
 export default function ComparateurOmra() {
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -261,79 +283,144 @@ export default function ComparateurOmra() {
           </div>
         ) : offers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {offers.map((offer) => (
-              <Card key={offer.id} className="p-6 hover:shadow-lg transition-shadow">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-bold text-lg line-clamp-2 mb-2">
-                      {offer.offer_title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{offer.agency_name}</p>
-                  </div>
-
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-primary">
-                      {offer.price_eur}€
-                    </span>
-                    <span className="text-sm text-muted-foreground">par personne</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">{offer.formula_type}</Badge>
-                    {offer.flights_included && <Badge variant="outline">Vol inclus</Badge>}
-                    {offer.visa_included && <Badge variant="outline">Visa inclus</Badge>}
-                  </div>
-
-                  <div className="space-y-2 text-sm">
-                    {offer.date_start && offer.date_end ? (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        <span>
-                          {new Date(offer.date_start).toLocaleDateString('fr-FR')} → {new Date(offer.date_end).toLocaleDateString('fr-FR')}
-                          {offer.duration_nights && ` (${offer.duration_nights} nuits)`}
-                        </span>
+            {offers.map((offer) => {
+              const agencyLogo = getAgencyLogo(offer.agency_name);
+              
+              return (
+                <Card 
+                  key={offer.id} 
+                  className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border/50 bg-card"
+                >
+                  {/* Header avec logo agence */}
+                  <div className="px-6 pt-6 pb-4 border-b bg-gradient-to-br from-muted/30 to-background">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+                          {offer.offer_title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">{offer.agency_name}</p>
                       </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        <span>{offer.month_departure}{offer.duration_nights && ` - ${offer.duration_nights} nuits`}</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <MapPin className="h-4 w-4" />
-                      <span>Départ: {offer.departure_city}</span>
+                      {agencyLogo && (
+                        <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-background border p-2 flex items-center justify-center">
+                          <img 
+                            src={agencyLogo} 
+                            alt={offer.agency_name}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                      )}
                     </div>
-                    {(offer.makkah_nights || offer.medina_nights) && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        <span>
-                          {offer.makkah_nights}N La Mecque / {offer.medina_nights}N Médine
-                        </span>
-                      </div>
-                    )}
-                    {offer.hotel_makkah && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Hotel className="h-4 w-4" />
-                        <span className="line-clamp-1">{offer.hotel_makkah}</span>
-                      </div>
-                    )}
-                    {offer.distance_to_haram_m && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <MapPin className="h-4 w-4" />
-                        <span>{offer.distance_to_haram_m}m du Haram</span>
-                      </div>
-                    )}
                   </div>
 
-                  <Button asChild className="w-full">
-                    <a href={offer.offer_url} target="_blank" rel="noopener noreferrer">
-                      Voir l'offre
-                      <ExternalLink className="h-4 w-4 ml-2" />
-                    </a>
-                  </Button>
-                </div>
-              </Card>
-            ))}
+                  {/* Prix en évidence */}
+                  <div className="px-6 py-4 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-bold text-primary">
+                        {offer.price_eur}€
+                      </span>
+                      <span className="text-sm text-muted-foreground">par personne</span>
+                    </div>
+                  </div>
+
+                  {/* Corps de la carte */}
+                  <div className="p-6 space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="font-medium">
+                        {offer.formula_type}
+                      </Badge>
+                      {offer.flights_included && (
+                        <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
+                          Vol inclus
+                        </Badge>
+                      )}
+                      {offer.visa_included && (
+                        <Badge variant="outline" className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20">
+                          Visa inclus
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div className="space-y-3 text-sm">
+                      {offer.date_start && offer.date_end ? (
+                        <div className="flex items-start gap-3 text-muted-foreground">
+                          <Calendar className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">Dates</div>
+                            <div>
+                              {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' })} → {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}
+                            </div>
+                            {offer.duration_nights && (
+                              <div className="text-xs">{offer.duration_nights} nuits</div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-start gap-3 text-muted-foreground">
+                          <Calendar className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">Mois de départ</div>
+                            <div>
+                              {offer.month_departure}
+                              {offer.duration_nights && ` - ${offer.duration_nights} nuits`}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div className="flex items-start gap-3 text-muted-foreground">
+                        <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                        <div className="flex-1">
+                          <div className="font-medium text-foreground">Départ</div>
+                          <div>{offer.departure_city}</div>
+                        </div>
+                      </div>
+                      
+                      {(offer.makkah_nights || offer.medina_nights) && (
+                        <div className="flex items-start gap-3 text-muted-foreground">
+                          <Clock className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">Répartition</div>
+                            <div>
+                              {offer.makkah_nights}N La Mecque / {offer.medina_nights}N Médine
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {offer.hotel_makkah && (
+                        <div className="flex items-start gap-3 text-muted-foreground">
+                          <Hotel className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">Hôtel</div>
+                            <div className="line-clamp-2">{offer.hotel_makkah}</div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {offer.distance_to_haram_m && (
+                        <div className="flex items-start gap-3 text-muted-foreground">
+                          <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground">Distance</div>
+                            <div>{offer.distance_to_haram_m}m du Haram</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Footer avec bouton */}
+                  <div className="px-6 pb-6">
+                    <Button asChild className="w-full group-hover:shadow-lg transition-shadow">
+                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer">
+                        Voir l'offre
+                        <ExternalLink className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         ) : (
           <Card className="p-12 text-center">
