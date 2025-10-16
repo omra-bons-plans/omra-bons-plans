@@ -478,6 +478,18 @@ const Admin = () => {
             <MessageCircle className="w-4 h-4 mr-2" />
             Demandes de sujets
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/scrapers from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/scrapers');
+            }}
+            className="justify-start"
+          >
+            <Activity className="w-4 h-4 mr-2" />
+            Scrapers Omra
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -617,6 +629,16 @@ const Admin = () => {
                     className="text-sm"
                   >
                     Demandes de sujets
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/scrapers');
+                      navigate('/admin/scrapers');
+                    }}
+                    className="text-sm"
+                  >
+                    Scrapers Omra
                   </Button>
                   <Button
                     variant="outline"

@@ -55,6 +55,7 @@ const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
 const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
+const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 
 // Loading component
 const PageLoader = () => (
@@ -167,12 +168,17 @@ const App = () => (
                       <AdminTopicRequests />
                     </ProtectedRoute>
                   } />
-                  <Route path="/admin/security-audit" element={
-                    <ProtectedRoute>
-                      <AdminSecurityAudit />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/admin/ads" element={
+                   <Route path="/admin/security-audit" element={
+                     <ProtectedRoute>
+                       <AdminSecurityAudit />
+                     </ProtectedRoute>
+                   } />
+                   <Route path="/admin/scrapers" element={
+                     <ProtectedRoute>
+                       <AdminScrapers />
+                     </ProtectedRoute>
+                   } />
+                   <Route path="/admin/ads" element={
                     <ProtectedRoute>
                       <AdminAds />
                     </ProtectedRoute>

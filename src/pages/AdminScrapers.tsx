@@ -100,6 +100,13 @@ export default function AdminScrapers() {
         title: 'Configuration mise à jour',
         description: 'Le statut du scraper a été modifié',
       });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Erreur',
+        description: error.message,
+        variant: 'destructive',
+      });
     }
   });
 
@@ -122,7 +129,7 @@ export default function AdminScrapers() {
           </div>
           <Button
             size="lg"
-            onClick={() => runScraperMutation.mutate()}
+            onClick={() => runScraperMutation.mutate(undefined)}
             disabled={isRunning}
           >
             {isRunning ? (

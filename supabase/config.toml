@@ -99,3 +99,6 @@ schedule = "0 0,12 * * *"
 # Public function for dynamic sitemap generation
 [functions.generate-sitemap]
 verify_jwt = false
+
+[functions.scrape-omra-offers]
+verify_jwt = false
