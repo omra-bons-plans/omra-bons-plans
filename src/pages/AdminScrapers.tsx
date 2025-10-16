@@ -54,6 +54,21 @@ export default function AdminScrapers() {
     }
   });
 
+  // Fetch recent scraped offers
+  const { data: recentOffers, isLoading: offersLoading } = useQuery({
+    queryKey: ['recent-scraped-offers'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('omra_offers')
+        .select('*')
+        .order('scraped_at', { ascending: false })
+        .limit(50);
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
   // Run scraper mutation
   const runScraperMutation = useMutation({
     mutationFn: async (agencyName?: string) => {
@@ -270,6 +285,59 @@ export default function AdminScrapers() {
           ) : (
             <p className="text-center text-muted-foreground py-8">
               Aucun scraper configuré
+            </p>
+          )}
+        </Card>
+
+        {/* Recent Scraped Offers */}
+        <Card className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Offres scrapées récemment</h2>
+            <Button
+              variant="outline"
+              onClick={() => window.open('/comparateur-omra', '_blank')}
+            >
+              Voir toutes les offres
+            </Button>
+          </div>
+          
+          {offersLoading ? (
+            <div className="space-y-2">
+              {[...Array(5)].map((_, i) => (
+                <Skeleton key={i} className="h-20 w-full" />
+              ))}
+            </div>
+          ) : recentOffers && recentOffers.length > 0 ? (
+            <div className="space-y-3">
+              {recentOffers.slice(0, 10).map((offer: any) => (
+                <div
+                  key={offer.id}
+                  className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
+                >
+                  <div className="flex-1">
+                    <h3 className="font-semibold line-clamp-1">{offer.offer_title}</h3>
+                    <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                      <span className="font-medium text-primary">{offer.price_eur}€</span>
+                      <span>•</span>
+                      <span>{offer.agency_name}</span>
+                      <span>•</span>
+                      <span>{offer.departure_city}</span>
+                      <span>•</span>
+                      <span>{offer.month_departure}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <Badge variant="outline">{offer.formula_type}</Badge>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Scrapé: {new Date(offer.scraped_at).toLocaleDateString('fr-FR')}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-8">
+              Aucune offre scrapée pour le moment
             </p>
           )}
         </Card>
