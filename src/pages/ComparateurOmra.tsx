@@ -33,9 +33,26 @@ const AGENCY_LOGOS: Record<string, string> = {
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {
-  const normalizedName = agencyName?.trim().toLowerCase();
+  const normalizedName = agencyName?.trim().toLowerCase()
+    .replace(/[àáâãäå]/g, 'a')
+    .replace(/[èéêë]/g, 'e')
+    .replace(/[ìíîï]/g, 'i')
+    .replace(/[òóôõö]/g, 'o')
+    .replace(/[ùúûü]/g, 'u')
+    .replace(/[ç]/g, 'c')
+    .replace(/\s+/g, ''); // Retirer tous les espaces
+  
   for (const [key, logo] of Object.entries(AGENCY_LOGOS)) {
-    if (normalizedName?.includes(key.toLowerCase())) {
+    const normalizedKey = key.toLowerCase()
+      .replace(/[àáâãäå]/g, 'a')
+      .replace(/[èéêë]/g, 'e')
+      .replace(/[ìíîï]/g, 'i')
+      .replace(/[òóôõö]/g, 'o')
+      .replace(/[ùúûü]/g, 'u')
+      .replace(/[ç]/g, 'c')
+      .replace(/\s+/g, ''); // Retirer tous les espaces
+    
+    if (normalizedName?.includes(normalizedKey) || normalizedKey.includes(normalizedName)) {
       return logo;
     }
   }
