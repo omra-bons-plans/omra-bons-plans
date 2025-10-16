@@ -12,6 +12,25 @@ export interface AgencyData {
 
 export const agenciesData: AgencyData[] = [
   {
+    name: "Medin Voyages",
+    url: "https://www.medinvoyages.com/",
+    googleRating: 5.0,
+    reviewCount: 263,
+    strengths: [
+      "Note parfaite sur Google",
+      "Spécialiste Hajj & Omra",
+      "Service personnalisé",
+      "Excellente réputation"
+    ],
+    weaknesses: [
+      "Moins d'avis que les grandes agences",
+      "Informations limitées en ligne"
+    ],
+    specialties: ["Hajj", "Omra", "Voyages spirituels"],
+    priceRange: "Standard",
+    highlight: "Note parfaite 5/5 sur 263 avis Google"
+  },
+  {
     name: "Al Sirate Voyage",
     url: "https://www.alsiratevoyage.com/",
     googleRating: 5.0,
@@ -247,6 +266,8 @@ export const getAgencyInfo = (agencyName: string): AgencyData | null => {
   
   // Mapping personnalisé pour les variations de noms
   const nameMapping: Record<string, string> = {
+    'medin': 'medin voyages',
+    'medinvoyages': 'medin voyages',
     'sabile': 'sabile voyages',
     'pelerin': 'pèlerin hajj',
     'pelerinhajj': 'pèlerin hajj',
