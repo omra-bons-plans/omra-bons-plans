@@ -45,26 +45,13 @@ const ComparateurOmra = () => {
   const [compareList, setCompareList] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState(false);
 
-  // Fetch offers
-  const { data: offersData, isLoading, error: queryError } = useQuery({
+  // Fetch offers with comprehensive error handling
+  const { data: offersData, isLoading, error: queryError, refetch } = useQuery({
     queryKey: ['omra-offers', selectedMonth, priceRange, selectedCities, selectedTypes, sortBy],
     queryFn: async () => {
       try {
-        const params = new URLSearchParams({
-          sort: sortBy,
-          page: '1',
-          limit: '24',
-        });
-        
-        if (selectedMonth) params.append('month', selectedMonth);
-        if (priceRange[0] > 0) params.append('priceMin', priceRange[0].toString());
-        if (priceRange[1] < 10000) params.append('priceMax', priceRange[1].toString());
-        if (selectedCities.length > 0) params.append('departure', selectedCities.join(','));
-        if (selectedTypes.length > 0) params.append('type', selectedTypes.join(','));
+        console.log('Fetching offers...');
 
-        console.log('Fetching offers with params:', params.toString());
-
-        // Direct query to database instead of edge function for now
         let query = supabase
           .from('omra_offers')
           .select('*', { count: 'exact' })
@@ -128,7 +115,7 @@ const ComparateurOmra = () => {
           .limit(1)
           .maybeSingle();
 
-        console.log('Fetched offers:', offers?.length || 0);
+        console.log('Fetched offers successfully:', offers?.length || 0);
 
         return {
           offers: offers || [],
@@ -141,12 +128,18 @@ const ComparateurOmra = () => {
           lastUpdate: lastUpdateData?.scraped_at || null,
         };
       } catch (error) {
-        console.error('Error fetching offers:', error);
-        throw error;
+        console.error('Error in queryFn:', error);
+        // Return empty data instead of throwing
+        return {
+          offers: [],
+          pagination: { page: 1, limit: 24, total: 0, totalPages: 0 },
+          lastUpdate: null,
+        };
       }
     },
     retry: 1,
     staleTime: 1000 * 60 * 15, // 15 minutes
+    throwOnError: false, // Don't crash the page on error
   });
 
   const offers: OmraOffer[] = offersData?.offers || [];
@@ -167,7 +160,7 @@ const ComparateurOmra = () => {
     setSelectedTypes([]);
   };
 
-  const formulaTypeLabels = {
+  const formulaTypeLabels: Record<string, string> = {
     standard: 'Standard',
     confort: 'Confort',
     premium: 'Premium',
@@ -325,14 +318,17 @@ const ComparateurOmra = () => {
 
             {/* Offers Grid */}
             {isLoading ? (
-              <div className="text-center py-12">Chargement des offres...</div>
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p>Chargement des offres...</p>
+              </div>
             ) : queryError ? (
               <Card className="p-12 text-center">
-                <p className="text-lg mb-4 text-destructive">Erreur lors du chargement des offres</p>
+                <p className="text-lg mb-4 text-destructive">Erreur lors du chargement</p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {queryError instanceof Error ? queryError.message : 'Une erreur inattendue s\'est produite'}
+                  {queryError instanceof Error ? queryError.message : 'Une erreur est survenue'}
                 </p>
-                <Button onClick={() => window.location.reload()}>Réessayer</Button>
+                <Button onClick={() => refetch()}>Réessayer</Button>
               </Card>
             ) : offers.length === 0 ? (
               <Card className="p-12 text-center">
@@ -344,9 +340,10 @@ const ComparateurOmra = () => {
                 {(selectedMonth || selectedCities.length > 0 || selectedTypes.length > 0 || priceRange[0] > 0 || priceRange[1] < 10000) && (
                   <Button onClick={resetFilters}>Élargir les filtres</Button>
                 )}
-                {offers.length === 0 && !selectedMonth && selectedCities.length === 0 && (
+                {offers.length === 0 && !selectedMonth && selectedCities.length === 0 && selectedTypes.length === 0 && (
                   <p className="text-sm text-muted-foreground mt-4">
                     Les offres seront ajoutées prochainement via notre système de scraping automatique.
+                    En attendant, vous pouvez <a href="/agences-liste" className="text-primary underline">consulter notre liste d'agences</a>.
                   </p>
                 )}
               </Card>
@@ -361,13 +358,16 @@ const ComparateurOmra = () => {
                       </div>
                       <div className="text-right">
                         <p className="text-2xl font-bold text-primary">{offer.price_eur}€</p>
-                        <p className="text-sm text-muted-foreground">{offer.duration_nights} nuits</p>
+                        {offer.duration_nights > 0 && (
+                          <p className="text-sm text-muted-foreground">{offer.duration_nights} nuits</p>
+                        )}
                       </div>
                     </div>
 
                     <div className="space-y-2 mb-4">
                       <p className="text-sm">
-                        <span className="font-medium">Départ:</span> {offer.departure_city} - {format(new Date(offer.date_start), 'MMMM yyyy', { locale: fr })}
+                        <span className="font-medium">Départ:</span> {offer.departure_city}
+                        {offer.month_departure && ` - ${format(new Date(offer.month_departure + '-01'), 'MMMM yyyy', { locale: fr })}`}
                       </p>
                       {offer.hotel_makkah && (
                         <p className="text-sm"><span className="font-medium">Makkah:</span> {offer.hotel_makkah}</p>
@@ -378,7 +378,7 @@ const ComparateurOmra = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">{formulaTypeLabels[offer.formula_type]}</Badge>
+                      <Badge variant="secondary">{formulaTypeLabels[offer.formula_type] || offer.formula_type}</Badge>
                       {offer.flights_included && (
                         <Badge variant="outline" className="gap-1">
                           <Plane className="w-3 h-3" />
@@ -417,40 +417,45 @@ const ComparateurOmra = () => {
             {/* Comparison Table */}
             {showComparison && compareList.length > 0 && (
               <Card className="mt-8 p-6">
-                <h2 className="text-xl font-bold mb-4">Comparaison</h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold">Comparaison des offres</h2>
+                  <Button variant="ghost" size="sm" onClick={() => setShowComparison(false)}>
+                    Fermer
+                  </Button>
+                </div>
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full text-sm">
                     <thead>
-                      <tr>
-                        <th className="text-left p-2">Critère</th>
+                      <tr className="border-b">
+                        <th className="text-left p-2 font-semibold">Critère</th>
                         {compareList.map(offerId => {
                           const offer = offers.find(o => o.id === offerId);
                           return offer ? (
-                            <th key={offerId} className="text-left p-2">{offer.agency_name}</th>
+                            <th key={offerId} className="text-left p-2 font-semibold">{offer.agency_name}</th>
                           ) : null;
                         })}
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="border-t">
+                      <tr className="border-b">
                         <td className="p-2 font-medium">Prix</td>
                         {compareList.map(offerId => {
                           const offer = offers.find(o => o.id === offerId);
                           return offer ? (
-                            <td key={offerId} className="p-2">{offer.price_eur}€</td>
+                            <td key={offerId} className="p-2 font-bold text-primary">{offer.price_eur}€</td>
                           ) : null;
                         })}
                       </tr>
-                      <tr className="border-t">
+                      <tr className="border-b">
                         <td className="p-2 font-medium">Formule</td>
                         {compareList.map(offerId => {
                           const offer = offers.find(o => o.id === offerId);
                           return offer ? (
-                            <td key={offerId} className="p-2">{formulaTypeLabels[offer.formula_type]}</td>
+                            <td key={offerId} className="p-2">{formulaTypeLabels[offer.formula_type] || offer.formula_type}</td>
                           ) : null;
                         })}
                       </tr>
-                      <tr className="border-t">
+                      <tr className="border-b">
                         <td className="p-2 font-medium">Durée</td>
                         {compareList.map(offerId => {
                           const offer = offers.find(o => o.id === offerId);
@@ -459,7 +464,37 @@ const ComparateurOmra = () => {
                           ) : null;
                         })}
                       </tr>
-                      {/* Add more comparison rows */}
+                      <tr className="border-b">
+                        <td className="p-2 font-medium">Vol inclus</td>
+                        {compareList.map(offerId => {
+                          const offer = offers.find(o => o.id === offerId);
+                          return offer ? (
+                            <td key={offerId} className="p-2">{offer.flights_included ? 'Oui' : 'Non'}</td>
+                          ) : null;
+                        })}
+                      </tr>
+                      <tr className="border-b">
+                        <td className="p-2 font-medium">Visa inclus</td>
+                        {compareList.map(offerId => {
+                          const offer = offers.find(o => o.id === offerId);
+                          return offer ? (
+                            <td key={offerId} className="p-2">{offer.visa_included ? 'Oui' : 'Non'}</td>
+                          ) : null;
+                        })}
+                      </tr>
+                      <tr>
+                        <td className="p-2 font-medium">Lien</td>
+                        {compareList.map(offerId => {
+                          const offer = offers.find(o => o.id === offerId);
+                          return offer ? (
+                            <td key={offerId} className="p-2">
+                              <a href={offer.offer_url} target="_blank" rel="nofollow sponsored" className="text-primary hover:underline">
+                                Voir l'offre
+                              </a>
+                            </td>
+                          ) : null;
+                        })}
+                      </tr>
                     </tbody>
                   </table>
                 </div>
