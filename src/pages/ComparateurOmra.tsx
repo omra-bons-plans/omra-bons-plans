@@ -334,19 +334,10 @@ export default function ComparateurOmra() {
                   key={offer.id} 
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in hover-scale"
                 >
-                  {/* Header avec logo agence */}
+                   {/* Header avec logo agence */}
                   <div className="px-6 pt-6 pb-4 border-b border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-background relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex items-start justify-between gap-4 relative">
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg line-clamp-2 mb-1 group-hover:text-primary transition-all duration-300 group-hover:scale-[1.02]">
-                          {offer.offer_title}
-                        </h3>
-                        <p className="text-lg font-semibold flex items-center gap-1.5">
-                          <CheckCircle2 className="h-4 w-4 text-primary" />
-                          {offer.agency_name}
-                        </p>
-                      </div>
+                    <div className="flex flex-col items-center gap-4 relative">
                       {agencyLogo && (
                         <div className="flex-shrink-0 w-24 h-24 rounded-xl bg-background border border-primary/20 p-2 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
                           <img 
@@ -356,6 +347,9 @@ export default function ComparateurOmra() {
                           />
                         </div>
                       )}
+                      <h3 className="text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
+                        {offer.agency_name}
+                      </h3>
                     </div>
                   </div>
 
@@ -434,7 +428,7 @@ export default function ComparateurOmra() {
                           <div className="flex-1">
                             <div className="font-medium text-foreground">Répartition</div>
                             <div>
-                              {offer.makkah_nights}N La Mecque / {offer.medina_nights}N Médine
+                              {offer.makkah_nights} nuits La Mecque / {offer.medina_nights} nuits Médine
                             </div>
                           </div>
                         </div>
