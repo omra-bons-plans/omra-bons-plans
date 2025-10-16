@@ -403,14 +403,20 @@ export default function ComparateurOmra() {
                   {/* Prix en évidence */}
                   <div className="px-6 py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex items-center justify-between gap-4 relative flex-wrap">
+                    <div className="flex items-baseline gap-2 relative">
                       <div className="flex items-baseline gap-2">
                         <span className="text-sm text-muted-foreground font-medium">à partir de</span>
                         <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
                           {offer.price_eur}€
                         </span>
-                        <span className="text-sm text-muted-foreground font-medium">/ personne</span>
                       </div>
+                      <span className="text-sm text-muted-foreground font-medium">/ personne</span>
+                    </div>
+                  </div>
+
+                  {/* Corps de la carte */}
+                  <div className="p-6 space-y-4">
+                    <div className="flex flex-wrap gap-2">
                       <Badge 
                         className={`font-bold px-4 py-2 text-base capitalize shadow-md ${
                           offer.formula_type?.toLowerCase() === 'essentiel' 
@@ -420,12 +426,6 @@ export default function ComparateurOmra() {
                       >
                         ✨ {offer.formula_type}
                       </Badge>
-                    </div>
-                  </div>
-
-                  {/* Corps de la carte */}
-                  <div className="p-6 space-y-4">
-                    <div className="flex flex-wrap gap-2">
                       {offer.flights_included && (
                         <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-3 py-1">
                           <Plane className="h-3 w-3 mr-1" />
