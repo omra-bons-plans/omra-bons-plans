@@ -76,7 +76,7 @@ export default function ComparateurOmra() {
             Votre comparateur séjours OMRA 2025 et 2026
           </h1>
           <h2 className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix !
+            Trouveez, comparez et réservez votre séjours pour la Omra au meilleurs prix !
           </h2>
         </div>
 
