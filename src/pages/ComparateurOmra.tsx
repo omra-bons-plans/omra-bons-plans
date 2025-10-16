@@ -8,8 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { getAgencyInfo } from '@/utils/agenciesData';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -328,6 +329,7 @@ export default function ComparateurOmra() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {offers.map((offer) => {
               const agencyLogo = getAgencyLogo(offer.agency_name);
+              const agencyInfo = getAgencyInfo(offer.agency_name);
               
               return (
                 <Card 
@@ -347,9 +349,35 @@ export default function ComparateurOmra() {
                           />
                         </div>
                       )}
-                      <h3 className="text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
-                        {offer.agency_name}
-                      </h3>
+                      <div className="flex flex-col items-center gap-2">
+                        <h3 className="text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
+                          {offer.agency_name}
+                        </h3>
+                        {agencyInfo && (
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`h-4 w-4 ${
+                                    i < Math.floor(agencyInfo.googleRating)
+                                      ? 'fill-yellow-400 text-yellow-400'
+                                      : i < agencyInfo.googleRating
+                                      ? 'fill-yellow-400 text-yellow-400 opacity-50'
+                                      : 'fill-gray-300 text-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <span className="text-sm font-semibold text-muted-foreground">
+                              {agencyInfo.googleRating.toFixed(1)}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              ({agencyInfo.reviewCount.toLocaleString('fr-FR')} avis)
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
