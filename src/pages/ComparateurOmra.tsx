@@ -29,8 +29,8 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Hayat': '/lovable-uploads/logohayat.png',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
-  'Sabile': '/lovable-uploads/logosabile.png',
-  'Sabile Voyages': '/lovable-uploads/logosabile.png',
+  'Sabile': '/lovable-uploads/logosabile-new.png',
+  'Sabile Voyages': '/lovable-uploads/logosabile-new.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
 };
 
