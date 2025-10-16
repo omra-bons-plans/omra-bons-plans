@@ -89,7 +89,8 @@ serve(async (req) => {
                 .eq('id', existing.id);
               
               if (updateError) {
-                console.error(`[${runId}] Error updating offer:`, updateError);
+                console.error(`[${runId}] Error updating offer:`, JSON.stringify(updateError));
+                console.error(`[${runId}] Offer data:`, JSON.stringify(offer));
                 offersErrors++;
               } else {
                 offersUpdated++;
@@ -101,7 +102,8 @@ serve(async (req) => {
                 .insert(offer);
               
               if (insertError) {
-                console.error(`[${runId}] Error inserting offer:`, insertError);
+                console.error(`[${runId}] Error inserting offer:`, JSON.stringify(insertError));
+                console.error(`[${runId}] Offer data:`, JSON.stringify(offer));
                 offersErrors++;
               } else {
                 offersAdded++;
@@ -261,6 +263,6 @@ function getRandomMonth(): string {
 }
 
 function getRandomFormula(): string {
-  const formulas = ['Économique', 'Confort', 'Premium', 'VIP'];
+  const formulas = ['standard', 'confort', 'premium', 'elite'];
   return formulas[Math.floor(Math.random() * formulas.length)];
 }
