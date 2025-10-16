@@ -227,7 +227,12 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
       return offers;
     }
 
-    // Utiliser les sélecteurs de la config si disponibles
+    // Traitement spécifique pour Tawaf
+    if (config.agency_name === 'Tawaf') {
+      return parseTawafOffers(doc, config);
+    }
+
+    // Logique générique pour les autres agences
     const selectors = config.selectors || {};
     const containerSelector = selectors.container || 'article, .offer, .product, .card, [class*="offer"]';
     
@@ -251,6 +256,149 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
     console.error('Error parsing HTML:', err);
   }
   
+  return offers;
+}
+
+function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
+  const offers: any[] = [];
+  const selectors = config.selectors || {};
+  
+  console.log('Parsing Tawaf offers with selectors:', selectors);
+  
+  // Récupérer tous les liens d'offres
+  const offerLinks = doc.querySelectorAll(selectors.offerContainer || 'a.elementor-button');
+  console.log(`Found ${offerLinks.length} offer links for Tawaf`);
+  
+  let currentMonth = 'Non spécifié';
+  
+  offerLinks.forEach((link, index) => {
+    try {
+      // Trouver le titre du mois en remontant dans le DOM
+      let parent = link.parentElement;
+      let monthTitle = null;
+      
+      for (let i = 0; i < 10 && parent; i++) {
+        const heading = parent.querySelector('h2.elementor-heading-title a');
+        if (heading && heading.textContent) {
+          monthTitle = heading.textContent.trim();
+          break;
+        }
+        parent = parent.parentElement;
+      }
+      
+      if (monthTitle) {
+        // Extraire le mois du titre (ex: "OMRA OCTOBRE 2025" -> "Octobre")
+        const monthMatch = monthTitle.match(/OMRA\s+(\w+)\s+\d{4}/i);
+        if (monthMatch) {
+          currentMonth = monthMatch[1].charAt(0).toUpperCase() + monthMatch[1].slice(1).toLowerCase();
+        }
+      }
+      
+      const href = link.getAttribute('href');
+      if (!href) return;
+      
+      const buttonText = link.querySelector('.elementor-button-text');
+      if (!buttonText) return;
+      
+      const fullText = buttonText.textContent || '';
+      
+      // Vérifier si l'offre est complète
+      const isComplete = fullText.includes('COMPLET');
+      if (isComplete) return; // Ignorer les offres complètes
+      
+      // Extraire le prix (ex: "1950€/pers")
+      const priceMatch = fullText.match(/(\d+(?:\s?\d+)*)\s*€/);
+      if (!priceMatch) return;
+      const price = parseFloat(priceMatch[1].replace(/\s/g, ''));
+      
+      // Extraire les dates (ex: "23 Oct. au 01 Nov. 2025")
+      const datePattern = /(\d{1,2})\s+(\w+)\.?\s+au\s+(\d{1,2})\s+(\w+)\.?\s+(\d{4})/i;
+      const dateMatch = fullText.match(datePattern);
+      
+      let dateStart = null;
+      let dateEnd = null;
+      let durationNights = null;
+      
+      if (dateMatch) {
+        const [_, startDay, startMonth, endDay, endMonth, year] = dateMatch;
+        
+        // Convertir les noms de mois en numéros
+        const monthMap: Record<string, string> = {
+          'jan': '01', 'janv': '01', 'janvier': '01',
+          'fév': '02', 'févr': '02', 'février': '02', 'fev': '02', 'fevrier': '02',
+          'mar': '03', 'mars': '03',
+          'avr': '04', 'avril': '04',
+          'mai': '05',
+          'jui': '06', 'juin': '06',
+          'juil': '07', 'juillet': '07',
+          'aoû': '08', 'août': '08', 'aout': '08',
+          'sep': '09', 'sept': '09', 'septembre': '09',
+          'oct': '10', 'octobre': '10',
+          'nov': '11', 'novembre': '11',
+          'déc': '12', 'décembre': '12', 'dec': '12', 'decembre': '12'
+        };
+        
+        const startMonthNum = monthMap[startMonth.toLowerCase().replace('.', '')];
+        const endMonthNum = monthMap[endMonth.toLowerCase().replace('.', '')];
+        
+        if (startMonthNum && endMonthNum) {
+          dateStart = `${year}-${startMonthNum}-${startDay.padStart(2, '0')}`;
+          
+          // La date de fin peut être l'année suivante
+          let endYear = year;
+          if (parseInt(endMonthNum) < parseInt(startMonthNum)) {
+            endYear = (parseInt(year) + 1).toString();
+          }
+          dateEnd = `${endYear}-${endMonthNum}-${endDay.padStart(2, '0')}`;
+          
+          // Calculer la durée
+          const start = new Date(dateStart);
+          const end = new Date(dateEnd);
+          durationNights = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+        }
+      }
+      
+      // Détecter si c'est vacances scolaires
+      const isVacances = fullText.toLowerCase().includes('vacances scolaires');
+      
+      // Créer un hash unique
+      const sourceHash = `${config.agency_name}-${href}-${price}`;
+      
+      const offer = {
+        agency_name: config.agency_name,
+        agency_url: config.agency_url,
+        offer_title: `Omra ${currentMonth} ${dateStart ? dateStart.split('-')[0] : '2025'}`,
+        price_eur: price,
+        currency_raw: 'EUR',
+        month_departure: currentMonth,
+        date_start: dateStart,
+        date_end: dateEnd,
+        departure_city: 'Paris', // Tawaf départ Paris par défaut
+        formula_type: 'confort', // Tawaf propose du confort (hôtels 5★)
+        duration_nights: durationNights,
+        makkah_nights: durationNights ? Math.floor(durationNights * 0.6) : null,
+        medina_nights: durationNights ? Math.floor(durationNights * 0.4) : null,
+        hotel_makkah: 'Conrad 5*',
+        hotel_medinah: 'Bosphorus 5*',
+        airline: 'Saudia Airlines',
+        flights_included: true,
+        visa_included: true,
+        board: isVacances ? 'Petit déjeuner' : 'Demi-pension à Médine',
+        offer_url: href,
+        status: 'active',
+        source_hash: sourceHash,
+        scraped_at: new Date().toISOString()
+      };
+      
+      offers.push(offer);
+      console.log(`Extracted Tawaf offer ${index + 1}:`, offer.offer_title, offer.price_eur + '€');
+      
+    } catch (err) {
+      console.error(`Error extracting Tawaf offer ${index}:`, err);
+    }
+  });
+  
+  console.log(`Total Tawaf offers extracted: ${offers.length}`);
   return offers;
 }
 
