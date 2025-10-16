@@ -30,15 +30,32 @@ const ComparateurOmra = () => {
   const [tripType, setTripType] = useState("omra");
   const [sortBy, setSortBy] = useState("price_asc");
   const [selectedPeriod, setSelectedPeriod] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedFormula, setSelectedFormula] = useState("");
 
   const { data: offersData, isLoading } = useQuery({
-    queryKey: ['omra-offers', sortBy],
+    queryKey: ['omra-offers', sortBy, selectedMonth, priceRange, selectedCity, selectedFormula],
     queryFn: async () => {
       let query = supabase
         .from('omra_offers')
         .select('*')
         .eq('status', 'active');
 
+      // Filtres
+      if (selectedMonth) {
+        query = query.eq('month_departure', selectedMonth);
+      }
+      if (selectedCity) {
+        query = query.eq('departure_city', selectedCity);
+      }
+      if (selectedFormula) {
+        query = query.eq('formula_type', selectedFormula);
+      }
+      query = query.gte('price_eur', priceRange[0]).lte('price_eur', priceRange[1]);
+
+      // Tri
       switch (sortBy) {
         case 'price_asc': query = query.order('price_eur', { ascending: true }); break;
         case 'price_desc': query = query.order('price_eur', { ascending: false }); break;
@@ -107,6 +124,85 @@ const ComparateurOmra = () => {
                 <Search className="w-4 h-4 mr-2" />
                 Rechercher
               </Button>
+            </div>
+          </Card>
+
+          {/* Filtres avancés */}
+          <Card className="p-6 mt-4 bg-white">
+            <h3 className="text-lg font-semibold mb-4">Filtrez par mois, prix, ville de départ et type de formule</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">Mois de départ</label>
+                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tous les mois" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Tous les mois</SelectItem>
+                    <SelectItem value="janvier">Janvier</SelectItem>
+                    <SelectItem value="février">Février</SelectItem>
+                    <SelectItem value="mars">Mars</SelectItem>
+                    <SelectItem value="avril">Avril</SelectItem>
+                    <SelectItem value="mai">Mai</SelectItem>
+                    <SelectItem value="juin">Juin</SelectItem>
+                    <SelectItem value="juillet">Juillet</SelectItem>
+                    <SelectItem value="août">Août</SelectItem>
+                    <SelectItem value="septembre">Septembre</SelectItem>
+                    <SelectItem value="octobre">Octobre</SelectItem>
+                    <SelectItem value="novembre">Novembre</SelectItem>
+                    <SelectItem value="décembre">Décembre</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-2 block">Ville de départ</label>
+                <Select value={selectedCity} onValueChange={setSelectedCity}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Toutes les villes" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Toutes les villes</SelectItem>
+                    <SelectItem value="Paris">Paris</SelectItem>
+                    <SelectItem value="Lyon">Lyon</SelectItem>
+                    <SelectItem value="Marseille">Marseille</SelectItem>
+                    <SelectItem value="Toulouse">Toulouse</SelectItem>
+                    <SelectItem value="Bordeaux">Bordeaux</SelectItem>
+                    <SelectItem value="Nantes">Nantes</SelectItem>
+                    <SelectItem value="Strasbourg">Strasbourg</SelectItem>
+                    <SelectItem value="Lille">Lille</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-2 block">Type de formule</label>
+                <Select value={selectedFormula} onValueChange={setSelectedFormula}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Toutes les formules" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Toutes les formules</SelectItem>
+                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="confort">Confort</SelectItem>
+                    <SelectItem value="premium">Premium</SelectItem>
+                    <SelectItem value="elite">Elite</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-2 block">Prix max: {priceRange[1]}€</label>
+                <Input
+                  type="range"
+                  min="0"
+                  max="10000"
+                  step="100"
+                  value={priceRange[1]}
+                  onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
+                  className="w-full"
+                />
+              </div>
             </div>
           </Card>
         </div>
