@@ -738,6 +738,187 @@ export default function ComparateurOmra() {
             </div>
           </div>
         </Card>
+
+        {/* Section Pourquoi utiliser notre comparateur */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center">Pourquoi utiliser notre comparateur Omra ?</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6 hover-scale">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">Gain de temps considérable</h3>
+                <p className="text-muted-foreground">
+                  Plus besoin de consulter des dizaines de sites d'agences. Notre comparateur regroupe toutes les offres Omra 2025 et 2026 en un seul endroit. Filtrez par prix, date de départ, ville, formule et trouvez instantanément le séjour qui vous convient.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover-scale">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Sparkles className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">Meilleurs prix garantis</h3>
+                <p className="text-muted-foreground">
+                  Comparez les tarifs de multiples agences agréées pour la Omra. Notre système vous permet d'identifier rapidement les meilleures offres et de réaliser des économies importantes sur votre pèlerinage.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover-scale">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Hotel className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">Toutes les formules disponibles</h3>
+                <p className="text-muted-foreground">
+                  Que vous recherchiez une formule économique ou un séjour confort proche du Haram, notre comparateur affiche tous les types d'hébergements. Filtrez par distance au Haram, nombre d'étoiles et prestations incluses.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover-scale">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Calendar className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">Flexibilité des dates</h3>
+                <p className="text-muted-foreground">
+                  Recherchez des départs toute l'année selon votre disponibilité. Notre outil vous permet de comparer les offres par mois et de choisir la période la plus avantageuse pour votre Omra, hors vacances scolaires ou pendant Ramadan.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        {/* Section Comment ça marche */}
+        <Card className="p-8 md:p-12 bg-card/50 backdrop-blur-sm">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <div className="text-center space-y-3">
+              <h2 className="text-3xl md:text-4xl font-bold">Comment fonctionne notre comparateur ?</h2>
+              <p className="text-muted-foreground text-lg">
+                Trouvez votre voyage Omra idéal en 3 étapes simples
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                  1
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-semibold">Définissez vos critères de recherche</h3>
+                  <p className="text-muted-foreground">
+                    Sélectionnez votre mois de départ préféré, votre ville d'origine (Paris, Lyon, Marseille, etc.), votre budget et le type de formule souhaité (Essentiel ou Confort). Affinez avec nos filtres avancés : durée du séjour, distance au Haram, agences spécifiques.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                  2
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-semibold">Comparez les offres en temps réel</h3>
+                  <p className="text-muted-foreground">
+                    Notre système affiche instantanément toutes les offres correspondant à vos critères. Vous pouvez trier par prix croissant/décroissant ou par durée de séjour. Chaque offre détaille le prix, les dates, les hôtels à La Mecque et Médine, la compagnie aérienne et les prestations incluses.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                  3
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-semibold">Réservez directement auprès de l'agence</h3>
+                  <p className="text-muted-foreground">
+                    Une fois votre choix effectué, cliquez sur "Voir l'offre" pour accéder au site de l'agence. Vous serez redirigé vers la page de réservation officielle où vous pourrez finaliser votre inscription en toute sécurité et obtenir tous les détails complémentaires.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Section FAQ */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center">Questions fréquentes sur le comparateur Omra</h2>
+          
+          <div className="space-y-4">
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Quelles agences sont référencées sur le comparateur ?</h3>
+              <p className="text-muted-foreground">
+                Nous référençons les principales agences de voyages françaises spécialisées dans l'organisation de séjours Omra, notamment Tawaf, Medinvoyages, Almaqam, Pèlerin Hajj, Al Bayt, Hayat, Omra Sounnah, Omra Pour Tous et Sabil Voyages. Toutes sont agréées et reconnues pour leur sérieux et leur expérience dans le pèlerinage.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Les prix affichés sont-ils définitifs ?</h3>
+              <p className="text-muted-foreground">
+                Les prix sont mis à jour quotidiennement et reflètent les tarifs officiels des agences au moment de l'extraction. Cependant, ils peuvent évoluer selon la disponibilité et les périodes. Nous vous recommandons de vérifier le prix final directement sur le site de l'agence avant de réserver.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Quelle différence entre formule Essentiel et Confort ?</h3>
+              <p className="text-muted-foreground">
+                La formule Essentiel propose généralement des hôtels 3 étoiles situés à distance raisonnable du Haram (500m à 1km), idéale pour les petits budgets. La formule Confort offre des hôtels 4-5 étoiles très proches du Haram (50m à 300m), avec plus de prestations et de standing. Le choix dépend de votre budget et de vos priorités.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Puis-je réserver directement sur ce site ?</h3>
+              <p className="text-muted-foreground">
+                Non, notre site est un comparateur qui vous permet de trouver les meilleures offres. La réservation se fait directement auprès de l'agence de voyages en cliquant sur "Voir l'offre". Vous serez redirigé vers le site officiel de l'agence pour finaliser votre inscription.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Comment choisir la meilleure période pour partir en Omra ?</h3>
+              <p className="text-muted-foreground">
+                La période idéale dépend de vos contraintes personnelles et de votre budget. Le mois de Ramadan est très prisé mais plus cher et très fréquenté. Les mois hors vacances scolaires (septembre à novembre, janvier à mars hors vacances) offrent généralement les meilleurs tarifs et une affluence plus modérée. L'été (juin-août) peut être très chaud.
+              </p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-3">Qu'est-ce qui est généralement inclus dans le prix ?</h3>
+              <p className="text-muted-foreground">
+                La plupart des forfaits Omra incluent les vols aller-retour depuis la France, l'hébergement en pension complète ou demi-pension, les transferts aéroport-hôtel, le visa saoudien, et l'assurance de base. Certaines agences ajoutent des excursions, la visite de sites historiques ou un accompagnement religieux. Vérifiez toujours les détails de l'offre.
+              </p>
+            </Card>
+          </div>
+        </div>
+
+        {/* Section à propos de la Omra */}
+        <Card className="p-8 md:p-12 bg-gradient-to-br from-background via-primary/5 to-background">
+          <div className="max-w-3xl mx-auto space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-center">Préparez votre Omra 2025-2026</h2>
+            
+            <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
+              <p>
+                La Omra, également appelée "petit pèlerinage", est un acte d'adoration majeur en Islam que les musulmans peuvent effectuer à tout moment de l'année, contrairement au Hajj qui a des dates fixes. Accomplir la Omra est une expérience spirituelle profonde qui permet de se rapprocher d'Allah, de demander pardon pour ses péchés et de renouveler sa foi.
+              </p>
+
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">Pourquoi partir en Omra organisée ?</h3>
+              <p>
+                Partir avec une agence spécialisée présente de nombreux avantages : prise en charge complète des aspects logistiques (visa, vols, hébergement, transferts), accompagnement religieux par des guides francophones expérimentés, organisation de visites des lieux saints et historiques, et sérénité d'esprit pour se concentrer pleinement sur la dimension spirituelle du voyage.
+              </p>
+
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">Quand réserver son séjour Omra ?</h3>
+              <p>
+                Il est recommandé de réserver votre Omra 3 à 6 mois à l'avance, surtout pour les périodes prisées comme Ramadan, les vacances scolaires ou les mois de décembre-janvier. Une réservation anticipée vous garantit un meilleur choix d'hôtels, de dates de départ et souvent des tarifs plus avantageux. Utilisez notre comparateur pour surveiller les prix et saisir les meilleures opportunités.
+              </p>
+
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">Les villes de départ en France</h3>
+              <p>
+                Notre comparateur référence des départs depuis les principales villes françaises : Paris (aéroports Charles de Gaulle et Orly), Lyon, Marseille, Toulouse, Nice, Nantes, Strasbourg, Bordeaux et Lille. Les vols directs sont généralement disponibles depuis Paris avec des compagnies comme Saudi Arabian Airlines, tandis que les autres villes proposent souvent des vols avec escale via Istanbul, Dubaï ou Doha.
+              </p>
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );
