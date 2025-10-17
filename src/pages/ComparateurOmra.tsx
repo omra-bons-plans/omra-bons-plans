@@ -230,44 +230,52 @@ export default function ComparateurOmra() {
 
       {/* Search Card - positioned below hero */}
       <div className="container mx-auto px-4 -mt-16 sm:-mt-20 relative z-20 mb-8">
-        <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
-          <div className="p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary bg-primary/5 p-3 rounded-lg">
-              <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
-              <p className="text-sm sm:text-base md:text-xl font-medium text-center leading-snug">
+        <Card className="max-w-5xl mx-auto bg-gradient-to-br from-background via-background to-primary/5 backdrop-blur-sm shadow-2xl border-2 border-primary/10 animate-scale-in overflow-hidden">
+          {/* Decorative gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none" />
+          
+          <div className="relative p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-primary bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-4 rounded-2xl border border-primary/20 shadow-sm">
+              <div className="p-2 rounded-full bg-primary/10">
+                <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0 text-primary" />
+              </div>
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-center leading-snug bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 et 2026
               </p>
             </div>
 
             {/* Toggle Omra/Hajj */}
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-3">
               <Button
                 variant={tripType === 'omra' ? 'default' : 'outline'}
                 onClick={() => setTripType('omra')}
-                className="flex-1 max-w-[200px]"
+                className="flex-1 max-w-[200px] h-11 font-semibold shadow-md hover:shadow-lg transition-all"
               >
                 Omra
               </Button>
               <Button
                 variant={tripType === 'hajj' ? 'default' : 'outline'}
                 onClick={() => setTripType('hajj')}
-                className="flex-1 max-w-[200px]"
+                className="flex-1 max-w-[200px] h-11 font-semibold shadow-md hover:shadow-lg transition-all"
               >
                 Hajj
               </Button>
             </div>
             
-            <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-4">
+            <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-5">
               <div className="space-y-2.5">
-                <label htmlFor="city-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Ville de départ</label>
+                <label htmlFor="city-hero" className="text-xs sm:text-sm font-semibold text-foreground flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-primary" />
+                  Ville de départ
+                </label>
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger id="city-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
+                  <SelectTrigger id="city-hero" className="h-12 sm:h-13 bg-background text-sm border-2 hover:border-primary/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all rounded-xl shadow-sm">
                     <SelectValue placeholder="Sélectionnez une ville" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background z-50">
+                  <SelectContent className="bg-background z-50 border-2 border-primary/20 rounded-xl">
                     <SelectItem value="all">Toutes les villes</SelectItem>
                     {CITIES.map((city) => (
-                      <SelectItem key={city} value={city} className="py-3">
+                      <SelectItem key={city} value={city} className="py-3 hover:bg-primary/5">
                         {city}
                       </SelectItem>
                     ))}
@@ -276,15 +284,18 @@ export default function ComparateurOmra() {
               </div>
 
               <div className="space-y-2.5">
-                <label htmlFor="month-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Période</label>
+                <label htmlFor="month-hero" className="text-xs sm:text-sm font-semibold text-foreground flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-primary" />
+                  Période
+                </label>
                 <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                  <SelectTrigger id="month-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
+                  <SelectTrigger id="month-hero" className="h-12 sm:h-13 bg-background text-sm border-2 hover:border-primary/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all rounded-xl shadow-sm">
                     <SelectValue placeholder="Sélectionnez un mois" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background z-50">
+                  <SelectContent className="bg-background z-50 border-2 border-primary/20 rounded-xl">
                     <SelectItem value="all">Tous les mois</SelectItem>
                     {MONTHS.map((month) => (
-                      <SelectItem key={month} value={month} className="py-3">
+                      <SelectItem key={month} value={month} className="py-3 hover:bg-primary/5">
                         {month}
                       </SelectItem>
                     ))}
@@ -294,9 +305,12 @@ export default function ComparateurOmra() {
 
               <div className="flex items-end pt-2 md:pt-0">
                 <Button 
-                  className="w-full h-12 sm:h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl transition-all"
+                  className="w-full h-12 sm:h-13 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-sm sm:text-base md:text-lg shadow-xl hover:shadow-2xl transition-all rounded-xl group"
                 >
-                  Rechercher
+                  <span className="flex items-center justify-center gap-2">
+                    Rechercher
+                    <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                  </span>
                 </Button>
               </div>
             </div>
