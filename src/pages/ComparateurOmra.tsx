@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw } from 'lucide-react';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
@@ -81,6 +81,11 @@ export default function ComparateurOmra() {
   const [maxDistance, setMaxDistance] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Newsletter states
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -112,6 +117,36 @@ export default function ComparateurOmra() {
       }
       return prev;
     });
+  };
+  
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterLoading(true);
+    setNewsletterSuccess(false);
+    
+    try {
+      const { error } = await supabase
+        .from('hajj_newsletter_subscriptions')
+        .insert([{ email: newsletterEmail }]);
+      
+      if (error) {
+        // Si l'email existe déjà, on considère ça comme un succès
+        if (error.code === '23505') {
+          setNewsletterSuccess(true);
+          setNewsletterEmail('');
+        } else {
+          throw error;
+        }
+      } else {
+        setNewsletterSuccess(true);
+        setNewsletterEmail('');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription:', error);
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setNewsletterLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -522,8 +557,8 @@ export default function ComparateurOmra() {
 
         {tripType === 'hajj' ? (
           <Card className="p-8 md:p-12 text-center bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/20">
-            <div className="max-w-2xl mx-auto space-y-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/10 mb-4">
+            <div className="max-w-2xl mx-auto space-y-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:w-20 rounded-full bg-primary/10 mb-4">
                 <Calendar className="h-8 w-8 md:h-10 md:w-10 text-primary" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-foreground">
@@ -535,6 +570,53 @@ export default function ComparateurOmra() {
               <Badge variant="outline" className="mt-4 text-sm px-4 py-2">
                 Disponible à partir de janvier 2026
               </Badge>
+              
+              {/* Newsletter Subscription Form */}
+              <div className="mt-8 p-6 bg-background/50 rounded-xl border border-primary/20">
+                <div className="flex items-center gap-2 justify-center mb-4">
+                  <Mail className="h-5 w-5 text-primary" />
+                  <h4 className="text-lg font-semibold text-foreground">
+                    Soyez averti en premier !
+                  </h4>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Inscrivez-vous pour recevoir une notification dès que les offres Hajj 2026 seront disponibles
+                </p>
+                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="email"
+                    placeholder="Votre adresse email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    required
+                    className="flex-1"
+                    disabled={newsletterLoading}
+                  />
+                  <Button 
+                    type="submit" 
+                    disabled={newsletterLoading}
+                    className="whitespace-nowrap"
+                  >
+                    {newsletterLoading ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                        Inscription...
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="h-4 w-4 mr-2" />
+                        M'inscrire
+                      </>
+                    )}
+                  </Button>
+                </form>
+                {newsletterSuccess && (
+                  <p className="text-sm text-green-600 dark:text-green-400 mt-3 flex items-center gap-2 justify-center">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Inscription réussie ! Vous serez notifié dès que les offres seront disponibles.
+                  </p>
+                )}
+              </div>
             </div>
           </Card>
         ) : error ? (

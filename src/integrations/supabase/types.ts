@@ -751,6 +751,30 @@ export type Database = {
         }
         Relationships: []
       }
+      hajj_newsletter_subscriptions: {
+        Row: {
+          email: string
+          id: string
+          ip_address: unknown | null
+          subscribed_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          email: string
+          id?: string
+          ip_address?: unknown | null
+          subscribed_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          ip_address?: unknown | null
+          subscribed_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
