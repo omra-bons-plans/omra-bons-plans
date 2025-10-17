@@ -886,6 +886,102 @@ export type Database = {
         }
         Relationships: []
       }
+      omra_offers_next: {
+        Row: {
+          agency_name: string
+          agency_url: string
+          board: string | null
+          created_at: string
+          currency_raw: string | null
+          date_end: string | null
+          date_start: string | null
+          departure_city: string
+          distance_to_haram_m: number | null
+          duration_nights: number | null
+          error_message: string | null
+          flights_included: boolean
+          formula_type: string
+          guide_language: string[] | null
+          hotel_makkah: string | null
+          hotel_medinah: string | null
+          id: string
+          makkah_nights: number | null
+          medina_nights: number | null
+          month_departure: string
+          notes: string | null
+          offer_title: string
+          offer_url: string
+          price_eur: number
+          scraped_at: string
+          source_hash: string
+          status: string
+          updated_at: string
+          visa_included: boolean | null
+        }
+        Insert: {
+          agency_name: string
+          agency_url: string
+          board?: string | null
+          created_at?: string
+          currency_raw?: string | null
+          date_end?: string | null
+          date_start?: string | null
+          departure_city: string
+          distance_to_haram_m?: number | null
+          duration_nights?: number | null
+          error_message?: string | null
+          flights_included?: boolean
+          formula_type: string
+          guide_language?: string[] | null
+          hotel_makkah?: string | null
+          hotel_medinah?: string | null
+          id?: string
+          makkah_nights?: number | null
+          medina_nights?: number | null
+          month_departure: string
+          notes?: string | null
+          offer_title: string
+          offer_url: string
+          price_eur: number
+          scraped_at?: string
+          source_hash: string
+          status?: string
+          updated_at?: string
+          visa_included?: boolean | null
+        }
+        Update: {
+          agency_name?: string
+          agency_url?: string
+          board?: string | null
+          created_at?: string
+          currency_raw?: string | null
+          date_end?: string | null
+          date_start?: string | null
+          departure_city?: string
+          distance_to_haram_m?: number | null
+          duration_nights?: number | null
+          error_message?: string | null
+          flights_included?: boolean
+          formula_type?: string
+          guide_language?: string[] | null
+          hotel_makkah?: string | null
+          hotel_medinah?: string | null
+          id?: string
+          makkah_nights?: number | null
+          medina_nights?: number | null
+          month_departure?: string
+          notes?: string | null
+          offer_title?: string
+          offer_url?: string
+          price_eur?: number
+          scraped_at?: string
+          source_hash?: string
+          status?: string
+          updated_at?: string
+          visa_included?: boolean | null
+        }
+        Relationships: []
+      }
       omra_scraper_config: {
         Row: {
           agency_name: string
@@ -979,6 +1075,51 @@ export type Database = {
           run_id?: string
           started_at?: string
           status?: string
+        }
+        Relationships: []
+      }
+      omra_update_runs: {
+        Row: {
+          agency_results: Json | null
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          offers_fetched: number | null
+          offers_rejected: number | null
+          offers_validated: number | null
+          run_type: string
+          started_at: string
+          status: string
+          swap_executed: boolean | null
+        }
+        Insert: {
+          agency_results?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          offers_fetched?: number | null
+          offers_rejected?: number | null
+          offers_validated?: number | null
+          run_type?: string
+          started_at?: string
+          status?: string
+          swap_executed?: boolean | null
+        }
+        Update: {
+          agency_results?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          offers_fetched?: number | null
+          offers_rejected?: number | null
+          offers_validated?: number | null
+          run_type?: string
+          started_at?: string
+          status?: string
+          swap_executed?: boolean | null
         }
         Relationships: []
       }
@@ -1376,6 +1517,14 @@ export type Database = {
           avg_rating: number
           review_count: number
         }[]
+      }
+      get_last_successful_update: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      get_next_scheduled_update: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       get_omra_offers: {
         Args: {

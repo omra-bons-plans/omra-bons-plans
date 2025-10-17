@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
@@ -9,9 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X } from 'lucide-react';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -80,6 +83,21 @@ export default function ComparateurOmra() {
   const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch last successful update info
+  const { data: lastUpdate } = useQuery({
+    queryKey: ['last-successful-update'],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('get_last_successful_update');
+      if (error) throw error;
+      return data as {
+        last_update: string | null;
+        offers_count: number;
+        offers_rejected: number;
+        message?: string;
+      };
+    }
+  });
 
   const toggleAgency = (agency: string) => {
     setSelectedAgencies(prev => {
@@ -224,6 +242,19 @@ export default function ComparateurOmra() {
             <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
               Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
             </p>
+            
+            {/* Last Update Info */}
+            {lastUpdate && lastUpdate.last_update && (
+              <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-muted-foreground">
+                <RefreshCw className="h-3 w-3 md:h-4 md:w-4" />
+                <span>
+                  Dernière mise à jour : {format(new Date(lastUpdate.last_update), "d MMMM yyyy 'à' HH:mm", { locale: fr })}
+                </span>
+                <Badge variant="outline" className="bg-green-500/10">
+                  {lastUpdate.offers_count} offres
+                </Badge>
+              </div>
+            )}
           </div>
         </div>
       </div>
