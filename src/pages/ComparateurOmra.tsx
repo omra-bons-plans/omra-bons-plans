@@ -230,7 +230,7 @@ export default function ComparateurOmra() {
               <div className="flex items-center justify-center gap-2 text-primary">
                 <Package className="h-5 w-5 md:h-6 md:w-6" />
                 <p className="text-base md:text-xl font-medium">
-                  Comparez les meilleures offres Omra 2025 et Omra 2026 au départ de toute la France.
+                  Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
                 </p>
               </div>
               
