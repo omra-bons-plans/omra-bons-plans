@@ -298,7 +298,7 @@ export default function ComparateurOmra() {
       </div>
 
       {/* Main Content Section */}
-      <div className="bg-gradient-to-b from-muted/30 to-background py-6 sm:py-8 md:py-12">
+      <div className="bg-gradient-to-b from-muted/30 to-background pt-10 pb-6 sm:py-8 md:py-12">
         <div className="container mx-auto px-3 sm:px-4">
           <div className="text-center mb-6 sm:mb-8 md:mb-12 animate-fade-in">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight px-2">
