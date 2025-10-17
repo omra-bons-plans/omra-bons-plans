@@ -53,7 +53,7 @@ export function FilterForm({
       className={`rounded-2xl border border-border bg-card ${compact ? "p-3" : "p-4 lg:p-5"} shadow-sm`} 
       aria-label="Filtres de recherche Omra/Hajj"
     >
-      <div className={`grid gap-3 ${compact ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"}`}>
+      <div className={`grid gap-3 ${compact ? "grid-cols-1" : tripType === "hajj" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"}`}>
         {/* TOGGLE TYPE */}
         <div className="flex flex-col">
           <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -116,29 +116,31 @@ export function FilterForm({
           </div>
         </div>
 
-        {/* MONTH */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Période
-          </label>
-          <div className="relative">
-            <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
-              <Calendar size={18} />
-            </span>
-            <select
-              value={selectedMonth === 'all' ? '' : selectedMonth}
-              onChange={(e) => setSelectedMonth(e.target.value || 'all')}
-              className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="">Tous les mois</option>
-              {MONTHS.map((m) => (
-                <option key={m.value} value={m.value}>
-                  {m.label}
-                </option>
-              ))}
-            </select>
+        {/* MONTH - Hidden for Hajj */}
+        {tripType === "omra" && (
+          <div className="flex flex-col">
+            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Période
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                <Calendar size={18} />
+              </span>
+              <select
+                value={selectedMonth === 'all' ? '' : selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value || 'all')}
+                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="">Tous les mois</option>
+                {MONTHS.map((m) => (
+                  <option key={m.value} value={m.value}>
+                    {m.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CTA */}
         <div className="flex flex-col">
