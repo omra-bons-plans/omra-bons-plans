@@ -19,6 +19,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import heroImage from '@/assets/hero-comparateur-omra.jpg';
 import { Package } from 'lucide-react';
 import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
+import { FilterForm } from '@/components/ui/FilterForm';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -244,76 +245,15 @@ export default function ComparateurOmra() {
               </p>
             </div>
 
-            {/* Toggle Omra/Hajj */}
-            <div className="flex items-center justify-center gap-3">
-              <Button
-                variant={tripType === 'omra' ? 'default' : 'outline'}
-                onClick={() => setTripType('omra')}
-                className="flex-1 max-w-[200px] h-11 font-semibold shadow-md hover:shadow-lg transition-all"
-              >
-                Omra
-              </Button>
-              <Button
-                variant={tripType === 'hajj' ? 'default' : 'outline'}
-                onClick={() => setTripType('hajj')}
-                className="flex-1 max-w-[200px] h-11 font-semibold shadow-md hover:shadow-lg transition-all"
-              >
-                Hajj
-              </Button>
-            </div>
-            
-            <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-5">
-              <div className="space-y-2.5">
-                <label htmlFor="city-hero" className="text-xs sm:text-sm font-semibold text-foreground flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  Ville de départ
-                </label>
-                <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger id="city-hero" className="h-12 sm:h-13 bg-background text-sm border-2 hover:border-primary/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all rounded-xl shadow-sm">
-                    <SelectValue placeholder="Sélectionnez une ville" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background z-50 border-2 border-primary/20 rounded-xl">
-                    <SelectItem value="all">Toutes les villes</SelectItem>
-                    {CITIES.map((city) => (
-                      <SelectItem key={city} value={city} className="py-3 hover:bg-primary/5">
-                        {city}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2.5">
-                <label htmlFor="month-hero" className="text-xs sm:text-sm font-semibold text-foreground flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  Période
-                </label>
-                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                  <SelectTrigger id="month-hero" className="h-12 sm:h-13 bg-background text-sm border-2 hover:border-primary/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all rounded-xl shadow-sm">
-                    <SelectValue placeholder="Sélectionnez un mois" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background z-50 border-2 border-primary/20 rounded-xl">
-                    <SelectItem value="all">Tous les mois</SelectItem>
-                    {MONTHS.map((month) => (
-                      <SelectItem key={month} value={month} className="py-3 hover:bg-primary/5">
-                        {month}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex items-end pt-2 md:pt-0">
-                <Button 
-                  className="w-full h-12 sm:h-13 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-sm sm:text-base md:text-lg shadow-xl hover:shadow-2xl transition-all rounded-xl group"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    Rechercher
-                    <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  </span>
-                </Button>
-              </div>
-            </div>
+            {/* New Filter Form */}
+            <FilterForm
+              tripType={tripType}
+              setTripType={setTripType}
+              selectedCity={selectedCity}
+              setSelectedCity={setSelectedCity}
+              selectedMonth={selectedMonth}
+              setSelectedMonth={setSelectedMonth}
+            />
             
             {/* Last Update Info */}
             {lastUpdate && lastUpdate.last_update && (
