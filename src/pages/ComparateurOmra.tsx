@@ -214,7 +214,7 @@ export default function ComparateurOmra() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
         <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
             Comparateur Omra & Hajj 2025 - 2026
           </h1>
           <p className="text-base sm:text-lg md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-4">
