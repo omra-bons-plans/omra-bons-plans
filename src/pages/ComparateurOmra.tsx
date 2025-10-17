@@ -204,7 +204,7 @@ export default function ComparateurOmra() {
       />
 
       {/* Hero Section avec image de fond */}
-      <div className="relative h-[500px] md:h-[550px] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[400px] sm:h-[450px] md:h-[550px] flex items-center justify-center overflow-hidden">
         <img 
           src={heroImage} 
           alt="Kaaba à La Mecque" 
@@ -213,35 +213,35 @@ export default function ComparateurOmra() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight animate-fade-in">
+        <div className="relative z-10 container mx-auto px-3 sm:px-4 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 tracking-tight animate-fade-in leading-tight">
             Comparateur Omra & Hajj 2025 - 2026
           </h1>
-          <p className="text-lg md:text-2xl font-semibold text-white/95 mb-3 animate-fade-in">
+          <p className="text-base sm:text-lg md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-2">
             Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
           </p>
-          <p className="text-base md:text-xl text-white/90 mb-8 md:mb-12 animate-fade-in">
-            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
+          <p className="text-sm sm:text-base md:text-xl text-white/90 mb-6 sm:mb-8 md:mb-12 animate-fade-in px-2">
+            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d&apos;offres
           </p>
 
           {/* Search Card */}
           <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
-            <div className="p-6 md:p-8 space-y-6">
-              <div className="flex items-center justify-center gap-2 text-primary">
-                <Package className="h-5 w-5 md:h-6 md:w-6" />
-                <p className="text-base md:text-xl font-medium">
+            <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary">
+                <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
+                <p className="text-sm sm:text-base md:text-xl font-medium text-center">
                   Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="city-hero" className="text-sm font-medium text-muted-foreground">Ville de départ</label>
+                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-medium text-muted-foreground">Ville de départ</label>
                   <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger id="city-hero" className="h-12 bg-background">
+                    <SelectTrigger id="city-hero" className="h-11 sm:h-12 bg-background text-sm">
                       <SelectValue placeholder="Sélectionnez une ville" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-background">
                       <SelectItem value="all">Toutes les villes</SelectItem>
                       {CITIES.map((city) => (
                         <SelectItem key={city} value={city}>
@@ -253,12 +253,12 @@ export default function ComparateurOmra() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="month-hero" className="text-sm font-medium text-muted-foreground">Période</label>
+                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-medium text-muted-foreground">Période</label>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                    <SelectTrigger id="month-hero" className="h-12 bg-background">
+                    <SelectTrigger id="month-hero" className="h-11 sm:h-12 bg-background text-sm">
                       <SelectValue placeholder="Sélectionnez un mois" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-background">
                       <SelectItem value="all">Tous les mois</SelectItem>
                       {MONTHS.map((month) => (
                         <SelectItem key={month} value={month}>
@@ -271,7 +271,7 @@ export default function ComparateurOmra() {
 
                 <div className="flex items-end">
                   <Button 
-                    className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base md:text-lg"
+                    className="w-full h-11 sm:h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg"
                   >
                     Rechercher
                   </Button>
@@ -280,12 +280,14 @@ export default function ComparateurOmra() {
               
               {/* Last Update Info */}
               {lastUpdate && lastUpdate.last_update && (
-                <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-muted-foreground pt-2">
-                  <RefreshCw className="h-3 w-3 md:h-4 md:w-4" />
-                  <span>
-                    Dernière mise à jour : {format(new Date(lastUpdate.last_update), "d MMMM yyyy 'à' HH:mm", { locale: fr })}
-                  </span>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-700">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 text-xs text-muted-foreground pt-2">
+                  <div className="flex items-center gap-1.5">
+                    <RefreshCw className="h-3 w-3" />
+                    <span className="text-center">
+                      Mise à jour : {format(new Date(lastUpdate.last_update), "d MMM yyyy", { locale: fr })}
+                    </span>
+                  </div>
+                  <Badge variant="outline" className="bg-green-500/10 text-green-700 text-xs">
                     {lastUpdate.offers_count} offres
                   </Badge>
                 </div>
@@ -296,20 +298,20 @@ export default function ComparateurOmra() {
       </div>
 
       {/* Main Content Section */}
-      <div className="bg-gradient-to-b from-muted/30 to-background py-8 md:py-12">
-        <div className="container mx-auto px-3 md:px-4">
-          <div className="text-center mb-8 md:mb-12 animate-fade-in">
-            <h2 className="text-2xl md:text-4xl font-bold mb-3">
+      <div className="bg-gradient-to-b from-muted/30 to-background py-6 sm:py-8 md:py-12">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight px-2">
               Omra Bons Plans – votre comparateur de séjours Omra & Hajj au départ de tous les aéroports de France
             </h2>
-            <p className="text-muted-foreground text-sm md:text-base max-w-3xl mx-auto space-y-3">
-              <span className="block">
+            <div className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-3xl mx-auto space-y-2 sm:space-y-3 px-2">
+              <p className="leading-relaxed">
                 Bienvenue sur Omra Bons Plans, le comparateur pensé pour vous aider à trouver la meilleure offre Omra ou Hajj en quelques clics. Que vous prépariez votre voyage en 2025 ou 2026, que vous cherchiez une Omra pas chère ou un Hajj tout confort, notre plateforme compare pour vous les prix, services et prestations des agences agréées.
-              </span>
-              <span className="block">
+              </p>
+              <p className="leading-relaxed">
                 Depuis tous les aéroports de France (Paris, Lyon, Marseille, Toulouse, Nice, Nantes, Bordeaux, Lille… et plus encore), accédez instantanément à des séjours personnalisés selon vos critères : dates, budget, ville de départ, type de formule, hôtels à Makkah/Médine, vols et accompagnement francophone. Nous mettons la transparence au cœur de la recherche pour que vous choisissiez sereinement l&apos;offre qui vous ressemble.
-              </span>
-            </p>
+              </p>
+            </div>
           </div>
 
       <div className="space-y-4 md:space-y-8">
