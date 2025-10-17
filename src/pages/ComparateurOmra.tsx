@@ -18,6 +18,7 @@ import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import heroImage from '@/assets/hero-comparateur-omra.jpg';
 import { Package } from 'lucide-react';
+import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -81,11 +82,6 @@ export default function ComparateurOmra() {
   const [maxDistance, setMaxDistance] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
-  
-  // Newsletter states
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterLoading, setNewsletterLoading] = useState(false);
-  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -117,36 +113,6 @@ export default function ComparateurOmra() {
       }
       return prev;
     });
-  };
-  
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setNewsletterLoading(true);
-    setNewsletterSuccess(false);
-    
-    try {
-      const { error } = await supabase
-        .from('hajj_newsletter_subscriptions')
-        .insert([{ email: newsletterEmail }]);
-      
-      if (error) {
-        // Si l'email existe déjà, on considère ça comme un succès
-        if (error.code === '23505') {
-          setNewsletterSuccess(true);
-          setNewsletterEmail('');
-        } else {
-          throw error;
-        }
-      } else {
-        setNewsletterSuccess(true);
-        setNewsletterEmail('');
-      }
-    } catch (error) {
-      console.error('Erreur lors de l\'inscription:', error);
-      alert('Une erreur est survenue. Veuillez réessayer.');
-    } finally {
-      setNewsletterLoading(false);
-    }
   };
 
   useEffect(() => {
@@ -572,51 +538,7 @@ export default function ComparateurOmra() {
               </Badge>
               
               {/* Newsletter Subscription Form */}
-              <div className="mt-8 p-6 bg-background/50 rounded-xl border border-primary/20">
-                <div className="flex items-center gap-2 justify-center mb-4">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <h4 className="text-lg font-semibold text-foreground">
-                    Soyez averti en premier !
-                  </h4>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Inscrivez-vous pour recevoir une notification dès que les offres Hajj 2026 seront disponibles
-                </p>
-                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
-                  <Input
-                    type="email"
-                    placeholder="Votre adresse email"
-                    value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
-                    required
-                    className="flex-1"
-                    disabled={newsletterLoading}
-                  />
-                  <Button 
-                    type="submit" 
-                    disabled={newsletterLoading}
-                    className="whitespace-nowrap"
-                  >
-                    {newsletterLoading ? (
-                      <>
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                        Inscription...
-                      </>
-                    ) : (
-                      <>
-                        <Mail className="h-4 w-4 mr-2" />
-                        M'inscrire
-                      </>
-                    )}
-                  </Button>
-                </form>
-                {newsletterSuccess && (
-                  <p className="text-sm text-green-600 dark:text-green-400 mt-3 flex items-center gap-2 justify-center">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Inscription réussie ! Vous serez notifié dès que les offres seront disponibles.
-                  </p>
-                )}
-              </div>
+              <HajjNewsletterForm />
             </div>
           </Card>
         ) : error ? (
