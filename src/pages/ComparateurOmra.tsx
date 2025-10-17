@@ -225,7 +225,7 @@ export default function ComparateurOmra() {
           </p>
 
           {/* Search Card */}
-          <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
+          <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in mb-16">
             <div className="p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary bg-primary/5 p-3 rounded-lg">
                 <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
