@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle, Lock } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle, Lock, PlaneTakeoff } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -490,6 +490,18 @@ const Admin = () => {
             <Activity className="w-4 h-4 mr-2" />
             Scrapers Omra
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/omra-offers from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/omra-offers');
+            }}
+            className="justify-start"
+          >
+            <PlaneTakeoff className="w-4 h-4 mr-2" />
+            Ajouter offre Omra
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -639,6 +651,17 @@ const Admin = () => {
                     className="text-sm"
                   >
                     Scrapers Omra
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/omra-offers');
+                      navigate('/admin/omra-offers');
+                    }}
+                    className="text-sm bg-gradient-to-r from-primary/10 to-accent/10"
+                  >
+                    <PlaneTakeoff className="w-4 h-4 mr-2" />
+                    Ajouter offre Omra
                   </Button>
                   <Button
                     variant="outline"
