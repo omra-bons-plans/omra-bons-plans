@@ -246,11 +246,8 @@ export default function ComparateurOmra() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none" />
           
           <div className="relative p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-primary bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-4 rounded-2xl border border-primary/20 shadow-sm">
-              <div className="p-2 rounded-full bg-primary/10">
-                <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0 text-primary" />
-              </div>
-              <p className="text-sm sm:text-base md:text-lg font-semibold text-center leading-snug bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <div className="flex items-center justify-center text-primary bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20 shadow-sm">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center leading-snug bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 et 2026
               </p>
             </div>
