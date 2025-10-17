@@ -10,8 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, ChevronDown } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
@@ -81,14 +80,6 @@ export default function ComparateurOmra() {
   const [maxDistance, setMaxDistance] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -212,47 +203,48 @@ export default function ComparateurOmra() {
         ]}
       />
 
-      {/* Hero Section avec image de fond et overlay 70% pour contraste AAA */}
-      <div className="relative h-[500px] sm:h-[450px] md:h-[550px] flex items-center justify-center overflow-hidden">
+      {/* Hero Section avec image de fond */}
+      <div className="relative h-[500px] sm:h-[550px] md:h-[550px] flex items-center justify-center overflow-hidden">
         <img 
           src={heroImage} 
           alt="Kaaba à La Mecque" 
           className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight max-w-5xl mx-auto">
+        <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
             Comparateur Omra & Hajj 2025 - 2026
           </h1>
-          <p className="text-sm sm:text-base md:text-xl text-white mb-8 sm:mb-10 md:mb-12 animate-fade-in px-2 max-w-3xl mx-auto leading-relaxed">
-            Filtrez par ville, période, budget et type de formule. Réservez auprès des agences agréées.
+          <p className="text-base sm:text-lg md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-4">
+            Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
+          </p>
+          <p className="text-sm sm:text-base md:text-xl text-white/90 mb-8 sm:mb-10 md:mb-12 animate-fade-in px-4 leading-relaxed">
+            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d&apos;offres
           </p>
 
-          {/* Search Card - Design épuré mobile */}
-          <Card className="max-w-5xl mx-auto bg-background shadow-lg animate-scale-in border-border">
-            <div className="p-4 sm:p-6 md:p-8 space-y-5">
-              <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900 flex items-center justify-center gap-2">
-                <Package className="h-4 w-4 text-amber-700 dark:text-amber-500 flex-shrink-0" />
-                <p className="text-sm font-medium text-amber-700 dark:text-amber-500 text-center leading-snug">
+          {/* Search Card */}
+          <Card className="max-w-5xl mx-auto bg-background shadow-2xl animate-scale-in">
+            <div className="p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900">
+                <Package className="h-6 w-6 text-amber-600 dark:text-amber-500 flex-shrink-0" />
+                <p className="text-sm sm:text-base md:text-lg font-semibold text-amber-700 dark:text-amber-500 text-center leading-snug">
                   Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">
-                    Ville de départ
-                  </label>
+              <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-4">
+                <div className="space-y-2.5">
+                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">Ville de départ</label>
                   <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger id="city-hero" className="h-14 border-2 border-border hover:border-primary/50 transition-colors text-base">
+                    <SelectTrigger id="city-hero" className="h-14 sm:h-14 bg-background text-base font-medium border-2 border-border hover:border-primary/50 transition-all shadow-sm">
                       <SelectValue placeholder="Toutes les villes" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
-                      <SelectItem value="all" className="py-3.5">Toutes les villes</SelectItem>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="all" className="py-3.5 text-base">Toutes les villes</SelectItem>
                       {CITIES.map((city) => (
-                        <SelectItem key={city} value={city} className="py-3.5">
+                        <SelectItem key={city} value={city} className="py-3.5 text-base">
                           {city}
                         </SelectItem>
                       ))}
@@ -260,18 +252,16 @@ export default function ComparateurOmra() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">
-                    Période
-                  </label>
+                <div className="space-y-2.5">
+                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">Période</label>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                    <SelectTrigger id="month-hero" className="h-14 border-2 border-border hover:border-primary/50 transition-colors text-base">
+                    <SelectTrigger id="month-hero" className="h-14 sm:h-14 bg-background text-base font-medium border-2 border-border hover:border-primary/50 transition-all shadow-sm">
                       <SelectValue placeholder="Tous les mois" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
-                      <SelectItem value="all" className="py-3.5">Tous les mois</SelectItem>
+                    <SelectContent className="bg-background z-50">
+                      <SelectItem value="all" className="py-3.5 text-base">Tous les mois</SelectItem>
                       {MONTHS.map((month) => (
-                        <SelectItem key={month} value={month} className="py-3.5">
+                        <SelectItem key={month} value={month} className="py-3.5 text-base">
                           {month}
                         </SelectItem>
                       ))}
@@ -279,9 +269,9 @@ export default function ComparateurOmra() {
                   </Select>
                 </div>
 
-                <div className="flex items-end">
+                <div className="flex items-end pt-2 md:pt-0">
                   <Button 
-                    className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base sm:text-lg md:text-lg rounded-xl"
+                    className="w-full h-14 sm:h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base sm:text-lg md:text-lg shadow-lg hover:shadow-xl transition-all"
                   >
                     Rechercher
                   </Button>
@@ -290,14 +280,14 @@ export default function ComparateurOmra() {
               
               {/* Last Update Info */}
               {lastUpdate && lastUpdate.last_update && (
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs pt-4 border-t border-border">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-4 border-t">
                   <div className="flex items-center gap-1.5">
-                    <RefreshCw className="h-3.5 w-3.5 text-muted-foreground" />
-                    <span className="font-medium text-muted-foreground">
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    <span className="text-center font-medium">
                       Mise à jour : {format(new Date(lastUpdate.last_update), "d MMM yyyy", { locale: fr })}
                     </span>
                   </div>
-                  <Badge className="bg-green-500/10 text-green-700 dark:text-green-500 text-xs font-semibold border-green-200 dark:border-green-900">
+                  <Badge variant="outline" className="bg-green-500/10 text-green-700 text-xs font-semibold">
                     {lastUpdate.offers_count} offres
                   </Badge>
                 </div>
@@ -546,101 +536,211 @@ export default function ComparateurOmra() {
               
               return (
                 <Card 
-                   key={offer.id} 
-                  className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-border bg-background animate-fade-in rounded-2xl"
+                  key={offer.id} 
+                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in"
                 >
-                   {/* Header avec logo agence - Design mobile épuré */}
-                  <div className="px-4 pt-4 pb-3 border-b border-border">
-                    <div className="flex flex-col items-center gap-2">
+                   {/* Header avec logo agence */}
+                  <div className="px-3 md:px-6 pt-3 md:pt-6 pb-3 md:pb-4 border-b border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-background relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
-                        <div className="w-16 h-16 rounded-lg bg-background border border-border overflow-hidden flex items-center justify-center p-2">
+                        <div className="flex-shrink-0 w-full h-48 md:h-56 rounded-lg md:rounded-xl bg-background border border-primary/20 overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center p-4">
                           <img 
                             src={agencyLogo} 
                             alt={offer.agency_name}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
                           />
                         </div>
                       )}
-                      <h3 className="text-base font-semibold text-center">
-                        {offer.agency_name}
-                      </h3>
+                      <div className="flex flex-col items-center gap-1 md:gap-2">
+                        <h3 className="text-lg md:text-2xl font-bold text-center group-hover:text-primary transition-all duration-300">
+                          {offer.agency_name}
+                        </h3>
+                        {agencyInfo && (
+                          <div className="flex items-center gap-1.5 md:gap-2">
+                            <div className="flex items-center gap-0.5 md:gap-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`h-3 w-3 md:h-4 md:w-4 ${
+                                    i < Math.floor(agencyInfo.googleRating)
+                                      ? 'fill-yellow-400 text-yellow-400'
+                                      : i < agencyInfo.googleRating
+                                      ? 'fill-yellow-400 text-yellow-400 opacity-50'
+                                      : 'fill-gray-300 text-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <span className="text-xs md:text-sm font-semibold text-muted-foreground">
+                              {agencyInfo.googleRating.toFixed(1)}
+                            </span>
+                            <span className="text-[10px] md:text-xs text-muted-foreground">
+                              ({agencyInfo.reviewCount.toLocaleString('fr-FR')} avis)
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Titre de l'offre */}
-                  <div className="px-4 pt-3 pb-2">
-                    <p className="text-base font-bold leading-snug line-clamp-2 text-foreground">
-                      {offer.date_start && offer.date_end 
-                        ? `Omra ${new Date(offer.date_start).toLocaleDateString('fr-FR', { month: 'long' })} - ${offer.duration_nights} nuits`
-                        : `Omra ${offer.month_departure} - ${offer.duration_nights} nuits`
-                      }
-                    </p>
-                  </div>
-
-                  {/* Prix en évidence - Mobile first */}
-                  <div className="px-4 py-3 bg-amber-50 dark:bg-amber-950/20">
-                    <div className="flex flex-col items-center gap-0.5">
-                      <span className="text-[22px] font-bold text-primary">
-                        {offer.price_eur}€
-                      </span>
-                      <span className="text-xs text-muted-foreground font-medium">/pers</span>
+                  {/* Prix en évidence */}
+                  <div className="px-3 md:px-6 py-3 md:py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-2 relative text-center md:text-left">
+                      <div className="flex flex-col md:flex-row items-center md:items-baseline gap-1 md:gap-2">
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium">à partir de</span>
+                        <span className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                          {offer.price_eur}€
+                        </span>
+                      </div>
+                      <span className="text-xs md:text-sm text-muted-foreground font-medium">/ personne</span>
                     </div>
                   </div>
 
-                  {/* Détails en phrases - Mobile friendly */}
-                  <div className="px-4 py-3 space-y-2.5 text-sm leading-relaxed">
-                    <p className="text-foreground">
-                      <span className="font-semibold">Départ {offer.departure_city}</span>
-                      {offer.date_start && offer.date_end && (
-                        <>, {new Date(offer.date_start).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}, {offer.duration_nights} nuits</>
-                      )}
-                    </p>
-                    
-                    {(offer.makkah_nights || offer.medina_nights) && (
-                      <p className="text-foreground">
-                        <span className="font-semibold">{offer.makkah_nights}N Makkah / {offer.medina_nights}N Médine</span> — hôtels si dispo
-                      </p>
-                    )}
-                    
-                    {offer.airline && (
-                      <p className="text-foreground">
-                        <span className="font-semibold">Compagnie :</span> {offer.airline}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Badges */}
-                  <div className="px-4 pb-3">
-                    <div className="flex flex-wrap gap-2">
+                  {/* Corps de la carte */}
+                  <div className="p-3 md:p-6 space-y-3 md:space-y-4">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      <Badge 
+                        className={`font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base capitalize shadow-md ${
+                          offer.formula_type?.toLowerCase() === 'essentiel' 
+                            ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 hover:from-amber-600 hover:to-orange-600' 
+                            : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-purple-600 hover:from-purple-600 hover:to-indigo-700'
+                        }`}
+                      >
+                        ✨ {offer.formula_type}
+                      </Badge>
                       {offer.flights_included && (
-                        <Badge className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900 text-xs font-medium px-2 py-0.5">
+                        <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          <Plane className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
                           Vol inclus
                         </Badge>
                       )}
                       {offer.visa_included && (
-                        <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200 dark:border-blue-900 text-xs font-medium px-2 py-0.5">
+                        <Badge variant="outline" className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
                           Visa inclus
                         </Badge>
                       )}
-                      <Badge className={`text-xs font-medium px-2 py-0.5 capitalize ${
-                        offer.formula_type?.toLowerCase() === 'essentiel' 
-                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200 dark:border-amber-900' 
-                          : 'bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400 border-purple-200 dark:border-purple-900'
-                      }`}>
-                        {offer.formula_type}
-                      </Badge>
+                    </div>
+
+                    <div className="space-y-2 md:space-y-3">
+                      {offer.date_start && offer.date_end ? (
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-3 md:p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-1.5 md:gap-2 mb-1 md:mb-2">
+                            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <h4 className="text-sm md:text-xl font-bold text-foreground">
+                              Omra {new Date(offer.date_start).toLocaleDateString('fr-FR', { month: 'long' })}
+                            </h4>
+                          </div>
+                          <div className="text-xs md:text-base font-semibold text-foreground">
+                            Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
+                          </div>
+                          {offer.duration_nights && (
+                            <div className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1">{offer.duration_nights} nuits</div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-3 md:p-4 rounded-lg border border-primary/20">
+                          <div className="flex items-center gap-1.5 md:gap-2">
+                            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <h4 className="text-sm md:text-xl font-bold text-foreground">
+                              Omra {offer.month_departure}
+                            </h4>
+                          </div>
+                          {offer.duration_nights && (
+                            <div className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1">{offer.duration_nights} nuits</div>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className="grid grid-cols-1 gap-2 md:gap-3 bg-muted/50 p-3 md:p-4 rounded-lg">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Départ</div>
+                            <div className="text-sm md:text-base font-semibold text-foreground">{offer.departure_city}</div>
+                          </div>
+                        </div>
+                        
+                        {offer.airline && (
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <Plane className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <div>
+                              <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Compagnie</div>
+                              <div className="text-sm md:text-base font-semibold text-foreground">{offer.airline}</div>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {(offer.makkah_nights || offer.medina_nights) && (
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <Clock className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                            <div>
+                              <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide">Répartition</div>
+                              <div className="text-sm md:text-base font-semibold text-foreground">
+                                {offer.makkah_nights} nuits La Mecque / {offer.medina_nights} nuits Médine
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {(offer.hotel_makkah || offer.hotel_medinah || offer.distance_to_haram_m) && (
+                        <div className="space-y-2 md:space-y-3">
+                          {offer.hotel_makkah && (
+                            <div className="bg-muted/50 p-3 md:p-4 rounded-lg">
+                              <div className="flex items-start gap-2 md:gap-3">
+                                <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel La Mecque</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_makkah}</div>
+                                  <div className="flex items-center gap-0.5 md:gap-1">
+                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
+                                    ))}
+                                  </div>
+                                  {offer.distance_to_haram_m && (
+                                    <div className="flex items-center gap-1 md:gap-2 mt-1 md:mt-2 text-xs md:text-sm text-muted-foreground">
+                                      <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                                      <span>{offer.distance_to_haram_m}m du Haram</span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {offer.hotel_medinah && (
+                            <div className="bg-muted/50 p-3 md:p-4 rounded-lg">
+                              <div className="flex items-start gap-2 md:gap-3">
+                                <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel Médine</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_medinah}</div>
+                                  <div className="flex items-center gap-0.5 md:gap-1">
+                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* CTA Button - Pleine largeur mobile */}
-                  <div className="px-4 pb-4">
+                  {/* Footer avec bouton */}
+                  <div className="px-3 md:px-6 pb-3 md:pb-6 pt-1 md:pt-2">
                     <Button 
                       asChild 
-                      className="w-full h-12 sm:h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base rounded-xl"
+                      className="w-full h-9 md:h-10 group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300 text-sm md:text-base"
                     >
-                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer nofollow sponsored" className="flex items-center justify-center gap-2">
-                        <span>Voir l'offre</span>
-                        <ExternalLink className="h-4 w-4" />
+                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
+                        <span className="font-semibold">Voir l'offre</span>
+                        <ExternalLink className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
                       </a>
                     </Button>
                   </div>
@@ -649,13 +749,19 @@ export default function ComparateurOmra() {
             })}
           </div>
         ) : (
-          <Card className="p-12 text-center border-border bg-background">
+          <Card className="p-16 text-center bg-card/50 backdrop-blur-sm border-primary/10">
             <div className="max-w-md mx-auto space-y-4">
-              <p className="text-muted-foreground text-base">
-                Aucune offre ne correspond à vos critères. Essayez d'élargir la période ou le budget.
+              <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                <Filter className="h-8 w-8 text-primary" />
+              </div>
+              <p className="text-muted-foreground text-lg">
+                Aucune offre ne correspond à vos critères
               </p>
-              <Button variant="outline" onClick={resetFilters} className="mt-4 h-12">
-                Réinitialiser
+              <p className="text-sm text-muted-foreground">
+                Essayez de modifier vos filtres pour voir plus de résultats
+              </p>
+              <Button variant="outline" onClick={resetFilters} className="mt-4">
+                Réinitialiser les filtres
               </Button>
             </div>
           </Card>
