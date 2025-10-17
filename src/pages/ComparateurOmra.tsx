@@ -33,6 +33,8 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Sabil': '/lovable-uploads/logosabilvoyages.png',
   'Sabil Voyages': '/lovable-uploads/logosabilvoyages.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
+  'Al Sirate Voyage': '/lovable-uploads/logoalsiratevoyage.png',
+  'Alsirate Voyage': '/lovable-uploads/logoalsiratevoyage.png',
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {
