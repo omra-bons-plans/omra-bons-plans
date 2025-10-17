@@ -237,7 +237,7 @@ export default function ComparateurOmra() {
               <span>Meilleurs prix garantis</span>
             </div>
             <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent leading-tight px-2">
-              Comparateur Omra 2025 - 2026
+              Comparateur Omra & Hajj 2025 - 2026
             </h1>
             <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
               Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
