@@ -71,6 +71,7 @@ const getAgencyLogo = (agencyName: string): string | null => {
 };
 
 export default function ComparateurOmra() {
+  const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
@@ -235,6 +236,24 @@ export default function ComparateurOmra() {
               <p className="text-sm sm:text-base md:text-xl font-medium text-center leading-snug">
                 Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
               </p>
+            </div>
+
+            {/* Toggle Omra/Hajj */}
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                variant={tripType === 'omra' ? 'default' : 'outline'}
+                onClick={() => setTripType('omra')}
+                className="flex-1 max-w-[200px]"
+              >
+                Omra
+              </Button>
+              <Button
+                variant={tripType === 'hajj' ? 'default' : 'outline'}
+                onClick={() => setTripType('hajj')}
+                className="flex-1 max-w-[200px]"
+              >
+                Hajj
+              </Button>
             </div>
             
             <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-4">
@@ -501,7 +520,24 @@ export default function ComparateurOmra() {
           </Select>
         </div>
 
-        {error ? (
+        {tripType === 'hajj' ? (
+          <Card className="p-8 md:p-12 text-center bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/20">
+            <div className="max-w-2xl mx-auto space-y-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/10 mb-4">
+                <Calendar className="h-8 w-8 md:h-10 md:w-10 text-primary" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+                Offres Hajj 2026
+              </h3>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                Les offres pour le Hajj ne sont pas encore disponibles. Nous vous invitons à revenir début janvier 2026 pour découvrir et comparer toutes les offres Hajj des agences agréées.
+              </p>
+              <Badge variant="outline" className="mt-4 text-sm px-4 py-2">
+                Disponible à partir de janvier 2026
+              </Badge>
+            </div>
+          </Card>
+        ) : error ? (
           <Card className="p-12 text-center border-destructive">
             <p className="text-destructive text-lg font-semibold mb-2">
               Erreur: {error}
