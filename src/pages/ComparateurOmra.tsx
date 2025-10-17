@@ -239,6 +239,9 @@ export default function ComparateurOmra() {
             <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent leading-tight px-2">
               Comparateur Omra & Hajj 2025 - 2026
             </h1>
+            <p className="text-base md:text-xl lg:text-2xl font-semibold text-foreground/90 max-w-3xl mx-auto px-4">
+              Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
+            </p>
             <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
               Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
             </p>
