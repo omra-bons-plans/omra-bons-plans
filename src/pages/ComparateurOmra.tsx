@@ -115,33 +115,6 @@ export default function ComparateurOmra() {
       try {
         setIsLoading(true);
         
-        // Exemple fake pour l'agence Tawaf
-        const fakeOffer = {
-          id: 'fake-tawaf-example',
-          agency_name: 'Tawaf',
-          agency_url: 'https://tawaf.fr',
-          price_eur: 2450,
-          month_departure: 'Janvier',
-          date_start: '2025-01-15',
-          date_end: '2025-01-27',
-          departure_city: 'Paris',
-          formula_type: 'confort',
-          duration_nights: 12,
-          makkah_nights: 7,
-          medina_nights: 5,
-          hotel_makkah: 'Hilton Suites Makkah',
-          hotel_medinah: 'Al Aqeeq Hotel',
-          distance_to_haram_m: 150,
-          offer_url: 'https://tawaf.fr/offre-exemple',
-          board: 'Pension Complète',
-          flights_included: true,
-          visa_included: true,
-          airline: 'Turkish Airlines',
-          offer_title: 'Omra Confort Janvier 2025',
-          status: 'active',
-          scraped_at: new Date().toISOString()
-        };
-        
         let query = supabase
           .from('omra_offers')
           .select('*')
@@ -160,8 +133,7 @@ export default function ComparateurOmra() {
         if (fetchError) {
           setError(fetchError.message);
         } else {
-          // Ajouter l'exemple fake au début
-          const allData = [fakeOffer, ...(data || [])];
+          const allData = data || [];
           setAllOffers(allData);
           
           // Extraire les agences uniques
