@@ -16,6 +16,8 @@ import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import heroImage from '@/assets/hero-comparateur-omra.jpg';
+import { Package } from 'lucide-react';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -186,7 +188,7 @@ export default function ComparateurOmra() {
 
   return (
     <ResponsiveLayout>
-      <div className="min-h-screen bg-gradient-to-b from-background via-background to-primary/5">
+      <div className="min-h-screen bg-background">
       <DynamicSEO
         title="Comparateur Séjours Omra 2025 et 2026"
         description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
@@ -201,90 +203,135 @@ export default function ComparateurOmra() {
         ]}
       />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-        <div className="container mx-auto px-4 pt-8 md:pt-12 pb-6 md:pb-8 relative">
-          <div className="text-center space-y-4 md:space-y-6 max-w-4xl mx-auto animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 rounded-full text-xs md:text-sm font-medium text-primary mb-2 md:mb-4">
-              <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
-              <span>Meilleurs prix garantis</span>
-            </div>
-            <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent leading-tight px-2">
-              Comparateur Omra & Hajj 2025 - 2026
-            </h1>
-            <p className="text-base md:text-xl lg:text-2xl font-semibold text-foreground/90 max-w-3xl mx-auto px-4">
-              Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
-            </p>
-            <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
-              Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
-            </p>
-            
-            {/* Last Update Info */}
-            {lastUpdate && lastUpdate.last_update && (
-              <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-muted-foreground">
-                <RefreshCw className="h-3 w-3 md:h-4 md:w-4" />
-                <span>
-                  Dernière mise à jour : {format(new Date(lastUpdate.last_update), "d MMMM yyyy 'à' HH:mm", { locale: fr })}
-                </span>
-                <Badge variant="outline" className="bg-green-500/10">
-                  {lastUpdate.offers_count} offres
-                </Badge>
+      {/* Hero Section avec image de fond */}
+      <div className="relative h-[500px] md:h-[550px] flex items-center justify-center overflow-hidden">
+        <img 
+          src={heroImage} 
+          alt="Kaaba à La Mecque" 
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight animate-fade-in">
+            VOUS AVEZ UN PROJET DE OMRA EN 2025 OU 2026 ?
+          </h1>
+          <p className="text-base md:text-xl text-white/90 mb-8 md:mb-12 animate-fade-in">
+            Comparez, choisissez et réservez votre forfait pour la Omra en toute sérénité !
+          </p>
+
+          {/* Search Card */}
+          <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
+            <div className="p-6 md:p-8 space-y-6">
+              <div className="flex items-center justify-center gap-2 text-primary">
+                <Package className="h-5 w-5 md:h-6 md:w-6" />
+                <p className="text-base md:text-xl font-medium">
+                  Trouvez et comparez les meilleures offres pour votre Omra 2025 ou Omra 2026
+                </p>
               </div>
-            )}
-          </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="city-hero" className="text-sm font-medium text-muted-foreground">Ville de départ</label>
+                  <Select value={selectedCity} onValueChange={setSelectedCity}>
+                    <SelectTrigger id="city-hero" className="h-12 bg-background">
+                      <SelectValue placeholder="Sélectionnez une ville" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Toutes les villes</SelectItem>
+                      {CITIES.map((city) => (
+                        <SelectItem key={city} value={city}>
+                          {city}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="month-hero" className="text-sm font-medium text-muted-foreground">Période</label>
+                  <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                    <SelectTrigger id="month-hero" className="h-12 bg-background">
+                      <SelectValue placeholder="Sélectionnez un mois" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Tous les mois</SelectItem>
+                      {MONTHS.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="flex items-end">
+                  <Button 
+                    className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base md:text-lg"
+                  >
+                    Rechercher
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Last Update Info */}
+              {lastUpdate && lastUpdate.last_update && (
+                <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-muted-foreground pt-2">
+                  <RefreshCw className="h-3 w-3 md:h-4 md:w-4" />
+                  <span>
+                    Dernière mise à jour : {format(new Date(lastUpdate.last_update), "d MMMM yyyy 'à' HH:mm", { locale: fr })}
+                  </span>
+                  <Badge variant="outline" className="bg-green-500/10 text-green-700">
+                    {lastUpdate.offers_count} offres
+                  </Badge>
+                </div>
+              )}
+            </div>
+          </Card>
         </div>
       </div>
 
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 space-y-4 md:space-y-8">
+      {/* Main Content Section */}
+      <div className="bg-gradient-to-b from-muted/30 to-background py-8 md:py-12">
+        <div className="container mx-auto px-3 md:px-4">
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-2xl md:text-4xl font-bold mb-3">
+              VOTRE COMPARATEUR AGENCES ET OFFRES OMRA 2025
+            </h2>
+            <p className="text-muted-foreground text-sm md:text-base max-w-3xl mx-auto">
+              Bienvenue sur Omra Compare, votre comparateur de référence pour trouver les meilleures offres de séjours Omra
+            </p>
+          </div>
 
-        {/* Filtres principaux */}
-        <Card className="p-3 md:p-6 bg-card/80 backdrop-blur-sm border-primary/10 shadow-lg animate-scale-in">
+      <div className="space-y-4 md:space-y-8">
+
+        {/* Filtres avancés */}
+        <Card className="p-3 md:p-6 bg-card shadow-lg">
           <div className="flex flex-col gap-3 md:gap-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base md:text-lg font-semibold flex items-center gap-2">
+                <Filter className="h-4 w-4 md:h-5 md:w-5 text-primary" />
+                Affiner votre recherche
+              </h3>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="text-xs md:text-sm"
+              >
+                {showFilters ? 'Masquer' : 'Afficher les filtres'}
+              </Button>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-              <div className="space-y-1.5 md:space-y-2">
-                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                  <Calendar className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                  Mois de départ
-                </label>
-                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
-                    <SelectValue placeholder="Tous les mois" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tous les mois</SelectItem>
-                    {MONTHS.map(month => (
-                      <SelectItem key={month} value={month}>{month}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-1.5 md:space-y-2">
-                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                  <MapPin className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                  Ville de départ
-                </label>
-                <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
-                    <SelectValue placeholder="Toutes les villes" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Toutes les villes</SelectItem>
-                    {CITIES.map(city => (
-                      <SelectItem key={city} value={city}>{city}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
               <div className="space-y-1.5 md:space-y-2">
                 <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
                   <Hotel className="h-3 w-3 md:h-4 md:w-4 text-primary" />
                   Formule
                 </label>
                 <Select value={selectedFormula} onValueChange={setSelectedFormula}>
-                  <SelectTrigger className="bg-background/50 h-9 md:h-10 text-sm">
+                  <SelectTrigger className="h-9 md:h-10 text-sm">
                     <SelectValue placeholder="Toutes les formules" />
                   </SelectTrigger>
                   <SelectContent>
@@ -296,15 +343,6 @@ export default function ComparateurOmra() {
                 </Select>
               </div>
             </div>
-
-            <Button 
-              variant="outline" 
-              onClick={() => setShowFilters(!showFilters)}
-              className="w-full md:w-auto hover-scale h-9 text-sm"
-            >
-              <Filter className="h-3.5 w-3.5 mr-1.5" />
-              {showFilters ? 'Masquer' : 'Plus de filtres'}
-            </Button>
           </div>
 
           {showFilters && (
@@ -926,10 +964,12 @@ export default function ComparateurOmra() {
               <p>
                 Notre comparateur référence des départs depuis les principales villes françaises : Paris (aéroports Charles de Gaulle et Orly), Lyon, Marseille, Toulouse, Nice, Nantes, Strasbourg, Bordeaux et Lille. Les vols directs sont généralement disponibles depuis Paris avec des compagnies comme Saudi Arabian Airlines, tandis que les autres villes proposent souvent des vols avec escale via Istanbul, Dubaï ou Doha.
               </p>
-            </div>
-          </div>
-        </Card>
+             </div>
+           </div>
+         </Card>
+       </div>
       </div>
+     </div>
     </div>
     </ResponsiveLayout>
   );
