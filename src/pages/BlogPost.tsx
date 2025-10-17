@@ -233,7 +233,7 @@ const BlogPost = () => {
   return (
     <ResponsiveLayout>
       <DynamicSEO
-        title={post.title}
+        title={`${post.title} | Blog Omra Hajj - Omra Bons Plans`}
         description={post.excerpt || post.content.substring(0, 160)}
         keywords={post.tags}
         type="article"

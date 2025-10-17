@@ -372,7 +372,7 @@ export default function AdDetails() {
   return (
     <ResponsiveLayout>
       <DynamicSEO
-        title={ad.title}
+        title={`${ad.title} | Annonce Omra Hajj - Omra Bons Plans`}
         description={ad.description.substring(0, 160)}
         keywords={[ad.category, 'omra', 'hajj', ad.location]}
         type="product"

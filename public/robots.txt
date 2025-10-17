@@ -22,6 +22,10 @@ Allow: /a-propos
 Allow: /contact
 Allow: /blog
 Allow: /blog/*
+Allow: /blog/restaurants
+Allow: /blog/associations  
+Allow: /blog/vendeurs
+Allow: /blog/general
 Allow: /services/*
 Allow: /horaires-prieres
 Allow: /calendrier-islamique

@@ -149,7 +149,7 @@ const CategoryPage = () => {
   return (
     <ResponsiveLayout>
       <SEOHead 
-        title={`${categoryInfo.name} Omra & Hajj - ${sortedListings.length} Annonces 2026`}
+        title={`${categoryInfo.name} pour Omra & Hajj 2026 - ${sortedListings.length} Offres | Omra Bons Plans`}
         description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2026. ${categoryInfo.description} au meilleur prix.`}
         keywords={`${categoryInfo.name.toLowerCase()} omra, hajj ${categoryInfo.name.toLowerCase()}, ${category} omra 2026`}
         canonical={`https://omrabonsplans.fr/category/${category}`}
