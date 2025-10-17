@@ -215,10 +215,13 @@ export default function ComparateurOmra() {
         
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight animate-fade-in">
-            VOUS AVEZ UN PROJET DE OMRA EN 2025 OU 2026 ?
+            Comparateur Omra & Hajj 2025 - 2026
           </h1>
+          <p className="text-lg md:text-2xl font-semibold text-white/95 mb-3 animate-fade-in">
+            Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
+          </p>
           <p className="text-base md:text-xl text-white/90 mb-8 md:mb-12 animate-fade-in">
-            Comparez, choisissez et réservez votre forfait pour la Omra en toute sérénité !
+            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres
           </p>
 
           {/* Search Card */}
@@ -297,10 +300,10 @@ export default function ComparateurOmra() {
         <div className="container mx-auto px-3 md:px-4">
           <div className="text-center mb-8 md:mb-12 animate-fade-in">
             <h2 className="text-2xl md:text-4xl font-bold mb-3">
-              VOTRE COMPARATEUR AGENCES ET OFFRES OMRA 2025
+              Comparateur Omra 2025 - Trouvez les Meilleures Offres
             </h2>
             <p className="text-muted-foreground text-sm md:text-base max-w-3xl mx-auto">
-              Bienvenue sur Omra Compare, votre comparateur de référence pour trouver les meilleures offres de séjours Omra
+              Comparez les prix et les services des meilleures agences de voyage pour votre pèlerinage
             </p>
           </div>
 
