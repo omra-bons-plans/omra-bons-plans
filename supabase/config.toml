@@ -83,6 +83,9 @@ verify_jwt = false
 [functions.detect-scraping]
 verify_jwt = false
 
+[functions.check-scraping]
+verify_jwt = false
+
 [edge_runtime]
 enabled = true
 port = 54328
