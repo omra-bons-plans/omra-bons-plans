@@ -234,7 +234,7 @@ export default function ComparateurOmra() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary bg-primary/5 p-3 rounded-lg">
               <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
               <p className="text-sm sm:text-base md:text-xl font-medium text-center leading-snug">
-                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
+                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 et 2026
               </p>
             </div>
 
