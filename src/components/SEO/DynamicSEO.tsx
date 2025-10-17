@@ -30,9 +30,8 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   // Ensure path starts with /
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   
-  const canonicalUrl = normalizedPath.includes('/blog/') 
-    ? generateCleanCanonicalUrl('general', normalizedPath.split('/').pop() || 'default')
-    : `https://omrabonsplans.fr${normalizedPath}`;
+  // Generate canonical URL - use the path as-is, already contains full category/slug structure
+  const canonicalUrl = `https://omrabonsplans.fr${normalizedPath}`;
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
   

@@ -13,6 +13,7 @@ import PasswordStrengthIndicator from '@/components/ui/PasswordStrengthIndicator
 import { Mail, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -271,13 +272,20 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2 mb-8">
-          <h1 className="text-2xl font-bold text-foreground">OmraBonsPlans.fr</h1>
-          <p className="text-muted-foreground">Votre plateforme dédiée à la Omra</p>
-        </div>
+    <>
+      <DynamicSEO
+        title="Connexion & Inscription | Omra Bons Plans"
+        description="Connectez-vous ou créez un compte gratuit sur Omra Bons Plans pour publier vos annonces et accéder à tous les services pour votre pèlerinage."
+        keywords={['connexion', 'inscription', 'compte omra', 'authentification']}
+        path="/auth"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4">
+        <div className="w-full max-w-md space-y-6">
+          {/* Header */}
+          <div className="text-center space-y-2 mb-8">
+            <h1 className="text-2xl font-bold text-foreground">Connexion à OmraBonsPlans.fr</h1>
+            <p className="text-muted-foreground">Votre plateforme dédiée à la Omra</p>
+          </div>
 
         {/* Message de confirmation email */}
         {showEmailConfirmation && (
@@ -658,8 +666,9 @@ const Auth = () => {
             </div>
           </>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

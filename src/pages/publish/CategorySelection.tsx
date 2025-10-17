@@ -4,6 +4,7 @@ import { ArrowRight, Building, Plane, Hotel, BookOpen, Car, Heart, ArrowLeft, Ho
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const CategorySelection = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -56,16 +57,22 @@ const CategorySelection = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier une Annonce Omra Hajj | Omra Bons Plans"
+        description="Publiez gratuitement votre annonce de séjour, vol, hébergement, guide ou chauffeur pour la Omra et le Hajj. Atteignez des milliers de pèlerins."
+        keywords={['publier annonce omra', 'vendre service hajj', 'annonce gratuite pèlerinage']}
+        path="/publish"
+      />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center space-y-3 sm:space-y-4">
               <h1 className="text-2xl sm:text-4xl font-bold text-foreground">
-                Que souhaitez-vous publier ?
+                Publiez votre annonce Omra ou Hajj
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground">
-                Choisissez votre type d'annonce
-              </p>
+              <h2 className="text-base sm:text-lg text-muted-foreground font-semibold">
+                Choisissez le type de service que vous souhaitez proposer aux pèlerins
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
