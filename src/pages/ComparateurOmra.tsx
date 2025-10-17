@@ -225,26 +225,26 @@ export default function ComparateurOmra() {
           </p>
 
           {/* Search Card */}
-          <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
+          <Card className="max-w-5xl mx-auto bg-background shadow-2xl animate-scale-in">
             <div className="p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary bg-primary/5 p-3 rounded-lg">
-                <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
-                <p className="text-sm sm:text-base md:text-xl font-medium text-center leading-snug">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900">
+                <Package className="h-6 w-6 text-amber-600 dark:text-amber-500 flex-shrink-0" />
+                <p className="text-sm sm:text-base md:text-lg font-semibold text-amber-700 dark:text-amber-500 text-center leading-snug">
                   Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
                 </p>
               </div>
               
               <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-4">
                 <div className="space-y-2.5">
-                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Ville de départ</label>
+                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">Ville de départ</label>
                   <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger id="city-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
-                      <SelectValue placeholder="Sélectionnez une ville" />
+                    <SelectTrigger id="city-hero" className="h-14 sm:h-14 bg-background text-base font-medium border-2 border-border hover:border-primary/50 transition-all shadow-sm">
+                      <SelectValue placeholder="Toutes les villes" />
                     </SelectTrigger>
                     <SelectContent className="bg-background z-50">
-                      <SelectItem value="all">Toutes les villes</SelectItem>
+                      <SelectItem value="all" className="py-3.5 text-base">Toutes les villes</SelectItem>
                       {CITIES.map((city) => (
-                        <SelectItem key={city} value={city} className="py-3">
+                        <SelectItem key={city} value={city} className="py-3.5 text-base">
                           {city}
                         </SelectItem>
                       ))}
@@ -253,15 +253,15 @@ export default function ComparateurOmra() {
                 </div>
 
                 <div className="space-y-2.5">
-                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Période</label>
+                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-semibold text-foreground/80 block uppercase tracking-wide">Période</label>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                    <SelectTrigger id="month-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
-                      <SelectValue placeholder="Sélectionnez un mois" />
+                    <SelectTrigger id="month-hero" className="h-14 sm:h-14 bg-background text-base font-medium border-2 border-border hover:border-primary/50 transition-all shadow-sm">
+                      <SelectValue placeholder="Tous les mois" />
                     </SelectTrigger>
                     <SelectContent className="bg-background z-50">
-                      <SelectItem value="all">Tous les mois</SelectItem>
+                      <SelectItem value="all" className="py-3.5 text-base">Tous les mois</SelectItem>
                       {MONTHS.map((month) => (
-                        <SelectItem key={month} value={month} className="py-3">
+                        <SelectItem key={month} value={month} className="py-3.5 text-base">
                           {month}
                         </SelectItem>
                       ))}
@@ -271,7 +271,7 @@ export default function ComparateurOmra() {
 
                 <div className="flex items-end pt-2 md:pt-0">
                   <Button 
-                    className="w-full h-12 sm:h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl transition-all"
+                    className="w-full h-14 sm:h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base sm:text-lg md:text-lg shadow-lg hover:shadow-xl transition-all"
                   >
                     Rechercher
                   </Button>
@@ -280,14 +280,14 @@ export default function ComparateurOmra() {
               
               {/* Last Update Info */}
               {lastUpdate && lastUpdate.last_update && (
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-3 border-t">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-4 border-t">
                   <div className="flex items-center gap-1.5">
-                    <RefreshCw className="h-3 w-3" />
-                    <span className="text-center">
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    <span className="text-center font-medium">
                       Mise à jour : {format(new Date(lastUpdate.last_update), "d MMM yyyy", { locale: fr })}
                     </span>
                   </div>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-700 text-xs">
+                  <Badge variant="outline" className="bg-green-500/10 text-green-700 text-xs font-semibold">
                     {lastUpdate.offers_count} offres
                   </Badge>
                 </div>
