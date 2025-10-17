@@ -300,10 +300,10 @@ export default function ComparateurOmra() {
         <div className="container mx-auto px-3 md:px-4">
           <div className="text-center mb-8 md:mb-12 animate-fade-in">
             <h2 className="text-2xl md:text-4xl font-bold mb-3">
-              Comparateur Omra 2025 - Trouvez les Meilleures Offres
+              Comparateur Séjours Omra 2025 et 2026 : Comparez les Offres au Meilleur Prix
             </h2>
             <p className="text-muted-foreground text-sm md:text-base max-w-3xl mx-auto">
-              Comparez les prix et les services des meilleures agences de voyage pour votre pèlerinage
+              Trouvez votre séjour Omra idéal parmi des centaines d&apos;offres d&apos;agences françaises agréées. Comparez les prix, formules et services pour partir en toute confiance vers La Mecque et Médine.
             </p>
           </div>
 
