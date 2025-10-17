@@ -47,6 +47,7 @@ const AdminOmraOffers = () => {
   const { toast } = useToast();
   const { uploadImage, uploading } = useImageUpload('ad-images');
   
+  const [offerType, setOfferType] = useState<'omra' | 'hajj'>('omra');
   const [saving, setSaving] = useState(false);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
@@ -214,13 +215,53 @@ const AdminOmraOffers = () => {
               Retour
             </Button>
             <div>
-              <h1 className="text-3xl font-bold">Ajouter une offre Omra</h1>
+              <h1 className="text-3xl font-bold">
+                Ajouter une offre {offerType === 'omra' ? 'Omra' : 'Hajj'}
+              </h1>
               <p className="text-muted-foreground">Ajoutez manuellement une nouvelle offre de séjour</p>
             </div>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Type d'annonce */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Plane className="h-5 w-5" />
+                Type d'annonce
+              </CardTitle>
+              <CardDescription>Sélectionnez le type de séjour à ajouter</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <Label htmlFor="offer_type">Type de séjour *</Label>
+                <Select
+                  value={offerType}
+                  onValueChange={(value: 'omra' | 'hajj') => setOfferType(value)}
+                >
+                  <SelectTrigger className="w-full md:w-64">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="omra">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4" />
+                        <span>Omra</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="hajj">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        <span>Hajj</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Informations Agence */}
           <Card>
             <CardHeader>
