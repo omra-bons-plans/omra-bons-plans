@@ -204,7 +204,7 @@ export default function ComparateurOmra() {
       />
 
       {/* Hero Section avec image de fond */}
-      <div className="relative h-[400px] sm:h-[450px] md:h-[550px] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[500px] sm:h-[550px] md:h-[550px] flex items-center justify-center overflow-hidden">
         <img 
           src={heroImage} 
           alt="Kaaba à La Mecque" 
@@ -213,38 +213,38 @@ export default function ComparateurOmra() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
-        <div className="relative z-10 container mx-auto px-3 sm:px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 tracking-tight animate-fade-in leading-tight">
+        <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
             Comparateur Omra & Hajj 2025 - 2026
           </h1>
-          <p className="text-base sm:text-lg md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-2">
+          <p className="text-base sm:text-lg md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-4">
             Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
           </p>
-          <p className="text-sm sm:text-base md:text-xl text-white/90 mb-6 sm:mb-8 md:mb-12 animate-fade-in px-2">
+          <p className="text-sm sm:text-base md:text-xl text-white/90 mb-8 sm:mb-10 md:mb-12 animate-fade-in px-4 leading-relaxed">
             Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d&apos;offres
           </p>
 
           {/* Search Card */}
           <Card className="max-w-5xl mx-auto bg-background/95 backdrop-blur-sm shadow-2xl animate-scale-in">
-            <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary">
+            <div className="p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-primary bg-primary/5 p-3 rounded-lg">
                 <Package className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
-                <p className="text-sm sm:text-base md:text-xl font-medium text-center">
+                <p className="text-sm sm:text-base md:text-xl font-medium text-center leading-snug">
                   Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 ou Omra 2026
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-medium text-muted-foreground">Ville de départ</label>
+              <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-4">
+                <div className="space-y-2.5">
+                  <label htmlFor="city-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Ville de départ</label>
                   <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger id="city-hero" className="h-11 sm:h-12 bg-background text-sm">
+                    <SelectTrigger id="city-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
                       <SelectValue placeholder="Sélectionnez une ville" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent className="bg-background z-50">
                       <SelectItem value="all">Toutes les villes</SelectItem>
                       {CITIES.map((city) => (
-                        <SelectItem key={city} value={city}>
+                        <SelectItem key={city} value={city} className="py-3">
                           {city}
                         </SelectItem>
                       ))}
@@ -252,16 +252,16 @@ export default function ComparateurOmra() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-medium text-muted-foreground">Période</label>
+                <div className="space-y-2.5">
+                  <label htmlFor="month-hero" className="text-xs sm:text-sm font-medium text-muted-foreground block">Période</label>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                    <SelectTrigger id="month-hero" className="h-11 sm:h-12 bg-background text-sm">
+                    <SelectTrigger id="month-hero" className="h-12 sm:h-12 bg-background text-sm border-2 hover:border-primary/50 transition-colors">
                       <SelectValue placeholder="Sélectionnez un mois" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent className="bg-background z-50">
                       <SelectItem value="all">Tous les mois</SelectItem>
                       {MONTHS.map((month) => (
-                        <SelectItem key={month} value={month}>
+                        <SelectItem key={month} value={month} className="py-3">
                           {month}
                         </SelectItem>
                       ))}
@@ -269,9 +269,9 @@ export default function ComparateurOmra() {
                   </Select>
                 </div>
 
-                <div className="flex items-end">
+                <div className="flex items-end pt-2 md:pt-0">
                   <Button 
-                    className="w-full h-11 sm:h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg"
+                    className="w-full h-12 sm:h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl transition-all"
                   >
                     Rechercher
                   </Button>
@@ -280,7 +280,7 @@ export default function ComparateurOmra() {
               
               {/* Last Update Info */}
               {lastUpdate && lastUpdate.last_update && (
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 text-xs text-muted-foreground pt-2">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-3 border-t">
                   <div className="flex items-center gap-1.5">
                     <RefreshCw className="h-3 w-3" />
                     <span className="text-center">
