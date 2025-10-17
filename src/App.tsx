@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ui/ProtectedRoute";
 import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
 import SEOChecker from "./components/SEO/SEOChecker";
+import AntiScrapingMonitor from "./components/ui/AntiScrapingMonitor";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -80,6 +81,7 @@ const App = () => (
             <BrowserRouter>
               <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
               <SEOChecker />
+              <AntiScrapingMonitor />
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>

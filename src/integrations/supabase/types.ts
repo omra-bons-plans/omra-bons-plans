@@ -1368,6 +1368,45 @@ export type Database = {
         }
         Relationships: []
       }
+      scraping_attempts: {
+        Row: {
+          blocked_reason: string | null
+          created_at: string
+          first_seen_at: string
+          id: string
+          ip_address: unknown
+          is_blocked: boolean | null
+          last_seen_at: string
+          request_count: number | null
+          request_path: string
+          user_agent: string | null
+        }
+        Insert: {
+          blocked_reason?: string | null
+          created_at?: string
+          first_seen_at?: string
+          id?: string
+          ip_address: unknown
+          is_blocked?: boolean | null
+          last_seen_at?: string
+          request_count?: number | null
+          request_path: string
+          user_agent?: string | null
+        }
+        Update: {
+          blocked_reason?: string | null
+          created_at?: string
+          first_seen_at?: string
+          id?: string
+          ip_address?: unknown
+          is_blocked?: boolean | null
+          last_seen_at?: string
+          request_count?: number | null
+          request_path?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       topic_requests: {
         Row: {
           created_at: string
