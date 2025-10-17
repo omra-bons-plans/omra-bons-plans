@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -184,7 +185,8 @@ export default function ComparateurOmra() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-primary/5">
+    <ResponsiveLayout>
+      <div className="min-h-screen bg-gradient-to-b from-background via-background to-primary/5">
       <DynamicSEO
         title="Comparateur Séjours Omra 2025 et 2026"
         description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
@@ -929,5 +931,6 @@ export default function ComparateurOmra() {
         </Card>
       </div>
     </div>
+    </ResponsiveLayout>
   );
 }
