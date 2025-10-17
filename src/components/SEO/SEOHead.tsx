@@ -158,7 +158,7 @@ export const seoConfig = {
   },
   prayerTimes: {
     title: 'Heures de Prière - La Mecque & Médine | Omra Bons Plans',
-    description: 'Consultez les horaires des 5 prières quotidiennes à La Mecque et Médine en temps réel. Outil essentiel pour votre séjour spiritual en Arabie Saoudite.',
+    description: 'Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha. Calendrier islamique et direction de la Qibla.',
     keywords: 'horaire prière mecque, heures prière médine, qibla, salat, horaires prières arabie saoudite',
     canonical: 'https://omrabonsplans.fr/horaires-prieres',
     structuredData: {
