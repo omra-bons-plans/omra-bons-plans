@@ -29,6 +29,7 @@ interface OmraOfferForm {
   hotel_medinah: string;
   hotel_medinah_stars: number;
   airline: string;
+  hajj_duration_type?: string;
 }
 
 const AdminOmraOffers = () => {
@@ -56,7 +57,8 @@ const AdminOmraOffers = () => {
     hotel_makkah_stars: 3,
     hotel_medinah: '',
     hotel_medinah_stars: 3,
-    airline: ''
+    airline: '',
+    hajj_duration_type: 'court'
   });
 
   useEffect(() => {
@@ -143,7 +145,9 @@ const AdminOmraOffers = () => {
         flights_included: true,
         visa_included: false,
         guide_language: ['fr'],
-        notes: `Compagnie aérienne: ${formData.airline}`,
+        notes: offerType === 'hajj' 
+          ? `Compagnie aérienne: ${formData.airline}\nDurée: ${formData.hajj_duration_type === 'court' ? 'Court séjour' : 'Long séjour'}`
+          : `Compagnie aérienne: ${formData.airline}`,
         status: 'active',
         source_hash: sourceHash,
         scraped_at: new Date().toISOString(),
@@ -176,7 +180,8 @@ const AdminOmraOffers = () => {
         hotel_makkah_stars: 3,
         hotel_medinah: '',
         hotel_medinah_stars: 3,
-        airline: ''
+        airline: '',
+        hajj_duration_type: 'court'
       });
       setLogoFile(null);
       setLogoPreview(null);
@@ -434,6 +439,24 @@ const AdminOmraOffers = () => {
                   </Select>
                 </div>
               </div>
+
+              {offerType === 'hajj' && (
+                <div className="space-y-2">
+                  <Label htmlFor="hajj_duration_type">Durée de séjour Hajj *</Label>
+                  <Select
+                    value={formData.hajj_duration_type}
+                    onValueChange={(value) => setFormData({ ...formData, hajj_duration_type: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="court">Court séjour</SelectItem>
+                      <SelectItem value="long">Long séjour</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </CardContent>
           </Card>
 

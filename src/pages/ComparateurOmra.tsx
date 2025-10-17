@@ -78,6 +78,7 @@ export default function ComparateurOmra() {
   const [selectedCity, setSelectedCity] = useState<string>('all');
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
+  const [selectedDuration, setSelectedDuration] = useState<string>('all');
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [minDuration, setMinDuration] = useState<string>('');
   const [maxDistance, setMaxDistance] = useState<string>('');
@@ -151,6 +152,14 @@ export default function ComparateurOmra() {
             ? allData.filter(offer => selectedAgencies.includes(offer.agency_name))
             : allData;
           
+          // Filtrer par durée de séjour Hajj
+          if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
+            const durationText = selectedDuration === 'court' ? 'Court séjour' : 'Long séjour';
+            filtered = filtered.filter(offer => 
+              offer.notes?.includes(durationText)
+            );
+          }
+          
           // Trier
           switch (sortBy) {
             case 'price_asc':
@@ -177,13 +186,14 @@ export default function ComparateurOmra() {
     };
 
     fetchOffers();
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType, selectedDuration]);
 
   const resetFilters = () => {
     setSelectedMonth('all');
     setSelectedCity('all');
     setSelectedFormula('all');
     setSelectedAgencies([]);
+    setSelectedDuration('all');
     setPriceRange([0, 10000]);
     setMinDuration('');
     setMaxDistance('');
@@ -253,6 +263,8 @@ export default function ComparateurOmra() {
               setSelectedCity={setSelectedCity}
               selectedMonth={selectedMonth}
               setSelectedMonth={setSelectedMonth}
+              selectedDuration={selectedDuration}
+              setSelectedDuration={setSelectedDuration}
             />
             
             {/* Last Update Info */}

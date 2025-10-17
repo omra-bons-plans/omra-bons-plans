@@ -8,6 +8,8 @@ interface FilterFormProps {
   setSelectedCity: (city: string) => void;
   selectedMonth: string;
   setSelectedMonth: (month: string) => void;
+  selectedDuration?: string;
+  setSelectedDuration?: (duration: string) => void;
   onSearch?: () => void;
   compact?: boolean;
 }
@@ -39,6 +41,8 @@ export function FilterForm({
   setSelectedCity,
   selectedMonth,
   setSelectedMonth,
+  selectedDuration,
+  setSelectedDuration,
   onSearch,
   compact = false
 }: FilterFormProps) {
@@ -116,8 +120,8 @@ export function FilterForm({
           </div>
         </div>
 
-        {/* MONTH - Hidden for Hajj */}
-        {tripType === "omra" && (
+        {/* MONTH for Omra OR DURATION for Hajj */}
+        {tripType === "omra" ? (
           <div className="flex flex-col">
             <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Période
@@ -137,6 +141,26 @@ export function FilterForm({
                     {m.label}
                   </option>
                 ))}
+              </select>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Durée de séjour
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                <Calendar size={18} />
+              </span>
+              <select
+                value={selectedDuration || 'all'}
+                onChange={(e) => setSelectedDuration?.(e.target.value)}
+                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">Toutes durées</option>
+                <option value="court">Court séjour</option>
+                <option value="long">Long séjour</option>
               </select>
             </div>
           </div>
