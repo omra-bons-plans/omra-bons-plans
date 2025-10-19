@@ -21,8 +21,8 @@
 # Redirections de normalisation des URLs de catégories (singulier vers pluriel)
 /category/hebergement /category/hebergements 301
 
-# Sitemap dynamique via edge function
-/sitemap.xml https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/generate-sitemap 200
+# Sitemap statique (pas de redirection pour éviter les problèmes d'indexation Google)
+# Le sitemap est disponible directement dans public/sitemap.xml
 
 # 404 page - serve with 404 status
 /404 /404.html 404
