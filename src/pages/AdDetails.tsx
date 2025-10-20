@@ -382,6 +382,9 @@ export default function AdDetails() {
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
         <div className="container mx-auto px-4 py-8">
+          {/* Hidden H1 for SEO */}
+          <h1 className="sr-only">{ad.title} - Annonce Omra Hajj</h1>
+          
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <Button

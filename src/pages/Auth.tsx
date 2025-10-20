@@ -283,8 +283,8 @@ const Auth = () => {
         <div className="w-full max-w-md space-y-6">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
-            <h1 className="text-2xl font-bold text-foreground">Connexion à OmraBonsPlans.fr</h1>
-            <p className="text-muted-foreground">Votre plateforme dédiée à la Omra</p>
+            <h1 className="text-2xl font-bold text-foreground">Connexion & Inscription - OmraBonsPlans.fr</h1>
+            <p className="text-muted-foreground">Accédez à votre espace personnel</p>
           </div>
 
         {/* Message de confirmation email */}

@@ -68,11 +68,11 @@ const CategorySelection = () => {
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center space-y-3 sm:space-y-4">
               <h1 className="text-2xl sm:text-4xl font-bold text-foreground">
-                Publiez votre annonce Omra ou Hajj
+                Publier une Annonce - Sélection du Service
               </h1>
-              <h2 className="text-base sm:text-lg text-muted-foreground font-semibold">
+              <p className="text-base sm:text-lg text-muted-foreground font-semibold">
                 Choisissez le type de service que vous souhaitez proposer aux pèlerins
-              </h2>
+              </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
