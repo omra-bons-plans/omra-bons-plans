@@ -115,6 +115,12 @@ verify_jwt = false
 [functions.import-omra-data]
 verify_jwt = false
 
+[functions.enrich-omra-offer]
+verify_jwt = false
+
+[functions.cleanup-old-omra-offers]
+verify_jwt = false
+
 # Scheduled function for weekly Omra offers refresh
 [[edge_runtime.scheduled_functions]]
 name = "weekly-omra-refresh"

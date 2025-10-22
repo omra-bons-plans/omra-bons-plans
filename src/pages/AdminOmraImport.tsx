@@ -66,7 +66,7 @@ export default function AdminOmraImport() {
       setResult(responseData);
       toast({
         title: "✅ Import réussi",
-        description: `${agencyName}: ${responseData.summary}`,
+        description: `${agencyName}: ${responseData.imported} importées, ${responseData.updated} mises à jour, ${responseData.enriched || 0} enrichies, ${responseData.skipped} ignorées`,
       });
     } catch (err: any) {
       console.error('Import error:', err);
@@ -136,7 +136,7 @@ export default function AdminOmraImport() {
       
       toast({
         title: "✅ Import réussi",
-        description: `${data.imported} offres importées, ${data.updated} mises à jour, ${data.skipped} ignorées`,
+        description: `${data.imported} offres importées, ${data.updated} mises à jour, ${data.enriched || 0} enrichies par scraping, ${data.skipped} ignorées`,
       });
 
       setJsonData("");

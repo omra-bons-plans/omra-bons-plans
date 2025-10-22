@@ -40,6 +40,7 @@ Deno.serve(async (req) => {
     let imported = 0;
     let updated = 0;
     let skipped = 0;
+    let enriched = 0;
 
     for (const offer of offers) {
       try {
@@ -51,7 +52,38 @@ Deno.serve(async (req) => {
         }
 
         // Normaliser les données
-        const normalizedOffer = normalizeOffer(offer);
+        let normalizedOffer = normalizeOffer(offer);
+        
+        // Enrichir l'offre si des infos manquent
+        if (!normalizedOffer.date_start || !normalizedOffer.distance_to_haram_m || !normalizedOffer.hotel_makkah) {
+          try {
+            console.log(`🔍 Enriching offer from ${offer.detailUrl}`);
+            
+            const enrichResponse = await fetch(`${supabaseUrl}/functions/v1/enrich-omra-offer`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${supabaseKey}`
+              },
+              body: JSON.stringify({ 
+                url: offer.detailUrl, 
+                agency: offer.nomAgence 
+              })
+            });
+
+            if (enrichResponse.ok) {
+              const enrichResult = await enrichResponse.json();
+              if (enrichResult.success && enrichResult.data) {
+                // Fusionner les données enrichies
+                Object.assign(normalizedOffer, enrichResult.data);
+                enriched++;
+                console.log(`✅ Offer enriched with scraped data`);
+              }
+            }
+          } catch (enrichError) {
+            console.warn(`⚠️ Failed to enrich offer:`, enrichError);
+          }
+        }
         
         // Générer un hash unique
         const sourceHash = generateHash(
@@ -108,6 +140,7 @@ Deno.serve(async (req) => {
       imported,
       updated,
       skipped,
+      enriched,
       total: offers.length,
     };
 
