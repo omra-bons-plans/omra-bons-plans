@@ -7,14 +7,19 @@ const corsHeaders = {
 
 interface ImportOffer {
   nomAgence: string;
-  moisOmra: string | null;
+  titreOffre?: string | null;
+  moisOmra?: string | null;
   dateDepart: string | null;
   dateRetour: string | null;
-  nombreJours: string | null;
+  nombreJours?: string | null;
   prixQuadruple: number | null;
   villeDepart: string | null;
   hotelMakkah: string | null;
   hotelMedine: string | null;
+  etoilesMakkah?: number | null;
+  etoilesMedine?: number | null;
+  nuitsMecque?: number | null;
+  nuitsMedine?: number | null;
   airline: string | null;
   detailUrl: string;
 }
@@ -185,14 +190,23 @@ function normalizeOffer(offer: ImportOffer): any {
   const agencyName = mapAgencyName(offer.nomAgence);
   const agencyUrl = getAgencyUrl(agencyName);
 
-  // Extraire les étoiles des hôtels
-  const makkahInfo = extractHotelStars(offer.hotelMakkah);
-  const medinaInfo = extractHotelStars(offer.hotelMedine);
+  // Extraire les étoiles des hôtels (utiliser les données fournies ou extraire du nom)
+  const makkahInfo = offer.etoilesMakkah !== null && offer.etoilesMakkah !== undefined
+    ? { hotelName: offer.hotelMakkah, stars: offer.etoilesMakkah }
+    : extractHotelStars(offer.hotelMakkah);
+  
+  const medinaInfo = offer.etoilesMedine !== null && offer.etoilesMedine !== undefined
+    ? { hotelName: offer.hotelMedine, stars: offer.etoilesMedine }
+    : extractHotelStars(offer.hotelMedine);
+
+  // Utiliser les nuits spécifiques ou calculer
+  const makkahNights = offer.nuitsMecque || Math.floor((durationNights || 0) / 2);
+  const medinaNights = offer.nuitsMedine || Math.floor((durationNights || 0) / 2);
 
   return {
     agency_name: agencyName,
     agency_url: agencyUrl,
-    offer_title: generateTitle(offer),
+    offer_title: offer.titreOffre || generateTitle(offer),
     offer_url: offer.detailUrl,
     price_eur: offer.prixQuadruple,
     month_departure: monthDeparture,
@@ -200,9 +214,9 @@ function normalizeOffer(offer: ImportOffer): any {
     date_end: dateEnd,
     departure_city: departureCity,
     formula_type: formula,
-    duration_nights: durationNights,
-    makkah_nights: Math.floor((durationNights || 0) / 2),
-    medina_nights: Math.floor((durationNights || 0) / 2),
+    duration_nights: durationNights || (makkahNights + medinaNights),
+    makkah_nights: makkahNights,
+    medina_nights: medinaNights,
     hotel_makkah: makkahInfo.hotelName,
     hotel_medinah: medinaInfo.hotelName,
     hotel_makkah_stars: makkahInfo.stars,

@@ -146,16 +146,24 @@ export default function AdminOmraImport() {
   };
 
   const handleCleanup = async () => {
+    if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer TOUTES les offres Omra actuelles ?')) {
+      return;
+    }
+    
     try {
       setIsImporting(true);
       
-      const { data: responseData, error: invokeError } = await supabase.functions.invoke('cleanup-old-omra-offers');
-
-      if (invokeError) throw invokeError;
+      // Supprimer toutes les offres de la table omra_offers
+      const { error: deleteError } = await supabase
+        .from('omra_offers')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all
+      
+      if (deleteError) throw deleteError;
 
       toast({
         title: "✅ Nettoyage réussi",
-        description: `${responseData.deleted} anciennes offres supprimées`,
+        description: "Toutes les offres ont été supprimées",
       });
     } catch (err: any) {
       console.error('Cleanup error:', err);

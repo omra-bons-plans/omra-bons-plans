@@ -8,12 +8,6 @@ const corsHeaders = {
 interface AgencyConfig {
   name: string;
   url: string;
-  extractionRules: {
-    titleSelector?: string;
-    priceSelector?: string;
-    dateSelector?: string;
-    hotelSelector?: string;
-  };
 }
 
 Deno.serve(async (req) => {
@@ -32,20 +26,20 @@ Deno.serve(async (req) => {
     }
 
     const agencies: AgencyConfig[] = [
-      { name: 'Tawaf', url: 'https://www.tawaf.fr', extractionRules: {} },
-      { name: 'Sabile Voyages', url: 'https://sabilevoyages.com', extractionRules: {} },
-      { name: 'Omra Pour Tous', url: 'https://omrapourtous.com/omra-2025-omra-2026/', extractionRules: {} },
-      { name: 'Omra Sounnah', url: 'https://www.omrasounnah.com/omra/', extractionRules: {} },
-      { name: 'Alhayat Voyages', url: 'https://www.alhayat-voyages.com/omra/', extractionRules: {} },
-      { name: 'Albayt', url: 'https://www.albayt.fr/produit/omra/', extractionRules: {} },
-      { name: 'Pelerin Hajj', url: 'https://pelerinhajj.com', extractionRules: {} },
-      { name: 'Isla Voyages', url: 'https://islavoyages.com/omra/', extractionRules: {} },
-      { name: 'Omra du Savoir', url: 'https://www.omradusavoir.fr', extractionRules: {} },
-      { name: 'Almaqam Voyages', url: 'https://almaqamvoyages.com', extractionRules: {} },
-      { name: 'Medin Voyages', url: 'https://medinvoyages.com/omras/', extractionRules: {} },
+      { name: 'Tawaf', url: 'https://www.tawaf.fr' },
+      { name: 'Sabile Voyages', url: 'https://sabilevoyages.com' },
+      { name: 'Omra Pour Tous', url: 'https://omrapourtous.com/omra-2025-omra-2026/' },
+      { name: 'Omra Sounnah', url: 'https://www.omrasounnah.com/omra/' },
+      { name: 'Alhayat Voyages', url: 'https://www.alhayat-voyages.com/omra/' },
+      { name: 'Albayt', url: 'https://www.albayt.fr/produit/omra/' },
+      { name: 'Pelerin Hajj', url: 'https://pelerinhajj.com' },
+      { name: 'Isla Voyages', url: 'https://islavoyages.com/omra/' },
+      { name: 'Omra du Savoir', url: 'https://www.omradusavoir.fr' },
+      { name: 'Almaqam Voyages', url: 'https://almaqamvoyages.com' },
+      { name: 'Medin Voyages', url: 'https://medinvoyages.com/omras/' },
     ];
 
-    console.log('🚀 Starting Firecrawl scraping for all agencies');
+    console.log('🔥 Starting Firecrawl scraping for all agencies');
     
     let totalImported = 0;
     let totalErrors = 0;
@@ -66,7 +60,7 @@ Deno.serve(async (req) => {
             url: agency.url,
             formats: ['markdown', 'html'],
             onlyMainContent: true,
-            waitFor: 2000, // Wait for JavaScript to load
+            waitFor: 2000,
           }),
         });
 
@@ -78,7 +72,7 @@ Deno.serve(async (req) => {
         console.log(`✅ Firecrawl success for ${agency.name}`);
         
         // Extract offers from the scraped data
-        const offers = await extractOffersFromFirecrawl(
+        const offers = extractOffersFromFirecrawl(
           firecrawlData,
           agency.name,
           agency.url
@@ -105,10 +99,6 @@ Deno.serve(async (req) => {
             offersFound: offers.length,
             imported: importResult.imported,
             updated: importResult.updated,
-            scrapedData: {
-              markdown: firecrawlData.data?.markdown?.substring(0, 500) + '...',
-              url: firecrawlData.data?.metadata?.url,
-            }
           });
         } else {
           results.push({
@@ -116,11 +106,11 @@ Deno.serve(async (req) => {
             success: true,
             offersFound: 0,
             imported: 0,
-            message: 'No offers extracted from Firecrawl data',
+            message: 'No offers extracted',
           });
         }
         
-        // Rate limiting between requests
+        // Rate limiting
         await new Promise(resolve => setTimeout(resolve, 2000));
         
       } catch (error) {
@@ -140,7 +130,6 @@ Deno.serve(async (req) => {
         totalImported,
         totalErrors,
         agencies: results,
-        message: `Scraped ${agencies.length} agencies with Firecrawl`,
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
@@ -154,60 +143,180 @@ Deno.serve(async (req) => {
   }
 });
 
-// Extract offers from Firecrawl scraped data
-async function extractOffersFromFirecrawl(
+// Extract offers from Firecrawl data with agency-specific parsing
+function extractOffersFromFirecrawl(
   firecrawlData: any,
   agencyName: string,
   agencyUrl: string
-): Promise<any[]> {
-  const offers: any[] = [];
-  
+): any[] {
   try {
-    const html = firecrawlData.data?.html || '';
     const markdown = firecrawlData.data?.markdown || '';
+    const html = firecrawlData.data?.html || '';
     
-    // Extract prices (looking for patterns like \"1990€\", \"2.450 €\", etc.)
-    const priceMatches = [...html.matchAll(/(\d[\d\s,.]*)\s*€/g)];
+    console.log(`🔍 Analyzing ${agencyName} (${markdown.length} chars)`);
     
-    // Extract months (looking for French month names)
-    const monthMatches = [...markdown.matchAll(/\b(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\b/gi)];
+    // Use agency-specific extraction
+    switch (agencyName) {
+      case 'Medin Voyages':
+        return extractMedinVoyages(markdown, agencyUrl);
+      case 'Omra Sounnah':
+        return extractOmraSounnah(markdown, agencyUrl);
+      case 'Tawaf':
+        return extractTawaf(markdown, agencyUrl);
+      default:
+        return extractGeneric(markdown, agencyName, agencyUrl);
+    }
+  } catch (error) {
+    console.error(`Error extracting for ${agencyName}:`, error);
+    return [];
+  }
+}
+
+// Medin Voyages extraction
+function extractMedinVoyages(markdown: string, agencyUrl: string): any[] {
+  const offers: any[] = [];
+  const blocks = markdown.split(/(?=#{2,3}\s)/);
+  
+  for (const block of blocks) {
+    const titleMatch = block.match(/#{2,3}\s*([^\n]+)/);
+    const priceMatch = block.match(/(?:quadruple|4\s*pers).*?(\d{3,4})\s*€/i);
     
-    // Extract dates (looking for date patterns)
-    const dateMatches = [...markdown.matchAll(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/g)];
-    
-    // Extract hotel names (looking for common patterns)
-    const hotelMatches = [...markdown.matchAll(/hôtel\s+([A-Za-zÀ-ÿ\s]+?)(?:\s+\d|\s+€|\n)/gi)];
-    
-    console.log(`Found ${priceMatches.length} prices, ${monthMatches.length} months, ${dateMatches.length} dates, ${hotelMatches.length} hotels`);
-    
-    // Create offers based on price matches
-    for (let i = 0; i < Math.min(priceMatches.length, 20); i++) {
-      const priceStr = priceMatches[i][1].replace(/[\s,.]/g, '');
-      const price = parseInt(priceStr);
-      
-      // Only keep realistic Omra prices
+    if (priceMatch) {
+      const price = parseInt(priceMatch[1]);
       if (price >= 800 && price <= 8000) {
-        const month = monthMatches[i]?.[0] || null;
+        const dateMatch = block.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g);
+        const airlineMatch = block.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad)/i);
+        const hotelMakkahMatch = block.match(/(?:Makkah|Mecque).*?([A-Z][a-zÀ-ÿ\s]{3,20}?)(?:\s+\d|\*)/i);
+        const hotelMedinaMatch = block.match(/(?:Medina|Médine).*?([A-Z][a-zÀ-ÿ\s]{3,20}?)(?:\s+\d|\*)/i);
+        const starsMatch = block.match(/(\d)\s*(?:\*|étoile)/gi);
+        const nightsMatch = block.match(/(\d+)\s*nuits?/gi);
         
         offers.push({
-          nomAgence: agencyName,
-          moisOmra: month,
+          nomAgence: 'Medin Voyages',
+          titreOffre: titleMatch?.[1]?.trim() || 'Omra Medin Voyages',
           prixQuadruple: price,
-          detailUrl: agencyUrl,
-          dateDepart: null,
-          dateRetour: null,
-          nombreJours: null,
+          dateDepart: dateMatch?.[0] ? formatDateString(dateMatch[0]) : null,
+          dateRetour: dateMatch?.[1] ? formatDateString(dateMatch[1]) : null,
           villeDepart: 'Paris',
-          hotelMakkah: hotelMatches[i * 2]?.[1]?.trim() || null,
-          hotelMedine: hotelMatches[i * 2 + 1]?.[1]?.trim() || null,
-          airline: null,
+          airline: airlineMatch?.[1] || null,
+          hotelMakkah: hotelMakkahMatch?.[1]?.trim() || null,
+          hotelMedine: hotelMedinaMatch?.[1]?.trim() || null,
+          etoilesMakkah: starsMatch?.[0] ? parseInt(starsMatch[0]) : null,
+          etoilesMedine: starsMatch?.[1] ? parseInt(starsMatch[1]) : null,
+          nuitsMecque: nightsMatch?.[0] ? parseInt(nightsMatch[0]) : null,
+          nuitsMedine: nightsMatch?.[1] ? parseInt(nightsMatch[1]) : null,
+          detailUrl: agencyUrl,
         });
       }
     }
-    
-  } catch (error) {
-    console.error('Error extracting offers:', error);
   }
   
-  return offers;
+  return offers.slice(0, 20);
+}
+
+// Omra Sounnah extraction
+function extractOmraSounnah(markdown: string, agencyUrl: string): any[] {
+  const offers: any[] = [];
+  const blocks = markdown.split(/(?=#{2,3}\s)/);
+  
+  for (const block of blocks) {
+    const priceMatch = block.match(/(\d{3,4})\s*€/);
+    
+    if (priceMatch) {
+      const price = parseInt(priceMatch[1]);
+      if (price >= 800 && price <= 8000) {
+        const titleMatch = block.match(/#{2,3}\s*([^\n]+)/);
+        const dateMatch = block.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/g);
+        
+        offers.push({
+          nomAgence: 'Omra Sounnah',
+          titreOffre: titleMatch?.[1]?.trim() || 'Omra Sounnah',
+          prixQuadruple: price,
+          dateDepart: dateMatch?.[0] ? formatDateString(dateMatch[0]) : null,
+          dateRetour: dateMatch?.[1] ? formatDateString(dateMatch[1]) : null,
+          villeDepart: 'Paris',
+          airline: null,
+          hotelMakkah: null,
+          hotelMedine: null,
+          etoilesMakkah: null,
+          etoilesMedine: null,
+          nuitsMecque: null,
+          nuitsMedine: null,
+          detailUrl: agencyUrl,
+        });
+      }
+    }
+  }
+  
+  return offers.slice(0, 20);
+}
+
+// Tawaf extraction
+function extractTawaf(markdown: string, agencyUrl: string): any[] {
+  const offers: any[] = [];
+  const priceMatches = [...markdown.matchAll(/(\d{3,4})\s*€/g)];
+  
+  for (const match of priceMatches) {
+    const price = parseInt(match[1]);
+    if (price >= 800 && price <= 8000) {
+      offers.push({
+        nomAgence: 'Tawaf',
+        titreOffre: 'Omra Tawaf',
+        prixQuadruple: price,
+        dateDepart: null,
+        dateRetour: null,
+        villeDepart: 'Paris',
+        airline: null,
+        hotelMakkah: null,
+        hotelMedine: null,
+        etoilesMakkah: null,
+        etoilesMedine: null,
+        nuitsMecque: null,
+        nuitsMedine: null,
+        detailUrl: agencyUrl,
+      });
+    }
+  }
+  
+  return offers.slice(0, 15);
+}
+
+// Generic extraction
+function extractGeneric(markdown: string, agencyName: string, agencyUrl: string): any[] {
+  const offers: any[] = [];
+  const priceMatches = [...markdown.matchAll(/(\d{3,4})\s*€/g)];
+  
+  for (const match of priceMatches) {
+    const price = parseInt(match[1]);
+    if (price >= 800 && price <= 8000) {
+      offers.push({
+        nomAgence: agencyName,
+        titreOffre: `Omra ${agencyName}`,
+        prixQuadruple: price,
+        dateDepart: null,
+        dateRetour: null,
+        villeDepart: 'Paris',
+        airline: null,
+        hotelMakkah: null,
+        hotelMedine: null,
+        etoilesMakkah: null,
+        etoilesMedine: null,
+        nuitsMecque: null,
+        nuitsMedine: null,
+        detailUrl: agencyUrl,
+      });
+    }
+  }
+  
+  return offers.slice(0, 10);
+}
+
+// Helper to format date strings
+function formatDateString(dateStr: string): string | null {
+  const match = dateStr.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if (match) {
+    const [_, day, month, year] = match;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+  return null;
 }
