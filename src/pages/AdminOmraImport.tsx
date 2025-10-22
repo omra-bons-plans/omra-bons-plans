@@ -80,6 +80,37 @@ export default function AdminOmraImport() {
     }
   };
 
+  const handleScrapeAll = async () => {
+    try {
+      setIsImporting(true);
+      setResult(null);
+
+      toast({
+        title: "🚀 Scraping en cours",
+        description: "Récupération des données de toutes les agences...",
+      });
+
+      const { data: responseData, error: invokeError } = await supabase.functions.invoke('scrape-all-agencies');
+
+      if (invokeError) throw invokeError;
+
+      setResult(responseData);
+      toast({
+        title: "✅ Scraping terminé",
+        description: `${responseData.totalImported} offres importées depuis ${responseData.agencies?.length} agences`,
+      });
+    } catch (err: any) {
+      console.error('Scraping error:', err);
+      toast({
+        title: "❌ Erreur de scraping",
+        description: `Erreur: ${err.message}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
   const handleCleanup = async () => {
     try {
       setIsImporting(true);
@@ -185,17 +216,28 @@ export default function AdminOmraImport() {
             ) : (
               <>
                 <div className="mb-4 pb-4 border-b">
-                  <Button
-                    onClick={handleCleanup}
-                    disabled={isImporting}
-                    variant="destructive"
-                    className="flex items-center gap-2"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    🧹 Nettoyer les anciennes offres
-                  </Button>
+                  <div className="flex gap-3">
+                    <Button
+                      onClick={handleCleanup}
+                      disabled={isImporting}
+                      variant="destructive"
+                      className="flex items-center gap-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      🧹 Nettoyer les anciennes offres
+                    </Button>
+                    <Button
+                      onClick={handleScrapeAll}
+                      disabled={isImporting}
+                      variant="default"
+                      className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                    >
+                      <Upload className="h-4 w-4" />
+                      🌐 Scraper toutes les agences
+                    </Button>
+                  </div>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Supprime toutes les offres avec des titres génériques pour éviter les doublons
+                    Le scraping automatique va récupérer les données de : Tawaf, Sabile, Omra Pour Tous, Alhayat, Albayt, Pelerin Hajj, Isla Voyages, Omra du Savoir, Almaqam, Medin Voyages, et Omra Sounnah
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">

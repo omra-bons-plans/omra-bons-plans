@@ -118,6 +118,9 @@ verify_jwt = false
 [functions.enrich-omra-offer]
 verify_jwt = false
 
+[functions.scrape-all-agencies]
+verify_jwt = false
+
 [functions.cleanup-old-omra-offers]
 verify_jwt = false
 
