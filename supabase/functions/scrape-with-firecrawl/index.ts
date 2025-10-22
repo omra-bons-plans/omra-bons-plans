@@ -18,12 +18,17 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const firecrawlApiKey = Deno.env.get('FIRECRAWL_API_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    if (!firecrawlApiKey) {
-      throw new Error('FIRECRAWL_API_KEY not configured');
+    const firecrawlApiKey = Deno.env.get('FIRECRAWL_API_KEY');
+    
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Supabase credentials not configured');
     }
+    
+    if (!firecrawlApiKey) {
+      throw new Error('FIRECRAWL_API_KEY non configurée - Ajoutez-la dans les secrets Supabase');
+    }
+    
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const agencies: AgencyConfig[] = [
       { name: 'Tawaf', url: 'https://www.tawaf.fr' },
@@ -50,6 +55,9 @@ Deno.serve(async (req) => {
         console.log(`\n📡 Scraping ${agency.name} with Firecrawl...`);
         
         // Call Firecrawl API to scrape the page
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+        
         const firecrawlResponse = await fetch('https://api.firecrawl.dev/v1/scrape', {
           method: 'POST',
           headers: {
@@ -58,14 +66,19 @@ Deno.serve(async (req) => {
           },
           body: JSON.stringify({
             url: agency.url,
-            formats: ['markdown', 'html'],
+            formats: ['markdown'],
             onlyMainContent: true,
-            waitFor: 2000,
+            waitFor: 1500,
           }),
+          signal: controller.signal,
         });
+        
+        clearTimeout(timeoutId);
 
         if (!firecrawlResponse.ok) {
-          throw new Error(`Firecrawl API error: ${firecrawlResponse.status}`);
+          const errorText = await firecrawlResponse.text();
+          console.error(`❌ Firecrawl API error ${firecrawlResponse.status}:`, errorText);
+          throw new Error(`Firecrawl API error: ${firecrawlResponse.status} - ${errorText.substring(0, 100)}`);
         }
 
         const firecrawlData = await firecrawlResponse.json();
@@ -110,8 +123,8 @@ Deno.serve(async (req) => {
           });
         }
         
-        // Rate limiting
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Rate limiting réduit pour éviter les timeouts
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
       } catch (error) {
         console.error(`❌ Error scraping ${agency.name}:`, error);
@@ -136,8 +149,13 @@ Deno.serve(async (req) => {
 
   } catch (error) {
     console.error('❌ Fatal error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        success: false,
+        error: errorMessage,
+        details: 'Vérifiez que FIRECRAWL_API_KEY est configurée dans les secrets Supabase'
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
