@@ -86,8 +86,8 @@ export default function AdminOmraImport() {
       setResult(null);
 
       toast({
-        title: "🚀 Scraping en cours",
-        description: "Récupération des données de toutes les agences...",
+        title: "🚀 Scraping HTML en cours",
+        description: "Récupération basique des données de toutes les agences...",
       });
 
       const { data: responseData, error: invokeError } = await supabase.functions.invoke('scrape-all-agencies');
@@ -96,13 +96,47 @@ export default function AdminOmraImport() {
 
       setResult(responseData);
       toast({
-        title: "✅ Scraping terminé",
+        title: "✅ Scraping HTML terminé",
         description: `${responseData.totalImported} offres importées depuis ${responseData.agencies?.length} agences`,
       });
     } catch (err: any) {
       console.error('Scraping error:', err);
       toast({
         title: "❌ Erreur de scraping",
+        description: `Erreur: ${err.message}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  const handleScrapeWithFirecrawl = async () => {
+    try {
+      setIsImporting(true);
+      setResult(null);
+
+      toast({
+        title: "🔥 Firecrawl en cours",
+        description: "Scraping robuste avec JavaScript rendering...",
+      });
+
+      const { data: responseData, error: invokeError } = await supabase.functions.invoke('scrape-with-firecrawl');
+
+      if (invokeError) throw invokeError;
+
+      setResult(responseData);
+      toast({
+        title: "✅ Firecrawl terminé",
+        description: `${responseData.totalImported} offres importées avec ${responseData.totalErrors} erreurs`,
+      });
+
+      // Afficher les résultats détaillés dans la console
+      console.log('📊 Résultats Firecrawl par agence:', responseData.agencies);
+    } catch (err: any) {
+      console.error('Firecrawl error:', err);
+      toast({
+        title: "❌ Erreur Firecrawl",
         description: `Erreur: ${err.message}`,
         variant: "destructive",
       });
@@ -216,28 +250,39 @@ export default function AdminOmraImport() {
             ) : (
               <>
                 <div className="mb-4 pb-4 border-b">
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-3">
                     <Button
                       onClick={handleCleanup}
                       disabled={isImporting}
                       variant="destructive"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                     >
                       <Trash2 className="h-4 w-4" />
-                      🧹 Nettoyer les anciennes offres
+                      🗑️ Nettoyer les anciennes offres
                     </Button>
-                    <Button
-                      onClick={handleScrapeAll}
-                      disabled={isImporting}
-                      variant="default"
-                      className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                    >
-                      <Upload className="h-4 w-4" />
-                      🌐 Scraper toutes les agences
-                    </Button>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button
+                        onClick={handleScrapeAll}
+                        disabled={isImporting}
+                        variant="outline"
+                        className="flex items-center gap-2"
+                      >
+                        <Upload className="h-4 w-4" />
+                        🌐 Scraper HTML
+                      </Button>
+                      <Button
+                        onClick={handleScrapeWithFirecrawl}
+                        disabled={isImporting}
+                        variant="default"
+                        className="flex items-center gap-2 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
+                      >
+                        <Upload className="h-4 w-4" />
+                        🔥 Firecrawl (Robuste)
+                      </Button>
+                    </div>
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Le scraping automatique va récupérer les données de : Tawaf, Sabile, Omra Pour Tous, Alhayat, Albayt, Pelerin Hajj, Isla Voyages, Omra du Savoir, Almaqam, Medin Voyages, et Omra Sounnah
+                    <strong>HTML:</strong> Scraping basique rapide. <strong>Firecrawl:</strong> Scraping robuste avec rendering JavaScript (recommandé)
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">
