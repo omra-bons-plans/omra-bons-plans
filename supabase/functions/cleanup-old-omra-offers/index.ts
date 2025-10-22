@@ -16,13 +16,13 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    console.log('🧹 Nettoyage des anciennes offres Omra en cours...')
+    console.log('🧹 Suppression de TOUTES les offres Omra en cours...')
 
-    // Supprimer les anciennes offres avec des titres génériques (format "Agence - Offre X")
+    // Supprimer TOUTES les offres Omra
     const { data: deletedOffers, error: deleteError } = await supabaseClient
       .from('omra_offers')
       .delete()
-      .like('offer_title', '%Offre %')
+      .neq('id', '00000000-0000-0000-0000-000000000000') // Supprime tout
       .select('id, agency_name, offer_title')
 
     if (deleteError) {
@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
     }
 
     const deletedCount = deletedOffers?.length || 0
-    console.log(`✅ ${deletedCount} anciennes offres supprimées`)
+    console.log(`✅ ${deletedCount} offres supprimées`)
 
     // Grouper par agence
     const byAgency: Record<string, number> = {}
@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
         success: true,
         deleted: deletedCount,
         byAgency,
-        message: `${deletedCount} anciennes offres nettoyées`
+        message: `${deletedCount} offres supprimées`
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
