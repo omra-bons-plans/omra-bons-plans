@@ -185,6 +185,10 @@ function normalizeOffer(offer: ImportOffer): any {
   const agencyName = mapAgencyName(offer.nomAgence);
   const agencyUrl = getAgencyUrl(agencyName);
 
+  // Extraire les étoiles des hôtels
+  const makkahInfo = extractHotelStars(offer.hotelMakkah);
+  const medinaInfo = extractHotelStars(offer.hotelMedine);
+
   return {
     agency_name: agencyName,
     agency_url: agencyUrl,
@@ -199,8 +203,10 @@ function normalizeOffer(offer: ImportOffer): any {
     duration_nights: durationNights,
     makkah_nights: Math.floor((durationNights || 0) / 2),
     medina_nights: Math.floor((durationNights || 0) / 2),
-    hotel_makkah: offer.hotelMakkah,
-    hotel_medinah: offer.hotelMedine,
+    hotel_makkah: makkahInfo.hotelName,
+    hotel_medinah: medinaInfo.hotelName,
+    hotel_makkah_stars: makkahInfo.stars,
+    hotel_medina_stars: medinaInfo.stars,
     distance_to_haram_m: null,
     board: null,
     flights_included: true,
@@ -313,6 +319,22 @@ function generateTitle(offer: ImportOffer): string {
   // Nettoyer le préfixe "de " ou "depuis " s'il existe
   city = city.replace(/^de\s+/i, '').replace(/^depuis\s+/i, '');
   return `Omra ${month} depuis ${city}`;
+}
+
+// Extraire les étoiles du nom d'hôtel
+function extractHotelStars(hotelName: string | null): { hotelName: string | null, stars: number | null } {
+  if (!hotelName) return { hotelName: null, stars: null };
+  
+  // Chercher le pattern "X étoile(s)" ou "(X étoiles)"
+  const starsMatch = hotelName.match(/\((\d)\s*étoiles?\)|(\d)\s*étoiles?/i);
+  if (starsMatch) {
+    const stars = parseInt(starsMatch[1] || starsMatch[2]);
+    // Nettoyer le nom en enlevant la mention des étoiles
+    const cleanName = hotelName.replace(/\s*\(\d\s*étoiles?\)|\d\s*étoiles?/gi, '').trim();
+    return { hotelName: cleanName, stars };
+  }
+  
+  return { hotelName: hotelName.trim(), stars: null };
 }
 
 function generateHash(input: string): string {

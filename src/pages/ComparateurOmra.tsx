@@ -719,12 +719,14 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel La Mecque</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{cleanHotelName(offer.hotel_makkah)}</div>
-                                  <div className="flex items-center gap-0.5 md:gap-1">
-                                    {[...Array(extractStarsFromHotel(offer.hotel_makkah))].map((_, i) => (
-                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
-                                    ))}
-                                  </div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{offer.hotel_makkah}</div>
+                                  {offer.hotel_makkah_stars && (
+                                    <div className="flex items-center gap-0.5 md:gap-1">
+                                      {[...Array(offer.hotel_makkah_stars)].map((_, i) => (
+                                        <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
+                                      ))}
+                                    </div>
+                                  )}
                                   {offer.distance_to_haram_m && (
                                     <div className="flex items-center gap-1 md:gap-2 mt-1 md:mt-2 text-xs md:text-sm text-muted-foreground">
                                       <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
@@ -742,12 +744,14 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel Médine</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{cleanHotelName(offer.hotel_medinah)}</div>
-                                  <div className="flex items-center gap-0.5 md:gap-1">
-                                    {[...Array(extractStarsFromHotel(offer.hotel_medinah))].map((_, i) => (
-                                      <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
-                                    ))}
-                                  </div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{offer.hotel_medinah}</div>
+                                  {offer.hotel_medina_stars && (
+                                    <div className="flex items-center gap-0.5 md:gap-1">
+                                      {[...Array(offer.hotel_medina_stars)].map((_, i) => (
+                                        <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
+                                      ))}
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </div>

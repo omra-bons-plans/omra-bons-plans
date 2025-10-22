@@ -21,12 +21,12 @@ export type Database = {
           device_fingerprint: string | null
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           last_activity_at: string | null
           last_request_at: string | null
           request_count: number | null
           session_expires_at: string | null
-          session_ip: unknown | null
+          session_ip: unknown
           session_token: string | null
           used_at: string | null
           user_agent: string | null
@@ -38,12 +38,12 @@ export type Database = {
           device_fingerprint?: string | null
           expires_at: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_activity_at?: string | null
           last_request_at?: string | null
           request_count?: number | null
           session_expires_at?: string | null
-          session_ip?: unknown | null
+          session_ip?: unknown
           session_token?: string | null
           used_at?: string | null
           user_agent?: string | null
@@ -55,12 +55,12 @@ export type Database = {
           device_fingerprint?: string | null
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_activity_at?: string | null
           last_request_at?: string | null
           request_count?: number | null
           session_expires_at?: string | null
-          session_ip?: unknown | null
+          session_ip?: unknown
           session_token?: string | null
           used_at?: string | null
           user_agent?: string | null
@@ -77,7 +77,7 @@ export type Database = {
           device_fingerprint: string
           expires_at: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           notes: string | null
           status: string
           updated_at: string
@@ -91,7 +91,7 @@ export type Database = {
           device_fingerprint: string
           expires_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           notes?: string | null
           status?: string
           updated_at?: string
@@ -105,7 +105,7 @@ export type Database = {
           device_fingerprint?: string
           expires_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           notes?: string | null
           status?: string
           updated_at?: string
@@ -692,7 +692,7 @@ export type Database = {
           click_type: string
           created_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           user_agent: string | null
           user_id: string | null
         }
@@ -701,7 +701,7 @@ export type Database = {
           click_type: string
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -710,7 +710,7 @@ export type Database = {
           click_type?: string
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -755,21 +755,21 @@ export type Database = {
         Row: {
           email: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           subscribed_at: string
           user_agent: string | null
         }
         Insert: {
           email: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           subscribed_at?: string
           user_agent?: string | null
         }
         Update: {
           email?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           subscribed_at?: string
           user_agent?: string | null
         }
@@ -832,6 +832,8 @@ export type Database = {
           formula_type: string
           guide_language: string[] | null
           hotel_makkah: string | null
+          hotel_makkah_stars: number | null
+          hotel_medina_stars: number | null
           hotel_medinah: string | null
           id: string
           makkah_nights: number | null
@@ -864,6 +866,8 @@ export type Database = {
           formula_type: string
           guide_language?: string[] | null
           hotel_makkah?: string | null
+          hotel_makkah_stars?: number | null
+          hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
           makkah_nights?: number | null
@@ -896,6 +900,8 @@ export type Database = {
           formula_type?: string
           guide_language?: string[] | null
           hotel_makkah?: string | null
+          hotel_makkah_stars?: number | null
+          hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
           makkah_nights?: number | null
@@ -930,6 +936,8 @@ export type Database = {
           formula_type: string
           guide_language: string[] | null
           hotel_makkah: string | null
+          hotel_makkah_stars: number | null
+          hotel_medina_stars: number | null
           hotel_medinah: string | null
           id: string
           makkah_nights: number | null
@@ -961,6 +969,8 @@ export type Database = {
           formula_type: string
           guide_language?: string[] | null
           hotel_makkah?: string | null
+          hotel_makkah_stars?: number | null
+          hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
           makkah_nights?: number | null
@@ -992,6 +1002,8 @@ export type Database = {
           formula_type?: string
           guide_language?: string[] | null
           hotel_makkah?: string | null
+          hotel_makkah_stars?: number | null
+          hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
           makkah_nights?: number | null
@@ -1154,7 +1166,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           profile_id: string
           user_agent: string | null
           viewer_id: string | null
@@ -1162,7 +1174,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           profile_id: string
           user_agent?: string | null
           viewer_id?: string | null
@@ -1170,7 +1182,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           profile_id?: string
           user_agent?: string | null
           viewer_id?: string | null
@@ -1343,7 +1355,7 @@ export type Database = {
           action_timestamp: string
           admin_user_id: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_role: Database["public"]["Enums"]["app_role"]
           old_role: Database["public"]["Enums"]["app_role"] | null
           target_user_id: string
@@ -1353,7 +1365,7 @@ export type Database = {
           action_timestamp?: string
           admin_user_id: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_role: Database["public"]["Enums"]["app_role"]
           old_role?: Database["public"]["Enums"]["app_role"] | null
           target_user_id: string
@@ -1363,7 +1375,7 @@ export type Database = {
           action_timestamp?: string
           admin_user_id?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_role?: Database["public"]["Enums"]["app_role"]
           old_role?: Database["public"]["Enums"]["app_role"] | null
           target_user_id?: string
@@ -1557,14 +1569,8 @@ export type Database = {
         Args: { p_admin_user_id: string; p_device_fingerprint: string }
         Returns: Json
       }
-      cleanup_expired_admin_codes: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_old_admin_codes: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      cleanup_expired_admin_codes: { Args: never; Returns: undefined }
+      cleanup_old_admin_codes: { Args: never; Returns: undefined }
       generate_blog_slug: {
         Args: { post_id?: string; title_text: string }
         Returns: string
@@ -1584,14 +1590,8 @@ export type Database = {
           review_count: number
         }[]
       }
-      get_last_successful_update: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      get_next_scheduled_update: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_last_successful_update: { Args: never; Returns: Json }
+      get_next_scheduled_update: { Args: never; Returns: string }
       get_omra_offers: {
         Args: {
           filter_city?: string
@@ -1687,22 +1687,10 @@ export type Database = {
         }
         Returns: boolean
       }
-      increment_profile_views: {
-        Args: { profile_id: string }
-        Returns: number
-      }
-      is_ad_expired: {
-        Args: { publish_end_date: string }
-        Returns: boolean
-      }
-      is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      mark_stale_omra_offers: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      increment_profile_views: { Args: { profile_id: string }; Returns: number }
+      is_ad_expired: { Args: { publish_end_date: string }; Returns: boolean }
+      is_admin: { Args: never; Returns: boolean }
+      mark_stale_omra_offers: { Args: never; Returns: number }
       request_device_authorization: {
         Args: {
           p_admin_user_id: string
