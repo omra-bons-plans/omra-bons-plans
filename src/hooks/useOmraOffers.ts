@@ -22,6 +22,8 @@ interface OmraOffer {
   flights_included: boolean;
   visa_included: boolean;
   offer_title: string;
+  guide_language?: string[];
+  currency_raw?: string | null;
 }
 
 interface FilterOptions {

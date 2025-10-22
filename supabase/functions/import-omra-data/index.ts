@@ -1,0 +1,295 @@
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.75.0';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+interface ImportOffer {
+  nomAgence: string;
+  moisOmra: string | null;
+  dateDepart: string | null;
+  dateRetour: string | null;
+  nombreJours: string | null;
+  prixQuadruple: number | null;
+  villeDepart: string | null;
+  hotelMakkah: string | null;
+  hotelMedine: string | null;
+  airline: string | null;
+  detailUrl: string;
+}
+
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const { offers } = await req.json() as { offers: ImportOffer[] };
+
+    if (!offers || !Array.isArray(offers)) {
+      throw new Error('Invalid data format');
+    }
+
+    console.log(`📥 Starting import of ${offers.length} offers`);
+
+    let imported = 0;
+    let updated = 0;
+    let skipped = 0;
+
+    for (const offer of offers) {
+      try {
+        // Validation de base
+        if (!offer.nomAgence || !offer.detailUrl) {
+          console.log(`⚠️ Skipping invalid offer: missing agency or URL`);
+          skipped++;
+          continue;
+        }
+
+        // Normaliser les données
+        const normalizedOffer = normalizeOffer(offer);
+        
+        // Générer un hash unique
+        const sourceHash = generateHash(
+          `${normalizedOffer.agency_name}-${normalizedOffer.offer_url}-${normalizedOffer.date_start}`
+        );
+
+        // Vérifier si l'offre existe déjà
+        const { data: existing } = await supabase
+          .from('omra_offers')
+          .select('id')
+          .eq('source_hash', sourceHash)
+          .single();
+
+        if (existing) {
+          // Mettre à jour l'offre existante
+          const { error: updateError } = await supabase
+            .from('omra_offers')
+            .update({
+              ...normalizedOffer,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('source_hash', sourceHash);
+
+          if (updateError) {
+            console.error(`❌ Error updating offer:`, updateError);
+            skipped++;
+          } else {
+            updated++;
+          }
+        } else {
+          // Insérer une nouvelle offre
+          const { error: insertError } = await supabase
+            .from('omra_offers')
+            .insert({
+              ...normalizedOffer,
+              source_hash: sourceHash,
+            });
+
+          if (insertError) {
+            console.error(`❌ Error inserting offer:`, insertError);
+            skipped++;
+          } else {
+            imported++;
+          }
+        }
+      } catch (err) {
+        console.error(`❌ Error processing offer:`, err);
+        skipped++;
+      }
+    }
+
+    const result = {
+      success: true,
+      imported,
+      updated,
+      skipped,
+      total: offers.length,
+    };
+
+    console.log(`✅ Import completed:`, result);
+
+    return new Response(JSON.stringify(result), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('❌ Import error:', error);
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { 
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
+  }
+});
+
+function normalizeOffer(offer: ImportOffer): any {
+  // Extraire le mois de départ
+  let monthDeparture = offer.moisOmra?.toLowerCase() || '';
+  if (!monthDeparture && offer.dateDepart) {
+    monthDeparture = extractMonthFromDate(offer.dateDepart);
+  }
+
+  // Normaliser les dates
+  const dateStart = parseFrenchDate(offer.dateDepart);
+  const dateEnd = parseFrenchDate(offer.dateRetour);
+
+  // Extraire la durée
+  const durationNights = extractDuration(offer.nombreJours);
+
+  // Déterminer la formule
+  const formula = detectFormula(offer.hotelMakkah, offer.hotelMedine);
+
+  // Nettoyer le nom de la ville
+  const departureCity = normalizeCityName(offer.villeDepart);
+
+  // Mapper le nom de l'agence
+  const agencyName = mapAgencyName(offer.nomAgence);
+  const agencyUrl = getAgencyUrl(agencyName);
+
+  return {
+    agency_name: agencyName,
+    agency_url: agencyUrl,
+    offer_title: generateTitle(offer),
+    offer_url: offer.detailUrl,
+    price_eur: offer.prixQuadruple || 0,
+    month_departure: monthDeparture,
+    date_start: dateStart,
+    date_end: dateEnd,
+    departure_city: departureCity,
+    formula_type: formula,
+    duration_nights: durationNights,
+    makkah_nights: Math.floor((durationNights || 0) / 2),
+    medina_nights: Math.floor((durationNights || 0) / 2),
+    hotel_makkah: offer.hotelMakkah,
+    hotel_medinah: offer.hotelMedine,
+    distance_to_haram_m: null,
+    board: null,
+    flights_included: true,
+    visa_included: false,
+    status: 'active',
+    guide_language: ['fr'],
+  };
+}
+
+function parseFrenchDate(dateStr: string | null): string | null {
+  if (!dateStr) return null;
+  
+  const frenchMonths: Record<string, string> = {
+    'janvier': '01', 'février': '02', 'mars': '03', 'avril': '04',
+    'mai': '05', 'juin': '06', 'juillet': '07', 'août': '08',
+    'septembre': '09', 'octobre': '10', 'novembre': '11', 'décembre': '12'
+  };
+
+  // Format: "24 octobre 2025" ou "24/10/2025"
+  if (dateStr.includes('/')) {
+    const [day, month, year] = dateStr.split('/');
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+
+  const match = dateStr.match(/(\d+)\s+(\w+)\s+(\d{4})/);
+  if (match) {
+    const [, day, month, year] = match;
+    const monthNum = frenchMonths[month.toLowerCase()];
+    if (monthNum) {
+      return `${year}-${monthNum}-${day.padStart(2, '0')}`;
+    }
+  }
+
+  return null;
+}
+
+function extractMonthFromDate(dateStr: string | null): string {
+  if (!dateStr) return '';
+  
+  const frenchMonths: Record<string, string> = {
+    'janvier': 'janvier', 'février': 'fevrier', 'mars': 'mars', 'avril': 'avril',
+    'mai': 'mai', 'juin': 'juin', 'juillet': 'juillet', 'août': 'aout',
+    'septembre': 'septembre', 'octobre': 'octobre', 'novembre': 'novembre', 'décembre': 'decembre'
+  };
+
+  for (const [french, normalized] of Object.entries(frenchMonths)) {
+    if (dateStr.toLowerCase().includes(french)) {
+      return normalized;
+    }
+  }
+
+  return '';
+}
+
+function extractDuration(durationStr: string | null): number | null {
+  if (!durationStr) return null;
+  
+  const match = durationStr.match(/(\d+)\s*(?:jours|nuits)/i);
+  return match ? parseInt(match[1]) : null;
+}
+
+function detectFormula(hotelMakkah: string | null, hotelMedine: string | null): string {
+  const text = `${hotelMakkah || ''} ${hotelMedine || ''}`.toLowerCase();
+  
+  if (text.includes('5 étoiles') || text.includes('5*') || text.includes('luxury') || text.includes('prestige')) {
+    return 'confort';
+  }
+  
+  return 'essentiel';
+}
+
+function normalizeCityName(city: string | null): string {
+  if (!city) return 'Paris';
+  
+  const cleaned = city.toLowerCase()
+    .replace(/^de\s+/, '')
+    .replace(/^depuis\s+/, '');
+  
+  if (cleaned.includes('paris') || cleaned.includes('roissy') || cleaned.includes('cdg')) {
+    return 'Paris';
+  }
+  if (cleaned.includes('lyon')) return 'Lyon';
+  if (cleaned.includes('marseille')) return 'Marseille';
+  if (cleaned.includes('toulouse')) return 'Toulouse';
+  if (cleaned.includes('nice')) return 'Nice';
+  if (cleaned.includes('bordeaux')) return 'Bordeaux';
+  
+  return 'Paris';
+}
+
+function mapAgencyName(name: string): string {
+  const normalized = name.toLowerCase().replace(/\s+/g, '');
+  
+  if (normalized.includes('omrasounnah')) return 'Omra Sounnah';
+  if (normalized.includes('medinvoyages') || normalized.includes('medin')) return 'Medin Voyages';
+  if (normalized.includes('albayt')) return 'Albayt Voyages';
+  
+  return name;
+}
+
+function getAgencyUrl(agencyName: string): string {
+  const urls: Record<string, string> = {
+    'Omra Sounnah': 'https://www.omrasounnah.com',
+    'Medin Voyages': 'https://medinvoyages.com',
+    'Albayt Voyages': 'https://www.albayt.fr',
+  };
+  
+  return urls[agencyName] || '';
+}
+
+function generateTitle(offer: ImportOffer): string {
+  const month = offer.moisOmra || 'Omra';
+  const city = offer.villeDepart || 'Paris';
+  return `Omra ${month} depuis ${city}`;
+}
+
+function generateHash(input: string): string {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    const char = input.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(36);
+}
