@@ -44,8 +44,8 @@ Deno.serve(async (req) => {
     for (const offer of offers) {
       try {
         // Validation de base
-        if (!offer.nomAgence || !offer.detailUrl) {
-          console.log(`⚠️ Skipping invalid offer: missing agency or URL`);
+        if (!offer.nomAgence || !offer.detailUrl || !offer.prixQuadruple) {
+          console.log(`⚠️ Skipping invalid offer: missing agency, URL, or price`);
           skipped++;
           continue;
         }
@@ -157,7 +157,7 @@ function normalizeOffer(offer: ImportOffer): any {
     agency_url: agencyUrl,
     offer_title: generateTitle(offer),
     offer_url: offer.detailUrl,
-    price_eur: offer.prixQuadruple || 0,
+    price_eur: offer.prixQuadruple,
     month_departure: monthDeparture,
     date_start: dateStart,
     date_end: dateEnd,
@@ -172,6 +172,7 @@ function normalizeOffer(offer: ImportOffer): any {
     board: null,
     flights_included: true,
     visa_included: false,
+    airline: offer.airline,
     status: 'active',
     guide_language: ['fr'],
   };
@@ -242,20 +243,15 @@ function detectFormula(hotelMakkah: string | null, hotelMedine: string | null): 
 function normalizeCityName(city: string | null): string {
   if (!city) return 'Paris';
   
-  const cleaned = city.toLowerCase()
-    .replace(/^de\s+/, '')
-    .replace(/^depuis\s+/, '');
+  // Nettoyer seulement les préfixes "de" et "depuis", garder le reste
+  let cleaned = city.trim()
+    .replace(/^de\s+/i, '')
+    .replace(/^depuis\s+/i, '');
   
-  if (cleaned.includes('paris') || cleaned.includes('roissy') || cleaned.includes('cdg')) {
-    return 'Paris';
-  }
-  if (cleaned.includes('lyon')) return 'Lyon';
-  if (cleaned.includes('marseille')) return 'Marseille';
-  if (cleaned.includes('toulouse')) return 'Toulouse';
-  if (cleaned.includes('nice')) return 'Nice';
-  if (cleaned.includes('bordeaux')) return 'Bordeaux';
+  // Capitaliser la première lettre
+  cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
   
-  return 'Paris';
+  return cleaned;
 }
 
 function mapAgencyName(name: string): string {
