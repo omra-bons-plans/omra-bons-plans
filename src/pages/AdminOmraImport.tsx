@@ -1,0 +1,183 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Upload, FileJson, CheckCircle2, XCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+export default function AdminOmraImport() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [jsonData, setJsonData] = useState("");
+  const [isImporting, setIsImporting] = useState(false);
+  const [result, setResult] = useState<any>(null);
+
+  const handleImport = async () => {
+    if (!jsonData.trim()) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez coller des données JSON",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsImporting(true);
+    setResult(null);
+
+    try {
+      const offers = JSON.parse(jsonData);
+      
+      if (!Array.isArray(offers)) {
+        throw new Error("Le JSON doit être un tableau d'offres");
+      }
+
+      console.log(`📤 Envoi de ${offers.length} offres à importer...`);
+
+      const { data, error } = await supabase.functions.invoke('import-omra-data', {
+        body: { offers },
+      });
+
+      if (error) throw error;
+
+      setResult(data);
+      
+      toast({
+        title: "✅ Import réussi",
+        description: `${data.imported} offres importées, ${data.updated} mises à jour, ${data.skipped} ignorées`,
+      });
+
+      setJsonData("");
+    } catch (error: any) {
+      console.error("Erreur d'import:", error);
+      toast({
+        title: "❌ Erreur d'import",
+        description: error.message || "Une erreur est survenue",
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/admin")}
+            className="gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Retour Admin
+          </Button>
+          <h1 className="text-3xl font-bold">Import Offres Omra</h1>
+        </div>
+
+        <div className="grid gap-6">
+          {/* Instructions */}
+          <Card className="p-6">
+            <div className="flex items-start gap-3">
+              <FileJson className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+              <div className="flex-1">
+                <h2 className="text-xl font-bold mb-2">Instructions</h2>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>1. Copiez les données JSON depuis vos fichiers de scraping (format tableau)</p>
+                  <p>2. Collez-les dans la zone de texte ci-dessous</p>
+                  <p>3. Cliquez sur "Importer" pour traiter les données</p>
+                  <p className="text-xs mt-3 p-3 bg-muted/50 rounded-lg">
+                    <strong>Format attendu :</strong> Un tableau JSON avec les champs : nomAgence, moisOmra, dateDepart, 
+                    dateRetour, nombreJours, prixQuadruple, villeDepart, hotelMakkah, hotelMedine, airline, detailUrl
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Zone de saisie JSON */}
+          <Card className="p-6">
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">
+                  Données JSON à importer
+                </label>
+                <Textarea
+                  value={jsonData}
+                  onChange={(e) => setJsonData(e.target.value)}
+                  placeholder='[{"nomAgence": "Omra Sounnah", "moisOmra": "janvier", ...}]'
+                  className="min-h-[400px] font-mono text-xs"
+                  disabled={isImporting}
+                />
+              </div>
+
+              <Button
+                onClick={handleImport}
+                disabled={isImporting || !jsonData.trim()}
+                className="w-full gap-2"
+                size="lg"
+              >
+                <Upload className="h-5 w-5" />
+                {isImporting ? "Import en cours..." : "Importer les offres"}
+              </Button>
+            </div>
+          </Card>
+
+          {/* Résultats */}
+          {result && (
+            <Card className="p-6">
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <CheckCircle2 className="h-6 w-6 text-green-500" />
+                  Résultats de l'import
+                </h2>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
+                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      {result.imported}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Nouvelles offres</div>
+                  </div>
+
+                  <div className="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                      {result.updated}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Mises à jour</div>
+                  </div>
+
+                  <div className="bg-yellow-500/10 p-4 rounded-lg border border-yellow-500/20">
+                    <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                      {result.skipped}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Ignorées</div>
+                  </div>
+
+                  <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
+                    <div className="text-2xl font-bold text-primary">
+                      {result.total}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Total traité</div>
+                  </div>
+                </div>
+
+                <Alert>
+                  <AlertDescription>
+                    Les offres importées sont maintenant visibles dans le comparateur Omra.
+                    Le système de scraping hebdomadaire continuera de mettre à jour les offres automatiquement.
+                  </AlertDescription>
+                </Alert>
+              </div>
+            </Card>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

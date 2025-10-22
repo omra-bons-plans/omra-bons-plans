@@ -818,6 +818,7 @@ export type Database = {
         Row: {
           agency_name: string
           agency_url: string
+          airline: string | null
           board: string | null
           created_at: string
           currency_raw: string | null
@@ -849,6 +850,7 @@ export type Database = {
         Insert: {
           agency_name: string
           agency_url: string
+          airline?: string | null
           board?: string | null
           created_at?: string
           currency_raw?: string | null
@@ -880,6 +882,7 @@ export type Database = {
         Update: {
           agency_name?: string
           agency_url?: string
+          airline?: string | null
           board?: string | null
           created_at?: string
           currency_raw?: string | null

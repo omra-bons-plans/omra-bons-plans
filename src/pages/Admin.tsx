@@ -502,6 +502,18 @@ const Admin = () => {
             <PlaneTakeoff className="w-4 h-4 mr-2" />
             Ajouter offre Omra
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/omra-import from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/omra-import');
+            }}
+            className="justify-start"
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Import Données Omra
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -662,6 +674,17 @@ const Admin = () => {
                   >
                     <PlaneTakeoff className="w-4 h-4 mr-2" />
                     Ajouter offre Omra
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/omra-import');
+                      navigate('/admin/omra-import');
+                    }}
+                    className="text-sm"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Import Données Omra
                   </Button>
                   <Button
                     variant="outline"
