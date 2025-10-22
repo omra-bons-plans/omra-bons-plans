@@ -15,6 +15,54 @@ export default function AdminOmraImport() {
   const [isImporting, setIsImporting] = useState(false);
   const [result, setResult] = useState<any>(null);
 
+  const medinVoyagesData = [
+    {"nomAgence":"Medin Voyages","moisOmra":"Octobre","dateDepart":"24 octobre 2025","dateRetour":"03 novembre 2025","nombreJours":"10 jours","prixQuadruple":1799,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-octobre-2025/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"Novembre","dateDepart":"06 novembre 2025","dateRetour":"15 novembre 2025","nombreJours":"9 jours","prixQuadruple":999,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":null,"hotelMedine":null,"airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-novembre-2025-promo-999e/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"Novembre","dateDepart":"20 novembre 2025","dateRetour":"30 novembre 2025","nombreJours":"10 jours","prixQuadruple":1599,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-novembre-2025/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"decembre","dateDepart":"09 décembre 2025","dateRetour":"18 décembre 2025","nombreJours":null,"prixQuadruple":999,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":null,"hotelMedine":null,"airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-decembre-2025-promo-999e/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"decembre","dateDepart":"26 décembre 2025","dateRetour":"05 janvier 2026","nombreJours":null,"prixQuadruple":2099,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-decembre-2025/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"Janvier","dateDepart":"15 janvier 2026","dateRetour":"24 janvier 2026","nombreJours":"9 jours","prixQuadruple":1499,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-janvier-2026/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"fevrier","dateDepart":"05 février 2026","dateRetour":"14 février 2026","nombreJours":null,"prixQuadruple":1599,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":"SAUDIA AIRLINES","detailUrl":"https://medinvoyages.com/omras/omra-fevrier-2026/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"Septembre","dateDepart":null,"dateRetour":null,"nombreJours":null,"prixQuadruple":1499,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":null,"detailUrl":"https://medinvoyages.com/omras/omra-septembre-2026/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"aout","dateDepart":null,"dateRetour":null,"nombreJours":null,"prixQuadruple":1799,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":null,"detailUrl":"https://medinvoyages.com/omras/omra-aout-2026/"},
+    {"nomAgence":"Medin Voyages","moisOmra":"juillet","dateDepart":null,"dateRetour":null,"nombreJours":null,"prixQuadruple":1599,"villeDepart":"de Roissy Charles de Gaulle","hotelMakkah":"Address Jabal Omar (5 étoiles)","hotelMedine":"View Al Madinah (4 étoiles)","airline":null,"detailUrl":"https://medinvoyages.com/omras/omra-juillet-2026/"}
+  ];
+
+  const omraSounnahData = [
+    {"nomAgence":"Omra Sounnah","moisOmra":"octobre","dateDepart":"23 octobre 2025","dateRetour":"01 novembre 2025","nombreJours":"9 jours","prixQuadruple":1990,"villeDepart":"Paris","hotelMakkah":"hôtel Jumeirah (5 étoiles)","hotelMedine":"hôtel View al madinah (4 étoiles)","airline":null,"detailUrl":"https://www.omrasounnah.com/omra-octobre-pas-cher/"},
+    {"nomAgence":"Omra Sounnah","moisOmra":"decembre","dateDepart":"24 décembre 2025","dateRetour":"03 janvier 2025","nombreJours":null,"prixQuadruple":1690,"villeDepart":"Paris","hotelMakkah":"Hôtel 5 étoiles (proche du Haram)","hotelMedine":"Hôtel 5 étoiles (proche Masjid Nabawi)","airline":"Saudia Airlines","detailUrl":"https://www.omrasounnah.com/omra-decembre-pas-cher/"},
+    {"nomAgence":"Omra Sounnah","moisOmra":"janvier","dateDepart":"22 janvier 2025","dateRetour":"01 février 2025","nombreJours":null,"prixQuadruple":1690,"villeDepart":"Paris","hotelMakkah":"Hôtel 5 étoiles (proche du Haram)","hotelMedine":"Hôtel 5 étoiles (proche Masjid Nabawi)","airline":"Saudia Airlines","detailUrl":"https://www.omrasounnah.com/omra-janvier-pas-cher/"},
+    {"nomAgence":"Omra Sounnah","moisOmra":"fevrier","dateDepart":"17 février 2025","dateRetour":"27 février 2025","nombreJours":null,"prixQuadruple":null,"villeDepart":"Paris","hotelMakkah":"Hôtel 5 étoiles (proche du Haram)","hotelMedine":"Hôtel 5 étoiles (proche Masjid Nabawi)","airline":"Saudia Airlines","detailUrl":"https://www.omrasounnah.com/omra-fevrier-pas-cher/"}
+  ];
+
+  const handleQuickImport = async (data: any[], agencyName: string) => {
+    try {
+      setIsImporting(true);
+      setResult(null);
+
+      const { data: responseData, error: invokeError } = await supabase.functions.invoke('import-omra-data', {
+        body: { offers: data }
+      });
+
+      if (invokeError) throw invokeError;
+
+      setResult(responseData);
+      toast({
+        title: "✅ Import réussi",
+        description: `${agencyName}: ${responseData.summary}`,
+      });
+    } catch (err: any) {
+      console.error('Import error:', err);
+      toast({
+        title: "❌ Erreur d'import",
+        description: `Erreur lors de l'import ${agencyName}: ${err.message}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
   const handleImport = async () => {
     if (!jsonData.trim()) {
       toast({
@@ -81,6 +129,45 @@ export default function AdminOmraImport() {
         </div>
 
         <div className="grid gap-6">
+          {/* Quick Import Buttons */}
+          <Card className="p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-4">Import rapide</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Utilisez ces boutons pour importer rapidement les offres des agences
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button
+                onClick={() => handleQuickImport(medinVoyagesData, 'Medin Voyages')}
+                disabled={isImporting}
+                className="flex items-center gap-2"
+              >
+                <Upload className="h-4 w-4" />
+                Importer Medin Voyages ({medinVoyagesData.length} offres)
+              </Button>
+              <Button
+                onClick={() => handleQuickImport(omraSounnahData, 'Omra Sounnah')}
+                disabled={isImporting}
+                variant="secondary"
+                className="flex items-center gap-2"
+              >
+                <Upload className="h-4 w-4" />
+                Importer Omra Sounnah ({omraSounnahData.length} offres)
+              </Button>
+              <Button
+                onClick={async () => {
+                  await handleQuickImport(medinVoyagesData, 'Medin Voyages');
+                  await handleQuickImport(omraSounnahData, 'Omra Sounnah');
+                }}
+                disabled={isImporting}
+                variant="default"
+                className="flex items-center gap-2"
+              >
+                <Upload className="h-4 w-4" />
+                Tout importer
+              </Button>
+            </div>
+          </Card>
+
           {/* Instructions */}
           <Card className="p-6">
             <div className="flex items-start gap-3">
