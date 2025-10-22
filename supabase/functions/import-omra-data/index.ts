@@ -276,7 +276,9 @@ function getAgencyUrl(agencyName: string): string {
 
 function generateTitle(offer: ImportOffer): string {
   const month = offer.moisOmra || 'Omra';
-  const city = offer.villeDepart || 'Paris';
+  let city = offer.villeDepart || 'Paris';
+  // Nettoyer le préfixe "de " ou "depuis " s'il existe
+  city = city.replace(/^de\s+/i, '').replace(/^depuis\s+/i, '');
   return `Omra ${month} depuis ${city}`;
 }
 
