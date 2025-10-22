@@ -616,7 +616,7 @@ export default function ComparateurOmra() {
                       <span className="text-xs md:text-sm text-muted-foreground font-medium">Prix en chambre quadruple</span>
                       <div className="flex flex-col md:flex-row items-center justify-center md:items-baseline gap-1 md:gap-2">
                         <span className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
-                          {offer.price_eur}€
+                          {Number(offer.price_eur).toLocaleString('fr-FR')}€
                         </span>
                         <span className="text-xs md:text-sm text-muted-foreground font-medium">/ personne</span>
                       </div>
