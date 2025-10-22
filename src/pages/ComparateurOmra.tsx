@@ -72,6 +72,26 @@ const getAgencyLogo = (agencyName: string): string | null => {
   return null;
 };
 
+// Fonction pour extraire le nombre d'étoiles depuis le nom de l'hôtel
+const extractStarsFromHotel = (hotelName: string | null): number => {
+  if (!hotelName) return 3; // Par défaut 3 étoiles
+  
+  // Recherche de patterns comme "5 étoiles", "(5 étoiles)", "5*", etc.
+  const starsMatch = hotelName.match(/(\d)\s*(?:étoiles?|\*)/i);
+  if (starsMatch) {
+    return parseInt(starsMatch[1]);
+  }
+  
+  // Si pas de match, retourner 3 par défaut
+  return 3;
+};
+
+// Fonction pour nettoyer le nom de l'hôtel (enlever les étoiles)
+const cleanHotelName = (hotelName: string | null): string => {
+  if (!hotelName) return '';
+  return hotelName.replace(/\s*\(?\d\s*étoiles?\)?/gi, '').trim();
+};
+
 export default function ComparateurOmra() {
   const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
@@ -592,14 +612,14 @@ export default function ComparateurOmra() {
                   {/* Prix en évidence */}
                   <div className="px-3 md:px-6 py-3 md:py-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-2 relative text-center md:text-left">
-                      <div className="flex flex-col md:flex-row items-center md:items-baseline gap-1 md:gap-2">
-                        <span className="text-xs md:text-sm text-muted-foreground font-medium">à partir de</span>
+                    <div className="flex flex-col gap-1 relative text-center">
+                      <span className="text-xs md:text-sm text-muted-foreground font-medium">Prix en chambre quadruple</span>
+                      <div className="flex flex-col md:flex-row items-center justify-center md:items-baseline gap-1 md:gap-2">
                         <span className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
                           {offer.price_eur}€
                         </span>
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium">/ personne</span>
                       </div>
-                      <span className="text-xs md:text-sm text-muted-foreground font-medium">/ personne</span>
                     </div>
                   </div>
 
@@ -699,9 +719,9 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel La Mecque</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_makkah}</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{cleanHotelName(offer.hotel_makkah)}</div>
                                   <div className="flex items-center gap-0.5 md:gap-1">
-                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                    {[...Array(extractStarsFromHotel(offer.hotel_makkah))].map((_, i) => (
                                       <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                   </div>
@@ -722,9 +742,9 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel Médine</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1 truncate">{offer.hotel_medinah}</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{cleanHotelName(offer.hotel_medinah)}</div>
                                   <div className="flex items-center gap-0.5 md:gap-1">
-                                    {[...Array(offer.formula_type?.toLowerCase() === 'confort' ? 5 : 3)].map((_, i) => (
+                                    {[...Array(extractStarsFromHotel(offer.hotel_medinah))].map((_, i) => (
                                       <Star key={i} className="h-3 w-3 md:h-4 md:w-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                   </div>
