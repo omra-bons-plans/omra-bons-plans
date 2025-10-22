@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Upload, FileJson, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowLeft, Upload, FileJson, CheckCircle2, XCircle, Trash2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function AdminOmraImport() {
@@ -73,6 +73,30 @@ export default function AdminOmraImport() {
       toast({
         title: "❌ Erreur d'import",
         description: `Erreur lors de l'import ${agencyName}: ${err.message}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  const handleCleanup = async () => {
+    try {
+      setIsImporting(true);
+      
+      const { data: responseData, error: invokeError } = await supabase.functions.invoke('cleanup-old-omra-offers');
+
+      if (invokeError) throw invokeError;
+
+      toast({
+        title: "✅ Nettoyage réussi",
+        description: `${responseData.deleted} anciennes offres supprimées`,
+      });
+    } catch (err: any) {
+      console.error('Cleanup error:', err);
+      toast({
+        title: "❌ Erreur de nettoyage",
+        description: `Erreur: ${err.message}`,
         variant: "destructive",
       });
     } finally {
@@ -159,37 +183,53 @@ export default function AdminOmraImport() {
                 </AlertDescription>
               </Alert>
             ) : (
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  onClick={() => handleQuickImport(medinVoyagesData, 'Medin Voyages')}
-                  disabled={isImporting || medinVoyagesData.length === 0}
-                  className="flex items-center gap-2"
-                >
-                  <Upload className="h-4 w-4" />
-                  Importer Medin Voyages ({medinVoyagesData.length} offres)
-                </Button>
-                <Button
-                  onClick={() => handleQuickImport(omraSounnahData, 'Omra Sounnah')}
-                  disabled={isImporting || omraSounnahData.length === 0}
-                  variant="secondary"
-                  className="flex items-center gap-2"
-                >
-                  <Upload className="h-4 w-4" />
-                  Importer Omra Sounnah ({omraSounnahData.length} offres)
-                </Button>
-                <Button
-                  onClick={async () => {
-                    await handleQuickImport(medinVoyagesData, 'Medin Voyages');
-                    await handleQuickImport(omraSounnahData, 'Omra Sounnah');
-                  }}
-                  disabled={isImporting || (medinVoyagesData.length === 0 && omraSounnahData.length === 0)}
-                  variant="default"
-                  className="flex items-center gap-2"
-                >
-                  <Upload className="h-4 w-4" />
-                  Tout importer ({medinVoyagesData.length + omraSounnahData.length} offres)
-                </Button>
-              </div>
+              <>
+                <div className="mb-4 pb-4 border-b">
+                  <Button
+                    onClick={handleCleanup}
+                    disabled={isImporting}
+                    variant="destructive"
+                    className="flex items-center gap-2"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    🧹 Nettoyer les anciennes offres
+                  </Button>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Supprime toutes les offres avec des titres génériques pour éviter les doublons
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    onClick={() => handleQuickImport(medinVoyagesData, 'Medin Voyages')}
+                    disabled={isImporting || medinVoyagesData.length === 0}
+                    className="flex items-center gap-2"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Importer Medin Voyages ({medinVoyagesData.length} offres)
+                  </Button>
+                  <Button
+                    onClick={() => handleQuickImport(omraSounnahData, 'Omra Sounnah')}
+                    disabled={isImporting || omraSounnahData.length === 0}
+                    variant="secondary"
+                    className="flex items-center gap-2"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Importer Omra Sounnah ({omraSounnahData.length} offres)
+                  </Button>
+                  <Button
+                    onClick={async () => {
+                      await handleQuickImport(medinVoyagesData, 'Medin Voyages');
+                      await handleQuickImport(omraSounnahData, 'Omra Sounnah');
+                    }}
+                    disabled={isImporting || (medinVoyagesData.length === 0 && omraSounnahData.length === 0)}
+                    variant="default"
+                    className="flex items-center gap-2"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Tout importer ({medinVoyagesData.length + omraSounnahData.length} offres)
+                  </Button>
+                </div>
+              </>
             )}
           </Card>
 
