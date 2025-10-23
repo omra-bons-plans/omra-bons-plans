@@ -76,29 +76,29 @@ function enrichMedinVoyages(doc: Document, html: string): any {
   const dateMatches = [...html.matchAll(datePattern)];
   
   if (dateMatches.length >= 2) {
-    enriched.dateStart = formatDate(dateMatches[0][1], dateMatches[0][2], dateMatches[0][3]);
-    enriched.dateEnd = formatDate(dateMatches[1][1], dateMatches[1][2], dateMatches[1][3]);
+    enriched.date_start = formatDate(dateMatches[0][1], dateMatches[0][2], dateMatches[0][3]);
+    enriched.date_end = formatDate(dateMatches[1][1], dateMatches[1][2], dateMatches[1][3]);
   }
 
   // Extraire la durée
   const durationMatch = html.match(/(\d+)\s*(?:jours?|nuits?)/i);
   if (durationMatch) {
-    enriched.durationNights = parseInt(durationMatch[1]) - 1; // jours -> nuits
+    enriched.duration_nights = parseInt(durationMatch[1]) - 1; // jours -> nuits
   }
 
   // Extraire les nuits par ville
   const makkahMatch = html.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*(?:La\s*)?Mecque|Makkah/i);
   const medinaMatch = html.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*Médine|Medina/i);
   
-  if (makkahMatch) enriched.makkahNights = parseInt(makkahMatch[1]);
-  if (medinaMatch) enriched.medinaNights = parseInt(medinaMatch[1]);
+  if (makkahMatch) enriched.makkah_nights = parseInt(makkahMatch[1]);
+  if (medinaMatch) enriched.medina_nights = parseInt(medinaMatch[1]);
 
   // Extraire les distances (chercher "mètres" ou "m" près de "Haram")
   const distancePattern = /(\d+)\s*(?:mètres?|m)\s*(?:du|de|depuis)?\s*(?:la)?\s*Haram/gi;
   const distanceMatch = html.match(distancePattern);
   if (distanceMatch) {
     const dist = distanceMatch[0].match(/(\d+)/);
-    if (dist) enriched.distanceToHaram = parseInt(dist[1]);
+    if (dist) enriched.distance_to_haram_m = parseInt(dist[1]);
   }
 
   // Extraire la pension
@@ -111,8 +111,8 @@ function enrichMedinVoyages(doc: Document, html: string): any {
   }
 
   // Extraire les inclusions
-  enriched.visaIncluded = html.toLowerCase().includes('visa inclus') || html.toLowerCase().includes('visa compris');
-  enriched.flightsIncluded = html.toLowerCase().includes('vol inclus') || html.toLowerCase().includes('billet d\'avion');
+  enriched.visa_included = html.toLowerCase().includes('visa inclus') || html.toLowerCase().includes('visa compris');
+  enriched.flights_included = html.toLowerCase().includes('vol inclus') || html.toLowerCase().includes('billet d\'avion');
 
   return enriched;
 }
@@ -125,27 +125,27 @@ function enrichOmraSounnah(doc: Document, html: string): any {
   const dateMatches = [...html.matchAll(datePattern)];
   
   if (dateMatches.length >= 2) {
-    enriched.dateStart = formatDate(dateMatches[0][1], dateMatches[0][2], dateMatches[0][3]);
-    enriched.dateEnd = formatDate(dateMatches[1][1], dateMatches[1][2], dateMatches[1][3]);
+    enriched.date_start = formatDate(dateMatches[0][1], dateMatches[0][2], dateMatches[0][3]);
+    enriched.date_end = formatDate(dateMatches[1][1], dateMatches[1][2], dateMatches[1][3]);
   }
 
   // Extraire la durée
   const durationMatch = html.match(/(\d+)\s*(?:jours?|nuits?)/i);
   if (durationMatch) {
-    enriched.durationNights = parseInt(durationMatch[1]);
+    enriched.duration_nights = parseInt(durationMatch[1]);
   }
 
   // Extraire les nuits par ville
   const makkahMatch = html.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*(?:La\s*)?Mecque|Makkah/i);
   const medinaMatch = html.match(/(\d+)\s*(?:nuits?|j)\s*(?:à|a)?\s*Médine|Medina/i);
   
-  if (makkahMatch) enriched.makkahNights = parseInt(makkahMatch[1]);
-  if (medinaMatch) enriched.medinaNights = parseInt(medinaMatch[1]);
+  if (makkahMatch) enriched.makkah_nights = parseInt(makkahMatch[1]);
+  if (medinaMatch) enriched.medina_nights = parseInt(medinaMatch[1]);
 
   // Extraire le prix (si manquant dans JSON)
   const priceMatch = html.match(/(\d+(?:\s?\d+)*)\s*€/);
   if (priceMatch) {
-    enriched.price = parseFloat(priceMatch[1].replace(/\s/g, ''));
+    enriched.price_eur = parseFloat(priceMatch[1].replace(/\s/g, ''));
   }
 
   // Extraire les distances
@@ -153,16 +153,16 @@ function enrichOmraSounnah(doc: Document, html: string): any {
   const distanceMatch = html.match(distancePattern);
   if (distanceMatch) {
     const dist = distanceMatch[0].match(/(\d+)/);
-    if (dist) enriched.distanceToHaram = parseInt(dist[1]);
+    if (dist) enriched.distance_to_haram_m = parseInt(dist[1]);
   }
 
   // Extraire la formule
   if (html.toLowerCase().includes('confort')) {
-    enriched.formula = 'confort';
+    enriched.formula_type = 'confort';
   } else if (html.toLowerCase().includes('essentiel')) {
-    enriched.formula = 'essentiel';
+    enriched.formula_type = 'essentiel';
   } else if (html.toLowerCase().includes('premium')) {
-    enriched.formula = 'premium';
+    enriched.formula_type = 'premium';
   }
 
   // Extraire les hôtels complets (si génériques dans JSON)
@@ -170,9 +170,9 @@ function enrichOmraSounnah(doc: Document, html: string): any {
   const hotelMatches = [...html.matchAll(hotelPattern)];
   
   if (hotelMatches.length > 0) {
-    enriched.hotelMakkah = hotelMatches[0][0];
+    enriched.hotel_makkah = hotelMatches[0][0];
     if (hotelMatches.length > 1) {
-      enriched.hotelMedine = hotelMatches[1][0];
+      enriched.hotel_medinah = hotelMatches[1][0];
     }
   }
 
@@ -185,8 +185,8 @@ function enrichOmraSounnah(doc: Document, html: string): any {
     enriched.board = 'Petit déjeuner';
   }
 
-  enriched.visaIncluded = html.toLowerCase().includes('visa inclus') || html.toLowerCase().includes('visa compris');
-  enriched.flightsIncluded = html.toLowerCase().includes('vol inclus') || html.toLowerCase().includes('billet');
+  enriched.visa_included = html.toLowerCase().includes('visa inclus') || html.toLowerCase().includes('visa compris');
+  enriched.flights_included = html.toLowerCase().includes('vol inclus') || html.toLowerCase().includes('billet');
 
   return enriched;
 }
