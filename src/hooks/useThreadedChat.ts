@@ -187,16 +187,22 @@ export const useThreadedChat = (topicId?: string) => {
   useEffect(() => {
     fetchMessages();
 
+    // Create a unique channel name for this topic
+    const channelName = topicId ? `chat_topic_${topicId}` : 'chat_general';
+    
     const channel = supabase
-      .channel('threaded_chat_messages')
+      .channel(channelName)
       .on(
         'postgres_changes',
         {
           event: '*',
           schema: 'public',
-          table: 'chat_messages'
+          table: 'chat_messages',
+          // Only listen to changes for this specific topic
+          filter: topicId ? `topic_id=eq.${topicId}` : 'topic_id=is.null'
         },
-        () => {
+        (payload) => {
+          console.log(`📨 Message update in ${channelName}:`, payload);
           fetchMessages();
         }
       )
