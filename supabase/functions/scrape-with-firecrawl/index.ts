@@ -298,10 +298,10 @@ function extractTawaf(markdown: string, agencyUrl: string): any[] {
       
       console.log('\n📦 Tawaf section:', section.substring(0, 150));
       
-      // Extract prices in Tawaf format: "à partir de **1850€**" or "1850€"
+      // Extract prices: match **1850€** or "à partir de 1850€" or "1850€"
       const priceMatches = [
-        ...section.matchAll(/(?:partir de\s+\*?\*?)(\d{3,4})€/gi),
-        ...section.matchAll(/(\d{3,4})\s*€(?!.*\d{3,4})/g)
+        ...section.matchAll(/\*\*(\d{3,4})\s*€\*\*/g),
+        ...section.matchAll(/(?:partir de\s+)?\*?\*?(\d{3,4})\s*€/gi)
       ];
       
       console.log(`  💰 Found ${priceMatches.length} prices`);
@@ -314,8 +314,8 @@ function extractTawaf(markdown: string, agencyUrl: string): any[] {
           const titleMatch = section.match(/^#{1,3}\s*([^\n]+)/m);
           const title = titleMatch?.[1]?.replace(/\*/g, '').trim() || 'Omra Tawaf';
           
-          // Extract dates in Tawaf format: "**21 Fév.** au **03 Mar.** 2026"
-          const dateRangeMatch = section.match(/\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
+          // Extract dates: "**21 Fév.** au **03 Mar.** 2026" or "21 Fév au 03 Mar 2026"
+          const dateRangeMatch = section.match(/\*?\*?\s*(\d{1,2})\s+(Jan|Janv|Fév|Févr|Mar|Mars|Avr|Avril|Mai|Juin|Juil|Juillet|Août|Aout|Sep|Sept|Oct|Octobre|Nov|Novembre|Déc|Décembre)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?\s*(\d{1,2})\s+(Jan|Janv|Fév|Févr|Mar|Mars|Avr|Avril|Mai|Juin|Juil|Juillet|Août|Aout|Sep|Sept|Oct|Octobre|Nov|Novembre|Déc|Décembre)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
           
           let dateDepart = null;
           let dateRetour = null;
@@ -324,9 +324,18 @@ function extractTawaf(markdown: string, agencyUrl: string): any[] {
           if (dateRangeMatch) {
             const [_, day1, month1, day2, month2, year] = dateRangeMatch;
             const monthMap: Record<string, string> = {
-              'jan': '01', 'fév': '02', 'mar': '03', 'avr': '04',
-              'mai': '05', 'juin': '06', 'juil': '07', 'août': '08',
-              'sep': '09', 'oct': '10', 'nov': '11', 'déc': '12'
+              'jan': '01', 'janv': '01',
+              'fév': '02', 'févr': '02',
+              'mar': '03', 'mars': '03',
+              'avr': '04', 'avril': '04',
+              'mai': '05',
+              'juin': '06',
+              'juil': '07', 'juillet': '07',
+              'août': '08', 'aout': '08',
+              'sep': '09', 'sept': '09',
+              'oct': '10', 'octobre': '10',
+              'nov': '11', 'novembre': '11',
+              'déc': '12', 'décembre': '12'
             };
             const monthNum1 = monthMap[month1.toLowerCase().substring(0, 3)] || '01';
             const monthNum2 = monthMap[month2.toLowerCase().substring(0, 3)] || '01';
@@ -344,8 +353,8 @@ function extractTawaf(markdown: string, agencyUrl: string): any[] {
             console.log(`  📅 Dates: ${dateDepart} → ${dateRetour} (${moisOmra})`);
           }
           
-          // Extract duration: "11j" format
-          const durationMatch = section.match(/(\d{1,2})j/i);
+          // Extract duration: "11j" or "11 jours" or "11 nuits"
+          const durationMatch = section.match(/(\d{1,2})\s*(?:jours?|nuits?|j)/i);
           const nombreJours = durationMatch ? parseInt(durationMatch[1]) : null;
           const durationNights = nombreJours ? nombreJours - 1 : null;
           

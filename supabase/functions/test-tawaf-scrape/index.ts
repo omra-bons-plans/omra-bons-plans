@@ -90,10 +90,10 @@ function extractTawafOffers(markdown: string): any[] {
       
       console.log('\n📦 Found Omra section:', section.substring(0, 200));
       
-      // Extract prices in Tawaf format: "à partir de **1850€**" or "1850€"
+      // Extract prices in Tawaf format: "à partir de **1850€**" or "**1850€**" or "1850€"
       const priceMatches = [
-        ...section.matchAll(/(?:partir de\s+\*?\*?)(\d{3,4})€/gi),
-        ...section.matchAll(/(\d{3,4})\s*€(?!.*\d{3,4})/g)
+        ...section.matchAll(/\*\*(\d{3,4})\s*€\*\*/g),
+        ...section.matchAll(/(?:partir de\s+)?\*?\*?(\d{3,4})\s*€/gi)
       ];
       
       console.log(`  💰 Found ${priceMatches.length} prices`);
@@ -102,8 +102,8 @@ function extractTawafOffers(markdown: string): any[] {
         const price = parseInt(priceMatches[0][1]);
         console.log(`  💵 Price: ${price}€`);
         
-        // Extract dates in Tawaf format: "**21 Fév.** au **03 Mar.** 2026"
-        const dateRangeMatch = section.match(/\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
+        // Extract dates in Tawaf format: "**21 Fév.** au **03 Mar.** 2026" or "21 Fév au 03 Mar 2026"
+        const dateRangeMatch = section.match(/\*?\*?\s*(\d{1,2})\s+(Jan|Janv|Fév|Févr|Mar|Mars|Avr|Avril|Mai|Juin|Juil|Juillet|Août|Aout|Sep|Sept|Oct|Octobre|Nov|Novembre|Déc|Décembre)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?\s*(\d{1,2})\s+(Jan|Janv|Fév|Févr|Mar|Mars|Avr|Avril|Mai|Juin|Juil|Juillet|Août|Aout|Sep|Sept|Oct|Octobre|Nov|Novembre|Déc|Décembre)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
         
         let dates_found = [];
         if (dateRangeMatch) {
@@ -112,8 +112,8 @@ function extractTawafOffers(markdown: string): any[] {
           console.log(`  📅 Date range: ${dates_found[0]}`);
         }
         
-        // Extract duration: "11j" format
-        const durationMatch = section.match(/(\d{1,2})j/i);
+        // Extract duration: "11j" or "11 jours" or "11 nuits" format
+        const durationMatch = section.match(/(\d{1,2})\s*(?:jours?|nuits?|j)/i);
         const duration = durationMatch ? `${durationMatch[1]}j` : null;
         if (duration) console.log(`  ⏱️ Duration: ${duration}`);
         
