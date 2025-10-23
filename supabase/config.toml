@@ -124,6 +124,9 @@ verify_jwt = false
 [functions.scrape-with-firecrawl]
 verify_jwt = false
 
+[functions.test-tawaf-scrape]
+verify_jwt = false
+
 [functions.cleanup-old-omra-offers]
 verify_jwt = false
 

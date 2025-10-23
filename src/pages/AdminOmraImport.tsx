@@ -260,6 +260,45 @@ export default function AdminOmraImport() {
                 <div className="mb-4 pb-4 border-b">
                   <div className="flex flex-col gap-3">
                     <Button
+                      onClick={async () => {
+                        try {
+                          setIsImporting(true);
+                          toast({
+                            title: "🧪 Test Tawaf en cours",
+                            description: "Analyse du scraping Firecrawl pour Tawaf...",
+                          });
+                          
+                          const { data, error } = await supabase.functions.invoke('test-tawaf-scrape');
+                          
+                          if (error) throw error;
+                          
+                          console.log('📊 Résultat test Tawaf:', data);
+                          
+                          toast({
+                            title: "✅ Test terminé",
+                            description: `${data.offers?.length || 0} offres trouvées. Voir console pour détails.`,
+                          });
+                          
+                          setResult(data);
+                        } catch (err: any) {
+                          console.error('Test error:', err);
+                          toast({
+                            title: "❌ Erreur de test",
+                            description: err.message,
+                            variant: "destructive",
+                          });
+                        } finally {
+                          setIsImporting(false);
+                        }
+                      }}
+                      disabled={isImporting}
+                      variant="secondary"
+                      className="flex items-center gap-2 w-full"
+                    >
+                      <Upload className="h-4 w-4" />
+                      🧪 Test Tawaf (Debug)
+                    </Button>
+                    <Button
                       onClick={handleCleanup}
                       disabled={isImporting}
                       variant="destructive"
