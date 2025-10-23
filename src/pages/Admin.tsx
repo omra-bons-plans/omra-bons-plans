@@ -62,28 +62,16 @@ const Admin = () => {
 
   // Vérifier la session admin au chargement
   useEffect(() => {
-    console.log('🔍 Admin page: useEffect triggered', { 
-      adminLoading, 
-      user: user?.id, 
-      isAdmin 
-    });
-
     const checkAdminSession = () => {
       const sessionToken = localStorage.getItem('admin_session_token');
       const sessionExpiry = localStorage.getItem('admin_session_expiry');
       
-      console.log('🔐 Checking admin session:', { sessionToken: !!sessionToken, sessionExpiry });
-      
       if (sessionToken && sessionExpiry) {
         const expiryDate = new Date(sessionExpiry);
         if (expiryDate > new Date()) {
-          // Session valide
-          console.log('✅ Admin session valid');
           setShowCodeAuth(false);
           return true;
         } else {
-          // Session expirée
-          console.log('⏰ Admin session expired');
           localStorage.removeItem('admin_session_token');
           localStorage.removeItem('admin_session_expiry');
         }
@@ -91,39 +79,26 @@ const Admin = () => {
       return false;
     };
 
-    if (!adminLoading) {
-      console.log('✅ Admin loading complete');
-      
-      if (!user) {
-        console.log('❌ No user, redirecting to /auth');
-        navigate('/auth');
-        return;
-      }
-      
-      console.log('✅ User exists:', user.id);
-      
-      if (!isAdmin) {
-        console.log('❌ User is not admin, redirecting to /');
-        navigate('/');
-        return;
-      }
-
-      console.log('✅ User is admin!');
-
-      // Si admin, vérifier la session de code
-      const hasValidSession = checkAdminSession();
-      if (!hasValidSession) {
-        console.log('⚠️ No valid code session, showing code auth');
-        setShowCodeAuth(true);
-        setLoading(false); // Important: arrêter le loading pour afficher le formulaire
-      } else {
-        console.log('✅ Valid code session, fetching users');
-        fetchUsers();
-      }
-    } else {
-      console.log('⏳ Still loading admin status...');
+    if (adminLoading) return;
+    
+    if (!user) {
+      navigate('/auth', { replace: true });
+      return;
     }
-  }, [isAdmin, adminLoading, navigate, user]);
+    
+    if (!isAdmin) {
+      navigate('/', { replace: true });
+      return;
+    }
+
+    const hasValidSession = checkAdminSession();
+    if (!hasValidSession) {
+      setShowCodeAuth(true);
+      setLoading(false);
+    } else {
+      fetchUsers();
+    }
+  }, [isAdmin, adminLoading, user]);
 
   // Timer pour le compte à rebours
   useEffect(() => {
