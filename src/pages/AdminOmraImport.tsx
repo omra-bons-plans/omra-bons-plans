@@ -387,32 +387,52 @@ export default function AdminOmraImport() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
                     <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                      {result.imported}
+                      {result.imported || result.totalImported || 0}
                     </div>
                     <div className="text-sm text-muted-foreground">Nouvelles offres</div>
                   </div>
 
                   <div className="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
                     <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                      {result.updated}
+                      {result.updated || (result.agencies?.reduce((sum: number, a: any) => sum + (a.updated || 0), 0)) || 0}
                     </div>
                     <div className="text-sm text-muted-foreground">Mises à jour</div>
                   </div>
 
                   <div className="bg-yellow-500/10 p-4 rounded-lg border border-yellow-500/20">
                     <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-                      {result.skipped}
+                      {result.skipped || result.totalErrors || 0}
                     </div>
                     <div className="text-sm text-muted-foreground">Ignorées</div>
                   </div>
 
                   <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
                     <div className="text-2xl font-bold text-primary">
-                      {result.total}
+                      {result.total || (result.agencies?.reduce((sum: number, a: any) => sum + (a.offersFound || 0), 0)) || 0}
                     </div>
                     <div className="text-sm text-muted-foreground">Total traité</div>
                   </div>
                 </div>
+
+                {/* Détails par agence pour Firecrawl */}
+                {result.agencies && result.agencies.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-semibold mb-2">Détails par agence :</h3>
+                    <div className="grid gap-2">
+                      {result.agencies.map((agency: any, idx: number) => (
+                        <div key={idx} className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm">
+                          <span className="font-medium">{agency.agency}</span>
+                          <span className="text-muted-foreground">
+                            {agency.success 
+                              ? `${agency.offersFound || 0} trouvées, ${agency.imported || 0} importées, ${agency.updated || 0} mises à jour`
+                              : `❌ ${agency.error}`
+                            }
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <Alert>
                   <AlertDescription>
