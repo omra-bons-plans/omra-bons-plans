@@ -141,6 +141,7 @@ export default function ComparateurOmra() {
     const fetchOffers = async () => {
       try {
         setIsLoading(true);
+        setError(null);
         
         let query = supabase
           .from('omra_offers')
@@ -158,7 +159,10 @@ export default function ComparateurOmra() {
         const { data, error: fetchError } = await query;
 
         if (fetchError) {
+          console.error('Erreur de chargement:', fetchError);
           setError(fetchError.message);
+          setOffers([]);
+          setAllOffers([]);
         } else {
           const allData = data || [];
           setAllOffers(allData);
@@ -196,10 +200,12 @@ export default function ComparateurOmra() {
               break;
           }
           setOffers(filtered);
-          setError(null);
         }
       } catch (err: any) {
-        setError(err.message);
+        console.error('Erreur critique:', err);
+        setError(err.message || 'Une erreur est survenue');
+        setOffers([]);
+        setAllOffers([]);
       } finally {
         setIsLoading(false);
       }
