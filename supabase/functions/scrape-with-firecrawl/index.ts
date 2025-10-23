@@ -282,34 +282,119 @@ function extractOmraSounnah(markdown: string, agencyUrl: string): any[] {
   return offers.slice(0, 20);
 }
 
-// Tawaf extraction
+// Tawaf extraction - improved for their specific format
 function extractTawaf(markdown: string, agencyUrl: string): any[] {
   const offers: any[] = [];
-  const priceMatches = [...markdown.matchAll(/(\d{3,4})\s*€/g)];
   
-  for (const match of priceMatches) {
-    const price = parseInt(match[1]);
-    if (price >= 800 && price <= 8000) {
-      offers.push({
-        nomAgence: 'Tawaf',
-        titreOffre: 'Omra Tawaf',
-        prixQuadruple: price,
-        dateDepart: null,
-        dateRetour: null,
-        villeDepart: 'Paris',
-        airline: null,
-        hotelMakkah: null,
-        hotelMedine: null,
-        etoilesMakkah: null,
-        etoilesMedine: null,
-        nuitsMecque: null,
-        nuitsMedine: null,
-        detailUrl: agencyUrl,
-      });
+  console.log('🔍 Analyzing Tawaf markdown...');
+  
+  // Split by sections
+  const sections = markdown.split(/(?=^#{1,4}\s)/gm);
+  
+  for (const section of sections) {
+    // Look for Omra-related sections (skip FAQ, general info)
+    if (/(omra|umrah|ramadan|mi-ramadan)/i.test(section) && 
+        !/(faq|pourquoi|qu'est|experience)/i.test(section)) {
+      
+      console.log('\n📦 Tawaf section:', section.substring(0, 150));
+      
+      // Extract prices in Tawaf format: "à partir de **1850€**" or "1850€"
+      const priceMatches = [
+        ...section.matchAll(/(?:partir de\s+\*?\*?)(\d{3,4})€/gi),
+        ...section.matchAll(/(\d{3,4})\s*€(?!.*\d{3,4})/g)
+      ];
+      
+      console.log(`  💰 Found ${priceMatches.length} prices`);
+      
+      if (priceMatches.length > 0) {
+        const price = parseInt(priceMatches[0][1]);
+        
+        if (price >= 900 && price <= 6000) {
+          // Extract title from section heading
+          const titleMatch = section.match(/^#{1,3}\s*([^\n]+)/m);
+          const title = titleMatch?.[1]?.replace(/\*/g, '').trim() || 'Omra Tawaf';
+          
+          // Extract dates in Tawaf format: "**21 Fév.** au **03 Mar.** 2026"
+          const dateRangeMatch = section.match(/\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
+          
+          let dateDepart = null;
+          let dateRetour = null;
+          let moisOmra = null;
+          
+          if (dateRangeMatch) {
+            const [_, day1, month1, day2, month2, year] = dateRangeMatch;
+            const monthMap: Record<string, string> = {
+              'jan': '01', 'fév': '02', 'mar': '03', 'avr': '04',
+              'mai': '05', 'juin': '06', 'juil': '07', 'août': '08',
+              'sep': '09', 'oct': '10', 'nov': '11', 'déc': '12'
+            };
+            const monthNum1 = monthMap[month1.toLowerCase().substring(0, 3)] || '01';
+            const monthNum2 = monthMap[month2.toLowerCase().substring(0, 3)] || '01';
+            
+            dateDepart = `${year}-${monthNum1}-${day1.padStart(2, '0')}`;
+            dateRetour = `${year}-${monthNum2}-${day2.padStart(2, '0')}`;
+            
+            const monthNames: Record<string, string> = {
+              '01': 'janvier', '02': 'février', '03': 'mars', '04': 'avril',
+              '05': 'mai', '06': 'juin', '07': 'juillet', '08': 'août',
+              '09': 'septembre', '10': 'octobre', '11': 'novembre', '12': 'décembre'
+            };
+            moisOmra = monthNames[monthNum1] || null;
+            
+            console.log(`  📅 Dates: ${dateDepart} → ${dateRetour} (${moisOmra})`);
+          }
+          
+          // Extract duration: "11j" format
+          const durationMatch = section.match(/(\d{1,2})j/i);
+          const nombreJours = durationMatch ? parseInt(durationMatch[1]) : null;
+          const durationNights = nombreJours ? nombreJours - 1 : null;
+          
+          console.log(`  🌙 Duration: ${nombreJours}j = ${durationNights} nights`);
+          
+          // Extract hotels
+          const hotelMakkahMatch = section.match(/(?:makkah|mecque|mecca)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel|à)/i);
+          const hotelMedinaMatch = section.match(/(?:medina|médine|madinah)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel|à)/i);
+          
+          // Extract stars
+          const starsMatch = section.match(/(\d)\s*\*/g);
+          const etoilesMakkah = starsMatch?.[0] ? parseInt(starsMatch[0]) : null;
+          const etoilesMedine = starsMatch?.[1] ? parseInt(starsMatch[1]) : null;
+          
+          // Extract airline
+          const airlineMatch = section.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad|Lufthansa|KLM)/i);
+          
+          offers.push({
+            nomAgence: 'Tawaf',
+            titreOffre: title,
+            prixQuadruple: price,
+            dateDepart,
+            dateRetour,
+            moisOmra,
+            nombreJours,
+            durationNights,
+            villeDepart: 'Paris',
+            airline: airlineMatch?.[1] || null,
+            hotelMakkah: hotelMakkahMatch?.[1]?.trim() || null,
+            hotelMedine: hotelMedinaMatch?.[1]?.trim() || null,
+            etoilesMakkah,
+            etoilesMedine,
+            detailUrl: agencyUrl,
+          });
+          
+          console.log(`  ✅ Extracted offer: ${title} - ${price}€`);
+        }
+      }
     }
   }
   
-  return offers.slice(0, 15);
+  // Remove duplicates by price
+  const uniqueOffers = offers.filter((offer, index, self) => 
+    index === self.findIndex(o => o.prixQuadruple === offer.prixQuadruple)
+  );
+  
+  console.log(`📊 Total Tawaf offers: ${uniqueOffers.length}`);
+  
+  return uniqueOffers.slice(0, 20);
 }
 
 // Generic extraction - improved to extract real offers

@@ -84,48 +84,64 @@ function extractTawafOffers(markdown: string): any[] {
   const sections = markdown.split(/(?=^#{1,4}\s)/gm);
   
   for (const section of sections) {
-    // Look for Omra-related sections
-    if (/(omra|umrah|pèlerinage)/i.test(section)) {
+    // Look for Omra-related sections (skip FAQ, general info)
+    if (/(omra|umrah|ramadan|mi-ramadan)/i.test(section) && 
+        !/(faq|pourquoi|qu'est|experience)/i.test(section)) {
+      
       console.log('\n📦 Found Omra section:', section.substring(0, 200));
       
-      // Extract all prices
-      const priceMatches = [...section.matchAll(/(\d{3,4})\s*€/g)];
+      // Extract prices in Tawaf format: "à partir de **1850€**" or "1850€"
+      const priceMatches = [
+        ...section.matchAll(/(?:partir de\s+\*?\*?)(\d{3,4})€/gi),
+        ...section.matchAll(/(\d{3,4})\s*€(?!.*\d{3,4})/g)
+      ];
+      
       console.log(`  💰 Found ${priceMatches.length} prices`);
-      
-      // Extract dates
-      const dateMatches = [...section.matchAll(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g)];
-      console.log(`  📅 Found ${dateMatches.length} dates`);
-      
-      // Extract hotels
-      const hotelMakkahMatch = section.match(/(?:makkah|mecque|mecca)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel)/i);
-      const hotelMedinaMatch = section.match(/(?:medina|médine|madinah)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel)/i);
-      
-      if (hotelMakkahMatch) console.log('  🏨 Makkah hotel:', hotelMakkahMatch[1]);
-      if (hotelMedinaMatch) console.log('  🏨 Medina hotel:', hotelMedinaMatch[1]);
-      
-      // Extract nights
-      const nightsMatches = [...section.matchAll(/(\d+)\s*nuits?/gi)];
-      console.log(`  🌙 Found ${nightsMatches.length} nights mentions`);
-      
-      // Extract airline
-      const airlineMatch = section.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad|Lufthansa)/i);
-      if (airlineMatch) console.log('  ✈️ Airline:', airlineMatch[1]);
       
       if (priceMatches.length > 0) {
         const price = parseInt(priceMatches[0][1]);
+        console.log(`  💵 Price: ${price}€`);
+        
+        // Extract dates in Tawaf format: "**21 Fév.** au **03 Mar.** 2026"
+        const dateRangeMatch = section.match(/\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+au\s+\*?\*?(\d{1,2})\s+(Jan|Fév|Mar|Avr|Mai|Juin|Juil|Août|Sep|Oct|Nov|Déc)[a-z\.]*\s*\*?\*?\s+(\d{4})/i);
+        
+        let dates_found = [];
+        if (dateRangeMatch) {
+          const [_, day1, month1, day2, month2, year] = dateRangeMatch;
+          dates_found.push(`${day1} ${month1} → ${day2} ${month2} ${year}`);
+          console.log(`  📅 Date range: ${dates_found[0]}`);
+        }
+        
+        // Extract duration: "11j" format
+        const durationMatch = section.match(/(\d{1,2})j/i);
+        const duration = durationMatch ? `${durationMatch[1]}j` : null;
+        if (duration) console.log(`  ⏱️ Duration: ${duration}`);
+        
+        // Extract hotels
+        const hotelMakkahMatch = section.match(/(?:makkah|mecque|mecca)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel|à)/i);
+        const hotelMedinaMatch = section.match(/(?:medina|médine|madinah)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,40}?)(?:\s+\d|\*|\n|hotel|hôtel|à)/i);
+        
+        if (hotelMakkahMatch) console.log('  🏨 Makkah hotel:', hotelMakkahMatch[1]);
+        if (hotelMedinaMatch) console.log('  🏨 Medina hotel:', hotelMedinaMatch[1]);
+        
+        // Extract airline
+        const airlineMatch = section.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad|Lufthansa)/i);
+        if (airlineMatch) console.log('  ✈️ Airline:', airlineMatch[1]);
         
         offers.push({
           section_preview: section.substring(0, 300),
           price_eur: price,
-          dates_found: dateMatches.map(m => m[0]),
+          dates_found,
+          duration,
           hotel_makkah: hotelMakkahMatch?.[1]?.trim() || null,
           hotel_medina: hotelMedinaMatch?.[1]?.trim() || null,
-          nights: nightsMatches.map(m => m[0]),
           airline: airlineMatch?.[1] || null,
         });
       }
     }
   }
+  
+  console.log(`\n📊 Total offers extracted: ${offers.length}`);
   
   return offers;
 }
