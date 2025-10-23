@@ -196,16 +196,20 @@ function extractMedinVoyages(markdown: string, agencyUrl: string): any[] {
   const blocks = markdown.split(/(?=#{2,3}\s)/);
   
   for (const block of blocks) {
+    // Skip blocks without Omra keywords
+    if (!/(omra|umrah|pèlerinage)/i.test(block)) continue;
+    
     const titleMatch = block.match(/#{2,3}\s*([^\n]+)/);
-    const priceMatch = block.match(/(?:quadruple|4\s*pers).*?(\d{3,4})\s*€/i);
+    const priceMatch = block.match(/(?:quadruple|quad|4\s*pers|prix).*?(\d{3,4})\s*€/i);
     
     if (priceMatch) {
       const price = parseInt(priceMatch[1]);
-      if (price >= 800 && price <= 8000) {
+      if (price >= 900 && price <= 6000) {
         const dateMatch = block.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g);
-        const airlineMatch = block.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad)/i);
-        const hotelMakkahMatch = block.match(/(?:Makkah|Mecque).*?([A-Z][a-zÀ-ÿ\s]{3,20}?)(?:\s+\d|\*)/i);
-        const hotelMedinaMatch = block.match(/(?:Medina|Médine).*?([A-Z][a-zÀ-ÿ\s]{3,20}?)(?:\s+\d|\*)/i);
+        const monthMatch = block.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s*\d{4}/i);
+        const airlineMatch = block.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad|Lufthansa)/i);
+        const hotelMakkahMatch = block.match(/(?:Makkah|Mecque|Mecca).*?([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n)/i);
+        const hotelMedinaMatch = block.match(/(?:Medina|Médine|Madinah).*?([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n)/i);
         const starsMatch = block.match(/(\d)\s*(?:\*|étoile)/gi);
         const nightsMatch = block.match(/(\d+)\s*nuits?/gi);
         
@@ -215,6 +219,7 @@ function extractMedinVoyages(markdown: string, agencyUrl: string): any[] {
           prixQuadruple: price,
           dateDepart: dateMatch?.[0] ? formatDateString(dateMatch[0]) : null,
           dateRetour: dateMatch?.[1] ? formatDateString(dateMatch[1]) : null,
+          moisOmra: monthMatch?.[1]?.toLowerCase() || null,
           villeDepart: 'Paris',
           airline: airlineMatch?.[1] || null,
           hotelMakkah: hotelMakkahMatch?.[1]?.trim() || null,
@@ -238,13 +243,21 @@ function extractOmraSounnah(markdown: string, agencyUrl: string): any[] {
   const blocks = markdown.split(/(?=#{2,3}\s)/);
   
   for (const block of blocks) {
-    const priceMatch = block.match(/(\d{3,4})\s*€/);
+    // Skip blocks without Omra keywords
+    if (!/(omra|umrah|pèlerinage)/i.test(block)) continue;
+    
+    const priceMatch = block.match(/(?:prix|tarif|quadruple|quad|4\s*pers).*?(\d{3,4})\s*€/i);
     
     if (priceMatch) {
       const price = parseInt(priceMatch[1]);
-      if (price >= 800 && price <= 8000) {
+      if (price >= 900 && price <= 6000) {
         const titleMatch = block.match(/#{2,3}\s*([^\n]+)/);
         const dateMatch = block.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/g);
+        const monthMatch = block.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s*\d{4}/i);
+        const formulaMatch = block.match(/(essentiel|confort|premium|luxury|economique)/i);
+        const hotelMakkahMatch = block.match(/(?:Makkah|Mecque|Mecca).*?([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n)/i);
+        const hotelMedinaMatch = block.match(/(?:Medina|Médine|Madinah).*?([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n)/i);
+        const nightsMatch = block.match(/(\d+)\s*nuits?/gi);
         
         offers.push({
           nomAgence: 'Omra Sounnah',
@@ -252,14 +265,14 @@ function extractOmraSounnah(markdown: string, agencyUrl: string): any[] {
           prixQuadruple: price,
           dateDepart: dateMatch?.[0] ? formatDateString(dateMatch[0]) : null,
           dateRetour: dateMatch?.[1] ? formatDateString(dateMatch[1]) : null,
+          moisOmra: monthMatch?.[1]?.toLowerCase() || null,
+          formuleType: formulaMatch?.[1]?.toLowerCase() || 'essentiel',
           villeDepart: 'Paris',
           airline: null,
-          hotelMakkah: null,
-          hotelMedine: null,
-          etoilesMakkah: null,
-          etoilesMedine: null,
-          nuitsMecque: null,
-          nuitsMedine: null,
+          hotelMakkah: hotelMakkahMatch?.[1]?.trim() || null,
+          hotelMedine: hotelMedinaMatch?.[1]?.trim() || null,
+          nuitsMecque: nightsMatch?.[0] ? parseInt(nightsMatch[0]) : null,
+          nuitsMedine: nightsMatch?.[1] ? parseInt(nightsMatch[1]) : null,
           detailUrl: agencyUrl,
         });
       }
@@ -299,34 +312,83 @@ function extractTawaf(markdown: string, agencyUrl: string): any[] {
   return offers.slice(0, 15);
 }
 
-// Generic extraction
+// Generic extraction - improved to extract real offers
 function extractGeneric(markdown: string, agencyName: string, agencyUrl: string): any[] {
   const offers: any[] = [];
-  const priceMatches = [...markdown.matchAll(/(\d{3,4})\s*€/g)];
   
-  for (const match of priceMatches) {
-    const price = parseInt(match[1]);
-    if (price >= 800 && price <= 8000) {
-      offers.push({
-        nomAgence: agencyName,
-        titreOffre: `Omra ${agencyName}`,
-        prixQuadruple: price,
-        dateDepart: null,
-        dateRetour: null,
-        villeDepart: 'Paris',
-        airline: null,
-        hotelMakkah: null,
-        hotelMedine: null,
-        etoilesMakkah: null,
-        etoilesMedine: null,
-        nuitsMecque: null,
-        nuitsMedine: null,
-        detailUrl: agencyUrl,
-      });
+  // Split by headings or large sections
+  const sections = markdown.split(/(?=^#{1,3}\s)/gm);
+  
+  for (const section of sections) {
+    // Skip if section doesn't contain Omra/pilgrimage keywords
+    const hasOmraKeyword = /omra|omrah|umrah|pèlerinage|pilgrimage|hajj/i.test(section);
+    if (!hasOmraKeyword && section.length < 200) continue;
+    
+    // Look for prices with context (not just any price)
+    const priceRegex = /(?:prix|tarif|partir|à partir|dès|chambre\s+quadruple|quad|4\s*pers)[:\s]*(\d{3,4})\s*€/gi;
+    const priceMatches = [...section.matchAll(priceRegex)];
+    
+    if (priceMatches.length === 0) {
+      // Fallback: look for prices near dates or hotel info
+      const contextPriceRegex = /(?:\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}.*?|hôtel.*?|hotel.*?)(\d{3,4})\s*€/gi;
+      priceMatches.push(...section.matchAll(contextPriceRegex));
+    }
+    
+    for (const match of priceMatches) {
+      const price = parseInt(match[1]);
+      if (price >= 900 && price <= 6000) {
+        // Extract title from section heading
+        const titleMatch = section.match(/^#{1,3}\s*([^\n]+)/m);
+        const title = titleMatch?.[1]?.trim() || `Omra ${agencyName}`;
+        
+        // Extract dates
+        const dateMatches = section.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/g);
+        const dateDepart = dateMatches?.[0] ? formatDateString(dateMatches[0]) : null;
+        const dateRetour = dateMatches?.[1] ? formatDateString(dateMatches[1]) : null;
+        
+        // Extract month
+        const monthMatch = section.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s*\d{4}/i);
+        const moisOmra = monthMatch?.[1]?.toLowerCase() || null;
+        
+        // Extract hotel info
+        const hotelMakkahMatch = section.match(/(?:makkah|mecque|mecca)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n|hotel)/i);
+        const hotelMedinaMatch = section.match(/(?:medina|médine|madinah)[:\s]*([A-Z][a-zÀ-ÿ\s]{3,30}?)(?:\s+\d|\*|\n|hotel)/i);
+        
+        // Extract nights
+        const nightsMatches = section.match(/(\d+)\s*nuits?/gi);
+        const nuitsMecque = nightsMatches?.[0] ? parseInt(nightsMatches[0]) : null;
+        const nuitsMedine = nightsMatches?.[1] ? parseInt(nightsMatches[1]) : null;
+        
+        // Extract airline
+        const airlineMatch = section.match(/(Turkish|Emirates|Saudia|Air France|Egyptair|Qatar|Etihad|Lufthansa|KLM)/i);
+        
+        offers.push({
+          nomAgence: agencyName,
+          titreOffre: title,
+          prixQuadruple: price,
+          dateDepart,
+          dateRetour,
+          moisOmra,
+          villeDepart: 'Paris',
+          airline: airlineMatch?.[1] || null,
+          hotelMakkah: hotelMakkahMatch?.[1]?.trim() || null,
+          hotelMedine: hotelMedinaMatch?.[1]?.trim() || null,
+          nuitsMecque,
+          nuitsMedine,
+          detailUrl: agencyUrl,
+        });
+      }
     }
   }
   
-  return offers.slice(0, 10);
+  // Remove duplicates by price
+  const uniqueOffers = offers.filter((offer, index, self) => 
+    index === self.findIndex(o => o.prixQuadruple === offer.prixQuadruple)
+  );
+  
+  console.log(`  📊 Extracted ${uniqueOffers.length} unique offers from ${offers.length} total`);
+  
+  return uniqueOffers.slice(0, 15);
 }
 
 // Helper to format date strings
