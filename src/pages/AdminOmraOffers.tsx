@@ -31,6 +31,7 @@ interface OmraOfferForm {
   hotel_medinah: string;
   hotel_medinah_stars: number;
   airline: string;
+  visa_included: boolean;
   hajj_duration_type?: string;
 }
 
@@ -61,6 +62,7 @@ const AdminOmraOffers = () => {
     hotel_medinah: '',
     hotel_medinah_stars: 3,
     airline: '',
+    visa_included: false,
     hajj_duration_type: 'court'
   });
 
@@ -145,7 +147,7 @@ const AdminOmraOffers = () => {
         hotel_makkah: `${formData.hotel_makkah} (${formData.hotel_makkah_stars}⭐)`,
         hotel_medinah: `${formData.hotel_medinah} (${formData.hotel_medinah_stars}⭐)`,
         flights_included: true,
-        visa_included: false,
+        visa_included: formData.visa_included,
         guide_language: ['fr'],
         airline: formData.airline,
         notes: offerType === 'hajj' 
@@ -185,6 +187,7 @@ const AdminOmraOffers = () => {
         hotel_medinah: '',
         hotel_medinah_stars: 3,
         airline: '',
+        visa_included: false,
         hajj_duration_type: 'court'
       });
       setLogoFile(null);
@@ -469,6 +472,21 @@ const AdminOmraOffers = () => {
                       <SelectItem value="confort">Confort</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="visa_included"
+                    checked={formData.visa_included}
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, visa_included: checked as boolean })
+                    }
+                  />
+                  <Label htmlFor="visa_included" className="cursor-pointer">
+                    Visa inclus
+                  </Label>
                 </div>
               </div>
 
