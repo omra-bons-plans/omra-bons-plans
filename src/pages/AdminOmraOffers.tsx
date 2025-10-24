@@ -18,6 +18,7 @@ import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
 interface OmraOfferForm {
   agency_name: string;
   agency_logo?: string;
+  offer_url: string;
   month_departure: string;
   date_start: string;
   date_end: string;
@@ -47,6 +48,7 @@ const AdminOmraOffers = () => {
   
   const [formData, setFormData] = useState<OmraOfferForm>({
     agency_name: '',
+    offer_url: '',
     month_departure: '',
     date_start: '',
     date_end: '',
@@ -96,7 +98,7 @@ const AdminOmraOffers = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.agency_name || !formData.price_eur || !formData.date_start || !formData.date_end) {
+    if (!formData.agency_name || !formData.offer_url || !formData.price_eur || !formData.date_start || !formData.date_end) {
       toast({
         title: "Champs requis manquants",
         description: "Veuillez remplir tous les champs obligatoires",
@@ -130,7 +132,7 @@ const AdminOmraOffers = () => {
         agency_name: formData.agency_name,
         agency_url: `https://${formData.agency_name.toLowerCase().replace(/\s+/g, '')}.com`,
         offer_title: offerTitle,
-        offer_url: `https://${formData.agency_name.toLowerCase().replace(/\s+/g, '')}.com/offre`,
+        offer_url: formData.offer_url,
         price_eur: formData.price_eur,
         month_departure: formData.month_departure,
         date_start: formData.date_start,
@@ -170,6 +172,7 @@ const AdminOmraOffers = () => {
       // Reset form
       setFormData({
         agency_name: '',
+        offer_url: '',
         month_departure: '',
         date_start: '',
         date_end: '',
@@ -309,6 +312,18 @@ const AdminOmraOffers = () => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="offer_url">Lien de l'offre *</Label>
+                <Input
+                  id="offer_url"
+                  type="url"
+                  value={formData.offer_url}
+                  onChange={(e) => setFormData({ ...formData, offer_url: e.target.value })}
+                  placeholder="https://exemple.com/offre-omra"
+                  required
+                />
               </div>
 
               <div className="space-y-2">
