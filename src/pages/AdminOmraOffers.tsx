@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useImageUpload } from '@/hooks/useImageUpload';
+import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
 
 interface OmraOfferForm {
   agency_name: string;
@@ -285,13 +286,29 @@ const AdminOmraOffers = () => {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="agency_name">Nom de l'agence *</Label>
-                <Input
-                  id="agency_name"
+                <Select
                   value={formData.agency_name}
-                  onChange={(e) => setFormData({ ...formData, agency_name: e.target.value })}
-                  placeholder="Ex: Sabile Voyages"
-                  required
-                />
+                  onValueChange={(value) => {
+                    setFormData({ ...formData, agency_name: value });
+                    // Charger automatiquement le logo de l'agence
+                    const logo = getAgencyLogo(value);
+                    if (logo) {
+                      setLogoPreview(logo);
+                      setFormData(prev => ({ ...prev, agency_logo: logo }));
+                    }
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionner une agence" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[300px]">
+                    {getAgencyNames().map((agencyName) => (
+                      <SelectItem key={agencyName} value={agencyName}>
+                        {agencyName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-2">
