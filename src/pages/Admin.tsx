@@ -480,14 +480,14 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
-              console.log('📱 Navigating to /admin/omra-import from mobile menu');
+              console.log('📱 Navigating to /admin/omra-management from mobile menu');
               setMobileSheetOpen(false);
-              navigate('/admin/omra-import');
+              navigate('/admin/omra-management');
             }}
             className="justify-start"
           >
-            <FileText className="w-4 h-4 mr-2" />
-            Import Données Omra
+            <Settings className="w-4 h-4 mr-2" />
+            Gestion Offres Omra
           </Button>
         </div>
       </SheetContent>
@@ -653,13 +653,13 @@ const Admin = () => {
                   <Button
                     variant="outline"
                     onClick={() => {
-                      console.log('🖥️ Desktop: Navigating to /admin/omra-import');
-                      navigate('/admin/omra-import');
+                      console.log('🖥️ Desktop: Navigating to /admin/omra-management');
+                      navigate('/admin/omra-management');
                     }}
                     className="text-sm"
                   >
-                    <FileText className="w-4 h-4 mr-2" />
-                    Import Données Omra
+                    <Settings className="w-4 h-4 mr-2" />
+                    Gestion Offres Omra
                   </Button>
                   <Button
                     variant="outline"
