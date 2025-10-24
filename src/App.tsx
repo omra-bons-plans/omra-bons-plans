@@ -58,7 +58,6 @@ const Search = lazy(() => import("./pages/Search"));
 const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
-const AdminOmraImport = lazy(() => import("./pages/AdminOmraImport"));
 
 // Loading component
 const PageLoader = () => (
@@ -185,11 +184,6 @@ const App = () => (
                    <Route path="/admin/omra-offers" element={
                      <ProtectedRoute>
                        <AdminOmraOffers />
-                     </ProtectedRoute>
-                   } />
-                   <Route path="/admin/omra-import" element={
-                     <ProtectedRoute>
-                       <AdminOmraImport />
                      </ProtectedRoute>
                    } />
                    <Route path="/admin/ads" element={
