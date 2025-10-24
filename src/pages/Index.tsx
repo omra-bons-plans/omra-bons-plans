@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useMobilePerformance } from "@/hooks/useMobilePerformance";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +54,7 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const isMobile = useIsMobile();
+  const { isOptimized } = useMobilePerformance(); // Optimisations mobile
   const { topics } = useTopics();
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   const selectedTopic = selectedTopicId ? topics.find(t => t.id === selectedTopicId) : null;
@@ -273,18 +275,35 @@ const Index = () => {
 
       <div className="min-h-screen bg-background pt-0 mt-0">
 
-      {/* Hero Section - Optimisé mobile/tablette/desktop */}
-      <section className="hero-wrapper md:mt-[64px] lg:mt-[80px] mt-0">
-        <div className="hero-media">
-          <img
-            src="/hero-kaaba-2025-optimized.avif"
-            alt="Omra Bons Plans – La Kaaba sacrée à La Mecque"
-            width="1600"
-            height="900"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-          />
+      {/* Hero Section - Optimisé MOBILE avec dimensions fixes pour CLS = 0 */}
+      <section className="hero-wrapper md:mt-[64px] lg:mt-[80px] mt-0" style={{ minHeight: isMobile ? '100vh' : 'auto' }}>
+        <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : 'auto' }}>
+          <picture>
+            {/* Mobile: Image optimisée 750x1334 */}
+            <source
+              media="(max-width: 767px)"
+              srcSet="/hero-kaaba-2025-optimized.avif"
+              type="image/avif"
+              width="750"
+              height="1334"
+            />
+            {/* Desktop: Image normale */}
+            <img
+              src="/hero-kaaba-2025-optimized.avif"
+              alt="Omra Bons Plans – Séjours Omra et Hajj 2025-2026"
+              width={isMobile ? "750" : "1600"}
+              height={isMobile ? "1334" : "900"}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block'
+              }}
+            />
+          </picture>
         </div>
         
         <div className="hero-overlay">

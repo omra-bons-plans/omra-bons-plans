@@ -242,14 +242,30 @@ export default function ComparateurOmra() {
         ]}
       />
 
-      {/* Hero Section avec image de fond */}
-      <div className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden">
-        <img 
-          src={heroImage} 
-          alt="Kaaba à La Mecque" 
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-        />
+      {/* Hero Section avec image de fond - Optimisé mobile avec dimensions fixes */}
+      <div 
+        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden"
+        style={{ minHeight: '400px' }}
+      >
+        <picture className="absolute inset-0 w-full h-full">
+          {/* Mobile: dimensions fixes pour éviter CLS */}
+          <source
+            media="(max-width: 767px)"
+            srcSet={heroImage}
+            width="750"
+            height="400"
+          />
+          <img 
+            src={heroImage} 
+            alt="Comparateur Omra - La Kaaba à La Mecque" 
+            className="absolute inset-0 w-full h-full object-cover"
+            width="1600"
+            height="500"
+            loading="eager"
+            decoding="async"
+            style={{ display: 'block' }}
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
         <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
