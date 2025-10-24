@@ -129,7 +129,6 @@ const AdminOmraOffers = () => {
       const offerData = {
         agency_name: formData.agency_name,
         agency_url: `https://${formData.agency_name.toLowerCase().replace(/\s+/g, '')}.com`,
-        agency_logo: logoUrl,
         offer_title: offerTitle,
         offer_url: `https://${formData.agency_name.toLowerCase().replace(/\s+/g, '')}.com/offre`,
         price_eur: formData.price_eur,
@@ -146,6 +145,7 @@ const AdminOmraOffers = () => {
         flights_included: true,
         visa_included: false,
         guide_language: ['fr'],
+        airline: formData.airline,
         notes: offerType === 'hajj' 
           ? `Compagnie aérienne: ${formData.airline}\nDurée: ${formData.hajj_duration_type === 'court' ? 'Court séjour' : 'Long séjour'}`
           : `Compagnie aérienne: ${formData.airline}`,
