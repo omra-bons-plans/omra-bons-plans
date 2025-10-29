@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail } from 'lucide-react';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, List, Grid3x3 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
@@ -20,6 +20,7 @@ import heroImage from '@/assets/hero-comparateur-omra.jpg';
 import { Package } from 'lucide-react';
 import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
 import { FilterForm } from '@/components/ui/FilterForm';
+import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 
 const MONTHS = [
   'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -104,6 +105,7 @@ export default function ComparateurOmra() {
   const [maxDistance, setMaxDistance] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
+  const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('cards');
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -576,10 +578,56 @@ export default function ComparateurOmra() {
             ))}
           </div>
         ) : offers.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {offers.map((offer) => {
-              const agencyLogo = getAgencyLogo(offer.agency_name);
-              const agencyInfo = getAgencyInfo(offer.agency_name);
+          <div>
+            {/* Toggle d'affichage mobile */}
+            <div className="md:hidden flex items-center justify-between mb-4 px-2">
+              <span className="text-sm font-medium text-muted-foreground">
+                {offers.length} offre{offers.length > 1 ? 's' : ''}
+              </span>
+              <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-1">
+                <Button
+                  variant={mobileViewMode === 'cards' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setMobileViewMode('cards')}
+                  className="h-8 px-3"
+                >
+                  <Grid3x3 className="h-4 w-4 mr-1.5" />
+                  <span className="text-xs">Cartes</span>
+                </Button>
+                <Button
+                  variant={mobileViewMode === 'compact' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setMobileViewMode('compact')}
+                  className="h-8 px-3"
+                >
+                  <List className="h-4 w-4 mr-1.5" />
+                  <span className="text-xs">Liste</span>
+                </Button>
+              </div>
+            </div>
+
+            {/* Vue compacte (mobile) */}
+            {mobileViewMode === 'compact' ? (
+              <div className="md:hidden space-y-3">
+                {offers.map((offer) => {
+                  const agencyLogo = getAgencyLogo(offer.agency_name);
+                  const agencyInfo = getAgencyInfo(offer.agency_name);
+                  return (
+                    <CompactOfferCard
+                      key={offer.id}
+                      offer={offer}
+                      agencyLogo={agencyLogo}
+                      agencyInfo={agencyInfo}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              /* Vue cartes normale */
+              <div className={mobileViewMode === 'cards' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6'}>
+                {offers.map((offer) => {
+                  const agencyLogo = getAgencyLogo(offer.agency_name);
+                  const agencyInfo = getAgencyInfo(offer.agency_name);
               
               return (
                 <Card 
@@ -805,6 +853,8 @@ export default function ComparateurOmra() {
                 </Card>
               );
             })}
+              </div>
+            )}
           </div>
         ) : (
           <Card className="p-16 text-center bg-card/50 backdrop-blur-sm border-primary/10">
