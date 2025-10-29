@@ -591,12 +591,19 @@ export default function ComparateurOmra() {
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
-                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-4 md:p-6">
+                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-4 md:p-6 relative">
                           <img 
                             src={agencyLogo} 
                             alt={offer.agency_name}
                             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                           />
+                          {offer.is_complet && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                              <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white border-2 border-white font-black px-6 md:px-8 py-3 md:py-4 text-xl md:text-3xl shadow-2xl transform rotate-[-5deg] animate-pulse">
+                                ❌ COMPLET
+                              </Badge>
+                            </div>
+                          )}
                         </div>
                       )}
                       <div className="flex flex-col items-center gap-1 md:gap-2">
@@ -657,11 +664,6 @@ export default function ComparateurOmra() {
                       >
                         ✨ {offer.formula_type}
                       </Badge>
-                      {offer.is_complet && (
-                        <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-red-600 font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base shadow-md">
-                          ❌ COMPLET
-                        </Badge>
-                      )}
                       {offer.flights_included && (
                         <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
                           <Plane className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
