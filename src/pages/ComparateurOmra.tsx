@@ -23,7 +23,7 @@ import { FilterForm } from '@/components/ui/FilterForm';
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 
 const MONTHS = [
-  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+  'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
   'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 

@@ -20,6 +20,7 @@ const CITIES = [
 ];
 
 const MONTHS = [
+  { value: "Ramadan", label: "🌙 Ramadan" },
   { value: "Janvier", label: "Janvier 2026" },
   { value: "Février", label: "Février 2026" },
   { value: "Mars", label: "Mars 2026" },

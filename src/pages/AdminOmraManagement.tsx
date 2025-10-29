@@ -32,6 +32,11 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 
+const MONTHS = [
+  'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+];
+
 interface OmraOffer {
   id: string;
   agency_name: string;
@@ -498,13 +503,23 @@ export default function AdminOmraManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="edit-month">Mois de départ</Label>
-                  <Input
-                    id="edit-month"
+                  <Select
                     value={selectedOffer.month_departure}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, month_departure: e.target.value })
+                    onValueChange={(value) =>
+                      setSelectedOffer({ ...selectedOffer, month_departure: value })
                     }
-                  />
+                  >
+                    <SelectTrigger id="edit-month">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {MONTHS.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <Label htmlFor="edit-city">Ville de départ</Label>
