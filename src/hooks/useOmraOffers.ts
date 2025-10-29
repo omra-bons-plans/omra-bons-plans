@@ -25,6 +25,7 @@ interface OmraOffer {
   airline?: string | null;
   guide_language?: string[];
   currency_raw?: string | null;
+  is_complet: boolean;
 }
 
 interface FilterOptions {
@@ -52,7 +53,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
         // Requête directe au lieu de RPC
         let query = supabase
           .from('omra_offers')
-          .select('id, agency_name, agency_url, price_eur, month_departure, date_start, date_end, departure_city, formula_type, duration_nights, makkah_nights, medina_nights, hotel_makkah, hotel_medinah, distance_to_haram_m, offer_url, board, flights_included, visa_included, offer_title, airline, guide_language, currency_raw')
+          .select('id, agency_name, agency_url, price_eur, month_departure, date_start, date_end, departure_city, formula_type, duration_nights, makkah_nights, medina_nights, hotel_makkah, hotel_medinah, distance_to_haram_m, offer_url, board, flights_included, visa_included, offer_title, airline, guide_language, currency_raw, is_complet')
           .eq('status', 'active');
 
         // Appliquer les filtres

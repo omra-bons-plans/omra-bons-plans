@@ -657,6 +657,11 @@ export default function ComparateurOmra() {
                       >
                         ✨ {offer.formula_type}
                       </Badge>
+                      {offer.is_complet && (
+                        <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-red-600 font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base shadow-md">
+                          ❌ COMPLET
+                        </Badge>
+                      )}
                       {offer.flights_included && (
                         <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 transition-colors px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
                           <Plane className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />

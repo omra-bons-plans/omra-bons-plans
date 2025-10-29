@@ -55,6 +55,7 @@ interface OmraOffer {
   airline: string | null;
   status: string;
   scraped_at: string;
+  is_complet: boolean;
 }
 
 export default function AdminOmraManagement() {
@@ -206,6 +207,7 @@ export default function AdminOmraManagement() {
           flights_included: selectedOffer.flights_included,
           airline: selectedOffer.airline,
           status: selectedOffer.status,
+          is_complet: selectedOffer.is_complet,
         })
         .eq("id", selectedOffer.id);
 
@@ -366,13 +368,14 @@ export default function AdminOmraManagement() {
                     <TableHead>Formule</TableHead>
                     <TableHead>Durée</TableHead>
                     <TableHead>Statut</TableHead>
+                    <TableHead>Complet</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredOffers.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
+                      <TableCell colSpan={10} className="text-center py-8 text-muted-foreground">
                         Aucune offre trouvée
                       </TableCell>
                     </TableRow>
@@ -392,6 +395,39 @@ export default function AdminOmraManagement() {
                           <Badge variant={offer.status === "active" ? "default" : "secondary"}>
                             {offer.status}
                           </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            size="sm"
+                            variant={offer.is_complet ? "destructive" : "outline"}
+                            onClick={async () => {
+                              try {
+                                const { error } = await supabase
+                                  .from("omra_offers")
+                                  .update({ is_complet: !offer.is_complet })
+                                  .eq("id", offer.id);
+                                
+                                if (error) throw error;
+                                
+                                toast({
+                                  title: offer.is_complet ? "✅ Offre réouverte" : "✅ Offre marquée complète",
+                                  description: offer.is_complet 
+                                    ? "L'offre est à nouveau disponible" 
+                                    : "L'offre est maintenant marquée comme complète",
+                                });
+                                
+                                loadOffers();
+                              } catch (err: any) {
+                                toast({
+                                  title: "❌ Erreur",
+                                  description: "Impossible de modifier le statut",
+                                  variant: "destructive",
+                                });
+                              }
+                            }}
+                          >
+                            {offer.is_complet ? "Complet" : "Disponible"}
+                          </Button>
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">

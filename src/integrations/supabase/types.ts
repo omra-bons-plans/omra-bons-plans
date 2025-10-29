@@ -836,6 +836,7 @@ export type Database = {
           hotel_medina_stars: number | null
           hotel_medinah: string | null
           id: string
+          is_complet: boolean
           makkah_nights: number | null
           medina_nights: number | null
           month_departure: string
@@ -870,6 +871,7 @@ export type Database = {
           hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
+          is_complet?: boolean
           makkah_nights?: number | null
           medina_nights?: number | null
           month_departure: string
@@ -904,6 +906,7 @@ export type Database = {
           hotel_medina_stars?: number | null
           hotel_medinah?: string | null
           id?: string
+          is_complet?: boolean
           makkah_nights?: number | null
           medina_nights?: number | null
           month_departure?: string
