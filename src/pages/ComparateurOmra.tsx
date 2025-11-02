@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, List, Grid3x3 } from 'lucide-react';
+import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, List, Grid3x3, Send } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
@@ -21,6 +21,9 @@ import { Package } from 'lucide-react';
 import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
 import { FilterForm } from '@/components/ui/FilterForm';
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 const MONTHS = [
   'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -93,6 +96,14 @@ const cleanHotelName = (hotelName: string | null): string => {
   return hotelName.replace(/\s*\(?\d\s*étoiles?\)?/gi, '').trim();
 };
 
+const agencyFormSchema = z.object({
+  agencyName: z.string().trim().min(2, { message: "Le nom de l'agence est requis" }).max(100, { message: "Le nom de l'agence doit faire moins de 100 caractères" }),
+  contactName: z.string().trim().min(2, { message: "Votre nom est requis" }).max(100, { message: "Le nom doit faire moins de 100 caractères" }),
+  email: z.string().trim().email({ message: "Email invalide" }).max(255, { message: "L'email doit faire moins de 255 caractères" }),
+  phone: z.string().trim().min(10, { message: "Numéro de téléphone invalide" }).max(20, { message: "Le téléphone doit faire moins de 20 caractères" }),
+  message: z.string().trim().min(10, { message: "Le message doit faire au moins 10 caractères" }).max(1000, { message: "Le message doit faire moins de 1000 caractères" })
+});
+
 export default function ComparateurOmra() {
   const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
@@ -113,6 +124,16 @@ export default function ComparateurOmra() {
   const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Formulaire agence
+  const [agencyForm, setAgencyForm] = useState({
+    agencyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Fetch last successful update info
   const { data: lastUpdate } = useQuery({
@@ -243,6 +264,42 @@ export default function ComparateurOmra() {
     setPriceRange([0, 10000]);
     setMinDuration('');
     setMaxDistance('');
+  };
+
+  const handleAgencyFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const validatedData = agencyFormSchema.parse(agencyForm);
+      
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: validatedData.contactName,
+          email: validatedData.email,
+          message: `Demande d'apparition dans le comparateur\n\nAgence: ${validatedData.agencyName}\nContact: ${validatedData.contactName}\nTéléphone: ${validatedData.phone}\n\nMessage:\n${validatedData.message}`
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success('Votre demande a été envoyée avec succès !');
+      setAgencyForm({
+        agencyName: '',
+        contactName: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error('Erreur lors de l\'envoi du message');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -1314,6 +1371,119 @@ export default function ComparateurOmra() {
                 Notre comparateur référence des départs depuis les principales villes françaises : Paris (aéroports Charles de Gaulle et Orly), Lyon, Marseille, Toulouse, Nice, Nantes, Strasbourg, Bordeaux et Lille. Les vols directs sont généralement disponibles depuis Paris avec des compagnies comme Saudi Arabian Airlines, tandis que les autres villes proposent souvent des vols avec escale via Istanbul, Dubaï ou Doha.
               </p>
              </div>
+           </div>
+         </Card>
+
+         {/* Formulaire contact agence */}
+         <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/5 via-background to-primary/5 border-primary/20">
+           <div className="max-w-2xl mx-auto">
+             <div className="text-center mb-8">
+               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
+                 <Mail className="h-4 w-4" />
+                 <span>Agences de voyage</span>
+               </div>
+               <h2 className="text-3xl md:text-4xl font-bold mb-3">Vous souhaitez apparaître sur notre comparateur ?</h2>
+               <p className="text-muted-foreground text-lg">Écrivez-nous et faites découvrir vos offres à des milliers de pèlerins</p>
+             </div>
+
+             <form onSubmit={handleAgencyFormSubmit} className="space-y-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="space-y-2">
+                   <label htmlFor="agencyName" className="text-sm font-medium">
+                     Nom de l'agence <span className="text-destructive">*</span>
+                   </label>
+                   <Input
+                     id="agencyName"
+                     placeholder="Votre agence"
+                     value={agencyForm.agencyName}
+                     onChange={(e) => setAgencyForm({ ...agencyForm, agencyName: e.target.value })}
+                     required
+                     maxLength={100}
+                   />
+                 </div>
+
+                 <div className="space-y-2">
+                   <label htmlFor="contactName" className="text-sm font-medium">
+                     Votre nom <span className="text-destructive">*</span>
+                   </label>
+                   <Input
+                     id="contactName"
+                     placeholder="Prénom Nom"
+                     value={agencyForm.contactName}
+                     onChange={(e) => setAgencyForm({ ...agencyForm, contactName: e.target.value })}
+                     required
+                     maxLength={100}
+                   />
+                 </div>
+
+                 <div className="space-y-2">
+                   <label htmlFor="email" className="text-sm font-medium">
+                     Email <span className="text-destructive">*</span>
+                   </label>
+                   <Input
+                     id="email"
+                     type="email"
+                     placeholder="contact@votre-agence.fr"
+                     value={agencyForm.email}
+                     onChange={(e) => setAgencyForm({ ...agencyForm, email: e.target.value })}
+                     required
+                     maxLength={255}
+                   />
+                 </div>
+
+                 <div className="space-y-2">
+                   <label htmlFor="phone" className="text-sm font-medium">
+                     Téléphone <span className="text-destructive">*</span>
+                   </label>
+                   <Input
+                     id="phone"
+                     type="tel"
+                     placeholder="06 12 34 56 78"
+                     value={agencyForm.phone}
+                     onChange={(e) => setAgencyForm({ ...agencyForm, phone: e.target.value })}
+                     required
+                     maxLength={20}
+                   />
+                 </div>
+               </div>
+
+               <div className="space-y-2">
+                 <label htmlFor="message" className="text-sm font-medium">
+                   Votre message <span className="text-destructive">*</span>
+                 </label>
+                 <Textarea
+                   id="message"
+                   placeholder="Parlez-nous de votre agence, de vos offres et pourquoi vous souhaitez rejoindre notre comparateur..."
+                   value={agencyForm.message}
+                   onChange={(e) => setAgencyForm({ ...agencyForm, message: e.target.value })}
+                   required
+                   maxLength={1000}
+                   rows={6}
+                   className="resize-none"
+                 />
+                 <p className="text-xs text-muted-foreground text-right">
+                   {agencyForm.message.length}/1000 caractères
+                 </p>
+               </div>
+
+               <Button 
+                 type="submit" 
+                 className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all"
+                 disabled={isSubmitting}
+               >
+                 {isSubmitting ? (
+                   <>
+                     <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
+                     Envoi en cours...
+                   </>
+                 ) : (
+                   <>
+                     <Send className="h-5 w-5 mr-2" />
+                     Envoyer ma demande
+                   </>
+                 )}
+               </Button>
+             </form>
            </div>
          </Card>
        </div>
