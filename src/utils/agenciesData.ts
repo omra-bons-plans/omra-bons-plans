@@ -256,16 +256,17 @@ export const agenciesData: AgencyData[] = [
   {
     name: "Gateway-travel",
     url: "https://gateway-travel.fr",
-    googleRating: 0,
-    reviewCount: 0,
+    googleRating: 5,
+    reviewCount: 19,
     strengths: [
-      "Nouvelle agence dynamique",
-      "Service personnalisé",
-      "Offres compétitives"
+      "Excellente note de 5/5",
+      "Service personnalisé et soigné",
+      "Offres compétitives",
+      "Réactivité du service client"
     ],
     weaknesses: [
       "Présence récente sur le marché",
-      "Peu d'avis disponibles"
+      "Portfolio d'offres en développement"
     ],
     specialties: ["Omra & Hajj", "Séjours sur mesure"],
     priceRange: "Standard",
