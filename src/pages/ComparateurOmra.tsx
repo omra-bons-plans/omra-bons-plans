@@ -120,7 +120,6 @@ export default function ComparateurOmra() {
   const [selectedDuration, setSelectedDuration] = useState<string>('all');
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [minDuration, setMinDuration] = useState<string>('');
-  const [maxDistance, setMaxDistance] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
@@ -186,7 +185,6 @@ export default function ComparateurOmra() {
           selectedFormula,
           priceRange,
           minDuration,
-          maxDistance,
           selectedAgencies,
           tripType
         });
@@ -242,9 +240,6 @@ export default function ComparateurOmra() {
         if (minDuration) {
           filtered = filtered.filter(offer => offer.duration_nights >= parseInt(minDuration));
         }
-        if (maxDistance) {
-          filtered = filtered.filter(offer => offer.distance_to_haram_m <= parseInt(maxDistance));
-        }
         
         // Filtrer par agences sélectionnées
         if (selectedAgencies.length > 0) {
@@ -290,7 +285,7 @@ export default function ComparateurOmra() {
     };
 
     fetchOffers();
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType, selectedDuration]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, sortBy, selectedAgencies, tripType, selectedDuration]);
 
   // ⚡ PAGINATION: Calculer offres paginées
   const totalPages = Math.ceil(offers.length / itemsPerPage);
@@ -301,7 +296,7 @@ export default function ComparateurOmra() {
   // Reset page quand les filtres changent
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, sortBy, selectedAgencies, tripType]);
 
   // Scroll vers la liste des offres quand la page change
   useEffect(() => {
@@ -321,7 +316,6 @@ export default function ComparateurOmra() {
     setSelectedDuration('all');
     setPriceRange([0, 10000]);
     setMinDuration('');
-    setMaxDistance('');
   };
 
   const handleAgencyFormSubmit = async (e: React.FormEvent) => {
@@ -600,20 +594,6 @@ export default function ComparateurOmra() {
                     placeholder="Ex: 10"
                     value={minDuration}
                     onChange={(e) => setMinDuration(e.target.value)}
-                    className="bg-background/50 h-9 md:h-10 text-sm"
-                  />
-                </div>
-
-                <div className="space-y-1.5 md:space-y-2">
-                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                    <MapPin className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                    Distance max du Haram (m)
-                  </label>
-                  <Input
-                    type="number"
-                    placeholder="Ex: 500"
-                    value={maxDistance}
-                    onChange={(e) => setMaxDistance(e.target.value)}
                     className="bg-background/50 h-9 md:h-10 text-sm"
                   />
                 </div>
