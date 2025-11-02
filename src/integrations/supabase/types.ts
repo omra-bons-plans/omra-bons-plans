@@ -775,6 +775,36 @@ export type Database = {
         }
         Relationships: []
       }
+      hotel_presets: {
+        Row: {
+          city: string
+          created_at: string
+          hotel_name: string
+          id: string
+          stars: number | null
+          updated_at: string
+          usage_count: number | null
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          hotel_name: string
+          id?: string
+          stars?: number | null
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          hotel_name?: string
+          id?: string
+          stars?: number | null
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
@@ -1689,6 +1719,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      increment_hotel_usage: {
+        Args: { p_city: string; p_hotel_name: string; p_stars: number }
+        Returns: undefined
       }
       increment_profile_views: { Args: { profile_id: string }; Returns: number }
       is_ad_expired: { Args: { publish_end_date: string }; Returns: boolean }

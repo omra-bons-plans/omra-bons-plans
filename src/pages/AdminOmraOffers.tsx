@@ -14,6 +14,11 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
+import { useHotelPresets } from '@/hooks/useHotelPresets';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const MONTHS = [
   { value: 'janvier', label: 'Janvier' },
@@ -78,9 +83,15 @@ const AdminOmraOffers = () => {
     hotel_medinah: '',
     hotel_medinah_stars: 3,
     airline: '',
-    visa_included: false,
+    visa_included: true,
     hajj_duration_type: 'court'
   });
+
+  const [openMakkahHotel, setOpenMakkahHotel] = useState(false);
+  const [openMedinaHotel, setOpenMedinaHotel] = useState(false);
+
+  const { hotels: makkahHotels, saveHotel: saveMakkahHotel } = useHotelPresets('makkah');
+  const { hotels: medinaHotels, saveHotel: saveMedinaHotel } = useHotelPresets('medina');
 
   useEffect(() => {
     if (!adminLoading && (!user || !isAdmin)) {
@@ -182,6 +193,14 @@ const AdminOmraOffers = () => {
 
       if (error) throw error;
 
+      // Sauvegarder les hôtels pour les proposer la prochaine fois
+      if (formData.hotel_makkah) {
+        await saveMakkahHotel(formData.hotel_makkah, formData.hotel_makkah_stars);
+      }
+      if (formData.hotel_medinah) {
+        await saveMedinaHotel(formData.hotel_medinah, formData.hotel_medinah_stars);
+      }
+
       toast({
         title: "Offre ajoutée",
         description: `L'offre ${offerType === 'omra' ? 'Omra' : 'Hajj'} a été ajoutée avec succès`,
@@ -203,7 +222,7 @@ const AdminOmraOffers = () => {
         hotel_medinah: '',
         hotel_medinah_stars: 3,
         airline: '',
-        visa_included: false,
+        visa_included: true,
         hajj_duration_type: 'court'
       });
       setLogoFile(null);
@@ -546,13 +565,57 @@ const AdminOmraOffers = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="hotel_makkah">Hôtel à Makkah *</Label>
-                  <Input
-                    id="hotel_makkah"
-                    value={formData.hotel_makkah}
-                    onChange={(e) => setFormData({ ...formData, hotel_makkah: e.target.value })}
-                    placeholder="Ex: Al Safwah Tower"
-                    required
-                  />
+                  <Popover open={openMakkahHotel} onOpenChange={setOpenMakkahHotel}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openMakkahHotel}
+                        className="w-full justify-between"
+                      >
+                        {formData.hotel_makkah || "Sélectionner ou taper un hôtel..."}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[400px] p-0">
+                      <Command>
+                        <CommandInput 
+                          placeholder="Rechercher ou ajouter un hôtel..." 
+                          value={formData.hotel_makkah}
+                          onValueChange={(value) => setFormData({ ...formData, hotel_makkah: value })}
+                        />
+                        <CommandEmpty>
+                          <div className="p-4 text-sm text-muted-foreground">
+                            Appuyez sur Entrée pour ajouter "{formData.hotel_makkah}"
+                          </div>
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {makkahHotels.map((hotel) => (
+                            <CommandItem
+                              key={hotel.id}
+                              value={hotel.hotel_name}
+                              onSelect={(value) => {
+                                setFormData({ 
+                                  ...formData, 
+                                  hotel_makkah: value,
+                                  hotel_makkah_stars: hotel.stars
+                                });
+                                setOpenMakkahHotel(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  formData.hotel_makkah === hotel.hotel_name ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              {hotel.hotel_name} ({hotel.stars}⭐)
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 <div className="space-y-2">
@@ -576,13 +639,57 @@ const AdminOmraOffers = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="hotel_medinah">Hôtel à Médine *</Label>
-                  <Input
-                    id="hotel_medinah"
-                    value={formData.hotel_medinah}
-                    onChange={(e) => setFormData({ ...formData, hotel_medinah: e.target.value })}
-                    placeholder="Ex: Dar Al Taqwa"
-                    required
-                  />
+                  <Popover open={openMedinaHotel} onOpenChange={setOpenMedinaHotel}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openMedinaHotel}
+                        className="w-full justify-between"
+                      >
+                        {formData.hotel_medinah || "Sélectionner ou taper un hôtel..."}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[400px] p-0">
+                      <Command>
+                        <CommandInput 
+                          placeholder="Rechercher ou ajouter un hôtel..." 
+                          value={formData.hotel_medinah}
+                          onValueChange={(value) => setFormData({ ...formData, hotel_medinah: value })}
+                        />
+                        <CommandEmpty>
+                          <div className="p-4 text-sm text-muted-foreground">
+                            Appuyez sur Entrée pour ajouter "{formData.hotel_medinah}"
+                          </div>
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {medinaHotels.map((hotel) => (
+                            <CommandItem
+                              key={hotel.id}
+                              value={hotel.hotel_name}
+                              onSelect={(value) => {
+                                setFormData({ 
+                                  ...formData, 
+                                  hotel_medinah: value,
+                                  hotel_medinah_stars: hotel.stars
+                                });
+                                setOpenMedinaHotel(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  formData.hotel_medinah === hotel.hotel_name ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              {hotel.hotel_name} ({hotel.stars}⭐)
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 <div className="space-y-2">
