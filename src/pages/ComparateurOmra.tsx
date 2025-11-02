@@ -183,78 +183,94 @@ export default function ComparateurOmra() {
           tripType
         });
         
-        let query = supabase
+        // Récupérer TOUTES les offres actives pour calculer les options disponibles
+        const { data: allActiveOffers, error: allOffersError } = await supabase
           .from('omra_offers')
           .select('*')
           .eq('status', 'active');
 
-        if (selectedMonth && selectedMonth !== 'all') query = query.eq('month_departure', selectedMonth);
-        if (selectedCity && selectedCity !== 'all') query = query.eq('departure_city', selectedCity);
-        if (selectedFormula && selectedFormula !== 'all') query = query.eq('formula_type', selectedFormula.toLowerCase());
-        if (priceRange[0] > 0) query = query.gte('price_eur', priceRange[0]);
-        if (priceRange[1] < 10000) query = query.lte('price_eur', priceRange[1]);
-        if (minDuration) query = query.gte('duration_nights', parseInt(minDuration));
-        if (maxDistance) query = query.lte('distance_to_haram_m', parseInt(maxDistance));
-
-        const { data, error: fetchError } = await query;
-        
-        console.log('📊 Données récupérées:', { count: data?.length, error: fetchError });
-
-        if (fetchError) {
-          console.error('Erreur de chargement:', fetchError);
-          setError(fetchError.message);
+        if (allOffersError) {
+          console.error('Erreur de chargement:', allOffersError);
+          setError(allOffersError.message);
           setOffers([]);
           setAllOffers([]);
-        } else {
-          const allData = data || [];
-          setAllOffers(allData);
-          
-          // Extraire les agences uniques
-          const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
-          setAvailableAgencies(agencies);
-          
-          // Extraire les villes disponibles
-          const cities = Array.from(new Set(allData.map(offer => offer.departure_city).filter(Boolean)));
-          setAvailableCities(cities.sort());
-          
-          // Extraire les mois disponibles
-          const months = Array.from(new Set(allData.map(offer => offer.month_departure).filter(Boolean)));
-          setAvailableMonths(months);
-          
-          // Filtrer par agences sélectionnées
-          let filtered = selectedAgencies.length > 0 
-            ? allData.filter(offer => selectedAgencies.includes(offer.agency_name))
-            : allData;
-          
-          console.log('🏢 Après filtre agences:', { count: filtered.length, selectedAgencies });
-          
-          // Filtrer par durée de séjour Hajj
-          if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
-            const durationText = selectedDuration === 'court' ? 'Court séjour' : 'Long séjour';
-            filtered = filtered.filter(offer => 
-              offer.notes?.includes(durationText)
-            );
-          }
-          
-          // Trier
-          switch (sortBy) {
-            case 'price_asc':
-              filtered.sort((a, b) => a.price_eur - b.price_eur);
-              break;
-            case 'price_desc':
-              filtered.sort((a, b) => b.price_eur - a.price_eur);
-              break;
-            case 'duration_asc':
-              filtered.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
-              break;
-            case 'duration_desc':
-              filtered.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
-              break;
-          }
-          
-          console.log('✅ Offres finales affichées:', filtered.length);
-          setOffers(filtered);
+          return;
         }
+
+        const allData = allActiveOffers || [];
+        setAllOffers(allData);
+        
+        // Extraire les agences uniques depuis TOUTES les offres
+        const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
+        setAvailableAgencies(agencies);
+        
+        // Extraire les villes disponibles depuis TOUTES les offres
+        const allCities = Array.from(new Set(allData.map(offer => offer.departure_city).filter(Boolean)));
+        setAvailableCities(allCities.sort());
+        
+        // Extraire les mois disponibles depuis TOUTES les offres
+        const allMonths = Array.from(new Set(allData.map(offer => offer.month_departure).filter(Boolean)));
+        setAvailableMonths(allMonths);
+        
+        // Maintenant, filtrer les offres pour l'affichage
+        let filtered = allData;
+        
+        // Appliquer les filtres
+        if (selectedMonth && selectedMonth !== 'all') {
+          filtered = filtered.filter(offer => offer.month_departure === selectedMonth);
+        }
+        if (selectedCity && selectedCity !== 'all') {
+          filtered = filtered.filter(offer => offer.departure_city === selectedCity);
+        }
+        if (selectedFormula && selectedFormula !== 'all') {
+          filtered = filtered.filter(offer => offer.formula_type === selectedFormula.toLowerCase());
+        }
+        if (priceRange[0] > 0) {
+          filtered = filtered.filter(offer => offer.price_eur >= priceRange[0]);
+        }
+        if (priceRange[1] < 10000) {
+          filtered = filtered.filter(offer => offer.price_eur <= priceRange[1]);
+        }
+        if (minDuration) {
+          filtered = filtered.filter(offer => offer.duration_nights >= parseInt(minDuration));
+        }
+        if (maxDistance) {
+          filtered = filtered.filter(offer => offer.distance_to_haram_m <= parseInt(maxDistance));
+        }
+        
+        // Filtrer par agences sélectionnées
+        if (selectedAgencies.length > 0) {
+          filtered = filtered.filter(offer => selectedAgencies.includes(offer.agency_name));
+        }
+        
+        console.log('🏢 Après filtre agences:', { count: filtered.length, selectedAgencies });
+        
+        // Filtrer par durée de séjour Hajj
+        if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
+          const durationText = selectedDuration === 'court' ? 'Court séjour' : 'Long séjour';
+          filtered = filtered.filter(offer => 
+            offer.notes?.includes(durationText)
+          );
+        }
+        
+        // Trier
+        switch (sortBy) {
+          case 'price_asc':
+            filtered.sort((a, b) => a.price_eur - b.price_eur);
+            break;
+          case 'price_desc':
+            filtered.sort((a, b) => b.price_eur - a.price_eur);
+            break;
+          case 'duration_asc':
+            filtered.sort((a, b) => (a.duration_nights || 0) - (b.duration_nights || 0));
+            break;
+          case 'duration_desc':
+            filtered.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
+            break;
+        }
+        
+        console.log('✅ Offres finales affichées:', filtered.length);
+        setOffers(filtered);
       } catch (err: any) {
         console.error('Erreur critique:', err);
         setError(err.message || 'Une erreur est survenue');
