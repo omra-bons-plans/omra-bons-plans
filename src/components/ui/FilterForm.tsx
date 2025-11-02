@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, MapPin, Search } from "lucide-react";
+import { Calendar, MapPin, Search, X } from "lucide-react";
 
 interface FilterFormProps {
   tripType: 'omra' | 'hajj';
@@ -11,6 +11,7 @@ interface FilterFormProps {
   selectedDuration?: string;
   setSelectedDuration?: (duration: string) => void;
   onSearch?: () => void;
+  onReset?: () => void;
   compact?: boolean;
 }
 
@@ -45,12 +46,22 @@ export function FilterForm({
   selectedDuration,
   setSelectedDuration,
   onSearch,
+  onReset,
   compact = false
 }: FilterFormProps) {
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     onSearch?.();
   }
+
+  function handleReset() {
+    setSelectedCity('all');
+    setSelectedMonth('all');
+    setSelectedDuration?.('all');
+    onReset?.();
+  }
+
+  const hasActiveFilters = selectedCity !== 'all' || selectedMonth !== 'all' || (selectedDuration && selectedDuration !== 'all');
 
   return (
     <form 
@@ -168,17 +179,29 @@ export function FilterForm({
         )}
 
         {/* CTA */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <label className="mb-1 text-xs opacity-0">Action</label>
-          <button
-            type="submit"
-            className="h-12 w-full rounded-xl bg-primary text-primary-foreground font-semibold shadow-sm transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
-          >
-            <span className="flex items-center justify-center gap-2">
-              <Search size={16} />
-              Rechercher
-            </span>
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="h-12 flex-1 rounded-xl bg-primary text-primary-foreground font-semibold shadow-sm transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <Search size={16} />
+                Rechercher
+              </span>
+            </button>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={handleReset}
+                className="h-12 px-4 rounded-xl border border-border bg-background text-foreground font-semibold shadow-sm transition hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
+                title="Réinitialiser les filtres"
+              >
+                <X size={18} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </form>
