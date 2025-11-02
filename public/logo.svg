@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <!-- Croissant de lune -->
+  <path d="M250 200c0-70-50-130-120-140 30-20 70-20 100 0 60 40 80 120 40 180s-120 80-180 40c-30-20-50-50-60-80 20 60 80 100 140 100 80 0 140-60 140-140z" fill="#0A1A3A"/>
+  
+  <!-- Kaaba -->
+  <rect x="150" y="100" width="100" height="120" fill="#0A1A3A"/>
+  <rect x="150" y="130" width="100" height="20" fill="#D4AF37"/>
+  
+  <!-- Personne en ihram -->
+  <circle cx="290" cy="160" r="15" fill="#0A1A3A"/>
+  <path d="M280 180h20v60h-20z" fill="#0A1A3A"/>
+  <path d="M280 180c10 10 20 20 20 40h-20z" fill="white"/>
+  
+  <!-- Texte -->
+  <text x="200" y="300" font-size="36" font-family="sans-serif" text-anchor="middle" fill="#0A1A3A">
+    Omra
+  </text>
+  <text x="200" y="340" font-size="28" font-family="sans-serif" text-anchor="middle" fill="#0A1A3A">
+    Bons Plans
+  </text>
+</svg>
