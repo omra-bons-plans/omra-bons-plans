@@ -252,6 +252,24 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Hajj & Omra traditionnel", "Réservation en ligne", "Offres variées"],
     priceRange: "Standard",
     highlight: "Agence pionnière avec 13 ans d'expérience et 98% de satisfaction"
+  },
+  {
+    name: "Gateway-travel",
+    url: "https://gateway-travel.fr",
+    googleRating: 0,
+    reviewCount: 0,
+    strengths: [
+      "Nouvelle agence dynamique",
+      "Service personnalisé",
+      "Offres compétitives"
+    ],
+    weaknesses: [
+      "Présence récente sur le marché",
+      "Peu d'avis disponibles"
+    ],
+    specialties: ["Omra & Hajj", "Séjours sur mesure"],
+    priceRange: "Standard",
+    highlight: "Agence en développement offrant des services personnalisés"
   }
 ];
 
