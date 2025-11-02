@@ -106,7 +106,7 @@ export default function ComparateurOmra() {
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
-  const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('cards');
+  const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
