@@ -19,19 +19,19 @@ Deno.serve(async (req) => {
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Récupérer toutes les offres actives dont la date de fin est passée
+    // Récupérer toutes les offres actives dont la date de départ est passée
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Début de la journée
     const todayStr = today.toISOString().split('T')[0];
 
-    console.log(`[archive-expired-offers] Checking offers with date_end before ${todayStr}`);
+    console.log(`[archive-expired-offers] Checking offers with date_start before ${todayStr}`);
 
     const { data: expiredOffers, error: fetchError } = await supabase
       .from('omra_offers')
       .select('id, agency_name, offer_title, date_end, date_start')
       .eq('status', 'active')
-      .not('date_end', 'is', null)
-      .lt('date_end', todayStr);
+      .not('date_start', 'is', null)
+      .lt('date_start', todayStr);
 
     if (fetchError) {
       console.error('[archive-expired-offers] Error fetching expired offers:', fetchError);
@@ -71,6 +71,7 @@ Deno.serve(async (req) => {
     console.log('[archive-expired-offers] Archived offers:', expiredOffers.map(o => ({
       title: o.offer_title,
       agency: o.agency_name,
+      date_start: o.date_start,
       date_end: o.date_end,
     })));
 
@@ -82,6 +83,7 @@ Deno.serve(async (req) => {
           id: o.id,
           agency: o.agency_name,
           title: o.offer_title,
+          date_start: o.date_start,
           date_end: o.date_end,
         })),
         message: `Successfully archived ${expiredOffers.length} expired offer(s)`,
