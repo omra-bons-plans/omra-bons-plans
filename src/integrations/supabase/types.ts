@@ -500,6 +500,30 @@ export type Database = {
           },
         ]
       }
+      airline_presets: {
+        Row: {
+          airline_name: string
+          created_at: string
+          id: string
+          updated_at: string
+          usage_count: number | null
+        }
+        Insert: {
+          airline_name: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Update: {
+          airline_name?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string
@@ -1719,6 +1743,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      increment_airline_usage: {
+        Args: { p_airline_name: string }
+        Returns: undefined
       }
       increment_hotel_usage: {
         Args: { p_city: string; p_hotel_name: string; p_stars: number }
