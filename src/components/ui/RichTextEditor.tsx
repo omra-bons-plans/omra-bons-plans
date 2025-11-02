@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import DOMPurify from 'dompurify';
 import { Bold, Link2, Eye, Code, ImageIcon } from 'lucide-react';
 import { Button } from './button';
 import { Textarea } from './textarea';
@@ -136,9 +137,15 @@ export const RichTextEditor = ({
       // Convert line breaks to <br>
       .replace(/\n/g, '<br>');
     
+    // Sanitize the HTML to prevent XSS attacks
+    const sanitizedHtml = DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: ['p', 'strong', 'em', 'a', 'img', 'br', 'code', 'div'],
+      ALLOWED_ATTR: ['href', 'src', 'alt', 'style', 'target', 'rel', 'loading', 'class']
+    });
+    
     return <div
       className="max-w-none text-foreground space-y-4"
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
     />;
   };
 

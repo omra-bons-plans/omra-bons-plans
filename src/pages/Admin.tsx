@@ -320,17 +320,8 @@ const Admin = () => {
         description: `Rôle mis à jour: ${result.old_role} → ${result.new_role}. Action auditée.`,
       });
 
-      // Log de sécurité côté client
-      console.log('🔐 Role change audit:', {
-        admin: result.admin_email,
-        target: result.target_email,
-        change: `${result.old_role} → ${result.new_role}`,
-        timestamp: new Date().toISOString()
-      });
-
       fetchUsers();
     } catch (error: any) {
-      console.error('🚨 Échec du changement de rôle sécurisé:', error);
       toast({
         title: "🛡️ Accès refusé",
         description: error.message || "Action non autorisée par les protections de sécurité",

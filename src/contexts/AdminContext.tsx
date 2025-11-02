@@ -33,18 +33,14 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
 
   const checkAdminStatus = async () => {
     if (!user) {
-      console.log('🔒 AdminContext: No user found');
       setIsAdmin(false);
       setLoading(false);
       return;
     }
 
-    console.log('🔍 AdminContext: Checking admin status for user:', user.id);
-
     // Vérifier le cache d'abord
     const cached = adminCache.current.get(user.id);
     if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
-      console.log('✅ AdminContext: Using cached admin status:', cached.isAdmin);
       setIsAdmin(cached.isAdmin);
       setLoading(false);
       return;
@@ -59,14 +55,10 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
         .eq('role', 'admin')
         .maybeSingle();
 
-      console.log('📊 AdminContext: Query result -', { data, error: error?.message });
-
       if (error) {
-        console.error('❌ AdminContext: Error checking admin status:', error);
         setIsAdmin(false);
       } else {
         const isAdminUser = !!data;
-        console.log('✅ AdminContext: Is admin?', isAdminUser);
         
         // Mise en cache sécurisée
         adminCache.current.set(user.id, {
@@ -77,7 +69,6 @@ export const AdminProvider: React.FC<AdminProviderProps> = ({ children }) => {
         setIsAdmin(isAdminUser);
       }
     } catch (error) {
-      console.error('❌ AdminContext: Exception:', error);
       setIsAdmin(false);
     } finally {
       setLoading(false);

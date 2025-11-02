@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import VideoPlayer from './VideoPlayer';
 import { getImageUrl } from '@/utils/imageUtils';
 
@@ -39,20 +40,26 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         headingText = headingText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
         const id = `heading-${index}`;
         
+        // Sanitize heading content
+        const sanitizedHeading = DOMPurify.sanitize(headingText, { 
+          ALLOWED_TAGS: ['strong', 'em', 'code'],
+          ALLOWED_ATTR: ['class']
+        });
+        
         if (level === 2) {
           elements.push(
             <h2 key={`h2-${index}`} id={id} className="text-xl font-semibold text-foreground mt-8 mb-4" 
-                dangerouslySetInnerHTML={{ __html: headingText }} />
+                dangerouslySetInnerHTML={{ __html: sanitizedHeading }} />
           );
         } else if (level === 3) {
           elements.push(
             <h3 key={`h3-${index}`} id={id} className="text-lg font-semibold text-foreground mt-6 mb-3" 
-                dangerouslySetInnerHTML={{ __html: headingText }} />
+                dangerouslySetInnerHTML={{ __html: sanitizedHeading }} />
           );
         } else if (level === 4) {
           elements.push(
             <h4 key={`h4-${index}`} id={id} className="text-base font-semibold text-foreground mt-4 mb-2" 
-                dangerouslySetInnerHTML={{ __html: headingText }} />
+                dangerouslySetInnerHTML={{ __html: sanitizedHeading }} />
           );
         }
         return;
@@ -72,9 +79,13 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         const id = `heading-${index}`;
         // Process bold text in auto-detected headings too
         const processedText = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
+        const sanitizedHeading = DOMPurify.sanitize(processedText, { 
+          ALLOWED_TAGS: ['strong', 'em', 'code'],
+          ALLOWED_ATTR: ['class']
+        });
         elements.push(
           <h2 key={`auto-h2-${index}`} id={id} className="text-xl font-semibold text-foreground mt-8 mb-4" 
-              dangerouslySetInnerHTML={{ __html: processedText }} />
+              dangerouslySetInnerHTML={{ __html: sanitizedHeading }} />
         );
         return;
       }
@@ -99,13 +110,6 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
               alt={altText}
               className="max-w-full h-auto rounded-lg shadow-sm border border-border/20 mx-auto block"
               loading="lazy"
-              onError={(e) => {
-                console.error('❌ Erreur de chargement d\'image:', imageUrl);
-                e.currentTarget.style.display = 'none';
-              }}
-              onLoad={() => {
-                console.log('✅ Image chargée avec succès:', imageUrl);
-              }}
             />
             {altText && altText !== 'Image' && (
               <p className="text-sm text-muted-foreground text-center mt-2 italic">
@@ -127,14 +131,20 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
           if (!url.startsWith('http')) {
             optimizedUrl = getImageUrl(url, undefined, 'blog-images');
           }
-          return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" onError="console.error('❌ Erreur image inline:', '${optimizedUrl}'); this.style.display='none';" onLoad="console.log('✅ Image inline chargée:', '${optimizedUrl}');" />`;
+          return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" />`;
         })
         // Convert links [text](url) to <a href="url">text</a>
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-2 transition-colors">$1</a>');
       
-      if (processedLine.trim()) {
+      // Sanitize the processed line
+      const sanitizedLine = DOMPurify.sanitize(processedLine, {
+        ALLOWED_TAGS: ['strong', 'em', 'a', 'img', 'code', 'br', 'div'],
+        ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'target', 'rel', 'loading', 'style']
+      });
+      
+      if (sanitizedLine.trim()) {
         elements.push(
-          <div key={`text-${index}`} dangerouslySetInnerHTML={{ __html: processedLine }} />
+          <div key={`text-${index}`} dangerouslySetInnerHTML={{ __html: sanitizedLine }} />
         );
       } else {
         elements.push(<br key={`br-${index}`} />);

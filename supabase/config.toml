@@ -75,10 +75,10 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.send-admin-code]
-verify_jwt = false
+verify_jwt = true
 
 [functions.verify-admin-code]
-verify_jwt = false
+verify_jwt = true
 
 [functions.detect-scraping]
 verify_jwt = false
