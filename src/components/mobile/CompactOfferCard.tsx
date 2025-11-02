@@ -171,7 +171,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               className="w-full h-8 text-xs"
             >
               <a 
-                href="https://preview--omra-bons-plans.lovable.app/agences-liste" 
+                href="https://omrabonsplans.fr/agences-liste" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center justify-center gap-1.5"

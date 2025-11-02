@@ -974,7 +974,7 @@ export default function ComparateurOmra() {
                       variant="outline"
                       className="w-full h-9 md:h-10 text-sm md:text-base"
                     >
-                      <a href="https://preview--omra-bons-plans.lovable.app/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
+                      <a href="https://omrabonsplans.fr/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
                         <span>Voir le comparatif d'agences</span>
                       </a>
                     </Button>
@@ -1168,7 +1168,7 @@ export default function ComparateurOmra() {
                                 variant="outline"
                                 className="w-full lg:w-auto"
                               >
-                                <a href="https://preview--omra-bons-plans.lovable.app/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <a href="https://omrabonsplans.fr/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                                   <span>Voir le comparatif d'agences</span>
                                 </a>
                               </Button>
