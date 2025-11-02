@@ -90,7 +90,8 @@ const App = () => (
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>
                   <Routes>
-                  <Route path="/" element={<Index />} />
+                  <Route path="/" element={<ComparateurOmra />} />
+                  <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={
                     <ProtectedRoute>
@@ -229,7 +230,7 @@ const App = () => (
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
-                   <Route path="/comparateur-omra" element={<ComparateurOmra />} />
+                   <Route path="/comparateur-omra" element={<Navigate to="/" replace />} />
                    
                    {/* Redirections vers les URLs françaises */}
                   <Route path="/a-propos" element={<Navigate to="/about" replace />} />
