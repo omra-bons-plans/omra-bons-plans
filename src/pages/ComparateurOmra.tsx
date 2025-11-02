@@ -303,10 +303,13 @@ export default function ComparateurOmra() {
     setCurrentPage(1);
   }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType]);
 
-  // Scroll vers le haut quand la page change
+  // Scroll vers la liste des offres quand la page change
   useEffect(() => {
     if (currentPage > 1) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const offersListElement = document.getElementById('offers-list');
+      if (offersListElement) {
+        offersListElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }, [currentPage]);
 
@@ -698,7 +701,7 @@ export default function ComparateurOmra() {
             ))}
           </div>
         ) : offers.length > 0 ? (
-          <div>
+          <div id="offers-list">
             {/* Toggle d'affichage mobile */}
             <div className="md:hidden flex items-center justify-between mb-4 px-2">
               <span className="text-sm font-medium text-muted-foreground">
