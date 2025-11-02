@@ -524,7 +524,7 @@ const AdminOmraOffers = () => {
                     onValueChange={(value) => setFormData({ ...formData, formula_type: value })}
                   >
                     <SelectTrigger>
-                      <SelectValue />
+                      <SelectValue placeholder="Sélectionnez un type" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="essentiel">Essentiel</SelectItem>
