@@ -991,12 +991,13 @@ export default function ComparateurOmra() {
                               <div className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4 text-primary flex-shrink-0" />
                                 <div>
-                                  <div className="text-xs text-muted-foreground">Départ</div>
+                                  <div className="text-xs text-muted-foreground">Dates</div>
                                   <div className="text-sm font-semibold">
-                                    {offer.date_start 
-                                      ? new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })
-                                      : offer.month_departure
-                                    }
+                                    {offer.date_start && offer.date_end ? (
+                                      <>Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}</>
+                                    ) : (
+                                      offer.month_departure
+                                    )}
                                   </div>
                                 </div>
                               </div>
