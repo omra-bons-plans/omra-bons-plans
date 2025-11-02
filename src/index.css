@@ -26,11 +26,11 @@
     --primary-dark: 35 70% 35%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary colors - Darker amber gold for better contrast */
-    --secondary: 38 90% 45%;
-    --secondary-light: 38 85% 52%;
-    --secondary-dark: 38 95% 38%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary colors - Warm amber gold */
+    --secondary: 45 85% 60%;
+    --secondary-light: 45 80% 70%;
+    --secondary-dark: 45 90% 50%;
+    --secondary-foreground: 25 25% 25%;
 
     /* Accent colors - Soft warm tone */
     --accent: 45 30% 92%;
@@ -40,13 +40,13 @@
     --muted: 45 20% 90%;
     --muted-foreground: 25 15% 55%;
 
-    /* Status colors - WCAG AA compliant */
-    --destructive: 0 75% 45%;
+    /* Status colors */
+    --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;
-    --success: 140 70% 40%;
+    --success: 140 70% 45%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 95% 40%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 35 85% 55%;
+    --warning-foreground: 25 25% 25%;
   }
 
   @font-face {
@@ -69,10 +69,10 @@
     --golden-border: 45 100% 50%;
     --golden-glow: 45 100% 60%;
 
-    /* Gradients - High contrast for accessibility */
+    /* Gradients - Warm tones inspired */
     --gradient-primary: linear-gradient(135deg, hsl(35, 65%, 45%), hsl(35, 60%, 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(38, 90%, 45%), hsl(38, 85%, 50%));
-    --gradient-hero: linear-gradient(135deg, hsl(35, 65%, 45%) 0%, hsl(38, 90%, 45%) 50%, hsl(38, 85%, 50%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(45, 85%, 60%), hsl(45, 80%, 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(35, 65%, 45%) 0%, hsl(45, 85%, 60%) 50%, hsl(50, 90%, 65%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(45, 30%, 97%) 0%, hsl(45, 25%, 95%) 100%);
 
     /* Shadows - Warm elegant elevation */
@@ -120,10 +120,10 @@
     --primary-dark: 160 75% 35%;
     --primary-foreground: 210 30% 8%;
 
-    /* Secondary in dark - High contrast amber */
-    --secondary: 38 85% 55%;
-    --secondary-light: 38 80% 65%;
-    --secondary-dark: 38 90% 45%;
+    /* Secondary in dark - Warm amber */
+    --secondary: 45 80% 55%;
+    --secondary-light: 45 75% 65%;
+    --secondary-dark: 45 85% 45%;
     --secondary-foreground: 210 30% 8%;
 
     --accent: 210 22% 15%;
@@ -132,21 +132,21 @@
     --muted: 210 20% 15%;
     --muted-foreground: 210 20% 65%;
 
-    --destructive: 0 75% 50%;
+    --destructive: 0 75% 55%;
     --destructive-foreground: 210 40% 98%;
-    --success: 160 70% 50%;
+    --success: 160 70% 45%;
     --success-foreground: 210 40% 98%;
-    --warning: 38 90% 55%;
+    --warning: 45 80% 55%;
     --warning-foreground: 210 30% 8%;
 
     --border: 210 20% 18%;
     --input: 210 20% 18%;
     --ring: 160 70% 45%;
 
-    /* Dark gradients - High contrast */
+    /* Dark gradients */
     --gradient-primary: linear-gradient(135deg, hsl(160, 70%, 45%), hsl(160, 65%, 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(38, 85%, 55%), hsl(38, 80%, 62%));
-    --gradient-hero: linear-gradient(135deg, hsl(160, 70%, 45%) 0%, hsl(160, 65%, 55%) 50%, hsl(38, 85%, 55%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(45, 80%, 55%), hsl(45, 75%, 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(160, 70%, 45%) 0%, hsl(160, 65%, 55%) 50%, hsl(45, 80%, 55%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(210, 30%, 8%) 0%, hsl(210, 25%, 10%) 100%);
 
     /* Dark shadows */
