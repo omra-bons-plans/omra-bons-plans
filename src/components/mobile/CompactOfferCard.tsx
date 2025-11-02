@@ -60,20 +60,22 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 </div>
               )}
             </div>
-            <div className="flex items-center gap-2 mt-1 text-[10px] text-muted-foreground">
-              <Calendar className="h-3 w-3" />
+            <div className="flex items-center gap-2 mt-1 text-xs font-medium text-foreground/80">
+              <Calendar className="h-3.5 w-3.5" />
               <span className="truncate">{offer.month_departure}</span>
-              <MapPin className="h-3 w-3" />
+              <MapPin className="h-3.5 w-3.5" />
               <span>{offer.departure_city}</span>
             </div>
           </div>
 
           {/* Prix */}
           <div className="flex-shrink-0 text-right">
-            <div className="text-lg font-bold text-primary">
-              {Number(offer.price_eur).toLocaleString('fr-FR')}€
+            <div className="flex items-baseline gap-0.5">
+              <span className="text-lg font-bold text-primary">
+                {Number(offer.price_eur).toLocaleString('fr-FR')}€
+              </span>
+              <span className="text-[10px] text-muted-foreground">/ pers.</span>
             </div>
-            <div className="text-[10px] text-muted-foreground">/ pers.</div>
           </div>
         </div>
       </div>
