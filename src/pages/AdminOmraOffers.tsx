@@ -78,7 +78,7 @@ const AdminOmraOffers = () => {
     duration_nights: 0,
     price_eur: 0,
     departure_city: '',
-    formula_type: 'confort',
+    formula_type: 'essentiel',
     hotel_makkah: '',
     hotel_makkah_stars: 3,
     hotel_medinah: '',
@@ -493,6 +493,7 @@ const AdminOmraOffers = () => {
                     type="number"
                     value={formData.duration_nights}
                     onChange={(e) => setFormData({ ...formData, duration_nights: parseInt(e.target.value) || 0 })}
+                    onFocus={(e) => e.target.value === '0' && setFormData({ ...formData, duration_nights: '' as any })}
                     placeholder="Ex: 9"
                     required
                   />
@@ -510,6 +511,7 @@ const AdminOmraOffers = () => {
                     type="number"
                     value={formData.price_eur}
                     onChange={(e) => setFormData({ ...formData, price_eur: parseFloat(e.target.value) || 0 })}
+                    onFocus={(e) => e.target.value === '0' && setFormData({ ...formData, price_eur: '' as any })}
                     placeholder="Ex: 1500"
                     required
                   />
