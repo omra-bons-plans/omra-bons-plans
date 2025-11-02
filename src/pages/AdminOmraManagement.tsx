@@ -104,11 +104,12 @@ export default function AdminOmraManagement() {
 
       setOffers(data || []);
       
-      // Extraire les agences et mois uniques
+      // Extraire les agences uniques
       const uniqueAgencies = [...new Set(data?.map(o => o.agency_name) || [])];
-      const uniqueMonths = [...new Set(data?.map(o => o.month_departure) || [])];
       setAgencies(uniqueAgencies.sort());
-      setMonths(uniqueMonths.sort());
+      
+      // Utiliser la constante MONTHS pour avoir tous les mois disponibles
+      setMonths(MONTHS);
 
     } catch (err: any) {
       console.error("Erreur de chargement:", err);
