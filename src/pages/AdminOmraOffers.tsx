@@ -15,6 +15,22 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
 
+const MONTHS = [
+  { value: 'janvier', label: 'Janvier' },
+  { value: 'fevrier', label: 'Février' },
+  { value: 'mars', label: 'Mars' },
+  { value: 'avril', label: 'Avril' },
+  { value: 'mai', label: 'Mai' },
+  { value: 'juin', label: 'Juin' },
+  { value: 'juillet', label: 'Juillet' },
+  { value: 'aout', label: 'Août' },
+  { value: 'septembre', label: 'Septembre' },
+  { value: 'octobre', label: 'Octobre' },
+  { value: 'novembre', label: 'Novembre' },
+  { value: 'decembre', label: 'Décembre' },
+  { value: 'ramadan', label: 'Ramadan' },
+];
+
 interface OmraOfferForm {
   agency_name: string;
   agency_logo?: string;
@@ -378,13 +394,21 @@ const AdminOmraOffers = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="month_departure">Mois de la {offerType === 'omra' ? 'Omra' : 'Hajj'} *</Label>
-                  <Input
-                    id="month_departure"
+                  <Select
                     value={formData.month_departure}
-                    onChange={(e) => setFormData({ ...formData, month_departure: e.target.value })}
-                    placeholder="Ex: Janvier 2025"
-                    required
-                  />
+                    onValueChange={(value) => setFormData({ ...formData, month_departure: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionner un mois" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {MONTHS.map((month) => (
+                        <SelectItem key={month.value} value={month.label}>
+                          {month.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-2">
