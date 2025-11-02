@@ -12,7 +12,6 @@ import { toast } from 'sonner';
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bonsPlansOpen, setBonsPlansOpen] = useState(false);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [comparatifsOpen, setComparatifsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const { user, signOut } = useAuth();
@@ -230,92 +229,6 @@ const MobileSidebar = () => {
               )}
             </div>
 
-            {/* Categories Section - Collapsible */}
-            <div className="mb-4">
-              <button
-                onClick={() => setCategoriesOpen(!categoriesOpen)}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted/50 transition-colors"
-                aria-label={categoriesOpen ? "Fermer les catégories" : "Ouvrir les catégories"}
-                aria-expanded={categoriesOpen}
-              >
-                <h3 className="text-sm font-semibold text-muted-foreground">Catégories</h3>
-                {categoriesOpen ? (
-                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                ) : (
-                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                )}
-              </button>
-              
-              {categoriesOpen && (
-                <div className="space-y-1 mt-2">
-                  <Link
-                    to="/category/sejours"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Building className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Séjours</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/category/vols"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Plane className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Vols</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/category/hebergements"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Hotel className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Hébergements</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/category/guides"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <BookOpen className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Guides</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/category/chauffeurs"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Car className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Chauffeurs</span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/category/babysitting"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Heart className="w-5 h-5 text-muted-foreground" />
-                      <span className="font-medium">Baby-sitting</span>
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
 
             {/* Comparatifs Section - Collapsible */}
             <div className="mb-4">

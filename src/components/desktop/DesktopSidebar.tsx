@@ -26,7 +26,6 @@ import {
 
 export function DesktopSidebar() {
   const [bonsPlansOpen, setBonsPlansOpen] = useState(true);
-  const [categoriesOpen, setCategoriesOpen] = useState(true);
   const [servicesOpen, setServicesOpen] = useState(true);
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
@@ -206,75 +205,6 @@ export function DesktopSidebar() {
           </SidebarGroup>
         )}
 
-        {/* Categories Section */}
-        {!collapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between">
-              Catégories
-              <button onClick={() => setCategoriesOpen(!categoriesOpen)}>
-                {categoriesOpen ? (
-                  <ChevronDown className="w-4 h-4" />
-                ) : (
-                  <ChevronRight className="w-4 h-4" />
-                )}
-              </button>
-            </SidebarGroupLabel>
-            {categoriesOpen && (
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/sejours" className={getNavCls}>
-                        <Building className="w-4 h-4" />
-                        <span>Séjours</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/vols" className={getNavCls}>
-                        <Plane className="w-4 h-4" />
-                        <span>Vols</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/hebergements" className={getNavCls}>
-                        <Hotel className="w-4 h-4" />
-                        <span>Hébergements</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/guides" className={getNavCls}>
-                        <BookOpen className="w-4 h-4" />
-                        <span>Guides</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/chauffeurs" className={getNavCls}>
-                        <Car className="w-4 h-4" />
-                        <span>Chauffeurs</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink to="/category/babysitting" className={getNavCls}>
-                        <Heart className="w-4 h-4" />
-                        <span>Baby-sitting</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarGroupContent>
-            )}
-          </SidebarGroup>
-        )}
 
         {/* Services Section */}
         {!collapsed && (
