@@ -106,6 +106,7 @@ export default function ComparateurOmra() {
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
+  const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('cards');
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -597,6 +598,7 @@ export default function ComparateurOmra() {
         ) : offers.length > 0 ? (
           <div>
             {/* Toggle d'affichage mobile */}
+            {/* Toggle mobile uniquement */}
             <div className="md:hidden flex items-center justify-between mb-4 px-2">
               <span className="text-sm font-medium text-muted-foreground">
                 {offers.length} offre{offers.length > 1 ? 's' : ''}
@@ -623,6 +625,33 @@ export default function ComparateurOmra() {
               </div>
             </div>
 
+            {/* Toggle desktop/tablette uniquement */}
+            <div className="hidden md:flex items-center justify-between mb-6 px-2">
+              <span className="text-base font-medium text-muted-foreground">
+                {offers.length} offre{offers.length > 1 ? 's' : ''}
+              </span>
+              <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-1">
+                <Button
+                  variant={desktopViewMode === 'cards' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setDesktopViewMode('cards')}
+                  className="h-9 px-4"
+                >
+                  <Grid3x3 className="h-4 w-4 mr-2" />
+                  <span className="text-sm">Cartes</span>
+                </Button>
+                <Button
+                  variant={desktopViewMode === 'list' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setDesktopViewMode('list')}
+                  className="h-9 px-4"
+                >
+                  <List className="h-4 w-4 mr-2" />
+                  <span className="text-sm">Liste</span>
+                </Button>
+              </div>
+            </div>
+
             {/* Vue compacte (mobile uniquement) */}
             <div className={mobileViewMode === 'compact' ? 'md:hidden space-y-3' : 'hidden'}>
               {offers.map((offer) => {
@@ -639,8 +668,12 @@ export default function ComparateurOmra() {
               })}
             </div>
 
-            {/* Vue cartes (mobile en mode cards + desktop toujours) */}
-            <div className={mobileViewMode === 'cards' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6'}>
+            {/* Vue cartes (mobile en mode cards + desktop en mode cards) */}
+            <div className={
+              mobileViewMode === 'cards' 
+                ? `grid grid-cols-1 gap-6 ${desktopViewMode === 'cards' ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:hidden'}` 
+                : `hidden ${desktopViewMode === 'cards' ? 'md:grid md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`
+            }>
               {offers.map((offer) => {
                   const agencyLogo = getAgencyLogo(offer.agency_name);
                   const agencyInfo = getAgencyInfo(offer.agency_name);
@@ -867,6 +900,189 @@ export default function ComparateurOmra() {
                     </Button>
                   </div>
                 </Card>
+                );
+              })}
+            </div>
+
+            {/* Vue liste (desktop/tablette uniquement) */}
+            <div className={`hidden ${desktopViewMode === 'list' ? 'md:block' : ''} space-y-4`}>
+              {offers.map((offer) => {
+                const agencyLogo = getAgencyLogo(offer.agency_name);
+                const agencyInfo = getAgencyInfo(offer.agency_name);
+                
+                return (
+                  <Card 
+                    key={offer.id} 
+                    className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30"
+                  >
+                    <div className="flex flex-col sm:flex-row">
+                      {/* Logo et agence */}
+                      <div className="sm:w-48 lg:w-56 flex-shrink-0 p-4 border-b sm:border-b-0 sm:border-r border-primary/10 bg-gradient-to-br from-primary/5 to-background">
+                        {agencyLogo && (
+                          <div className="h-32 rounded-lg overflow-hidden shadow-sm flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-3 relative">
+                            <img 
+                              src={agencyLogo} 
+                              alt={offer.agency_name}
+                              className="w-full h-full object-contain"
+                            />
+                            {offer.is_complet && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                                <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white border-2 border-white font-black px-3 py-1 text-sm shadow-xl">
+                                  ❌ COMPLET
+                                </Badge>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <h3 className="text-lg font-bold text-center mt-3 group-hover:text-primary transition-colors">
+                          {offer.agency_name}
+                        </h3>
+                        {agencyInfo && (
+                          <div className="flex items-center justify-center gap-1 mt-2">
+                            <div className="flex items-center gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`h-3 w-3 ${
+                                    i < Math.floor(agencyInfo.googleRating)
+                                      ? 'fill-yellow-400 text-yellow-400'
+                                      : 'fill-gray-300 text-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <span className="text-xs font-semibold text-muted-foreground">
+                              {agencyInfo.googleRating.toFixed(1)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Détails de l'offre */}
+                      <div className="flex-1 p-4 lg:p-6">
+                        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+                          {/* Infos principales */}
+                          <div className="flex-1 space-y-3">
+                            <div className="flex flex-wrap gap-2">
+                              <Badge 
+                                className={`font-bold px-3 py-1 capitalize shadow-md ${
+                                  offer.formula_type?.toLowerCase() === 'essentiel' 
+                                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' 
+                                    : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white'
+                                }`}
+                              >
+                                ✨ {offer.formula_type}
+                              </Badge>
+                              {offer.flights_included && (
+                                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 border-emerald-500/30">
+                                  <Plane className="h-3 w-3 mr-1" />
+                                  Vol inclus
+                                </Badge>
+                              )}
+                              {offer.visa_included && (
+                                <Badge variant="outline" className="bg-blue-500/10 text-blue-700 border-blue-500/30">
+                                  <CheckCircle2 className="h-3 w-3 mr-1" />
+                                  Visa inclus
+                                </Badge>
+                              )}
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="flex items-center gap-2">
+                                <Calendar className="h-4 w-4 text-primary flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-muted-foreground">Départ</div>
+                                  <div className="text-sm font-semibold">
+                                    {offer.date_start 
+                                      ? new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })
+                                      : offer.month_departure
+                                    }
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-muted-foreground">Ville</div>
+                                  <div className="text-sm font-semibold">{offer.departure_city}</div>
+                                </div>
+                              </div>
+
+                              {offer.duration_nights && (
+                                <div className="flex items-center gap-2">
+                                  <Clock className="h-4 w-4 text-primary flex-shrink-0" />
+                                  <div>
+                                    <div className="text-xs text-muted-foreground">Durée</div>
+                                    <div className="text-sm font-semibold">{offer.duration_nights} nuits</div>
+                                  </div>
+                                </div>
+                              )}
+
+                              {offer.airline && (
+                                <div className="flex items-center gap-2">
+                                  <Plane className="h-4 w-4 text-primary flex-shrink-0" />
+                                  <div>
+                                    <div className="text-xs text-muted-foreground">Compagnie</div>
+                                    <div className="text-sm font-semibold">{offer.airline}</div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+
+                            {(offer.hotel_makkah || offer.hotel_medinah) && (
+                              <div className="space-y-2 pt-2 border-t border-primary/10">
+                                {offer.hotel_makkah && (
+                                  <div className="flex items-start gap-2">
+                                    <Hotel className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                                    <div className="flex-1">
+                                      <div className="text-xs text-muted-foreground">Mecque</div>
+                                      <div className="text-sm font-semibold">{offer.hotel_makkah}</div>
+                                      {offer.distance_to_haram_m && (
+                                        <div className="text-xs text-muted-foreground">{offer.distance_to_haram_m}m du Haram</div>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+                                {offer.hotel_medinah && (
+                                  <div className="flex items-start gap-2">
+                                    <Hotel className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                                    <div className="flex-1">
+                                      <div className="text-xs text-muted-foreground">Médine</div>
+                                      <div className="text-sm font-semibold">{offer.hotel_medinah}</div>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Prix et bouton */}
+                          <div className="lg:w-48 flex flex-col justify-between items-center lg:items-end gap-4 lg:border-l lg:border-primary/10 lg:pl-6">
+                            <div className="text-center lg:text-right">
+                              <div className="text-sm text-muted-foreground mb-1">Prix par personne</div>
+                              <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                                {Number(offer.price_eur).toLocaleString('fr-FR')}€
+                              </div>
+                              <div className="text-xs text-muted-foreground mt-1">en chambre quadruple</div>
+                            </div>
+                            <Button 
+                              asChild 
+                              className="w-full lg:w-auto group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300"
+                              disabled={offer.is_complet}
+                            >
+                              <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <span className="font-semibold">{offer.is_complet ? 'Complet' : "Voir l'offre"}</span>
+                                {!offer.is_complet && (
+                                  <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                                )}
+                              </a>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
                 );
               })}
             </div>
