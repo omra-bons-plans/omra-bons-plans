@@ -534,6 +534,31 @@ export default function AdminOmraManagement() {
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="edit-date-start">Date de début</Label>
+                  <Input
+                    id="edit-date-start"
+                    type="date"
+                    value={selectedOffer.date_start || ""}
+                    onChange={(e) =>
+                      setSelectedOffer({ ...selectedOffer, date_start: e.target.value || null })
+                    }
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-date-end">Date de fin</Label>
+                  <Input
+                    id="edit-date-end"
+                    type="date"
+                    value={selectedOffer.date_end || ""}
+                    onChange={(e) =>
+                      setSelectedOffer({ ...selectedOffer, date_end: e.target.value || null })
+                    }
+                  />
+                </div>
+              </div>
+
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="edit-duration">Durée (nuits)</Label>
