@@ -145,6 +145,17 @@ export default function ComparateurOmra() {
         setIsLoading(true);
         setError(null);
         
+        console.log('🔍 Filtres actifs:', {
+          selectedMonth,
+          selectedCity,
+          selectedFormula,
+          priceRange,
+          minDuration,
+          maxDistance,
+          selectedAgencies,
+          tripType
+        });
+        
         let query = supabase
           .from('omra_offers')
           .select('*')
@@ -159,6 +170,8 @@ export default function ComparateurOmra() {
         if (maxDistance) query = query.lte('distance_to_haram_m', parseInt(maxDistance));
 
         const { data, error: fetchError } = await query;
+        
+        console.log('📊 Données récupérées:', { count: data?.length, error: fetchError });
 
         if (fetchError) {
           console.error('Erreur de chargement:', fetchError);
@@ -177,6 +190,8 @@ export default function ComparateurOmra() {
           let filtered = selectedAgencies.length > 0 
             ? allData.filter(offer => selectedAgencies.includes(offer.agency_name))
             : allData;
+          
+          console.log('🏢 Après filtre agences:', { count: filtered.length, selectedAgencies });
           
           // Filtrer par durée de séjour Hajj
           if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
@@ -201,6 +216,8 @@ export default function ComparateurOmra() {
               filtered.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
               break;
           }
+          
+          console.log('✅ Offres finales affichées:', filtered.length);
           setOffers(filtered);
         }
       } catch (err: any) {
