@@ -958,8 +958,8 @@ export default function ComparateurOmra() {
                     </div>
                   </div>
 
-                  {/* Footer avec bouton */}
-                  <div className="px-3 md:px-6 pb-3 md:pb-6 pt-1 md:pt-2">
+                  {/* Footer avec boutons */}
+                  <div className="px-3 md:px-6 pb-3 md:pb-6 pt-1 md:pt-2 space-y-2">
                     <Button 
                       asChild 
                       className="w-full h-9 md:h-10 group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300 text-sm md:text-base"
@@ -967,6 +967,15 @@ export default function ComparateurOmra() {
                       <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
                         <span className="font-semibold">Voir l'offre</span>
                         <ExternalLink className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                      </a>
+                    </Button>
+                    <Button 
+                      asChild 
+                      variant="outline"
+                      className="w-full h-9 md:h-10 text-sm md:text-base"
+                    >
+                      <a href="https://preview--omra-bons-plans.lovable.app/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
+                        <span>Voir le comparatif d'agences</span>
                       </a>
                     </Button>
                   </div>
@@ -1141,18 +1150,29 @@ export default function ComparateurOmra() {
                               </div>
                               <div className="text-xs text-muted-foreground mt-1">en chambre quadruple</div>
                             </div>
-                            <Button 
-                              asChild 
-                              className="w-full lg:w-auto group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300"
-                              disabled={offer.is_complet}
-                            >
-                              <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <span className="font-semibold">{offer.is_complet ? 'Complet' : "Voir l'offre"}</span>
-                                {!offer.is_complet && (
-                                  <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
-                                )}
-                              </a>
-                            </Button>
+                            <div className="space-y-2">
+                              <Button 
+                                asChild 
+                                className="w-full lg:w-auto group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300"
+                                disabled={offer.is_complet}
+                              >
+                                <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                  <span className="font-semibold">{offer.is_complet ? 'Complet' : "Voir l'offre"}</span>
+                                  {!offer.is_complet && (
+                                    <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                                  )}
+                                </a>
+                              </Button>
+                              <Button 
+                                asChild 
+                                variant="outline"
+                                className="w-full lg:w-auto"
+                              >
+                                <a href="https://preview--omra-bons-plans.lovable.app/agences-liste" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                  <span>Voir le comparatif d'agences</span>
+                                </a>
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>

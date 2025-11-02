@@ -146,23 +146,40 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
             )}
           </div>
 
-          {/* Bouton CTA */}
-          <Button 
-            asChild 
-            size="sm"
-            className="w-full h-8 text-xs mt-2"
-            disabled={offer.is_complet}
-          >
-            <a 
-              href={offer.offer_url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="flex items-center justify-center gap-1.5"
+          {/* Boutons CTA */}
+          <div className="space-y-1.5">
+            <Button 
+              asChild 
+              size="sm"
+              className="w-full h-8 text-xs"
+              disabled={offer.is_complet}
             >
-              <span>{offer.is_complet ? 'Complet' : 'Voir l\'offre'}</span>
-              {!offer.is_complet && <ExternalLink className="h-3 w-3" />}
-            </a>
-          </Button>
+              <a 
+                href={offer.offer_url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center justify-center gap-1.5"
+              >
+                <span>{offer.is_complet ? 'Complet' : 'Voir l\'offre'}</span>
+                {!offer.is_complet && <ExternalLink className="h-3 w-3" />}
+              </a>
+            </Button>
+            <Button 
+              asChild 
+              size="sm"
+              variant="outline"
+              className="w-full h-8 text-xs"
+            >
+              <a 
+                href="https://preview--omra-bons-plans.lovable.app/agences-liste" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center justify-center gap-1.5"
+              >
+                <span>Voir le comparatif d'agences</span>
+              </a>
+            </Button>
+          </div>
         </div>
       )}
     </Card>
