@@ -200,37 +200,26 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <SEOHead
-        title="Omra Bons Plans - Plateforme #1 d'Annonces Omra & Hajj 2026"
-        description="Trouvez les meilleures offres pour votre Omra et Hajj 2026. Comparez séjours, vols, hébergements, guides et chauffeurs en Arabie Saoudite. Conseils d'experts pour une Omra pas chère."
-        keywords="omra pas cher, hajj 2026, voyage omra, séjours omra, vol omra, hébergement mecque, guide omra, chauffeur arabie saoudite, visa omra, agence omra"
+        title="Omra pas chère 2025 🇸🇦 | Comparateur d'agences agréées - Omra Bons Plans"
+        description="Comparez les meilleurs séjours Omra 2025 depuis la France 🇫🇷. Trouvez votre Omra pas chère avec vol, visa et hôtels à Makkah & Médine inclus. Offres mises à jour quotidiennement."
+        keywords="omra pas chère, omra 2025, séjour omra, agence omra France, vol omra, hôtel Makkah, hôtel Médine, visa omra, omra tout compris, omra ramadan"
         canonical="https://omrabonsplans.fr/"
-        ogImage="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+        ogImage="https://omrabonsplans.fr/hero-kaaba-2025-optimized.avif"
         structuredData={{
           "@context": "https://schema.org",
-          "@type": "WebSite",
+          "@type": "TravelAgency",
           "name": "Omra Bons Plans",
           "url": "https://omrabonsplans.fr",
-          "description": "Plateforme de comparaison et d'annonces pour services Omra et Hajj en Arabie Saoudite",
-          "inLanguage": "fr-FR",
+          "description": "Comparateur d'agences Omra agréées en France. Séjours tout compris avec vol, visa et hôtels.",
+          "areaServed": "France",
+          "sameAs": [
+            "https://www.instagram.com/omrabonsplans",
+            "https://www.tiktok.com/@omrabonsplans.fr"
+          ],
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://omrabonsplans.fr/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Omra Bons Plans",
-            "url": "https://omrabonsplans.fr",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
-              "width": 512,
-              "height": 512
-            },
-            "sameAs": [
-              "https://www.instagram.com/omrabonsplans",
-              "https://www.tiktok.com/@omrabonsplans.fr"
-            ]
           }
         }}
       />
@@ -303,14 +292,14 @@ const Index = () => {
           <div className="container mx-auto px-6 relative z-20">
             <div className="flex flex-col items-center justify-center text-center py-12 md:py-20">
               <div className="space-y-6 md:space-y-8 max-w-4xl">
-                <h1 className="text-4xl md:text-8xl font-bold leading-tight">
-                  <span className="text-white">Trouvez tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-6xl md:text-9xl">Hajj & Omra</span><br />
-                  <span className="text-white">Facilement en un seul endroit</span>
+                <h1 className="text-4xl md:text-7xl font-bold leading-tight">
+                  <span className="gradient-text-secondary font-black text-5xl md:text-8xl">Omra pas chère 2025</span><br />
+                  <span className="text-white text-3xl md:text-6xl">Comparez les meilleures offres</span><br />
+                  <span className="text-white text-2xl md:text-5xl">au départ de France</span>
                 </h1>
                 
-                <p className="text-lg md:text-2xl leading-relaxed">
-                  <span className="text-white">Logements, chauffeurs, guides, séjours pour le Hajj & la Omra</span>
+                <p className="text-base md:text-xl leading-relaxed max-w-3xl mx-auto">
+                  <span className="text-white">Séjours Omra tout compris avec vol, visa et hôtels à Makkah & Médine. Agences agréées, avis vérifiés, assistance 7j/7.</span>
                 </p>
 
                 {/* WhatsApp Community Button */}
@@ -373,6 +362,12 @@ const Index = () => {
               {filteredFlashSalesListings.length > 0 && (
                 <section className="pb-20">
                   <div className="md:container md:mx-auto max-w-md mx-auto px-6 md:px-6 md:max-w-none">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text-primary">
+                      Comparez les prix et prestations Omra
+                    </h2>
+                    <p className="text-center text-muted-foreground mb-12 text-base md:text-lg">
+                      Trouvez le meilleur rapport qualité-prix pour votre séjour
+                    </p>
                     <div className="mb-16">
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-8">
                       <div>
@@ -693,12 +688,29 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="space-y-6 md:space-y-8">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words">Services Complémentaires pour votre séjour à La Mecque et Médine : restaurants halal et transports</h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words">Séjours populaires en ce moment</h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                Découvrez nos offres les plus demandées par période
+              </p>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl md:text-2xl font-semibold text-primary">Omra Janvier 2025</h3>
+                <p className="text-muted-foreground">Profitez des prix attractifs de la basse saison avec des hôtels proches du Haram.</p>
+                
+                <h3 className="text-xl md:text-2xl font-semibold text-primary mt-6">Omra Ramadan 2025</h3>
+                <p className="text-muted-foreground">Vivez le Ramadan à La Mecque, période la plus spirituelle de l'année.</p>
+                
+                <h3 className="text-xl md:text-2xl font-semibold text-primary mt-6">Omra Décembre 2025</h3>
+                <p className="text-muted-foreground">Partez pendant les vacances scolaires, idéal pour les familles.</p>
+              </div>
+              
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold break-words mt-12">Services complémentaires à La Mecque et Médine</h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed break-words">
                 Enrichissez votre voyage spirituel avec nos guides pratiques : trouvez les meilleurs restaurants halal certifiés à proximité du Haram, réservez vos billets pour le train haute vitesse Haramain Express reliant La Mecque, Médine et Jeddah pour des déplacements confortables.
               </p>
               
-              <div className="space-y-6">
+              <div className="space-y-6 mt-8">
+                <h3 className="text-xl md:text-2xl font-semibold">Restaurants halal & Transport</h3>
                 <Link to="/blog/restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
                     <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
@@ -967,10 +979,48 @@ const Index = () => {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans pour organiser votre Omra 2026 ou Omra 2027 ?</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans ?</h2>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
-              <strong className="text-foreground">Omra Bons Plans</strong> est votre <strong className="text-foreground">comparateur Omra</strong> de référence pour trouver les <strong className="text-foreground">meilleures offres Omra 2026</strong> et <strong className="text-foreground">Omra 2027</strong>. Simplifiez la recherche des meilleures agences pour organiser votre <strong className="text-foreground">pèlerinage à la Mecque et Médine</strong> avec notre plateforme intuitive.
+              La plateforme de référence pour trouver et comparer les meilleures offres Omra 2025.
             </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="shield" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Agences agréées</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Accédez à une sélection des meilleures agences Omra, reconnues pour leur fiabilité. Réservez votre pèlerinage en toute confiance avec des professionnels certifiés.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="star" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Avis vérifiés</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Consultez les retours d'expérience authentiques de milliers de pèlerins. Prenez une décision éclairée grâce aux avis certifiés de notre communauté.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <DynamicIcon name="headset" className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">Assistance 7j/7</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Bénéficiez d'un support réactif avant, pendant et après votre voyage. Notre équipe est disponible pour répondre à toutes vos questions.
+                </p>
+              </div>
+            </Card>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -981,7 +1031,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-bold">Recherche facilitée</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Trouvez rapidement les <strong className="text-foreground">meilleures agences Omra</strong> parmi notre sélection rigoureuse de spécialistes. Comparez en un clic les <strong className="text-foreground">offres Omra économiques</strong> et <strong className="text-foreground">forfaits premium</strong> pour votre <strong className="text-foreground">voyage spirituel</strong>.
+                  Trouvez rapidement les meilleures offres Omra parmi notre sélection rigoureuse. Comparez en un clic les séjours économiques et premium.
                 </p>
               </div>
             </Card>
@@ -993,7 +1043,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Explorez les <strong className="text-foreground">meilleurs prix Omra 2026</strong> et <strong className="text-foreground">2027</strong>. Comparez facilement les <strong className="text-foreground">tarifs Omra</strong>, les <strong className="text-foreground">itinéraires</strong>, et les <strong className="text-foreground">prestations</strong> des agences spécialisées pour économiser temps et argent.
+                  Explorez les meilleurs prix Omra 2025. Comparez facilement les tarifs, les itinéraires et les prestations pour économiser temps et argent.
                 </p>
               </div>
             </Card>
@@ -1001,9 +1051,9 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="shield" className="w-6 h-6 text-primary" />
+                  <DynamicIcon name="clock" className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">Agences vérifiées</h3>
+                <h3 className="text-xl font-bold">Offres mises à jour</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Accédez à une sélection des <strong className="text-foreground">meilleures agences Omra 2026 et 2027</strong>, reconnues pour leur fiabilité. Réservez votre <strong className="text-foreground">pèlerinage Omra</strong> en toute confiance avec des professionnels certifiés.
                 </p>
