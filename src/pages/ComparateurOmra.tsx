@@ -249,7 +249,7 @@ export default function ComparateurOmra() {
     <ResponsiveLayout>
       <div className="min-h-screen bg-background">
       <DynamicSEO
-        title="Comparateur Séjours Omra 2025 et 2026"
+        title="Comparateur Séjours Omra & Hajj 2025 et 2026"
         description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
         keywords={['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
         path="/"
