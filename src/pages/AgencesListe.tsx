@@ -288,7 +288,8 @@ export default function AgencesListe() {
   };
 
   const handleViewDetails = (agencyName: string) => {
-    navigate(`/agence-details/${encodeURIComponent(agencyName)}`);
+    const encodedName = encodeURIComponent(agencyName);
+    navigate(`/agence-details/${encodedName}`);
   };
 
   const handleCompare = () => {
