@@ -57,6 +57,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 <div className="flex items-center gap-0.5">
                   <Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
                   <span className="text-[10px] font-semibold">{agencyInfo.googleRating.toFixed(1)}</span>
+                  <span className="text-[10px] text-muted-foreground">({agencyInfo.reviewCount})</span>
                 </div>
               )}
             </div>

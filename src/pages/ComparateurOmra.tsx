@@ -1025,6 +1025,9 @@ export default function ComparateurOmra() {
                             <span className="text-xs font-semibold text-muted-foreground">
                               {agencyInfo.googleRating.toFixed(1)}
                             </span>
+                            <span className="text-xs text-muted-foreground">
+                              ({agencyInfo.reviewCount})
+                            </span>
                           </div>
                         )}
                       </div>
