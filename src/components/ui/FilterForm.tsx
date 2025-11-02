@@ -13,14 +13,11 @@ interface FilterFormProps {
   onSearch?: () => void;
   onReset?: () => void;
   compact?: boolean;
+  availableCities?: string[];
+  availableMonths?: string[];
 }
 
-const CITIES = [
-  "Toutes les villes", "Paris", "Lyon", "Marseille", "Toulouse", 
-  "Nice", "Nantes", "Bordeaux", "Lille"
-];
-
-const MONTHS = [
+const DEFAULT_MONTHS = [
   { value: "Ramadan", label: "🌙 Ramadan" },
   { value: "Janvier", label: "Janvier 2026" },
   { value: "Février", label: "Février 2026" },
@@ -47,8 +44,14 @@ export function FilterForm({
   setSelectedDuration,
   onSearch,
   onReset,
-  compact = false
+  compact = false,
+  availableCities = [],
+  availableMonths = []
 }: FilterFormProps) {
+  const cities = availableCities.length > 0 ? ["Toutes les villes", ...availableCities] : ["Toutes les villes"];
+  const months = availableMonths.length > 0 
+    ? DEFAULT_MONTHS.filter(m => availableMonths.includes(m.value))
+    : DEFAULT_MONTHS;
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     onSearch?.();
@@ -123,7 +126,7 @@ export function FilterForm({
               onChange={(e) => setSelectedCity(e.target.value === 'Toutes les villes' ? 'all' : e.target.value)}
               className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              {CITIES.map((c) => (
+              {cities.map((c) => (
                 <option key={c} value={c}>
                   {c}
                 </option>
@@ -148,7 +151,7 @@ export function FilterForm({
                 className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">Tous les mois</option>
-                {MONTHS.map((m) => (
+                {months.map((m) => (
                   <option key={m.value} value={m.value}>
                     {m.label}
                   </option>

@@ -122,6 +122,8 @@ export default function ComparateurOmra() {
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
   const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
+  const [availableCities, setAvailableCities] = useState<string[]>([]);
+  const [availableMonths, setAvailableMonths] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -207,6 +209,14 @@ export default function ComparateurOmra() {
           // Extraire les agences uniques
           const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
           setAvailableAgencies(agencies);
+          
+          // Extraire les villes disponibles
+          const cities = Array.from(new Set(allData.map(offer => offer.departure_city).filter(Boolean)));
+          setAvailableCities(cities.sort());
+          
+          // Extraire les mois disponibles
+          const months = Array.from(new Set(allData.map(offer => offer.month_departure).filter(Boolean)));
+          setAvailableMonths(months);
           
           // Filtrer par agences sélectionnées
           let filtered = selectedAgencies.length > 0 
@@ -380,6 +390,8 @@ export default function ComparateurOmra() {
               setSelectedMonth={setSelectedMonth}
               selectedDuration={selectedDuration}
               setSelectedDuration={setSelectedDuration}
+              availableCities={availableCities}
+              availableMonths={availableMonths}
             />
             
             {/* Last Update Info */}
