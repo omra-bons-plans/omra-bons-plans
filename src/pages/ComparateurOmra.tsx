@@ -335,7 +335,7 @@ export default function ComparateurOmra() {
     <ResponsiveLayout>
       <div className="min-h-screen bg-background">
       <DynamicSEO
-        title="Comparateur Séjours Omra & Hajj 2025 et 2026"
+        title="Comparateur Séjours Omra & Hajj 2026"
         description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
         keywords={['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
         path="/"
@@ -375,7 +375,7 @@ export default function ComparateurOmra() {
         
         <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
           <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
-            Comparateur Omra & Hajj 2025 - 2026
+            Comparateur Omra & Hajj 2026
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-4">
             Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
@@ -395,7 +395,7 @@ export default function ComparateurOmra() {
           <div className="relative p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-center text-primary bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20 shadow-sm">
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center leading-snug bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2025 et 2026
+                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2026
               </p>
             </div>
 
@@ -440,7 +440,7 @@ export default function ComparateurOmra() {
             </h2>
             <div className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-3xl mx-auto space-y-2 sm:space-y-3 px-2">
               <p className="leading-relaxed">
-                Bienvenue sur Omra Bons Plans, le comparateur pensé pour vous aider à trouver la meilleure offre Omra ou Hajj en quelques clics. Que vous prépariez votre voyage en 2025 ou 2026, que vous cherchiez une Omra pas chère ou un Hajj tout confort, notre plateforme compare pour vous les prix, services et prestations des agences agréées.
+                Bienvenue sur Omra Bons Plans, le comparateur pensé pour vous aider à trouver la meilleure offre Omra ou Hajj en quelques clics. Que vous prépariez votre voyage en 2026, que vous cherchiez une Omra pas chère ou un Hajj tout confort, notre plateforme compare pour vous les prix, services et prestations des agences agréées.
               </p>
               <p className="leading-relaxed">
                 Depuis tous les aéroports de France (Paris, Lyon, Marseille, Toulouse, Nice, Nantes, Bordeaux, Lille… et plus encore), accédez instantanément à des séjours personnalisés selon vos critères : dates, budget, ville de départ, type de formule, hôtels à Makkah/Médine, vols et accompagnement francophone. Nous mettons la transparence au cœur de la recherche pour que vous choisissiez sereinement l&apos;offre qui vous ressemble.
@@ -1258,7 +1258,7 @@ export default function ComparateurOmra() {
                 </div>
                 <h3 className="text-xl font-semibold">Gain de temps considérable</h3>
                 <p className="text-muted-foreground">
-                  Plus besoin de consulter des dizaines de sites d'agences. Notre comparateur regroupe toutes les offres Omra 2025 et 2026 en un seul endroit. Filtrez par prix, date de départ, ville, formule et trouvez instantanément le séjour qui vous convient.
+                  Plus besoin de consulter des dizaines de sites d'agences. Notre comparateur regroupe toutes les offres Omra 2026 en un seul endroit. Filtrez par prix, date de départ, ville, formule et trouvez instantanément le séjour qui vous convient.
                 </p>
               </div>
             </Card>
@@ -1403,7 +1403,7 @@ export default function ComparateurOmra() {
         {/* Section à propos de la Omra */}
         <Card className="p-8 md:p-12 bg-gradient-to-br from-background via-primary/5 to-background">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">Préparez votre Omra 2025-2026</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center">Préparez votre Omra 2026</h2>
             
             <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
               <p>

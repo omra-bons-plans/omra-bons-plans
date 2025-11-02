@@ -270,7 +270,7 @@ const Index = () => {
             {/* Desktop: Image normale */}
             <img
               src="/hero-kaaba-2025-optimized.avif"
-              alt="Omra Bons Plans – Séjours Omra et Hajj 2025-2026"
+              alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
               width="1600"
               height="900"
               fetchPriority="high"
