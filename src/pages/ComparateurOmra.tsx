@@ -623,26 +623,25 @@ export default function ComparateurOmra() {
               </div>
             </div>
 
-            {/* Vue compacte (mobile) */}
-            {mobileViewMode === 'compact' ? (
-              <div className="md:hidden space-y-3">
-                {offers.map((offer) => {
-                  const agencyLogo = getAgencyLogo(offer.agency_name);
-                  const agencyInfo = getAgencyInfo(offer.agency_name);
-                  return (
-                    <CompactOfferCard
-                      key={offer.id}
-                      offer={offer}
-                      agencyLogo={agencyLogo}
-                      agencyInfo={agencyInfo}
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              /* Vue cartes normale */
-              <div className={mobileViewMode === 'cards' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6'}>
-                {offers.map((offer) => {
+            {/* Vue compacte (mobile uniquement) */}
+            <div className={mobileViewMode === 'compact' ? 'md:hidden space-y-3' : 'hidden'}>
+              {offers.map((offer) => {
+                const agencyLogo = getAgencyLogo(offer.agency_name);
+                const agencyInfo = getAgencyInfo(offer.agency_name);
+                return (
+                  <CompactOfferCard
+                    key={offer.id}
+                    offer={offer}
+                    agencyLogo={agencyLogo}
+                    agencyInfo={agencyInfo}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Vue cartes (mobile en mode cards + desktop toujours) */}
+            <div className={mobileViewMode === 'cards' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6'}>
+              {offers.map((offer) => {
                   const agencyLogo = getAgencyLogo(offer.agency_name);
                   const agencyInfo = getAgencyInfo(offer.agency_name);
               
@@ -868,10 +867,9 @@ export default function ComparateurOmra() {
                     </Button>
                   </div>
                 </Card>
-              );
-            })}
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
         ) : (
           <Card className="p-16 text-center bg-card/50 backdrop-blur-sm border-primary/10">
