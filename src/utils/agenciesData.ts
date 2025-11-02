@@ -12,25 +12,6 @@ export interface AgencyData {
 
 export const agenciesData: AgencyData[] = [
   {
-    name: "Medin Voyages",
-    url: "https://www.medinvoyages.com/",
-    googleRating: 5.0,
-    reviewCount: 263,
-    strengths: [
-      "Note parfaite sur Google",
-      "Spécialiste Hajj & Omra",
-      "Service personnalisé",
-      "Excellente réputation"
-    ],
-    weaknesses: [
-      "Moins d'avis que les grandes agences",
-      "Informations limitées en ligne"
-    ],
-    specialties: ["Hajj", "Omra", "Voyages spirituels"],
-    priceRange: "Standard",
-    highlight: "Note parfaite 5/5 sur 263 avis Google"
-  },
-  {
     name: "Al Sirate Voyage",
     url: "https://www.alsiratevoyage.com/",
     googleRating: 5.0,
@@ -112,7 +93,7 @@ export const agenciesData: AgencyData[] = [
     highlight: "Excellence dans l'accompagnement spirituel et l'organisation"
   },
   {
-    name: "Sabil Voyages",
+    name: "Sabile Voyages",
     url: "https://sabilevoyages.com/",
     googleRating: 4.9,
     reviewCount: 154,
@@ -252,82 +233,11 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Hajj & Omra traditionnel", "Réservation en ligne", "Offres variées"],
     priceRange: "Standard",
     highlight: "Agence pionnière avec 13 ans d'expérience et 98% de satisfaction"
-  },
-  {
-    name: "Gateway-travel",
-    url: "https://gateway-travel.fr",
-    googleRating: 5,
-    reviewCount: 19,
-    strengths: [
-      "Excellente note de 5/5",
-      "Service personnalisé et soigné",
-      "Offres compétitives",
-      "Réactivité du service client"
-    ],
-    weaknesses: [
-      "Présence récente sur le marché",
-      "Portfolio d'offres en développement"
-    ],
-    specialties: ["Omra & Hajj", "Séjours sur mesure"],
-    priceRange: "Standard",
-    highlight: "Agence en développement offrant des services personnalisés"
   }
 ];
 
-export const getAgencyInfo = (agencyName: string): AgencyData | null => {
-  const normalizedName = agencyName?.trim().toLowerCase()
-    .replace(/[àáâãäå]/g, 'a')
-    .replace(/[èéêë]/g, 'e')
-    .replace(/[ìíîï]/g, 'i')
-    .replace(/[òóôõö]/g, 'o')
-    .replace(/[ùúûü]/g, 'u')
-    .replace(/[ç]/g, 'c');
-  
-  // Mapping personnalisé pour les variations de noms
-  const nameMapping: Record<string, string> = {
-    'medin': 'medin voyages',
-    'medinvoyages': 'medin voyages',
-    'sabil': 'sabil voyages',
-    'sabile': 'sabil voyages',
-    'pelerin': 'pèlerin hajj',
-    'pelerinhajj': 'pèlerin hajj',
-    'tawaf': 'tawaf',
-    'almaqam': 'al maqam voyages',
-    'al maqam': 'al maqam voyages',
-    'albayt': 'al bayt',
-    'al bayt': 'al bayt',
-    'hayat': 'al hayat voyages',
-    'al hayat': 'al hayat voyages',
-    'omra pour tous': 'omra pour tous',
-    'omrapourtous': 'omra pour tous',
-  };
-  
-  // Chercher dans le mapping
-  const mappedName = nameMapping[normalizedName] || normalizedName;
-  
-  return agenciesData.find(agency => {
-    const agencyNameLower = agency.name.toLowerCase()
-      .replace(/[àáâãäå]/g, 'a')
-      .replace(/[èéêë]/g, 'e')
-      .replace(/[ìíîï]/g, 'i')
-      .replace(/[òóôõö]/g, 'o')
-      .replace(/[ùúûü]/g, 'u')
-      .replace(/[ç]/g, 'c');
-    
-    // Correspondance exacte
-    if (agencyNameLower === mappedName || agencyNameLower === normalizedName) {
-      return true;
-    }
-    
-    // Correspondance partielle (l'un contient l'autre)
-    if (agencyNameLower.includes(mappedName) || mappedName.includes(agencyNameLower)) {
-      return true;
-    }
-    
-    // Vérifier les mots clés
-    const agencyWords = agencyNameLower.split(' ');
-    const searchWords = mappedName.split(' ');
-    
-    return agencyWords.some(word => searchWords.includes(word) && word.length > 3);
-  }) || null;
+// Fonction pour obtenir les informations d'une agence par son nom
+export const getAgencyInfo = (agencyName: string): AgencyData | undefined => {
+  return agenciesData.find(agency => agency.name === agencyName);
 };
+
