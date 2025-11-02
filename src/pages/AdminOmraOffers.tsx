@@ -15,6 +15,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
 import { useHotelPresets } from '@/hooks/useHotelPresets';
+import { useAirlinePresets } from '@/hooks/useAirlinePresets';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Check, ChevronsUpDown } from 'lucide-react';
@@ -89,9 +90,11 @@ const AdminOmraOffers = () => {
 
   const [openMakkahHotel, setOpenMakkahHotel] = useState(false);
   const [openMedinaHotel, setOpenMedinaHotel] = useState(false);
+  const [openAirline, setOpenAirline] = useState(false);
 
   const { hotels: makkahHotels, saveHotel: saveMakkahHotel } = useHotelPresets('makkah');
   const { hotels: medinaHotels, saveHotel: saveMedinaHotel } = useHotelPresets('medina');
+  const { airlines: airlinePresets, saveAirline } = useAirlinePresets();
 
   useEffect(() => {
     if (!adminLoading && (!user || !isAdmin)) {
@@ -202,6 +205,11 @@ const AdminOmraOffers = () => {
       }
       if (formData.hotel_medinah) {
         await saveMedinaHotel(formData.hotel_medinah, formData.hotel_medinah_stars);
+      }
+
+      // Sauvegarder la compagnie aérienne
+      if (formData.airline) {
+        await saveAirline(formData.airline);
       }
 
       toast({
@@ -729,13 +737,53 @@ const AdminOmraOffers = () => {
             <CardContent>
               <div className="space-y-2">
                 <Label htmlFor="airline">Nom de la compagnie aérienne *</Label>
-                <Input
-                  id="airline"
-                  value={formData.airline}
-                  onChange={(e) => setFormData({ ...formData, airline: e.target.value })}
-                  placeholder="Ex: Air France, Emirates, Saudia"
-                  required
-                />
+                <Popover open={openAirline} onOpenChange={setOpenAirline}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={openAirline}
+                      className="w-full justify-between"
+                    >
+                      {formData.airline || "Sélectionner ou taper une compagnie..."}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[400px] p-0">
+                    <Command>
+                      <CommandInput 
+                        placeholder="Rechercher ou ajouter une compagnie..." 
+                        value={formData.airline}
+                        onValueChange={(value) => setFormData({ ...formData, airline: value })}
+                      />
+                      <CommandEmpty>
+                        <div className="p-4 text-sm text-muted-foreground">
+                          Appuyez sur Entrée pour ajouter "{formData.airline}"
+                        </div>
+                      </CommandEmpty>
+                      <CommandGroup>
+                        {airlinePresets.map((airline) => (
+                          <CommandItem
+                            key={airline.id}
+                            value={airline.airline_name}
+                            onSelect={(value) => {
+                              setFormData({ ...formData, airline: value });
+                              setOpenAirline(false);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                formData.airline === airline.airline_name ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {airline.airline_name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
             </CardContent>
           </Card>
