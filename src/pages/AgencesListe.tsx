@@ -50,9 +50,8 @@ export default function AgencesListe() {
     return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300';
   };
 
-  const handleViewDetails = (agencyName: string) => {
-    const encodedName = encodeURIComponent(agencyName);
-    navigate(`/agence-details/${encodedName}`);
+  const handleViewDetails = () => {
+    navigate('/comparatif-agences');
   };
 
   const handleCompare = () => {
@@ -221,7 +220,7 @@ export default function AgencesListe() {
                     variant="outline" 
                     size="sm" 
                     className="flex-1"
-                    onClick={() => handleViewDetails(agency.name)}
+                    onClick={handleViewDetails}
                   >
                     <Eye className="h-4 w-4 mr-2" />
                     Voir détail
