@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -16,14 +16,18 @@ import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import heroImage from '@/assets/hero-comparateur-omra.jpg';
 import { Package } from 'lucide-react';
-import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
 import { FilterForm } from '@/components/ui/FilterForm';
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
+import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
+import { OffersPagination } from '@/components/ui/OffersPagination';
+
+// ⚡ Lazy load composants lourds pour réduire JS initial
+const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 
 const MONTHS = [
   'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -121,6 +125,10 @@ export default function ComparateurOmra() {
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
   const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
+  
+  // ⚡ PAGINATION: Réduire nombre d'offres chargées initialement
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = window.innerWidth < 768 ? 8 : 12; // 8 mobile, 12 desktop
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -284,6 +292,17 @@ export default function ComparateurOmra() {
     fetchOffers();
   }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType, selectedDuration]);
 
+  // ⚡ PAGINATION: Calculer offres paginées
+  const totalPages = Math.ceil(offers.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const paginatedOffers = offers.slice(startIdx, endIdx);
+
+  // Reset page quand les filtres changent
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType]);
+
   const resetFilters = () => {
     setSelectedMonth('all');
     setSelectedCity('all');
@@ -352,25 +371,12 @@ export default function ComparateurOmra() {
         className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden"
         style={{ minHeight: '400px' }}
       >
-        <picture className="absolute inset-0 w-full h-full">
-          {/* Mobile: dimensions fixes pour éviter CLS */}
-          <source
-            media="(max-width: 767px)"
-            srcSet={heroImage}
-            width="750"
-            height="400"
-          />
-          <img 
-            src={heroImage} 
-            alt="Comparateur Omra - La Kaaba à La Mecque" 
-            className="absolute inset-0 w-full h-full object-cover"
-            width="1600"
-            height="500"
-            loading="eager"
-            decoding="async"
-            style={{ display: 'block' }}
-          />
-        </picture>
+        <OptimizedHeroImage 
+          mobileWidth={750}
+          mobileHeight={400}
+          desktopWidth={1600}
+          desktopHeight={500}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
         <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
@@ -650,7 +656,9 @@ export default function ComparateurOmra() {
               </Badge>
               
               {/* Newsletter Subscription Form */}
-              <HajjNewsletterForm />
+              <Suspense fallback={<div className="animate-pulse h-32 bg-muted/20 rounded-lg" />}>
+                <HajjNewsletterForm />
+              </Suspense>
             </div>
           </Card>
         ) : error ? (
@@ -685,7 +693,6 @@ export default function ComparateurOmra() {
         ) : offers.length > 0 ? (
           <div>
             {/* Toggle d'affichage mobile */}
-            {/* Toggle mobile uniquement */}
             <div className="md:hidden flex items-center justify-between mb-4 px-2">
               <span className="text-sm font-medium text-muted-foreground">
                 {offers.length} offre{offers.length > 1 ? 's' : ''}
@@ -741,7 +748,7 @@ export default function ComparateurOmra() {
 
             {/* Vue compacte (mobile uniquement) */}
             <div className={mobileViewMode === 'compact' ? 'md:hidden space-y-3' : 'hidden'}>
-              {offers.map((offer) => {
+              {paginatedOffers.map((offer) => {
                 const agencyLogo = getAgencyLogo(offer.agency_name);
                 const agencyInfo = getAgencyInfo(offer.agency_name);
                 return (
@@ -761,7 +768,7 @@ export default function ComparateurOmra() {
                 ? `grid grid-cols-1 gap-6 ${desktopViewMode === 'cards' ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:hidden'}` 
                 : `hidden ${desktopViewMode === 'cards' ? 'md:grid md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`
             }>
-              {offers.map((offer) => {
+              {paginatedOffers.map((offer) => {
                   const agencyLogo = getAgencyLogo(offer.agency_name);
                   const agencyInfo = getAgencyInfo(offer.agency_name);
               
@@ -776,10 +783,11 @@ export default function ComparateurOmra() {
                     <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
                         <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-4 md:p-6 relative">
-                          <img 
+                          <LazyAgencyLogo 
                             src={agencyLogo} 
                             alt={offer.agency_name}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                            agencyName={offer.agency_name}
+                            className="w-full h-full"
                           />
                           {offer.is_complet && (
                             <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
@@ -1197,6 +1205,15 @@ export default function ComparateurOmra() {
                 );
               })}
             </div>
+            
+            {/* ⚡ PAGINATION */}
+            <OffersPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={offers.length}
+            />
           </div>
         ) : (
           <Card className="p-16 text-center bg-card/50 backdrop-blur-sm border-primary/10">
