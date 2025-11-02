@@ -179,7 +179,7 @@ export function FilterForm({
         )}
 
         {/* CTA */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <label className="mb-1 text-xs opacity-0">Action</label>
           <div className="flex gap-2">
             <button
