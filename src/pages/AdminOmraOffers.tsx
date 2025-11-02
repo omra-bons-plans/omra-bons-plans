@@ -146,10 +146,13 @@ const AdminOmraOffers = () => {
         logoUrl = uploadResult.url;
       }
 
-      // Calculer duration_nights à partir des dates
-      const start = new Date(formData.date_start);
-      const end = new Date(formData.date_end);
-      const durationNights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+      // Utiliser duration_nights saisi ou calculer à partir des dates
+      let durationNights = formData.duration_nights;
+      if (!durationNights && formData.date_start && formData.date_end) {
+        const start = new Date(formData.date_start);
+        const end = new Date(formData.date_end);
+        durationNights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+      }
 
       // Générer source_hash unique
       const sourceHash = `manual_${offerType}_${Date.now()}_${formData.agency_name.replace(/\s+/g, '_')}`;
@@ -476,15 +479,18 @@ const AdminOmraOffers = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="duration_nights">Nombre de jours total *</Label>
+                  <Label htmlFor="duration_nights">Nombre de nuits total *</Label>
                   <Input
                     id="duration_nights"
                     type="number"
                     value={formData.duration_nights}
                     onChange={(e) => setFormData({ ...formData, duration_nights: parseInt(e.target.value) || 0 })}
-                    placeholder="Ex: 14"
+                    placeholder="Ex: 9"
                     required
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Ou sera calculé automatiquement à partir des dates si non rempli
+                  </p>
                 </div>
               </div>
 
