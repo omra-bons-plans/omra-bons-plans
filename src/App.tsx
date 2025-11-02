@@ -10,11 +10,7 @@ import ErrorBoundary from "./components/ui/ErrorBoundary";
 import ScrollToTop from "./components/ui/ScrollToTop";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
-import GoogleAnalytics from "./components/analytics/GoogleAnalytics";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
-import SEOChecker from "./components/SEO/SEOChecker";
-import AntiScrapingMonitor from "./components/ui/AntiScrapingMonitor";
-import { MobileScriptLoader } from "./components/mobile/MobileScriptLoader";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -70,9 +66,6 @@ const PageLoader = () => (
 
 const queryClient = new QueryClient();
 
-// Configuration Google Analytics
-const GA_MEASUREMENT_ID = 'G-Q2NQD2NW1V';
-
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
@@ -82,10 +75,6 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
-              <MobileScriptLoader />
-              <SEOChecker />
-              <AntiScrapingMonitor />
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>

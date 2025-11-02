@@ -104,24 +104,27 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Webfonts chargées après first render (idle callback) -->
-    <script>
-      (window.requestIdleCallback||function(f){setTimeout(f,1500)})(function(){
-        var p=document.createElement('link');p.rel='preconnect';p.href='https://fonts.gstatic.com';p.crossOrigin='';
-        var f=document.createElement('link');f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap';
-        document.head.append(p,f);
-      });
-    </script>
+    <!-- ⚡ CRITICAL: Load fonts ASAP with font-display:swap to avoid FOIT -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
     
-    <!-- Defer non-critical scripts (Analytics, widgets) - Load after 3.5s -->
+    <!-- ⚡ Analytics loaded after user interaction -->
     <script>
-      window.addEventListener('load',function(){
-        setTimeout(function(){
-          ['https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX'].forEach(function(u){
-            var s=document.createElement('script');s.src=u;s.async=true;s.defer=true;document.head.appendChild(s);
-          });
-        },3500);
-      });
+      (function(){
+        var loaded=false;
+        function loadAnalytics(){
+          if(loaded)return;
+          loaded=true;
+          var s=document.createElement('script');
+          s.src='https://www.googletagmanager.com/gtag/js?id=G-Q2NQD2NW1V';
+          s.async=true;
+          document.head.appendChild(s);
+        }
+        ['scroll','click','touchstart','keydown'].forEach(function(e){
+          window.addEventListener(e,loadAnalytics,{once:true,passive:true});
+        });
+        setTimeout(loadAnalytics,5000);
+      })();
     </script>
   </body>
 </html>

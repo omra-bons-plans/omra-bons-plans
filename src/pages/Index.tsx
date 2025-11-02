@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useMobilePerformance } from "@/hooks/useMobilePerformance";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,12 +39,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 
-// Lazy import images to reduce initial bundle size
-import kaabaHero from "@/assets/kaaba-hero.jpg";
-import meccaMosqueHero from "@/assets/mecca-mosque-hero.jpg";
-import luxuryHotelMecca from "@/assets/luxury-hotel-mecca.jpg";
-import tourGuideMecca from "@/assets/tour-guide-mecca.jpg";
-import airplaneInterior from "@/assets/airplane-interior.jpg";
+// ⚡ REMOVED: Images imported lazily now to reduce initial JS bundle
 
 
 const Index = () => {
@@ -54,7 +48,6 @@ const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const isMobile = useIsMobile();
-  const { isOptimized } = useMobilePerformance(); // Optimisations mobile
   const { topics } = useTopics();
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   const selectedTopic = selectedTopicId ? topics.find(t => t.id === selectedTopicId) : null;
@@ -120,7 +113,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: luxuryHotelMecca,
+      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png",
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",
