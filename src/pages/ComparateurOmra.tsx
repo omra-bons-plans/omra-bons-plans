@@ -303,6 +303,13 @@ export default function ComparateurOmra() {
     setCurrentPage(1);
   }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, maxDistance, sortBy, selectedAgencies, tripType]);
 
+  // Scroll vers le haut quand la page change
+  useEffect(() => {
+    if (currentPage > 1) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentPage]);
+
   const resetFilters = () => {
     setSelectedMonth('all');
     setSelectedCity('all');
