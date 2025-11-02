@@ -118,8 +118,9 @@ export default function ComparateurOmra() {
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<string>('all');
+  const [maxPrice, setMaxPrice] = useState<number>(10000);
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
-  const [minDuration, setMinDuration] = useState<string>('');
+  const [maxDuration, setMaxDuration] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price_asc');
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
@@ -184,7 +185,7 @@ export default function ComparateurOmra() {
           selectedCity,
           selectedFormula,
           priceRange,
-          minDuration,
+          maxDuration,
           selectedAgencies,
           tripType
         });
@@ -205,6 +206,12 @@ export default function ComparateurOmra() {
 
         const allData = allActiveOffers || [];
         setAllOffers(allData);
+        
+        // Calculer le prix maximum des offres
+        const maxPriceValue = allData.length > 0 
+          ? Math.max(...allData.map(offer => offer.price_eur || 0))
+          : 10000;
+        setMaxPrice(Math.ceil(maxPriceValue / 100) * 100); // Arrondir au cent supérieur
         
         // Extraire les agences uniques depuis TOUTES les offres
         const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
@@ -234,11 +241,11 @@ export default function ComparateurOmra() {
         if (priceRange[0] > 0) {
           filtered = filtered.filter(offer => offer.price_eur >= priceRange[0]);
         }
-        if (priceRange[1] < 10000) {
+        if (priceRange[1] < maxPrice) {
           filtered = filtered.filter(offer => offer.price_eur <= priceRange[1]);
         }
-        if (minDuration) {
-          filtered = filtered.filter(offer => offer.duration_nights >= parseInt(minDuration));
+        if (maxDuration) {
+          filtered = filtered.filter(offer => offer.duration_nights <= parseInt(maxDuration));
         }
         
         // Filtrer par agences sélectionnées
@@ -285,7 +292,7 @@ export default function ComparateurOmra() {
     };
 
     fetchOffers();
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, sortBy, selectedAgencies, tripType, selectedDuration]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, maxDuration, sortBy, selectedAgencies, tripType, selectedDuration]);
 
   // ⚡ PAGINATION: Calculer offres paginées
   const totalPages = Math.ceil(offers.length / itemsPerPage);
@@ -296,7 +303,7 @@ export default function ComparateurOmra() {
   // Reset page quand les filtres changent
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, minDuration, sortBy, selectedAgencies, tripType]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceRange, maxDuration, sortBy, selectedAgencies, tripType]);
 
   // Scroll vers la liste des offres quand la page change
   useEffect(() => {
@@ -308,14 +315,19 @@ export default function ComparateurOmra() {
     }
   }, [currentPage]);
 
+  // Mettre à jour priceRange[1] quand maxPrice change
+  useEffect(() => {
+    setPriceRange(prev => [prev[0], maxPrice]);
+  }, [maxPrice]);
+
   const resetFilters = () => {
     setSelectedMonth('all');
     setSelectedCity('all');
     setSelectedFormula('all');
     setSelectedAgencies([]);
     setSelectedDuration('all');
-    setPriceRange([0, 10000]);
-    setMinDuration('');
+    setPriceRange([0, maxPrice]);
+    setMaxDuration('');
   };
 
   const handleAgencyFormSubmit = async (e: React.FormEvent) => {
@@ -576,7 +588,7 @@ export default function ComparateurOmra() {
                   </label>
                   <Slider
                     min={0}
-                    max={10000}
+                    max={maxPrice}
                     step={100}
                     value={priceRange}
                     onValueChange={setPriceRange}
@@ -587,13 +599,13 @@ export default function ComparateurOmra() {
                 <div className="space-y-1.5 md:space-y-2">
                   <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
                     <Clock className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                    Durée minimum (nuits)
+                    Durée maximum (nuits)
                   </label>
                   <Input
                     type="number"
-                    placeholder="Ex: 10"
-                    value={minDuration}
-                    onChange={(e) => setMinDuration(e.target.value)}
+                    placeholder="Ex: 15"
+                    value={maxDuration}
+                    onChange={(e) => setMaxDuration(e.target.value)}
                     className="bg-background/50 h-9 md:h-10 text-sm"
                   />
                 </div>
