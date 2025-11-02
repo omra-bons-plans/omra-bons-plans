@@ -52,6 +52,22 @@ serve(async (req) => {
 
     console.log('🔍 Vérification anti-scraping:', { ip_address, user_agent, request_path });
 
+    // Si pas d'IP (environnement local), autoriser la requête sans vérification
+    if (!ip_address || ip_address === 'null' || ip_address === 'undefined') {
+      console.log('✅ IP non disponible (environnement local), requête autorisée');
+      return new Response(
+        JSON.stringify({
+          allowed: true,
+          blocked: false,
+          reason: null,
+          warning: null,
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
     // Vérifier si le user agent est suspect
     const isSuspiciousUserAgent = SUSPICIOUS_USER_AGENTS.some(
       suspicious => user_agent?.toLowerCase().includes(suspicious.toLowerCase())
