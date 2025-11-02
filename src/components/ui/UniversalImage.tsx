@@ -122,8 +122,9 @@ export const UniversalImage = ({
       onError={handleError}
       onLoad={handleLoad}
       decoding="async"
-      width={dimensions.width}
-      height={dimensions.height}
+      width={optimize?.width || dimensions.width || 800}
+      height={optimize?.height || dimensions.height || 600}
+      style={{ aspectRatio: optimize?.width && optimize?.height ? `${optimize.width}/${optimize.height}` : 'auto' }}
     />
   );
 };

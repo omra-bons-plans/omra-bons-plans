@@ -258,31 +258,30 @@ const Index = () => {
       <div className="min-h-screen bg-background pt-0 mt-0">
 
       {/* Hero Section - Optimisé MOBILE avec dimensions fixes pour CLS = 0 */}
-      <section className="hero-wrapper md:mt-[64px] lg:mt-[80px] mt-0" style={{ minHeight: isMobile ? '100vh' : 'auto' }}>
-        <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : 'auto' }}>
+      <section className="hero-wrapper md:mt-[64px] lg:mt-[80px] mt-0" style={{ minHeight: isMobile ? '100vh' : '600px', aspectRatio: isMobile ? '9/16' : '16/9' }}>
+        <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
             {/* Mobile: Image optimisée 750x1334 */}
             <source
               media="(max-width: 767px)"
               srcSet="/hero-kaaba-2025-optimized.avif"
               type="image/avif"
-              width="750"
-              height="1334"
             />
             {/* Desktop: Image normale */}
             <img
               src="/hero-kaaba-2025-optimized.avif"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2025-2026"
-              width={isMobile ? "750" : "1600"}
-              height={isMobile ? "1334" : "900"}
+              width="1600"
+              height="900"
               fetchPriority="high"
-              loading="eager"
               decoding="async"
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                display: 'block'
+                display: 'block',
+                position: 'absolute',
+                inset: 0
               }}
             />
           </picture>
