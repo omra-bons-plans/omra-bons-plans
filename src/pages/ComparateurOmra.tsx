@@ -252,13 +252,12 @@ export default function ComparateurOmra() {
         title="Comparateur Séjours Omra 2025 et 2026"
         description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
         keywords={['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
-        path="/comparateur-omra"
+        path="/"
       />
       
       <SEOBreadcrumb
         items={[
-          { name: 'Accueil', url: '/' },
-          { name: 'Comparateur Omra', url: '/comparateur-omra' }
+          { name: 'Accueil', url: '/' }
         ]}
       />
 
