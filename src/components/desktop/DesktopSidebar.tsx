@@ -161,11 +161,25 @@ export function DesktopSidebar() {
           </SidebarGroup>
         )}
 
-        {/* Categories Section - Collapsed Icons */}
+        {/* Main Icons - Collapsed */}
         {collapsed && (
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <NavLink to="/" end className={getNavCls}>
+                      <Home className="w-4 h-4" />
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <NavLink to="/favoris" className={getNavCls}>
+                      <Heart className="w-4 h-4" />
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
                     <NavLink to="/category/sejours" className={getNavCls}>
