@@ -795,9 +795,11 @@ export default function ComparateurOmra() {
                   key={offer.id} 
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in relative"
                 >
-                  {/* Bouton Favoris en overlay */}
-                  <div className="absolute top-3 right-3 z-20">
-                    <FavoriteButton offerId={offer.id} variant="icon" />
+                  {/* Bouton Favoris en overlay - repositionné en haut à gauche */}
+                  <div className="absolute top-3 left-3 z-20">
+                    <div className="bg-background/90 backdrop-blur-sm rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
+                      <FavoriteButton offerId={offer.id} variant="icon" />
+                    </div>
                   </div>
                   
                    {/* Header avec logo agence */}
@@ -1042,9 +1044,11 @@ export default function ComparateurOmra() {
                     key={offer.id} 
                     className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 relative"
                   >
-                    {/* Bouton Favoris en overlay */}
-                    <div className="absolute top-3 right-3 z-20">
-                      <FavoriteButton offerId={offer.id} variant="icon" />
+                    {/* Bouton Favoris en overlay - repositionné en haut à gauche */}
+                    <div className="absolute top-3 left-3 z-20">
+                      <div className="bg-background/90 backdrop-blur-sm rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
+                        <FavoriteButton offerId={offer.id} variant="icon" />
+                      </div>
                     </div>
                     
                     <div className="flex flex-col sm:flex-row">
