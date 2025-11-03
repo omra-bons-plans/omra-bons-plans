@@ -1,4 +1,4 @@
-import { Home, Search, Star, HelpCircle, User } from 'lucide-react';
+import { Home, Package, Star, HelpCircle, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -45,10 +45,10 @@ export const MobileBottomNav = () => {
       active: currentPath === '/' 
     },
     { 
-      icon: Search, 
-      label: 'Recherche', 
-      path: '/search', 
-      active: currentPath === '/search' || currentPath === '/comparateur-omra',
+      icon: Package, 
+      label: 'Bons Plans', 
+      path: '/bons-plans', 
+      active: currentPath === '/bons-plans',
       badge: null
     },
     { 
