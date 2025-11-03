@@ -233,6 +233,26 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Hajj & Omra traditionnel", "Réservation en ligne", "Offres variées"],
     priceRange: "Standard",
     highlight: "Agence pionnière avec 13 ans d'expérience et 98% de satisfaction"
+  },
+  {
+    name: "Omra Sounnah",
+    url: "https://www.omrasounnah.com/",
+    googleRating: 4.9,
+    reviewCount: 303,
+    strengths: [
+      "Excellente organisation et accompagnement",
+      "Guides compétents et bienveillants",
+      "Hôtels de qualité bien situés",
+      "Bonne réactivité du service client"
+    ],
+    weaknesses: [
+      "Places limitées sur certaines dates",
+      "Prix variables selon les périodes",
+      "Départs principalement depuis Paris"
+    ],
+    specialties: ["Omra traditionnelle", "Voyages spirituels", "Accompagnement personnalisé"],
+    priceRange: "Standard",
+    highlight: "Note excellente de 4.9/5 avec accompagnement personnalisé"
   }
 ];
 
