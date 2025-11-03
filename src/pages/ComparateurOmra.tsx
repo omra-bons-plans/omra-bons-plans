@@ -277,6 +277,20 @@ export default function ComparateurOmra() {
           case 'duration_desc':
             filtered.sort((a, b) => (b.duration_nights || 0) - (a.duration_nights || 0));
             break;
+          case 'date_asc':
+            filtered.sort((a, b) => {
+              const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
+              const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+              return dateA - dateB;
+            });
+            break;
+          default:
+            // Tri par défaut : date de départ la plus proche
+            filtered.sort((a, b) => {
+              const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
+              const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+              return dateA - dateB;
+            });
         }
         
         console.log('✅ Offres finales affichées:', filtered.length);
