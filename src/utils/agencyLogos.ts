@@ -3,6 +3,7 @@ export const agencyLogos: Record<string, string> = {
   "Medin Voyages": "/lovable-uploads/logomedinvoyages.png",
   "Al Sirate Voyage": "/lovable-uploads/logoalsiratevoyage.png",
   "Omra Du Savoir": "/lovable-uploads/logoomrasounnah.png",
+  "Omra Sounnah": "/lovable-uploads/logoomrasounnah-favicon.png",
   "Omra Pour Tous": "/lovable-uploads/logoomrapourtous.jpeg",
   "TAWAF": "/lovable-uploads/logotawaf.webp",
   "Sabil Voyages": "/lovable-uploads/logosabile-new.png",
