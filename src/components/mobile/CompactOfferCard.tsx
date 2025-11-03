@@ -94,34 +94,9 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
           )}
 
           {/* Nuits */}
-          {(offer.makkah_nights || offer.medina_nights) && (
+          {offer.duration_nights && (
             <div className="text-xs">
-              <span className="font-semibold">Séjour : </span>
-              {offer.makkah_nights}n Mecque / {offer.medina_nights}n Médine
-            </div>
-          )}
-
-          {/* Hôtels */}
-          {offer.hotel_makkah && (
-            <div className="flex items-start gap-1.5 text-xs">
-              <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
-              <div>
-                <span className="font-semibold">Mecque : </span>
-                {offer.hotel_makkah}
-                {offer.distance_to_haram_m && (
-                  <span className="text-muted-foreground"> ({offer.distance_to_haram_m}m)</span>
-                )}
-              </div>
-            </div>
-          )}
-
-          {offer.hotel_medinah && (
-            <div className="flex items-start gap-1.5 text-xs">
-              <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
-              <div>
-                <span className="font-semibold">Médine : </span>
-                {offer.hotel_medinah}
-              </div>
+              <span className="font-semibold">{offer.duration_nights} nuitées</span>
             </div>
           )}
 
