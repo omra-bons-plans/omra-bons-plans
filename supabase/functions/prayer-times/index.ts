@@ -12,8 +12,23 @@ serve(async (req) => {
   }
 
   try {
-    const url = new URL(req.url);
-    const city = url.searchParams.get('city');
+    let city: string | null = null;
+    
+    // Essayer d'obtenir la ville depuis le body (POST) ou query params (GET)
+    if (req.method === 'POST') {
+      try {
+        const body = await req.json();
+        city = body.city;
+      } catch (e) {
+        console.log('No JSON body, trying query params');
+      }
+    }
+    
+    // Si pas de ville dans le body, essayer les query params
+    if (!city) {
+      const url = new URL(req.url);
+      city = url.searchParams.get('city');
+    }
     
     if (!city) {
       return new Response(

@@ -12,6 +12,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
+import { supabase } from '@/integrations/supabase/client';
 
 interface PrayerTime {
   Fajr: string;
@@ -57,24 +58,27 @@ const PrayerTimes = () => {
       setLoading(true);
       setError(null);
       
-      // Utilisation de notre edge function pour éviter les problèmes CORS
-      const response = await fetch(
-        `https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/prayer-times?city=${encodeURIComponent(city)}`
-      );
+      console.log('Fetching prayer times for:', city);
       
-      if (!response.ok) {
-        throw new Error('Ville non trouvée ou erreur de réseau');
+      // Utilisation de supabase.functions.invoke pour l'authentification automatique
+      const { data, error: functionError } = await supabase.functions.invoke('prayer-times', {
+        body: { city }
+      });
+      
+      console.log('Response:', data, 'Error:', functionError);
+      
+      if (functionError) {
+        throw new Error(functionError.message || 'Erreur lors de la récupération des horaires');
       }
       
-      const data = await response.json();
-      
-      if (data.code !== 200) {
+      if (!data || data.code !== 200) {
         throw new Error('Impossible de récupérer les horaires pour cette ville');
       }
       
       setPrayerData(data.data);
       toast.success('Horaires de prière récupérés avec succès');
     } catch (err: any) {
+      console.error('Prayer times error:', err);
       setError(err.message || 'Une erreur est survenue');
       toast.error(err.message || 'Une erreur est survenue');
     } finally {
