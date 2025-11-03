@@ -25,6 +25,7 @@ import { z } from 'zod';
 import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
 import { OffersPagination } from '@/components/ui/OffersPagination';
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 // ⚡ Lazy load composants lourds pour réduire JS initial
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
@@ -792,8 +793,13 @@ export default function ComparateurOmra() {
               return (
                 <Card 
                   key={offer.id} 
-                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in"
+                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in relative"
                 >
+                  {/* Bouton Favoris en overlay */}
+                  <div className="absolute top-3 right-3 z-20">
+                    <FavoriteButton offerId={offer.id} variant="icon" />
+                  </div>
+                  
                    {/* Header avec logo agence */}
                   <div className="px-3 md:px-6 pt-3 md:pt-6 pb-3 md:pb-4 border-b border-primary/10 bg-gradient-to-br from-primary/5 via-transparent to-background relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -1034,8 +1040,13 @@ export default function ComparateurOmra() {
                 return (
                   <Card 
                     key={offer.id} 
-                    className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30"
+                    className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 relative"
                   >
+                    {/* Bouton Favoris en overlay */}
+                    <div className="absolute top-3 right-3 z-20">
+                      <FavoriteButton offerId={offer.id} variant="icon" />
+                    </div>
+                    
                     <div className="flex flex-col sm:flex-row">
                       {/* Logo et agence */}
                       <div className="sm:w-48 lg:w-56 flex-shrink-0 p-4 border-b sm:border-b-0 sm:border-r border-primary/10 bg-gradient-to-br from-primary/5 to-background">
