@@ -371,8 +371,7 @@ export default function AdminOmraManagement() {
                     <TableHead>Prix</TableHead>
                     <TableHead>Mois</TableHead>
                     <TableHead>Ville</TableHead>
-                    <TableHead>Formule</TableHead>
-                    <TableHead>Durée</TableHead>
+                    <TableHead>Période</TableHead>
                     <TableHead>Statut</TableHead>
                     <TableHead>Complet</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
@@ -380,11 +379,11 @@ export default function AdminOmraManagement() {
                 </TableHeader>
                 <TableBody>
                   {filteredOffers.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={10} className="text-center py-8 text-muted-foreground">
-                        Aucune offre trouvée
-                      </TableCell>
-                    </TableRow>
+                      <TableRow>
+                        <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
+                          Aucune offre trouvée
+                        </TableCell>
+                      </TableRow>
                   ) : (
                     filteredOffers.map((offer) => (
                       <TableRow key={offer.id}>
@@ -395,8 +394,15 @@ export default function AdminOmraManagement() {
                         <TableCell>{offer.price_eur}€</TableCell>
                         <TableCell className="capitalize">{offer.month_departure}</TableCell>
                         <TableCell>{offer.departure_city}</TableCell>
-                        <TableCell className="capitalize">{offer.formula_type}</TableCell>
-                        <TableCell>{offer.duration_nights}n</TableCell>
+                        <TableCell>
+                          {offer.date_start && offer.date_end ? (
+                            <>
+                              Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
+                            </>
+                          ) : (
+                            <span className="text-muted-foreground">Non défini</span>
+                          )}
+                        </TableCell>
                         <TableCell>
                           <Badge variant={offer.status === "active" ? "default" : "secondary"}>
                             {offer.status}
