@@ -100,6 +100,33 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
             </div>
           )}
 
+          {/* Hôtels */}
+          {offer.hotel_makkah && (
+            <div className="flex items-start gap-1.5 text-xs">
+              <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="font-semibold">Mecque : </span>
+                {offer.hotel_makkah}
+                {offer.hotel_makkah_stars && (
+                  <span className="text-yellow-500"> {'⭐'.repeat(offer.hotel_makkah_stars)}</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {offer.hotel_medinah && (
+            <div className="flex items-start gap-1.5 text-xs">
+              <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="font-semibold">Médine : </span>
+                {offer.hotel_medinah}
+                {offer.hotel_medina_stars && (
+                  <span className="text-yellow-500"> {'⭐'.repeat(offer.hotel_medina_stars)}</span>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Badges services */}
           <div className="flex flex-wrap gap-1">
             {offer.flights_included && (
