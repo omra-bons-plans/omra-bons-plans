@@ -79,6 +79,14 @@ export function DesktopSidebar() {
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink to="/favoris" className={getNavCls}>
+                    <Heart className="w-4 h-4" />
+                    {!collapsed && <span>Favoris</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
