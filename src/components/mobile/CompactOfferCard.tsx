@@ -15,10 +15,10 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-primary/10">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
       {/* Header compact */}
       <div 
-        className="p-3 cursor-pointer"
+        className="p-3 cursor-pointer active:bg-muted/30 transition-colors"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-3">

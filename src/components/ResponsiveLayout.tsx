@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import MobileSidebar from './mobile/MobileSidebar';
+import { MobileBottomNav } from './mobile/MobileBottomNav';
 import DesktopLayout from './desktop/DesktopLayout';
 
 interface ResponsiveLayoutProps {
@@ -14,9 +15,10 @@ const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
     return (
       <div className="min-h-screen bg-background">
         <MobileSidebar />
-        <main className="pb-24 lg:pt-0 lg:pb-0">
+        <main className="pb-20">
           {children}
         </main>
+        <MobileBottomNav />
       </div>
     );
   }
