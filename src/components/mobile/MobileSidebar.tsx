@@ -35,8 +35,8 @@ const MobileSidebar = () => {
 
   return (
     <>
-      {/* Mobile Header - Only for phones */}
-      <header className="md:hidden sticky top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/20 px-4 py-3 shadow-sm mb-0">
+      {/* Mobile Header - Only for phones - Position fixed pour éviter l'espace */}
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/20 px-4 py-2.5 shadow-sm">
         <div className="flex items-center justify-between">
           <Button
             variant="ghost"
