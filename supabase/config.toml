@@ -130,6 +130,9 @@ verify_jwt = false
 [functions.cleanup-old-omra-offers]
 verify_jwt = false
 
+[functions.prayer-times]
+verify_jwt = false
+
 # Scheduled function for weekly Omra offers refresh - DISABLED
 # [[edge_runtime.scheduled_functions]]
 # name = "weekly-omra-refresh"

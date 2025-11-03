@@ -57,8 +57,10 @@ const PrayerTimes = () => {
       setLoading(true);
       setError(null);
       
-      // Utilisation de l'API Aladhan avec méthode 3 (MWL) qui utilise 18° pour Fajr et 17° pour Isha
-      const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=3`);
+      // Utilisation de notre edge function pour éviter les problèmes CORS
+      const response = await fetch(
+        `https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/prayer-times?city=${encodeURIComponent(city)}`
+      );
       
       if (!response.ok) {
         throw new Error('Ville non trouvée ou erreur de réseau');
