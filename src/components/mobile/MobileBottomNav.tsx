@@ -1,27 +1,77 @@
-import { Home, Search, MessageCircle, User, Menu } from 'lucide-react';
+import { Home, Search, Star, HelpCircle, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import DynamicIcon from '@/components/ui/DynamicIcon';
+import { Badge } from '@/components/ui/badge';
+import { useState, useEffect } from 'react';
 
 /**
- * Bottom Navigation Mobile-First
- * - Position fixe en bas de l'écran
- * - 5 actions principales
- * - Active state avec indicateur visuel
+ * Bottom Navigation Mobile-First - Option 2: Focus Services
+ * - 5 actions principales (pas de menu "Plus")
+ * - Favoris pour comparaisons rapides
+ * - Aide directe pour améliorer la conversion
  */
 export const MobileBottomNav = () => {
   const location = useLocation();
   const { user } = useAuth();
   const currentPath = location.pathname;
+  
+  // Compteur de favoris (localStorage)
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  
+  useEffect(() => {
+    const updateFavoritesCount = () => {
+      const favorites = JSON.parse(localStorage.getItem('omra_favorites') || '[]');
+      setFavoritesCount(favorites.length);
+    };
+    
+    updateFavoritesCount();
+    
+    // Écouter les changements de favoris
+    window.addEventListener('storage', updateFavoritesCount);
+    window.addEventListener('favorites-updated', updateFavoritesCount);
+    
+    return () => {
+      window.removeEventListener('storage', updateFavoritesCount);
+      window.removeEventListener('favorites-updated', updateFavoritesCount);
+    };
+  }, []);
 
   const navItems = [
-    { icon: Home, label: 'Accueil', path: '/', active: currentPath === '/' },
-    { icon: Search, label: 'Comparateur', path: '/comparateur-omra', active: currentPath === '/comparateur-omra' },
-    { icon: MessageCircle, label: 'Discussions', path: '/discussions', active: currentPath === '/discussions' },
-    { icon: User, label: user ? 'Profil' : 'Connexion', path: user ? '/profile' : '/auth', active: currentPath === '/profile' || currentPath === '/auth' },
+    { 
+      icon: Home, 
+      label: 'Accueil', 
+      path: '/', 
+      active: currentPath === '/' 
+    },
+    { 
+      icon: Search, 
+      label: 'Recherche', 
+      path: '/search', 
+      active: currentPath === '/search' || currentPath === '/comparateur-omra',
+      badge: null
+    },
+    { 
+      icon: Star, 
+      label: 'Favoris', 
+      path: '/favoris', 
+      active: currentPath === '/favoris',
+      badge: favoritesCount > 0 ? favoritesCount : null
+    },
+    { 
+      icon: HelpCircle, 
+      label: 'Aide', 
+      path: '/contact', 
+      active: currentPath === '/contact',
+      badge: null
+    },
+    { 
+      icon: User, 
+      label: user ? 'Profil' : 'Connexion', 
+      path: user ? '/profile' : '/auth', 
+      active: currentPath === '/profile' || currentPath === '/auth',
+      badge: null
+    },
   ];
 
   return (
@@ -32,57 +82,26 @@ export const MobileBottomNav = () => {
             key={item.path}
             to={item.path}
             className={cn(
-              "flex flex-col items-center justify-center px-3 py-2 rounded-xl transition-all duration-200 min-w-[60px]",
+              "relative flex flex-col items-center justify-center px-2 py-2 rounded-xl transition-all duration-200 min-w-[64px]",
               item.active
                 ? "bg-primary/10 text-primary"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
             )}
           >
-            <item.icon className={cn("h-5 w-5 mb-1", item.active && "animate-pulse")} />
-            <span className="text-2xs font-medium">{item.label}</span>
+            <div className="relative">
+              <item.icon className={cn("h-5 w-5 mb-1", item.active && "animate-pulse")} />
+              {item.badge !== null && item.badge !== undefined && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center p-0 text-[10px] font-bold"
+                >
+                  {item.badge > 9 ? '9+' : item.badge}
+                </Badge>
+              )}
+            </div>
+            <span className="text-2xs font-medium text-center leading-tight">{item.label}</span>
           </Link>
         ))}
-        
-        {/* Menu supplémentaire */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <button className="flex flex-col items-center justify-center px-3 py-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200 min-w-[60px]">
-              <Menu className="h-5 w-5 mb-1" />
-              <span className="text-2xs font-medium">Plus</span>
-            </button>
-          </SheetTrigger>
-          <SheetContent side="bottom" className="h-[50vh] rounded-t-3xl">
-            <div className="py-6 space-y-4">
-              <h3 className="text-lg font-semibold mb-4">Menu</h3>
-              <div className="grid grid-cols-3 gap-4">
-                <Link to="/publish" className="flex flex-col items-center p-4 rounded-xl bg-primary/5 hover:bg-primary/10 transition-colors">
-                  <DynamicIcon name="plus" className="h-6 w-6 text-primary mb-2" />
-                  <span className="text-xs text-center font-medium">Publier</span>
-                </Link>
-                <Link to="/blog" className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <DynamicIcon name="book-open" className="h-6 w-6 mb-2" />
-                  <span className="text-xs text-center font-medium">Blog</span>
-                </Link>
-                <Link to="/contact" className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <DynamicIcon name="mail" className="h-6 w-6 mb-2" />
-                  <span className="text-xs text-center font-medium">Contact</span>
-                </Link>
-                <Link to="/my-ads" className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <DynamicIcon name="list" className="h-6 w-6 mb-2" />
-                  <span className="text-xs text-center font-medium">Mes annonces</span>
-                </Link>
-                <Link to="/settings" className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <DynamicIcon name="settings" className="h-6 w-6 mb-2" />
-                  <span className="text-xs text-center font-medium">Paramètres</span>
-                </Link>
-                <Link to="/about" className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <DynamicIcon name="info" className="h-6 w-6 mb-2" />
-                  <span className="text-xs text-center font-medium">À propos</span>
-                </Link>
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
       </div>
     </nav>
   );

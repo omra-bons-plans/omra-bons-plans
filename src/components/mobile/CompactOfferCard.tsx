@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Hotel, Plane, ExternalLink, CheckCircle2, Star } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 interface CompactOfferCardProps {
   offer: any;
@@ -18,9 +19,14 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
       {/* Header compact */}
       <div 
-        className="p-3 cursor-pointer active:bg-muted/30 transition-colors"
+        className="p-3 cursor-pointer active:bg-muted/30 transition-colors relative"
         onClick={() => setIsExpanded(!isExpanded)}
       >
+        {/* Bouton favoris en overlay */}
+        <div className="absolute top-2 right-2 z-10">
+          <FavoriteButton offerId={offer.id} variant="icon" />
+        </div>
+        
         <div className="flex items-center gap-3">
           {/* Logo miniature */}
           {agencyLogo && (
