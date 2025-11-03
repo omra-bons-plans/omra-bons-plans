@@ -90,6 +90,8 @@ export const useOmraOffers = (filters: FilterOptions) => {
 
         let sortedData = (data || []) as unknown as OmraOffer[];
         console.log('[useOmraOffers] Sorted data length:', sortedData.length);
+        console.log('[useOmraOffers] Sort by:', filters.sortBy);
+        console.log('[useOmraOffers] First 5 dates BEFORE sort:', sortedData.slice(0, 5).map(o => ({ date: o.date_start, title: o.offer_title })));
         
         switch (filters.sortBy) {
           case 'price_asc':
@@ -108,6 +110,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
             sortedData.sort((a, b) => {
               const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
               const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+              console.log('[SORT] Comparing:', a.date_start, '(', dateA, ') vs', b.date_start, '(', dateB, ') => ', dateA - dateB);
               return dateA - dateB;
             });
             break;
@@ -120,6 +123,7 @@ export const useOmraOffers = (filters: FilterOptions) => {
             });
         }
 
+        console.log('[useOmraOffers] First 5 dates AFTER sort:', sortedData.slice(0, 5).map(o => ({ date: o.date_start, title: o.offer_title })));
         setOffers(sortedData);
         setError(null);
       } catch (err) {
