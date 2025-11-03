@@ -292,9 +292,9 @@ const Index = () => {
             <div className="flex flex-col items-center justify-center text-center py-12 md:py-20">
               <div className="space-y-6 md:space-y-8 max-w-4xl">
                 <h1 className="text-4xl md:text-7xl font-bold leading-tight">
-                  <span className="gradient-text-secondary font-black text-5xl md:text-8xl">Omra pas chère 2025</span><br />
-                  <span className="text-white text-3xl md:text-6xl">Comparez les meilleures offres</span><br />
-                  <span className="text-white text-2xl md:text-5xl">au départ de France</span>
+                  <span className="text-white text-3xl md:text-5xl">Tous les services</span><br />
+                  <span className="gradient-text-secondary font-black text-5xl md:text-8xl">Hajj & Omra</span><br />
+                  <span className="text-white text-3xl md:text-6xl">en un seul endroit</span>
                 </h1>
                 
                 <p className="text-base md:text-xl leading-relaxed max-w-3xl mx-auto">
