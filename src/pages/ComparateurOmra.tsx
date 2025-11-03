@@ -399,8 +399,7 @@ export default function ComparateurOmra() {
 
       {/* Hero Section avec image de fond - Optimisé mobile avec dimensions fixes */}
       <div 
-        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden"
-        style={{ minHeight: '400px' }}
+        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden mt-0"
       >
         <OptimizedHeroImage 
           mobileWidth={750}
