@@ -121,7 +121,7 @@ export default function ComparateurOmra() {
   const [maxPrice, setMaxPrice] = useState<number>(10000);
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [maxDuration, setMaxDuration] = useState<string>('');
-  const [sortBy, setSortBy] = useState<string>('price_asc');
+  const [sortBy, setSortBy] = useState<string>('date_asc');
   const [showFilters, setShowFilters] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
   const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
@@ -633,6 +633,7 @@ export default function ComparateurOmra() {
               <SelectValue placeholder="Trier par" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="date_asc">📅 Date la plus proche</SelectItem>
               <SelectItem value="price_asc">💰 Prix croissant</SelectItem>
               <SelectItem value="price_desc">💎 Prix décroissant</SelectItem>
               <SelectItem value="duration_asc">⏱️ Durée croissante</SelectItem>
