@@ -89,7 +89,6 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
             <div className="text-xs">
               <span className="font-semibold">Dates : </span>
               Du {new Date(offer.date_start).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} au {new Date(offer.date_end).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
-              {offer.duration_nights && <span className="text-muted-foreground"> ({offer.duration_nights}n)</span>}
             </div>
           )}
 
