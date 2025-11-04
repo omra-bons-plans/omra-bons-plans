@@ -183,19 +183,59 @@
     position: relative;
   }
 
-  /* Empêche le margin collapsing après le header */
-  header, .top-banner, .site-header {
+  /* 1) Le header ne crée ni ombre ni bordure qui laissent une ligne */
+  header, .site-header, .top-banner {
     margin: 0 !important;
-    padding-bottom: 0 !important;
+    padding: 0 !important;
+    border-bottom: 0 !important;
     box-shadow: none !important;
     background-clip: padding-box;
-    transform: translateZ(0);
+    display: flow-root;
   }
 
-  /* Supprimer tout espace au-dessus du contenu mobile */
+  /* 2) Le conteneur entre header et hero ne pousse rien */
   main, #app, .page, .page-content {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    display: flow-root;
+  }
+
+  /* 3) Hero : aucun espace en haut + anti-collapsing + anti-1px WebKit */
+  .hero, .section-hero, .hero-wrapper, [data-hero] {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 1px solid transparent !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    overflow: hidden;
+    display: flow-root;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+  }
+
+  /* 4) Si la première ligne du hero a une marge, on la supprime */
+  .hero > *:first-child,
+  .section-hero > *:first-child,
+  .hero-wrapper > *:first-child,
+  [data-hero] > *:first-child {
+    margin-top: 0 !important;
+  }
+
+  /* 5) Si l'image du hero est un <img>, supprime la "ligne baseline" */
+  .hero img, 
+  .section-hero img, 
+  .hero-wrapper img,
+  [data-hero] img {
+    display: block !important;
+    line-height: 0 !important;
+    vertical-align: top !important;
+    margin-top: 0 !important;
+  }
+
+  /* 6) Dernier recours visuel (force l'adhérence) */
+  .gap-kill { 
+    margin-top: -2px !important;
   }
 
   /* Pas d'espace sur le premier enfant de la page */
@@ -203,12 +243,6 @@
   main > *:first-child {
     margin-top: 0 !important;
     padding-top: 0 !important;
-  }
-
-  /* Header ne crée pas d'espace en dessous */
-  header {
-    margin-bottom: 0 !important;
-    z-index: 10;
   }
 
   /* Bars/spacers vides = pas d'espace */
@@ -224,42 +258,8 @@
     padding: 0 !important;
   }
 
-  /* Images sans ligne blanche */
-  img, picture {
-    display: block !important;
-    line-height: 0 !important;
-    vertical-align: top !important;
-  }
-
-  /* Section hero remonte pour toucher le header */
-  .hero, .section-hero, .hero-wrapper {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    position: relative;
-    z-index: 0;
-    border-top: none !important;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center top;
-  }
-
-  /* Hero images */
-  .hero img, .section-hero img, .hero-wrapper img {
-    display: block !important;
-    line-height: 0 !important;
-    vertical-align: top !important;
-  }
-
   /* iOS safe-area */
   :root { --safe-area-top: env(safe-area-inset-top, 0px); }
-
-  /* Correctif sous-pixel WebKit */
-  .gap-kill {
-    margin-top: -1px !important;
-  }
 
   /* Mobile: Hero remonte de 24px pour coller au header */
   @media (max-width: 1023px) {
