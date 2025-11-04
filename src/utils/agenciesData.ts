@@ -253,6 +253,25 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Omra traditionnelle", "Voyages spirituels", "Accompagnement personnalisé"],
     priceRange: "Standard",
     highlight: "Note excellente de 4.9/5 avec accompagnement personnalisé"
+  },
+  {
+    name: "Omra Discount",
+    url: "https://www.omradiscount.com/",
+    googleRating: 4.9,
+    reviewCount: 120,
+    strengths: [
+      "Prix compétitifs et attractifs",
+      "Bonne organisation générale",
+      "Service client réactif",
+      "Offres variées"
+    ],
+    weaknesses: [
+      "Moins de retours d'expérience disponibles",
+      "Réseau d'agences plus restreint"
+    ],
+    specialties: ["Offres économiques", "Omra accessible", "Promotions régulières"],
+    priceRange: "Économique",
+    highlight: "Prix attractifs avec note 4.9/5 sur 120 avis"
   }
 ];
 

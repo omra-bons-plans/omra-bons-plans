@@ -12,6 +12,7 @@ export const agencyLogos: Record<string, string> = {
   "Al Hayat Voyages": "/lovable-uploads/logohayat.png",
   "Al Bayt": "/lovable-uploads/logoalbayt.png",
   "Gateway-travel": "/lovable-uploads/logogatewaytravel.png",
+  "Omra Discount": "/lovable-uploads/logoomradiscount.png",
 };
 
 export const getAgencyLogo = (agencyName: string): string | null => {
