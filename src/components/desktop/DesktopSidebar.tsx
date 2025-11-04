@@ -94,11 +94,17 @@ export function DesktopSidebar() {
         {/* Bons Plans Section */}
         {!collapsed && (
           <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between cursor-pointer hover:text-primary transition-colors">
-              <NavLink to="/bons-plans" className="flex-1">
+            <SidebarGroupLabel className="flex items-center justify-between">
+              <NavLink 
+                to="/bons-plans" 
+                className="flex-1 cursor-pointer hover:text-primary transition-colors"
+              >
                 Bons Plans
               </NavLink>
-              <button onClick={() => setBonsPlansOpen(!bonsPlansOpen)}>
+              <button 
+                onClick={() => setBonsPlansOpen(!bonsPlansOpen)}
+                className="cursor-pointer hover:text-primary transition-colors"
+              >
                 {bonsPlansOpen ? (
                   <ChevronDown className="w-4 h-4" />
                 ) : (
