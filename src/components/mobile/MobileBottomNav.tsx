@@ -83,11 +83,9 @@ export const MobileBottomNav = () => {
           
           if (isExternal) {
             return (
-              <a
+              <button
                 key={item.path}
-                href={item.path}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => window.location.href = item.path}
                 className={cn(
                   "relative flex flex-col items-center justify-center px-2 py-2 rounded-xl transition-all duration-200 min-w-[64px]",
                   item.active
@@ -107,7 +105,7 @@ export const MobileBottomNav = () => {
                   )}
                 </div>
                 <span className="text-2xs font-medium text-center leading-tight">{item.label}</span>
-              </a>
+              </button>
             );
           }
           

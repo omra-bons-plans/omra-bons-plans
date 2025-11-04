@@ -73,10 +73,10 @@ export function DesktopSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a href="https://omrabonsplans.fr/bons-plans" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <button onClick={() => window.location.href = "https://omrabonsplans.fr/bons-plans"} className="flex items-center gap-2 hover:text-primary transition-colors w-full text-left">
                     <Home className="w-4 h-4" />
                     {!collapsed && <span>Bons Plans</span>}
-                  </a>
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
