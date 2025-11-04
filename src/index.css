@@ -195,6 +195,12 @@
     padding-top: 0 !important;
   }
 
+  /* Header ne crée pas d'espace en dessous */
+  header {
+    margin-bottom: 0 !important;
+    z-index: 10;
+  }
+
   /* Bars/spacers vides = pas d'espace */
   .announcement:empty,
   .cookie-banner:empty,
@@ -213,9 +219,31 @@
     display: block;
   }
 
-  /* Section hero sans espace */
+  /* Section hero remonte pour toucher le header */
   .hero, .section-hero, .hero-wrapper {
     margin-top: 0 !important;
+    position: relative;
+    z-index: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  /* Mobile: Hero remonte de 24px pour coller au header */
+  @media (max-width: 768px) {
+    .hero, .section-hero, .hero-wrapper {
+      transform: translateY(-24px);
+    }
+    
+    .hero .hero-overlay,
+    .section-hero .hero-overlay,
+    .hero-wrapper .hero-overlay {
+      padding-top: calc(24px + 0.5rem) !important;
+    }
+    
+    .hero-media {
+      background-position: center top;
+      background-position-y: -24px;
+    }
   }
 
   /* Overlay dégradé doré avec effet blur */
