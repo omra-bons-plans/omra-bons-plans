@@ -183,9 +183,19 @@
     position: relative;
   }
 
+  /* Empêche le margin collapsing après le header */
+  header, .top-banner, .site-header {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    box-shadow: none !important;
+    background-clip: padding-box;
+    transform: translateZ(0);
+  }
+
   /* Supprimer tout espace au-dessus du contenu mobile */
   main, #app, .page, .page-content {
     margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   /* Pas d'espace sur le premier enfant de la page */
@@ -216,16 +226,39 @@
 
   /* Images sans ligne blanche */
   img, picture {
-    display: block;
+    display: block !important;
+    line-height: 0 !important;
+    vertical-align: top !important;
   }
 
   /* Section hero remonte pour toucher le header */
   .hero, .section-hero, .hero-wrapper {
     margin-top: 0 !important;
+    padding-top: 0 !important;
     position: relative;
     z-index: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top: none !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+  }
+
+  /* Hero images */
+  .hero img, .section-hero img, .hero-wrapper img {
+    display: block !important;
+    line-height: 0 !important;
+    vertical-align: top !important;
+  }
+
+  /* iOS safe-area */
+  :root { --safe-area-top: env(safe-area-inset-top, 0px); }
+
+  /* Correctif sous-pixel WebKit */
+  .gap-kill {
+    margin-top: -1px !important;
   }
 
   /* Mobile: Hero remonte de 24px pour coller au header */
