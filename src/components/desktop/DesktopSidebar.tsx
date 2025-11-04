@@ -75,7 +75,7 @@ export function DesktopSidebar() {
                 <SidebarMenuButton asChild>
                   <NavLink to="/" end className={getNavCls}>
                     <Home className="w-4 h-4" />
-                    {!collapsed && <span>Comparateur Omra</span>}
+                    {!collapsed && <span>Bons Plans</span>}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
