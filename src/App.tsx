@@ -57,6 +57,7 @@ const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
+const NusukThemeDemo = lazy(() => import("./pages/NusukThemeDemo"));
 
 // Loading component
 const PageLoader = () => (
@@ -221,6 +222,7 @@ const App = () => (
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
+                   <Route path="/nusuk-theme-demo" element={<NusukThemeDemo />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/" replace />} />
                    
                    {/* Redirections vers les URLs françaises */}
