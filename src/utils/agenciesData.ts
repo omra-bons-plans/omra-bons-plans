@@ -12,6 +12,26 @@ export interface AgencyData {
 
 export const agenciesData: AgencyData[] = [
   {
+    name: "Medin Voyages",
+    url: "https://medinvoyages.com/",
+    googleRating: 5.0,
+    reviewCount: 269,
+    strengths: [
+      "Note parfaite 5/5 avec base solide d'avis clients",
+      "Agence spécialisée Hajj & Omra",
+      "Forte présence sur les réseaux sociaux (10.6K+ followers Instagram)",
+      "Basée à Gennevilliers avec équipe dédiée",
+      "Accompagnement par des experts passionnés"
+    ],
+    weaknesses: [
+      "Moins connue que certaines grandes agences historiques",
+      "Informations détaillées limitées en ligne sur les formules"
+    ],
+    specialties: ["Omra guidée", "Hajj", "Voyages spirituels personnalisés"],
+    priceRange: "Standard",
+    highlight: "Note parfaite 5/5 avec 269 avis - Agence spécialisée basée à Gennevilliers"
+  },
+  {
     name: "Al Sirate Voyage",
     url: "https://www.alsiratevoyage.com/",
     googleRating: 5.0,
