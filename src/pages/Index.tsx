@@ -289,7 +289,7 @@ const Index = () => {
         
         <div className="hero-overlay">
           <div className="container mx-auto px-6 relative z-20">
-            <div className="flex flex-col items-center justify-center text-center py-12 md:py-20">
+            <div className="flex flex-col items-center justify-center text-center pt-2 pb-12 md:py-20">
               <div className="space-y-6 md:space-y-8 max-w-4xl">
                 <h1 className="text-4xl md:text-7xl font-bold leading-tight">
                   <span className="text-white text-3xl md:text-5xl">Tous les services</span><br />
