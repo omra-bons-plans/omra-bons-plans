@@ -172,9 +172,50 @@
     @apply border-border;
   }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     position: relative;
+  }
+
+  /* Supprimer tout espace au-dessus du contenu mobile */
+  main, #app, .page, .page-content {
+    margin-top: 0 !important;
+  }
+
+  /* Pas d'espace sur le premier enfant de la page */
+  .page > *:first-child,
+  main > *:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Bars/spacers vides = pas d'espace */
+  .announcement:empty,
+  .cookie-banner:empty,
+  .top-banner:empty,
+  .header-spacer,
+  .sticky-spacer,
+  .toolbar-spacer {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Images sans ligne blanche */
+  img, picture {
+    display: block;
+  }
+
+  /* Section hero sans espace */
+  .hero, .section-hero, .hero-wrapper {
+    margin-top: 0 !important;
   }
 
   /* Overlay dégradé doré avec effet blur */
