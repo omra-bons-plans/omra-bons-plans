@@ -1,18 +1,16 @@
 import React, { lazy, Suspense } from 'react';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import ScrollToTop from "./components/ui/ScrollToTop";
+import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
-
-// Defer non-critical UI components
-const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
-const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
-const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => ({ default: m.TooltipProvider })));
-const BackToTopButton = lazy(() => import("./components/ui/BackToTopButton"));
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -74,15 +72,12 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <AdminProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <Suspense fallback={<PageLoader />}>
-              <Suspense fallback={null}>
-                <TooltipProvider>
-                  <Toaster />
-                  <Sonner />
-                </TooltipProvider>
-              </Suspense>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>
                   <Routes>
                   <Route path="/" element={<ComparateurOmra />} />
@@ -272,10 +267,9 @@ const App = () => (
                    </Routes>
                  </CanonicalRedirect>
                </Suspense>
-               <Suspense fallback={null}>
-                 <BackToTopButton />
-               </Suspense>
+               <BackToTopButton />
             </BrowserRouter>
+          </TooltipProvider>
         </AdminProvider>
       </AuthProvider>
     </QueryClientProvider>

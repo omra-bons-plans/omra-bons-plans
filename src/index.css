@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Animation for loader */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 /* Omra Bons Plans Design System - Inspired by Islamic architecture and modern elegance */
 
 @layer base {
