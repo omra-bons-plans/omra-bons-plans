@@ -261,20 +261,20 @@ export const agenciesData: AgencyData[] = [
     reviewCount: 120,
     strengths: [
       "Prix discount très attractifs sur formules 5 étoiles",
-      "Leader de la distribution Omra en France (SLM Travel)",
-      "Plus de 11 ans d'expérience (depuis 2018)",
-      "Présence multi-villes (Paris, Lille, Marseille)",
       "Excellent rapport qualité/prix",
-      "Départs réguliers toute l'année"
+      "Organisation complète (visa, vols, transferts, guide)",
+      "Hôtels bien situés près du Haram",
+      "Départs réguliers toute l'année",
+      "Présence multi-villes (Paris, Lille, Marseille)"
     ],
     weaknesses: [
-      "Agence récente comparée aux pionniers du secteur",
-      "Moins de témoignages détaillés en ligne",
-      "Communication principalement digitale"
+      "Moins d'avis clients que les grandes agences établies",
+      "Historique plus récent sur le marché",
+      "Peu de témoignages détaillés visibles en ligne"
     ],
     specialties: ["Formules 5★ à prix discount", "Omra économique", "Départs multi-villes", "Spécialiste Ramadan"],
     priceRange: "Économique",
-    highlight: "Prix discount sur formules 5★ - Leader avec 11+ ans d'expérience"
+    highlight: "Spécialiste des prix discount sur formules 5★ avec excellente note"
   }
 ];
 
