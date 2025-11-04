@@ -73,10 +73,10 @@ export function DesktopSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <NavLink to="/" end className={getNavCls}>
+                  <a href="https://omrabonsplans.fr/bons-plans" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
                     <Home className="w-4 h-4" />
                     {!collapsed && <span>Bons Plans</span>}
-                  </NavLink>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
