@@ -229,20 +229,15 @@
   }
 
   /* Mobile: Hero remonte de 24px pour coller au header */
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     .hero, .section-hero, .hero-wrapper {
-      transform: translateY(-24px);
+      margin-top: -52px !important;
     }
     
     .hero .hero-overlay,
     .section-hero .hero-overlay,
     .hero-wrapper .hero-overlay {
-      padding-top: calc(24px + 0.5rem) !important;
-    }
-    
-    .hero-media {
-      background-position: center top;
-      background-position-y: -24px;
+      padding-top: calc(52px + 0.5rem) !important;
     }
   }
 
