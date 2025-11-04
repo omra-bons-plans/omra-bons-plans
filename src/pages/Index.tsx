@@ -298,7 +298,7 @@ const Index = () => {
                 </h1>
                 
                 <p className="text-sm md:text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto px-2">
-                  <span className="text-white">Séjours Omra tout compris avec vol, visa et hôtels à Makkah & Médine. Agences agréées, avis vérifiés, assistance 7j/7.</span>
+                  <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
                 </p>
 
                 {/* WhatsApp Community Button - Mobile optimized */}
