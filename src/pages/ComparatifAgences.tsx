@@ -15,10 +15,13 @@ import { Star, Search, ExternalLink } from 'lucide-react';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { agenciesData } from '@/utils/agenciesData';
+import { useIsMobile } from '@/hooks/use-mobile';
+import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 export default function ComparatifAgences() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'name'>('rating');
+  const isMobile = useIsMobile();
   
   const filteredAgencies = agenciesData
     .filter(agency => 
@@ -55,142 +58,153 @@ export default function ComparatifAgences() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Comparatif Agences de Voyages Omra & Hajj 2026-2027"
-        description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
-        keywords="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
-        canonical="https://omrabonsplans.fr/comparatif-agences"
-      />
-
-      <div className="container mx-auto px-4 py-8">
-        <SEOBreadcrumb 
-          items={[
-            { name: 'Accueil', url: '/' },
-            { name: 'Comparatif Agences', url: '/comparatif-agences' }
-          ]}
+    <ResponsiveLayout>
+      <div className="min-h-screen bg-background">
+        <SEOHead 
+          title="Comparatif Agences de Voyages Omra & Hajj 2026-2027"
+          description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
+          keywords="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
+          canonical="https://omrabonsplans.fr/comparatif-agences"
         />
 
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Comparatif Détaillé des Agences de Voyages Omra & Hajj 2026-2027
-          </h1>
-          <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
-            Tableau comparatif complet : tarifs, services, notes Google et avis clients vérifiés
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Analysez et comparez les meilleures agences de voyage pour votre pèlerinage. 
-            Notes Google authentiques, avis clients et analyse détaillée des services.
-          </p>
-        </header>
+        <div className="container mx-auto px-4 py-4 md:py-8">
+          <SEOBreadcrumb 
+            items={[
+              { name: 'Accueil', url: '/' },
+              { name: 'Comparatif Agences', url: '/comparatif-agences' }
+            ]}
+          />
 
-        <div className="mb-6 flex flex-col gap-4">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Rechercher une agence ou spécialité..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant={sortBy === 'rating' ? 'default' : 'outline'}
-              onClick={() => setSortBy('rating')}
-              size="sm"
-              className="flex-1 sm:flex-initial"
-            >
-              Par Note
-            </Button>
-            <Button
-              variant={sortBy === 'reviews' ? 'default' : 'outline'}
-              onClick={() => setSortBy('reviews')}
-              size="sm"
-              className="flex-1 sm:flex-initial"
-            >
-              Par Avis
-            </Button>
-            <Button
-              variant={sortBy === 'name' ? 'default' : 'outline'}
-              onClick={() => setSortBy('name')}
-              size="sm"
-              className="flex-1 sm:flex-initial"
-            >
-              Par Nom
-            </Button>
-          </div>
-        </div>
+          <header className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              {isMobile ? 'Comparatif Agences Omra 2026' : 'Comparatif Détaillé des Agences de Voyages Omra & Hajj 2026-2027'}
+            </h1>
+            {!isMobile && (
+              <>
+                <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
+                  Tableau comparatif complet : tarifs, services, notes Google et avis clients vérifiés
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Analysez et comparez les meilleures agences de voyage pour votre pèlerinage. 
+                  Notes Google authentiques, avis clients et analyse détaillée des services.
+                </p>
+              </>
+            )}
+            {isMobile && (
+              <p className="text-sm text-muted-foreground">
+                Comparez les meilleures agences : notes, avis et services
+              </p>
+            )}
+          </header>
 
-        {/* Mobile Card View (visible on small screens) */}
-        <div className="block lg:hidden space-y-4">
-          {filteredAgencies.map((agency) => (
-            <Card key={agency.name} className="p-4">
-              <div className="space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg">{agency.name}</h3>
-                    {agency.highlight && (
-                      <p className="text-sm text-primary mt-1">{agency.highlight}</p>
+          <div className="sticky top-0 z-10 bg-background pb-4 mb-4 border-b border-border">
+            <div className="relative w-full mb-3">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder={isMobile ? "Rechercher..." : "Rechercher une agence ou spécialité..."}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            <div className="flex gap-2">
+              <Button
+                variant={sortBy === 'rating' ? 'default' : 'outline'}
+                onClick={() => setSortBy('rating')}
+                size="sm"
+                className="flex-1"
+              >
+                {isMobile ? 'Note' : 'Par Note'}
+              </Button>
+              <Button
+                variant={sortBy === 'reviews' ? 'default' : 'outline'}
+                onClick={() => setSortBy('reviews')}
+                size="sm"
+                className="flex-1"
+              >
+                {isMobile ? 'Avis' : 'Par Avis'}
+              </Button>
+              <Button
+                variant={sortBy === 'name' ? 'default' : 'outline'}
+                onClick={() => setSortBy('name')}
+                size="sm"
+                className="flex-1"
+              >
+                {isMobile ? 'A-Z' : 'Par Nom'}
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Card View (visible on small screens) */}
+          <div className="block lg:hidden space-y-3">
+            {filteredAgencies.map((agency) => (
+              <Card key={agency.name} className="p-3 hover:shadow-md transition-shadow">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-base truncate">{agency.name}</h3>
+                      {agency.highlight && (
+                        <p className="text-xs text-primary mt-0.5 line-clamp-1">{agency.highlight}</p>
+                      )}
+                    </div>
+                    <Badge 
+                      variant="outline"
+                      className={
+                        agency.priceRange === 'Premium' ? 'border-purple-500 text-purple-700 text-xs' :
+                        agency.priceRange === 'Économique' ? 'border-green-500 text-green-700 text-xs' :
+                        'border-blue-500 text-blue-700 text-xs'
+                      }
+                    >
+                      {agency.priceRange}
+                    </Badge>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex">{renderStars(agency.googleRating)}</div>
+                      <Badge className={getRatingColor(agency.googleRating)}>
+                        {agency.googleRating}
+                      </Badge>
+                    </div>
+                    <Badge variant="outline" className="text-xs">{agency.reviewCount} avis</Badge>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1">
+                    {agency.specialties.slice(0, 2).map((specialty) => (
+                      <Badge key={specialty} variant="secondary" className="text-xs">
+                        {specialty}
+                      </Badge>
+                    ))}
+                    {agency.specialties.length > 2 && (
+                      <Badge variant="secondary" className="text-xs">
+                        +{agency.specialties.length - 2}
+                      </Badge>
                     )}
                   </div>
-                  <Badge 
-                    variant="outline"
-                    className={
-                      agency.priceRange === 'Premium' ? 'border-purple-500 text-purple-700' :
-                      agency.priceRange === 'Économique' ? 'border-green-500 text-green-700' :
-                      'border-blue-500 text-blue-700'
-                    }
+                  
+                  <Button 
+                    className="w-full h-9"
+                    size="sm"
+                    asChild
                   >
-                    {agency.priceRange}
-                  </Badge>
+                    <a 
+                      href={agency.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2"
+                    >
+                      Visiter
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  </Button>
                 </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="flex">{renderStars(agency.googleRating)}</div>
-                    <Badge className={getRatingColor(agency.googleRating)}>
-                      {agency.googleRating}
-                    </Badge>
-                  </div>
-                  <Badge variant="outline">{agency.reviewCount} avis</Badge>
-                </div>
-                
-                <div className="flex flex-wrap gap-1">
-                  {agency.specialties.slice(0, 3).map((specialty) => (
-                    <Badge key={specialty} variant="secondary" className="text-xs">
-                      {specialty}
-                    </Badge>
-                  ))}
-                  {agency.specialties.length > 3 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{agency.specialties.length - 3}
-                    </Badge>
-                  )}
-                </div>
-                
-                <Button 
-                  className="w-full"
-                  asChild
-                >
-                  <a 
-                    href={agency.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2"
-                  >
-                    Visiter l'agence
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
+              </Card>
+            ))}
+          </div>
 
-        {/* Desktop Table View (hidden on small screens) */}
-        <Card className="hidden lg:block">
+          {/* Desktop Table View (hidden on small screens) */}
+          <Card className="hidden lg:block">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Star className="h-5 w-5 text-yellow-400" />
@@ -274,9 +288,10 @@ export default function ComparatifAgences() {
                 </TableBody>
               </Table>
             </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </ResponsiveLayout>
   );
 }
