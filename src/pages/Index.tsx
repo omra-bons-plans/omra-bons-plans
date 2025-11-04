@@ -258,7 +258,7 @@ const Index = () => {
       <div className="min-h-screen bg-background p-0 m-0">
 
       {/* Hero Section - Optimisé MOBILE avec dimensions fixes pour CLS = 0 */}
-      <section className="hero-wrapper -mt-0 md:mt-[64px] lg:mt-[80px]" style={{ minHeight: isMobile ? '100vh' : '600px', aspectRatio: isMobile ? '9/16' : '16/9' }}>
+      <section className="hero-wrapper -mt-[52px] md:mt-[64px] lg:mt-[80px]" style={{ minHeight: isMobile ? '100vh' : '600px', aspectRatio: isMobile ? '9/16' : '16/9' }}>
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
             {/* Mobile: Image optimisée 750x1334 */}
@@ -289,7 +289,7 @@ const Index = () => {
         
         <div className="hero-overlay">
           <div className="container mx-auto px-6 relative z-20">
-            <div className="flex flex-col items-center justify-center text-center pt-2 pb-12 md:py-20">
+            <div className="flex flex-col items-center justify-center text-center pt-[54px] pb-12 md:py-20">
               <div className="space-y-6 md:space-y-8 max-w-4xl">
                 <h1 className="text-4xl md:text-7xl font-bold leading-tight">
                   <span className="text-white text-3xl md:text-5xl">Tous les services</span><br />
