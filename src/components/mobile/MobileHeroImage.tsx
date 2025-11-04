@@ -14,7 +14,7 @@ export const MobileHeroImage = () => {
     return (
       <div className="hero-media">
         <img
-          src="/hero-kaaba-2025-optimized.avif"
+          src="/hero-kaaba-2025-new.jpg"
           alt="Omra Bons Plans – La Kaaba sacrée à La Mecque"
           width="1600"
           height="900"
@@ -30,7 +30,7 @@ export const MobileHeroImage = () => {
   return (
     <div className="hero-media" style={{ aspectRatio: '16/9', minHeight: '100vh' }}>
       <img
-        src="/hero-kaaba-2025-optimized.avif"
+        src="/hero-kaaba-2025-new.jpg"
         alt="Omra Bons Plans – Séjours Omra et Hajj"
         width="750"
         height="1334"

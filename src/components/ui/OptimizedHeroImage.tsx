@@ -17,18 +17,18 @@ export const OptimizedHeroImage = ({
 
   return (
     <picture className="absolute inset-0 w-full h-full">
-      {/* Mobile: AVIF optimisé < 150 Ko */}
+      {/* Mobile: Image optimisée */}
       <source
         media="(max-width: 767px)"
-        srcSet="/hero-kaaba-2025-optimized.avif"
-        type="image/avif"
+        srcSet="/hero-kaaba-2025-new.jpg"
+        type="image/jpeg"
         width={mobileWidth}
         height={mobileHeight}
       />
       
       {/* Desktop fallback */}
       <img 
-        src="/hero-kaaba-2025-optimized.avif" 
+        src="/hero-kaaba-2025-new.jpg" 
         alt="Comparateur Omra - La Kaaba à La Mecque" 
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
