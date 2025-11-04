@@ -256,22 +256,25 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Omra Discount",
-    url: "https://www.omradiscount.com/",
+    url: "https://www.omradiscount.fr/",
     googleRating: 4.9,
     reviewCount: 120,
     strengths: [
-      "Prix compétitifs et attractifs",
-      "Bonne organisation générale",
-      "Service client réactif",
-      "Offres variées"
+      "Prix discount très attractifs sur formules 5 étoiles",
+      "Leader de la distribution Omra en France (SLM Travel)",
+      "Plus de 11 ans d'expérience (depuis 2018)",
+      "Présence multi-villes (Paris, Lille, Marseille)",
+      "Excellent rapport qualité/prix",
+      "Départs réguliers toute l'année"
     ],
     weaknesses: [
-      "Moins de retours d'expérience disponibles",
-      "Réseau d'agences plus restreint"
+      "Agence récente comparée aux pionniers du secteur",
+      "Moins de témoignages détaillés en ligne",
+      "Communication principalement digitale"
     ],
-    specialties: ["Offres économiques", "Omra accessible", "Promotions régulières"],
+    specialties: ["Formules 5★ à prix discount", "Omra économique", "Départs multi-villes", "Spécialiste Ramadan"],
     priceRange: "Économique",
-    highlight: "Prix attractifs avec note 4.9/5 sur 120 avis"
+    highlight: "Prix discount sur formules 5★ - Leader avec 11+ ans d'expérience"
   }
 ];
 
