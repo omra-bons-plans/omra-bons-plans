@@ -60,7 +60,7 @@ export function DesktopSidebar() {
             className={`flex items-center cursor-pointer ${collapsed ? 'justify-center' : 'justify-center'}`}
             onClick={() => navigate('/')}
           >
-            <Logo size={collapsed ? 32 : 48} className="text-primary" />
+            <Logo size={collapsed ? 32 : 64} className="text-primary" />
             {!collapsed && (
               <span className="ml-2 font-bold text-lg">OmraBonsPlans.fr</span>
             )}
