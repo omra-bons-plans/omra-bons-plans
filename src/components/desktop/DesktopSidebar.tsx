@@ -99,10 +99,10 @@ export function DesktopSidebar() {
                 <SidebarMenuItem>
                   <div className="flex items-center justify-between w-full px-2 py-1.5">
                     <SidebarMenuButton asChild className="flex-1">
-                      <NavLink to="/bons-plans" className={getNavCls}>
+                      <a href="https://omrabonsplans.fr/bons-plans" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
                         <Home className="w-4 h-4" />
                         <span>Bons Plans</span>
-                      </NavLink>
+                      </a>
                     </SidebarMenuButton>
                     <button 
                       onClick={() => setBonsPlansOpen(!bonsPlansOpen)}
