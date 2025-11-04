@@ -226,7 +226,7 @@ export const agenciesData: AgencyData[] = [
     ],
     weaknesses: [
       "Occasionnels imprévus logistiques (transferts, hébergement)",
-      "Guide prévu pas toujours présent comme prévu",
+      "Propose très peu de séjour Omra",
       "Prix formules premium/haute demande élevés"
     ],
     specialties: ["Hajj & Omra complets", "Omra organisée", "Voyages spirituels"],
