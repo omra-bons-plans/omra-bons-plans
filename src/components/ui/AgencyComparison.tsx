@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Check, X, Star, ExternalLink } from 'lucide-react';
+import { Check, X, Star, ExternalLink, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Input } from '@/components/ui/input';
 
 interface AgencyFeatures {
   name: string;
@@ -365,6 +366,8 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([
     "Al Sirate Voyage", "TAWAF", "Omra Pour Tous"
   ]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const isMobile = useIsMobile();
 
   const handleAgencyToggle = (agencyName: string) => {
@@ -381,6 +384,22 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
   const filteredAgencies = agenciesFeatures.filter(agency => 
     selectedAgencies.includes(agency.name)
   );
+
+  const filteredAgenciesForSelection = agenciesFeatures.filter(agency =>
+    agency.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleNextCard = () => {
+    if (currentCardIndex < filteredAgencies.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+    }
+  };
+
+  const handlePrevCard = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1);
+    }
+  };
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -404,26 +423,76 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
     <div className={className}>
       {/* Agency Selection */}
       <div className="mb-6 md:mb-8">
-        <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">
-          {isMobile ? 'Sélectionner (max 4)' : 'Sélectionner les agences à comparer (max 4)'}
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-3">
-          {agenciesFeatures.map((agency) => (
-            <div key={agency.name} className="flex items-center space-x-2 p-2 rounded-lg border border-border hover:bg-muted/30">
-              <Checkbox
-                id={agency.name}
-                checked={selectedAgencies.includes(agency.name)}
-                onCheckedChange={() => handleAgencyToggle(agency.name)}
-                disabled={!selectedAgencies.includes(agency.name) && selectedAgencies.length >= 4}
-              />
-              <label
-                htmlFor={agency.name}
-                className="text-xs md:text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1 truncate"
+        <div className="flex items-center justify-between mb-3 md:mb-4">
+          <h3 className="text-base md:text-lg font-semibold">
+            {isMobile ? 'Sélectionner' : 'Sélectionner les agences à comparer'}
+          </h3>
+          <Badge variant="outline" className="text-xs md:text-sm">
+            {selectedAgencies.length}/4
+          </Badge>
+        </div>
+        
+        {/* Search Bar for mobile */}
+        {isMobile && (
+          <div className="relative mb-3">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Rechercher une agence..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 h-9 text-sm"
+            />
+          </div>
+        )}
+        
+        <div className={`grid gap-2 md:gap-3 ${
+          isMobile 
+            ? 'grid-cols-1' 
+            : 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+        }`}>
+          {filteredAgenciesForSelection.map((agency) => {
+            const isSelected = selectedAgencies.includes(agency.name);
+            return (
+              <div 
+                key={agency.name} 
+                onClick={() => handleAgencyToggle(agency.name)}
+                className={`flex items-center space-x-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                  isSelected 
+                    ? 'border-primary bg-primary/5' 
+                    : 'border-border hover:bg-muted/30'
+                } ${!isSelected && selectedAgencies.length >= 4 ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                {agency.name}
-              </label>
-            </div>
-          ))}
+                <Checkbox
+                  id={agency.name}
+                  checked={isSelected}
+                  disabled={!isSelected && selectedAgencies.length >= 4}
+                  className="pointer-events-none"
+                />
+                <div className="flex-1 min-w-0">
+                  <label
+                    htmlFor={agency.name}
+                    className="text-sm font-medium leading-tight cursor-pointer block"
+                  >
+                    {agency.name}
+                  </label>
+                  {isMobile && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex">{renderStars(agency.googleRating).slice(0, 5)}</div>
+                      <span className="text-xs text-muted-foreground">
+                        {agency.googleRating} ({agency.reviewCount})
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {isSelected && isMobile && (
+                  <Badge variant="secondary" className="text-xs">
+                    ✓
+                  </Badge>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -435,72 +504,116 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
         </div>
       ) : (
         <>
-          {/* Mobile Card View */}
-          <div className="block xl:hidden space-y-4 md:space-y-6">
-            {filteredAgencies.map((agency) => (
-              <Card key={agency.name} className={`transition-all duration-300 ${
-                agency.isRecommended 
-                  ? 'border-2 border-primary shadow-lg' 
-                  : 'border border-border'
-              }`}>
-                <CardHeader className="pb-3 md:pb-4">
-                  {agency.isRecommended && (
-                    <Badge className="bg-primary text-primary-foreground px-2 md:px-3 py-0.5 md:py-1 text-xs font-bold shadow-lg w-fit mb-2">
-                      ⭐ Recommandé
-                    </Badge>
-                  )}
-                  <div className="space-y-2 md:space-y-3">
-                    <h3 className="font-bold text-lg md:text-xl">{agency.name}</h3>
-                    <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
-                    <div className="text-center">
-                      <div className="text-xl md:text-2xl font-bold text-primary">{agency.googleRating}/5</div>
-                      <div className="text-xs md:text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
-                    </div>
-                    <div className="flex justify-center">
-                      <Badge className={getPriceRangeColor(agency.priceRange)}>
-                        {agency.priceRange}
+          {/* Mobile Card View with Navigation */}
+          <div className="block xl:hidden">
+            {isMobile && filteredAgencies.length > 1 && (
+              <div className="flex items-center justify-between mb-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handlePrevCard}
+                  disabled={currentCardIndex === 0}
+                  className="h-8"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="flex items-center gap-2">
+                  {filteredAgencies.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`h-2 rounded-full transition-all ${
+                        index === currentCardIndex
+                          ? 'w-6 bg-primary'
+                          : 'w-2 bg-muted-foreground/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleNextCard}
+                  disabled={currentCardIndex === filteredAgencies.length - 1}
+                  className="h-8"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+            
+            <div className={isMobile ? 'space-y-4' : 'space-y-4 md:space-y-6'}>
+              {(isMobile ? [filteredAgencies[currentCardIndex]] : filteredAgencies).filter(Boolean).map((agency) => (
+                <Card key={agency.name} className={`transition-all duration-300 ${
+                  agency.isRecommended 
+                    ? 'border-2 border-primary shadow-lg' 
+                    : 'border border-border'
+                }`}>
+                  <CardHeader className="pb-3 md:pb-4">
+                    {agency.isRecommended && (
+                      <Badge className="bg-primary text-primary-foreground px-2 md:px-3 py-0.5 md:py-1 text-xs font-bold shadow-lg w-fit mb-2">
+                        ⭐ Recommandé
                       </Badge>
-                    </div>
-                    {agency.highlight && (
-                      <p className="text-xs md:text-sm text-primary font-medium text-center line-clamp-2">{agency.highlight}</p>
                     )}
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3 md:space-y-4 pt-0">
-                  <div className="grid grid-cols-1 gap-2 md:gap-3">
-                    {Object.entries(featureLabels).map(([key, label]) => (
-                      <div key={key} className="flex items-center justify-between p-2 md:p-3 rounded-lg bg-muted/30">
-                        <span className="text-xs md:text-sm font-medium text-muted-foreground">{label}</span>
-                        {agency.features[key as keyof typeof agency.features] ? (
-                          <Check className="h-4 w-4 md:h-5 md:w-5 text-success font-bold stroke-[3]" />
-                        ) : (
-                          <X className="h-4 w-4 md:h-5 md:w-5 text-destructive font-bold stroke-[3]" />
-                        )}
+                    <div className="space-y-2 md:space-y-3">
+                      <h3 className="font-bold text-lg md:text-xl">{agency.name}</h3>
+                      <div className="flex justify-center gap-1">{renderStars(agency.googleRating)}</div>
+                      <div className="text-center">
+                        <div className="text-xl md:text-2xl font-bold text-primary">{agency.googleRating}/5</div>
+                        <div className="text-xs md:text-sm text-muted-foreground">({agency.reviewCount} avis)</div>
                       </div>
-                    ))}
-                  </div>
-                  <Button 
-                    className={`w-full h-9 md:h-10 ${
-                      agency.isRecommended 
-                        ? 'bg-primary hover:bg-primary-dark text-primary-foreground' 
-                        : ''
-                    }`}
-                    variant={agency.isRecommended ? 'default' : 'outline'}
-                    size={isMobile ? "sm" : "default"}
-                    asChild
-                  >
-                    <a 
-                      href={agency.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2"
+                      <div className="flex justify-center">
+                        <Badge className={getPriceRangeColor(agency.priceRange)}>
+                          {agency.priceRange}
+                        </Badge>
+                      </div>
+                      {agency.highlight && (
+                        <p className="text-xs md:text-sm text-primary font-medium text-center line-clamp-2">{agency.highlight}</p>
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3 md:space-y-4 pt-0">
+                    <div className="grid grid-cols-1 gap-2">
+                      {Object.entries(featureLabels).map(([key, label]) => {
+                        const hasFeature = agency.features[key as keyof typeof agency.features];
+                        return (
+                          <div 
+                            key={key} 
+                            className={`flex items-center justify-between p-2.5 rounded-lg transition-colors ${
+                              hasFeature ? 'bg-success/5 border border-success/20' : 'bg-muted/20'
+                            }`}
+                          >
+                            <span className="text-xs md:text-sm font-medium">{label}</span>
+                            {hasFeature ? (
+                              <Check className="h-4 w-4 md:h-5 md:w-5 text-success font-bold stroke-[3]" />
+                            ) : (
+                              <X className="h-4 w-4 md:h-5 md:w-5 text-muted-foreground/40 stroke-[2]" />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <Button 
+                      className={`w-full h-10 md:h-11 ${
+                        agency.isRecommended 
+                          ? 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-md' 
+                          : ''
+                      }`}
+                      variant={agency.isRecommended ? 'default' : 'outline'}
+                      asChild
                     >
-                      {isMobile ? "Voir l'agence" : "Voir l'agence"} <ExternalLink className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                      <a 
+                        href={agency.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2"
+                      >
+                        Voir l'agence <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
 
           {/* Desktop Comparison Table */}

@@ -60,9 +60,25 @@ export default function ComparatifVisuel() {
               </>
             )}
             {isMobile && (
-              <p className="text-sm text-muted-foreground">
-                Sélectionnez jusqu&apos;à 4 agences et comparez leurs services
-              </p>
+              <>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Comparez jusqu&apos;à 4 agences : tarifs, services et avis
+                </p>
+                <Card className="bg-primary/5 border-primary/20 p-3 mb-4">
+                  <div className="flex items-start gap-2">
+                    <div className="text-2xl">💡</div>
+                    <div className="text-xs text-left">
+                      <p className="font-semibold mb-1">Comment utiliser :</p>
+                      <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
+                        <li>Sélectionnez jusqu&apos;à 4 agences</li>
+                        <li>Naviguez entre les cartes</li>
+                        <li>Comparez les services et tarifs</li>
+                        <li>Cliquez pour visiter le site</li>
+                      </ol>
+                    </div>
+                  </div>
+                </Card>
+              </>
             )}
           </header>
 
