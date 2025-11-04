@@ -94,24 +94,30 @@ export function DesktopSidebar() {
         {/* Bons Plans Section */}
         {!collapsed && (
           <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between">
-              <NavLink 
-                to="/bons-plans" 
-                className="flex-1 cursor-pointer hover:text-primary transition-colors"
-              >
-                Bons Plans
-              </NavLink>
-              <button 
-                onClick={() => setBonsPlansOpen(!bonsPlansOpen)}
-                className="cursor-pointer hover:text-primary transition-colors"
-              >
-                {bonsPlansOpen ? (
-                  <ChevronDown className="w-4 h-4" />
-                ) : (
-                  <ChevronRight className="w-4 h-4" />
-                )}
-              </button>
-            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <div className="flex items-center justify-between w-full px-2 py-1.5">
+                    <SidebarMenuButton asChild className="flex-1">
+                      <NavLink to="/bons-plans" className={getNavCls}>
+                        <Home className="w-4 h-4" />
+                        <span>Bons Plans</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                    <button 
+                      onClick={() => setBonsPlansOpen(!bonsPlansOpen)}
+                      className="ml-2 cursor-pointer hover:text-primary transition-colors"
+                    >
+                      {bonsPlansOpen ? (
+                        <ChevronDown className="w-4 h-4" />
+                      ) : (
+                        <ChevronRight className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
             {bonsPlansOpen && (
               <SidebarGroupContent>
                 <SidebarMenu>
