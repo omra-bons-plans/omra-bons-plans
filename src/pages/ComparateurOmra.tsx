@@ -219,8 +219,8 @@ export default function ComparateurOmra() {
         const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
         setAvailableAgencies(agencies);
         
-        // Extraire les villes disponibles depuis TOUTES les offres
-        const allCities = Array.from(new Set(allData.map(offer => offer.departure_city).filter(Boolean)));
+        // Extraire les villes disponibles depuis TOUTES les offres et nettoyer les espaces
+        const allCities = Array.from(new Set(allData.map(offer => offer.departure_city?.trim()).filter(Boolean)));
         setAvailableCities(allCities.sort());
         
         // Extraire les mois disponibles depuis TOUTES les offres
