@@ -377,37 +377,66 @@ const Index = () => {
                       </div>
                     </div>
 
-                    {/* Category Pills - Mobile First with touch targets */}
-                    <div className="horizontal-scroll-container flash-sales-tabs-container">
-                      <div className="flex gap-2 md:gap-3 mb-8 md:mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
-                        <div className="flex gap-2 md:gap-3 min-w-max md:min-w-0">
-                          <Button 
-                            onClick={() => setSelectedCategory("all")}
+                    {/* Category Pills - Mobile First GRID */}
+                    <div className="mb-8 md:mb-16">
+                      {/* Mobile: Grid 2x3 */}
+                      <div className="grid grid-cols-2 gap-2 md:hidden mb-4">
+                        <Button 
+                          onClick={() => setSelectedCategory("all")}
+                          className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                            selectedCategory === "all" 
+                              ? "btn-modern text-primary-foreground shadow-lg" 
+                              : "glass border-2 border-border/50 hover:bg-primary/10"
+                          }`}
+                          variant={selectedCategory === "all" ? "default" : "outline"}
+                        >
+                          <DynamicIcon name="grid-3x3" className="w-5 h-5" />
+                          <span>Tous</span>
+                        </Button>
+                        {getOrderedCategories().map((category) => (
+                          <Button
+                            key={category.id}
+                            onClick={() => setSelectedCategory(category.id)}
+                            className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                              selectedCategory === category.id 
+                                ? "btn-modern text-primary-foreground shadow-lg" 
+                                : "glass border-2 border-border/50 hover:bg-primary/10"
+                            }`}
+                            variant={selectedCategory === category.id ? "default" : "outline"}
+                          >
+                            <DynamicIcon name={category.icon as any} className="w-5 h-5" />
+                            <span>{category.name}</span>
+                          </Button>
+                        ))}
+                      </div>
+                      
+                      {/* Desktop/Tablet: Horizontal Pills */}
+                      <div className="hidden md:flex gap-2 md:gap-3 flex-wrap justify-center">
+                        <Button 
+                          onClick={() => setSelectedCategory("all")}
+                          className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
+                            selectedCategory === "all" 
+                              ? "btn-modern text-primary-foreground" 
+                              : "glass border-2 border-primary/30 hover:bg-primary/10"
+                          }`}
+                          variant={selectedCategory === "all" ? "default" : "outline"}
+                        >
+                          Tous
+                        </Button>
+                        {getOrderedCategories().map((category) => (
+                          <Button
+                            key={category.id}
+                            onClick={() => setSelectedCategory(category.id)}
                             className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                              selectedCategory === "all" 
+                              selectedCategory === category.id 
                                 ? "btn-modern text-primary-foreground" 
                                 : "glass border-2 border-primary/30 hover:bg-primary/10"
                             }`}
-                            variant={selectedCategory === "all" ? "default" : "outline"}
+                            variant={selectedCategory === category.id ? "default" : "outline"}
                           >
-                            Tous
+                            {category.name}
                           </Button>
-                          {/* Filtrer seulement les catégories avec prix pour les ventes flash */}
-                          {getOrderedCategories().map((category) => (
-                            <Button
-                              key={category.id}
-                              onClick={() => setSelectedCategory(category.id)}
-                              className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                                selectedCategory === category.id 
-                                  ? "btn-modern text-primary-foreground" 
-                                  : "glass border-2 border-primary/30 hover:bg-primary/10"
-                              }`}
-                              variant={selectedCategory === category.id ? "default" : "outline"}
-                            >
-                              {category.name}
-                            </Button>
-                          ))}
-                        </div>
+                        ))}
                       </div>
                     </div>
 
@@ -512,36 +541,66 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Category Pills - Mobile First */}
-          <div className="horizontal-scroll-container all-services-tabs-container">
-            <div className="flex gap-2 md:gap-3 mb-8 md:mb-16 overflow-x-auto scrollbar-hide pb-2 md:justify-center scroll-hint">
-              <div className="flex gap-2 md:gap-3 min-w-max md:min-w-0">
-                <Button 
-                  onClick={() => setSelectedCategory("all")}
+          {/* Category Pills - Mobile First GRID */}
+          <div className="mb-8 md:mb-16">
+            {/* Mobile: Grid 2x4 */}
+            <div className="grid grid-cols-2 gap-2 md:hidden mb-4">
+              <Button 
+                onClick={() => setSelectedCategory("all")}
+                className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                  selectedCategory === "all" 
+                    ? "btn-modern text-primary-foreground shadow-lg" 
+                    : "glass border-2 border-border/50 hover:bg-primary/10"
+                }`}
+                variant={selectedCategory === "all" ? "default" : "outline"}
+              >
+                <DynamicIcon name="grid-3x3" className="w-5 h-5" />
+                <span>Tous</span>
+              </Button>
+              {getAllOrderedCategories().map((category) => (
+                <Button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                    selectedCategory === category.id 
+                      ? "btn-modern text-primary-foreground shadow-lg" 
+                      : "glass border-2 border-border/50 hover:bg-primary/10"
+                  }`}
+                  variant={selectedCategory === category.id ? "default" : "outline"}
+                >
+                  <DynamicIcon name={category.icon as any} className="w-5 h-5" />
+                  <span>{category.name}</span>
+                </Button>
+              ))}
+            </div>
+            
+            {/* Desktop/Tablet: Horizontal Pills */}
+            <div className="hidden md:flex gap-2 md:gap-3 flex-wrap justify-center">
+              <Button 
+                onClick={() => setSelectedCategory("all")}
+                className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
+                  selectedCategory === "all" 
+                    ? "btn-modern text-primary-foreground" 
+                    : "glass border-2 border-primary/30 hover:bg-primary/10"
+                }`}
+                variant={selectedCategory === "all" ? "default" : "outline"}
+              >
+                Tous
+              </Button>
+              {getAllOrderedCategories().map((category) => (
+                <Button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
                   className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                    selectedCategory === "all" 
+                    selectedCategory === category.id 
                       ? "btn-modern text-primary-foreground" 
                       : "glass border-2 border-primary/30 hover:bg-primary/10"
                   }`}
-                  variant={selectedCategory === "all" ? "default" : "outline"}
+                  variant={selectedCategory === category.id ? "default" : "outline"}
                 >
-                  Tous
+                  {category.name}
                 </Button>
-                {getAllOrderedCategories().map((category) => (
-                  <Button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                      selectedCategory === category.id 
-                        ? "btn-modern text-primary-foreground" 
-                        : "glass border-2 border-primary/30 hover:bg-primary/10"
-                    }`}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
-                  >
-                    {category.name}
-                  </Button>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
 
@@ -608,37 +667,53 @@ const Index = () => {
             </div>
           )}
 
-          {/* Mobile: Carousel with 1 item */}
+          {/* Mobile: Grid 2 colonnes compacte */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden carousel-item-peek mb-16 all-services-cards-container">
-              <Carousel 
-                className="w-full scroll-hint"
-                setApi={setAllServicesCarouselApi}
-              >
-                <CarouselContent>
-                  {filteredListings.map((listing) => (
-                    <CarouselItem key={listing.id}>
-                      <AdCard 
-                        listing={listing}
-                        imageHeight="h-56"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden sm:flex" />
-                <CarouselNext className="hidden sm:flex" />
-              </Carousel>
-              
-              {/* Pagination dots for mobile */}
-              <div className="flex justify-center space-x-2 mt-6">
-                {filteredListings.map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-2 h-2 rounded-full transition-colors duration-200"
-                    style={{
-                      backgroundColor: index === allServicesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
-                    }}
-                  />
+            <div className="block md:hidden mb-16">
+              <div className="grid grid-cols-2 gap-3 px-4">
+                {filteredListings.slice(0, 6).map((listing) => (
+                  <Link key={listing.id} to={`/ad/${listing.id}`}>
+                    <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 border-border/50">
+                      <div className="relative aspect-square bg-muted">
+                        {listing.image && (
+                          <img
+                            src={listing.image}
+                            alt={listing.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                        {listing.isPromo && (
+                          <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground text-xs">
+                            -{listing.discount}%
+                          </Badge>
+                        )}
+                      </div>
+                      <CardContent className="p-3 space-y-2">
+                        <h3 className="font-semibold text-sm line-clamp-2 min-h-[2.5rem]">
+                          {listing.title}
+                        </h3>
+                        {listing.price && (
+                          <div className="space-y-1">
+                            <div className="text-lg font-bold text-primary">
+                              {listing.price}
+                            </div>
+                            {listing.originalPrice && (
+                              <div className="text-xs text-muted-foreground line-through">
+                                {listing.originalPrice}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {listing.location && (
+                          <div className="flex items-center text-xs text-muted-foreground">
+                            <DynamicIcon name="map-pin" className="w-3 h-3 mr-1" />
+                            <span className="line-clamp-1">{listing.location}</span>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
