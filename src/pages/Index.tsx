@@ -925,86 +925,154 @@ const Index = () => {
             </div>
           )}
 
-          {/* Mobile: Liste verticale full-width */}
+          {/* Mobile: Vue Liste ou Grille */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden space-y-4 mb-16">
-              {filteredListings.slice(0, 6).map((listing) => (
-                <Link key={listing.id} to={`/ad/${listing.id}`}>
-                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50">
-                    <div className="relative h-48 bg-muted">
-                      {listing.image && (
-                        <img
-                          src={listing.image}
-                          alt={listing.title}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
-                      )}
-                      <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-                        {listing.isPromo && (
-                          <Badge className="bg-destructive text-destructive-foreground font-bold shadow-lg">
-                            -{listing.discount}% OFF
-                          </Badge>
-                        )}
-                        {listing.isPopular && (
-                          <Badge className="bg-primary text-primary-foreground font-bold shadow-lg">
-                            ⭐ Recommandé
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    <CardContent className="p-4 space-y-3">
-                      <div className="space-y-2">
-                        <h3 className="font-bold text-base line-clamp-2">
-                          {listing.title}
-                        </h3>
-                        {listing.subtitle && (
-                          <p className="text-sm text-muted-foreground line-clamp-1">
-                            {listing.subtitle}
-                          </p>
-                        )}
-                      </div>
-                      
-                      {listing.location && (
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <DynamicIcon name="map-pin" className="w-4 h-4 mr-1.5" />
-                          <span>{listing.location}</span>
-                        </div>
-                      )}
-                      
-                      {listing.rating && (
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center">
-                            <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                            <span className="ml-1 font-semibold text-sm">{listing.rating}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">
-                            ({listing.reviews} avis)
-                          </span>
-                        </div>
-                      )}
-                      
-                      {listing.price && (
-                        <div className="flex items-end justify-between pt-2 border-t">
-                          <div className="space-y-1">
-                            <div className="text-2xl font-bold text-primary">
-                              {listing.price}
+            <div className="block md:hidden">
+              {viewMode === "list" ? (
+                /* Vue Liste - HORIZONTALE comme comparateur */
+                <div className="space-y-2 mb-16">
+                  {filteredListings.slice(0, 6).map((listing) => (
+                    <Link key={listing.id} to={`/ad/${listing.id}`}>
+                      <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/50 bg-card">
+                        <div className="flex items-center gap-2 p-2.5">
+                          {/* Logo/Image carré à gauche */}
+                          {listing.image && (
+                            <div className="flex-shrink-0 w-14 h-14 rounded-md overflow-hidden bg-white shadow-sm">
+                              <img
+                                src={listing.image}
+                                alt={listing.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover"
+                              />
                             </div>
+                          )}
+
+                          {/* Infos au milieu */}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
+                            
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
+                              {listing.rating && (
+                                <>
+                                  <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                                  <span className="font-medium">{listing.rating}</span>
+                                </>
+                              )}
+                              {listing.subtitle && (
+                                <span className="truncate">• {listing.subtitle}</span>
+                              )}
+                            </div>
+
+                            {listing.location && (
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
+                                <DynamicIcon name="map-pin" className="w-3 h-3 flex-shrink-0" />
+                                <span className="truncate">{listing.location}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Prix à droite */}
+                          <div className="flex-shrink-0 text-right pl-2">
+                            {listing.price && (
+                              <div className="font-bold text-sm text-primary whitespace-nowrap">
+                                {listing.price}
+                              </div>
+                            )}
                             {listing.originalPrice && (
-                              <div className="text-sm text-muted-foreground line-through">
+                              <div className="text-xs text-muted-foreground line-through">
                                 {listing.originalPrice}
                               </div>
                             )}
                           </div>
-                          <Button size="sm" className="btn-modern">
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                /* Vue Cartes - VERTICALE complète comme comparateur */
+                <div className="space-y-4 mb-16">
+                  {filteredListings.slice(0, 6).map((listing) => (
+                    <Link key={listing.id} to={`/ad/${listing.id}`}>
+                      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
+                        {/* Image/Logo grande */}
+                        {listing.image && (
+                          <div className="relative h-48 bg-white flex items-center justify-center p-6">
+                            <img
+                              src={listing.image}
+                              alt={listing.title}
+                              loading="lazy"
+                              className="w-full h-full object-contain"
+                            />
+                            {/* Badges sur l'image */}
+                            {(listing.isPromo || listing.isPopular) && (
+                              <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+                                {listing.isPromo && (
+                                  <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-xs">
+                                    -{listing.discount}% 🔥
+                                  </Badge>
+                                )}
+                                {listing.isPopular && (
+                                  <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 font-bold text-xs">
+                                    ⭐ Populaire
+                                  </Badge>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Titre et note */}
+                        <div className="px-4 pt-4 pb-3 text-center border-b border-border">
+                          <h3 className="font-bold text-lg mb-2">{listing.title}</h3>
+                          {listing.rating && (
+                            <div className="flex items-center justify-center gap-1">
+                              <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                              <span className="text-sm font-semibold">{listing.rating}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Prix en évidence */}
+                        {listing.price && (
+                          <div className="px-4 py-4 bg-primary/5 text-center">
+                            <div className="text-sm text-muted-foreground mb-1">Prix</div>
+                            <div className="flex flex-col items-center gap-1">
+                              <span className="text-3xl font-bold text-primary">{listing.price}</span>
+                              {listing.originalPrice && (
+                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Détails */}
+                        <div className="p-4 space-y-3">
+                          {listing.subtitle && (
+                            <div className="flex items-center gap-2 text-sm">
+                              <DynamicIcon name="calendar" className="w-4 h-4 text-muted-foreground" />
+                              <span>{listing.subtitle}</span>
+                            </div>
+                          )}
+
+                          {listing.location && (
+                            <div className="flex items-center gap-2 text-sm">
+                              <DynamicIcon name="map-pin" className="w-4 h-4 text-muted-foreground" />
+                              <span>{listing.location}</span>
+                            </div>
+                          )}
+
+                          {/* Bouton CTA */}
+                          <Button className="w-full mt-4" size="lg">
                             Voir l'offre
+                            <DynamicIcon name="external-link" className="w-4 h-4 ml-2" />
                           </Button>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
             ) : (
               <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
