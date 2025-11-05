@@ -397,14 +397,14 @@ export default function AdDetails() {
             <Button
               variant="ghost"
               onClick={() => {
-                const fromCategory = location.state?.fromCategory;
+                const selectedCategory = location.state?.selectedCategory;
                 const fromAdmin = location.state?.fromAdmin;
                 if (fromAdmin) {
                   navigate('/admin/ads');
-                } else if (fromCategory && fromCategory !== 'all') {
-                  navigate('/', { state: { selectedCategory: fromCategory } });
+                } else if (selectedCategory) {
+                  navigate('/bons-plans', { state: { selectedCategory } });
                 } else {
-                  navigate('/');
+                  navigate('/bons-plans');
                 }
               }}
               className="flex items-center space-x-2"
