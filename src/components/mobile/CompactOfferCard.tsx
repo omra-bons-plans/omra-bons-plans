@@ -50,7 +50,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               <h3 className="font-bold text-sm truncate">{offer.agency_name}</h3>
               {offer.is_recommended && (
                 <Badge className="text-[10px] px-1.5 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-md font-bold">
-                  ⭐ Top
+                  ⭐ Recommandé
                 </Badge>
               )}
             </div>
