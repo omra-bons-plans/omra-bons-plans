@@ -567,38 +567,39 @@ const Index = () => {
 
                                 {/* Infos au milieu */}
                                 <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
-                                  
-                                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
-                                    {listing.rating && (
-                                      <>
-                                        <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                                        <span className="font-medium">{listing.rating}</span>
-                                      </>
-                                    )}
-                                    {listing.subtitle && (
-                                      <span className="truncate">• {listing.subtitle}</span>
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
+                                    {listing.type && (
+                                      <Badge 
+                                        variant="outline" 
+                                        className={`text-[10px] px-1.5 py-0 ${
+                                          listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
+                                          listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
+                                          listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
+                                          listing.type === 'guides' ? 'bg-orange-500/10 text-orange-700 border-orange-500/30' :
+                                          listing.type === 'babysitting' ? 'bg-pink-500/10 text-pink-700 border-pink-500/30' :
+                                          listing.type === 'vols' ? 'bg-indigo-500/10 text-indigo-700 border-indigo-500/30' :
+                                          'bg-gray-500/10 text-gray-700 border-gray-500/30'
+                                        }`}
+                                      >
+                                        {listing.type === 'sejours' ? 'Séjour' :
+                                         listing.type === 'hebergement' ? 'Hébergement' :
+                                         listing.type === 'chauffeurs' ? 'Chauffeur' :
+                                         listing.type === 'guides' ? 'Guide' :
+                                         listing.type === 'babysitting' ? 'Baby-sitting' :
+                                         listing.type === 'vols' ? 'Vol' : listing.type}
+                                      </Badge>
                                     )}
                                   </div>
+                                  
+                                  {listing.subtitle && (
+                                    <p className="text-xs text-muted-foreground truncate mt-1">{listing.subtitle}</p>
+                                  )}
 
                                   {listing.location && (
                                     <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
                                       <DynamicIcon name="map-pin" className="w-3 h-3 flex-shrink-0" />
                                       <span className="truncate">{listing.location}</span>
-                                    </div>
-                                  )}
-                                </div>
-
-                                {/* Prix à droite */}
-                                <div className="flex-shrink-0 text-right pl-2">
-                                  {listing.price && (
-                                    <div className="font-bold text-sm text-primary whitespace-nowrap">
-                                      {listing.price}
-                                    </div>
-                                  )}
-                                  {listing.originalPrice && (
-                                    <div className="text-xs text-muted-foreground line-through">
-                                      {listing.originalPrice}
                                     </div>
                                   )}
                                 </div>
@@ -949,38 +950,39 @@ const Index = () => {
 
                           {/* Infos au milieu */}
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
-                            
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
-                              {listing.rating && (
-                                <>
-                                  <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                                  <span className="font-medium">{listing.rating}</span>
-                                </>
-                              )}
-                              {listing.subtitle && (
-                                <span className="truncate">• {listing.subtitle}</span>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
+                              {listing.type && (
+                                <Badge 
+                                  variant="outline" 
+                                  className={`text-[10px] px-1.5 py-0 ${
+                                    listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
+                                    listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
+                                    listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
+                                    listing.type === 'guides' ? 'bg-orange-500/10 text-orange-700 border-orange-500/30' :
+                                    listing.type === 'babysitting' ? 'bg-pink-500/10 text-pink-700 border-pink-500/30' :
+                                    listing.type === 'vols' ? 'bg-indigo-500/10 text-indigo-700 border-indigo-500/30' :
+                                    'bg-gray-500/10 text-gray-700 border-gray-500/30'
+                                  }`}
+                                >
+                                  {listing.type === 'sejours' ? 'Séjour' :
+                                   listing.type === 'hebergement' ? 'Hébergement' :
+                                   listing.type === 'chauffeurs' ? 'Chauffeur' :
+                                   listing.type === 'guides' ? 'Guide' :
+                                   listing.type === 'babysitting' ? 'Baby-sitting' :
+                                   listing.type === 'vols' ? 'Vol' : listing.type}
+                                </Badge>
                               )}
                             </div>
+                            
+                            {listing.subtitle && (
+                              <p className="text-xs text-muted-foreground truncate mt-1">{listing.subtitle}</p>
+                            )}
 
                             {listing.location && (
                               <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
                                 <DynamicIcon name="map-pin" className="w-3 h-3 flex-shrink-0" />
                                 <span className="truncate">{listing.location}</span>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Prix à droite */}
-                          <div className="flex-shrink-0 text-right pl-2">
-                            {listing.price && (
-                              <div className="font-bold text-sm text-primary whitespace-nowrap">
-                                {listing.price}
-                              </div>
-                            )}
-                            {listing.originalPrice && (
-                              <div className="text-xs text-muted-foreground line-through">
-                                {listing.originalPrice}
                               </div>
                             )}
                           </div>
