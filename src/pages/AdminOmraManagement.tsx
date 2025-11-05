@@ -515,14 +515,69 @@ export default function AdminOmraManagement() {
           </DialogHeader>
           {selectedOffer && (
             <div className="grid gap-4 py-4">
+              {/* Agence et Lien */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="edit-title">Titre</Label>
+                  <Label htmlFor="edit-agency">Agence</Label>
                   <Input
-                    id="edit-title"
-                    value={selectedOffer.offer_title}
+                    id="edit-agency"
+                    value={selectedOffer.agency_name}
                     onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, offer_title: e.target.value })
+                      setSelectedOffer({ ...selectedOffer, agency_name: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-url">Lien de l'offre</Label>
+                  <Input
+                    id="edit-url"
+                    value={selectedOffer.offer_url}
+                    onChange={(e) =>
+                      setSelectedOffer({ ...selectedOffer, offer_url: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Dates */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="edit-date-start">Date de départ</Label>
+                  <Input
+                    id="edit-date-start"
+                    type="date"
+                    value={selectedOffer.date_start || ""}
+                    onChange={(e) =>
+                      setSelectedOffer({ ...selectedOffer, date_start: e.target.value || null })
+                    }
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-date-end">Date de retour</Label>
+                  <Input
+                    id="edit-date-end"
+                    type="date"
+                    value={selectedOffer.date_end || ""}
+                    onChange={(e) =>
+                      setSelectedOffer({ ...selectedOffer, date_end: e.target.value || null })
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Nombre de nuitées et Prix */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="edit-duration">Nombre de nuitées</Label>
+                  <Input
+                    id="edit-duration"
+                    type="number"
+                    value={selectedOffer.duration_nights || ""}
+                    onChange={(e) =>
+                      setSelectedOffer({
+                        ...selectedOffer,
+                        duration_nights: parseInt(e.target.value) || null,
+                      })
                     }
                   />
                 </div>
@@ -539,141 +594,51 @@ export default function AdminOmraManagement() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="edit-month">Mois de départ</Label>
-                  <Select
-                    value={selectedOffer.month_departure}
-                    onValueChange={(value) =>
-                      setSelectedOffer({ ...selectedOffer, month_departure: value })
-                    }
-                  >
-                    <SelectTrigger id="edit-month">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {MONTHS.map((month) => (
-                        <SelectItem key={month} value={month}>
-                          {month}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>Ville de départ</Label>
-                  <Popover open={openCityPopover} onOpenChange={setOpenCityPopover}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={openCityPopover}
-                        className="w-full justify-between"
-                      >
-                        {selectedOffer.departure_city || "Sélectionner une ville"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0">
-                      <Command>
-                        <CommandInput placeholder="Rechercher une ville..." />
-                        <CommandEmpty>Aucune ville trouvée.</CommandEmpty>
-                        <CommandGroup>
-                          {DEPARTURE_CITIES.map((city) => (
-                            <CommandItem
-                              key={city}
-                              value={city}
-                              onSelect={() => {
-                                setSelectedOffer({ ...selectedOffer, departure_city: city });
-                                setOpenCityPopover(false);
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  "mr-2 h-4 w-4",
-                                  selectedOffer.departure_city === city ? "opacity-100" : "opacity-0"
-                                )}
-                              />
-                              {city}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+              {/* Ville de départ */}
+              <div>
+                <Label>Ville de départ</Label>
+                <Popover open={openCityPopover} onOpenChange={setOpenCityPopover}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={openCityPopover}
+                      className="w-full justify-between"
+                    >
+                      {selectedOffer.departure_city || "Sélectionner une ville"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Rechercher une ville..." />
+                      <CommandEmpty>Aucune ville trouvée.</CommandEmpty>
+                      <CommandGroup>
+                        {DEPARTURE_CITIES.map((city) => (
+                          <CommandItem
+                            key={city}
+                            value={city}
+                            onSelect={() => {
+                              setSelectedOffer({ ...selectedOffer, departure_city: city });
+                              setOpenCityPopover(false);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                selectedOffer.departure_city === city ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {city}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="edit-date-start">Date de début</Label>
-                  <Input
-                    id="edit-date-start"
-                    type="date"
-                    value={selectedOffer.date_start || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, date_start: e.target.value || null })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="edit-date-end">Date de fin</Label>
-                  <Input
-                    id="edit-date-end"
-                    type="date"
-                    value={selectedOffer.date_end || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, date_end: e.target.value || null })
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <Label htmlFor="edit-duration">Durée (nuits)</Label>
-                  <Input
-                    id="edit-duration"
-                    type="number"
-                    value={selectedOffer.duration_nights || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({
-                        ...selectedOffer,
-                        duration_nights: parseInt(e.target.value) || null,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="edit-makkah">Nuits Makkah</Label>
-                  <Input
-                    id="edit-makkah"
-                    type="number"
-                    value={selectedOffer.makkah_nights || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({
-                        ...selectedOffer,
-                        makkah_nights: parseInt(e.target.value) || null,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="edit-medina">Nuits Médine</Label>
-                  <Input
-                    id="edit-medina"
-                    type="number"
-                    value={selectedOffer.medina_nights || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({
-                        ...selectedOffer,
-                        medina_nights: parseInt(e.target.value) || null,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-
+              {/* Hôtels */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Hôtel Makkah</Label>
@@ -761,57 +726,48 @@ export default function AdminOmraManagement() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="edit-formula">Formule</Label>
-                  <Select
-                    value={selectedOffer.formula_type}
-                    onValueChange={(value) =>
-                      setSelectedOffer({ ...selectedOffer, formula_type: value })
-                    }
-                  >
-                    <SelectTrigger id="edit-formula">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="confort">Confort</SelectItem>
-                      <SelectItem value="essentiel">Essentiel</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="edit-airline">Compagnie aérienne</Label>
-                  <Input
-                    id="edit-airline"
-                    value={selectedOffer.airline || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, airline: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="edit-visa"
-                    checked={selectedOffer.visa_included}
-                    onCheckedChange={(checked) =>
-                      setSelectedOffer({ ...selectedOffer, visa_included: checked as boolean })
-                    }
-                  />
-                  <Label htmlFor="edit-visa">Visa inclus</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="edit-flights"
-                    checked={selectedOffer.flights_included}
-                    onCheckedChange={(checked) =>
-                      setSelectedOffer({ ...selectedOffer, flights_included: checked as boolean })
-                    }
-                  />
-                  <Label htmlFor="edit-flights">Vols inclus</Label>
-                </div>
+              {/* Compagnie aérienne */}
+              <div>
+                <Label>Compagnie aérienne</Label>
+                <Popover open={openAirlinePopover} onOpenChange={setOpenAirlinePopover}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={openAirlinePopover}
+                      className="w-full justify-between"
+                    >
+                      {selectedOffer.airline || "Sélectionner une compagnie"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Rechercher une compagnie..." />
+                      <CommandEmpty>Aucune compagnie trouvée.</CommandEmpty>
+                      <CommandGroup>
+                        {airlinePresets.map((airline) => (
+                          <CommandItem
+                            key={airline.id}
+                            value={airline.airline_name}
+                            onSelect={() => {
+                              setSelectedOffer({ ...selectedOffer, airline: airline.airline_name });
+                              setOpenAirlinePopover(false);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                selectedOffer.airline === airline.airline_name ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {airline.airline_name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
           )}
