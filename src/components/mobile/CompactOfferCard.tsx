@@ -46,7 +46,14 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
 
           {/* Info principale */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-sm truncate">{offer.agency_name}</h3>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="font-bold text-sm truncate">{offer.agency_name}</h3>
+              {offer.is_recommended && (
+                <Badge className="text-[10px] px-1.5 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-md font-bold">
+                  ⭐ Top
+                </Badge>
+              )}
+            </div>
             <div className="flex items-center gap-2 mt-0.5">
               <Badge 
                 variant="outline" 
@@ -134,11 +141,6 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
 
           {/* Badges services */}
           <div className="flex flex-wrap gap-1">
-            {offer.is_recommended && (
-              <Badge className="text-[10px] px-1.5 py-0 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600">
-                ⭐ Recommandé
-              </Badge>
-            )}
             {offer.flights_included && (
               <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-emerald-500/10 text-emerald-700 border-emerald-500/30">
                 <Plane className="h-2.5 w-2.5 mr-0.5" />

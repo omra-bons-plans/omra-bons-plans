@@ -873,8 +873,8 @@ export default function ComparateurOmra() {
                   <div className="p-3 md:p-6 space-y-3 md:space-y-4">
                     <div className="flex flex-wrap gap-1.5 md:gap-2">
                       {offer.is_recommended && (
-                        <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600 hover:from-yellow-600 hover:to-amber-600 font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base shadow-lg">
-                          ⭐ Recommandé
+                        <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-3 md:px-5 py-1.5 md:py-2.5 text-sm md:text-lg shadow-xl animate-pulse">
+                          ⭐ RECOMMANDÉ
                         </Badge>
                       )}
                       <Badge 
@@ -1109,8 +1109,8 @@ export default function ComparateurOmra() {
                           <div className="flex-1 space-y-3">
                             <div className="flex flex-wrap gap-2">
                               {offer.is_recommended && (
-                                <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600 hover:from-yellow-600 hover:to-amber-600 font-bold px-3 py-1 shadow-lg">
-                                  ⭐ Recommandé
+                                <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-4 py-1.5 text-base shadow-xl animate-pulse">
+                                  ⭐ RECOMMANDÉ
                                 </Badge>
                               )}
                               <Badge 
