@@ -1446,6 +1446,20 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Floating Publish Button - Mobile Only */}
+      {isMobile && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40">
+          <Link to="/publish">
+            <Button 
+              className="btn-modern text-primary-foreground px-6 py-3 rounded-full font-semibold text-sm shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105 min-h-[48px]"
+            >
+              <DynamicIcon name="plus" className="w-5 h-5 mr-2" />
+              Publier une annonce
+            </Button>
+          </Link>
+        </div>
+      )}
       </div>
     </ResponsiveLayout>
   );
