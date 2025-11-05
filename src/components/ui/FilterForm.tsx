@@ -29,8 +29,8 @@ const DEFAULT_MONTHS = [
   { value: "Août", label: "Août 2026" },
   { value: "Septembre", label: "Septembre 2026" },
   { value: "Octobre", label: "Octobre 2026" },
-  { value: "Novembre", label: "Novembre 2026" },
-  { value: "Décembre", label: "Décembre 2026" },
+  { value: "Novembre", label: "Novembre 2025" },
+  { value: "Décembre", label: "Décembre 2025" },
 ];
 
 export function FilterForm({
