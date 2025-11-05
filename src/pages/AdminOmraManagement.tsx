@@ -6,7 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Trash2, Edit, Search, Filter } from "lucide-react";
+import { ArrowLeft, Trash2, Edit, Search, Filter, Check, ChevronsUpDown } from "lucide-react";
+import { useHotelPresets } from "@/hooks/useHotelPresets";
+import { useAirlinePresets } from "@/hooks/useAirlinePresets";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -35,6 +40,22 @@ import { Badge } from "@/components/ui/badge";
 const MONTHS = [
   'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
   'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+];
+
+const DEPARTURE_CITIES = [
+  'Toutes les villes',
+  'Paris',
+  'Lyon',
+  'Marseille',
+  'Toulouse',
+  'Bordeaux',
+  'Nice',
+  'Nantes',
+  'Strasbourg',
+  'Lille',
+  'Rennes',
+  'Montpellier',
+  'Bruxelles'
 ];
 
 interface OmraOffer {
@@ -72,6 +93,17 @@ export default function AdminOmraManagement() {
   const [selectedOffer, setSelectedOffer] = useState<OmraOffer | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  
+  // Popovers state
+  const [openCityPopover, setOpenCityPopover] = useState(false);
+  const [openMakkahHotelPopover, setOpenMakkahHotelPopover] = useState(false);
+  const [openMedinaHotelPopover, setOpenMedinaHotelPopover] = useState(false);
+  const [openAirlinePopover, setOpenAirlinePopover] = useState(false);
+  
+  // Hotel and airline presets
+  const { hotels: makkahHotels } = useHotelPresets('makkah');
+  const { hotels: medinaHotels } = useHotelPresets('medina');
+  const { airlines: airlinePresets } = useAirlinePresets();
 
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -529,14 +561,46 @@ export default function AdminOmraManagement() {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="edit-city">Ville de départ</Label>
-                  <Input
-                    id="edit-city"
-                    value={selectedOffer.departure_city}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, departure_city: e.target.value })
-                    }
-                  />
+                  <Label>Ville de départ</Label>
+                  <Popover open={openCityPopover} onOpenChange={setOpenCityPopover}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openCityPopover}
+                        className="w-full justify-between"
+                      >
+                        {selectedOffer.departure_city || "Sélectionner une ville"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput placeholder="Rechercher une ville..." />
+                        <CommandEmpty>Aucune ville trouvée.</CommandEmpty>
+                        <CommandGroup>
+                          {DEPARTURE_CITIES.map((city) => (
+                            <CommandItem
+                              key={city}
+                              value={city}
+                              onSelect={() => {
+                                setSelectedOffer({ ...selectedOffer, departure_city: city });
+                                setOpenCityPopover(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  selectedOffer.departure_city === city ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              {city}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
 
@@ -612,24 +676,88 @@ export default function AdminOmraManagement() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="edit-hotel-makkah">Hôtel Makkah</Label>
-                  <Input
-                    id="edit-hotel-makkah"
-                    value={selectedOffer.hotel_makkah || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, hotel_makkah: e.target.value })
-                    }
-                  />
+                  <Label>Hôtel Makkah</Label>
+                  <Popover open={openMakkahHotelPopover} onOpenChange={setOpenMakkahHotelPopover}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openMakkahHotelPopover}
+                        className="w-full justify-between"
+                      >
+                        {selectedOffer.hotel_makkah || "Sélectionner un hôtel"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput placeholder="Rechercher un hôtel..." />
+                        <CommandEmpty>Aucun hôtel trouvé.</CommandEmpty>
+                        <CommandGroup>
+                          {makkahHotels.map((hotel) => (
+                            <CommandItem
+                              key={hotel.id}
+                              value={hotel.hotel_name}
+                              onSelect={() => {
+                                setSelectedOffer({ ...selectedOffer, hotel_makkah: hotel.hotel_name });
+                                setOpenMakkahHotelPopover(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  selectedOffer.hotel_makkah === hotel.hotel_name ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              {hotel.hotel_name}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div>
-                  <Label htmlFor="edit-hotel-medina">Hôtel Médine</Label>
-                  <Input
-                    id="edit-hotel-medina"
-                    value={selectedOffer.hotel_medinah || ""}
-                    onChange={(e) =>
-                      setSelectedOffer({ ...selectedOffer, hotel_medinah: e.target.value })
-                    }
-                  />
+                  <Label>Hôtel Médine</Label>
+                  <Popover open={openMedinaHotelPopover} onOpenChange={setOpenMedinaHotelPopover}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={openMedinaHotelPopover}
+                        className="w-full justify-between"
+                      >
+                        {selectedOffer.hotel_medinah || "Sélectionner un hôtel"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput placeholder="Rechercher un hôtel..." />
+                        <CommandEmpty>Aucun hôtel trouvé.</CommandEmpty>
+                        <CommandGroup>
+                          {medinaHotels.map((hotel) => (
+                            <CommandItem
+                              key={hotel.id}
+                              value={hotel.hotel_name}
+                              onSelect={() => {
+                                setSelectedOffer({ ...selectedOffer, hotel_medinah: hotel.hotel_name });
+                                setOpenMedinaHotelPopover(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  selectedOffer.hotel_medinah === hotel.hotel_name ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              {hotel.hotel_name}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
 
