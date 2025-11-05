@@ -401,8 +401,8 @@ export default function AdDetails() {
                 const fromAdmin = location.state?.fromAdmin;
                 if (fromAdmin) {
                   navigate('/admin/ads');
-                } else if (fromCategory) {
-                  navigate(`/category/${fromCategory}`);
+                } else if (fromCategory && fromCategory !== 'all') {
+                  navigate('/', { state: { selectedCategory: fromCategory } });
                 } else {
                   navigate('/');
                 }

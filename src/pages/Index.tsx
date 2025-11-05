@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search, ChevronDown, LayoutGrid, List } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -46,6 +46,7 @@ import {
 
 const Index = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -64,6 +65,15 @@ const Index = () => {
   // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
   const adsLimit = isMobile ? 6 : 15;
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
+
+  // Restore category filter from navigation state
+  useEffect(() => {
+    if (location.state?.selectedCategory) {
+      setSelectedCategory(location.state.selectedCategory);
+      // Clear the state to avoid re-applying on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
@@ -550,7 +560,7 @@ const Index = () => {
                       /* Vue Liste - HORIZONTALE comme comparateur */
                       <div className="space-y-2">
                         {filteredFlashSalesListings.map((listing) => (
-                          <Link key={listing.id} to={`/ad/${listing.id}`}>
+                          <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
                             <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/50 bg-card">
                               <div className="flex items-center gap-2 p-2.5">
                                 {/* Logo/Image carré à gauche */}
@@ -605,14 +615,14 @@ const Index = () => {
                                 </div>
                               </div>
                             </Card>
-                          </Link>
+                          </div>
                         ))}
                       </div>
                     ) : (
                       /* Vue Cartes - VERTICALE complète comme comparateur */
                       <div className="space-y-4">
                         {filteredFlashSalesListings.map((listing) => (
-                          <Link key={listing.id} to={`/ad/${listing.id}`}>
+                          <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
                             <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
                               {/* Image/Logo grande */}
                               {listing.image && (
@@ -688,7 +698,7 @@ const Index = () => {
                                 </Button>
                               </div>
                             </Card>
-                          </Link>
+                          </div>
                         ))}
                       </div>
                     )}
@@ -933,7 +943,7 @@ const Index = () => {
                 /* Vue Liste - HORIZONTALE comme comparateur */
                 <div className="space-y-2 mb-16">
                   {filteredListings.slice(0, 6).map((listing) => (
-                    <Link key={listing.id} to={`/ad/${listing.id}`}>
+                    <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
                       <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/50 bg-card">
                         <div className="flex items-center gap-2 p-2.5">
                           {/* Logo/Image carré à gauche */}
@@ -986,16 +996,16 @@ const Index = () => {
                               </div>
                             )}
                           </div>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
+                          </div>
+                        </Card>
+                      </div>
+                    ))}
                 </div>
               ) : (
                 /* Vue Cartes - VERTICALE complète comme comparateur */
                 <div className="space-y-4 mb-16">
                   {filteredListings.slice(0, 6).map((listing) => (
-                    <Link key={listing.id} to={`/ad/${listing.id}`}>
+                    <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
                       <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
                         {/* Image/Logo grande */}
                         {listing.image && (
@@ -1069,10 +1079,10 @@ const Index = () => {
                             Voir l'offre
                             <DynamicIcon name="external-link" className="w-4 h-4 ml-2" />
                           </Button>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
+                          </div>
+                        </Card>
+                      </div>
+                    ))}
                 </div>
               )}
             </div>
