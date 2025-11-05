@@ -20,6 +20,7 @@ import AdCard from "@/components/ui/AdCard";
 import FeedbackForm from "@/components/ui/FeedbackForm";
 import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
+import { CompactAdCard } from "@/components/ui/CompactAdCard";
 import {
   Carousel,
   CarouselContent,
@@ -546,69 +547,28 @@ const Index = () => {
                   {/* Mobile: Vue Liste ou Grille */}
                   <div className="block md:hidden">
                     {viewMode === "list" ? (
-                      /* Vue Liste */
+                      /* Vue Liste - Compact et pliable */
                       <div className="space-y-3">
                         {filteredFlashSalesListings.map((listing) => (
-                          <Link key={listing.id} to={`/ad/${listing.id}`}>
-                            <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                              <div className="flex gap-3 p-3">
-                                <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted relative">
-                                  {listing.image && (
-                                    <img
-                                      src={listing.image}
-                                      alt={listing.title}
-                                      loading="lazy"
-                                      className="w-full h-full object-cover"
-                                    />
-                                  )}
-                                  {listing.isPromo && (
-                                    <Badge className="absolute top-1 right-1 bg-destructive text-destructive-foreground text-xs px-1.5 py-0.5">
-                                      -{listing.discount}%
-                                    </Badge>
-                                  )}
-                                </div>
-                                <div className="flex-1 min-w-0 space-y-1">
-                                  <div className="flex items-start justify-between gap-2">
-                                    <h3 className="font-semibold text-sm line-clamp-2">{listing.title}</h3>
-                                  </div>
-                                  {listing.subtitle && (
-                                    <p className="text-xs text-muted-foreground line-clamp-1">{listing.subtitle}</p>
-                                  )}
-                                  {listing.location && (
-                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                      <DynamicIcon name="map-pin" className="w-3 h-3" />
-                                      <span className="line-clamp-1">{listing.location}</span>
-                                    </div>
-                                  )}
-                                  <div className="flex items-center justify-between pt-1">
-                                    {listing.rating && (
-                                      <div className="flex items-center gap-1">
-                                        <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                                        <span className="text-xs font-medium">{listing.rating}</span>
-                                      </div>
-                                    )}
-                                    <div className="text-right">
-                                      {listing.price && (
-                                        <div className="font-bold text-sm text-primary">{listing.price}</div>
-                                      )}
-                                      {listing.originalPrice && (
-                                        <div className="text-xs text-muted-foreground line-through">{listing.originalPrice}</div>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Card>
-                          </Link>
+                           <CompactAdCard 
+                            key={listing.id}
+                            ad={{
+                              ...listing,
+                              images: listing.image ? [listing.image] : [],
+                              is_urgent: false
+                            }}
+                            onClick={() => navigate(`/ad/${listing.id}`)}
+                          />
                         ))}
                       </div>
                     ) : (
-                      /* Vue Cartes - Grille 2 colonnes */
-                      <div className="grid grid-cols-2 gap-3">
+                      /* Vue Cartes - Style du comparateur pleine largeur */
+                      <div className="space-y-4">
                         {filteredFlashSalesListings.map((listing) => (
                           <Link key={listing.id} to={`/ad/${listing.id}`}>
-                            <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                              <div className="relative aspect-square bg-muted">
+                            <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
+                              {/* Image */}
+                              <div className="relative aspect-[16/9] bg-muted">
                                 {listing.image && (
                                   <img
                                     src={listing.image}
@@ -617,40 +577,63 @@ const Index = () => {
                                     className="w-full h-full object-cover"
                                   />
                                 )}
-                                {listing.isPromo && (
-                                  <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground text-xs px-2 py-0.5">
-                                    -{listing.discount}%
-                                  </Badge>
-                                )}
-                                {listing.isPopular && (
-                                  <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-0.5">
-                                    ⭐
-                                  </Badge>
-                                )}
+                                {/* Badges sur l'image */}
+                                <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+                                  {listing.isPromo && (
+                                    <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-xs">
+                                      -{listing.discount}% 🔥
+                                    </Badge>
+                                  )}
+                                  {listing.isPopular && (
+                                    <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 font-bold text-xs">
+                                      ⭐ Populaire
+                                    </Badge>
+                                  )}
+                                </div>
                               </div>
-                              <CardContent className="p-3 space-y-2">
-                                <h3 className="font-semibold text-xs line-clamp-2 leading-tight">
-                                  {listing.title}
-                                </h3>
-                                {listing.subtitle && (
-                                  <p className="text-xs text-muted-foreground line-clamp-1">
-                                    {listing.subtitle}
-                                  </p>
-                                )}
-                                {listing.rating && (
-                                  <div className="flex items-center gap-1">
-                                    <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                                    <span className="text-xs font-medium">{listing.rating}</span>
-                                  </div>
-                                )}
-                                {listing.price && (
-                                  <div className="space-y-0.5">
-                                    <div className="font-bold text-sm text-primary">{listing.price}</div>
-                                    {listing.originalPrice && (
-                                      <div className="text-xs text-muted-foreground line-through">{listing.originalPrice}</div>
+
+                              {/* Contenu */}
+                              <CardContent className="p-4 space-y-3">
+                                <div>
+                                  <h3 className="font-bold text-base line-clamp-2 mb-1">
+                                    {listing.title}
+                                  </h3>
+                                  {listing.subtitle && (
+                                    <p className="text-sm text-muted-foreground line-clamp-2">
+                                      {listing.subtitle}
+                                    </p>
+                                  )}
+                                </div>
+
+                                {/* Métadonnées */}
+                                <div className="space-y-2">
+                                  {listing.location && (
+                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                      <DynamicIcon name="map-pin" className="w-4 h-4 flex-shrink-0" />
+                                      <span className="line-clamp-1">{listing.location}</span>
+                                    </div>
+                                  )}
+                                  {listing.rating && (
+                                    <div className="flex items-center gap-1">
+                                      <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                      <span className="text-sm font-semibold">{listing.rating}</span>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Prix */}
+                                <div className="pt-3 border-t border-border">
+                                  <div className="flex items-baseline justify-between">
+                                    {listing.price && (
+                                      <div className="space-y-0.5">
+                                        <div className="text-2xl font-bold text-primary">{listing.price}</div>
+                                        {listing.originalPrice && (
+                                          <div className="text-sm text-muted-foreground line-through">{listing.originalPrice}</div>
+                                        )}
+                                      </div>
                                     )}
                                   </div>
-                                )}
+                                </div>
                               </CardContent>
                             </Card>
                           </Link>
