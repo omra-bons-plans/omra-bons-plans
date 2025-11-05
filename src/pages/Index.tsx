@@ -377,64 +377,42 @@ const Index = () => {
                       </div>
                     </div>
 
-                    {/* Category Pills - Mobile First GRID */}
+                    {/* Category Pills - Horizontal Scroll avec badges de comptage */}
                     <div className="mb-8 md:mb-16">
-                      {/* Mobile: Grid 2x3 */}
-                      <div className="grid grid-cols-2 gap-2 md:hidden mb-4">
+                      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth">
                         <Button 
                           onClick={() => setSelectedCategory("all")}
-                          className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                          className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
                             selectedCategory === "all" 
-                              ? "btn-modern text-primary-foreground shadow-lg" 
-                              : "glass border-2 border-border/50 hover:bg-primary/10"
+                              ? "btn-modern text-primary-foreground shadow-lg scale-105" 
+                              : "glass border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5"
                           }`}
                           variant={selectedCategory === "all" ? "default" : "outline"}
                         >
-                          <DynamicIcon name="grid-3x3" className="w-5 h-5" />
+                          <DynamicIcon name="grid-3x3" className="w-4 h-4" />
                           <span>Tous</span>
+                          <Badge variant="secondary" className="ml-1 text-xs">
+                            {filteredFlashSalesListings.length}
+                          </Badge>
                         </Button>
                         {getOrderedCategories().map((category) => (
                           <Button
                             key={category.id}
                             onClick={() => setSelectedCategory(category.id)}
-                            className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                            className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
                               selectedCategory === category.id 
-                                ? "btn-modern text-primary-foreground shadow-lg" 
-                                : "glass border-2 border-border/50 hover:bg-primary/10"
+                                ? "btn-modern text-primary-foreground shadow-lg scale-105" 
+                                : "glass border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5"
                             }`}
                             variant={selectedCategory === category.id ? "default" : "outline"}
                           >
-                            <DynamicIcon name={category.icon as any} className="w-5 h-5" />
+                            <DynamicIcon name={category.icon as any} className="w-4 h-4" />
                             <span>{category.name}</span>
-                          </Button>
-                        ))}
-                      </div>
-                      
-                      {/* Desktop/Tablet: Horizontal Pills */}
-                      <div className="hidden md:flex gap-2 md:gap-3 flex-wrap justify-center">
-                        <Button 
-                          onClick={() => setSelectedCategory("all")}
-                          className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                            selectedCategory === "all" 
-                              ? "btn-modern text-primary-foreground" 
-                              : "glass border-2 border-primary/30 hover:bg-primary/10"
-                          }`}
-                          variant={selectedCategory === "all" ? "default" : "outline"}
-                        >
-                          Tous
-                        </Button>
-                        {getOrderedCategories().map((category) => (
-                          <Button
-                            key={category.id}
-                            onClick={() => setSelectedCategory(category.id)}
-                            className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                              selectedCategory === category.id 
-                                ? "btn-modern text-primary-foreground" 
-                                : "glass border-2 border-primary/30 hover:bg-primary/10"
-                            }`}
-                            variant={selectedCategory === category.id ? "default" : "outline"}
-                          >
-                            {category.name}
+                            {category.count > 0 && (
+                              <Badge variant="secondary" className="ml-1 text-xs">
+                                {category.count}
+                              </Badge>
+                            )}
                           </Button>
                         ))}
                       </div>
@@ -470,38 +448,85 @@ const Index = () => {
                     </Carousel>
                   </div>
 
-                  {/* Mobile: Carousel with 1 item */}
-                  <div className="block md:hidden carousel-item-peek flash-sales-cards-container">
-                    <Carousel 
-                      className="w-full scroll-hint"
-                      setApi={setFlashSalesCarouselApi}
-                    >
-                      <CarouselContent>
-                        {filteredFlashSalesListings.map((listing) => (
-                          <CarouselItem key={listing.id}>
-                            <AdCard 
-                              listing={listing}
-                              imageHeight="h-56"
-                            />
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="hidden sm:flex" />
-                      <CarouselNext className="hidden sm:flex" />
-                    </Carousel>
-                    
-                    {/* Pagination dots for mobile */}
-                    <div className="flex justify-center space-x-2 mt-6">
-                      {filteredFlashSalesListings.map((_, index) => (
-                        <div
-                          key={index}
-                          className="w-2 h-2 rounded-full transition-colors duration-200"
-                          style={{
-                            backgroundColor: index === flashSalesCurrent ? 'hsl(var(--primary))' : 'hsl(var(--muted))'
-                          }}
-                        />
-                      ))}
-                    </div>
+                  {/* Mobile: Liste verticale full-width */}
+                  <div className="block md:hidden space-y-4">
+                    {filteredFlashSalesListings.map((listing) => (
+                      <Link key={listing.id} to={`/ad/${listing.id}`}>
+                        <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50">
+                          <div className="relative h-48 bg-muted">
+                            {listing.image && (
+                              <img
+                                src={listing.image}
+                                alt={listing.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                            <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+                              {listing.isPromo && (
+                                <Badge className="bg-destructive text-destructive-foreground font-bold shadow-lg">
+                                  -{listing.discount}% OFF
+                                </Badge>
+                              )}
+                              {listing.isPopular && (
+                                <Badge className="bg-primary text-primary-foreground font-bold shadow-lg">
+                                  ⭐ Recommandé
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          <CardContent className="p-4 space-y-3">
+                            <div className="space-y-2">
+                              <h3 className="font-bold text-base line-clamp-2">
+                                {listing.title}
+                              </h3>
+                              {listing.subtitle && (
+                                <p className="text-sm text-muted-foreground line-clamp-1">
+                                  {listing.subtitle}
+                                </p>
+                              )}
+                            </div>
+                            
+                            {listing.location && (
+                              <div className="flex items-center text-sm text-muted-foreground">
+                                <DynamicIcon name="map-pin" className="w-4 h-4 mr-1.5" />
+                                <span>{listing.location}</span>
+                              </div>
+                            )}
+                            
+                            {listing.rating && (
+                              <div className="flex items-center gap-2">
+                                <div className="flex items-center">
+                                  <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                  <span className="ml-1 font-semibold text-sm">{listing.rating}</span>
+                                </div>
+                                <span className="text-xs text-muted-foreground">
+                                  ({listing.reviews} avis)
+                                </span>
+                              </div>
+                            )}
+                            
+                            {listing.price && (
+                              <div className="flex items-end justify-between pt-2 border-t">
+                                <div className="space-y-1">
+                                  <div className="text-2xl font-bold text-primary">
+                                    {listing.price}
+                                  </div>
+                                  {listing.originalPrice && (
+                                    <div className="text-sm text-muted-foreground line-through">
+                                      {listing.originalPrice}
+                                    </div>
+                                  )}
+                                </div>
+                                <Button size="sm" className="btn-modern">
+                                  Voir l'offre
+                                </Button>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </section>
@@ -541,64 +566,42 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Category Pills - Mobile First GRID */}
+          {/* Category Pills - Horizontal Scroll avec comptage */}
           <div className="mb-8 md:mb-16">
-            {/* Mobile: Grid 2x4 */}
-            <div className="grid grid-cols-2 gap-2 md:hidden mb-4">
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth">
               <Button 
                 onClick={() => setSelectedCategory("all")}
-                className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
                   selectedCategory === "all" 
-                    ? "btn-modern text-primary-foreground shadow-lg" 
-                    : "glass border-2 border-border/50 hover:bg-primary/10"
+                    ? "btn-modern text-primary-foreground shadow-lg scale-105" 
+                    : "glass border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5"
                 }`}
                 variant={selectedCategory === "all" ? "default" : "outline"}
               >
-                <DynamicIcon name="grid-3x3" className="w-5 h-5" />
+                <DynamicIcon name="grid-3x3" className="w-4 h-4" />
                 <span>Tous</span>
+                <Badge variant="secondary" className="ml-1 text-xs">
+                  {filteredListings.length}
+                </Badge>
               </Button>
               {getAllOrderedCategories().map((category) => (
                 <Button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all duration-300 min-h-[52px] flex flex-col items-center justify-center gap-1 ${
+                  className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
                     selectedCategory === category.id 
-                      ? "btn-modern text-primary-foreground shadow-lg" 
-                      : "glass border-2 border-border/50 hover:bg-primary/10"
+                      ? "btn-modern text-primary-foreground shadow-lg scale-105" 
+                      : "glass border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5"
                   }`}
                   variant={selectedCategory === category.id ? "default" : "outline"}
                 >
-                  <DynamicIcon name={category.icon as any} className="w-5 h-5" />
+                  <DynamicIcon name={category.icon as any} className="w-4 h-4" />
                   <span>{category.name}</span>
-                </Button>
-              ))}
-            </div>
-            
-            {/* Desktop/Tablet: Horizontal Pills */}
-            <div className="hidden md:flex gap-2 md:gap-3 flex-wrap justify-center">
-              <Button 
-                onClick={() => setSelectedCategory("all")}
-                className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                  selectedCategory === "all" 
-                    ? "btn-modern text-primary-foreground" 
-                    : "glass border-2 border-primary/30 hover:bg-primary/10"
-                }`}
-                variant={selectedCategory === "all" ? "default" : "outline"}
-              >
-                Tous
-              </Button>
-              {getAllOrderedCategories().map((category) => (
-                <Button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`rounded-full px-4 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold whitespace-nowrap transition-all duration-300 min-w-fit min-h-[44px] ${
-                    selectedCategory === category.id 
-                      ? "btn-modern text-primary-foreground" 
-                      : "glass border-2 border-primary/30 hover:bg-primary/10"
-                  }`}
-                  variant={selectedCategory === category.id ? "default" : "outline"}
-                >
-                  {category.name}
+                  {category.count > 0 && (
+                    <Badge variant="secondary" className="ml-1 text-xs">
+                      {category.count}
+                    </Badge>
+                  )}
                 </Button>
               ))}
             </div>
@@ -667,55 +670,86 @@ const Index = () => {
             </div>
           )}
 
-          {/* Mobile: Grid 2 colonnes compacte */}
+          {/* Mobile: Liste verticale full-width */}
           {filteredListings.length > 0 ? (
-            <div className="block md:hidden mb-16">
-              <div className="grid grid-cols-2 gap-3 px-4">
-                {filteredListings.slice(0, 6).map((listing) => (
-                  <Link key={listing.id} to={`/ad/${listing.id}`}>
-                    <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 border-border/50">
-                      <div className="relative aspect-square bg-muted">
-                        {listing.image && (
-                          <img
-                            src={listing.image}
-                            alt={listing.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover"
-                          />
-                        )}
+            <div className="block md:hidden space-y-4 mb-16">
+              {filteredListings.slice(0, 6).map((listing) => (
+                <Link key={listing.id} to={`/ad/${listing.id}`}>
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50">
+                    <div className="relative h-48 bg-muted">
+                      {listing.image && (
+                        <img
+                          src={listing.image}
+                          alt={listing.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
                         {listing.isPromo && (
-                          <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground text-xs">
-                            -{listing.discount}%
+                          <Badge className="bg-destructive text-destructive-foreground font-bold shadow-lg">
+                            -{listing.discount}% OFF
+                          </Badge>
+                        )}
+                        {listing.isPopular && (
+                          <Badge className="bg-primary text-primary-foreground font-bold shadow-lg">
+                            ⭐ Recommandé
                           </Badge>
                         )}
                       </div>
-                      <CardContent className="p-3 space-y-2">
-                        <h3 className="font-semibold text-sm line-clamp-2 min-h-[2.5rem]">
+                    </div>
+                    <CardContent className="p-4 space-y-3">
+                      <div className="space-y-2">
+                        <h3 className="font-bold text-base line-clamp-2">
                           {listing.title}
                         </h3>
-                        {listing.price && (
+                        {listing.subtitle && (
+                          <p className="text-sm text-muted-foreground line-clamp-1">
+                            {listing.subtitle}
+                          </p>
+                        )}
+                      </div>
+                      
+                      {listing.location && (
+                        <div className="flex items-center text-sm text-muted-foreground">
+                          <DynamicIcon name="map-pin" className="w-4 h-4 mr-1.5" />
+                          <span>{listing.location}</span>
+                        </div>
+                      )}
+                      
+                      {listing.rating && (
+                        <div className="flex items-center gap-2">
+                          <div className="flex items-center">
+                            <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                            <span className="ml-1 font-semibold text-sm">{listing.rating}</span>
+                          </div>
+                          <span className="text-xs text-muted-foreground">
+                            ({listing.reviews} avis)
+                          </span>
+                        </div>
+                      )}
+                      
+                      {listing.price && (
+                        <div className="flex items-end justify-between pt-2 border-t">
                           <div className="space-y-1">
-                            <div className="text-lg font-bold text-primary">
+                            <div className="text-2xl font-bold text-primary">
                               {listing.price}
                             </div>
                             {listing.originalPrice && (
-                              <div className="text-xs text-muted-foreground line-through">
+                              <div className="text-sm text-muted-foreground line-through">
                                 {listing.originalPrice}
                               </div>
                             )}
                           </div>
-                        )}
-                        {listing.location && (
-                          <div className="flex items-center text-xs text-muted-foreground">
-                            <DynamicIcon name="map-pin" className="w-3 h-3 mr-1" />
-                            <span className="line-clamp-1">{listing.location}</span>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
+                          <Button size="sm" className="btn-modern">
+                            Voir l'offre
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
             ) : (
               <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
