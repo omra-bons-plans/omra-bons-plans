@@ -55,6 +55,7 @@ interface OmraOfferForm {
   airline: string;
   visa_included: boolean;
   hajj_duration_type?: string;
+  is_recommended: boolean;
 }
 
 const AdminOmraOffers = () => {
@@ -85,7 +86,8 @@ const AdminOmraOffers = () => {
     hotel_medinah_stars: 3,
     airline: '',
     visa_included: true,
-    hajj_duration_type: 'court'
+    hajj_duration_type: 'court',
+    is_recommended: false
   });
 
   const [openMakkahHotel, setOpenMakkahHotel] = useState(false);
@@ -183,6 +185,7 @@ const AdminOmraOffers = () => {
         visa_included: formData.visa_included,
         guide_language: ['fr'],
         airline: formData.airline,
+        is_recommended: formData.is_recommended,
         notes: offerType === 'hajj' 
           ? `Compagnie aérienne: ${formData.airline}\nDurée: ${formData.hajj_duration_type === 'court' ? 'Court séjour' : 'Long séjour'}`
           : `Compagnie aérienne: ${formData.airline}`,
@@ -234,7 +237,8 @@ const AdminOmraOffers = () => {
         hotel_medinah_stars: 3,
         airline: '',
         visa_included: true,
-        hajj_duration_type: 'court'
+        hajj_duration_type: 'court',
+        is_recommended: false
       });
       setLogoFile(null);
       setLogoPreview(null);
@@ -786,6 +790,28 @@ const AdminOmraOffers = () => {
                     </Command>
                   </PopoverContent>
                 </Popover>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Tag Recommandé */}
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
+                <Checkbox
+                  id="is_recommended"
+                  checked={formData.is_recommended}
+                  onCheckedChange={(checked) =>
+                    setFormData({ ...formData, is_recommended: checked as boolean })
+                  }
+                />
+                <Label
+                  htmlFor="is_recommended"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex items-center gap-2"
+                >
+                  <span className="text-xl">⭐</span>
+                  <span>Marquer comme offre recommandée</span>
+                </Label>
               </div>
             </CardContent>
           </Card>

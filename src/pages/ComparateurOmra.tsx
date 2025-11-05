@@ -872,6 +872,11 @@ export default function ComparateurOmra() {
                   {/* Corps de la carte */}
                   <div className="p-3 md:p-6 space-y-3 md:space-y-4">
                     <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {offer.is_recommended && (
+                        <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600 hover:from-yellow-600 hover:to-amber-600 font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base shadow-lg">
+                          ⭐ Recommandé
+                        </Badge>
+                      )}
                       <Badge 
                         className={`font-bold px-2.5 md:px-4 py-1 md:py-2 text-xs md:text-base capitalize shadow-md ${
                           offer.formula_type?.toLowerCase() === 'essentiel' 
@@ -1103,6 +1108,11 @@ export default function ComparateurOmra() {
                           {/* Infos principales */}
                           <div className="flex-1 space-y-3">
                             <div className="flex flex-wrap gap-2">
+                              {offer.is_recommended && (
+                                <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600 hover:from-yellow-600 hover:to-amber-600 font-bold px-3 py-1 shadow-lg">
+                                  ⭐ Recommandé
+                                </Badge>
+                              )}
                               <Badge 
                                 className={`font-bold px-3 py-1 capitalize shadow-md ${
                                   offer.formula_type?.toLowerCase() === 'essentiel' 

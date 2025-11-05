@@ -82,6 +82,7 @@ interface OmraOffer {
   status: string;
   scraped_at: string;
   is_complet: boolean;
+  is_recommended: boolean;
 }
 
 export default function AdminOmraManagement() {
@@ -246,6 +247,7 @@ export default function AdminOmraManagement() {
           airline: selectedOffer.airline,
           status: selectedOffer.status,
           is_complet: selectedOffer.is_complet,
+          is_recommended: selectedOffer.is_recommended,
         })
         .eq("id", selectedOffer.id);
 
@@ -768,6 +770,23 @@ export default function AdminOmraManagement() {
                     </Command>
                   </PopoverContent>
                 </Popover>
+              </div>
+
+              {/* Tag Recommandé */}
+              <div className="flex items-center space-x-2 p-4 bg-muted/50 rounded-lg border border-primary/20">
+                <Checkbox
+                  id="edit-recommended"
+                  checked={selectedOffer.is_recommended}
+                  onCheckedChange={(checked) =>
+                    setSelectedOffer({ ...selectedOffer, is_recommended: checked as boolean })
+                  }
+                />
+                <Label
+                  htmlFor="edit-recommended"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                >
+                  ⭐ Marquer comme offre recommandée
+                </Label>
               </div>
             </div>
           )}
