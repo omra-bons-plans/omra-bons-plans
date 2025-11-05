@@ -134,6 +134,11 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
 
           {/* Badges services */}
           <div className="flex flex-wrap gap-1">
+            {offer.is_recommended && (
+              <Badge className="text-[10px] px-1.5 py-0 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-yellow-600">
+                ⭐ Recommandé
+              </Badge>
+            )}
             {offer.flights_included && (
               <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-emerald-500/10 text-emerald-700 border-emerald-500/30">
                 <Plane className="h-2.5 w-2.5 mr-0.5" />
