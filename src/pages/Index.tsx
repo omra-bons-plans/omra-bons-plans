@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Search } from "lucide-react";
+import { Search, ChevronDown, LayoutGrid, List } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 import { useAuth } from "@/contexts/AuthContext";
 import { useAds } from "@/hooks/useAds";
@@ -56,6 +57,9 @@ const Index = () => {
   const [flashSalesCurrent, setFlashSalesCurrent] = useState(0);
   const [allServicesCurrent, setAllServicesCurrent] = useState(0);
   const { user } = useAuth();
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isAllServicesCategoryOpen, setIsAllServicesCategoryOpen] = useState(false);
   // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
   const adsLimit = isMobile ? 6 : 15;
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
@@ -377,9 +381,76 @@ const Index = () => {
                       </div>
                     </div>
 
-                    {/* Category Pills - Horizontal Scroll avec badges de comptage */}
-                    <div className="mb-8 md:mb-16">
-                      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth">
+                    {/* Categories - Mobile: Collapsible Menu, Desktop: Pills */}
+                    {isMobile ? (
+                      <Collapsible open={isCategoryOpen} onOpenChange={setIsCategoryOpen} className="mb-6">
+                        <CollapsibleTrigger className="w-full">
+                          <div className="flex items-center justify-between w-full px-4 py-3 bg-card border-2 rounded-xl hover:border-primary/50 transition-colors">
+                            <div className="flex items-center gap-3">
+                              <DynamicIcon 
+                                name={(selectedCategory === "all" ? "grid-3x3" : getOrderedCategories().find(c => c.id === selectedCategory)?.icon || "grid-3x3") as any} 
+                                className="h-5 w-5 text-primary" 
+                              />
+                              <span className="font-semibold">
+                                {selectedCategory === "all" ? "Tous" : (getOrderedCategories().find(c => c.id === selectedCategory)?.name || "Catégories")}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {selectedCategory === "all" ? filteredFlashSalesListings.length : (getOrderedCategories().find(c => c.id === selectedCategory)?.count || 0)}
+                              </Badge>
+                            </div>
+                            <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isCategoryOpen ? 'rotate-180' : ''}`} />
+                          </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="mt-3">
+                          <div className="grid gap-2 p-2 bg-card border-2 rounded-xl">
+                            <button
+                              onClick={() => {
+                                setSelectedCategory("all");
+                                setIsCategoryOpen(false);
+                              }}
+                              className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
+                                selectedCategory === "all"
+                                  ? "bg-primary text-primary-foreground"
+                                  : "hover:bg-muted"
+                              }`}
+                            >
+                              <div className="flex items-center gap-3">
+                                <DynamicIcon name="grid-3x3" className="h-5 w-5" />
+                                <span className="font-medium">Tous</span>
+                              </div>
+                              <Badge variant={selectedCategory === "all" ? "secondary" : "outline"} className="ml-2">
+                                {filteredFlashSalesListings.length}
+                              </Badge>
+                            </button>
+                            {getOrderedCategories().map((cat) => (
+                              <button
+                                key={cat.id}
+                                onClick={() => {
+                                  setSelectedCategory(cat.id);
+                                  setIsCategoryOpen(false);
+                                }}
+                                className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
+                                  selectedCategory === cat.id
+                                    ? "bg-primary text-primary-foreground"
+                                    : "hover:bg-muted"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <DynamicIcon name={cat.icon as any} className="h-5 w-5" />
+                                  <span className="font-medium">{cat.name}</span>
+                                </div>
+                                {cat.count > 0 && (
+                                  <Badge variant={selectedCategory === cat.id ? "secondary" : "outline"} className="ml-2">
+                                    {cat.count}
+                                  </Badge>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    ) : (
+                      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth mb-8 md:mb-16">
                         <Button 
                           onClick={() => setSelectedCategory("all")}
                           className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
@@ -416,7 +487,31 @@ const Index = () => {
                           </Button>
                         ))}
                       </div>
-                    </div>
+                    )}
+
+                    {/* View Mode Toggle - Mobile Only */}
+                    {isMobile && (
+                      <div className="flex gap-2 mb-6">
+                        <Button
+                          variant={viewMode === "list" ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setViewMode("list")}
+                          className="flex-1 min-h-[44px]"
+                        >
+                          <List className="h-4 w-4 mr-2" />
+                          Liste
+                        </Button>
+                        <Button
+                          variant={viewMode === "grid" ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setViewMode("grid")}
+                          className="flex-1 min-h-[44px]"
+                        >
+                          <LayoutGrid className="h-4 w-4 mr-2" />
+                          Cartes
+                        </Button>
+                      </div>
+                    )}
 
                     {/* Desktop: Grid Layout */}
                     <div className="hidden lg:grid grid-cols-4 gap-8">
@@ -448,85 +543,120 @@ const Index = () => {
                     </Carousel>
                   </div>
 
-                  {/* Mobile: Liste verticale full-width */}
-                  <div className="block md:hidden space-y-4">
-                    {filteredFlashSalesListings.map((listing) => (
-                      <Link key={listing.id} to={`/ad/${listing.id}`}>
-                        <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50">
-                          <div className="relative h-48 bg-muted">
-                            {listing.image && (
-                              <img
-                                src={listing.image}
-                                alt={listing.title}
-                                loading="lazy"
-                                className="w-full h-full object-cover"
-                              />
-                            )}
-                            <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-                              {listing.isPromo && (
-                                <Badge className="bg-destructive text-destructive-foreground font-bold shadow-lg">
-                                  -{listing.discount}% OFF
-                                </Badge>
-                              )}
-                              {listing.isPopular && (
-                                <Badge className="bg-primary text-primary-foreground font-bold shadow-lg">
-                                  ⭐ Recommandé
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                          <CardContent className="p-4 space-y-3">
-                            <div className="space-y-2">
-                              <h3 className="font-bold text-base line-clamp-2">
-                                {listing.title}
-                              </h3>
-                              {listing.subtitle && (
-                                <p className="text-sm text-muted-foreground line-clamp-1">
-                                  {listing.subtitle}
-                                </p>
-                              )}
-                            </div>
-                            
-                            {listing.location && (
-                              <div className="flex items-center text-sm text-muted-foreground">
-                                <DynamicIcon name="map-pin" className="w-4 h-4 mr-1.5" />
-                                <span>{listing.location}</span>
-                              </div>
-                            )}
-                            
-                            {listing.rating && (
-                              <div className="flex items-center gap-2">
-                                <div className="flex items-center">
-                                  <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                                  <span className="ml-1 font-semibold text-sm">{listing.rating}</span>
-                                </div>
-                                <span className="text-xs text-muted-foreground">
-                                  ({listing.reviews} avis)
-                                </span>
-                              </div>
-                            )}
-                            
-                            {listing.price && (
-                              <div className="flex items-end justify-between pt-2 border-t">
-                                <div className="space-y-1">
-                                  <div className="text-2xl font-bold text-primary">
-                                    {listing.price}
-                                  </div>
-                                  {listing.originalPrice && (
-                                    <div className="text-sm text-muted-foreground line-through">
-                                      {listing.originalPrice}
-                                    </div>
+                  {/* Mobile: Vue Liste ou Grille */}
+                  <div className="block md:hidden">
+                    {viewMode === "list" ? (
+                      /* Vue Liste */
+                      <div className="space-y-3">
+                        {filteredFlashSalesListings.map((listing) => (
+                          <Link key={listing.id} to={`/ad/${listing.id}`}>
+                            <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                              <div className="flex gap-3 p-3">
+                                <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted relative">
+                                  {listing.image && (
+                                    <img
+                                      src={listing.image}
+                                      alt={listing.title}
+                                      loading="lazy"
+                                      className="w-full h-full object-cover"
+                                    />
+                                  )}
+                                  {listing.isPromo && (
+                                    <Badge className="absolute top-1 right-1 bg-destructive text-destructive-foreground text-xs px-1.5 py-0.5">
+                                      -{listing.discount}%
+                                    </Badge>
                                   )}
                                 </div>
-                                <Button size="sm" className="btn-modern">
-                                  Voir l'offre
-                                </Button>
+                                <div className="flex-1 min-w-0 space-y-1">
+                                  <div className="flex items-start justify-between gap-2">
+                                    <h3 className="font-semibold text-sm line-clamp-2">{listing.title}</h3>
+                                  </div>
+                                  {listing.subtitle && (
+                                    <p className="text-xs text-muted-foreground line-clamp-1">{listing.subtitle}</p>
+                                  )}
+                                  {listing.location && (
+                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                      <DynamicIcon name="map-pin" className="w-3 h-3" />
+                                      <span className="line-clamp-1">{listing.location}</span>
+                                    </div>
+                                  )}
+                                  <div className="flex items-center justify-between pt-1">
+                                    {listing.rating && (
+                                      <div className="flex items-center gap-1">
+                                        <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                                        <span className="text-xs font-medium">{listing.rating}</span>
+                                      </div>
+                                    )}
+                                    <div className="text-right">
+                                      {listing.price && (
+                                        <div className="font-bold text-sm text-primary">{listing.price}</div>
+                                      )}
+                                      {listing.originalPrice && (
+                                        <div className="text-xs text-muted-foreground line-through">{listing.originalPrice}</div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      </Link>
-                    ))}
+                            </Card>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      /* Vue Cartes - Grille 2 colonnes */
+                      <div className="grid grid-cols-2 gap-3">
+                        {filteredFlashSalesListings.map((listing) => (
+                          <Link key={listing.id} to={`/ad/${listing.id}`}>
+                            <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                              <div className="relative aspect-square bg-muted">
+                                {listing.image && (
+                                  <img
+                                    src={listing.image}
+                                    alt={listing.title}
+                                    loading="lazy"
+                                    className="w-full h-full object-cover"
+                                  />
+                                )}
+                                {listing.isPromo && (
+                                  <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground text-xs px-2 py-0.5">
+                                    -{listing.discount}%
+                                  </Badge>
+                                )}
+                                {listing.isPopular && (
+                                  <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-0.5">
+                                    ⭐
+                                  </Badge>
+                                )}
+                              </div>
+                              <CardContent className="p-3 space-y-2">
+                                <h3 className="font-semibold text-xs line-clamp-2 leading-tight">
+                                  {listing.title}
+                                </h3>
+                                {listing.subtitle && (
+                                  <p className="text-xs text-muted-foreground line-clamp-1">
+                                    {listing.subtitle}
+                                  </p>
+                                )}
+                                {listing.rating && (
+                                  <div className="flex items-center gap-1">
+                                    <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                                    <span className="text-xs font-medium">{listing.rating}</span>
+                                  </div>
+                                )}
+                                {listing.price && (
+                                  <div className="space-y-0.5">
+                                    <div className="font-bold text-sm text-primary">{listing.price}</div>
+                                    {listing.originalPrice && (
+                                      <div className="text-xs text-muted-foreground line-through">{listing.originalPrice}</div>
+                                    )}
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
@@ -566,9 +696,76 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Category Pills - Horizontal Scroll avec comptage */}
-          <div className="mb-8 md:mb-16">
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth">
+          {/* Categories - Mobile: Collapsible Menu, Desktop: Pills */}
+          {isMobile ? (
+            <Collapsible open={isAllServicesCategoryOpen} onOpenChange={setIsAllServicesCategoryOpen} className="mb-6">
+              <CollapsibleTrigger className="w-full">
+                <div className="flex items-center justify-between w-full px-4 py-3 bg-card border-2 rounded-xl hover:border-primary/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <DynamicIcon 
+                      name={(selectedCategory === "all" ? "grid-3x3" : getAllOrderedCategories().find(c => c.id === selectedCategory)?.icon || "grid-3x3") as any} 
+                      className="h-5 w-5 text-primary" 
+                    />
+                    <span className="font-semibold">
+                      {selectedCategory === "all" ? "Tous" : (getAllOrderedCategories().find(c => c.id === selectedCategory)?.name || "Catégories")}
+                    </span>
+                    <Badge variant="secondary" className="text-xs">
+                      {selectedCategory === "all" ? filteredListings.length : (getAllOrderedCategories().find(c => c.id === selectedCategory)?.count || 0)}
+                    </Badge>
+                  </div>
+                  <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isAllServicesCategoryOpen ? 'rotate-180' : ''}`} />
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-3">
+                <div className="grid gap-2 p-2 bg-card border-2 rounded-xl">
+                  <button
+                    onClick={() => {
+                      setSelectedCategory("all");
+                      setIsAllServicesCategoryOpen(false);
+                    }}
+                    className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
+                      selectedCategory === "all"
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-muted"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <DynamicIcon name="grid-3x3" className="h-5 w-5" />
+                      <span className="font-medium">Tous</span>
+                    </div>
+                    <Badge variant={selectedCategory === "all" ? "secondary" : "outline"} className="ml-2">
+                      {filteredListings.length}
+                    </Badge>
+                  </button>
+                  {getAllOrderedCategories().map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        setSelectedCategory(cat.id);
+                        setIsAllServicesCategoryOpen(false);
+                      }}
+                      className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
+                        selectedCategory === cat.id
+                          ? "bg-primary text-primary-foreground"
+                          : "hover:bg-muted"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <DynamicIcon name={cat.icon as any} className="h-5 w-5" />
+                        <span className="font-medium">{cat.name}</span>
+                      </div>
+                      {cat.count > 0 && (
+                        <Badge variant={selectedCategory === cat.id ? "secondary" : "outline"} className="ml-2">
+                          {cat.count}
+                        </Badge>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ) : (
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-3 md:justify-center px-1 scroll-smooth mb-8 md:mb-16">
               <Button 
                 onClick={() => setSelectedCategory("all")}
                 className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-300 min-h-[44px] flex items-center gap-2 ${
@@ -605,7 +802,31 @@ const Index = () => {
                 </Button>
               ))}
             </div>
-          </div>
+          )}
+
+          {/* View Mode Toggle - Mobile Only */}
+          {isMobile && (
+            <div className="flex gap-2 mb-6">
+              <Button
+                variant={viewMode === "list" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("list")}
+                className="flex-1 min-h-[44px]"
+              >
+                <List className="h-4 w-4 mr-2" />
+                Liste
+              </Button>
+              <Button
+                variant={viewMode === "grid" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("grid")}
+                className="flex-1 min-h-[44px]"
+              >
+                <LayoutGrid className="h-4 w-4 mr-2" />
+                Cartes
+              </Button>
+            </div>
+          )}
 
           {/* Listings under tabs */}
           {/* Desktop: Grid Layout */}
