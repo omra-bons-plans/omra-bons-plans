@@ -232,7 +232,7 @@ export default function AdminOmraManagement() {
           month_departure: selectedOffer.month_departure,
           date_start: selectedOffer.date_start,
           date_end: selectedOffer.date_end,
-          departure_city: selectedOffer.departure_city,
+          departure_city: selectedOffer.departure_city.trim(), // Nettoyer les espaces
           formula_type: selectedOffer.formula_type,
           duration_nights: selectedOffer.duration_nights,
           makkah_nights: selectedOffer.makkah_nights,
