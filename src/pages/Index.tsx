@@ -551,11 +551,11 @@ const Index = () => {
                       <div className="space-y-2">
                         {filteredFlashSalesListings.map((listing) => (
                           <Link key={listing.id} to={`/ad/${listing.id}`}>
-                            <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
-                              <div className="flex items-center gap-3 p-3">
+                            <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/50 bg-card">
+                              <div className="flex items-center gap-2 p-2.5">
                                 {/* Logo/Image carré à gauche */}
                                 {listing.image && (
-                                  <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white shadow-sm">
+                                  <div className="flex-shrink-0 w-14 h-14 rounded-md overflow-hidden bg-white shadow-sm">
                                     <img
                                       src={listing.image}
                                       alt={listing.title}
@@ -567,34 +567,38 @@ const Index = () => {
 
                                 {/* Infos au milieu */}
                                 <div className="flex-1 min-w-0">
-                                  <h3 className="font-bold text-sm truncate mb-1">{listing.title}</h3>
+                                  <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
                                   
-                                  {listing.rating && (
-                                    <div className="flex items-center gap-1 mb-1">
-                                      <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                                      <span className="text-xs font-medium">{listing.rating}</span>
-                                    </div>
-                                  )}
-
-                                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
+                                    {listing.rating && (
+                                      <>
+                                        <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                                        <span className="font-medium">{listing.rating}</span>
+                                      </>
+                                    )}
                                     {listing.subtitle && (
-                                      <span className="truncate">{listing.subtitle}</span>
+                                      <span className="truncate">• {listing.subtitle}</span>
                                     )}
                                   </div>
 
                                   {listing.location && (
                                     <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-                                      <DynamicIcon name="map-pin" className="w-3 h-3" />
+                                      <DynamicIcon name="map-pin" className="w-3 h-3 flex-shrink-0" />
                                       <span className="truncate">{listing.location}</span>
                                     </div>
                                   )}
                                 </div>
 
                                 {/* Prix à droite */}
-                                <div className="flex-shrink-0 text-right">
+                                <div className="flex-shrink-0 text-right pl-2">
                                   {listing.price && (
-                                    <div className="font-bold text-base text-primary whitespace-nowrap">
+                                    <div className="font-bold text-sm text-primary whitespace-nowrap">
                                       {listing.price}
+                                    </div>
+                                  )}
+                                  {listing.originalPrice && (
+                                    <div className="text-xs text-muted-foreground line-through">
+                                      {listing.originalPrice}
                                     </div>
                                   )}
                                 </div>
