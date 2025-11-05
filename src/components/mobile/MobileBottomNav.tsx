@@ -1,4 +1,4 @@
-import { Home, Package, Star, HelpCircle, User } from 'lucide-react';
+import { Home, Package, Star, BookOpen, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -60,10 +60,10 @@ export const MobileBottomNav = () => {
       badge: favoritesCount > 0 ? favoritesCount : null
     },
     { 
-      icon: HelpCircle, 
-      label: 'Aide', 
-      path: '/contact', 
-      active: currentPath === '/contact',
+      icon: BookOpen, 
+      label: 'Blogs', 
+      path: '/blog', 
+      active: currentPath === '/blog',
       badge: null
     },
     { 
