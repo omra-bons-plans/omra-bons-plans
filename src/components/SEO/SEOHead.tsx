@@ -217,13 +217,20 @@ export const seoConfig = {
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
           "applicableCountry": "FR",
-          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
         },
         "shippingDetails": {
           "@type": "OfferShippingDetails",
           "shippingDestination": {
             "@type": "DefinedRegion",
             "addressCountry": "FR"
+          },
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "EUR"
           }
         }
       },

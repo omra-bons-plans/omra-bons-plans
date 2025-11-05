@@ -290,13 +290,20 @@ export default function AdDetails() {
         "@type": "MerchantReturnPolicy",
         "applicableCountry": "FR",
         "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 14
+        "merchantReturnDays": 14,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
         "shippingDestination": {
           "@type": "DefinedRegion",
           "addressCountry": "FR"
+        },
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "EUR"
         },
         "deliveryTime": {
           "@type": "ShippingDeliveryTime",
