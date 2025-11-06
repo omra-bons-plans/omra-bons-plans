@@ -94,6 +94,38 @@ export const useOmraOffers = (filters: FilterOptions) => {
         console.log('[useOmraOffers] Sort by:', filters.sortBy);
         console.log('[useOmraOffers] First 5 dates BEFORE sort:', sortedData.slice(0, 5).map(o => ({ date: o.date_start, title: o.offer_title })));
         
+        // Helper function to get sortable date value
+        const getSortableDate = (offer: OmraOffer): number => {
+          if (offer.date_start) {
+            return new Date(offer.date_start).getTime();
+          }
+          
+          // Fallback: use month_departure to estimate date
+          const monthMap: Record<string, string> = {
+            'Novembre 2025': '2025-11',
+            'Décembre 2025': '2025-12',
+            'Janvier 2026': '2026-01',
+            'Février 2026': '2026-02',
+            'Mars 2026': '2026-03',
+            'Avril 2026': '2026-04',
+            'Mai 2026': '2026-05',
+            'Juin 2026': '2026-06',
+            'Juillet 2026': '2026-07',
+            'Août 2026': '2026-08',
+            'Septembre 2026': '2026-09',
+            'Octobre 2026': '2026-10',
+            'Novembre 2026': '2026-11',
+            'Décembre 2026': '2026-12'
+          };
+          
+          const monthStr = monthMap[offer.month_departure];
+          if (monthStr) {
+            return new Date(`${monthStr}-15`).getTime(); // Use middle of month
+          }
+          
+          return Infinity; // If no date info at all
+        };
+        
         switch (filters.sortBy) {
           case 'price_asc':
             sortedData.sort((a, b) => (a.price_eur || 0) - (b.price_eur || 0));
@@ -109,17 +141,16 @@ export const useOmraOffers = (filters: FilterOptions) => {
             break;
           case 'date_asc':
             sortedData.sort((a, b) => {
-              const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
-              const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
-              console.log('[SORT] Comparing:', a.date_start, '(', dateA, ') vs', b.date_start, '(', dateB, ') => ', dateA - dateB);
+              const dateA = getSortableDate(a);
+              const dateB = getSortableDate(b);
               return dateA - dateB;
             });
             break;
           default:
             // Tri par défaut : date de départ la plus proche
             sortedData.sort((a, b) => {
-              const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
-              const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+              const dateA = getSortableDate(a);
+              const dateB = getSortableDate(b);
               return dateA - dateB;
             });
         }
