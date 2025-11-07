@@ -51,11 +51,13 @@ export const useOmraOffers = (filters: FilterOptions) => {
         setIsLoading(true);
         console.log('[useOmraOffers] Fetching offers with filters:', filters);
         
-        // Requête directe au lieu de RPC
+        // Requête directe au lieu de RPC - filtrer les offres actives et non expirées
+        const today = new Date().toISOString().split('T')[0];
         let query = supabase
           .from('omra_offers')
           .select('id, agency_name, agency_url, price_eur, month_departure, date_start, date_end, departure_city, formula_type, duration_nights, makkah_nights, medina_nights, hotel_makkah, hotel_medinah, distance_to_haram_m, offer_url, board, flights_included, visa_included, offer_title, airline, guide_language, currency_raw, is_complet, is_recommended')
-          .eq('status', 'active');
+          .eq('status', 'active')
+          .or(`date_start.is.null,date_start.gte.${today}`);
 
         // Appliquer les filtres
         if (filters.month) {
