@@ -237,7 +237,7 @@ export const agenciesData: AgencyData[] = [
     name: "Al Bayt",
     url: "https://www.albayt.fr/",
     googleRating: 4.7,
-    reviewCount: 930,
+    reviewCount: 959,
     strengths: [
       "Bonne réputation (13 ans, 98% satisfaction)",
       "Offres variées (Essentielle, Confort, VIP)",
