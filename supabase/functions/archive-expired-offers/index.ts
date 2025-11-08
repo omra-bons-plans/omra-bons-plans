@@ -44,8 +44,8 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({
           success: true,
-          archived_count: 0,
-          message: 'No expired offers to archive',
+          deleted_count: 0,
+          message: 'No expired offers to delete',
         }),
         {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -54,20 +54,20 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Marquer les offres comme expirées
+    // Supprimer les offres expirées
     const offerIds = expiredOffers.map(o => o.id);
     
-    const { error: updateError } = await supabase
+    const { error: deleteError } = await supabase
       .from('omra_offers')
-      .update({ status: 'expired' })
+      .delete()
       .in('id', offerIds);
 
-    if (updateError) {
-      console.error('[archive-expired-offers] Error updating offers:', updateError);
-      throw updateError;
+    if (deleteError) {
+      console.error('[archive-expired-offers] Error deleting offers:', deleteError);
+      throw deleteError;
     }
 
-    console.log(`[archive-expired-offers] Successfully archived ${expiredOffers.length} offers`);
+    console.log(`[archive-expired-offers] Successfully deleted ${expiredOffers.length} offers`);
     console.log('[archive-expired-offers] Archived offers:', expiredOffers.map(o => ({
       title: o.offer_title,
       agency: o.agency_name,
@@ -78,15 +78,15 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: true,
-        archived_count: expiredOffers.length,
-        archived_offers: expiredOffers.map(o => ({
+        deleted_count: expiredOffers.length,
+        deleted_offers: expiredOffers.map(o => ({
           id: o.id,
           agency: o.agency_name,
           title: o.offer_title,
           date_start: o.date_start,
           date_end: o.date_end,
         })),
-        message: `Successfully archived ${expiredOffers.length} expired offer(s)`,
+        message: `Successfully deleted ${expiredOffers.length} expired offer(s)`,
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
