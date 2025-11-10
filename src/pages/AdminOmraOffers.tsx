@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Save, ArrowLeft, Upload, X, Building2, MapPin, Calendar, Plane } from 'lucide-react';
+import { Plus, Save, ArrowLeft, Upload, X, Building2, MapPin, Calendar as CalendarIcon, Plane } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -20,6 +21,9 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import type { DateRange } from 'react-day-picker';
 
 const MONTHS = [
   { value: 'janvier', label: 'Janvier' },
@@ -69,6 +73,7 @@ const AdminOmraOffers = () => {
   const [saving, setSaving] = useState(false);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   
   const [formData, setFormData] = useState<OmraOfferForm>({
     agency_name: '',
@@ -103,6 +108,23 @@ const AdminOmraOffers = () => {
       navigate('/');
     }
   }, [isAdmin, adminLoading, navigate, user]);
+
+  // Mettre à jour formData quand dateRange change
+  useEffect(() => {
+    if (dateRange?.from) {
+      const startDate = format(dateRange.from, 'yyyy-MM-dd');
+      setFormData(prev => ({ ...prev, date_start: startDate }));
+      
+      if (dateRange.to) {
+        const endDate = format(dateRange.to, 'yyyy-MM-dd');
+        setFormData(prev => ({ ...prev, date_end: endDate }));
+        
+        // Calculer automatiquement la durée
+        const nights = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
+        setFormData(prev => ({ ...prev, duration_nights: nights }));
+      }
+    }
+  }, [dateRange]);
 
   const handleLogoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -242,6 +264,7 @@ const AdminOmraOffers = () => {
       });
       setLogoFile(null);
       setLogoPreview(null);
+      setDateRange(undefined);
 
     } catch (error: any) {
       console.error('Error saving offer:', error);
@@ -321,7 +344,7 @@ const AdminOmraOffers = () => {
                     </SelectItem>
                     <SelectItem value="hajj">
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
+                        <CalendarIcon className="h-4 w-4" />
                         <span>Hajj</span>
                       </div>
                     </SelectItem>
@@ -420,7 +443,7 @@ const AdminOmraOffers = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
+                <CalendarIcon className="h-5 w-5" />
                 Détails du séjour
               </CardTitle>
             </CardHeader>
@@ -467,42 +490,63 @@ const AdminOmraOffers = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="date_start">Date de séjour aller *</Label>
-                  <Input
-                    id="date_start"
-                    type="date"
-                    value={formData.date_start}
-                    onChange={(e) => setFormData({ ...formData, date_start: e.target.value })}
-                    required
-                  />
+                  <Label>Dates du séjour (aller et retour) *</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !dateRange && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {dateRange?.from ? (
+                          dateRange.to ? (
+                            <>
+                              {format(dateRange.from, 'dd MMMM yyyy', { locale: fr })} - {format(dateRange.to, 'dd MMMM yyyy', { locale: fr })}
+                            </>
+                          ) : (
+                            format(dateRange.from, 'dd MMMM yyyy', { locale: fr })
+                          )
+                        ) : (
+                          <span>Sélectionner les dates de départ et retour</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="range"
+                        selected={dateRange}
+                        onSelect={setDateRange}
+                        numberOfMonths={2}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <p className="text-xs text-muted-foreground">
+                    {dateRange?.from && dateRange?.to && (
+                      <>Durée: {Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24))} nuits</>
+                    )}
+                  </p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="date_end">Date de séjour retour *</Label>
-                  <Input
-                    id="date_end"
-                    type="date"
-                    value={formData.date_end}
-                    onChange={(e) => setFormData({ ...formData, date_end: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="duration_nights">Nombre de nuits total *</Label>
+                  <Label htmlFor="duration_nights">Nombre de nuits total</Label>
                   <Input
                     id="duration_nights"
                     type="number"
-                    value={formData.duration_nights}
+                    value={formData.duration_nights || ''}
                     onChange={(e) => setFormData({ ...formData, duration_nights: parseInt(e.target.value) || 0 })}
-                    onFocus={(e) => e.target.value === '0' && setFormData({ ...formData, duration_nights: '' as any })}
-                    placeholder="Ex: 9"
-                    required
+                    placeholder="Calculé automatiquement"
+                    disabled
                   />
                   <p className="text-xs text-muted-foreground">
-                    Ou sera calculé automatiquement à partir des dates si non rempli
+                    Calculé automatiquement depuis les dates sélectionnées
                   </p>
                 </div>
               </div>
