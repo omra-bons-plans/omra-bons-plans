@@ -57,6 +57,7 @@ const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
+const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
 
 // Loading component
 const PageLoader = () => (
@@ -183,6 +184,11 @@ const App = () => (
                    <Route path="/admin/omra-management" element={
                      <ProtectedRoute>
                        <AdminOmraManagement />
+                     </ProtectedRoute>
+                   } />
+                   <Route path="/admin/agencies" element={
+                     <ProtectedRoute>
+                       <AdminAgencies />
                      </ProtectedRoute>
                    } />
                    <Route path="/admin/ads" element={
