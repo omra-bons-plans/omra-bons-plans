@@ -540,13 +540,13 @@ const AdminOmraOffers = () => {
                   <Input
                     id="duration_nights"
                     type="number"
+                    min="1"
                     value={formData.duration_nights || ''}
                     onChange={(e) => setFormData({ ...formData, duration_nights: parseInt(e.target.value) || 0 })}
-                    placeholder="Calculé automatiquement"
-                    disabled
+                    placeholder="Calculé automatiquement ou saisir manuellement"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Calculé automatiquement depuis les dates sélectionnées
+                    Calculé automatiquement depuis les dates ou modifiable manuellement
                   </p>
                 </div>
               </div>
