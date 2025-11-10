@@ -20,15 +20,26 @@ Deno.serve(async (req) => {
       .from('agencies')
       .insert({
         name: 'Labbayk',
-        google_rating: 4.5,
-        review_count: 0,
-        url: 'https://labbayk.fr/',
-        highlight: 'Agence spécialisée dans l\'organisation de voyages Omra et Hajj',
+        google_rating: 4.9,
+        review_count: 172,
+        url: 'https://www.labbayk.fr/',
+        highlight: 'Agence parisienne d\'excellence avec note exceptionnelle 4.9/5 et forte dimension spirituelle',
         price_range: 'Standard',
-        specialties: ['Omra', 'Hajj', 'Voyages spirituels'],
-        strengths: ['Service de qualité', 'Accompagnement personnalisé'],
-        weaknesses: [],
-        google_search_url: 'https://www.google.com/search?q=labbayk+omra',
+        specialties: ['Omra guidée spirituelle', 'Hajj', 'Voyages émotionnels', 'Accompagnement personnalisé'],
+        strengths: [
+          'Note exceptionnelle de 4.9/5 sur Google',
+          'Voyages spirituels enrichissants avec temps libre',
+          'Excellent accompagnement et organisation',
+          'Groupes à taille humaine pour une ambiance conviviale',
+          'Équipe à l\'écoute et professionnelle',
+          'Expériences mémorables avec forte dimension spirituelle'
+        ],
+        weaknesses: [
+          'Agence basée uniquement à Paris (17 Rue le Bua, 75020)',
+          'Pas de présence en province',
+          'Moins connue que les grandes agences établies'
+        ],
+        google_search_url: 'https://maps.app.goo.gl/ZhnCgS2mnqaLrjeo7',
         last_review_update: new Date().toISOString()
       })
       .select();

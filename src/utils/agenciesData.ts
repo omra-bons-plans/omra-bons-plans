@@ -295,6 +295,28 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Formules 5★ à prix discount", "Omra économique", "Départs multi-villes", "Spécialiste Ramadan"],
     priceRange: "Économique",
     highlight: "Spécialiste des prix discount sur formules 5★ avec excellente note"
+  },
+  {
+    name: "Labbayk",
+    url: "https://www.labbayk.fr/",
+    googleRating: 4.9,
+    reviewCount: 172,
+    strengths: [
+      "Note exceptionnelle de 4.9/5 sur Google",
+      "Voyages spirituels enrichissants avec temps libre",
+      "Excellent accompagnement et organisation",
+      "Groupes à taille humaine pour une ambiance conviviale",
+      "Équipe à l'écoute et professionnelle",
+      "Expériences mémorables avec forte dimension spirituelle"
+    ],
+    weaknesses: [
+      "Agence basée uniquement à Paris (17 Rue le Bua, 75020)",
+      "Pas de présence en province",
+      "Moins connue que les grandes agences établies"
+    ],
+    specialties: ["Omra guidée spirituelle", "Hajj", "Voyages émotionnels", "Accompagnement personnalisé"],
+    priceRange: "Standard",
+    highlight: "Agence parisienne d'excellence avec note exceptionnelle 4.9/5 et forte dimension spirituelle"
   }
 ];
 

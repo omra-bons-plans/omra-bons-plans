@@ -28,6 +28,7 @@ Deno.serve(async (req) => {
       { name: 'Sabil Voyages', review_count: 147, google_rating: 4.5 },
       { name: 'Gateway Travel', review_count: 19, google_rating: 5.0 },
       { name: 'Omra Discount', review_count: 125, google_rating: null },
+      { name: 'Labbayk', review_count: 172, google_rating: 4.9 },
     ];
 
     const results = [];
