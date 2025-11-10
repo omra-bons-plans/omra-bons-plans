@@ -615,6 +615,35 @@ export default function AdminOmraManagement() {
                 </Select>
               </div>
 
+              {/* Mois de la Omra */}
+              <div>
+                <Label htmlFor="edit-month">Mois de départ</Label>
+                <Select
+                  value={selectedOffer.month_departure}
+                  onValueChange={(value) =>
+                    setSelectedOffer({ ...selectedOffer, month_departure: value })
+                  }
+                >
+                  <SelectTrigger id="edit-month">
+                    <SelectValue placeholder="Sélectionnez un mois" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="janvier">Janvier</SelectItem>
+                    <SelectItem value="février">Février</SelectItem>
+                    <SelectItem value="mars">Mars</SelectItem>
+                    <SelectItem value="avril">Avril</SelectItem>
+                    <SelectItem value="mai">Mai</SelectItem>
+                    <SelectItem value="juin">Juin</SelectItem>
+                    <SelectItem value="juillet">Juillet</SelectItem>
+                    <SelectItem value="août">Août</SelectItem>
+                    <SelectItem value="septembre">Septembre</SelectItem>
+                    <SelectItem value="octobre">Octobre</SelectItem>
+                    <SelectItem value="novembre">Novembre</SelectItem>
+                    <SelectItem value="décembre">Décembre</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Ville de départ */}
               <div>
                 <Label>Ville de départ</Label>
