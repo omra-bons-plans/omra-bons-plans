@@ -15,23 +15,36 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Corrections manuelles des agences bloquées par CAPTCHA
+    // Corrections manuelles des agences
     const updates = [
-      { name: 'Pèlerin Hajj', review_count: 1354 },
-      { name: 'TAWAF', review_count: 1289 },
-      { name: 'Al Bayt', review_count: 959 },
-      { name: 'Omra Pour Tous', review_count: 4822 },
+      { name: 'TAWAF', review_count: 1343, google_rating: null },
+      { name: 'Medin Voyages', review_count: 271, google_rating: null },
+      { name: 'Al Bayt', review_count: 959, google_rating: null },
+      { name: 'Pèlerin Hajj', review_count: 1354, google_rating: null },
+      { name: 'Omra Pour Tous', review_count: 5778, google_rating: null },
+      { name: 'Al Maqam Voyages', review_count: 392, google_rating: null },
+      { name: 'Omra Sounnah', review_count: 309, google_rating: null },
+      { name: 'Al Sirat Voyages', review_count: 1114, google_rating: null },
+      { name: 'Sabil Voyages', review_count: 147, google_rating: 4.5 },
+      { name: 'Gateway Travel', review_count: 19, google_rating: 5.0 },
+      { name: 'Omra Discount', review_count: 125, google_rating: null },
     ];
 
     const results = [];
     
     for (const update of updates) {
+      const updateData: any = {
+        review_count: update.review_count,
+        last_review_update: new Date().toISOString()
+      };
+      
+      if (update.google_rating !== null) {
+        updateData.google_rating = update.google_rating;
+      }
+      
       const { data, error } = await supabase
         .from('agencies')
-        .update({
-          review_count: update.review_count,
-          last_review_update: new Date().toISOString()
-        })
+        .update(updateData)
         .eq('name', update.name)
         .select();
 
