@@ -12,7 +12,6 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, List, Grid3x3, Send } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getAgencyInfo } from '@/utils/agenciesData';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
@@ -164,6 +163,36 @@ export default function ComparateurOmra() {
       };
     }
   });
+
+  // Fetch agencies data from database
+  const { data: agenciesFromDb } = useQuery({
+    queryKey: ['agencies'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('agencies')
+        .select('name, google_rating, review_count, url, strengths, weaknesses, specialties, price_range, highlight');
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Helper function to get agency info from database
+  const getAgencyInfo = (agencyName: string) => {
+    if (!agenciesFromDb) return null;
+    const agency = agenciesFromDb.find(a => a.name === agencyName);
+    if (!agency) return null;
+    return {
+      name: agency.name,
+      url: agency.url,
+      googleRating: agency.google_rating,
+      reviewCount: agency.review_count,
+      strengths: agency.strengths,
+      weaknesses: agency.weaknesses,
+      specialties: agency.specialties,
+      priceRange: agency.price_range,
+      highlight: agency.highlight
+    };
+  };
 
   const toggleAgency = (agency: string) => {
     setSelectedAgencies(prev => {
