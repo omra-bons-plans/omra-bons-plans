@@ -136,11 +136,20 @@ verify_jwt = false
 [functions.archive-expired-offers]
 verify_jwt = false
 
+[functions.update-agency-reviews]
+verify_jwt = false
+
 # Scheduled function to archive expired Omra offers daily
 [[edge_runtime.scheduled_functions]]
 name = "archive-expired-offers"
 # Run every day at 02:00 UTC
 schedule = "0 2 * * *"
+
+# Scheduled function to update agency reviews every 10 days
+[[edge_runtime.scheduled_functions]]
+name = "update-agency-reviews"
+# Run every 10 days at 03:00 UTC
+schedule = "0 3 */10 * *"
 
 # Scheduled function for weekly Omra offers refresh - DISABLED
 # [[edge_runtime.scheduled_functions]]

@@ -500,6 +500,57 @@ export type Database = {
           },
         ]
       }
+      agencies: {
+        Row: {
+          created_at: string
+          google_rating: number
+          google_search_url: string | null
+          highlight: string
+          id: string
+          last_review_update: string | null
+          name: string
+          price_range: string
+          review_count: number
+          specialties: string[]
+          strengths: string[]
+          updated_at: string
+          url: string
+          weaknesses: string[]
+        }
+        Insert: {
+          created_at?: string
+          google_rating?: number
+          google_search_url?: string | null
+          highlight: string
+          id?: string
+          last_review_update?: string | null
+          name: string
+          price_range: string
+          review_count?: number
+          specialties?: string[]
+          strengths?: string[]
+          updated_at?: string
+          url: string
+          weaknesses?: string[]
+        }
+        Update: {
+          created_at?: string
+          google_rating?: number
+          google_search_url?: string | null
+          highlight?: string
+          id?: string
+          last_review_update?: string | null
+          name?: string
+          price_range?: string
+          review_count?: number
+          specialties?: string[]
+          strengths?: string[]
+          updated_at?: string
+          url?: string
+          weaknesses?: string[]
+        }
+        Relationships: []
+      }
       airline_presets: {
         Row: {
           airline_name: string
