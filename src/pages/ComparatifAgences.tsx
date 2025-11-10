@@ -11,19 +11,46 @@ import {
   TableHeader, 
   TableRow 
 } from '@/components/ui/table';
-import { Star, Search, ExternalLink } from 'lucide-react';
+import { Star, Search, ExternalLink, Loader2 } from 'lucide-react';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { agenciesData } from '@/utils/agenciesData';
 import { useIsMobile } from '@/hooks/use-mobile';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function ComparatifAgences() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'name'>('rating');
   const isMobile = useIsMobile();
   
-  const filteredAgencies = agenciesData
+  // Charger les données depuis la base de données
+  const { data: dbAgencies, isLoading } = useQuery({
+    queryKey: ['agencies-comparison'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('agencies')
+        .select('name, url, google_rating, review_count, strengths, weaknesses, specialties, price_range, highlight');
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Mapper les données de la DB au format attendu, sinon fallback sur les données statiques
+  const agencies = dbAgencies ? dbAgencies.map(agency => ({
+    name: agency.name,
+    url: agency.url,
+    googleRating: agency.google_rating,
+    reviewCount: agency.review_count,
+    strengths: agency.strengths,
+    weaknesses: agency.weaknesses,
+    specialties: agency.specialties,
+    priceRange: agency.price_range,
+    highlight: agency.highlight
+  })) : agenciesData;
+  
+  const filteredAgencies = agencies
     .filter(agency => 
       agency.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       agency.specialties.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -137,6 +164,12 @@ export default function ComparatifAgences() {
           </div>
 
           {/* Mobile Card View (visible on small screens) */}
+          {isLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <>
           <div className="block lg:hidden space-y-3">
             {filteredAgencies.map((agency) => (
               <Card key={agency.name} className="p-3 hover:shadow-md transition-shadow">
@@ -290,6 +323,8 @@ export default function ComparatifAgences() {
             </div>
             </CardContent>
           </Card>
+            </>
+          )}
         </div>
       </div>
     </ResponsiveLayout>
