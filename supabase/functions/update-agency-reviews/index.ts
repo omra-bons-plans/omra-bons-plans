@@ -90,11 +90,20 @@ Deno.serve(async (req) => {
 
         console.log(`[update-agency-reviews] Content length for ${agency.name}:`, content.length);
 
-        // Extraire la note et le nombre d'avis avec regex
-        // Format Google: "4,9★" ou "4.9★" suivi de "(1 289)" ou "(1289)"
+        // Extraire la note et le nombre d'avis avec regex améliorées
+        // Format Google: "4,9★" ou "4.9★" suivi de "(1 289)" ou "(1289)" ou "1 289 avis"
+        
+        // Recherche de la note (4.9★ ou 4,9★)
         const ratingMatch = content.match(/([0-9][,.]?[0-9]?)[\s]*[★⭐]/);
-        const reviewMatch = content.match(/\([\s]*([0-9\s.]+)[\s]*\)/);
-
+        
+        // Recherche du nombre d'avis - plusieurs formats possibles:
+        // "(1 289)" ou "(1289)" ou "1 289 avis" ou "1289 avis"
+        const reviewPatterns = [
+          /\([\s]*([0-9\s,.]+)[\s]*\)/,  // Format: (1 289) ou (1,289)
+          /([0-9\s,.]+)[\s]*avis/i,       // Format: 1 289 avis
+          /([0-9\s,.]+)[\s]*reviews?/i,   // Format: 1,289 reviews
+        ];
+        
         let newRating = agency.google_rating;
         let newReviewCount = agency.review_count;
 
@@ -102,12 +111,30 @@ Deno.serve(async (req) => {
           const ratingStr = ratingMatch[1].replace(',', '.');
           newRating = parseFloat(ratingStr);
           console.log(`[update-agency-reviews] Found rating for ${agency.name}:`, newRating);
+        } else {
+          console.log(`[update-agency-reviews] No rating found for ${agency.name}`);
+        }
+
+        // Essayer chaque pattern pour trouver le nombre d'avis
+        let reviewMatch = null;
+        for (const pattern of reviewPatterns) {
+          reviewMatch = content.match(pattern);
+          if (reviewMatch) break;
         }
 
         if (reviewMatch) {
-          const reviewStr = reviewMatch[1].replace(/[\s.]/g, '');
-          newReviewCount = parseInt(reviewStr, 10);
-          console.log(`[update-agency-reviews] Found reviews for ${agency.name}:`, newReviewCount);
+          // Nettoyer le nombre: supprimer espaces, virgules, points (sauf si décimal)
+          const reviewStr = reviewMatch[1].replace(/[\s,.]/g, '');
+          const parsedCount = parseInt(reviewStr, 10);
+          
+          if (!isNaN(parsedCount) && parsedCount > 0) {
+            newReviewCount = parsedCount;
+            console.log(`[update-agency-reviews] Found reviews for ${agency.name}:`, newReviewCount);
+          } else {
+            console.log(`[update-agency-reviews] Invalid review count for ${agency.name}:`, reviewMatch[1]);
+          }
+        } else {
+          console.log(`[update-agency-reviews] No reviews found for ${agency.name}`);
         }
 
         // Mettre à jour dans la base de données
