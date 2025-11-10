@@ -596,6 +596,25 @@ export default function AdminOmraManagement() {
                 </div>
               </div>
 
+              {/* Type de séjour */}
+              <div>
+                <Label htmlFor="edit-formula">Type de séjour</Label>
+                <Select
+                  value={selectedOffer.formula_type}
+                  onValueChange={(value) =>
+                    setSelectedOffer({ ...selectedOffer, formula_type: value })
+                  }
+                >
+                  <SelectTrigger id="edit-formula">
+                    <SelectValue placeholder="Sélectionnez un type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="essentiel">Essentiel</SelectItem>
+                    <SelectItem value="confort">Confort</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Ville de départ */}
               <div>
                 <Label>Ville de départ</Label>
