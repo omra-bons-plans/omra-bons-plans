@@ -272,8 +272,8 @@ const Index = () => {
 
       <div className="min-h-screen bg-background p-0 m-0">
 
-      {/* Hero Section - Mobile First avec dimensions fixes - Pas d'espace en haut */}
-      <section className="hero-wrapper gap-kill md:mt-[64px] lg:mt-[80px]" style={{ minHeight: isMobile ? '100vh' : '600px', aspectRatio: isMobile ? '9/16' : '16/9', marginTop: isMobile ? '0' : undefined }}>
+      {/* Hero Section - Mobile First - commence directement sous le header */}
+      <section className="hero-wrapper" style={{ minHeight: isMobile ? '100vh' : '600px', aspectRatio: isMobile ? '9/16' : '16/9' }}>
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
             {/* Mobile: Image optimisée 750x1334 */}

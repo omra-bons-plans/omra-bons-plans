@@ -246,6 +246,14 @@
     background-position: center top;
   }
 
+  /* Mobile: Hero commence sous le header fixe */
+  @media (max-width: 767px) {
+    .hero-wrapper {
+      margin-top: 52px !important;
+      padding-top: 0 !important;
+    }
+  }
+
   /* Hero images */
   .hero img, .section-hero img, .hero-wrapper img {
     display: block !important;
