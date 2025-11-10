@@ -154,6 +154,9 @@ verify_jwt = false
 [functions.update-labbayk-agency]
 verify_jwt = false
 
+[functions.publish-scheduled-posts]
+verify_jwt = false
+
 # Scheduled function to archive expired Omra offers daily
 [[edge_runtime.scheduled_functions]]
 name = "archive-expired-offers"
@@ -171,3 +174,9 @@ schedule = "0 3 */10 * *"
 # name = "weekly-omra-refresh"
 # # Every Thursday at 06:00 Europe/Paris (04:00 or 05:00 UTC depending on DST)
 # schedule = "0 4-5 * * 4"
+
+# Scheduled function to publish blog posts at their scheduled time
+[[edge_runtime.scheduled_functions]]
+name = "publish-scheduled-posts"
+# Run every 15 minutes to check for posts to publish
+schedule = "*/15 * * * *"
