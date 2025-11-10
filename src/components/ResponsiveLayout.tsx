@@ -13,9 +13,9 @@ const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
 
   if (isMobile) {
     return (
-      <div className="min-h-screen bg-background m-0 p-0">
+      <div className="min-h-screen bg-background" style={{ margin: 0, padding: 0 }}>
         <MobileSidebar />
-        <main className="pb-20 pt-0 m-0">
+        <main className="pb-20" style={{ paddingTop: 0, margin: 0 }}>
           {children}
         </main>
         <MobileBottomNav />
