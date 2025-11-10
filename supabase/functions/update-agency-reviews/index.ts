@@ -93,46 +93,73 @@ Deno.serve(async (req) => {
         // Extraire la note et le nombre d'avis avec regex améliorées
         // Format Google: "4,9★" ou "4.9★" suivi de "(1 289)" ou "(1289)" ou "1 289 avis"
         
-        // Recherche de la note (4.9★ ou 4,9★)
-        const ratingMatch = content.match(/([0-9][,.]?[0-9]?)[\s]*[★⭐]/);
-        
-        // Recherche du nombre d'avis - plusieurs formats possibles:
-        // "(1 289)" ou "(1289)" ou "1 289 avis" ou "1289 avis"
-        const reviewPatterns = [
-          /\([\s]*([0-9\s,.]+)[\s]*\)/,  // Format: (1 289) ou (1,289)
-          /([0-9\s,.]+)[\s]*avis/i,       // Format: 1 289 avis
-          /([0-9\s,.]+)[\s]*reviews?/i,   // Format: 1,289 reviews
-        ];
-        
         let newRating = agency.google_rating;
         let newReviewCount = agency.review_count;
-
-        if (ratingMatch) {
-          const ratingStr = ratingMatch[1].replace(',', '.');
-          newRating = parseFloat(ratingStr);
-          console.log(`[update-agency-reviews] Found rating for ${agency.name}:`, newRating);
-        } else {
-          console.log(`[update-agency-reviews] No rating found for ${agency.name}`);
-        }
-
-        // Essayer chaque pattern pour trouver le nombre d'avis
-        let reviewMatch = null;
-        for (const pattern of reviewPatterns) {
-          reviewMatch = content.match(pattern);
-          if (reviewMatch) break;
-        }
-
-        if (reviewMatch) {
-          // Nettoyer le nombre: supprimer espaces, virgules, points (sauf si décimal)
-          const reviewStr = reviewMatch[1].replace(/[\s,.]/g, '');
-          const parsedCount = parseInt(reviewStr, 10);
-          
-          if (!isNaN(parsedCount) && parsedCount > 0) {
-            newReviewCount = parsedCount;
-            console.log(`[update-agency-reviews] Found reviews for ${agency.name}:`, newReviewCount);
-          } else {
-            console.log(`[update-agency-reviews] Invalid review count for ${agency.name}:`, reviewMatch[1]);
+        
+        // Recherche de la note avec pattern plus flexible
+        // Chercher un nombre décimal (avec virgule ou point) suivi d'une étoile
+        const ratingPatterns = [
+          /([0-9])[,.]([0-9])[\s]*[★⭐]/g,  // Format: 4,9★ ou 4.9★
+          /([0-9])[\s]*[★⭐]/g,              // Format: 5★
+        ];
+        
+        for (const pattern of ratingPatterns) {
+          const matches = Array.from(content.matchAll(pattern));
+          if (matches.length > 0) {
+            const match = matches[0];
+            if (match.length > 2 && match[2]) {
+              // Note décimale trouvée
+              newRating = parseFloat(`${match[1]}.${match[2]}`);
+            } else {
+              // Note entière trouvée
+              newRating = parseFloat(match[1]);
+            }
+            console.log(`[update-agency-reviews] Found rating for ${agency.name}:`, newRating);
+            break;
           }
+        }
+        
+        // Recherche du nombre d'avis avec plusieurs stratégies
+        // Stratégie 1: Chercher tous les nombres de 2+ chiffres dans le texte
+        const allNumbers = content.matchAll(/([0-9]{1}[\s\u00A0]*[0-9]{3}[\s\u00A0]*[0-9]{0,3}|[0-9]{3,})/g);
+        const foundNumbers: number[] = [];
+        
+        for (const match of allNumbers) {
+          // Nettoyer: supprimer espaces et espaces insécables
+          const cleanNum = match[1].replace(/[\s\u00A0,.]/g, '');
+          const num = parseInt(cleanNum, 10);
+          if (!isNaN(num) && num >= 10 && num <= 50000) {
+            // Plage réaliste pour nombre d'avis
+            foundNumbers.push(num);
+          }
+        }
+        
+        // Stratégie 2: Chercher spécifiquement près d'une étoile ou du mot "avis"
+        const contextPatterns = [
+          /([0-9]{1}[\s\u00A0]*[0-9]{3}[\s\u00A0]*[0-9]{0,3})[\s\u00A0]*avis/gi,
+          /\([\s\u00A0]*([0-9]{1}[\s\u00A0]*[0-9]{3}[\s\u00A0]*[0-9]{0,3})[\s\u00A0]*\)/g,
+          /[★⭐][\s\u00A0]*\(?([0-9]{1}[\s\u00A0]*[0-9]{3}[\s\u00A0]*[0-9]{0,3})\)?/g,
+        ];
+        
+        const contextNumbers: number[] = [];
+        for (const pattern of contextPatterns) {
+          const matches = Array.from(content.matchAll(pattern));
+          for (const match of matches) {
+            const cleanNum = match[1].replace(/[\s\u00A0,.]/g, '');
+            const num = parseInt(cleanNum, 10);
+            if (!isNaN(num) && num >= 10 && num <= 50000) {
+              contextNumbers.push(num);
+            }
+          }
+        }
+        
+        // Prioriser les nombres trouvés dans un contexte, sinon prendre le plus grand
+        if (contextNumbers.length > 0) {
+          newReviewCount = Math.max(...contextNumbers);
+          console.log(`[update-agency-reviews] Found reviews (context) for ${agency.name}:`, newReviewCount);
+        } else if (foundNumbers.length > 0) {
+          newReviewCount = Math.max(...foundNumbers);
+          console.log(`[update-agency-reviews] Found reviews (general) for ${agency.name}:`, newReviewCount);
         } else {
           console.log(`[update-agency-reviews] No reviews found for ${agency.name}`);
         }
