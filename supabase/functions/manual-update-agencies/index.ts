@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
       { name: 'Omra Pour Tous', review_count: 5778, google_rating: null },
       { name: 'Al Maqam Voyages', review_count: 392, google_rating: null },
       { name: 'Omra Sounnah', review_count: 309, google_rating: null },
-      { name: 'Al Sirat Voyages', review_count: 1114, google_rating: null },
+      { name: 'Al Sirate Voyage', review_count: 1114, google_rating: null },
       { name: 'Sabil Voyages', review_count: 147, google_rating: 4.5 },
       { name: 'Gateway Travel', review_count: 19, google_rating: 5.0 },
       { name: 'Omra Discount', review_count: 125, google_rating: null },
