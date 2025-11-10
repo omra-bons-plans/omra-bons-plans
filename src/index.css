@@ -246,14 +246,6 @@
     background-position: center top;
   }
 
-  /* Mobile: Hero commence sous le header fixe */
-  @media (max-width: 767px) {
-    .hero-wrapper {
-      margin-top: 52px !important;
-      padding-top: 0 !important;
-    }
-  }
-
   /* Hero images */
   .hero img, .section-hero img, .hero-wrapper img {
     display: block !important;
@@ -269,16 +261,15 @@
     margin-top: -1px !important;
   }
 
-  /* Mobile: Hero remonte de 24px pour coller au header */
-  @media (max-width: 1023px) {
-    .hero, .section-hero, .hero-wrapper {
-      margin-top: -52px !important;
+  /* Mobile: Hero commence directement sous le header */
+  @media (max-width: 767px) {
+    .hero-wrapper {
+      margin-top: 52px !important;
+      padding-top: 0 !important;
     }
     
-    .hero .hero-overlay,
-    .section-hero .hero-overlay,
     .hero-wrapper .hero-overlay {
-      padding-top: calc(52px + 0.5rem) !important;
+      padding-top: 0 !important;
     }
   }
 
