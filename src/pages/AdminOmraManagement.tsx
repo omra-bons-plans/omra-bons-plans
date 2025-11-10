@@ -131,7 +131,7 @@ export default function AdminOmraManagement() {
       const { data, error } = await supabase
         .from("omra_offers")
         .select("*")
-        .order("scraped_at", { ascending: false });
+        .order("date_start", { ascending: true, nullsFirst: false });
 
       if (error) throw error;
 
