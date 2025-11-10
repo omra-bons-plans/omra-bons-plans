@@ -142,6 +142,12 @@ verify_jwt = false
 [functions.manual-update-agencies]
 verify_jwt = false
 
+[functions.rename-agency]
+verify_jwt = false
+
+[functions.add-sabile-agency]
+verify_jwt = false
+
 # Scheduled function to archive expired Omra offers daily
 [[edge_runtime.scheduled_functions]]
 name = "archive-expired-offers"
