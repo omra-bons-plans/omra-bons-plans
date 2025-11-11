@@ -261,15 +261,15 @@
     margin-top: -1px !important;
   }
 
-  /* Mobile: Hero commence directement sous le header */
+  /* Mobile: Hero commence à top 0, header flotte au-dessus */
   @media (max-width: 767px) {
     .hero-wrapper {
-      margin-top: 52px !important;
+      margin-top: 0 !important;
       padding-top: 0 !important;
     }
     
     .hero-wrapper .hero-overlay {
-      padding-top: 0 !important;
+      padding-top: 52px !important;
     }
   }
 

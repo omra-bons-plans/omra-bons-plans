@@ -304,7 +304,7 @@ const Index = () => {
         
         <div className="hero-overlay">
           <div className="container mx-auto px-4 md:px-6 relative z-20">
-            <div className="flex flex-col items-center justify-center text-center pt-4 pb-8 md:pt-20 md:pb-12">
+            <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
               <div className="space-y-6 md:space-y-10 w-full px-2">
                 <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold leading-tight">
                   <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Tous les services</span><br />
