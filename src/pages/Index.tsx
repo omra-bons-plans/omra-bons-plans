@@ -270,15 +270,21 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="min-h-screen bg-background p-0 m-0">
+      {/* Container principal - ZERO ESPACE sur mobile */}
+      <div className="min-h-screen bg-background" style={{ padding: 0, margin: 0 }}>
 
-      {/* Hero Section - Mobile First - ZERO ESPACE au-dessus */}
-      <section className="hero-wrapper" style={{ 
-        minHeight: isMobile ? '100vh' : '600px', 
-        aspectRatio: isMobile ? '9/16' : '16/9',
-        marginTop: 0,
-        paddingTop: 0
-      }}>
+      {/* Hero Section - Position ABSOLUE au top sur mobile */}
+      <section 
+        className="hero-wrapper" 
+        style={{ 
+          minHeight: isMobile ? '100vh' : '600px', 
+          aspectRatio: isMobile ? '9/16' : '16/9',
+          margin: 0,
+          padding: 0,
+          position: 'relative',
+          top: 0
+        }}
+      >
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
             {/* Mobile: Image optimisée 750x1334 */}

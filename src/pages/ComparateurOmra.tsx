@@ -428,9 +428,10 @@ export default function ComparateurOmra() {
         ]}
       />
 
-      {/* Hero Section - Commence directement sous le header mobile */}
+      {/* Hero Section - ZERO ESPACE au-dessus sur mobile */}
       <div 
-        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden mt-[52px] md:mt-0"
+        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden"
+        style={{ marginTop: 0 }}
       >
         <OptimizedHeroImage 
           mobileWidth={750}
