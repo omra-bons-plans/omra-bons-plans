@@ -267,35 +267,24 @@
     main {
       margin-top: 0 !important;
       padding-top: 0 !important;
-      display: block !important;
-    }
-    
-    /* TOUS les premiers enfants de main = zéro espace */
-    main > *:first-child {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
     }
     
     /* Hero wrapper remonte complètement au top */
-    .hero-wrapper,
-    main > div:first-child {
+    .hero-wrapper {
       position: relative !important;
       margin-top: 0 !important;
       padding-top: 0 !important;
       top: 0 !important;
     }
     
-    /* Le contenu texte du hero a un padding pour ne pas être caché par le header fixe (52px) */
-    .hero-wrapper .hero-overlay,
-    .hero-wrapper > div:not(.hero-media) {
+    /* Le contenu texte a un padding pour ne pas être caché par le header fixe (52px) */
+    .hero-wrapper .hero-overlay {
       padding-top: 60px !important;
     }
     
     /* Forcer la suppression de tout espace avant le hero */
     .hero-wrapper::before,
-    .hero-wrapper::after,
-    main > div:first-child::before,
-    main > div:first-child::after {
+    .hero-wrapper::after {
       display: none !important;
       content: none !important;
     }

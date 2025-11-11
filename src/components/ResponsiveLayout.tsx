@@ -15,7 +15,7 @@ const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
     return (
       <div className="min-h-screen bg-background" style={{ margin: 0, padding: 0 }}>
         <MobileSidebar />
-        <main style={{ paddingTop: 0, paddingBottom: '80px', margin: 0, display: 'block' }}>
+        <main style={{ paddingTop: 0, paddingBottom: '80px', margin: 0 }}>
           {children}
         </main>
         <MobileBottomNav />
