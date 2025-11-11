@@ -261,15 +261,29 @@
     margin-top: -1px !important;
   }
 
-  /* Mobile: Hero commence à top 0, header flotte au-dessus */
+  /* Mobile: Hero remonte AGRESSIVEMENT pour toucher le header */
   @media (max-width: 767px) {
+    /* Force le hero à partir du haut absolu */
     .hero-wrapper {
+      margin-top: -200px !important;
+      padding-top: 200px !important;
+    }
+    
+    /* Le contenu texte reste visible sous le header fixe */
+    .hero-wrapper .hero-overlay {
+      padding-top: 52px !important;
+    }
+    
+    /* Assurer que main ne crée pas d'espace */
+    main {
       margin-top: 0 !important;
       padding-top: 0 !important;
     }
     
-    .hero-wrapper .hero-overlay {
-      padding-top: 52px !important;
+    /* Le premier enfant de main (hero) n'a pas de marge */
+    main > section:first-child,
+    main > div:first-child {
+      margin-top: 0 !important;
     }
   }
 
