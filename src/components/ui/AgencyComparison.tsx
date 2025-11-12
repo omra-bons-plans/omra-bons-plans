@@ -340,6 +340,28 @@ const agenciesFeatures: AgencyFeatures[] = [
       tarifsClairs: true,
       optionsPersonnalisees: false
     }
+  },
+  {
+    name: "OMRA GATE",
+    url: "https://www.omragate.com/",
+    googleRating: 4.9,
+    reviewCount: 96,
+    priceRange: "Standard",
+    highlight: "Service personnalisé de qualité",
+    features: {
+      formulesToutInclus: true,
+      guidesExperience: true,
+      hotelsProximiteMosquees: true,
+      departsMultiVilles: false,
+      accompagnementSpirituel: true,
+      organisationLogistique: true,
+      serviceClientReactif: true,
+      groupesTailleHumaine: true,
+      dimensionEducative: false,
+      agenceAgreee: true,
+      tarifsClairs: true,
+      optionsPersonnalisees: true
+    }
   }
 ];
 

@@ -317,6 +317,25 @@ export const agenciesData: AgencyData[] = [
     specialties: ["Omra guidée spirituelle", "Hajj", "Voyages émotionnels", "Accompagnement personnalisé"],
     priceRange: "Standard",
     highlight: "Agence parisienne d'excellence avec note exceptionnelle 4.9/5 et forte dimension spirituelle"
+  },
+  {
+    name: "OMRA GATE",
+    url: "https://www.omragate.com/",
+    googleRating: 4.9,
+    reviewCount: 96,
+    strengths: [
+      "Excellente note Google de 4.9/5",
+      "Service personnalisé et accompagnement attentif",
+      "Organisation soignée et professionnelle",
+      "Bonne réactivité du service client"
+    ],
+    weaknesses: [
+      "Base d'avis plus limitée que grandes agences établies",
+      "Moins de visibilité sur le marché"
+    ],
+    specialties: ["Omra organisée", "Accompagnement personnalisé", "Service de qualité"],
+    priceRange: "Standard",
+    highlight: "Service personnalisé avec excellente note 4.9/5"
   }
 ];
 
