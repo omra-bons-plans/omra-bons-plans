@@ -10,9 +10,9 @@ const corsHeaders = {
 };
 
 interface FeedbackEmailRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
+  prenom: string;
+  nom: string;
+  mail: string;
   message: string;
 }
 
@@ -23,16 +23,16 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { firstName, lastName, email, message }: FeedbackEmailRequest = await req.json();
+    const { prenom, nom, mail, message }: FeedbackEmailRequest = await req.json();
 
-    console.log("Received feedback:", { firstName, lastName, email, messageLength: message.length });
+    console.log("Received feedback:", { prenom, nom, mail, messageLength: message.length });
 
     // Send email to admin
     const adminEmailResponse = await resend.emails.send({
       from: "OmraBonsPlans <contact@omrabonsplans.fr>",
       to: ["contact@omrabonsplans.fr"],
-      reply_to: email,
-      subject: `Nouveau feedback de ${firstName} ${lastName}`,
+      reply_to: mail,
+      subject: `Nouveau feedback de ${prenom} ${nom}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h2 style="color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">
@@ -40,9 +40,9 @@ const handler = async (req: Request): Promise<Response> => {
           </h2>
           
           <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <p><strong>Prénom :</strong> ${firstName}</p>
-            <p><strong>Nom :</strong> ${lastName}</p>
-            <p><strong>Email :</strong> <a href="mailto:${email}">${email}</a></p>
+            <p><strong>Prénom :</strong> ${prenom}</p>
+            <p><strong>Nom :</strong> ${nom}</p>
+            <p><strong>Email :</strong> <a href="mailto:${mail}">${mail}</a></p>
           </div>
           
           <div style="margin: 20px 0;">
@@ -64,10 +64,10 @@ const handler = async (req: Request): Promise<Response> => {
     // Send confirmation email to user
     const userEmailResponse = await resend.emails.send({
       from: "OmraBonsPlans <contact@omrabonsplans.fr>",
-      to: [email],
+      to: [mail],
       subject: "Merci pour votre message !",
       html: `
-        <h1>Bonjour ${firstName},</h1>
+        <h1>Bonjour ${prenom},</h1>
         <p>Nous avons bien reçu votre message et vous en remercions !</p>
         
         <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
