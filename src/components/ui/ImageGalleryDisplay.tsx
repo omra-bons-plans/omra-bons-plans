@@ -20,10 +20,11 @@ export const ImageGalleryDisplay = ({
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [initialImageIndex, setInitialImageIndex] = useState(0);
 
-  // Combine cover image and additional images (keep as paths)
+  // Combine cover image and additional images, filter out empty/null values
+  const validImages = images.filter(img => img && img.trim() !== '');
   const allImagePaths = coverImage 
-    ? [coverImage, ...images.filter(img => img !== coverImage)]
-    : images;
+    ? [coverImage, ...validImages.filter(img => img !== coverImage)]
+    : validImages;
 
   const handleImageClick = (index: number) => {
     setInitialImageIndex(index);
