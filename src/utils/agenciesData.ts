@@ -324,18 +324,30 @@ export const agenciesData: AgencyData[] = [
     googleRating: 4.9,
     reviewCount: 96,
     strengths: [
-      "Excellente note Google de 4.9/5",
-      "Service personnalisé et accompagnement attentif",
-      "Organisation soignée et professionnelle",
-      "Bonne réactivité du service client"
+      "Excellente note Google de 4.9/5 avec 96 avis vérifiés",
+      "Service personnalisé et accompagnement attentif tout au long du voyage",
+      "Organisation soignée et professionnelle reconnue par les pèlerins",
+      "Réactivité exceptionnelle du service client disponible 7j/7",
+      "Hôtels de qualité proche du Haram à la Mecque et Médine",
+      "Équipe francophone expérimentée et bienveillante",
+      "Formules flexibles adaptées aux besoins des pèlerins",
+      "Transparence tarifaire avec tarifs tout inclus clairs"
     ],
     weaknesses: [
-      "Base d'avis plus limitée que grandes agences établies",
-      "Moins de visibilité sur le marché"
+      "Agence plus récente avec base d'avis en développement",
+      "Moins de présence marketing que grandes agences établies",
+      "Options de départ limitées à certaines villes principales"
     ],
-    specialties: ["Omra organisée", "Accompagnement personnalisé", "Service de qualité"],
+    specialties: [
+      "Omra organisée tout inclus", 
+      "Accompagnement personnalisé francophone",
+      "Séjours spirituels sur mesure",
+      "Service de qualité premium",
+      "Voyages de groupe à taille humaine",
+      "Formules économiques et confort"
+    ],
     priceRange: "Standard",
-    highlight: "Service personnalisé avec excellente note 4.9/5"
+    highlight: "Agence de qualité avec service personnalisé et note exceptionnelle 4.9/5 - Accompagnement francophone 7j/7"
   }
 ];
 
