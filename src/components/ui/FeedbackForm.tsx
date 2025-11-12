@@ -7,17 +7,17 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 interface FeedbackFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
+  prenom: string;
+  nom: string;
+  mail: string;
   message: string;
 }
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState<FeedbackFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
+    prenom: "",
+    nom: "",
+    mail: "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,7 +33,7 @@ const FeedbackForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
+    if (!formData.prenom || !formData.nom || !formData.mail || !formData.message) {
       toast.error("Veuillez remplir tous les champs");
       return;
     }
@@ -55,9 +55,9 @@ const FeedbackForm = () => {
       
       // Reset form
       setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
+        prenom: "",
+        nom: "",
+        mail: "",
         message: ""
       });
 
@@ -81,9 +81,9 @@ const FeedbackForm = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <Input
-                name="firstName"
+                name="prenom"
                 placeholder="Prénom *"
-                value={formData.firstName}
+                value={formData.prenom}
                 onChange={handleInputChange}
                 className="glass text-foreground border-0 py-3 px-4 rounded-xl"
                 required
@@ -91,9 +91,9 @@ const FeedbackForm = () => {
             </div>
             <div>
               <Input
-                name="lastName"
+                name="nom"
                 placeholder="Nom *"
-                value={formData.lastName}
+                value={formData.nom}
                 onChange={handleInputChange}
                 className="glass text-foreground border-0 py-3 px-4 rounded-xl"
                 required
@@ -103,10 +103,10 @@ const FeedbackForm = () => {
           
           <div>
             <Input
-              name="email"
+              name="mail"
               type="email"
               placeholder="Votre email *"
-              value={formData.email}
+              value={formData.mail}
               onChange={handleInputChange}
               className="glass text-foreground border-0 py-3 px-4 rounded-xl"
               required
