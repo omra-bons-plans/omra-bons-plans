@@ -6,6 +6,7 @@ import GuideFormMultiStep from "@/components/forms/GuideFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const GuideDetails = () => {
   const navigate = useNavigate();
@@ -272,6 +273,12 @@ const GuideDetails = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier Annonce Guide Spirituel Omra & Hajj | Accompagnement"
+        description="Proposez vos services de guide spirituel pour accompagner les pèlerins durant leur Omra ou Hajj. Publiez gratuitement votre annonce de guide religieux à La Mecque."
+        keywords={['guide omra', 'accompagnateur hajj', 'guide spirituel mecque', 'mourchid omra', 'accompagnement pèlerinage']}
+        path="/publish/guides"
+      />
       <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
         {loading ? (
           <div className="flex items-center justify-center py-12">

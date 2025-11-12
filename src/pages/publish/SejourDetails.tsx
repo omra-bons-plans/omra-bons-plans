@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import SejourFormMultiStep from "@/components/forms/SejourFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const SejourDetails = () => {
   const navigate = useNavigate();
@@ -471,6 +472,12 @@ const SejourDetails = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier Offre Séjour Omra Complet | Package Hajj Tout Inclus"
+        description="Publiez votre offre de séjour Omra tout compris : vol, hôtel, visa et accompagnement. Proposez vos packages Omra Confort, Essentiel ou Éco aux pèlerins français."
+        keywords={['publier séjour omra', 'package omra', 'offre hajj', 'séjour tout compris', 'voyage organisé pèlerinage']}
+        path="/publish/sejours"
+      />
       <PublishLayout currentStep={currentStep} totalSteps={7} steps={steps}>
         <SejourFormMultiStep 
           formulaType={formulaType}

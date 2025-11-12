@@ -6,6 +6,7 @@ import VolFormMultiStep from "@/components/forms/VolFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const VolDetails = () => {
   const navigate = useNavigate();
@@ -265,6 +266,12 @@ const VolDetails = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier Billet d'Avion Omra & Hajj | Vol Paris Djeddah Médine"
+        description="Proposez des billets d'avion pour l'Omra et le Hajj depuis la France vers Djeddah, Médine ou La Mecque. Publiez gratuitement vos offres de vols pour pèlerins."
+        keywords={['vol omra', 'billet avion hajj', 'vol paris djeddah', 'vol médine', 'billet pèlerinage']}
+        path="/publish/vols"
+      />
       <PublishLayout currentStep={2} totalSteps={7} steps={steps}>
         {loading ? (
           <div className="flex items-center justify-center py-12">

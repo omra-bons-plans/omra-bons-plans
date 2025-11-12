@@ -13,6 +13,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import { ImageComponent } from '@/components/ui/ImageComponent';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface UserAd {
   id: string;
@@ -242,6 +243,12 @@ const MyAds = () => {
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title="Mes Annonces Omra & Hajj | Gestion de vos Services"
+        description="Gérez toutes vos annonces de services Omra et Hajj : séjours, vols, hébergements, guides et chauffeurs. Modifiez, mettez en pause ou supprimez vos offres en un clic."
+        keywords={['mes annonces omra', 'gestion annonces', 'modifier annonce hajj', 'services pèlerinage']}
+        path="/mes-annonces"
+      />
       <div className="min-h-screen bg-background">
         {/* Desktop Header */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">

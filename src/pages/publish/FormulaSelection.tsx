@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PublishLayout from "@/components/ui/PublishLayout";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const FormulaSelection = () => {
   const [selectedFormula, setSelectedFormula] = useState("");
@@ -40,6 +41,12 @@ const FormulaSelection = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Sélection Formule Séjour Omra | Confort, Essentiel, Éco"
+        description="Choisissez la formule de votre séjour Omra : Confort 5★, Essentiel 4★ ou Éco 3★. Publiez votre offre de pèlerinage avec la formule adaptée à vos clients."
+        keywords={['formule omra', 'séjour confort', 'séjour essentiel', 'séjour éco', 'package omra']}
+        path="/publish/formula"
+      />
       <PublishLayout currentStep={2} totalSteps={3} steps={steps}>
         <div className="space-y-6 sm:space-y-8">
           <div className="flex items-center justify-center space-x-4 mb-6 sm:mb-8">

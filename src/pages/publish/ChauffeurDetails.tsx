@@ -6,6 +6,7 @@ import ChauffeurFormMultiStep from "@/components/forms/ChauffeurFormMultiStep";
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const ChauffeurDetails = () => {
   const navigate = useNavigate();
@@ -297,6 +298,12 @@ const ChauffeurDetails = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier Service Chauffeur Omra & Hajj | Transport Privé Mecque"
+        description="Proposez vos services de chauffeur privé pour pèlerins à La Mecque, Médine et Djeddah. Publiez gratuitement votre annonce de transport pour Omra et Hajj."
+        keywords={['chauffeur omra', 'transport privé mecque', 'taxi hajj', 'chauffeur médine', 'voiture pèlerinage']}
+        path="/publish/chauffeurs"
+      />
       <PublishLayout currentStep={2} totalSteps={2} steps={steps}>
         {loading ? (
           <div className="flex items-center justify-center py-12">

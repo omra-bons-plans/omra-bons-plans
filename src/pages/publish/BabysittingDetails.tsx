@@ -6,6 +6,7 @@ import BabysittingFormMultiStep from "@/components/forms/BabysittingFormMultiSte
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const BabysittingDetails = () => {
   const navigate = useNavigate();
@@ -254,6 +255,12 @@ const BabysittingDetails = () => {
 
   return (
     <RequiredProfileGuard>
+      <DynamicSEO
+        title="Publier Service Baby-sitting Omra & Hajj | Garde d'Enfants"
+        description="Proposez votre service de garde d'enfants pour les familles en pèlerinage à La Mecque et Médine. Publiez gratuitement votre annonce de baby-sitting pour Omra et Hajj."
+        keywords={['babysitting omra', 'garde enfants hajj', 'nounou mecque', 'baby-sitter médine', 'garde pèlerinage']}
+        path="/publish/babysitting"
+      />
       <PublishLayout currentStep={currentStepForProgress} totalSteps={totalStepsForProgress} steps={steps}>
           <BabysittingFormMultiStep 
             onSubmit={handleBabysittingSubmit} 

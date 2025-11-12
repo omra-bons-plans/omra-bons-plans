@@ -6,6 +6,7 @@ import HebergementFormMultiStep from "@/components/forms/HebergementFormMultiSte
 import PublishLayout from "@/components/ui/PublishLayout";
 import { fetchAdForEdit, convertAdDataToFormData } from "@/utils/editAdHelpers";
 import RequiredProfileGuard from "@/components/ui/RequiredProfileGuard";
+import { DynamicSEO } from "@/components/SEO/DynamicSEO";
 
 const HebergementDetails = () => {
   const navigate = useNavigate();
@@ -397,7 +398,13 @@ const HebergementDetails = () => {
   
   return (
     <RequiredProfileGuard>
-      <PublishLayout 
+      <DynamicSEO
+        title="Publier Annonce Hébergement Mecque & Médine | Hôtel Appartement"
+        description="Proposez votre hébergement, hôtel, appartement ou chambre à La Mecque ou Médine pour les pèlerins. Publiez gratuitement votre annonce de logement Omra et Hajj."
+        keywords={['hébergement omra', 'hôtel mecque', 'appartement médine', 'location pèlerinage', 'logement hajj']}
+        path="/publish/hebergement"
+      />
+      <PublishLayout
         currentStep={2} 
         totalSteps={2} 
         steps={steps}
