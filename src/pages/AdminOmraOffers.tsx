@@ -24,6 +24,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import type { DateRange } from 'react-day-picker';
+import { OmraOfferFormCard } from '@/components/forms/OmraOfferFormCard';
 
 const MONTHS = [
   { value: 'janvier', label: 'Janvier' },
@@ -74,6 +75,16 @@ const AdminOmraOffers = () => {
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [formCounter, setFormCounter] = useState(1);
+  
+  // Données communes à conserver entre les formulaires
+  const [commonData, setCommonData] = useState({
+    agency_name: '',
+    agency_logo: undefined as string | undefined,
+    offer_url: '',
+    month_departure: '',
+    departure_city: '',
+  });
   
   const [formData, setFormData] = useState<OmraOfferForm>({
     agency_name: '',
@@ -94,6 +105,9 @@ const AdminOmraOffers = () => {
     hajj_duration_type: 'court',
     is_recommended: false
   });
+  
+  // Liste des formulaires supplémentaires
+  const [additionalForms, setAdditionalForms] = useState<OmraOfferForm[]>([]);
 
   const [openMakkahHotel, setOpenMakkahHotel] = useState(false);
   const [openMedinaHotel, setOpenMedinaHotel] = useState(false);
@@ -237,6 +251,15 @@ const AdminOmraOffers = () => {
         await saveAirline(formData.airline);
       }
 
+      // Sauvegarder les données communes
+      setCommonData({
+        agency_name: formData.agency_name,
+        agency_logo: formData.agency_logo,
+        offer_url: formData.offer_url,
+        month_departure: formData.month_departure,
+        departure_city: formData.departure_city,
+      });
+
       toast({
         title: "Offre ajoutée",
         description: `L'offre ${offerType === 'omra' ? 'Omra' : 'Hajj'} a été ajoutée avec succès. Vous pouvez ajouter une autre offre.`,
@@ -244,11 +267,11 @@ const AdminOmraOffers = () => {
 
       // Reset form en gardant les champs communs pré-remplis
       setFormData({
-        agency_name: formData.agency_name, // Gardé
-        agency_logo: formData.agency_logo, // Gardé
-        offer_url: formData.offer_url, // Gardé
-        month_departure: formData.month_departure, // Gardé
-        departure_city: formData.departure_city, // Gardé
+        agency_name: formData.agency_name,
+        agency_logo: formData.agency_logo,
+        offer_url: formData.offer_url,
+        month_departure: formData.month_departure,
+        departure_city: formData.departure_city,
         date_start: '',
         date_end: '',
         duration_nights: 0,
@@ -264,7 +287,6 @@ const AdminOmraOffers = () => {
         is_recommended: false
       });
       setLogoFile(null);
-      // Garder le logo preview si existant
       setDateRange(undefined);
 
     } catch (error: any) {
@@ -892,7 +914,34 @@ const AdminOmraOffers = () => {
                 type="button"
                 variant="secondary"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  // Créer un nouveau formulaire avec les données communes pré-remplies
+                  const newForm: OmraOfferForm = {
+                    agency_name: formData.agency_name || commonData.agency_name,
+                    agency_logo: formData.agency_logo || commonData.agency_logo,
+                    offer_url: formData.offer_url || commonData.offer_url,
+                    month_departure: formData.month_departure || commonData.month_departure,
+                    departure_city: formData.departure_city || commonData.departure_city,
+                    date_start: '',
+                    date_end: '',
+                    duration_nights: 0,
+                    price_eur: 0,
+                    formula_type: 'essentiel',
+                    hotel_makkah: '',
+                    hotel_makkah_stars: 3,
+                    hotel_medinah: '',
+                    hotel_medinah_stars: 3,
+                    airline: '',
+                    visa_included: true,
+                    hajj_duration_type: 'court',
+                    is_recommended: false
+                  };
+                  setAdditionalForms([...additionalForms, newForm]);
+                  setFormCounter(prev => prev + 1);
+                  
+                  // Scroll vers le nouveau formulaire après un court délai
+                  setTimeout(() => {
+                    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+                  }, 100);
                 }}
                 className="gap-2"
               >
@@ -902,6 +951,23 @@ const AdminOmraOffers = () => {
             </div>
           </div>
         </form>
+
+        {/* Formulaires supplémentaires */}
+        {additionalForms.map((form, index) => (
+          <OmraOfferFormCard
+            key={index}
+            index={index + 1}
+            initialData={form}
+            offerType={offerType}
+            logoPreview={logoPreview}
+            onRemove={() => {
+              setAdditionalForms(additionalForms.filter((_, i) => i !== index));
+            }}
+            onSave={() => {
+              // Rafraîchir ou autre action si nécessaire
+            }}
+          />
+        ))}
       </div>
     </div>
   );
