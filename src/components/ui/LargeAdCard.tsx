@@ -32,58 +32,69 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
             )}
 
             {/* Info principale au centre */}
-            <div className="flex-1 min-w-0">
-              {/* Titre */}
-              <h3 className="font-bold text-base md:text-lg line-clamp-1 mb-2">
-                {listing.title}
-              </h3>
-
-              {/* Type d'annonce - Plus grand et visible */}
-              <div className="mb-2">
-                <Badge 
-                  variant="outline" 
-                  className={cn(
-                    "text-xs px-3 py-1 font-semibold",
-                    listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
-                    listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
-                    listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
-                    listing.type === 'guides' ? 'bg-orange-500/10 text-orange-700 border-orange-500/30' :
-                    listing.type === 'babysitting' ? 'bg-pink-500/10 text-pink-700 border-pink-500/30' :
-                    listing.type === 'vols' ? 'bg-indigo-500/10 text-indigo-700 border-indigo-500/30' :
-                    'bg-gray-500/10 text-gray-700 border-gray-500/30'
+            <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
+              {/* Titre avec badge populaire à droite */}
+              <div>
+                <div className="flex items-start gap-2 mb-2">
+                  <h3 className="font-bold text-base md:text-lg line-clamp-1 flex-1">
+                    {listing.title}
+                  </h3>
+                  {listing.isPopular && (
+                    <Badge className="text-[10px] px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-sm font-bold shrink-0">
+                      ⭐ Populaire
+                    </Badge>
                   )}
-                >
-                  {listing.type === 'sejours' ? 'Séjour' :
-                   listing.type === 'hebergement' ? 'Hébergement' :
-                   listing.type === 'chauffeurs' ? 'Chauffeur' :
-                   listing.type === 'guides' ? 'Guide' :
-                   listing.type === 'babysitting' ? 'Baby-sitting' :
-                   listing.type === 'vols' ? 'Vol' : listing.type}
-                </Badge>
+                </div>
+
+                {/* Type d'annonce - BEAUCOUP plus visible */}
+                <div className="mb-3">
+                  <Badge 
+                    variant="outline" 
+                    className={cn(
+                      "text-sm md:text-base px-4 py-1.5 font-bold rounded-full",
+                      listing.type === 'sejours' ? 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/40' :
+                      listing.type === 'hebergement' ? 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/40' :
+                      listing.type === 'chauffeurs' ? 'bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/40' :
+                      listing.type === 'guides' ? 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/40' :
+                      listing.type === 'babysitting' ? 'bg-pink-500/15 text-pink-700 dark:text-pink-300 border-pink-500/40' :
+                      listing.type === 'vols' ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/40' :
+                      'bg-gray-500/15 text-gray-700 dark:text-gray-300 border-gray-500/40'
+                    )}
+                  >
+                    {listing.type === 'sejours' ? 'Séjour' :
+                     listing.type === 'hebergement' ? 'Hébergement' :
+                     listing.type === 'chauffeurs' ? 'Chauffeur' :
+                     listing.type === 'guides' ? 'Guide' :
+                     listing.type === 'babysitting' ? 'Baby-sitting' :
+                     listing.type === 'vols' ? 'Vol' : listing.type}
+                  </Badge>
+                </div>
               </div>
 
-              {/* Détails sur 2 lignes pour utiliser l'espace */}
-              <div className="space-y-1.5">
-                {/* Ligne 1: Description/Date */}
+              {/* Informations détaillées - Layout amélioré */}
+              <div className="space-y-2.5">
+                {/* Description/Date - Si disponible */}
                 {listing.subtitle && (
-                  <div className="flex items-center gap-1.5 text-sm text-foreground/80">
-                    <Calendar className="h-4 w-4 flex-shrink-0" />
-                    <span className="truncate">{listing.subtitle}</span>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="h-4 w-4 shrink-0" />
+                    <span className="line-clamp-1">{listing.subtitle}</span>
                   </div>
                 )}
                 
-                {/* Ligne 2: Ville - Plus visible */}
+                {/* Ville - TRÈS VISIBLE et prominent */}
                 {listing.location && (
-                  <div className="flex items-center gap-1.5 text-sm font-medium text-foreground">
-                    <MapPin className="h-4 w-4 flex-shrink-0" />
-                    <span className="truncate">{listing.location}</span>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 shrink-0 text-primary" />
+                    <span className="text-base md:text-lg font-bold text-foreground line-clamp-1">
+                      {listing.location}
+                    </span>
                   </div>
                 )}
 
-                {/* Ligne 3: Note si disponible */}
+                {/* Note - Si disponible */}
                 {listing.rating && (
-                  <div className="flex items-center gap-1.5">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 shrink-0" />
                     <span className="text-sm font-semibold">{listing.rating}</span>
                     {listing.reviews && (
                       <span className="text-xs text-muted-foreground">({listing.reviews} avis)</span>
@@ -91,15 +102,6 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
                   </div>
                 )}
               </div>
-
-              {/* Badge populaire en bas */}
-              {listing.isPopular && (
-                <div className="mt-2">
-                  <Badge className="text-[10px] px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-sm font-bold">
-                    ⭐ Populaire
-                  </Badge>
-                </div>
-              )}
             </div>
 
             {/* Prix à droite */}
