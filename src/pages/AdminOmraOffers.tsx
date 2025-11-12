@@ -239,20 +239,21 @@ const AdminOmraOffers = () => {
 
       toast({
         title: "Offre ajoutée",
-        description: `L'offre ${offerType === 'omra' ? 'Omra' : 'Hajj'} a été ajoutée avec succès`,
+        description: `L'offre ${offerType === 'omra' ? 'Omra' : 'Hajj'} a été ajoutée avec succès. Vous pouvez ajouter une autre offre.`,
       });
 
-      // Reset form
+      // Reset form en gardant les champs communs pré-remplis
       setFormData({
-        agency_name: '',
-        offer_url: '',
-        month_departure: '',
+        agency_name: formData.agency_name, // Gardé
+        agency_logo: formData.agency_logo, // Gardé
+        offer_url: formData.offer_url, // Gardé
+        month_departure: formData.month_departure, // Gardé
+        departure_city: formData.departure_city, // Gardé
         date_start: '',
         date_end: '',
         duration_nights: 0,
         price_eur: 0,
-        departure_city: '',
-        formula_type: 'confort',
+        formula_type: 'essentiel',
         hotel_makkah: '',
         hotel_makkah_stars: 3,
         hotel_medinah: '',
@@ -263,7 +264,7 @@ const AdminOmraOffers = () => {
         is_recommended: false
       });
       setLogoFile(null);
-      setLogoPreview(null);
+      // Garder le logo preview si existant
       setDateRange(undefined);
 
     } catch (error: any) {
@@ -861,7 +862,7 @@ const AdminOmraOffers = () => {
           </Card>
 
           {/* Actions */}
-          <div className="flex justify-end gap-4">
+          <div className="flex justify-between gap-4">
             <Button
               type="button"
               variant="outline"
@@ -869,23 +870,36 @@ const AdminOmraOffers = () => {
             >
               Annuler
             </Button>
-            <Button
-              type="submit"
-              disabled={saving || uploading}
-              className="gap-2"
-            >
-              {saving || uploading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Enregistrement...
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4" />
-                  Enregistrer l'offre
-                </>
-              )}
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                type="submit"
+                disabled={saving || uploading}
+                className="gap-2"
+              >
+                {saving || uploading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Enregistrement...
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4" />
+                    Enregistrer l'offre
+                  </>
+                )}
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Ajouter une offre
+              </Button>
+            </div>
           </div>
         </form>
       </div>
