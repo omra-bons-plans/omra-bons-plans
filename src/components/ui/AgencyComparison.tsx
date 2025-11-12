@@ -6,6 +6,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Check, X, Star, ExternalLink, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Input } from '@/components/ui/input';
+import { getAgencyLogo } from '@/utils/agencyLogos';
+import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
 
 interface AgencyFeatures {
   name: string;
@@ -577,6 +579,16 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                       </Badge>
                     )}
                     <div className="space-y-2 md:space-y-3">
+                      {getAgencyLogo(agency.name) && (
+                        <div className="flex justify-center mb-3">
+                          <LazyAgencyLogo
+                            src={getAgencyLogo(agency.name)!}
+                            alt={`Logo ${agency.name}`}
+                            agencyName={agency.name}
+                            className="h-12 md:h-16 w-auto object-contain"
+                          />
+                        </div>
+                      )}
                       <h3 className="font-bold text-lg md:text-xl">{agency.name}</h3>
                       <div className="flex justify-center gap-1">{renderStars(agency.googleRating)}</div>
                       <div className="text-center">
@@ -663,13 +675,23 @@ export default function AgencyComparison({ className }: AgencyComparisonProps) {
                             </Badge>
                           </div>
                         )}
-                        <Card className={`transition-all duration-300 ${
+                         <Card className={`transition-all duration-300 ${
                           agency.isRecommended 
                             ? 'border-2 border-primary shadow-glow transform scale-105 mt-2' 
                             : 'border border-border hover:border-primary/30'
                         }`}>
                           <CardHeader className="text-center relative pt-6">
                             <div className="space-y-3">
+                              {getAgencyLogo(agency.name) && (
+                                <div className="flex justify-center mb-3">
+                                  <LazyAgencyLogo
+                                    src={getAgencyLogo(agency.name)!}
+                                    alt={`Logo ${agency.name}`}
+                                    agencyName={agency.name}
+                                    className="h-14 w-auto object-contain"
+                                  />
+                                </div>
+                              )}
                               <h3 className="font-bold text-lg">{agency.name}</h3>
                               <div className="flex justify-center">{renderStars(agency.googleRating)}</div>
                               <div className="text-center">
