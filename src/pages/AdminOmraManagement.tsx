@@ -628,18 +628,11 @@ export default function AdminOmraManagement() {
                     <SelectValue placeholder="Sélectionnez un mois" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="janvier">Janvier</SelectItem>
-                    <SelectItem value="février">Février</SelectItem>
-                    <SelectItem value="mars">Mars</SelectItem>
-                    <SelectItem value="avril">Avril</SelectItem>
-                    <SelectItem value="mai">Mai</SelectItem>
-                    <SelectItem value="juin">Juin</SelectItem>
-                    <SelectItem value="juillet">Juillet</SelectItem>
-                    <SelectItem value="août">Août</SelectItem>
-                    <SelectItem value="septembre">Septembre</SelectItem>
-                    <SelectItem value="octobre">Octobre</SelectItem>
-                    <SelectItem value="novembre">Novembre</SelectItem>
-                    <SelectItem value="décembre">Décembre</SelectItem>
+                    {MONTHS.map((month) => (
+                      <SelectItem key={month} value={month.toLowerCase()}>
+                        {month}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
