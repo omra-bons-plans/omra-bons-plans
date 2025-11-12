@@ -2,12 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 const Settings = () => {
   const navigate = useNavigate();
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title="Paramètres | Configuration du Compte - Omra Bons Plans"
+        description="Configurez les paramètres de votre compte Omra Bons Plans. Gérez vos préférences et options de notification."
+        keywords={['paramètres compte', 'configuration', 'préférences']}
+        path="/settings"
+      />
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center space-x-4 mb-8">

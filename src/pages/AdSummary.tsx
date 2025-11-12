@@ -12,6 +12,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { getImageUrl } from '@/utils/imageUtils';
 import { ImageComponent } from '@/components/ui/ImageComponent';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface AdDetails {
   id: string;
@@ -232,6 +233,12 @@ const AdSummary = () => {
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title={`Récapitulatif: ${ad.title} | Gestion Annonce - Omra Bons Plans`}
+        description={`Consultez et modifiez votre annonce ${ad.title}. Gérez les détails, le statut et les paramètres de publication de votre service.`}
+        keywords={['gestion annonce', 'modifier annonce', 'récapitulatif', ad.category]}
+        path={`/ad-summary/${id}`}
+      />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">

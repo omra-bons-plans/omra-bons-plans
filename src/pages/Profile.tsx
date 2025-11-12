@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import CountrySelect from '@/components/ui/CountrySelect';
 import AddressAutocomplete from '@/components/ui/AddressAutocomplete';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface Profile {
   id: string;
@@ -237,6 +238,12 @@ const Profile = () => {
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title="Mon Profil | Gérer mes Informations - Omra Bons Plans"
+        description="Gérez votre profil personnel et professionnel sur Omra Bons Plans. Modifiez vos coordonnées, informations de contact et paramètres de compte."
+        keywords={['profil utilisateur', 'compte omra', 'paramètres profil']}
+        path="/profile"
+      />
       <div className="min-h-screen bg-background">
         {/* Desktop Header - Hidden on mobile */}
         <header className="hidden lg:block glass-strong sticky top-0 z-50 border-b border-border/20">

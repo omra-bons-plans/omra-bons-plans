@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { useClickTracking } from '@/hooks/useClickTracking';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface UserProfile {
   id: string;
@@ -294,6 +295,17 @@ const PublicProfile = () => {
 
   return (
     <ResponsiveLayout>
+      <DynamicSEO
+        title={`Profil de ${profile.full_name || profile.first_name || 'Utilisateur'} | ${profile.is_professional ? profile.company_name || 'Professionnel' : 'Particulier'} - Omra Bons Plans`}
+        description={profile.bio || `Découvrez le profil de ${profile.full_name || profile.first_name} sur Omra Bons Plans. ${profile.is_professional ? 'Services professionnels pour Omra et Hajj' : 'Membre de la communauté Omra Bons Plans'}.`}
+        keywords={[
+          profile.full_name || profile.first_name || '',
+          profile.is_professional ? 'professionnel omra' : 'particulier',
+          ...(profile.specialties || []),
+          'profil public'
+        ].filter(Boolean)}
+        path={`/profile/${slug}`}
+      />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="glass-strong sticky top-0 z-50 border-b border-border/20">

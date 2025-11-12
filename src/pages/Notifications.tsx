@@ -7,16 +7,19 @@ import { NotificationCenter } from '@/components/ui/NotificationCenter';
 import UserMenu from '@/components/ui/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ui/ProtectedRoute';
+import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 const Notifications = () => {
   const { user } = useAuth();
 
-  useEffect(() => {
-    document.title = 'Mes Notifications - OmraBus';
-  }, []);
-
   return (
     <ProtectedRoute>
+      <DynamicSEO
+        title="Mes Notifications | Centre de Notifications - Omra Bons Plans"
+        description="Consultez toutes vos notifications et restez informé de vos activités sur Omra Bons Plans. Messages, alertes et mises à jour importantes."
+        keywords={['notifications', 'alertes', 'messages', 'activités']}
+        path="/notifications"
+      />
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
         {/* Header */}
         <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b sticky top-0 z-50">
