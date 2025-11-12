@@ -56,6 +56,9 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Gateway travel': '/lovable-uploads/logogatewaytravel.png',
   'Gatewaytravel': '/lovable-uploads/logogatewaytravel.png',
   'Labbayk': '/lovable-uploads/logolabbayk.png',
+  'OMRA GATE': '/lovable-uploads/logoomragate.webp',
+  'Omra Gate': '/lovable-uploads/logoomragate.webp',
+  'OmraGate': '/lovable-uploads/logoomragate.webp',
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {
