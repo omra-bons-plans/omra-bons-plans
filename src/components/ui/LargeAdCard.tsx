@@ -33,24 +33,17 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
 
             {/* Info principale au centre */}
             <div className="flex-1 min-w-0">
-              {/* Titre et badges */}
-              <div className="flex items-start gap-2 mb-1.5">
-                <h3 className="font-bold text-base md:text-lg flex-1 line-clamp-1">
-                  {listing.title}
-                </h3>
-                {listing.isPopular && (
-                  <Badge className="text-[10px] px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-sm font-bold">
-                    ⭐ Populaire
-                  </Badge>
-                )}
-              </div>
+              {/* Titre */}
+              <h3 className="font-bold text-base md:text-lg line-clamp-1 mb-2">
+                {listing.title}
+              </h3>
 
-              {/* Type et note */}
-              <div className="flex items-center gap-2 mb-2">
+              {/* Type d'annonce - Plus grand et visible */}
+              <div className="mb-2">
                 <Badge 
                   variant="outline" 
                   className={cn(
-                    "text-[10px] px-2 py-0.5",
+                    "text-xs px-3 py-1 font-semibold",
                     listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
                     listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
                     listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
@@ -67,35 +60,46 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
                    listing.type === 'babysitting' ? 'Baby-sitting' :
                    listing.type === 'vols' ? 'Vol' : listing.type}
                 </Badge>
+              </div>
+
+              {/* Détails sur 2 lignes pour utiliser l'espace */}
+              <div className="space-y-1.5">
+                {/* Ligne 1: Description/Date */}
+                {listing.subtitle && (
+                  <div className="flex items-center gap-1.5 text-sm text-foreground/80">
+                    <Calendar className="h-4 w-4 flex-shrink-0" />
+                    <span className="truncate">{listing.subtitle}</span>
+                  </div>
+                )}
                 
+                {/* Ligne 2: Ville - Plus visible */}
+                {listing.location && (
+                  <div className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+                    <MapPin className="h-4 w-4 flex-shrink-0" />
+                    <span className="truncate">{listing.location}</span>
+                  </div>
+                )}
+
+                {/* Ligne 3: Note si disponible */}
                 {listing.rating && (
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-semibold">{listing.rating}</span>
+                  <div className="flex items-center gap-1.5">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-semibold">{listing.rating}</span>
                     {listing.reviews && (
-                      <span className="text-xs text-muted-foreground">({listing.reviews})</span>
+                      <span className="text-xs text-muted-foreground">({listing.reviews} avis)</span>
                     )}
                   </div>
                 )}
               </div>
 
-              {/* Localisation et date */}
-              <div className="flex items-center gap-3 text-xs text-foreground/80">
-                {listing.subtitle && (
-                  <>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5" />
-                      <span className="truncate">{listing.subtitle}</span>
-                    </div>
-                  </>
-                )}
-                {listing.location && (
-                  <div className="flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5" />
-                    <span className="truncate">{listing.location}</span>
-                  </div>
-                )}
-              </div>
+              {/* Badge populaire en bas */}
+              {listing.isPopular && (
+                <div className="mt-2">
+                  <Badge className="text-[10px] px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-sm font-bold">
+                    ⭐ Populaire
+                  </Badge>
+                </div>
+              )}
             </div>
 
             {/* Prix à droite */}
