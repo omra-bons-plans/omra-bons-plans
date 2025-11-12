@@ -335,7 +335,7 @@ export const agenciesData: AgencyData[] = [
     ],
     weaknesses: [
       "Agence plus récente avec base d'avis en développement",
-      "Moins de présence marketing que grandes agences établies",
+      "Propose très peu de départ et des départs uniquement depuis Paris",
       "Options de départ limitées à certaines villes principales"
     ],
     specialties: [
