@@ -7,7 +7,7 @@ import './index.css'
 // Service Worker désactivé temporairement pour optimiser LCP
 // import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
-// Force rebuild - 2025-01-13 18:40 - FIX CSP ERRORS
+// Force rebuild - 2025-01-13 18:45 - CSP DISABLED FOR TEST
 
 console.log('[MAIN] Starting app initialization at:', new Date().toISOString());
 
