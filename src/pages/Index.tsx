@@ -67,26 +67,35 @@ const Index = () => {
   const adsLimit = isMobile ? 6 : 15;
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
 
-  // Restore category filter from navigation state
+  // Restore category filter from navigation state and scroll to services
   useEffect(() => {
     if (location.state?.selectedCategory) {
       setSelectedCategory(location.state.selectedCategory);
       // Clear the state to avoid re-applying on refresh
       window.history.replaceState({}, document.title);
     }
-  }, [location.state]);
-
-  // Scroll to services listing if hash is present
-  useEffect(() => {
-    if (location.hash === '#services-listing') {
-      setTimeout(() => {
+    
+    // Scroll to services listing if coming from ad details
+    if (location.hash === '#services-listing' || location.state?.scrollToServices) {
+      // Wait for content to load and render
+      const scrollToServices = () => {
         const element = document.getElementById('services-listing');
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Scroll with offset for better UX
+          const offsetTop = element.offsetTop - 80; // 80px offset for header
+          window.scrollTo({ 
+            top: offsetTop, 
+            behavior: 'smooth' 
+          });
         }
-      }, 100);
+      };
+      
+      // Try multiple times to ensure content is loaded
+      setTimeout(scrollToServices, 100);
+      setTimeout(scrollToServices, 300);
+      setTimeout(scrollToServices, 500);
     }
-  }, [location.hash]);
+  }, [location.state, location.hash]);
 
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
