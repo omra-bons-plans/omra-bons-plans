@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
 
 // Lazy load pages for better performance
-const Index = lazy(() => import("./pages/Index"));
+const Index = lazy(() => import("./pages/IndexOptimized"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
 const MyAds = lazy(() => import("./pages/MyAds"));
