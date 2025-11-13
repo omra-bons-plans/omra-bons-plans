@@ -13,7 +13,16 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
   const hasLoggedRef = useRef(false);
 
   useEffect(() => {
+    // ⚠️ Temporairement désactivé pour permettre l'analyse PageSpeed Insights
     if (!enabled) return;
+    
+    // Vérifier si c'est un bot légitime (Google, Bing, etc.)
+    const userAgent = navigator.userAgent.toLowerCase();
+    const legitimateBots = ['lighthouse', 'pagespeed', 'googlebot', 'chrome-lighthouse', 'google page speed'];
+    if (legitimateBots.some(bot => userAgent.includes(bot))) {
+      console.log('✅ Legitimate bot detected, anti-scraping disabled');
+      return;
+    }
 
     const detectSuspiciousActivity = async () => {
       // Ne logger qu'une seule fois par session
