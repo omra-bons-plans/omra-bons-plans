@@ -73,15 +73,14 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <AdminProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop />
-              <Suspense fallback={<PageLoader />}>
-                <CanonicalRedirect>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<div className="min-h-screen flex items-center justify-center"><h1>Test Simple</h1></div>} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </ErrorBoundary>
+);
                   <Routes>
                   <Route path="/" element={<ComparateurOmra />} />
                   <Route path="/bons-plans" element={<Index />} />
