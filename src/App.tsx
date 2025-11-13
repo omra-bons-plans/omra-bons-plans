@@ -20,6 +20,9 @@ const MyAds = lazy(() => import("./pages/MyAds"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Admin = lazy(() => import("./pages/Admin"));
 const CategorySelection = lazy(() => import("./pages/publish/CategorySelection"));
+
+// Import direct pour ComparateurOmra (page d'accueil)
+import ComparateurOmra from "./pages/ComparateurOmra";
 const FormulaSelection = lazy(() => import("./pages/publish/FormulaSelection"));
 const SejourDetails = lazy(() => import("./pages/publish/SejourDetails"));
 const VolDetails = lazy(() => import("./pages/publish/VolDetails"));
@@ -52,7 +55,6 @@ const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
-const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
