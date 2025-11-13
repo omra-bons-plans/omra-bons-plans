@@ -65,7 +65,9 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
                   {listing.rating && (
                     <div className="flex items-center gap-0.5">
                       <Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
-                      <span className="text-[10px] font-semibold">{listing.rating}</span>
+                      <span className="text-[10px] font-semibold">
+                        {typeof listing.rating === 'number' ? listing.rating.toFixed(1) : listing.rating}
+                      </span>
                     </div>
                   )}
                 </div>
