@@ -7,11 +7,15 @@ import { Link } from 'react-router-dom';
 interface LargeAdCardProps {
   listing: any;
   className?: string;
+  selectedCategory?: string;
 }
 
-export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
+export const LargeAdCard = ({ listing, className, selectedCategory }: LargeAdCardProps) => {
   return (
-    <Link to={`/ad/${listing.id}`}>
+    <Link 
+      to={`/ad/${listing.id}`}
+      state={{ selectedCategory: selectedCategory || listing.type }}
+    >
       <Card className={cn(
         "overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card cursor-pointer",
         className
