@@ -10,7 +10,6 @@ interface LazyAgencyLogoProps {
 export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAgencyLogoProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
   const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAge
         });
       },
       {
-        rootMargin: '100px', // Charge 100px avant pour éviter le flash
+        rootMargin: '50px', // Charge 50px avant d'être visible
       }
     );
 
@@ -35,44 +34,19 @@ export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAge
     return () => observer.disconnect();
   }, []);
 
-  // Tente de charger la version WebP si disponible, sinon fallback vers l'original
-  const handleError = () => {
-    if (imageSrc.endsWith('.webp')) {
-      // Si WebP échoue, retour à l'original
-      setImageSrc(src);
-    }
-  };
-
-  // Essaie d'abord WebP si le fichier n'est pas déjà en WebP
-  useEffect(() => {
-    if (isVisible && !src.endsWith('.webp')) {
-      const webpSrc = src.replace(/\.(png|jpg|jpeg)$/, '.webp');
-      // Teste si le WebP existe
-      const img = new Image();
-      img.onload = () => setImageSrc(webpSrc);
-      img.onerror = () => setImageSrc(src);
-      img.src = webpSrc;
-    } else {
-      setImageSrc(src);
-    }
-  }, [isVisible, src]);
-
   return (
     <div ref={imgRef} className={`relative ${className}`}>
       {!isLoaded && (
-        <div className="absolute inset-0 bg-muted/20 animate-pulse rounded" />
+        <div className="absolute inset-0 bg-muted animate-pulse rounded" />
       )}
       {isVisible && (
         <img
-          src={imageSrc}
+          src={src}
           alt={alt}
-          width="160"
-          height="80"
           loading="lazy"
           decoding="async"
           onLoad={() => setIsLoaded(true)}
-          onError={handleError}
-          className={`transition-opacity duration-200 ${
+          className={`transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           style={{

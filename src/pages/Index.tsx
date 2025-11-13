@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, ChevronDown, LayoutGrid, List } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -17,8 +17,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import UserMenu from "@/components/ui/UserMenu";
 import AdCard from "@/components/ui/AdCard";
+import FeedbackForm from "@/components/ui/FeedbackForm";
+import TopicsList from '@/components/ui/TopicsList';
+import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { CompactAdCard } from "@/components/ui/CompactAdCard";
 import { LargeAdCard } from "@/components/ui/LargeAdCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,16 +41,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-
-// ⚡ CRITICAL: Lazy load heavy non-critical components to reduce initial JS bundle
-const Carousel = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.Carousel })));
-const CarouselContent = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselContent })));
-const CarouselItem = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselItem })));
-const CarouselNext = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselNext })));
-const CarouselPrevious = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselPrevious })));
-const FeedbackForm = lazy(() => import("@/components/ui/FeedbackForm"));
-const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
-const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
 
 // ⚡ REMOVED: Images imported lazily now to reduce initial JS bundle
 
@@ -63,24 +63,8 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isAllServicesCategoryOpen, setIsAllServicesCategoryOpen] = useState(false);
-  // ⚡ MOBILE: Démarrer avec 3 annonces, charger +3 après LCP
-  const [adsLimit, setAdsLimit] = useState(3);
-  const [componentsLoaded, setComponentsLoaded] = useState(false);
-
-  useEffect(() => {
-    if (isMobile) {
-      // Charger plus d'annonces après le LCP (2s)
-      const timer = setTimeout(() => {
-        setAdsLimit(6);
-        setComponentsLoaded(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    } else {
-      setAdsLimit(15);
-      setComponentsLoaded(true);
-    }
-  }, [isMobile]);
-
+  // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
+  const adsLimit = isMobile ? 6 : 15;
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
 
   // Restore category filter from navigation state and scroll to services
@@ -323,33 +307,15 @@ const Index = () => {
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
-            {/* Mobile: JPEG ultra-léger < 50KB pour LCP rapide */}
+            {/* Mobile: Image optimisée 750x1334 */}
             <source
-              media="(max-width: 640px)"
-              srcSet="/hero-kaaba-mobile-ultra-light.jpg"
-              type="image/jpeg"
-              width="750"
-              height="422"
-            />
-            {/* Tablet: AVIF */}
-            <source
-              media="(max-width: 1024px)"
+              media="(max-width: 767px)"
               srcSet="/hero-kaaba-2025-optimized.avif"
               type="image/avif"
-              width="1024"
-              height="768"
             />
-            {/* Desktop: AVIF haute qualité */}
-            <source
-              media="(min-width: 1025px)"
-              srcSet="/hero-kaaba-2025-optimized.avif"
-              type="image/avif"
-              width="1920"
-              height="1080"
-            />
-            {/* Fallback JPEG pour navigateurs sans support AVIF */}
+            {/* Desktop: Image normale */}
             <img
-              src="/hero-kaaba-2025-new.jpg"
+              src="/hero-kaaba-2025-optimized.avif"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
               width="1600"
               height="900"
@@ -600,28 +566,24 @@ const Index = () => {
                       ))}
                     </div>
 
-                    {/* Tablet: Carousel with 2 items - différé sur mobile */}
-                    {(componentsLoaded || !isMobile) && (
+                    {/* Tablet: Carousel with 2 items */}
                     <div className="hidden md:block lg:hidden carousel-item-peek">
-                      <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
-                        <Carousel className="w-full">
-                          <CarouselContent className="-ml-4">
-                            {filteredFlashSalesListings.map((listing) => (
-                            <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                              <AdCard 
-                                key={listing.id}
-                                listing={listing} 
-                                className="w-full"
-                              />
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="hidden sm:flex" />
-                        <CarouselNext className="hidden sm:flex" />
-                      </Carousel>
-                      </Suspense>
+                      <Carousel className="w-full">
+                        <CarouselContent className="-ml-4">
+                          {filteredFlashSalesListings.map((listing) => (
+                          <CarouselItem key={listing.id} className="pl-4 basis-1/2">
+                            <AdCard 
+                              key={listing.id}
+                              listing={listing} 
+                              className="w-full"
+                            />
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="hidden sm:flex" />
+                      <CarouselNext className="hidden sm:flex" />
+                    </Carousel>
                   </div>
-                  )}
 
                   {/* Mobile: Vue Liste ou Grille */}
                   <div className="block md:hidden mb-20">
@@ -1364,26 +1326,22 @@ const Index = () => {
                   <p className="text-muted-foreground text-lg">Rejoignez notre communauté de pèlerins pour poser vos questions, partager vos expériences et bénéficier des conseils de voyageurs qui ont déjà accompli leur Omra ou Hajj</p>
                 </div>
                 <div className="max-w-6xl mx-auto">
-                  {/* New Discussion System - différé sur mobile */}
-                  {(componentsLoaded || !isMobile) && (
+                  {/* New Discussion System */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
-                      <div className="lg:col-span-1">
-                        <TopicsList 
-                          selectedTopicId={selectedTopicId} 
-                          onTopicSelect={setSelectedTopicId} 
-                        />
-                      </div>
-                      <div className="lg:col-span-2">
-                        <ThreadedChatWindow
-                          topicId={selectedTopicId}
-                          topicTitle={selectedTopic?.title}
-                          topicColor={selectedTopic?.color}
-                        />
-                      </div>
-                    </Suspense>
+                    <div className="lg:col-span-1">
+                      <TopicsList 
+                        selectedTopicId={selectedTopicId} 
+                        onTopicSelect={setSelectedTopicId} 
+                      />
+                    </div>
+                    <div className="lg:col-span-2">
+                      <ThreadedChatWindow
+                        topicId={selectedTopicId}
+                        topicTitle={selectedTopic?.title}
+                        topicColor={selectedTopic?.color}
+                      />
+                    </div>
                   </div>
-                  )}
                 </div>
               </div>
             </TabsContent>
@@ -1728,12 +1686,7 @@ const Index = () => {
               </p>
             </div>
             
-            {/* FeedbackForm - différé sur mobile */}
-            {(componentsLoaded || !isMobile) && (
-            <Suspense fallback={<div className="h-64 bg-muted/20 animate-pulse rounded-lg" />}>
-              <FeedbackForm />
-            </Suspense>
-            )}
+            <FeedbackForm />
           </div>
         </div>
       </section>
