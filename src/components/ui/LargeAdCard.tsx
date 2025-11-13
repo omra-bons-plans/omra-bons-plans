@@ -98,15 +98,15 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
           </div>
         </div>
 
-        {/* Desktop & Tablet: Logo horizontal style */}
+        {/* Desktop & Tablet: Image pleine largeur */}
         <div className="relative hidden sm:block">
           <div className="flex items-center gap-4 p-5 md:p-6 bg-gradient-to-br from-background to-muted/20">
             {listing.image && (
-              <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl overflow-hidden bg-white shadow-lg border border-border/20">
+              <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl overflow-hidden shadow-lg">
                 <img 
                   src={listing.image} 
                   alt={listing.title}
-                  className="w-full h-full object-contain p-3 md:p-4"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
