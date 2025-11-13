@@ -607,7 +607,7 @@ export default function ComparateurOmra() {
                             <img 
                               src={agencyLogo} 
                               alt={agency}
-                              className="h-6 w-6 md:h-8 md:w-8 object-cover flex-shrink-0 rounded-lg"
+                              className="h-6 w-6 md:h-8 md:w-8 object-contain flex-shrink-0"
                               loading="lazy"
                             />
                           )}
@@ -842,8 +842,8 @@ export default function ComparateurOmra() {
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
-                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-4 md:p-6 relative">
-                          <LazyAgencyLogo 
+                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden flex items-center justify-center p-4 md:p-6 relative">
+                          <LazyAgencyLogo
                             src={agencyLogo} 
                             alt={offer.agency_name}
                             agencyName={offer.agency_name}
@@ -1095,8 +1095,8 @@ export default function ComparateurOmra() {
                       {/* Logo et agence */}
                       <div className="sm:w-48 lg:w-56 flex-shrink-0 p-4 border-b sm:border-b-0 sm:border-r border-primary/10 bg-gradient-to-br from-primary/5 to-background">
                         {agencyLogo && (
-                          <div className="h-32 rounded-lg overflow-hidden shadow-sm flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-3 relative">
-                            <img 
+                          <div className="h-32 rounded-lg overflow-hidden flex items-center justify-center p-3 relative">
+                            <img
                               src={agencyLogo} 
                               alt={offer.agency_name}
                               className="w-full h-full object-contain"
