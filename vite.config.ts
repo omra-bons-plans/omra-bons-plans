@@ -15,37 +15,11 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            // Core React
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            // Router
-            if (id.includes('react-router-dom')) {
-              return 'vendor-router';
-            }
-            // Supabase
-            if (id.includes('@supabase')) {
-              return 'vendor-supabase';
-            }
-            // Forms
-            if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
-              return 'vendor-forms';
-            }
-            // UI libs
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'vendor-ui';
-            }
-            if (id.includes('date-fns')) {
-              return 'vendor-date';
-            }
-            // Autres dépendances
-            return 'vendor-other';
-          }
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
