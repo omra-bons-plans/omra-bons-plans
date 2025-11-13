@@ -47,10 +47,9 @@ export const MobileBottomNav = () => {
     { 
       icon: Package, 
       label: 'Bons Plans', 
-      path: 'https://omrabonsplans.fr/bons-plans', 
-      active: false,
-      badge: null,
-      external: true
+      path: '/bons-plans', 
+      active: currentPath === '/bons-plans',
+      badge: null
     },
     { 
       icon: Star, 
