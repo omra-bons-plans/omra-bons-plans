@@ -32,85 +32,45 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('🔐 AuthContext: Initializing...');
-    
-    // Check for recovery mode IMMEDIATELY when component mounts
+    // Check for recovery mode
     const urlHash = window.location.hash;
     if (urlHash.includes('type=recovery')) {
-      console.log('🔐 Recovery mode detected, redirecting to /auth');
       sessionStorage.setItem('password_reset_mode', 'true');
       window.location.href = '/auth';
       return;
     }
 
-    let mounted = true;
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+      
+      if (isPasswordResetMode && session) {
+        setSession(session);
+        setUser(null);
+      } else {
+        setSession(session);
+        setUser(session?.user ?? null);
+      }
+      setLoading(false);
+    });
 
-    // Set up auth state listener FIRST
+    // Set up auth listener - MUST be synchronous only
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        if (!mounted) {
-          console.log('🔐 AuthContext: Component unmounted, ignoring auth event');
-          return;
-        }
-        
-        console.log('🔐 Auth event:', event, 'User:', session?.user?.email || 'none');
-        
-        // Check if we're in password reset mode
         const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
         
-        // If we're in password reset mode and this is a SIGNED_IN event from recovery
         if (isPasswordResetMode && event === 'SIGNED_IN') {
-          console.log('🔐 Password reset mode: keeping session but not setting user');
           setSession(session);
           setUser(null);
-          setLoading(false);
           return;
         }
         
         setSession(session);
         setUser(session?.user ?? null);
-        setLoading(false);
       }
     );
 
-    // THEN check for existing session
-    supabase.auth.getSession()
-      .then(({ data: { session }, error }) => {
-        if (!mounted) {
-          console.log('🔐 AuthContext: Component unmounted, ignoring session check');
-          return;
-        }
-        
-        if (error) {
-          console.error('🔐 Error getting session:', error);
-          setLoading(false);
-          return;
-        }
-        
-        console.log('🔐 Initial session check:', session?.user?.email || 'no user');
-        
-        const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
-        
-        if (isPasswordResetMode && session) {
-          console.log('🔐 Password reset mode: initial session found');
-          setSession(session);
-          setUser(null);
-          setLoading(false);
-          return;
-        }
-        
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('🔐 Fatal error in getSession:', error);
-        setLoading(false);
-      });
-
     return () => {
-      console.log('🔐 AuthContext: Cleanup - unsubscribing');
-      mounted = false;
       subscription.unsubscribe();
     };
   }, []);
