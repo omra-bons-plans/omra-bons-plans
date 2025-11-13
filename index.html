@@ -119,6 +119,17 @@
   <body>
     <div id="root"></div>
     
+    <!-- Google Analytics simplifié -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6T49BWNBV9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6T49BWNBV9', {
+        send_page_view: false
+      });
+    </script>
+    
     <!-- Désactiver complètement le Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
