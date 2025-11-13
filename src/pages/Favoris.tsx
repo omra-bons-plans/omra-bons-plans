@@ -11,16 +11,16 @@ import { SEOHead } from '@/components/SEO/SEOHead';
 import { getAgencyInfo } from '@/utils/agenciesData';
 
 const AGENCY_LOGOS: Record<string, string> = {
-  'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
-  'Almaqam': '/lovable-uploads/logoalmaqam.webp',
+  'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
+  'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.png',
   'Hayat': '/lovable-uploads/logohayat.png',
-  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
-  'Omra Discount': '/lovable-uploads/logoomradiscount.webp',
-  'Sabil Voyages': '/lovable-uploads/logosabile-new.png',
+  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
+  'Omra Discount': '/lovable-uploads/logoomradiscount.png',
+  'Sabil Voyages': '/lovable-uploads/logosabilvoyages.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
-  'Gateway travel': '/lovable-uploads/logogatewaytravel.webp',
+  'Gateway travel': '/lovable-uploads/logogatewaytravel.png',
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {

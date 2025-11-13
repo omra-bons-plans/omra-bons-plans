@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
 
 // Lazy load pages for better performance
-const Index = lazy(() => import("./pages/IndexOptimized"));
+const Index = lazy(() => import("./pages/Index"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
 const MyAds = lazy(() => import("./pages/MyAds"));
@@ -58,7 +58,6 @@ const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
-const Test = lazy(() => import("./pages/Test"));
 
 // Loading component
 const PageLoader = () => (
@@ -83,8 +82,6 @@ const App = () => (
                 <CanonicalRedirect>
                   <Routes>
                   <Route path="/" element={<ComparateurOmra />} />
-                  <Route path="/test" element={<Test />} />
-                  <Route path="/home-old" element={<Index />} />
                   <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={
@@ -229,7 +226,6 @@ const App = () => (
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
-                   <Route path="/test" element={<Test />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/" replace />} />
                    

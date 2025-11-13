@@ -23,11 +23,10 @@ export const SimpleImageViewer = ({
 }: SimpleImageViewerProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
-  // Combine cover image and additional images, filter out empty/null values
-  const validImages = images.filter(img => img && img.trim() !== '');
+  // Combine cover image and additional images
   const allImagePaths = coverImage 
-    ? [coverImage, ...validImages.filter(img => img !== coverImage)]
-    : validImages;
+    ? [coverImage, ...images.filter(img => img !== coverImage)]
+    : images;
   
   const allImages = allImagePaths.map(path => getImageUrl(path, undefined, bucketName));
 

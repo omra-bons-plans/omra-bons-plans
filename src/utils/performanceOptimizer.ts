@@ -6,14 +6,20 @@
  * Précharge intelligemment les ressources critiques
  */
 export const preloadCriticalResources = () => {
-  // Image hero critique (AVIF moderne)
-  const heroImage = document.createElement('link');
-  heroImage.rel = 'preload';
-  heroImage.as = 'image';
-  heroImage.href = '/hero-kaaba-2025-new.avif';
-  heroImage.type = 'image/avif';
-  heroImage.fetchPriority = 'high';
-  document.head.appendChild(heroImage);
+  // Images critiques above-the-fold
+  const criticalImages = [
+    '/src/assets/mecca-mosque-hero.jpg',
+    '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png'
+  ];
+
+  criticalImages.forEach(src => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = src;
+    link.fetchPriority = 'high';
+    document.head.appendChild(link);
+  });
 };
 
 /**

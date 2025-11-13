@@ -60,19 +60,22 @@ export const getImageUrl = (
     const pathWithoutExt = imagePath.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
     const originalExt = imagePath.match(/\.(png|jpg|jpeg|webp|avif|gif)$/i)?.[1] || '';
     
-    console.log('📝 Original path:', imagePath, 'Extension:', originalExt);
+    // Ordre de priorité des extensions (webp et avif sont plus modernes et compressés)
+    const extensionsToTry = ['webp', 'jpeg', 'jpg', 'png', 'avif', 'gif'];
     
-    // Si le fichier se termine par .jpg, essayer .webp en priorité (format optimisé)
-    let finalPath = imagePath;
-    if (originalExt.toLowerCase() === 'jpg') {
-      finalPath = `${pathWithoutExt}.webp`;
-      console.log('🔄 .jpg détecté, tentative avec .webp:', finalPath);
+    // Si une extension originale existe, l'essayer en premier
+    if (originalExt) {
+      const extLower = originalExt.toLowerCase();
+      // Retirer l'extension originale de la liste puis l'ajouter au début
+      const filteredExts = extensionsToTry.filter(ext => ext !== extLower);
+      extensionsToTry.length = 0;
+      extensionsToTry.push(extLower, ...filteredExts);
     }
     
-    // Générer l'URL publique
+    // Pour la première tentative, on utilise le chemin original
     const { data } = supabase.storage
       .from(bucketName)
-      .getPublicUrl(finalPath);
+      .getPublicUrl(imagePath);
     
     // Appliquer les optimisations Supabase si demandées
     const optimizedUrl = optimize ? optimizeSupabaseImage(data.publicUrl, optimize) : data.publicUrl;

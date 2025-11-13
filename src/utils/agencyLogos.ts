@@ -1,19 +1,19 @@
 // Mapping des agences avec leurs logos
 export const agencyLogos: Record<string, string> = {
-  "Medin Voyages": "/lovable-uploads/logomedinvoyages.webp",
+  "Medin Voyages": "/lovable-uploads/logomedinvoyages.png",
   "Al Sirate Voyage": "/lovable-uploads/logoalsiratevoyage.png",
-  "Omra Du Savoir": "/lovable-uploads/logoomrasounnah.webp",
+  "Omra Du Savoir": "/lovable-uploads/logoomrasounnah.png",
   "Omra Sounnah": "/lovable-uploads/logoomrasounnah-favicon.png",
-  "Omra Pour Tous": "/lovable-uploads/logoomrapourtous.webp",
+  "Omra Pour Tous": "/lovable-uploads/logoomrapourtous.jpeg",
   "TAWAF": "/lovable-uploads/logotawaf.webp",
   "Sabil Voyages": "/lovable-uploads/logosabile-new.png",
-  "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.webp",
+  "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.png",
   "Pèlerin Hajj": "/lovable-uploads/logopelrinhajj.webp",
   "Al Hayat Voyages": "/lovable-uploads/logohayat.png",
   "Al Bayt": "/lovable-uploads/logoalbayt.png",
-  "Gateway-travel": "/lovable-uploads/logogatewaytravel.webp",
-  "Omra Discount": "/lovable-uploads/logoomradiscount.webp",
-  "Labbayk": "/lovable-uploads/logolabbayk.webp",
+  "Gateway-travel": "/lovable-uploads/logogatewaytravel.png",
+  "Omra Discount": "/lovable-uploads/logoomradiscount.png",
+  "Labbayk": "/lovable-uploads/logolabbayk.png",
   "OMRA GATE": "/lovable-uploads/logoomragate.webp",
 };
 

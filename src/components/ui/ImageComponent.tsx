@@ -52,35 +52,33 @@ export const ImageComponent = ({
   });
 
   const handleError = () => {
-    console.error('❌ Erreur chargement image:', currentSrc, 'Retry:', retryCount);
-    
     if (hasError) return;
     
-    // Extensions à essayer (webp et jpeg en priorité car ce sont celles présentes dans le storage)
-    const extensions = ['webp', 'jpeg', 'jpg', 'png', 'avif', 'gif'];
+    const extensions = ['webp', 'jpeg', 'jpg', 'png', 'avif'];
     
     if (retryCount < extensions.length && src) {
       let newSrc: string;
-      const pathWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
-      const newExt = extensions[retryCount];
       
       // Pour les URLs complètes, remplacer l'extension dans l'URL
-      if (currentSrc.startsWith('http')) {
-        const urlWithoutExt = currentSrc.replace(/\.(png|jpg|jpeg|webp|avif|gif)(\?.*)?$/i, '');
+      if (src.startsWith('http')) {
+        const urlWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
+        const newExt = extensions[retryCount];
         newSrc = `${urlWithoutExt}.${newExt}`;
-        console.log(`🔄 URL Retry ${retryCount + 1}/${extensions.length}: .${newExt}`);
+        console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: ${newSrc}`);
       } else {
         // Pour les chemins relatifs
+        const pathWithoutExt = src.replace(/\.(png|jpg|jpeg|webp|avif|gif)$/i, '');
+        const newExt = extensions[retryCount];
         const newPath = `${pathWithoutExt}.${newExt}`;
         newSrc = getImageUrl(newPath, responsive ? { width: 640, quality: 80 } : undefined, bucketName);
         setSrcSet(generateSrcSet(newPath));
-        console.log(`🔄 Path Retry ${retryCount + 1}/${extensions.length}: ${newPath}`);
+        console.log(`🔄 Tentative ${retryCount + 1}/${extensions.length}: Essai avec .${newExt}`);
       }
       
       setRetryCount(prev => prev + 1);
       setCurrentSrc(newSrc);
     } else {
-      console.error('❌ Toutes les extensions ont échoué pour:', src);
+      console.error('❌ Toutes les extensions ont échoué, affichage du fallback');
       setHasError(true);
       setCurrentSrc(fallbackSrc);
       setSrcSet(undefined);

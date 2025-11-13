@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -38,24 +38,24 @@ const FORMULA_TYPES = ['Essentiel', 'Confort'];
 const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
 
 const AGENCY_LOGOS: Record<string, string> = {
-  'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
-  'Almaqam': '/lovable-uploads/logoalmaqam.webp',
+  'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
+  'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelrinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.png',
   'Hayat': '/lovable-uploads/logohayat.png',
-  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
-  'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.webp',
-  'Omra Discount': '/lovable-uploads/logoomradiscount.webp',
-  'Sabil': '/lovable-uploads/logosabile-new.png',
-  'Sabil Voyages': '/lovable-uploads/logosabile-new.png',
+  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
+  'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
+  'Omra Discount': '/lovable-uploads/logoomradiscount.png',
+  'Sabil': '/lovable-uploads/logosabilvoyages.png',
+  'Sabil Voyages': '/lovable-uploads/logosabilvoyages.png',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
   'Al Sirate Voyage': '/lovable-uploads/logoalsiratevoyage.png',
   'Alsirate Voyage': '/lovable-uploads/logoalsiratevoyage.png',
-  'Gateway-travel': '/lovable-uploads/logogatewaytravel.webp',
-  'Gateway travel': '/lovable-uploads/logogatewaytravel.webp',
-  'Gatewaytravel': '/lovable-uploads/logogatewaytravel.webp',
-  'Labbayk': '/lovable-uploads/logolabbayk.webp',
+  'Gateway-travel': '/lovable-uploads/logogatewaytravel.png',
+  'Gateway travel': '/lovable-uploads/logogatewaytravel.png',
+  'Gatewaytravel': '/lovable-uploads/logogatewaytravel.png',
+  'Labbayk': '/lovable-uploads/logolabbayk.png',
   'OMRA GATE': '/lovable-uploads/logoomragate.webp',
   'Omra Gate': '/lovable-uploads/logoomragate.webp',
   'OmraGate': '/lovable-uploads/logoomragate.webp',
@@ -607,8 +607,7 @@ export default function ComparateurOmra() {
                             <img 
                               src={agencyLogo} 
                               alt={agency}
-                              className="h-6 w-6 md:h-8 md:w-8 object-contain flex-shrink-0"
-                              loading="lazy"
+                              className="h-6 w-6 md:h-8 md:w-8 object-cover flex-shrink-0 rounded-lg"
                             />
                           )}
                           <span className="text-xs md:text-sm font-medium truncate">
@@ -842,8 +841,8 @@ export default function ComparateurOmra() {
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="flex flex-col items-center gap-2 md:gap-4 relative">
                       {agencyLogo && (
-                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden flex items-center justify-center p-4 md:p-6 relative">
-                          <LazyAgencyLogo
+                        <div className="flex-shrink-0 w-full h-56 md:h-72 lg:h-64 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-4 md:p-6 relative">
+                          <LazyAgencyLogo 
                             src={agencyLogo} 
                             alt={offer.agency_name}
                             agencyName={offer.agency_name}
@@ -1095,12 +1094,11 @@ export default function ComparateurOmra() {
                       {/* Logo et agence */}
                       <div className="sm:w-48 lg:w-56 flex-shrink-0 p-4 border-b sm:border-b-0 sm:border-r border-primary/10 bg-gradient-to-br from-primary/5 to-background">
                         {agencyLogo && (
-                          <div className="h-32 rounded-lg overflow-hidden flex items-center justify-center p-3 relative">
-                            <img
+                          <div className="h-32 rounded-lg overflow-hidden shadow-sm flex items-center justify-center bg-white/80 dark:bg-gray-900/50 p-3 relative">
+                            <img 
                               src={agencyLogo} 
                               alt={offer.agency_name}
                               className="w-full h-full object-contain"
-                              loading="lazy"
                             />
                             {offer.is_complet && (
                               <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
@@ -1638,7 +1636,7 @@ export default function ComparateurOmra() {
        </div>
       </div>
      </div>
-     </div>
+    </div>
     </ResponsiveLayout>
   );
 }

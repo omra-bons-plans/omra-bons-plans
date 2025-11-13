@@ -3,15 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- Content Security Policy - TEMPORAIREMENT DÉSACTIVÉE POUR DEBUG
+    <!-- Content Security Policy - Protection contre XSS -->
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com data:;
       img-src 'self' data: blob: https: http:;
-      connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://www.google-analytics.com https://analytics.google.com https://lovable.dev wss://lptyhenryzhztdwpkvsc.supabase.co;
-      manifest-src 'self' https://lovable.dev;
+      connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://www.google-analytics.com https://analytics.google.com wss://lptyhenryzhztdwpkvsc.supabase.co;
       frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
       object-src 'none';
       base-uri 'self';
@@ -19,7 +18,6 @@
       frame-ancestors 'none';
       upgrade-insecure-requests;
     ">
-    -->
     
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -34,7 +32,7 @@
     
     
     <!-- Preload critical LCP hero image AVIF -->
-    <link rel="preload" as="image" href="/hero-kaaba-2025-new.avif" type="image/avif" fetchpriority="high">
+    <link rel="preload" as="image" href="/hero-kaaba-2025-optimized.avif" type="image/avif" fetchpriority="high">
     
     <!-- Favicons pour différents navigateurs et appareils -->
     <link rel="icon" type="image/png" href="/favicon.png">
