@@ -20,6 +20,8 @@ export default defineConfig(({ mode }) => ({
           router: ['react-router-dom'],
           supabase: ['@supabase/supabase-js'],
           forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          carousel: ['embla-carousel-react'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
         },
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -34,10 +36,14 @@ export default defineConfig(({ mode }) => ({
         drop_console: true,
         drop_debugger: true,
         passes: 2,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        ecma: 2020,
       },
       mangle: {
         safari10: true
+      },
+      format: {
+        comments: false,
       }
     },
     cssMinify: true,
