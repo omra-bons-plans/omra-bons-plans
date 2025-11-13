@@ -119,47 +119,6 @@
   <body>
     <div id="root"></div>
     
-    <!-- Google Analytics - différé APRÈS idle + interaction -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6T49BWNBV9', { send_page_view: false });
-      
-      // ⚡ MOBILE: Retarder GA au maximum pour réduire TBT
-      let gaLoaded = false;
-      const loadGA = () => {
-        if (!gaLoaded) {
-          gaLoaded = true;
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6T49BWNBV9';
-          document.head.appendChild(script);
-        }
-      };
-      
-      // Sur mobile: charger uniquement après idle + interaction
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            ['scroll', 'click', 'touchstart'].forEach(event => {
-              window.addEventListener(event, loadGA, { once: true, passive: true });
-            });
-            setTimeout(loadGA, 15000);
-          }, { timeout: 10000 });
-        } else {
-          setTimeout(loadGA, 15000);
-        }
-      } else {
-        // Desktop: charger normalement après interaction ou 5s
-        ['scroll', 'click'].forEach(event => {
-          window.addEventListener(event, loadGA, { once: true, passive: true });
-        });
-        setTimeout(loadGA, 5000);
-      }
-    </script>
-    
     <!-- Désactiver complètement le Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -210,24 +169,5 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
       }
     </style>
-    
-    <!-- ⚡ Analytics loaded after user interaction -->
-    <script>
-      (function(){
-        var loaded=false;
-        function loadAnalytics(){
-          if(loaded)return;
-          loaded=true;
-          var s=document.createElement('script');
-          s.src='https://www.googletagmanager.com/gtag/js?id=G-Q2NQD2NW1V';
-          s.async=true;
-          document.head.appendChild(s);
-        }
-        ['scroll','click','touchstart','keydown'].forEach(function(e){
-          window.addEventListener(e,loadAnalytics,{once:true,passive:true});
-        });
-        setTimeout(loadAnalytics,5000);
-      })();
-    </script>
   </body>
 </html>

@@ -11,6 +11,8 @@ import ScrollToTop from "./components/ui/ScrollToTop";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
+import { GoogleAnalytics } from "./components/analytics/GoogleAnalytics";
+import { MobileScriptLoader } from "./components/mobile/MobileScriptLoader";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -76,6 +78,8 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <GoogleAnalytics measurementId="G-6T49BWNBV9" />
+            <MobileScriptLoader />
             <BrowserRouter>
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
