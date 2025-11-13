@@ -6,21 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// User agents légitimes à whitelister (Google, Bing, etc.)
-const LEGITIMATE_BOTS = [
-  'googlebot',
-  'bingbot',
-  'lighthouse',
-  'pagespeed',
-  'google page speed',
-  'chrome-lighthouse',
-  'gtmetrix',
-  'pingdom',
-  'uptimerobot',
-  'google-inspectiontool'
-];
-
-// Liste de user agents suspects (scrapers malveillants uniquement)
+// Liste de user agents suspects
 const SUSPICIOUS_USER_AGENTS = [
   'python-requests',
   'curl',
@@ -29,7 +15,10 @@ const SUSPICIOUS_USER_AGENTS = [
   'selenium',
   'puppeteer',
   'phantomjs',
-  'beautifulsoup',
+  'bot',
+  'crawler',
+  'spider',
+  'scraper',
   'axios',
   'node-fetch',
   'postman',
@@ -62,25 +51,6 @@ serve(async (req) => {
     } = await req.json();
 
     console.log('🔍 Vérification anti-scraping:', { ip_address, user_agent, request_path });
-
-    // Vérifier si c'est un bot légitime (Google, Bing, etc.)
-    const userAgentLower = user_agent?.toLowerCase() || '';
-    const isLegitimateBot = LEGITIMATE_BOTS.some(bot => userAgentLower.includes(bot));
-    
-    if (isLegitimateBot) {
-      console.log('✅ Bot légitime whitelisté:', user_agent);
-      return new Response(
-        JSON.stringify({
-          allowed: true,
-          blocked: false,
-          reason: 'Legitimate bot whitelisted',
-          bot_type: 'legitimate',
-        }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
-    }
 
     // Si pas d'IP (environnement local), autoriser la requête sans vérification
     if (!ip_address || ip_address === 'null' || ip_address === 'undefined') {

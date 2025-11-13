@@ -13,19 +13,7 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
   const hasLoggedRef = useRef(false);
 
   useEffect(() => {
-    // ⚠️ ANTI-SCRAPING COMPLÈTEMENT DÉSACTIVÉ pour PageSpeed Insights
-    console.log('⚠️ Anti-scraping désactivé temporairement pour analyse PageSpeed');
-    
-    /* UNCOMMENT TO RE-ENABLE ANTI-SCRAPING
     if (!enabled) return;
-    
-    // Vérifier si c'est un bot légitime (Google, Bing, etc.)
-    const userAgent = navigator.userAgent.toLowerCase();
-    const legitimateBots = ['lighthouse', 'pagespeed', 'googlebot', 'chrome-lighthouse', 'google page speed'];
-    if (legitimateBots.some(bot => userAgent.includes(bot))) {
-      console.log('✅ Legitimate bot detected, anti-scraping disabled');
-      return;
-    }
 
     const detectSuspiciousActivity = async () => {
       // Ne logger qu'une seule fois par session
@@ -97,7 +85,6 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
-    */
   }, [enabled, debugMode]);
 
   return {

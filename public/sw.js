@@ -99,14 +99,6 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
   
-  // Ne pas intercepter les requêtes des bots Google (PageSpeed, Lighthouse)
-  const userAgent = request.headers.get('user-agent') || '';
-  if (userAgent.toLowerCase().includes('lighthouse') || 
-      userAgent.toLowerCase().includes('pagespeed') ||
-      userAgent.toLowerCase().includes('chrome-lighthouse')) {
-    return; // Laisser passer sans interception
-  }
-  
   // CRITICAL: Ne JAMAIS intercepter les images hero critiques
   if (CRITICAL_HERO_IMAGES.some(img => url.pathname.includes(img))) {
     console.log('[SW] Hero image - chargement direct (pas de cache)');

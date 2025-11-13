@@ -49,7 +49,6 @@ const AgenceDetails = lazy(() => import("./pages/AgenceDetails"));
 const ComparatifVisuel = lazy(() => import("./pages/ComparatifVisuel"));
 const ComparatifAgences = lazy(() => import("./pages/ComparatifAgences"));
 const Discussions = lazy(() => import("./pages/Discussions"));
-const FAQ = lazy(() => import("./pages/FAQ"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
@@ -219,7 +218,6 @@ const App = () => (
                   } />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
-                  <Route path="/faq" element={<FAQ />} />
                   <Route path="/prayer-times" element={<PrayerTimes />} />
                   <Route path="/islamic-calendar" element={<IslamicCalendar />} />
                   <Route path="/ramadan-hajj-dates" element={<RamadanHajjDates />} />

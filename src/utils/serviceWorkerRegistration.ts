@@ -3,13 +3,6 @@
  */
 
 export const registerServiceWorker = async () => {
-  // ⚠️ Service Worker temporairement désactivé pour permettre l'analyse PageSpeed Insights
-  // Le SW peut interférer avec les outils d'analyse de performance
-  console.log('⚠️ Service Worker désactivé temporairement pour analyse PageSpeed');
-  console.log('💡 Réactiver après validation des scores en décommentant le code ci-dessous');
-  return null;
-  
-  /* UNCOMMENT TO RE-ENABLE SERVICE WORKER
   if ('serviceWorker' in navigator) {
     try {
       // Attendre que la page soit complètement chargée
@@ -61,7 +54,6 @@ export const registerServiceWorker = async () => {
   } else {
     console.warn('⚠️ Service Workers non supportés par ce navigateur');
   }
-  */
 };
 
 export const unregisterServiceWorker = async () => {

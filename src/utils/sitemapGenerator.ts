@@ -74,12 +74,6 @@ const staticRoutes: SitemapUrl[] = [
   },
   // Pages utilitaires
   {
-    loc: 'https://omrabonsplans.fr/faq',
-    lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'monthly',
-    priority: 0.8
-  },
-  {
     loc: 'https://omrabonsplans.fr/prayer-times',
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'daily',
