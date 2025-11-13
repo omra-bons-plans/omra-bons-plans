@@ -13,7 +13,11 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
   const hasLoggedRef = useRef(false);
 
   useEffect(() => {
-    // ⚠️ Temporairement désactivé pour permettre l'analyse PageSpeed Insights
+    // ⚠️ ANTI-SCRAPING COMPLÈTEMENT DÉSACTIVÉ pour PageSpeed Insights
+    console.log('⚠️ Anti-scraping désactivé temporairement pour analyse PageSpeed');
+    return;
+    
+    /* UNCOMMENT TO RE-ENABLE ANTI-SCRAPING
     if (!enabled) return;
     
     // Vérifier si c'est un bot légitime (Google, Bing, etc.)
@@ -94,6 +98,7 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
+    */
   }, [enabled, debugMode]);
 
   return {
