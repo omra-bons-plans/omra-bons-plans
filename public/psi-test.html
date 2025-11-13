@@ -6,7 +6,7 @@
   <title>PSI Test - Omra Bons Plans</title>
   
   <!-- Preload critical image -->
-  <link rel="preload" as="image" href="/hero-kaaba-2025-optimized.avif" type="image/avif" fetchpriority="high">
+  <link rel="preload" as="image" href="/hero-kaaba-2025-new.avif" type="image/avif" fetchpriority="high">
   
   <!-- Critical CSS inline -->
   <style>
@@ -23,15 +23,19 @@
     <h1>🚀 Test PageSpeed Insights - Omra Bons Plans</h1>
     
     <!-- LCP Image -->
-    <img 
-      src="/hero-kaaba-2025-optimized.avif"
-      alt="Test LCP - Kaaba à La Mecque"
-      width="1600"
-      height="900"
-      fetchpriority="high"
-      loading="eager"
-      decoding="async"
-    >
+    <picture>
+      <source srcSet="/hero-kaaba-2025-new.avif" type="image/avif">
+      <source srcSet="/hero-kaaba-2025-new.webp" type="image/webp">
+      <img 
+        src="/hero-kaaba-2025-new.jpg"
+        alt="Test LCP - Kaaba à La Mecque"
+        width="1600"
+        height="900"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      >
+    </picture>
     
     <div class="text">
       <p><strong>Objectif :</strong> PageSpeed Insights Mobile ≥ 95</p>

@@ -17,16 +17,39 @@ export const OptimizedHeroImage = ({
 
   return (
     <picture className="absolute inset-0 w-full h-full">
-      {/* Mobile: Image optimisée */}
+      {/* AVIF format - le plus léger (support moderne) */}
       <source
         media="(max-width: 767px)"
-        srcSet="/hero-kaaba-2025-new.jpg"
-        type="image/jpeg"
+        srcSet="/hero-kaaba-2025-new.avif"
+        type="image/avif"
         width={mobileWidth}
         height={mobileHeight}
       />
+      <source
+        media="(min-width: 768px)"
+        srcSet="/hero-kaaba-2025-new.avif"
+        type="image/avif"
+        width={desktopWidth}
+        height={desktopHeight}
+      />
       
-      {/* Desktop fallback */}
+      {/* WebP format - fallback pour navigateurs sans AVIF */}
+      <source
+        media="(max-width: 767px)"
+        srcSet="/hero-kaaba-2025-new.webp"
+        type="image/webp"
+        width={mobileWidth}
+        height={mobileHeight}
+      />
+      <source
+        media="(min-width: 768px)"
+        srcSet="/hero-kaaba-2025-new.webp"
+        type="image/webp"
+        width={desktopWidth}
+        height={desktopHeight}
+      />
+      
+      {/* JPG fallback - support universel */}
       <img 
         src="/hero-kaaba-2025-new.jpg" 
         alt="Comparateur Omra - La Kaaba à La Mecque" 
