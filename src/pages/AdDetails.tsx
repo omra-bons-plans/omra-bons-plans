@@ -402,9 +402,13 @@ export default function AdDetails() {
                 if (fromAdmin) {
                   navigate('/admin/ads');
                 } else if (selectedCategory) {
-                  navigate('/bons-plans#services-listing', { state: { selectedCategory } });
+                  navigate('/bons-plans#services-listing', { 
+                    state: { selectedCategory, scrollToServices: true } 
+                  });
                 } else {
-                  navigate('/bons-plans#services-listing');
+                  navigate('/bons-plans#services-listing', { 
+                    state: { scrollToServices: true } 
+                  });
                 }
               }}
               className="flex items-center space-x-2"
