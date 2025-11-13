@@ -586,13 +586,14 @@ const Index = () => {
                                 )}
 
                                 {/* Infos au milieu */}
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 flex-wrap">
-                                    <h3 className="font-semibold text-sm truncate">{listing.title}</h3>
+                                <div className="flex-1 min-w-0 overflow-hidden">
+                                  <h3 className="font-semibold text-sm line-clamp-1 mb-1">{listing.title}</h3>
+                                  
+                                  <div className="flex items-center gap-1.5 mb-1">
                                     {listing.type && (
                                       <Badge 
                                         variant="outline" 
-                                        className={`text-[10px] px-1.5 py-0 ${
+                                        className={`text-[10px] px-1.5 py-0 flex-shrink-0 ${
                                           listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
                                           listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
                                           listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
@@ -610,10 +611,16 @@ const Index = () => {
                                          listing.type === 'vols' ? 'Vol' : listing.type}
                                       </Badge>
                                     )}
+                                    {listing.rating && (
+                                      <div className="flex items-center gap-0.5">
+                                        <DynamicIcon name="star" className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                                        <span className="text-xs font-semibold">{listing.rating}</span>
+                                      </div>
+                                    )}
                                   </div>
                                   
                                   {listing.subtitle && (
-                                    <p className="text-xs text-muted-foreground truncate mt-1">{listing.subtitle}</p>
+                                    <p className="text-xs text-muted-foreground line-clamp-1">{listing.subtitle}</p>
                                   )}
 
                                   {listing.location && (
