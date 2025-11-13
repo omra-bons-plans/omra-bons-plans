@@ -117,6 +117,8 @@ const agencyFormSchema = z.object({
 });
 
 export default function ComparateurOmra() {
+  console.log('[ComparateurOmra] Component mounting...');
+  
   const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
