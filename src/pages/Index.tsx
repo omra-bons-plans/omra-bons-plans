@@ -76,6 +76,18 @@ const Index = () => {
     }
   }, [location.state]);
 
+  // Scroll to services listing if hash is present
+  useEffect(() => {
+    if (location.hash === '#services-listing') {
+      setTimeout(() => {
+        const element = document.getElementById('services-listing');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
+
   // Refs pour les sections de scroll
   const flashSalesTabsRef = useRef<HTMLDivElement>(null);
   const flashSalesCardsRef = useRef<HTMLDivElement>(null);
@@ -911,6 +923,7 @@ const Index = () => {
           )}
 
           {/* Listings under tabs */}
+          <div id="services-listing" />
           {/* Desktop: Liste verticale de grandes cartes */}
           {filteredListings.length > 0 ? (
             <div className="hidden lg:block space-y-4 mb-16">

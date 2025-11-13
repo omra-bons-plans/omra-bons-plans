@@ -402,9 +402,9 @@ export default function AdDetails() {
                 if (fromAdmin) {
                   navigate('/admin/ads');
                 } else if (selectedCategory) {
-                  navigate('/bons-plans', { state: { selectedCategory } });
+                  navigate('/bons-plans#services-listing', { state: { selectedCategory } });
                 } else {
-                  navigate('/bons-plans');
+                  navigate('/bons-plans#services-listing');
                 }
               }}
               className="flex items-center space-x-2"
