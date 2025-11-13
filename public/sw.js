@@ -12,20 +12,7 @@ const CRITICAL_HERO_IMAGES = [
 // Ressources à mettre en cache lors de l'installation (SANS les hero images)
 const STATIC_ASSETS = [
   '/critical.css',
-  '/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png', // Logo
-  '/lovable-uploads/logoalmaqam.png',
-  '/lovable-uploads/logotawaf.webp',
-  '/lovable-uploads/logoomrapourtous.jpeg',
-  '/lovable-uploads/logosabile-new.png',
-  '/lovable-uploads/logoomrasounnah.png',
-  '/lovable-uploads/logomedinvoyages.png',
-  '/lovable-uploads/logohayat.png',
-  '/lovable-uploads/logoalsiratevoyage.png',
-  '/lovable-uploads/logoalbayt.png',
-  '/lovable-uploads/logopelrinhajj.webp',
-  '/lovable-uploads/logoomradiscount.png',
-  '/lovable-uploads/logolabbayk.png',
-  '/lovable-uploads/logoomragate.webp'
+  '/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png' // Logo uniquement
 ];
 
 // Durées de cache (en millisecondes)
