@@ -11,10 +11,24 @@ interface CheckRequest {
   userAgent?: string;
 }
 
-// Liste de user agents suspects (bots connus)
+// User agents légitimes à whitelister
+const LEGITIMATE_BOTS = [
+  'googlebot',
+  'bingbot',
+  'lighthouse',
+  'pagespeed',
+  'google page speed',
+  'chrome-lighthouse',
+  'gtmetrix',
+  'pingdom',
+  'uptimerobot',
+  'google-inspectiontool'
+];
+
+// Liste de user agents suspects (scrapers malveillants uniquement)
 const SUSPICIOUS_USER_AGENTS = [
-  'bot', 'crawler', 'spider', 'scraper', 'curl', 'wget', 'python', 'java',
-  'node', 'axios', 'requests', 'scrapy', 'headless', 'phantom', 'selenium'
+  'scrapy', 'beautifulsoup', 'selenium', 'puppeteer', 'phantomjs',
+  'curl', 'wget', 'python-requests', 'axios', 'node-fetch', 'httpie'
 ];
 
 // Vérifier si le user agent est suspect
@@ -44,6 +58,25 @@ serve(async (req) => {
     const actualUserAgent = userAgent || req.headers.get('user-agent') || 'unknown';
 
     console.log(`Checking request from IP: ${clientIP}, User-Agent: ${actualUserAgent}, Path: ${path}`);
+
+    // Vérifier si c'est un bot légitime (Google, Bing, etc.)
+    const userAgentLower = actualUserAgent.toLowerCase();
+    const isLegitimateBot = LEGITIMATE_BOTS.some(bot => userAgentLower.includes(bot));
+    
+    if (isLegitimateBot) {
+      console.log(`✅ Legitimate bot whitelisted: ${actualUserAgent}`);
+      return new Response(
+        JSON.stringify({ 
+          allowed: true, 
+          reason: 'Legitimate bot',
+          bot_type: 'legitimate'
+        }),
+        { 
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+    }
 
     // Vérifier si cette IP est déjà bloquée
     const { data: existingAttempts, error: fetchError } = await supabase
