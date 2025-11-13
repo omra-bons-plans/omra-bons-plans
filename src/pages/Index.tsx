@@ -323,13 +323,13 @@ const Index = () => {
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
-            {/* Mobile: AVIF optimisé pour petits écrans */}
+            {/* Mobile: JPEG ultra-léger < 50KB pour LCP rapide */}
             <source
               media="(max-width: 640px)"
-              srcSet="/hero-kaaba-2025-optimized.avif"
-              type="image/avif"
+              srcSet="/hero-kaaba-mobile-ultra-light.jpg"
+              type="image/jpeg"
               width="750"
-              height="1334"
+              height="422"
             />
             {/* Tablet: AVIF */}
             <source
