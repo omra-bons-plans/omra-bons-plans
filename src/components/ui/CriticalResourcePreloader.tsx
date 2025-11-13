@@ -6,32 +6,6 @@ import { useEffect } from 'react';
  */
 const CriticalResourcePreloader = () => {
   useEffect(() => {
-    // Précharger uniquement les polices critiques
-    const criticalFonts = [
-      'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap'
-    ];
-
-    criticalFonts.forEach(href => {
-      // Vérifier si le lien n'existe pas déjà
-      if (!document.querySelector(`link[href="${href}"]`)) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'style';
-        link.href = href;
-        link.crossOrigin = 'anonymous';
-        document.head.appendChild(link);
-        
-        // Charger aussi immédiatement le CSS
-        const styleLink = document.createElement('link');
-        styleLink.rel = 'stylesheet';
-        styleLink.href = href;
-        styleLink.media = 'print';
-        styleLink.onload = () => {
-          styleLink.media = 'all';
-        };
-        document.head.appendChild(styleLink);
-      }
-    });
 
     // Précharger les données critiques en idle time
     const prefetchData = async () => {
