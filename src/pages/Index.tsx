@@ -63,8 +63,24 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isAllServicesCategoryOpen, setIsAllServicesCategoryOpen] = useState(false);
-  // ⚡ CRITICAL: Load only 4 ads for mobile to reduce LCP drastically
-  const adsLimit = isMobile ? 4 : 15;
+  // ⚡ MOBILE: Démarrer avec 3 annonces, charger +3 après LCP
+  const [adsLimit, setAdsLimit] = useState(3);
+  const [componentsLoaded, setComponentsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isMobile) {
+      // Charger plus d'annonces après le LCP (2s)
+      const timer = setTimeout(() => {
+        setAdsLimit(6);
+        setComponentsLoaded(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else {
+      setAdsLimit(15);
+      setComponentsLoaded(true);
+    }
+  }, [isMobile]);
+
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
 
   // Restore category filter from navigation state and scroll to services
@@ -584,7 +600,8 @@ const Index = () => {
                       ))}
                     </div>
 
-                    {/* Tablet: Carousel with 2 items */}
+                    {/* Tablet: Carousel with 2 items - différé sur mobile */}
+                    {(componentsLoaded || !isMobile) && (
                     <div className="hidden md:block lg:hidden carousel-item-peek">
                       <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
                         <Carousel className="w-full">
@@ -604,6 +621,7 @@ const Index = () => {
                       </Carousel>
                       </Suspense>
                   </div>
+                  )}
 
                   {/* Mobile: Vue Liste ou Grille */}
                   <div className="block md:hidden mb-20">
@@ -1346,7 +1364,8 @@ const Index = () => {
                   <p className="text-muted-foreground text-lg">Rejoignez notre communauté de pèlerins pour poser vos questions, partager vos expériences et bénéficier des conseils de voyageurs qui ont déjà accompli leur Omra ou Hajj</p>
                 </div>
                 <div className="max-w-6xl mx-auto">
-                  {/* New Discussion System */}
+                  {/* New Discussion System - différé sur mobile */}
+                  {(componentsLoaded || !isMobile) && (
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
                       <div className="lg:col-span-1">
@@ -1364,6 +1383,7 @@ const Index = () => {
                       </div>
                     </Suspense>
                   </div>
+                  )}
                 </div>
               </div>
             </TabsContent>
@@ -1708,9 +1728,12 @@ const Index = () => {
               </p>
             </div>
             
+            {/* FeedbackForm - différé sur mobile */}
+            {(componentsLoaded || !isMobile) && (
             <Suspense fallback={<div className="h-64 bg-muted/20 animate-pulse rounded-lg" />}>
               <FeedbackForm />
             </Suspense>
+            )}
           </div>
         </div>
       </section>
