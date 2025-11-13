@@ -7,7 +7,7 @@ import './index.css'
 // Service Worker désactivé temporairement pour optimiser LCP
 // import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
-// Force rebuild - 2025-01-13 18:50 - BACK TO INDEX OPTIMIZED
+// Force rebuild - 2025-01-13 18:55 - FIXED REACT IMPORT
 
 console.log('[MAIN] App starting:', new Date().toISOString());
 
