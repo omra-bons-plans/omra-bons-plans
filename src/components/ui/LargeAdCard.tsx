@@ -149,7 +149,9 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
                 {listing.rating && (
                   <div className="flex items-center gap-1.5 bg-muted/50 px-3 py-1.5 rounded-full">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-semibold text-foreground">{listing.rating}</span>
+                    <span className="text-sm font-semibold text-foreground">
+                      {typeof listing.rating === 'number' ? listing.rating.toFixed(1) : listing.rating}
+                    </span>
                     {listing.reviews && (
                       <span className="text-sm text-muted-foreground">({listing.reviews})</span>
                     )}
