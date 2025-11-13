@@ -1638,7 +1638,7 @@ export default function ComparateurOmra() {
        </div>
       </div>
      </div>
-    </div>
+     </div>
     </ResponsiveLayout>
   );
 }
