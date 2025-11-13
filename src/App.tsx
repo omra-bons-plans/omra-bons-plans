@@ -78,9 +78,9 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <GoogleAnalytics measurementId="G-6T49BWNBV9" />
-            <MobileScriptLoader />
             <BrowserRouter>
+              <GoogleAnalytics measurementId="G-6T49BWNBV9" />
+              <MobileScriptLoader />
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>
