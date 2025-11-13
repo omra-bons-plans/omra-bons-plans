@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Search, ChevronDown, LayoutGrid, List } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -17,18 +17,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import UserMenu from "@/components/ui/UserMenu";
 import AdCard from "@/components/ui/AdCard";
-import FeedbackForm from "@/components/ui/FeedbackForm";
-import TopicsList from '@/components/ui/TopicsList';
-import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import { CompactAdCard } from "@/components/ui/CompactAdCard";
 import { LargeAdCard } from "@/components/ui/LargeAdCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,6 +31,16 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+
+// ⚡ CRITICAL: Lazy load heavy non-critical components to reduce initial JS bundle
+const Carousel = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.Carousel })));
+const CarouselContent = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselContent })));
+const CarouselItem = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselItem })));
+const CarouselNext = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselNext })));
+const CarouselPrevious = lazy(() => import("@/components/ui/carousel").then(m => ({ default: m.CarouselPrevious })));
+const FeedbackForm = lazy(() => import("@/components/ui/FeedbackForm"));
+const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
+const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
 
 // ⚡ REMOVED: Images imported lazily now to reduce initial JS bundle
 
@@ -63,8 +63,8 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isAllServicesCategoryOpen, setIsAllServicesCategoryOpen] = useState(false);
-  // ⚡ CRITICAL: Load only 6 ads for mobile to reduce LCP
-  const adsLimit = isMobile ? 6 : 15;
+  // ⚡ CRITICAL: Load only 4 ads for mobile to reduce LCP drastically
+  const adsLimit = isMobile ? 4 : 15;
   const { formattedListings, loading: adsLoading, error: adsError, hasMore, loadMore, total } = useAds(adsLimit, 0);
 
   // Restore category filter from navigation state and scroll to services
@@ -586,21 +586,23 @@ const Index = () => {
 
                     {/* Tablet: Carousel with 2 items */}
                     <div className="hidden md:block lg:hidden carousel-item-peek">
-                      <Carousel className="w-full">
-                        <CarouselContent className="-ml-4">
-                          {filteredFlashSalesListings.map((listing) => (
-                          <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                            <AdCard 
-                              key={listing.id}
-                              listing={listing} 
-                              className="w-full"
-                            />
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="hidden sm:flex" />
-                      <CarouselNext className="hidden sm:flex" />
-                    </Carousel>
+                      <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
+                        <Carousel className="w-full">
+                          <CarouselContent className="-ml-4">
+                            {filteredFlashSalesListings.map((listing) => (
+                            <CarouselItem key={listing.id} className="pl-4 basis-1/2">
+                              <AdCard 
+                                key={listing.id}
+                                listing={listing} 
+                                className="w-full"
+                              />
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="hidden sm:flex" />
+                        <CarouselNext className="hidden sm:flex" />
+                      </Carousel>
+                      </Suspense>
                   </div>
 
                   {/* Mobile: Vue Liste ou Grille */}
@@ -1346,19 +1348,21 @@ const Index = () => {
                 <div className="max-w-6xl mx-auto">
                   {/* New Discussion System */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-1">
-                      <TopicsList 
-                        selectedTopicId={selectedTopicId} 
-                        onTopicSelect={setSelectedTopicId} 
-                      />
-                    </div>
-                    <div className="lg:col-span-2">
-                      <ThreadedChatWindow
-                        topicId={selectedTopicId}
-                        topicTitle={selectedTopic?.title}
-                        topicColor={selectedTopic?.color}
-                      />
-                    </div>
+                    <Suspense fallback={<div className="h-96 bg-muted/20 animate-pulse rounded-lg" />}>
+                      <div className="lg:col-span-1">
+                        <TopicsList 
+                          selectedTopicId={selectedTopicId} 
+                          onTopicSelect={setSelectedTopicId} 
+                        />
+                      </div>
+                      <div className="lg:col-span-2">
+                        <ThreadedChatWindow
+                          topicId={selectedTopicId}
+                          topicTitle={selectedTopic?.title}
+                          topicColor={selectedTopic?.color}
+                        />
+                      </div>
+                    </Suspense>
                   </div>
                 </div>
               </div>
@@ -1704,7 +1708,9 @@ const Index = () => {
               </p>
             </div>
             
-            <FeedbackForm />
+            <Suspense fallback={<div className="h-64 bg-muted/20 animate-pulse rounded-lg" />}>
+              <FeedbackForm />
+            </Suspense>
           </div>
         </div>
       </section>
