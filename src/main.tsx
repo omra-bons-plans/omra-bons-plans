@@ -7,9 +7,9 @@ import './index.css'
 // Service Worker désactivé temporairement pour optimiser LCP
 // import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
-// Force rebuild - 2025-01-13 18:45 - CSP DISABLED FOR TEST
+// Force rebuild - 2025-01-13 18:50 - BACK TO INDEX OPTIMIZED
 
-console.log('[MAIN] Starting app initialization at:', new Date().toISOString());
+console.log('[MAIN] App starting:', new Date().toISOString());
 
 const queryClient = new QueryClient({
   defaultOptions: {
