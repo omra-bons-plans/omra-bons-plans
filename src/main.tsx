@@ -7,7 +7,7 @@ import './index.css'
 // Service Worker désactivé temporairement pour optimiser LCP
 // import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
-// Force rebuild - 2025-01-13 18:25 - TEST SIMPLE PAGE
+// Force rebuild - 2025-01-13 18:30 - RESTORED OPTIMIZED HOME
 
 console.log('[MAIN] Starting app initialization at:', new Date().toISOString());
 
