@@ -15,7 +15,6 @@ export const useAntiScraping = (options: AntiScrapingOptions = {}) => {
   useEffect(() => {
     // ⚠️ ANTI-SCRAPING COMPLÈTEMENT DÉSACTIVÉ pour PageSpeed Insights
     console.log('⚠️ Anti-scraping désactivé temporairement pour analyse PageSpeed');
-    return;
     
     /* UNCOMMENT TO RE-ENABLE ANTI-SCRAPING
     if (!enabled) return;
