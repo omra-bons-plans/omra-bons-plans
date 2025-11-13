@@ -6,14 +6,17 @@
  * Précharge intelligemment les ressources critiques
  */
 export const preloadCriticalResources = () => {
-  // Image hero critique (AVIF moderne)
-  const heroImage = document.createElement('link');
-  heroImage.rel = 'preload';
-  heroImage.as = 'image';
-  heroImage.href = '/hero-kaaba-2025-new.avif';
-  heroImage.type = 'image/avif';
-  heroImage.fetchPriority = 'high';
-  document.head.appendChild(heroImage);
+  // Déjà géré dans index.html avec fetchpriority="high"
+  // On évite les duplications
+  
+  // Preload fonts critiques
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'preload';
+  fontLink.as = 'font';
+  fontLink.href = 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2';
+  fontLink.type = 'font/woff2';
+  fontLink.crossOrigin = 'anonymous';
+  document.head.appendChild(fontLink);
 };
 
 /**
