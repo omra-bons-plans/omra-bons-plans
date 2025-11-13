@@ -97,24 +97,5 @@
     <!-- ⚡ CRITICAL: Load fonts ASAP with font-display:swap to avoid FOIT -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
-    
-    <!-- ⚡ Analytics loaded after user interaction -->
-    <script>
-      (function(){
-        var loaded=false;
-        function loadAnalytics(){
-          if(loaded)return;
-          loaded=true;
-          var s=document.createElement('script');
-          s.src='https://www.googletagmanager.com/gtag/js?id=G-Q2NQD2NW1V';
-          s.async=true;
-          document.head.appendChild(s);
-        }
-        ['scroll','click','touchstart','keydown'].forEach(function(e){
-          window.addEventListener(e,loadAnalytics,{once:true,passive:true});
-        });
-        setTimeout(loadAnalytics,5000);
-      })();
-    </script>
   </body>
 </html>
