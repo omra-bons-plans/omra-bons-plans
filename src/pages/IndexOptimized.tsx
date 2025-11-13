@@ -21,8 +21,10 @@ const SectionLoader = () => (
   </div>
 );
 
-// Force rebuild - 2025-01-13 18:00
+// Force rebuild - 2025-01-13 18:15 - Debug mode
 const IndexOptimized = () => {
+  // Debug: Log mount
+  console.log('[IndexOptimized] Component mounted at:', new Date().toISOString());
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useIsMobile();
