@@ -630,6 +630,20 @@ const Index = () => {
                                     </div>
                                   )}
                                 </div>
+
+                                {/* Prix à droite */}
+                                {listing.price && (
+                                  <div className="flex-shrink-0 text-right ml-2">
+                                    <div className="text-base font-bold text-primary whitespace-nowrap">
+                                      {typeof listing.price === 'string' ? listing.price : `${listing.price}€`}
+                                    </div>
+                                    {listing.discount && (
+                                      <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-[10px] px-1.5 py-0 mt-1">
+                                        -{listing.discount}%
+                                      </Badge>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </Card>
                           </div>
