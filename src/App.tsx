@@ -82,9 +82,9 @@ const App = () => (
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>
                   <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/comparateur" element={<ComparateurOmra />} />
+                  <Route path="/" element={<ComparateurOmra />} />
                   <Route path="/test" element={<Test />} />
+                  <Route path="/home-old" element={<Index />} />
                   <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={
