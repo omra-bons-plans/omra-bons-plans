@@ -940,6 +940,7 @@ const Index = () => {
                 <LargeAdCard 
                   key={listing.id} 
                   listing={listing}
+                  selectedCategory={selectedCategory}
                 />
               ))}
             </div>
@@ -965,7 +966,8 @@ const Index = () => {
               {filteredListings.map((listing) => (
                 <LargeAdCard 
                   key={listing.id}
-                  listing={listing} 
+                  listing={listing}
+                  selectedCategory={selectedCategory}
                 />
               ))}
             </div>
@@ -995,6 +997,7 @@ const Index = () => {
                     <LargeAdCard 
                       key={listing.id}
                       listing={listing}
+                      selectedCategory={selectedCategory}
                     />
                   ))}
                 </div>
