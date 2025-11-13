@@ -118,6 +118,47 @@
   <body>
     <div id="root"></div>
     
+    <!-- Google Analytics - différé APRÈS idle + interaction -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6T49BWNBV9', { send_page_view: false });
+      
+      // ⚡ MOBILE: Retarder GA au maximum pour réduire TBT
+      let gaLoaded = false;
+      const loadGA = () => {
+        if (!gaLoaded) {
+          gaLoaded = true;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6T49BWNBV9';
+          document.head.appendChild(script);
+        }
+      };
+      
+      // Sur mobile: charger uniquement après idle + interaction
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            ['scroll', 'click', 'touchstart'].forEach(event => {
+              window.addEventListener(event, loadGA, { once: true, passive: true });
+            });
+            setTimeout(loadGA, 15000);
+          }, { timeout: 10000 });
+        } else {
+          setTimeout(loadGA, 15000);
+        }
+      } else {
+        // Desktop: charger normalement après interaction ou 5s
+        ['scroll', 'click'].forEach(event => {
+          window.addEventListener(event, loadGA, { once: true, passive: true });
+        });
+        setTimeout(loadGA, 5000);
+      }
+    </script>
+    
     <!-- Désactiver complètement le Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
