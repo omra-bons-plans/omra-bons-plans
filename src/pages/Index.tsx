@@ -307,15 +307,33 @@ const Index = () => {
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
           <picture>
-            {/* Mobile: Image optimisée 750x1334 */}
+            {/* Mobile: AVIF optimisé pour petits écrans */}
             <source
-              media="(max-width: 767px)"
+              media="(max-width: 640px)"
               srcSet="/hero-kaaba-2025-optimized.avif"
               type="image/avif"
+              width="750"
+              height="1334"
             />
-            {/* Desktop: Image normale */}
+            {/* Tablet: AVIF */}
+            <source
+              media="(max-width: 1024px)"
+              srcSet="/hero-kaaba-2025-optimized.avif"
+              type="image/avif"
+              width="1024"
+              height="768"
+            />
+            {/* Desktop: AVIF haute qualité */}
+            <source
+              media="(min-width: 1025px)"
+              srcSet="/hero-kaaba-2025-optimized.avif"
+              type="image/avif"
+              width="1920"
+              height="1080"
+            />
+            {/* Fallback JPEG pour navigateurs sans support AVIF */}
             <img
-              src="/hero-kaaba-2025-optimized.avif"
+              src="/hero-kaaba-2025-new.jpg"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
               width="1600"
               height="900"
