@@ -114,6 +114,28 @@
 
   <body>
     <div id="root"></div>
+    
+    <!-- Désactiver complètement le Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister().then(function() {
+              console.log('Service Worker désenregistré');
+            });
+          }
+        });
+        // Effacer tous les caches
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              caches.delete(name);
+            }
+          });
+        }
+      }
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
     
     <!-- ⚡ CRITICAL: Load fonts ASAP with font-display:swap to avoid FOIT -->
