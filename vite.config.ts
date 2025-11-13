@@ -56,7 +56,7 @@ export default defineConfig(({ mode }) => ({
         comments: false,
       }
     },
-    cssMinify: 'lightningcss',
+    cssMinify: true,
     cssCodeSplit: true,
     reportCompressedSize: false,
     sourcemap: false
