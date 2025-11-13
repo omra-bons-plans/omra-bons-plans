@@ -80,7 +80,7 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
               </div>
 
               {/* Prix à droite */}
-              {listing.price && (
+              {listing.price && !listing.price.toString().toLowerCase().includes('sur demande') && (
                 <div className="flex-shrink-0 text-right">
                   <div className="flex items-baseline gap-0.5 justify-end">
                     <span className="text-lg font-bold text-primary">
@@ -173,7 +173,7 @@ export const LargeAdCard = ({ listing, className }: LargeAdCardProps) => {
               </div>
             </div>
 
-            {listing.price && (
+            {listing.price && !listing.price.toString().toLowerCase().includes('sur demande') && (
               <div className="flex-shrink-0 text-right bg-primary/5 rounded-2xl p-4 md:p-5 border border-primary/10">
                 <div className="flex flex-col items-end gap-1.5">
                   <span className="text-3xl md:text-4xl font-bold text-primary leading-none">
