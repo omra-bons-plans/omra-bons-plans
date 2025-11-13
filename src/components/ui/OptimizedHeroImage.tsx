@@ -9,9 +9,9 @@ interface OptimizedHeroImageProps {
 
 export const OptimizedHeroImage = ({
   mobileWidth = 750,
-  mobileHeight = 1334,
-  desktopWidth = 1920,
-  desktopHeight = 1080,
+  mobileHeight = 400,
+  desktopWidth = 1600,
+  desktopHeight = 500,
 }: OptimizedHeroImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -62,10 +62,7 @@ export const OptimizedHeroImage = ({
         loading="eager"
         decoding="async"
         onLoad={() => setIsLoaded(true)}
-        style={{ 
-          display: 'block',
-          contentVisibility: 'auto',
-        }}
+        style={{ display: 'block' }}
       />
       
       {/* Skeleton loader pendant le chargement */}
