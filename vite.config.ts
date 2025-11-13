@@ -64,7 +64,6 @@ export default defineConfig(({ mode }) => ({
       ecma: 2020,
       toplevel: true,
     },
-    cssMinify: 'lightningcss',
     cssCodeSplit: true,
     reportCompressedSize: false,
     sourcemap: false
