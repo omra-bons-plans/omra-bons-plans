@@ -11,6 +11,8 @@ export default function Logo({ size = 48, className, alt = "Omra Bons Plans", st
       alt={alt}
       width={size}
       height={size}
+      loading="eager"
+      fetchPriority="high"
       className={`object-contain ${className}`}
       style={style}
       {...props}

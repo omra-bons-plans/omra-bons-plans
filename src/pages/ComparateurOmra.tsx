@@ -608,6 +608,7 @@ export default function ComparateurOmra() {
                               src={agencyLogo} 
                               alt={agency}
                               className="h-6 w-6 md:h-8 md:w-8 object-cover flex-shrink-0 rounded-lg"
+                              loading="lazy"
                             />
                           )}
                           <span className="text-xs md:text-sm font-medium truncate">
@@ -1099,6 +1100,7 @@ export default function ComparateurOmra() {
                               src={agencyLogo} 
                               alt={offer.agency_name}
                               className="w-full h-full object-contain"
+                              loading="lazy"
                             />
                             {offer.is_complet && (
                               <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">

@@ -35,6 +35,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 src={agencyLogo} 
                 alt={offer.agency_name}
                 className="w-full h-full object-contain p-1"
+                loading="lazy"
               />
               {offer.is_complet && (
                 <div className="absolute inset-0 bg-red-600/90 flex items-center justify-center">

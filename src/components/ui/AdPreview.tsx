@@ -92,6 +92,7 @@ const AdPreview = ({ data, coverImage, category, className = "" }: AdPreviewProp
               src={URL.createObjectURL(coverImage)} 
               alt="Couverture" 
               className="w-full h-48 object-cover rounded-lg"
+              loading="lazy"
             />
           </div>
         )}
