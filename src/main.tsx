@@ -7,6 +7,8 @@ import './index.css'
 // Service Worker désactivé temporairement pour optimiser LCP
 // import { registerServiceWorker } from './utils/serviceWorkerRegistration'
 
+// Force rebuild - 2025-01-13
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
