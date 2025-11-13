@@ -21,6 +21,7 @@ const SectionLoader = () => (
   </div>
 );
 
+// Force rebuild - 2025-01-13 18:00
 const IndexOptimized = () => {
   const navigate = useNavigate();
   const location = useLocation();
