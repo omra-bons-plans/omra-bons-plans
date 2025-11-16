@@ -386,10 +386,16 @@ export default function ComparateurOmra() {
     try {
       const validatedData = agencyFormSchema.parse(agencyForm);
       
+      // Séparer le nom complet en prénom et nom
+      const nameParts = validatedData.contactName.trim().split(' ');
+      const prenom = nameParts[0] || '';
+      const nom = nameParts.slice(1).join(' ') || nameParts[0];
+      
       const { error } = await supabase.functions.invoke('send-contact-email', {
         body: {
-          name: validatedData.contactName,
-          email: validatedData.email,
+          nom: nom,
+          prenom: prenom,
+          mail: validatedData.email,
           message: `Demande d'apparition dans le comparateur\n\nAgence: ${validatedData.agencyName}\nContact: ${validatedData.contactName}\nTéléphone: ${validatedData.phone}\n\nMessage:\n${validatedData.message}`
         }
       });
