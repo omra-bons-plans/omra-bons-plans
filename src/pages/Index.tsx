@@ -1000,87 +1000,22 @@ const Index = () => {
                   ))}
                 </div>
               ) : (
-                /* Vue Cartes - VERTICALE complète comme comparateur */
-                <div className="space-y-4 mb-16">
+                /* Vue Cartes - Compacte comme comparateur */
+                <div className="space-y-3 mb-16">
                   {filteredListings.slice(0, 6).map((listing) => (
-                    <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
-                      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
-                        {/* Image/Logo grande */}
-                        {listing.image && (
-                          <div className="relative h-48 bg-white flex items-center justify-center p-6">
-                            <img
-                              src={listing.image}
-                              alt={listing.title}
-                              loading="lazy"
-                              className="w-full h-full object-contain"
-                            />
-                            {/* Badges sur l'image */}
-                            {(listing.isPromo || listing.isPopular) && (
-                              <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
-                                {listing.isPromo && (
-                                  <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-xs">
-                                    -{listing.discount}% 🔥
-                                  </Badge>
-                                )}
-                                {listing.isPopular && (
-                                  <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 font-bold text-xs">
-                                    ⭐ Populaire
-                                  </Badge>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Titre et note */}
-                        <div className="px-4 pt-4 pb-3 text-center border-b border-border">
-                          <h3 className="font-bold text-lg mb-2">{listing.title}</h3>
-                          {listing.rating && (
-                            <div className="flex items-center justify-center gap-1">
-                              <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                              <span className="text-sm font-semibold">{listing.rating}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Prix en évidence */}
-                        {listing.price && (
-                          <div className="px-4 py-4 bg-primary/5 text-center">
-                            <div className="text-sm text-muted-foreground mb-1">Prix</div>
-                            <div className="flex flex-col items-center gap-1">
-                              <span className="text-3xl font-bold text-primary">{listing.price}</span>
-                              {listing.originalPrice && (
-                                <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                              )}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Détails */}
-                        <div className="p-4 space-y-3">
-                          {listing.subtitle && (
-                            <div className="flex items-center gap-2 text-sm">
-                              <DynamicIcon name="calendar" className="w-4 h-4 text-muted-foreground" />
-                              <span>{listing.subtitle}</span>
-                            </div>
-                          )}
-
-                          {listing.location && (
-                            <div className="flex items-center gap-2 text-sm">
-                              <DynamicIcon name="map-pin" className="w-4 h-4 text-muted-foreground" />
-                              <span>{listing.location}</span>
-                            </div>
-                          )}
-
-                          {/* Bouton CTA */}
-                          <Button className="w-full mt-4" size="lg">
-                            Voir l'offre
-                            <DynamicIcon name="external-link" className="w-4 h-4 ml-2" />
-                          </Button>
-                          </div>
-                        </Card>
-                      </div>
-                    ))}
+                    <CompactAdCard 
+                      key={listing.id}
+                      ad={{
+                        ...listing,
+                        images: listing.image ? [listing.image] : [],
+                        category: listing.type,
+                        rating: listing.rating,
+                        location: listing.location,
+                        price: listing.price ? parseInt(listing.price.replace(/[^\d]/g, '')) : null,
+                      }}
+                      onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })}
+                    />
+                  ))}
                 </div>
               )}
             </div>
