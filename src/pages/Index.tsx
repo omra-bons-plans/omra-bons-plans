@@ -343,7 +343,7 @@ const Index = () => {
                   <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">en un seul endroit</span>
                 </h1>
                 
-                <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed max-w-6xl mx-auto px-2 font-medium">
+                <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
                   <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
                 </p>
 
@@ -385,7 +385,7 @@ const Index = () => {
         <div className="container mx-auto">
           {/* Tabs System */}
           <Tabs defaultValue="annonces" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6 md:mb-8 bg-muted/30 rounded-xl p-1 max-w-md mx-auto sticky top-16 md:top-20 z-40 backdrop-blur-md mx-4 md:mx-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-6 md:mb-8 bg-muted/30 rounded-xl p-1 md:max-w-md mx-auto sticky top-16 md:top-20 z-40 backdrop-blur-md">
               <TabsTrigger 
                 value="annonces" 
                 className="rounded-lg font-semibold text-xs md:text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all min-h-[44px]"
@@ -766,8 +766,8 @@ const Index = () => {
             )}
 
       {/* Introduction SEO Section - Mobile First */}
-      <section className="py-8 md:py-12 lg:py-16 px-4 md:px-6 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto max-w-4xl">
+      <section className="py-8 md:py-12 lg:py-16 px-3 sm:px-4 md:px-6 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto md:max-w-4xl">
           <div className="space-y-4 md:space-y-6 text-center">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
               Préparez votre Omra 2026 avec Omra Bons Plans
@@ -1060,8 +1060,8 @@ const Index = () => {
       </section>
 
       {/* Additional Services - Mobile First */}
-      <section className="py-8 md:py-12 lg:py-20 px-4 md:px-6 bg-card">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-8 md:py-12 lg:py-20 px-3 sm:px-4 md:px-6 bg-card">
+        <div className="container mx-auto md:max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-center">
             <div className="space-y-4 md:space-y-6 lg:space-y-8">
               <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold break-words">Séjours populaires en ce moment</h2>
@@ -1135,8 +1135,8 @@ const Index = () => {
       </section>
 
       {/* Bons Plans Section - SEO */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-16 md:py-24 px-3 sm:px-4 md:px-6 bg-background">
+        <div className="container mx-auto md:max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Bons Plans Omra & Hajj</h2>
             <p className="text-muted-foreground text-lg">Trouvez les meilleures offres et conseils pour votre pèlerinage</p>
@@ -1209,7 +1209,7 @@ const Index = () => {
       {/* Notre Mission Section - Mobile First */}
       <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-4 md:px-6 bg-gradient-to-br from-background via-card to-background relative overflow-hidden">
         <div className="absolute inset-0 islamic-pattern-modern opacity-5"></div>
-        <div className="container mx-auto max-w-4xl relative z-10">
+        <div className="container mx-auto md:max-w-4xl relative z-10 px-3 sm:px-4">
           <div className="text-center space-y-6 md:space-y-8">
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground">
               Notre mission : faciliter votre Omra et Hajj
@@ -1283,8 +1283,8 @@ const Index = () => {
       </section>
 
       {/* Articles récents Section - Mobile First */}
-      <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-4 md:px-6 bg-card">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 bg-card">
+        <div className="container mx-auto md:max-w-6xl">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold mb-3 md:mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg px-2">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
@@ -1352,11 +1352,11 @@ const Index = () => {
       </section>
 
       {/* SEO Content Section - Mobile First */}
-      <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-4 md:px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 bg-background">
+        <div className="container mx-auto md:max-w-6xl">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans ?</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
+            <p className="text-muted-foreground text-lg leading-relaxed md:max-w-4xl mx-auto">
               La plateforme de référence pour trouver et comparer les meilleures offres Omra 2025.
             </p>
           </div>
@@ -1484,11 +1484,11 @@ const Index = () => {
       </section>
 
       {/* SEO Section - Omra selon les périodes */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
-        <div className="container mx-auto max-w-6xl">
+      <section className="py-16 md:py-24 px-3 sm:px-4 md:px-6 bg-card">
+        <div className="container mx-auto md:max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Quand partir pour votre Omra ? Trouvez la meilleure période</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
+            <p className="text-muted-foreground text-lg leading-relaxed md:max-w-4xl mx-auto">
               Chaque période de l'année offre une expérience unique pour votre <strong className="text-foreground">pèlerinage Omra</strong>. Découvrez les avantages de chaque saison pour planifier votre <strong className="text-foreground">voyage spirituel</strong>.
             </p>
           </div>
@@ -1528,8 +1528,8 @@ const Index = () => {
       </section>
 
       {/* FAQ Section SEO */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
+      <section className="py-16 md:py-24 px-3 sm:px-4 md:px-6 bg-background">
+        <div className="container mx-auto md:max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Questions fréquentes sur l'organisation de votre Omra</h2>
             <p className="text-muted-foreground text-lg">Toutes les réponses à vos questions pour préparer sereinement votre pèlerinage</p>
@@ -1575,8 +1575,8 @@ const Index = () => {
       </section>
 
       {/* Final SEO Text Block */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-card">
-        <div className="container mx-auto max-w-5xl">
+      <section className="py-16 md:py-24 px-3 sm:px-4 md:px-6 bg-card">
+        <div className="container mx-auto md:max-w-5xl">
           <div className="bg-background rounded-2xl p-8 md:p-12 shadow-lg space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Omra Bons Plans : Votre comparateur de référence pour la Omra 2026 et 2027</h2>
             
@@ -1608,8 +1608,8 @@ const Index = () => {
       {/* Feedback Section */}
       <section className="py-20 px-6 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 islamic-pattern-modern opacity-20"></div>
-        <div className="container mx-auto text-center relative z-10">
-          <div className="max-w-4xl mx-auto space-y-8">
+        <div className="container mx-auto text-center relative z-10 px-3 sm:px-4">
+          <div className="md:max-w-4xl mx-auto space-y-8">
             <div className="space-y-4 mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
                 Partagez vos suggestions pour améliorer Omra Bons Plans : votre avis compte
@@ -1631,7 +1631,7 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Découvrez nos Guides & Ressources
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg md:max-w-2xl mx-auto">
               Explorez nos catégories pour trouver toutes les informations essentielles pour votre voyage Omra et Hajj
             </p>
           </div>
@@ -1805,7 +1805,7 @@ const Index = () => {
           
           {/* SEO Footer Content */}
           <div className="border-t border-border pt-8 pb-8">
-            <div className="max-w-3xl mx-auto text-center space-y-4">
+            <div className="md:max-w-3xl mx-auto text-center space-y-4">
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                 <strong className="text-foreground">Omra Bons Plans</strong> est le site de référence pour préparer votre <strong className="text-foreground">voyage Omra</strong> et votre <strong className="text-foreground">Hajj 2026</strong>. Avec des conseils pratiques, des comparatifs d'<strong className="text-foreground">agences Omra</strong>, des explications claires sur le <strong className="text-foreground">visa Omra</strong>, et des astuces pour trouver une <strong className="text-foreground">Omra pas chère</strong>, nous vous aidons à vivre votre pèlerinage dans les meilleures conditions.
               </p>
