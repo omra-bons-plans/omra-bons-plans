@@ -406,7 +406,7 @@ const Index = () => {
               {/* Flash Sales Section - Mobile First */}
               {filteredFlashSalesListings.length > 0 && (
                 <section className="pb-12 md:pb-20">
-                  <div className="md:container md:mx-auto max-w-md mx-auto px-4 md:px-6 md:max-w-none">
+                  <div className="container mx-auto px-3 sm:px-4 md:px-6">
                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-3 md:mb-4 gradient-text-primary">
                       Comparez les prix et prestations Omra
                     </h2>
@@ -788,8 +788,8 @@ const Index = () => {
       </section>
 
       {/* All Services Section - Mobile First */}
-      <section className="py-12 md:py-16 lg:py-20 px-0 md:px-6">
-        <div className="md:container md:mx-auto max-w-md mx-auto px-4 md:px-6 md:max-w-none">
+      <section className="py-12 md:py-16 lg:py-20">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6">
           <div className="mb-8 md:mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-8 mb-6 md:mb-8">
               <div>
