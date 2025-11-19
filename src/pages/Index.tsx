@@ -933,14 +933,13 @@ const Index = () => {
 
           {/* Listings under tabs */}
           <div id="services-listing" />
-          {/* Desktop: Liste verticale de grandes cartes */}
+          {/* Desktop: Grille de cartes comme le comparateur */}
           {filteredListings.length > 0 ? (
-            <div className="hidden lg:block space-y-4 mb-16">
+            <div className="hidden lg:grid lg:grid-cols-3 gap-6 mb-16">
               {filteredListings.map((listing) => (
-                <LargeAdCard 
+                <AdCard 
                   key={listing.id} 
                   listing={listing}
-                  selectedCategory={selectedCategory}
                 />
               ))}
             </div>
@@ -960,14 +959,13 @@ const Index = () => {
             </div>
           )}
 
-          {/* Tablet: Liste verticale de grandes cartes */}
+          {/* Tablet: Grille de cartes comme le comparateur */}
           {filteredListings.length > 0 ? (
-            <div className="hidden md:block lg:hidden space-y-3 mb-16">
+            <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-6 mb-16">
               {filteredListings.map((listing) => (
-                <LargeAdCard 
+                <AdCard 
                   key={listing.id}
                   listing={listing}
-                  selectedCategory={selectedCategory}
                 />
               ))}
             </div>
