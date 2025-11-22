@@ -14,7 +14,7 @@ INSERT INTO public.agencies (name, url, google_search_url, google_rating, review
  ARRAY['Hajj & Omra traditionnel', 'Réservation en ligne', 'Offres variées'], 
  'Standard', 'Agence pionnière avec 13 ans d''expérience et 98% de satisfaction'),
 
-('Pèlerin Hajj', 'https://pelerinhajj.com/', 'https://www.google.com/search?q=pelerinhajj.fr', 4.9, 1200, 
+('Pelerinhajj', 'https://pelerinhajj.com/', 'https://www.google.com/search?q=pelerinhajj.fr', 4.9, 1200, 
  ARRAY['Note élevée avec plus de 1200 avis', 'Présence active sur réseaux', 'Tarifs clairs dès 999€', 'Ancienneté depuis 2018'], 
  ARRAY['Peu de détails sur problèmes', 'Manque d''information post-paiement'], 
  ARRAY['Omra accessible', 'Hajj traditionnel', 'Voyages spirituels'], 
