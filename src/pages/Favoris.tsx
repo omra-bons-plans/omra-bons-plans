@@ -13,7 +13,7 @@ import { getAgencyInfo } from '@/utils/agenciesData';
 const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
-  'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
+  'Pelerinhajj': '/lovable-uploads/logopelrinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.png',
   'Hayat': '/lovable-uploads/logohayat.png',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',

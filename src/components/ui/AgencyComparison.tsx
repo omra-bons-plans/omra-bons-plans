@@ -190,7 +190,7 @@ const agenciesFeatures: AgencyFeatures[] = [
     }
   },
   {
-    name: "Pèlerin Hajj",
+    name: "Pelerinhajj",
     url: "https://pelerinhajj.com/",
     googleRating: 4.9,
     reviewCount: 1200,

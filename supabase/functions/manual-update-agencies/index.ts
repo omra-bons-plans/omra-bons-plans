@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
       { name: 'TAWAF', review_count: 1343, google_rating: null },
       { name: 'Medin Voyages', review_count: 271, google_rating: null },
       { name: 'Al Bayt', review_count: 959, google_rating: null },
-      { name: 'Pèlerin Hajj', review_count: 1354, google_rating: null },
+      { name: 'Pelerinhajj', review_count: 1354, google_rating: null },
       { name: 'Omra Pour Tous', review_count: 5778, google_rating: null },
       { name: 'Al Maqam Voyages', review_count: 392, google_rating: null },
       { name: 'Omra Sounnah', review_count: 309, google_rating: null },

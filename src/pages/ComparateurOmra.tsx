@@ -40,7 +40,7 @@ const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Str
 const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
-  'Pèlerin Hajj': '/lovable-uploads/logopelrinhajj.webp',
+  'Pelerinhajj': '/lovable-uploads/logopelrinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelrinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.png',
   'Hayat': '/lovable-uploads/logohayat.png',
@@ -1458,7 +1458,7 @@ export default function ComparateurOmra() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-3">Quelles agences sont référencées sur le comparateur ?</h3>
               <p className="text-muted-foreground">
-                Nous référençons les principales agences de voyages françaises spécialisées dans l'organisation de séjours Omra, notamment Tawaf, Medinvoyages, Almaqam, Pèlerin Hajj, Al Bayt, Hayat, Omra Sounnah, Omra Pour Tous et Sabil Voyages. Toutes sont agréées et reconnues pour leur sérieux et leur expérience dans le pèlerinage.
+                Nous référençons les principales agences de voyages françaises spécialisées dans l'organisation de séjours Omra, notamment Tawaf, Medinvoyages, Almaqam, Pelerinhajj, Al Bayt, Hayat, Omra Sounnah, Omra Pour Tous et Sabil Voyages. Toutes sont agréées et reconnues pour leur sérieux et leur expérience dans le pèlerinage.
               </p>
             </Card>
 
