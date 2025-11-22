@@ -15,11 +15,11 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Renommer "Sabil Voyages" en "Sabile Voyages"
+    // Renommer "Pèlerin Hajj" en "Pelerinhajj"
     const { data, error } = await supabase
       .from('agencies')
-      .update({ name: 'Sabile Voyages' })
-      .eq('name', 'Sabil Voyages')
+      .update({ name: 'Pelerinhajj' })
+      .eq('name', 'Pèlerin Hajj')
       .select();
 
     if (error) throw error;
@@ -27,8 +27,8 @@ Deno.serve(async (req) => {
     // Mettre à jour aussi les offres omra qui référencent cette agence
     const { error: offersError } = await supabase
       .from('omra_offers')
-      .update({ agency_name: 'Sabile Voyages' })
-      .eq('agency_name', 'Sabil Voyages');
+      .update({ agency_name: 'Pelerinhajj' })
+      .eq('agency_name', 'Pèlerin Hajj');
 
     if (offersError) {
       console.error('Error updating offers:', offersError);

@@ -154,7 +154,7 @@ export const agenciesData: AgencyData[] = [
     highlight: "8+ ans d'expérience avec formules tout inclus"
   },
   {
-    name: "Pèlerin Hajj",
+    name: "Pelerinhajj",
     url: "https://pelerinhajj.com/",
     googleRating: 4.9,
     reviewCount: 1200,
