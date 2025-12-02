@@ -9,7 +9,7 @@ export const agencyLogos: Record<string, string> = {
   "Sabil Voyages": "/lovable-uploads/logosabile.webp",
   "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.png",
   "Pelerinhajj": "/lovable-uploads/logopelerinhajj.webp",
-  "Al Hayat Voyages": "/lovable-uploads/logohayat.png",
+  "Al Hayat Voyages": "/lovable-uploads/logohayat.webp",
   "Al Bayt": "/lovable-uploads/logoalbayt.webp",
   "Gateway-travel": "/lovable-uploads/logogatewaytravel.png",
   "Omra Discount": "/lovable-uploads/logoomradiscount.png",
