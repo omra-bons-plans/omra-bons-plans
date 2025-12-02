@@ -1,23 +1,46 @@
-import { useState, useEffect } from 'react';
+/**
+ * ⚡ OPTIMIZED HERO IMAGE FOR MAXIMUM LCP PERFORMANCE
+ * - AVIF format with JPG fallback
+ * - Explicit dimensions to prevent CLS
+ * - fetchPriority="high" for browser prioritization
+ * - NO useState/useEffect to avoid React hydration delay
+ */
 
 interface OptimizedHeroImageProps {
   mobileWidth?: number;
   mobileHeight?: number;
   desktopWidth?: number;
   desktopHeight?: number;
+  className?: string;
 }
 
 export const OptimizedHeroImage = ({
   mobileWidth = 750,
-  mobileHeight = 400,
+  mobileHeight = 500,
   desktopWidth = 1600,
   desktopHeight = 500,
+  className = ''
 }: OptimizedHeroImageProps) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
+  // ⚡ CRITICAL: No state, no effects - pure render for fastest LCP
   return (
-    <picture className="absolute inset-0 w-full h-full">
-      {/* Mobile: Image optimisée */}
+    <picture className={`absolute inset-0 w-full h-full ${className}`}>
+      {/* AVIF format - smallest file size */}
+      <source
+        media="(max-width: 767px)"
+        srcSet="/hero-kaaba-2025-optimized.avif"
+        type="image/avif"
+        width={mobileWidth}
+        height={mobileHeight}
+      />
+      <source
+        media="(min-width: 768px)"
+        srcSet="/hero-kaaba-2025-optimized.avif"
+        type="image/avif"
+        width={desktopWidth}
+        height={desktopHeight}
+      />
+      
+      {/* JPG fallback */}
       <source
         media="(max-width: 767px)"
         srcSet="/hero-kaaba-2025-new.jpg"
@@ -26,26 +49,21 @@ export const OptimizedHeroImage = ({
         height={mobileHeight}
       />
       
-      {/* Desktop fallback */}
+      {/* Default img - always visible immediately */}
       <img 
         src="/hero-kaaba-2025-new.jpg" 
         alt="Comparateur Omra - La Kaaba à La Mecque" 
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="absolute inset-0 w-full h-full object-cover"
         width={desktopWidth}
         height={desktopHeight}
         fetchPriority="high"
         loading="eager"
-        decoding="async"
-        onLoad={() => setIsLoaded(true)}
-        style={{ display: 'block' }}
+        decoding="sync"
+        style={{ 
+          display: 'block',
+          contentVisibility: 'auto'
+        }}
       />
-      
-      {/* Skeleton loader pendant le chargement */}
-      {!isLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-br from-muted via-muted/80 to-muted animate-pulse" />
-      )}
     </picture>
   );
 };

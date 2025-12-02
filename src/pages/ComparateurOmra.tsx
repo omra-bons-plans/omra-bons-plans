@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, startTransition } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -16,18 +16,18 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { Package } from 'lucide-react';
-import { FilterForm } from '@/components/ui/FilterForm';
-import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
-import { z } from 'zod';
 import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
-import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
-// ⚡ Lazy load composants lourds pour réduire JS initial
+// ⚡ LAZY LOAD: Composants non-critiques pour LCP
+const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
+const CompactOfferCard = lazy(() => import('@/components/mobile/CompactOfferCard').then(m => ({ default: m.CompactOfferCard })));
+const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 const MONTHS = [
   'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -437,28 +437,36 @@ export default function ComparateurOmra() {
         ]}
       />
 
-      {/* Hero Section - ZERO ESPACE au-dessus sur mobile */}
+      {/* ⚡ Hero Section - Optimisé LCP avec dimensions fixes */}
       <div 
-        className="relative h-[400px] sm:h-[450px] md:h-[500px] flex items-center justify-center overflow-hidden"
-        style={{ marginTop: 0 }}
+        className="hero-container relative flex items-center justify-center"
+        style={{ 
+          height: 'clamp(400px, 100svh, 900px)',
+          marginTop: 0,
+          contain: 'layout style paint'
+        }}
       >
+        {/* ⚡ Image LCP - Priorité maximale */}
         <OptimizedHeroImage 
           mobileWidth={750}
-          mobileHeight={400}
+          mobileHeight={500}
           desktopWidth={1600}
           desktopHeight={500}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
-        <div className="relative z-10 container mx-auto px-4 sm:px-4 text-center">
-          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight animate-fade-in leading-tight px-2">
+        {/* Overlay simple - pas de backdrop-filter pour perfs */}
+        <div className="hero-overlay" />
+        
+        {/* ⚡ Contenu texte - rendu immédiat */}
+        <div className="relative z-10 container mx-auto px-4 text-center" style={{ contentVisibility: 'auto' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 tracking-tight leading-tight px-2">
             Comparateur Omra & Hajj 2026
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 sm:mb-3 animate-fade-in px-4">
-            Omra Bons Plans est le seul comparateur français pour la Omra et le Hajj
+          <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
+            Le seul comparateur français pour la Omra et le Hajj
           </p>
-          <p className="text-sm sm:text-base md:text-xl text-white/90 animate-fade-in px-4 leading-relaxed">
-            Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d&apos;offres
+          <p className="text-sm sm:text-base md:text-lg text-white/90 px-4 leading-relaxed max-w-3xl mx-auto">
+            Trouvez et réservez votre séjour au meilleur prix
           </p>
         </div>
       </div>
