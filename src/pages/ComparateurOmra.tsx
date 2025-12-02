@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense, startTransition } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -20,11 +20,11 @@ import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
-// Composants importés normalement (lazy loading retiré pour stabilité)
-import { FilterForm } from '@/components/ui/FilterForm';
-import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
-import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
-import { HajjNewsletterForm } from '@/components/forms/HajjNewsletterForm';
+// ⚡ LAZY LOAD: Composants non-critiques pour LCP
+const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
+const CompactOfferCard = lazy(() => import('@/components/mobile/CompactOfferCard').then(m => ({ default: m.CompactOfferCard })));
+const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
+const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -722,7 +722,9 @@ export default function ComparateurOmra() {
               </Badge>
               
               {/* Newsletter Subscription Form */}
-              <HajjNewsletterForm />
+              <Suspense fallback={<div className="animate-pulse h-32 bg-muted/20 rounded-lg" />}>
+                <HajjNewsletterForm />
+              </Suspense>
             </div>
           </Card>
         ) : error ? (
