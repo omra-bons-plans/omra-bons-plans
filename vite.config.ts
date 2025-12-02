@@ -16,25 +16,29 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          supabase: ['@supabase/supabase-js'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          // ⚡ CRITICAL: Split vendor chunks for better caching
+          'react-core': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          'supabase': ['@supabase/supabase-js'],
+          'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'query': ['@tanstack/react-query'],
+          'ui-core': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-popover'],
+          'date': ['date-fns'],
         },
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 400,
     target: 'es2020',
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
-        passes: 2,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
+        passes: 3,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
       },
       mangle: {
         safari10: true
@@ -43,7 +47,11 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     cssCodeSplit: true,
     reportCompressedSize: false,
-    sourcemap: false
+    sourcemap: false,
+    // ⚡ Optimize for faster initial load
+    modulePreload: {
+      polyfill: false
+    }
   },
   plugins: [
     react(),
@@ -55,4 +63,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // ⚡ Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+    exclude: ['@tanstack/react-query-devtools']
+  }
 }));
