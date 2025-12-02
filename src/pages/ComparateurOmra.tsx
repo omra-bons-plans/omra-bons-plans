@@ -42,7 +42,7 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelerinhajj.webp',
-  'Al Bayt': '/lovable-uploads/logoalbayt.png',
+  'Al Bayt': '/lovable-uploads/logoalbayt.webp',
   'Hayat': '/lovable-uploads/logohayat.png',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.png',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.jpeg',
