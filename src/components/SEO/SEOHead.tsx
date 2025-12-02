@@ -103,7 +103,7 @@ export const SEOHead = ({
 // SEO configuration for each page
 export const seoConfig = {
   home: {
-    title: 'Annonces Hajj & Omra : logements, chauffeurs, guides...',
+    title: 'Omra Bons Plans - Comparateur de séjours Omra & Hajj 2026',
     description: 'Trouvez les meilleures offres pour votre Omra et Hajj. Comparez hébergements, vols, guides et services en Arabie Saoudite sur la 1ère plateforme dédiée.',
     keywords: 'omra pas cher, hajj, voyage omra, arabie saoudite, la mecque, médine, pèlerinage islam, hébergement omra, vol omra, guide omra',
     canonical: 'https://omrabonsplans.fr/',
