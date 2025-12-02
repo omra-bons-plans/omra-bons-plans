@@ -1,6 +1,6 @@
 // Mapping des agences avec leurs logos
 export const agencyLogos: Record<string, string> = {
-  "Medin Voyages": "/lovable-uploads/logomedinvoyages.png",
+  "Medin Voyages": "/lovable-uploads/logomedinvoyages.webp",
   "Al Sirate Voyage": "/lovable-uploads/logoalsirate.webp",
   "Omra Du Savoir": "/lovable-uploads/logoomrasounnah.webp",
   "Omra Sounnah": "/lovable-uploads/logoomrasounnah.webp",
