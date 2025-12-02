@@ -11,7 +11,7 @@ import { SEOHead } from '@/components/SEO/SEOHead';
 import { getAgencyInfo } from '@/utils/agenciesData';
 
 const AGENCY_LOGOS: Record<string, string> = {
-  'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
+  'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
   'Al Bayt': '/lovable-uploads/logoalbayt.webp',

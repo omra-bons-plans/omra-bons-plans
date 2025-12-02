@@ -38,7 +38,7 @@ const FORMULA_TYPES = ['Essentiel', 'Confort'];
 const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
 
 const AGENCY_LOGOS: Record<string, string> = {
-  'Medinvoyages': '/lovable-uploads/logomedinvoyages.png',
+  'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
   'Almaqam': '/lovable-uploads/logoalmaqam.png',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelerinhajj.webp',
