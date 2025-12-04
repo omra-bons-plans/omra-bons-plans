@@ -460,7 +460,7 @@ export default function ComparateurOmra() {
         {/* ⚡ Contenu texte - rendu immédiat */}
         <div className="relative z-10 container mx-auto px-4 text-center" style={{ contentVisibility: 'auto' }}>
           <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-primary drop-shadow-lg">Omra Bons Plans</span>
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">Omra Bons Plans</span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">Votre comparateur de séjours Omra & Hajj 2026</span>
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
