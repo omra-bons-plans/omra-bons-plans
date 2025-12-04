@@ -73,10 +73,10 @@ export function DesktopSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <button onClick={() => window.location.href = "https://omrabonsplans.fr/bons-plans"} className="flex items-center gap-2 hover:text-primary transition-colors w-full text-left">
+                  <NavLink to="/" className={getNavCls}>
                     <Home className="w-4 h-4" />
-                    {!collapsed && <span>Bons Plans</span>}
-                  </button>
+                    {!collapsed && <span>Comparateur</span>}
+                  </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
@@ -99,10 +99,10 @@ export function DesktopSidebar() {
                 <SidebarMenuItem>
                   <div className="flex items-center justify-between w-full px-2 py-1.5">
                     <SidebarMenuButton asChild className="flex-1">
-                      <a href="https://omrabonsplans.fr/bons-plans" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+                      <NavLink to="/" className="flex items-center gap-2 hover:text-primary transition-colors">
                         <Home className="w-4 h-4" />
-                        <span>Bons Plans</span>
-                      </a>
+                        <span>Comparateur</span>
+                      </NavLink>
                     </SidebarMenuButton>
                     <button 
                       onClick={() => setBonsPlansOpen(!bonsPlansOpen)}
