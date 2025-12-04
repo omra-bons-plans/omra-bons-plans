@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { 
   User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
   Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle
+  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -32,6 +32,13 @@ export function DesktopSidebar() {
   const { unreadCount } = useNotifications();
   const { state } = useSidebar();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Détermine si on est sur la page comparateur (accueil) ou bons plans
+  const isOnComparateur = location.pathname === '/' || location.pathname === '/comparateur-omra';
+  const mainButtonLabel = isOnComparateur ? 'Bons Plans' : 'Comparateur';
+  const mainButtonLink = isOnComparateur ? '/bons-plans' : '/';
+  const MainButtonIcon = isOnComparateur ? LayoutGrid : Home;
 
   const collapsed = state === "collapsed";
 
@@ -73,9 +80,9 @@ export function DesktopSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <NavLink to="/" className={getNavCls}>
-                    <Home className="w-4 h-4" />
-                    {!collapsed && <span>Comparateur</span>}
+                  <NavLink to={mainButtonLink} className={getNavCls}>
+                    <MainButtonIcon className="w-4 h-4" />
+                    {!collapsed && <span>{mainButtonLabel}</span>}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -99,9 +106,9 @@ export function DesktopSidebar() {
                 <SidebarMenuItem>
                   <div className="flex items-center justify-between w-full px-2 py-1.5">
                     <SidebarMenuButton asChild className="flex-1">
-                      <NavLink to="/" className="flex items-center gap-2 hover:text-primary transition-colors">
-                        <Home className="w-4 h-4" />
-                        <span>Comparateur</span>
+                      <NavLink to={mainButtonLink} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <MainButtonIcon className="w-4 h-4" />
+                        <span>{mainButtonLabel}</span>
                       </NavLink>
                     </SidebarMenuButton>
                     <button 
