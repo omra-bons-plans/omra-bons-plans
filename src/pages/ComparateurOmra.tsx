@@ -460,7 +460,8 @@ export default function ComparateurOmra() {
         {/* ⚡ Contenu texte - rendu immédiat */}
         <div className="relative z-10 container mx-auto px-4 text-center" style={{ contentVisibility: 'auto' }}>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 tracking-tight leading-tight px-2">
-            Comparateur Omra & Hajj 2026
+            <span className="block">Omra Bons Plans</span>
+            <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mt-2">Votre comparateur de séjours Omra & Hajj 2026</span>
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
             Le seul comparateur français pour la Omra et le Hajj
