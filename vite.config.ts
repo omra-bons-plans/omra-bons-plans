@@ -16,64 +16,46 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // ⚡ OPTIMIZED: Fine-grained code splitting for faster LCP
+          // ⚡ FIXED: React MUST be bundled with Radix to avoid forwardRef errors
           if (id.includes('node_modules')) {
-            // React core - loaded first
-            if (id.includes('react-dom') || id.includes('react/')) {
-              return 'react-core';
+            // React + Radix together to prevent initialization issues
+            if (id.includes('react') || id.includes('@radix-ui')) {
+              return 'react-ui';
             }
-            // Router - critical for navigation
+            // Router
             if (id.includes('react-router')) {
               return 'router';
             }
-            // Supabase - defer if possible
+            // Supabase
             if (id.includes('@supabase')) {
               return 'supabase';
             }
-            // Forms - only needed on form pages
+            // Forms
             if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
               return 'forms';
             }
-            // Query - needed for data fetching
+            // Query
             if (id.includes('@tanstack/react-query')) {
               return 'query';
             }
-            // UI components - split by usage
-            if (id.includes('@radix-ui/react-dialog') || id.includes('@radix-ui/react-alert-dialog')) {
-              return 'ui-dialogs';
-            }
-            if (id.includes('@radix-ui/react-select') || id.includes('@radix-ui/react-popover')) {
-              return 'ui-selects';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'ui-radix';
-            }
-            // Date utilities - defer
+            // Date utilities
             if (id.includes('date-fns')) {
               return 'date';
             }
-            // Lucide icons - large, defer
+            // Icons
             if (id.includes('lucide-react')) {
               return 'icons';
             }
-            // Charts - only on specific pages
+            // Charts
             if (id.includes('recharts')) {
               return 'charts';
             }
-            // Carousel - lazy loaded
+            // Carousel
             if (id.includes('embla-carousel')) {
               return 'carousel';
             }
             // Other vendor libs
             return 'vendor';
-          }
-          // Home page components - critical
-          if (id.includes('/components/home/')) {
-            return 'home';
-          }
-          // SEO components - needed early
-          if (id.includes('/components/SEO/')) {
-            return 'seo';
           }
         },
         entryFileNames: 'assets/[name]-[hash].js',
@@ -81,17 +63,15 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 300, // Stricter limit
+    chunkSizeWarningLimit: 500,
     target: 'es2020',
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
-        passes: 3,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        dead_code: true,
-        unused: true
+        passes: 2,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
       },
       mangle: {
         safari10: true
@@ -103,15 +83,7 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     cssCodeSplit: true,
     reportCompressedSize: false,
-    sourcemap: false,
-    // ⚡ Optimize for faster initial load
-    modulePreload: {
-      polyfill: false
-    },
-    // ⚡ Treeshake aggressively
-    treeshake: {
-      moduleSideEffects: false
-    }
+    sourcemap: false
   },
   plugins: [
     react(),
