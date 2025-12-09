@@ -533,7 +533,7 @@ const Index = () => {
                     {/* Desktop: Grid Layout */}
                     <div className="hidden lg:grid grid-cols-4 gap-8">
                       {filteredFlashSalesListings.map((listing) => (
-                        <AdCard 
+                        <OptimizedAdCard 
                           key={listing.id} 
                           listing={listing}
                           imageHeight="h-56"
@@ -547,7 +547,7 @@ const Index = () => {
                         <CarouselContent className="-ml-4">
                           {filteredFlashSalesListings.map((listing) => (
                           <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                            <AdCard 
+                            <OptimizedAdCard 
                               key={listing.id}
                               listing={listing} 
                               className="w-full"
@@ -912,7 +912,7 @@ const Index = () => {
           {filteredListings.length > 0 ? (
             <div className="hidden lg:grid lg:grid-cols-3 gap-6 mb-16">
               {filteredListings.map((listing) => (
-                <AdCard 
+                <OptimizedAdCard 
                   key={listing.id} 
                   listing={listing}
                 />
@@ -938,7 +938,7 @@ const Index = () => {
           {filteredListings.length > 0 ? (
             <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-6 mb-16">
               {filteredListings.map((listing) => (
-                <AdCard 
+                <OptimizedAdCard 
                   key={listing.id}
                   listing={listing}
                 />
@@ -964,10 +964,10 @@ const Index = () => {
           {filteredListings.length > 0 ? (
             <div className="block md:hidden">
               {viewMode === "list" ? (
-                /* Vue Liste - GRANDES CARTES comme homepage */
+                /* Vue Liste - Optimisée pour mobile */
                 <div className="space-y-3 mb-16">
                   {filteredListings.slice(0, 6).map((listing) => (
-                    <LargeAdCard 
+                    <MobileListItem 
                       key={listing.id}
                       listing={listing}
                       selectedCategory={selectedCategory}
@@ -975,20 +975,13 @@ const Index = () => {
                   ))}
                 </div>
               ) : (
-                /* Vue Cartes - Compacte comme comparateur */
+                /* Vue Cartes - Compacte optimisée */
                 <div className="space-y-3 mb-16">
                   {filteredListings.slice(0, 6).map((listing) => (
-                    <CompactAdCard 
+                    <MobileListItem 
                       key={listing.id}
-                      ad={{
-                        ...listing,
-                        images: listing.image ? [listing.image] : [],
-                        category: listing.type,
-                        rating: listing.rating,
-                        location: listing.location,
-                        price: listing.price ? parseInt(listing.price.replace(/[^\d]/g, '')) : null,
-                      }}
-                      onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })}
+                      listing={listing}
+                      selectedCategory={selectedCategory}
                     />
                   ))}
                 </div>
