@@ -1,6 +1,5 @@
 import React from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -367,7 +366,7 @@ const RamadanHajjDates = () => {
           </Card>
           
           {/* Liens internes SEO */}
-          <InternalLinks currentPage="/dates-ramadan-hajj" variant="related" className="mt-8" />
+          <InternalLinks currentPage="/ramadan-hajj-dates" variant="related" className="mt-8" />
         </div>
       </main>
     </ResponsiveLayout>

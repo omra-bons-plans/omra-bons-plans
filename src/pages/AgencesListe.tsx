@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Star, TrendingUp, TrendingDown, Search, ExternalLink, Eye, ArrowRightLeft } from 'lucide-react';
-import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
@@ -90,12 +89,6 @@ export default function AgencesListe() {
         </script>
       </Helmet>
       <div className="min-h-screen bg-background">
-        <SEOHead 
-          title="Liste Agences de Voyages Omra & Hajj 2026-2027"
-          description="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs."
-          keywords="agence omra 2026, hajj 2026, agence voyage mecque, avis google"
-        />
-
         <div className="container mx-auto px-4 py-4 md:py-8">
           <SEOBreadcrumb 
             items={[
@@ -261,7 +254,7 @@ export default function AgencesListe() {
           </div>
           
           {/* Liens internes SEO */}
-          <InternalLinks currentPage="/agences" variant="related" className="mt-8" />
+          <InternalLinks currentPage="/agences-liste" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>
