@@ -33,6 +33,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     let mounted = true;
+    let hasResolved = false; // ⚡ Track if we've already resolved
+    
+    console.log('🔐 AuthContext: Starting auth check...');
     
     // Check for recovery mode
     const urlHash = window.location.hash;
@@ -42,17 +45,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    // ⚡ TIMEOUT: Ne jamais bloquer plus de 5 secondes
+    // ⚡ TIMEOUT: Force stop loading after 3 seconds (reduced from 5)
     const timeout = setTimeout(() => {
-      if (mounted && loading) {
-        console.warn('⚠️ Auth session timeout - continuing without session');
+      if (mounted && !hasResolved) {
+        console.warn('⚠️ Auth session timeout - forcing completion after 3s');
+        hasResolved = true;
         setLoading(false);
       }
-    }, 5000);
+    }, 3000);
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!mounted) return;
+      if (!mounted || hasResolved) return;
+      hasResolved = true;
+      
+      console.log('✅ AuthContext: Session loaded', session ? 'with user' : 'no user');
       
       const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
       
@@ -65,14 +72,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
       setLoading(false);
     }).catch((error) => {
-      console.error('Auth session error:', error);
-      if (mounted) setLoading(false);
+      console.error('❌ Auth session error:', error);
+      if (mounted && !hasResolved) {
+        hasResolved = true;
+        setLoading(false);
+      }
     });
 
     // Set up auth listener - MUST be synchronous only
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (!mounted) return;
+        
+        console.log('🔄 AuthContext: Auth state changed -', event);
         
         const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
         
