@@ -251,10 +251,13 @@ export default function ComparateurOmra() {
         setAllOffers(allData);
         
         // Calculer le prix maximum des offres (seulement au premier chargement)
-        if (maxPrice === 10000 && allData.length > 0) {
+        // Note: On ne met plus à jour priceMax ici pour éviter les boucles
+        if (allData.length > 0) {
           const maxPriceValue = Math.max(...allData.map(offer => offer.price_eur || 0));
           const roundedMax = Math.ceil(maxPriceValue / 100) * 100;
-          setMaxPrice(roundedMax);
+          if (roundedMax !== maxPrice) {
+            setMaxPrice(roundedMax);
+          }
         }
         
         // Extraire les agences uniques depuis TOUTES les offres
@@ -375,11 +378,11 @@ export default function ComparateurOmra() {
 
   // Mettre à jour priceMax quand maxPrice change (seulement au premier chargement)
   useEffect(() => {
-    if (isInitialLoad && maxPrice !== 10000) {
+    if (isInitialLoad && maxPrice !== 10000 && priceMax === 10000) {
       setPriceMax(maxPrice);
       setIsInitialLoad(false);
     }
-  }, [maxPrice, isInitialLoad]);
+  }, [maxPrice]);
 
   const resetFilters = () => {
     setSelectedMonth('all');
