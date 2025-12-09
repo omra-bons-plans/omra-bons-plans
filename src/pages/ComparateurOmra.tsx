@@ -212,15 +212,26 @@ export default function ComparateurOmra() {
     });
   };
 
-  // Fetch offers effect - avec valeurs stables
+  // Fetch offers effect - avec valeurs stables et timeout
   useEffect(() => {
+    let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
+    
     const fetchOffers = async () => {
       const currentPriceMin = priceMin;
       const currentPriceMax = priceMax;
       
       try {
-        setIsLoading(true);
+        if (isMounted) setIsLoading(true);
         setError(null);
+        
+        // ⚡ TIMEOUT: Force stop loading after 10 seconds
+        timeoutId = setTimeout(() => {
+          if (isMounted && isLoading) {
+            console.warn('⚠️ Offers loading timeout - forcing completion');
+            setIsLoading(false);
+          }
+        }, 10000);
         
         console.log('🔍 Filtres actifs:', {
           selectedMonth,
@@ -241,38 +252,40 @@ export default function ComparateurOmra() {
 
         if (allOffersError) {
           console.error('Erreur de chargement:', allOffersError);
-          setError(allOffersError.message);
-          setOffers([]);
-          setAllOffers([]);
+          if (isMounted) {
+            setError(allOffersError.message);
+            setOffers([]);
+            setAllOffers([]);
+            setIsLoading(false);
+          }
           return;
         }
 
         const allData = allActiveOffers || [];
-        setAllOffers(allData);
+        if (isMounted) setAllOffers(allData);
         
         // Calculer le prix maximum des offres (seulement au premier chargement)
-        // Note: On ne met plus à jour priceMax ici pour éviter les boucles
         if (allData.length > 0) {
           const maxPriceValue = Math.max(...allData.map(offer => offer.price_eur || 0));
           const roundedMax = Math.ceil(maxPriceValue / 100) * 100;
-          if (roundedMax !== maxPrice) {
+          if (roundedMax !== maxPrice && isMounted) {
             setMaxPrice(roundedMax);
           }
         }
         
         // Extraire les agences uniques depuis TOUTES les offres
         const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
-        setAvailableAgencies(agencies);
+        if (isMounted) setAvailableAgencies(agencies);
         
-        // Extraire les villes disponibles depuis TOUTES les offres et nettoyer les espaces
+        // Extraire les villes disponibles depuis TOUTES les offres
         const allCities = Array.from(new Set(allData.map(offer => offer.departure_city?.trim()).filter(Boolean)));
-        setAvailableCities(allCities.sort());
+        if (isMounted) setAvailableCities(allCities.sort());
         
         // Extraire les mois disponibles depuis TOUTES les offres
         const allMonths = Array.from(new Set(allData.map(offer => offer.month_departure).filter(Boolean)));
-        setAvailableMonths(allMonths);
+        if (isMounted) setAvailableMonths(allMonths);
         
-        // Maintenant, filtrer les offres pour l'affichage
+        // Filtrer les offres pour l'affichage
         let filtered = allData;
         
         // Appliquer les filtres
@@ -341,18 +354,25 @@ export default function ComparateurOmra() {
         }
         
         console.log('✅ Offres finales affichées:', filtered.length);
-        setOffers(filtered);
+        if (isMounted) setOffers(filtered);
       } catch (err: any) {
-        console.error('Erreur critique:', err);
-        setError(err.message || 'Une erreur est survenue');
-        setOffers([]);
-        setAllOffers([]);
+        console.error('❌ Erreur critique:', err);
+        if (isMounted) {
+          setError(err.message || 'Une erreur est survenue');
+          setOffers([]);
+          setAllOffers([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       }
     };
 
     fetchOffers();
+    
+    return () => {
+      isMounted = false;
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration]);
 
   // ⚡ PAGINATION: Calculer offres paginées
