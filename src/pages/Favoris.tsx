@@ -7,9 +7,9 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Trash2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
-import { SEOHead } from '@/components/SEO/SEOHead';
 import { getAgencyInfo } from '@/utils/agenciesData';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
+import { Helmet } from "react-helmet-async";
 
 const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
@@ -84,12 +84,17 @@ export default function Favoris() {
   
   return (
     <ResponsiveLayout>
-      <SEOHead
-        title="Mes Favoris Omra | Offres sauvegardées - Omra Bons Plans"
-        description="Retrouvez toutes vos offres Omra favorites pour les comparer facilement. Séjours, vols et hébergements sauvegardés."
-        keywords="favoris omra, offres sauvegardées, comparaison omra"
-        canonical="https://omrabonsplans.fr/favoris"
-      />
+      <Helmet>
+        <title>Mes Favoris - Offres Omra Sauvegardées | Omra Bons Plans</title>
+        <meta name="description" content="Retrouvez toutes vos offres Omra favorites sauvegardées. Comparez facilement vos séjours, vols et hébergements préférés pour votre pèlerinage." />
+        <meta name="keywords" content="favoris omra, offres sauvegardées, comparaison omra, mes offres" />
+        <link rel="canonical" href="https://omrabonsplans.fr/favoris" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Mes Favoris - Offres Omra Sauvegardées" />
+        <meta property="og:description" content="Retrouvez toutes vos offres Omra favorites pour les comparer facilement." />
+        <meta property="og:url" content="https://omrabonsplans.fr/favoris" />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       
       <div className="min-h-screen bg-background pt-16 md:pt-24 pb-24 md:pb-8">
         <div className="container mx-auto px-4">

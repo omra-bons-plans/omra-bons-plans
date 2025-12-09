@@ -1,5 +1,4 @@
 import React from 'react';
-import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import AgencyComparison from '@/components/ui/AgencyComparison';
 import { useIsMobile } from '@/hooks/use-mobile';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
+import { Helmet } from "react-helmet-async";
 
 export default function ComparatifVisuel() {
   const navigate = useNavigate();
@@ -15,13 +15,30 @@ export default function ComparatifVisuel() {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Comparateur Visuel Agences Omra - Outil Interactif | Omra Bons Plans</title>
+        <meta name="description" content="Outil de comparaison visuel interactif pour choisir votre agence Omra et Hajj. Comparez jusqu'à 4 agences côte à côte : tarifs, services et avis Google." />
+        <meta name="keywords" content="comparatif visuel agences omra, hajj comparateur, outil comparaison agences, omra 2026" />
+        <link rel="canonical" href="https://omrabonsplans.fr/comparatif-visuel" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Comparateur Visuel Agences Omra - Outil Interactif" />
+        <meta property="og:description" content="Comparez jusqu'à 4 agences Omra et Hajj côte à côte avec notre outil interactif." />
+        <meta property="og:url" content="https://omrabonsplans.fr/comparatif-visuel" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Comparateur Visuel Agences Omra",
+            "description": "Outil de comparaison visuel interactif pour choisir votre agence Omra et Hajj",
+            "url": "https://omrabonsplans.fr/comparatif-visuel",
+            "applicationCategory": "UtilityApplication"
+          })}
+        </script>
+      </Helmet>
       <div className="min-h-screen bg-background">
-        <SEOHead 
-          title="Comparatif Visuel Agences Omra & Hajj - Outil Interactif"
-          description="Outil de comparaison visuel interactif pour choisir la meilleure agence de voyage Omra et Hajj. Comparez jusqu'à 4 agences simultanément."
-          keywords="comparatif visuel agences omra, hajj comparateur, outil comparaison agences"
-          canonical="https://omrabonsplans.fr/comparatif-visuel"
-        />
 
         <div className="container mx-auto px-4 py-4 md:py-8">
           <SEOBreadcrumb 
@@ -44,7 +61,7 @@ export default function ComparatifVisuel() {
 
           <header className="text-center mb-6 md:mb-8">
             <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              {isMobile ? 'Comparatif Visuel Agences' : 'Comparatif Visuel Interactif des Agences Omra & Hajj 2026'}
+              {isMobile ? 'Comparateur Visuel' : 'Comparateur Visuel Interactif : Sélectionnez Vos Agences Omra'}
             </h1>
             {!isMobile && (
               <>
