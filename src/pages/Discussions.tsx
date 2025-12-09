@@ -6,10 +6,10 @@ import { useTopics } from '@/hooks/useTopics';
 import TopicsList from '@/components/ui/TopicsList';
 import ThreadedChatWindow from '@/components/ui/ThreadedChatWindow';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
+import { Helmet } from "react-helmet-async";
 
 const Discussions = () => {
   const { topics } = useTopics();
@@ -33,12 +33,28 @@ const Discussions = () => {
 
   return (
     <ResponsiveLayout>
-      <SEOHead 
-        title="Discussions - OmraBonsPlans.fr"
-        description="Rejoignez notre communauté de pèlerins. Discutez, partagez vos expériences et posez vos questions sur l'Omra et le Hajj."
-        keywords="discussions omra, communauté pèlerins, forum hajj, questions omra, conseils pèlerinage"
-        canonical="https://omrabonsplans.fr/discussions"
-      />
+      <Helmet>
+        <title>Forum Omra & Hajj - Communauté Pèlerins | Omra Bons Plans</title>
+        <meta name="description" content="Rejoignez notre communauté de pèlerins francophones. Discutez, partagez vos expériences Omra et Hajj, posez vos questions et obtenez des conseils d'experts." />
+        <meta name="keywords" content="forum omra, communauté pèlerins, discussions hajj, conseils pèlerinage, questions omra" />
+        <link rel="canonical" href="https://omrabonsplans.fr/discussions" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Forum Omra & Hajj - Communauté Pèlerins" />
+        <meta property="og:description" content="Rejoignez notre communauté de pèlerins francophones. Discutez et partagez vos expériences." />
+        <meta property="og:url" content="https://omrabonsplans.fr/discussions" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "DiscussionForumPosting",
+            "name": "Forum Omra & Hajj",
+            "description": "Communauté francophone de pèlerins pour le partage d'expériences Omra et Hajj",
+            "url": "https://omrabonsplans.fr/discussions"
+          })}
+        </script>
+      </Helmet>
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="min-h-screen bg-background">
         {/* Header */}

@@ -12,7 +12,6 @@ import {
   TableRow 
 } from '@/components/ui/table';
 import { Star, Search, ExternalLink, Loader2 } from 'lucide-react';
-import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { agenciesData } from '@/utils/agenciesData';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -20,6 +19,7 @@ import { InternalLinks } from '@/components/SEO/InternalLinks';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { Helmet } from "react-helmet-async";
 
 export default function ComparatifAgences() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -87,13 +87,29 @@ export default function ComparatifAgences() {
 
   return (
     <ResponsiveLayout>
+      <Helmet>
+        <title>Tableau Comparatif Agences Omra - Notes & Tarifs 2026 | Omra Bons Plans</title>
+        <meta name="description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, nombre d'avis, tarifs et spécialités. Comparez les meilleures agences pour votre pèlerinage 2026." />
+        <meta name="keywords" content="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tableau comparatif" />
+        <link rel="canonical" href="https://omrabonsplans.fr/comparatif-agences" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Tableau Comparatif Agences Omra - Notes & Tarifs 2026" />
+        <meta property="og:description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, tarifs et spécialités." />
+        <meta property="og:url" content="https://omrabonsplans.fr/comparatif-agences" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Tableau Comparatif Agences Omra",
+            "description": "Tableau comparatif complet des meilleures agences de voyage Omra et Hajj",
+            "url": "https://omrabonsplans.fr/comparatif-agences"
+          })}
+        </script>
+      </Helmet>
       <div className="min-h-screen bg-background">
-        <SEOHead 
-          title="Comparatif Agences de Voyages Omra & Hajj 2026-2027"
-          description="Comparatif complet des meilleures agences de voyage pour Omra et Hajj : notes Google, avis clients, points forts et tarifs. Trouvez l'agence idéale pour votre pèlerinage."
-          keywords="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tawaf, omra du savoir"
-          canonical="https://omrabonsplans.fr/comparatif-agences"
-        />
 
         <div className="container mx-auto px-4 py-4 md:py-8">
           <SEOBreadcrumb 
@@ -105,7 +121,7 @@ export default function ComparatifAgences() {
 
           <header className="text-center mb-6 md:mb-8">
             <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              {isMobile ? 'Comparatif Agences Omra 2026' : 'Comparatif Détaillé des Agences de Voyages Omra & Hajj 2026-2027'}
+              {isMobile ? 'Tableau Comparatif Agences' : 'Tableau Comparatif Détaillé des Agences Omra & Hajj 2026'}
             </h1>
             {!isMobile && (
               <>
