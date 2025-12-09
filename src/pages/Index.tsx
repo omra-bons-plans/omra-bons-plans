@@ -202,7 +202,7 @@ const Index = () => {
   return (
     <ResponsiveLayout>
       <SEOHead
-        title="Omra pas chère 2025 🇸🇦 | Comparateur d'agences agréées - Omra Bons Plans"
+        title="Omra Bons Plans | Comparateur d'agences agréées"
         description="Comparez les meilleurs séjours Omra 2025 depuis la France 🇫🇷. Trouvez votre Omra pas chère avec vol, visa et hôtels à Makkah & Médine inclus. Offres mises à jour quotidiennement."
         keywords="omra pas chère, omra 2025, séjour omra, agence omra France, vol omra, hôtel Makkah, hôtel Médine, visa omra, omra tout compris, omra ramadan"
         canonical="https://omrabonsplans.fr/"
