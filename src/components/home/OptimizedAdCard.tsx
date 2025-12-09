@@ -16,9 +16,10 @@ interface OptimizedAdCardProps {
   listing: CachedFormattedListing;
   priority?: boolean;
   className?: string;
+  imageHeight?: string;
 }
 
-export const OptimizedAdCard = memo(({ listing, priority = false, className = '' }: OptimizedAdCardProps) => {
+export const OptimizedAdCard = memo(({ listing, priority = false, className = '', imageHeight = 'h-44' }: OptimizedAdCardProps) => {
   const cardClasses = `
     overflow-hidden border border-border/20 bg-card/95 rounded-2xl transition-transform duration-200
     ${!listing.isExpired ? 'cursor-pointer hover:scale-[1.02] hover:shadow-lg' : 'cursor-not-allowed opacity-60 grayscale'}
@@ -29,7 +30,7 @@ export const OptimizedAdCard = memo(({ listing, priority = false, className = ''
     return (
       <Card className={cardClasses}>
         <div className="relative">
-          <div className="w-full h-44 overflow-hidden rounded-t-2xl bg-muted">
+          <div className={`w-full ${imageHeight} overflow-hidden rounded-t-2xl bg-muted`}>
             <img
               src={listing.image}
               alt={listing.title}
@@ -63,7 +64,7 @@ export const OptimizedAdCard = memo(({ listing, priority = false, className = ''
     >
       <Card className={cardClasses}>
         <div className="relative">
-          <div className="w-full h-44 overflow-hidden rounded-t-2xl bg-muted">
+          <div className={`w-full ${imageHeight} overflow-hidden rounded-t-2xl bg-muted`}>
             <img
               src={listing.image}
               alt={listing.title}
