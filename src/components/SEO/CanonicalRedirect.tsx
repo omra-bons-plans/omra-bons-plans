@@ -15,8 +15,8 @@ export const CanonicalRedirect: React.FC<CanonicalRedirectProps> = ({ children }
   // Retirer les trailing slashes sauf pour la page d'accueil
   const hasTrailingSlash = location.pathname.endsWith('/') && location.pathname !== '/';
   
-  // Nettoyer l'URL des paramètres indésirables
-  const cleanPath = location.pathname.toLowerCase().replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+  // Nettoyer l'URL des slashes multiples (sans changer la casse)
+  const cleanPath = location.pathname.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
   
   // Si l'URL a besoin d'être nettoyée, rediriger
   if (hasTrailingSlash || location.pathname !== cleanPath) {
