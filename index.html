@@ -3,20 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- Content Security Policy - Protection contre XSS -->
+    <!-- Content Security Policy - Assoupli pour éviter les blocages -->
     <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com data:;
+      default-src 'self' https:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+      style-src 'self' 'unsafe-inline' https:;
+      font-src 'self' https: data:;
       img-src 'self' data: blob: https: http:;
-      connect-src 'self' https://lptyhenryzhztdwpkvsc.supabase.co https://www.google-analytics.com https://analytics.google.com wss://lptyhenryzhztdwpkvsc.supabase.co;
-      frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
+      connect-src 'self' https: wss:;
+      frame-src 'self' https:;
       object-src 'none';
       base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'none';
-      upgrade-insecure-requests;
+      form-action 'self' https:;
     ">
     
     <!-- Security Headers -->
