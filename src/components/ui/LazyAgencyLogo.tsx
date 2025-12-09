@@ -43,10 +43,13 @@ export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAge
         <img
           src={src}
           alt={alt}
+          width={160}
+          height={60}
           loading="lazy"
           decoding="async"
+          fetchPriority="low"
           onLoad={() => setIsLoaded(true)}
-          className={`transition-opacity duration-300 ${
+          className={`transition-opacity duration-200 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           style={{

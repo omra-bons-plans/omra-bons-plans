@@ -72,8 +72,8 @@ export const OptimizedAdCard = memo(({ listing, priority = false, className = ''
               height={176}
               loading={priority ? 'eager' : 'lazy'}
               decoding="async"
-              fetchPriority={priority ? 'high' : 'auto'}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              fetchPriority={priority ? 'high' : 'low'}
+              className="w-full h-full object-cover"
             />
           </div>
 

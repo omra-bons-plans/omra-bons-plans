@@ -950,7 +950,10 @@ const Index = () => {
                           src="/images/hajj-providers-nusuk.png"
                           alt="Les 12 providers Hajj 2026 sur la plateforme Nusuk"
                           className="w-full h-auto"
+                          width={800}
+                          height={450}
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -1155,6 +1158,10 @@ const Index = () => {
                     src="/lovable-uploads/f137f21e-556a-46f4-affa-52a97b71a0b8.png"
                     alt="Train Haramain Express traversant le désert saoudien au coucher du soleil"
                     className="w-full h-full object-cover"
+                    width={640}
+                    height={360}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>

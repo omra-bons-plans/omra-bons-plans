@@ -35,15 +35,12 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  // ⚡ Hide pre-render hero once React is mounted
-  requestAnimationFrame(() => {
-    const prerenderHero = document.getElementById('prerender-hero');
-    if (prerenderHero) {
-      prerenderHero.classList.add('hidden');
-      // Remove from DOM after transition
-      setTimeout(() => prerenderHero.remove(), 300);
-    }
-  });
+  // ⚡ Hide pre-render hero IMMEDIATELY once React mounts
+  const prerenderHero = document.getElementById('prerender-hero');
+  if (prerenderHero) {
+    prerenderHero.classList.add('hidden');
+    setTimeout(() => prerenderHero.remove(), 200);
+  }
   
   console.log('✅ React app rendered successfully');
 } else {
