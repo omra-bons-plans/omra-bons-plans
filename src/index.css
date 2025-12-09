@@ -192,8 +192,8 @@
     transform: translateZ(0);
   }
 
-  /* Supprimer tout espace au-dessus du contenu mobile */
-  main, #app, .page, .page-content {
+  /* Supprimer tout espace au-dessus du contenu - mobile géré séparément */
+  #app, .page, .page-content {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
@@ -261,46 +261,20 @@
     margin-top: -1px !important;
   }
 
-  /* Mobile: Hero COMMENCE AU TOP ABSOLU - Header flotte au-dessus */
+  /* Mobile: Header fixe avec contenu en dessous */
   @media (max-width: 767px) {
-    /* Main container n'a AUCUN padding ni marge */
+    /* Main container avec padding-top pour le header fixe (52px) */
     main {
       margin-top: 0 !important;
-      padding-top: 0 !important;
+      padding-top: 52px !important;
       display: block !important;
     }
     
-    /* Premier enfant de main (hero) n'a pas de marge */
-    main > *:first-child {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-    }
-    
-    /* Hero wrapper et premier div de main */
-    .hero-wrapper,
-    main > div:first-child,
-    main > section:first-child {
+    /* Hero wrapper - pas de marge supplémentaire */
+    .hero-wrapper {
       position: relative !important;
       margin-top: 0 !important;
       padding-top: 0 !important;
-      top: 0 !important;
-    }
-    
-    /* Le contenu texte a un padding pour ne pas être caché par le header fixe (52px) */
-    .hero-wrapper .hero-overlay,
-    .hero-wrapper > div:not(.hero-media) {
-      padding-top: 60px !important;
-    }
-    
-    /* Forcer la suppression de tout espace avant le hero */
-    .hero-wrapper::before,
-    .hero-wrapper::after,
-    main > div:first-child::before,
-    main > div:first-child::after,
-    main > section:first-child::before,
-    main > section:first-child::after {
-      display: none !important;
-      content: none !important;
     }
   }
 
