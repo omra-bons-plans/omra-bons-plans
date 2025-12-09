@@ -260,32 +260,26 @@ const Index = () => {
       {/* Container principal - ZERO ESPACE sur mobile */}
       <div className="min-h-screen bg-background" style={{ padding: 0, margin: 0 }}>
 
-      {/* Hero Section - ZERO ESPACE au-dessus sur mobile */}
+      {/* Hero Section - IDENTIQUE au pre-render HTML pour transition fluide */}
       <section 
         className="hero-wrapper relative" 
         style={{ 
-          minHeight: isMobile ? '100vh' : '600px', 
-          aspectRatio: isMobile ? '9/16' : '16/9',
+          minHeight: isMobile ? '100svh' : '600px', 
           marginTop: 0,
           paddingTop: 0
         }}
       >
-        <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
+        <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>
           <picture>
-            {/* Mobile: Image optimisée 750x1334 */}
-            <source
-              media="(max-width: 767px)"
-              srcSet="/hero-kaaba-2025-optimized.avif"
-              type="image/avif"
-            />
-            {/* Desktop: Image normale */}
+            <source srcSet="/hero-kaaba-2025-optimized.avif" type="image/avif" />
             <img
-              src="/hero-kaaba-2025-optimized.avif"
+              src="/hero-kaaba-2025-new.jpg"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
-              width="1600"
-              height="900"
+              width={1600}
+              height={900}
               fetchPriority="high"
-              decoding="async"
+              decoding="sync"
+              loading="eager"
               style={{
                 width: '100%',
                 height: '100%',
