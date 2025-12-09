@@ -35,6 +35,16 @@ if (rootElement) {
     </React.StrictMode>
   );
   
+  // ⚡ Hide pre-render hero once React is mounted
+  requestAnimationFrame(() => {
+    const prerenderHero = document.getElementById('prerender-hero');
+    if (prerenderHero) {
+      prerenderHero.classList.add('hidden');
+      // Remove from DOM after transition
+      setTimeout(() => prerenderHero.remove(), 300);
+    }
+  });
+  
   console.log('✅ React app rendered successfully');
 } else {
   console.error('❌ Root element not found!');
