@@ -125,7 +125,9 @@ export default function ComparateurOmra() {
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<string>('all');
   const [maxPrice, setMaxPrice] = useState<number>(10000);
-  const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
+  const [priceMin, setPriceMin] = useState<number>(0);
+  const [priceMax, setPriceMax] = useState<number>(10000);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [maxDuration, setMaxDuration] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('date_asc');
   const [showFilters, setShowFilters] = useState(false);
@@ -210,12 +212,12 @@ export default function ComparateurOmra() {
     });
   };
 
-  // Fetch offers effect - séparé pour éviter les boucles infinies
-  const priceMin = priceRange[0];
-  const priceMax = priceRange[1];
-  
+  // Fetch offers effect - avec valeurs stables
   useEffect(() => {
     const fetchOffers = async () => {
+      const currentPriceMin = priceMin;
+      const currentPriceMax = priceMax;
+      
       try {
         setIsLoading(true);
         setError(null);
@@ -224,8 +226,8 @@ export default function ComparateurOmra() {
           selectedMonth,
           selectedCity,
           selectedFormula,
-          priceMin,
-          priceMax,
+          priceMin: currentPriceMin,
+          priceMax: currentPriceMax,
           maxDuration,
           selectedAgencies,
           tripType
@@ -280,11 +282,11 @@ export default function ComparateurOmra() {
         if (selectedFormula && selectedFormula !== 'all') {
           filtered = filtered.filter(offer => offer.formula_type === selectedFormula.toLowerCase());
         }
-        if (priceMin > 0) {
-          filtered = filtered.filter(offer => offer.price_eur >= priceMin);
+        if (currentPriceMin > 0) {
+          filtered = filtered.filter(offer => offer.price_eur >= currentPriceMin);
         }
-        if (priceMax < 10000) {
-          filtered = filtered.filter(offer => offer.price_eur <= priceMax);
+        if (currentPriceMax < 10000) {
+          filtered = filtered.filter(offer => offer.price_eur <= currentPriceMax);
         }
         if (maxDuration) {
           filtered = filtered.filter(offer => offer.duration_nights <= parseInt(maxDuration));
@@ -359,7 +361,7 @@ export default function ComparateurOmra() {
   // Reset page quand les filtres changent
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, maxDuration, sortBy, selectedAgencies, tripType]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies, tripType]);
 
   // Scroll vers la liste des offres quand la page change
   useEffect(() => {
@@ -371,10 +373,13 @@ export default function ComparateurOmra() {
     }
   }, [currentPage]);
 
-  // Mettre à jour priceRange[1] quand maxPrice change
+  // Mettre à jour priceMax quand maxPrice change (seulement au premier chargement)
   useEffect(() => {
-    setPriceRange(prev => [prev[0], maxPrice]);
-  }, [maxPrice]);
+    if (isInitialLoad && maxPrice !== 10000) {
+      setPriceMax(maxPrice);
+      setIsInitialLoad(false);
+    }
+  }, [maxPrice, isInitialLoad]);
 
   const resetFilters = () => {
     setSelectedMonth('all');
@@ -382,7 +387,8 @@ export default function ComparateurOmra() {
     setSelectedFormula('all');
     setSelectedAgencies([]);
     setSelectedDuration('all');
-    setPriceRange([0, maxPrice]);
+    setPriceMin(0);
+    setPriceMax(maxPrice);
     setMaxDuration('');
   };
 
@@ -655,14 +661,14 @@ export default function ComparateurOmra() {
                 <div className="space-y-2 md:space-y-3">
                   <label className="text-xs md:text-sm font-medium flex items-center justify-between">
                     <span>Budget</span>
-                    <span className="text-primary font-bold text-xs md:text-sm">{priceRange[0]}€ - {priceRange[1]}€</span>
+                    <span className="text-primary font-bold text-xs md:text-sm">{priceMin}€ - {priceMax}€</span>
                   </label>
                   <Slider
                     min={0}
                     max={maxPrice}
                     step={100}
-                    value={priceRange}
-                    onValueChange={setPriceRange}
+                    value={[priceMin, priceMax]}
+                    onValueChange={(values) => { setPriceMin(values[0]); setPriceMax(values[1]); }}
                     className="py-3 md:py-4"
                   />
                 </div>
