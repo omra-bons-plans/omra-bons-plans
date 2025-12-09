@@ -13,6 +13,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 interface HijriDate {
   date: string;
@@ -328,6 +329,9 @@ const IslamicCalendar = () => {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Liens internes SEO */}
+        <InternalLinks currentPage="/calendrier-islamique" variant="related" className="mt-8" />
       </div>
     </ResponsiveLayout>
   );

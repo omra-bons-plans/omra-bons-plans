@@ -16,6 +16,7 @@ import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getImageUrl } from '@/utils/imageUtils';
 import UniversalImage from '@/components/ui/UniversalImage';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 interface BlogPost {
   id: string;
@@ -494,6 +495,9 @@ const Blog = () => {
               />
             </div>
           )}
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/blog" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>

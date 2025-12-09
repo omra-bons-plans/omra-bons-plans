@@ -19,6 +19,7 @@ import { Package } from 'lucide-react';
 import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 // ⚡ LAZY LOAD: Composants non-critiques pour LCP
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
@@ -1647,11 +1648,14 @@ export default function ComparateurOmra() {
                </Button>
              </form>
            </div>
-         </Card>
+          </Card>
+        </div>
+        
+        {/* Liens internes SEO */}
+        <InternalLinks currentPage="/" variant="related" className="mt-8" />
        </div>
       </div>
-     </div>
-    </div>
+      </div>
     </ResponsiveLayout>
   );
 }

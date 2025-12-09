@@ -9,6 +9,7 @@ import { Star, Trash2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { getAgencyInfo } from '@/utils/agenciesData';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
@@ -184,6 +185,9 @@ export default function Favoris() {
               </p>
             </Card>
           )}
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/favoris" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>

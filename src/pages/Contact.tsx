@@ -13,6 +13,7 @@ import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import { Helmet } from "react-helmet-async";
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -246,6 +247,9 @@ const Contact = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/contact" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>

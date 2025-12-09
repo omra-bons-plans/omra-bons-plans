@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { agenciesData } from '@/utils/agenciesData';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AgencesListe() {
@@ -258,6 +259,9 @@ export default function AgencesListe() {
               </Card>
             ))}
           </div>
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/agences" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>

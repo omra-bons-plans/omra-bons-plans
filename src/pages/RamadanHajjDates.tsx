@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Helmet } from "react-helmet-async";
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const RamadanHajjDates = () => {
   const ramadanDates = [
@@ -364,6 +365,9 @@ const RamadanHajjDates = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/dates-ramadan-hajj" variant="related" className="mt-8" />
         </div>
       </main>
     </ResponsiveLayout>

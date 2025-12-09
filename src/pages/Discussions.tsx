@@ -9,6 +9,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const Discussions = () => {
   const { topics } = useTopics();
@@ -248,6 +249,9 @@ const Discussions = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/discussions" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>
