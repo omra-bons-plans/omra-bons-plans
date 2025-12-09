@@ -32,6 +32,7 @@ const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow
 const FeedbackForm = lazy(() => import('@/components/ui/FeedbackForm'));
 const Logo = lazy(() => import('@/components/ui/Logo'));
 const UserMenu = lazy(() => import('@/components/ui/UserMenu'));
+const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 
 // ⚡ LAZY LOAD: Carousel only when needed
 const Carousel = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.Carousel })));
@@ -107,7 +108,8 @@ const Index = () => {
     { id: "hebergement", name: "Hébergements", icon: "hotel", description: "Hôtels et appartements", count: getCategoryCount("hebergement") },
     { id: "guides", name: "Guides", icon: "book-open", description: "Guides spirituels", count: getCategoryCount("guides") },
     { id: "chauffeurs", name: "Chauffeurs", icon: "car", description: "Transport privé", count: getCategoryCount("chauffeurs") },
-    { id: "babysitting", name: "Baby-sitting", icon: "heart", description: "Garde d'enfants", count: getCategoryCount("babysitting") }
+    { id: "babysitting", name: "Baby-sitting", icon: "heart", description: "Garde d'enfants", count: getCategoryCount("babysitting") },
+    { id: "hajj", name: "Hajj 2026", icon: "star", description: "Offres Hajj", count: 0 }
   ];
 
   // ❌ REMOVED: Auto-scroll was blocking main thread during LCP
@@ -908,100 +910,163 @@ const Index = () => {
 
           {/* Listings under tabs */}
           <div id="services-listing" />
-          {/* Desktop: Grille de cartes comme le comparateur */}
-          {filteredListings.length > 0 ? (
-            <div className="hidden lg:grid lg:grid-cols-3 gap-6 mb-16">
-              {filteredListings.map((listing) => (
-                <OptimizedAdCard 
-                  key={listing.id} 
-                  listing={listing}
-                />
-              ))}
+          
+          {/* Section spéciale Hajj 2026 */}
+          {selectedCategory === "hajj" ? (
+            <div className="py-8 md:py-12 mb-16">
+              <Card className="overflow-hidden border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                <CardContent className="p-6 md:p-10">
+                  <div className="text-center space-y-6">
+                    {/* Icon */}
+                    <div className="w-20 h-20 md:w-24 md:h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                      <DynamicIcon name="calendar" className="w-10 h-10 md:w-12 md:h-12 text-primary" />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-4xl font-bold text-foreground">
+                      Offres Hajj 2026
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
+                      Les offres pour le Hajj ne sont pas encore disponibles. Nous vous invitons à revenir début janvier 2026 pour découvrir et comparer toutes les offres Hajj des agences agréées.
+                    </p>
+                    
+                    {/* Badge disponibilité */}
+                    <Badge variant="outline" className="text-sm md:text-base px-4 py-2 border-primary/50 text-primary">
+                      Disponible à partir de janvier 2026
+                    </Badge>
+                    
+                    {/* Image des providers Nusuk */}
+                    <div className="mt-8">
+                      <p className="text-foreground font-semibold text-lg md:text-xl mb-4">
+                        Voici les 12 providers qui proposeront très prochainement leurs offres "Hajj 2026" sur la plateforme Nusuk
+                      </p>
+                      <p className="text-muted-foreground text-sm md:text-base mb-6">
+                        Pensez à mettre de l'argent sur votre compte Nusuk pour être prêt lors de l'ouverture des ventes !
+                      </p>
+                      <div className="rounded-xl overflow-hidden border-2 border-border/50 shadow-lg max-w-4xl mx-auto">
+                        <img 
+                          src="/images/hajj-providers-nusuk.png"
+                          alt="Les 12 providers Hajj 2026 sur la plateforme Nusuk"
+                          className="w-full h-auto"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Newsletter Hajj */}
+                    <div className="mt-8 p-6 bg-card rounded-xl border max-w-lg mx-auto">
+                      <h4 className="text-lg font-semibold mb-2">Ne ratez rien !</h4>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Inscrivez-vous pour être informé(e) dès que les offres Hajj 2026 seront disponibles
+                      </p>
+                      <Suspense fallback={<div className="h-10 bg-muted animate-pulse rounded" />}>
+                        <HajjNewsletterForm />
+                      </Suspense>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ) : (
-            <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6 mb-16">
-              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">✏️</span>
-              </div>
-              <div className="text-center space-y-3 max-w-md">
-                <p className="text-2xl font-bold text-foreground">
-                  Aucune annonce n'est disponible pour cette recherche pour le moment
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Tablet: Grille de cartes comme le comparateur */}
-          {filteredListings.length > 0 ? (
-            <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-6 mb-16">
-              {filteredListings.map((listing) => (
-                <OptimizedAdCard 
-                  key={listing.id}
-                  listing={listing}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="hidden md:flex lg:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
-              <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">✏️</span>
-              </div>
-              <div className="text-center space-y-3 max-w-md px-6">
-                <p className="text-xl font-bold text-foreground">
-                  Aucune annonce n'est disponible pour cette recherche pour le moment
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Mobile: Vue Liste ou Grille */}
-          {filteredListings.length > 0 ? (
-            <div className="block md:hidden">
-              {viewMode === "list" ? (
-                /* Vue Liste - Optimisée pour mobile */
-                <div className="space-y-3 mb-16">
-                  {filteredListings.slice(0, 6).map((listing) => (
-                    <MobileListItem 
-                      key={listing.id}
+            <>
+              {/* Desktop: Grille de cartes comme le comparateur */}
+              {filteredListings.length > 0 ? (
+                <div className="hidden lg:grid lg:grid-cols-3 gap-6 mb-16">
+                  {filteredListings.map((listing) => (
+                    <OptimizedAdCard 
+                      key={listing.id} 
                       listing={listing}
-                      selectedCategory={selectedCategory}
                     />
                   ))}
                 </div>
               ) : (
-                /* Vue Cartes - Compacte optimisée */
-                <div className="space-y-3 mb-16">
-                  {filteredListings.slice(0, 6).map((listing) => (
-                    <MobileListItem 
+                <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6 mb-16">
+                  <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span className="text-3xl">✏️</span>
+                  </div>
+                  <div className="text-center space-y-3 max-w-md">
+                    <p className="text-2xl font-bold text-foreground">
+                      Aucune annonce n'est disponible pour cette recherche pour le moment
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Tablet: Grille de cartes comme le comparateur */}
+              {filteredListings.length > 0 ? (
+                <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-6 mb-16">
+                  {filteredListings.map((listing) => (
+                    <OptimizedAdCard 
                       key={listing.id}
                       listing={listing}
-                      selectedCategory={selectedCategory}
                     />
                   ))}
                 </div>
+              ) : (
+                <div className="hidden md:flex lg:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
+                  <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span className="text-3xl">✏️</span>
+                  </div>
+                  <div className="text-center space-y-3 max-w-md px-6">
+                    <p className="text-xl font-bold text-foreground">
+                      Aucune annonce n'est disponible pour cette recherche pour le moment
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
+                    </p>
+                  </div>
+                </div>
               )}
-            </div>
-            ) : (
-              <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
-                <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <span className="text-3xl">✏️</span>
+
+              {/* Mobile: Vue Liste ou Grille */}
+              {filteredListings.length > 0 ? (
+                <div className="block md:hidden">
+                  {viewMode === "list" ? (
+                    /* Vue Liste - Optimisée pour mobile */
+                    <div className="space-y-3 mb-16">
+                      {filteredListings.slice(0, 6).map((listing) => (
+                        <MobileListItem 
+                          key={listing.id}
+                          listing={listing}
+                          selectedCategory={selectedCategory}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    /* Vue Cartes - Compacte optimisée */
+                    <div className="space-y-3 mb-16">
+                      {filteredListings.slice(0, 6).map((listing) => (
+                        <MobileListItem 
+                          key={listing.id}
+                          listing={listing}
+                          selectedCategory={selectedCategory}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="text-center space-y-3 max-w-md px-6">
-                  <p className="text-xl font-bold text-foreground">
-                    Aucune annonce n'est disponible pour cette recherche pour le moment
-                  </p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                  </p>
-                </div>
-              </div>
-            )}
+                ) : (
+                  <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
+                    <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                      <span className="text-3xl">✏️</span>
+                    </div>
+                    <div className="text-center space-y-3 max-w-md px-6">
+                      <p className="text-xl font-bold text-foreground">
+                        Aucune annonce n'est disponible pour cette recherche pour le moment
+                      </p>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
+                      </p>
+                    </div>
+                  </div>
+                )}
+            </>
+          )}
          </div>
         
         {/* Load More Button - Mobile First */}
