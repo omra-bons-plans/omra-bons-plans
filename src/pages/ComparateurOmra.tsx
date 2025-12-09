@@ -210,6 +210,10 @@ export default function ComparateurOmra() {
     });
   };
 
+  // Fetch offers effect - séparé pour éviter les boucles infinies
+  const priceMin = priceRange[0];
+  const priceMax = priceRange[1];
+  
   useEffect(() => {
     const fetchOffers = async () => {
       try {
@@ -220,7 +224,8 @@ export default function ComparateurOmra() {
           selectedMonth,
           selectedCity,
           selectedFormula,
-          priceRange,
+          priceMin,
+          priceMax,
           maxDuration,
           selectedAgencies,
           tripType
@@ -243,11 +248,12 @@ export default function ComparateurOmra() {
         const allData = allActiveOffers || [];
         setAllOffers(allData);
         
-        // Calculer le prix maximum des offres
-        const maxPriceValue = allData.length > 0 
-          ? Math.max(...allData.map(offer => offer.price_eur || 0))
-          : 10000;
-        setMaxPrice(Math.ceil(maxPriceValue / 100) * 100); // Arrondir au cent supérieur
+        // Calculer le prix maximum des offres (seulement au premier chargement)
+        if (maxPrice === 10000 && allData.length > 0) {
+          const maxPriceValue = Math.max(...allData.map(offer => offer.price_eur || 0));
+          const roundedMax = Math.ceil(maxPriceValue / 100) * 100;
+          setMaxPrice(roundedMax);
+        }
         
         // Extraire les agences uniques depuis TOUTES les offres
         const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
@@ -274,11 +280,11 @@ export default function ComparateurOmra() {
         if (selectedFormula && selectedFormula !== 'all') {
           filtered = filtered.filter(offer => offer.formula_type === selectedFormula.toLowerCase());
         }
-        if (priceRange[0] > 0) {
-          filtered = filtered.filter(offer => offer.price_eur >= priceRange[0]);
+        if (priceMin > 0) {
+          filtered = filtered.filter(offer => offer.price_eur >= priceMin);
         }
-        if (priceRange[1] < maxPrice) {
-          filtered = filtered.filter(offer => offer.price_eur <= priceRange[1]);
+        if (priceMax < 10000) {
+          filtered = filtered.filter(offer => offer.price_eur <= priceMax);
         }
         if (maxDuration) {
           filtered = filtered.filter(offer => offer.duration_nights <= parseInt(maxDuration));
@@ -342,7 +348,7 @@ export default function ComparateurOmra() {
     };
 
     fetchOffers();
-  }, [selectedMonth, selectedCity, selectedFormula, priceRange, maxDuration, sortBy, selectedAgencies, tripType, selectedDuration]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration]);
 
   // ⚡ PAGINATION: Calculer offres paginées
   const totalPages = Math.ceil(offers.length / itemsPerPage);
