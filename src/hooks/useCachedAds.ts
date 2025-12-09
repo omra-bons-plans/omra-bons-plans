@@ -52,7 +52,7 @@ export interface CachedFormattedListing {
   isExpired?: boolean;
 }
 
-export const useCachedAds = (limit: number = 6) => {
+export const useCachedAds = (limit: number = 12) => {
   const [ads, setAds] = useState<CachedAd[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -67,7 +67,7 @@ export const useCachedAds = (limit: number = 6) => {
         if (adsCache.data && (now - adsCache.timestamp) < adsCache.ttl) {
           console.log('⚡ Using cached ads');
           if (isMounted) {
-            setAds(adsCache.data.slice(0, limit));
+            setAds(adsCache.data);
             setLoading(false);
           }
           return;
@@ -86,7 +86,7 @@ export const useCachedAds = (limit: number = 6) => {
           .eq('is_paused', false)
           .gt('publish_end_date', sevenDaysAgo)
           .order('created_at', { ascending: false })
-          .limit(limit);
+          .limit(20);
 
         if (adsError) {
           console.error('❌ Supabase error:', adsError);
@@ -133,7 +133,7 @@ export const useCachedAds = (limit: number = 6) => {
     return () => {
       isMounted = false;
     };
-  }, [limit]);
+  }, []); // ⚡ FIXED: Remove limit dependency to prevent re-fetches
 
   // Transform to formatted listings
   const getFormattedListings = (): CachedFormattedListing[] => {
