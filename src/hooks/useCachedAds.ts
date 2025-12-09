@@ -78,13 +78,22 @@ export const useCachedAds = (limit: number = 12) => {
 
   useEffect(() => {
     let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
     
     const fetchAds = async () => {
       try {
+        // ⚡ TIMEOUT: Force stop loading after 8 seconds
+        timeoutId = setTimeout(() => {
+          if (isMounted && loading) {
+            console.warn('⚠️ Ads loading timeout - forcing completion');
+            setLoading(false);
+          }
+        }, 8000);
+
         // Check cache first
         const now = Date.now();
         if (adsCache.data && (now - adsCache.timestamp) < adsCache.ttl) {
-          console.log('⚡ Using cached ads');
+          console.log('⚡ Using cached ads:', adsCache.data.length);
           if (isMounted) {
             setAds(adsCache.data);
             setLoading(false);
@@ -151,6 +160,7 @@ export const useCachedAds = (limit: number = 12) => {
     
     return () => {
       isMounted = false;
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, []); // ⚡ FIXED: No dependencies to prevent re-fetches
 

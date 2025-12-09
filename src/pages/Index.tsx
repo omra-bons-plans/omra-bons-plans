@@ -181,19 +181,8 @@ const Index = () => {
     return categories;
   };
 
-  // Show loading state
-  if (adsLoading) {
-    return (
-      <ResponsiveLayout>
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="text-muted-foreground">Chargement des annonces...</p>
-          </div>
-        </div>
-      </ResponsiveLayout>
-    );
-  }
+  // ⚡ FIXED: Ne plus bloquer le rendu - afficher la page même pendant le chargement
+  // Le loading sera géré inline dans les sections qui en ont besoin
 
   console.log('✅ Index page: Rendering with', formattedListings.length, 'ads');
 
