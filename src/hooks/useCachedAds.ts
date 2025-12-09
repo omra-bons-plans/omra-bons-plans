@@ -73,7 +73,6 @@ export const useCachedAds = (limit: number = 6) => {
           return;
         }
 
-        if (isMounted) setLoading(true);
         console.log('🔄 Fetching fresh ads (cache miss)');
 
         const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -89,7 +88,14 @@ export const useCachedAds = (limit: number = 6) => {
           .order('created_at', { ascending: false })
           .limit(limit);
 
-        if (adsError) throw adsError;
+        if (adsError) {
+          console.error('❌ Supabase error:', adsError);
+          if (isMounted) {
+            setError('Erreur lors du chargement');
+            setLoading(false);
+          }
+          return;
+        }
 
         const enrichedAds: CachedAd[] = (adsData || []).map((ad: any) => ({
           id: ad.id,

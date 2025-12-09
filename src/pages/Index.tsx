@@ -60,8 +60,8 @@ const Index = () => {
   const [isAllServicesCategoryOpen, setIsAllServicesCategoryOpen] = useState(false);
   
   // ⚡ OPTIMIZED: Use cached ads hook - 70% smaller payload, 5min cache
-  const adsLimit = isMobile ? 6 : 12;
-  const { formattedListings, loading: adsLoading, error: adsError } = useCachedAds(adsLimit);
+  // Valeur fixe pour éviter les re-fetches lors des changements de isMobile
+  const { formattedListings, loading: adsLoading, error: adsError } = useCachedAds(12);
   const hasMore = false; // Simplified for faster LCP
   const total = formattedListings.length;
   const loadMore = () => {}; // No pagination needed
