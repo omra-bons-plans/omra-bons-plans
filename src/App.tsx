@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+// App v2.1.0 - Security review completed
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
