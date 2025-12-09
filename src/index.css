@@ -261,17 +261,15 @@
     margin-top: -1px !important;
   }
 
-  /* Mobile: Header fixe avec contenu en dessous */
+  /* Mobile: Suppression des marges parasites */
   @media (max-width: 767px) {
-    /* Main container avec padding-top pour le header fixe (52px) */
     main {
       margin-top: 0 !important;
-      padding-top: 52px !important;
       display: block !important;
     }
     
     /* Hero wrapper - pas de marge supplémentaire */
-    .hero-wrapper {
+    .hero-wrapper, .hero-container {
       position: relative !important;
       margin-top: 0 !important;
       padding-top: 0 !important;
