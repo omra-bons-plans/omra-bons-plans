@@ -114,23 +114,8 @@
   </head>
 
   <body>
-    <!-- ⚡ INSTANT LOADING STATE - Visible pendant le chargement JS -->
-    <div id="root">
-      <div style="min-height:100vh;display:flex;flex-direction:column">
-        <div class="hero-container">
-          <img src="/hero-kaaba-2025-optimized.avif" alt="Omra Bons Plans" width="1600" height="500" fetchpriority="high" decoding="sync" style="object-fit:cover">
-          <div class="hero-overlay">
-            <div style="text-align:center;padding:1rem">
-              <h1 style="color:#fff;font-size:clamp(1.5rem,5vw,3rem);font-weight:800;margin-bottom:.5rem">Comparateur Omra</h1>
-              <p style="color:rgba(255,255,255,.9);font-size:clamp(1rem,2.5vw,1.25rem)">Chargement...</p>
-            </div>
-          </div>
-        </div>
-        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem">
-          <div class="loading-spinner"></div>
-        </div>
-      </div>
-    </div>
+    <!-- ⚡ React mount point - contenu nettoyé au démarrage -->
+    <div id="root"></div>
     
     <!-- ⚡ Main App Bundle - Module pour tree-shaking -->
     <script type="module" src="/src/main.tsx"></script>

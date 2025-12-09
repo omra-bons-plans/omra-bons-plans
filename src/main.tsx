@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
-// Service Worker désactivé temporairement pour optimiser LCP
-// import { registerServiceWorker } from './utils/serviceWorkerRegistration'
+
+console.log('🚀 App starting...');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,15 +17,25 @@ const queryClient = new QueryClient({
   },
 });
 
-createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </HelmetProvider>
-  </React.StrictMode>
-);
+const rootElement = document.getElementById("root");
 
-// Service Worker désactivé temporairement pour optimiser LCP
-// registerServiceWorker();
+if (rootElement) {
+  console.log('✅ Root element found, rendering React app...');
+  
+  // Nettoyer le contenu de pré-rendu immédiatement
+  rootElement.innerHTML = '';
+  
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </HelmetProvider>
+    </React.StrictMode>
+  );
+  
+  console.log('✅ React app rendered successfully');
+} else {
+  console.error('❌ Root element not found!');
+}

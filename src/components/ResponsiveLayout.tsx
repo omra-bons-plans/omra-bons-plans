@@ -12,11 +12,14 @@ interface ResponsiveLayoutProps {
 const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
   const isMobile = useIsMobile();
 
+  // ⚡ RENDU IMMÉDIAT: Pas de condition bloquante
+  console.log('📱 ResponsiveLayout render:', { isMobile });
+
   if (isMobile) {
     return (
-      <div className="min-h-screen bg-background flex flex-col" style={{ margin: 0, padding: 0 }}>
+      <div className="min-h-screen bg-background flex flex-col">
         <MobileSidebar />
-        <main className="flex-1" style={{ paddingTop: 0, paddingBottom: '80px', margin: 0, display: 'block' }}>
+        <main className="flex-1 pb-20">
           {children}
         </main>
         <Footer />
