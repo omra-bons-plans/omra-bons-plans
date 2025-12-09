@@ -218,22 +218,26 @@ export default function ComparateurOmra() {
   useEffect(() => {
     let isMounted = true;
     let timeoutId: NodeJS.Timeout;
+    let loadingStarted = false;
     
     const fetchOffers = async () => {
       const currentPriceMin = priceMin;
       const currentPriceMax = priceMax;
       
       try {
-        if (isMounted) setIsLoading(true);
+        if (isMounted) {
+          setIsLoading(true);
+          loadingStarted = true;
+        }
         setError(null);
         
-        // ⚡ TIMEOUT: Force stop loading after 10 seconds
+        // ⚡ TIMEOUT: Force stop loading after 5 seconds (reduced from 10)
         timeoutId = setTimeout(() => {
-          if (isMounted && isLoading) {
+          if (isMounted && loadingStarted) {
             console.warn('⚠️ Offers loading timeout - forcing completion');
             setIsLoading(false);
           }
-        }, 10000);
+        }, 5000);
         
         console.log('🔍 Filtres actifs:', {
           selectedMonth,

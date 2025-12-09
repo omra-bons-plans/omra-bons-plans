@@ -27,20 +27,18 @@ import { OptimizedAdCard } from "@/components/home/OptimizedAdCard";
 import { MobileListItem } from "@/components/home/MobileListItem";
 import { OffersSkeleton } from "@/components/ui/OffersSkeleton";
 
+// ⚡ CRITICAL: Import Logo and UserMenu directly - used in header without Suspense
+import Logo from '@/components/ui/Logo';
+import UserMenu from '@/components/ui/UserMenu';
+
 // ⚡ LAZY LOAD: Non-critical components (loaded after LCP)
 const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
 const ThreadedChatWindow = lazy(() => import('@/components/ui/ThreadedChatWindow'));
 const FeedbackForm = lazy(() => import('@/components/ui/FeedbackForm'));
-const Logo = lazy(() => import('@/components/ui/Logo'));
-const UserMenu = lazy(() => import('@/components/ui/UserMenu'));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 
-// ⚡ LAZY LOAD: Carousel only when needed
-const Carousel = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.Carousel })));
-const CarouselContent = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.CarouselContent })));
-const CarouselItem = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.CarouselItem })));
-const CarouselNext = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.CarouselNext })));
-const CarouselPrevious = lazy(() => import('@/components/ui/carousel').then(m => ({ default: m.CarouselPrevious })));
+// ⚡ DIRECT IMPORT: Carousel components used without Suspense wrapper
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 // ⚡ Skeleton loader for lazy components
 const LazyFallback = () => (
