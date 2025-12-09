@@ -15,55 +15,13 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // ⚡ FIXED: React MUST be bundled with Radix to avoid forwardRef errors
-          if (id.includes('node_modules')) {
-            // React + Radix together to prevent initialization issues
-            if (id.includes('react') || id.includes('@radix-ui')) {
-              return 'react-ui';
-            }
-            // Router
-            if (id.includes('react-router')) {
-              return 'router';
-            }
-            // Supabase
-            if (id.includes('@supabase')) {
-              return 'supabase';
-            }
-            // Forms
-            if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
-              return 'forms';
-            }
-            // Query
-            if (id.includes('@tanstack/react-query')) {
-              return 'query';
-            }
-            // Date utilities
-            if (id.includes('date-fns')) {
-              return 'date';
-            }
-            // Icons
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            // Charts
-            if (id.includes('recharts')) {
-              return 'charts';
-            }
-            // Carousel
-            if (id.includes('embla-carousel')) {
-              return 'carousel';
-            }
-            // Other vendor libs
-            return 'vendor';
-          }
-        },
+        // ⚡ SIMPLIFIED: No manual chunking to avoid React initialization issues
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 1000,
     target: 'es2020',
     minify: 'terser',
     terserOptions: {
