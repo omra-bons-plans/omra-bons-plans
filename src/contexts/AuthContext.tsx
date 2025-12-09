@@ -32,6 +32,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+    
     // Check for recovery mode
     const urlHash = window.location.hash;
     if (urlHash.includes('type=recovery')) {
@@ -40,8 +42,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
+    // ⚡ TIMEOUT: Ne jamais bloquer plus de 5 secondes
+    const timeout = setTimeout(() => {
+      if (mounted && loading) {
+        console.warn('⚠️ Auth session timeout - continuing without session');
+        setLoading(false);
+      }
+    }, 5000);
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
+      
       const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
       
       if (isPasswordResetMode && session) {
@@ -52,11 +64,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUser(session?.user ?? null);
       }
       setLoading(false);
+    }).catch((error) => {
+      console.error('Auth session error:', error);
+      if (mounted) setLoading(false);
     });
 
     // Set up auth listener - MUST be synchronous only
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        if (!mounted) return;
+        
         const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
         
         if (isPasswordResetMode && event === 'SIGNED_IN') {
@@ -71,6 +88,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
 
     return () => {
+      mounted = false;
+      clearTimeout(timeout);
       subscription.unsubscribe();
     };
   }, []);
