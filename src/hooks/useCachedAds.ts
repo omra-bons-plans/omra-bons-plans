@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageUtils';
 
@@ -51,6 +51,25 @@ export interface CachedFormattedListing {
   isPopular: boolean;
   isExpired?: boolean;
 }
+
+// ⚡ FIXED: Deterministic pseudo-random based on id to avoid re-renders
+const getStableRating = (id: string): number => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = ((hash << 5) - hash) + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return 4.5 + (Math.abs(hash % 50) / 100);
+};
+
+const getStableReviews = (id: string): number => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = ((hash << 3) - hash) + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash % 90) + 10;
+};
 
 export const useCachedAds = (limit: number = 12) => {
   const [ads, setAds] = useState<CachedAd[]>([]);
@@ -133,10 +152,10 @@ export const useCachedAds = (limit: number = 12) => {
     return () => {
       isMounted = false;
     };
-  }, []); // ⚡ FIXED: Remove limit dependency to prevent re-fetches
+  }, []); // ⚡ FIXED: No dependencies to prevent re-fetches
 
-  // Transform to formatted listings
-  const getFormattedListings = (): CachedFormattedListing[] => {
+  // ⚡ FIXED: useMemo to prevent recalculation on every render
+  const formattedListings = useMemo((): CachedFormattedListing[] => {
     return ads.map((ad) => {
       const discount = ad.originalPrice && ad.price 
         ? Math.round(((ad.originalPrice - ad.price) / ad.originalPrice) * 100)
@@ -170,18 +189,18 @@ export const useCachedAds = (limit: number = 12) => {
         isPromo,
         flashSaleEndDate: isFlashSale ? new Date(ad.publishEndDate) : undefined,
         image: coverImageUrl,
-        rating: 4.5 + Math.random() * 0.5, // Fallback rating
-        reviews: Math.floor(Math.random() * 100) + 10,
+        rating: getStableRating(ad.id), // ⚡ FIXED: Stable rating based on id
+        reviews: getStableReviews(ad.id), // ⚡ FIXED: Stable reviews based on id
         location: ad.location || '',
         isPopular: ad.isPromotion || discount > 20,
         isExpired,
       };
     });
-  };
+  }, [ads]);
 
   return {
     ads,
-    formattedListings: getFormattedListings(),
+    formattedListings,
     loading,
     error,
   };
