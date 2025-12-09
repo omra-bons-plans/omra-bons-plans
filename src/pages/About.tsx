@@ -8,6 +8,7 @@ import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import { useSEOOptimizations } from '@/hooks/useSEOOptimizations';
 import { Helmet } from "react-helmet-async";
 import CanonicalUrl from '@/components/SEO/CanonicalUrl';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const About = () => {
   const navigate = useNavigate();
@@ -129,6 +130,9 @@ const About = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/a-propos" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>

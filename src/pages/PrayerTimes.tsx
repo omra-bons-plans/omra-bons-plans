@@ -13,6 +13,7 @@ import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Helmet } from "react-helmet-async";
 import { supabase } from '@/integrations/supabase/client';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 interface PrayerTime {
   Fajr: string;
@@ -345,6 +346,9 @@ const PrayerTimes = () => {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Liens internes SEO */}
+        <InternalLinks currentPage="/horaires-prieres" variant="related" className="mt-8" />
       </div>
     </ResponsiveLayout>
   );

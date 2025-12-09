@@ -16,6 +16,7 @@ import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { agenciesData } from '@/utils/agenciesData';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -325,6 +326,9 @@ export default function ComparatifAgences() {
           </Card>
             </>
           )}
+          
+          {/* Liens internes SEO */}
+          <InternalLinks currentPage="/comparatif-agences" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>
