@@ -8,11 +8,9 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { supabase } from '@/integrations/supabase/client';
-import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import { Helmet } from "react-helmet-async";
-import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const Contact = () => {
@@ -109,7 +107,6 @@ const Contact = () => {
           })}
         </script>
       </Helmet>
-      <SEOHead {...seoConfig.contact} />
       <OrganizationSchema />
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">

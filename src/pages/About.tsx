@@ -2,12 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { SEOHead, seoConfig } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { OrganizationSchema } from '@/components/SEO/OrganizationSchema';
 import { useSEOOptimizations } from '@/hooks/useSEOOptimizations';
 import { Helmet } from "react-helmet-async";
-import CanonicalUrl from '@/components/SEO/CanonicalUrl';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 const About = () => {
@@ -25,7 +23,7 @@ const About = () => {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
         <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
-        <meta property="og:url" content="https://omrabonsplans.fr/a-propos" />
+        <meta property="og:url" content="https://omrabonsplans.fr/about" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
@@ -37,7 +35,7 @@ const About = () => {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "À Propos - Omra Bons Plans",
-            "url": "https://omrabonsplans.fr/a-propos",
+            "url": "https://omrabonsplans.fr/about",
             "description": "Découvrez l'équipe passionnée derrière Omra Bons Plans",
             "mainEntity": {
               "@type": "Organization",
@@ -49,7 +47,6 @@ const About = () => {
           })}
         </script>
       </Helmet>
-      <SEOHead {...seoConfig.about} />
       <OrganizationSchema />
       <SEOBreadcrumb className="container mx-auto px-6 pt-4" />
       <div className="container mx-auto px-6 py-8">
@@ -132,7 +129,7 @@ const About = () => {
           </Card>
           
           {/* Liens internes SEO */}
-          <InternalLinks currentPage="/a-propos" variant="related" className="mt-8" />
+          <InternalLinks currentPage="/about" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>
