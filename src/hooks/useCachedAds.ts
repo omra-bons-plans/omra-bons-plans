@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageUtils';
 
@@ -56,11 +56,9 @@ export const useCachedAds = (limit: number = 6) => {
   const [ads, setAds] = useState<CachedAd[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const fetchedRef = useRef(false);
 
   useEffect(() => {
-    // Prevent double fetch in StrictMode
-    if (fetchedRef.current) return;
+    let isMounted = true;
     
     const fetchAds = async () => {
       try {
@@ -68,13 +66,14 @@ export const useCachedAds = (limit: number = 6) => {
         const now = Date.now();
         if (adsCache.data && (now - adsCache.timestamp) < adsCache.ttl) {
           console.log('⚡ Using cached ads');
-          setAds(adsCache.data.slice(0, limit));
-          setLoading(false);
+          if (isMounted) {
+            setAds(adsCache.data.slice(0, limit));
+            setLoading(false);
+          }
           return;
         }
 
-        setLoading(true);
-        fetchedRef.current = true;
+        if (isMounted) setLoading(true);
         console.log('🔄 Fetching fresh ads (cache miss)');
 
         const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -109,17 +108,25 @@ export const useCachedAds = (limit: number = 6) => {
         adsCache.data = enrichedAds;
         adsCache.timestamp = now;
 
-        setAds(enrichedAds);
+        if (isMounted) {
+          setAds(enrichedAds);
+          setLoading(false);
+        }
         console.log('✅ Fetched', enrichedAds.length, 'ads');
       } catch (err) {
         console.error('❌ Error fetching ads:', err);
-        setError('Erreur lors du chargement');
-      } finally {
-        setLoading(false);
+        if (isMounted) {
+          setError('Erreur lors du chargement');
+          setLoading(false);
+        }
       }
     };
 
     fetchAds();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [limit]);
 
   // Transform to formatted listings
