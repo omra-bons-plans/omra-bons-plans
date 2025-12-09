@@ -21,9 +21,11 @@ import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
-// ⚡ LAZY LOAD: Composants non-critiques pour LCP
-const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
-const CompactOfferCard = lazy(() => import('@/components/mobile/CompactOfferCard').then(m => ({ default: m.CompactOfferCard })));
+// ⚡ DIRECT IMPORTS: Ces composants sont critiques pour le rendu initial
+import { FilterForm } from '@/components/ui/FilterForm';
+import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
+
+// ⚡ LAZY LOAD: Composants vraiment non-critiques 
 const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 import { Textarea } from '@/components/ui/textarea';
