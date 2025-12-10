@@ -266,12 +266,15 @@ const Index = () => {
       <div className="min-h-screen bg-background" style={{ padding: 0, margin: 0 }}>
 
       {/* Hero Section - IDENTIQUE au pre-render HTML pour transition fluide */}
+      {/* ⚡ LCP FIX: z-index élevé pour se superposer au prerender-hero */}
       <section 
         className="hero-wrapper relative" 
         style={{ 
           minHeight: isMobile ? '100svh' : '600px', 
           marginTop: 0,
-          paddingTop: 0
+          paddingTop: 0,
+          position: 'relative',
+          zIndex: 10
         }}
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>

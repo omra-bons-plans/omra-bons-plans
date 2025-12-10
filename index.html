@@ -70,8 +70,8 @@
       .search-card-skeleton{max-width:64rem;margin:-4rem auto 2rem;background:#fff;border-radius:1rem;padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.1)}
       .skeleton-input{height:2.5rem;border-radius:.5rem;margin-bottom:.75rem}
       .skeleton-btn{height:3rem;border-radius:.5rem;width:100%}
-      #prerender-hero{transition:opacity .15s ease-out}
-      #prerender-hero.hidden{opacity:0;pointer-events:none;display:none}
+      #prerender-hero{transition:opacity .3s ease-out;z-index:1}
+      #root{position:relative;z-index:10}
     </style>
     
     <title>Omra Bons Plans | Comparateur d'agences agréées</title>
@@ -97,8 +97,9 @@
   </head>
 
   <body>
-    <!-- ⚡ PRE-RENDER: Hero + Search Card skeleton visible IMMÉDIATEMENT -->
-    <div id="prerender-hero" class="prerender-hero" style="position:relative;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a;contain:layout style paint">
+    <!-- ⚡ PRE-RENDER: Hero visible IMMÉDIATEMENT - Sert de LCP pour PageSpeed -->
+    <!-- z-index:1 pour que React (z-index:10) se superpose dessus -->
+    <div id="prerender-hero" class="prerender-hero" style="position:fixed;top:0;left:0;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a;contain:layout style paint;z-index:1;transition:opacity .3s ease-out">
       <picture style="position:absolute;inset:0;width:100%;height:100%;content-visibility:auto">
         <source srcset="/hero-kaaba-mobile-portrait.webp" type="image/webp" media="(max-width: 767px)">
         <source srcset="/hero-kaaba-new.webp" type="image/webp" media="(min-width: 768px)">
