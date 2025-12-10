@@ -1,7 +1,7 @@
 /**
  * ⚡ ULTRA-OPTIMIZED HERO IMAGE FOR MAXIMUM LCP PERFORMANCE
- * - AVIF format with JPG fallback
- * - Explicit dimensions to prevent CLS
+ * - WebP format optimized
+ * - Explicit dimensions + aspect-ratio to prevent CLS = 0
  * - fetchPriority="high" for browser prioritization
  * - NO useState/useEffect to avoid React hydration delay
  * - GPU-accelerated with will-change and content-visibility
@@ -28,7 +28,8 @@ export const OptimizedHeroImage = ({
       className={`absolute inset-0 w-full h-full ${className}`}
       style={{ 
         contentVisibility: 'auto',
-        containIntrinsicSize: `${desktopWidth}px ${desktopHeight}px`
+        containIntrinsicSize: `${desktopWidth}px ${desktopHeight}px`,
+        aspectRatio: `${desktopWidth}/${desktopHeight}`
       }}
     >
       {/* WebP format - optimized */}
@@ -62,8 +63,8 @@ export const OptimizedHeroImage = ({
         style={{ 
           display: 'block',
           contentVisibility: 'auto',
-          willChange: 'transform',
-          transform: 'translateZ(0)',
+          willChange: 'auto',
+          aspectRatio: `${desktopWidth}/${desktopHeight}`
         }}
       />
     </picture>

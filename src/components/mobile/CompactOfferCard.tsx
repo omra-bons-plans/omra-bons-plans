@@ -30,10 +30,17 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
         <div className="flex items-center gap-3">
           {/* Logo miniature */}
           {agencyLogo && (
-            <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white shadow-sm relative">
+            <div 
+              className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white shadow-sm relative"
+              style={{ aspectRatio: '1/1', minWidth: '64px', minHeight: '64px' }}
+            >
               <img 
                 src={agencyLogo} 
                 alt={offer.agency_name}
+                width={64}
+                height={64}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain p-1"
               />
               {offer.is_complet && (
