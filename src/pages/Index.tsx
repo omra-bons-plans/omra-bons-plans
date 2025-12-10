@@ -66,9 +66,9 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
-  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 1s)
+  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 3s)
   const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
-    delay: 1000,        // Déclencher après 1 seconde
+    delay: 3000,        // Déclencher après 3 secondes
     rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
     threshold: 0.1
   });
