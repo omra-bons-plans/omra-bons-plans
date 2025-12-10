@@ -48,23 +48,27 @@
     <!-- Mobile viewport optimisé -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
     
-    <!-- ⚡ CRITICAL CSS - Ultra-minified for fastest LCP -->
+    <!-- ⚡ CRITICAL CSS - Ultra-optimized for fastest LCP -->
     <style>
       *,::before,::after{box-sizing:border-box;margin:0;padding:0}
-      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,system-ui,sans-serif}
-      body{margin:0;background:#f5f5f0;color:#3d3d32}
-      .hero-wrapper,.prerender-hero{position:relative;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a}
-      .hero-media{position:absolute;inset:0}
-      .hero-media picture,.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,system-ui,sans-serif;scroll-behavior:smooth}
+      body{margin:0;background:#f5f5f0;color:#3d3d32;-webkit-font-smoothing:antialiased}
+      .hero-wrapper,.prerender-hero{position:relative;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a;contain:layout style paint}
+      .hero-media{position:absolute;inset:0;will-change:transform}
+      .hero-media picture,.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;content-visibility:auto}
       .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.45),rgba(0,0,0,.6));display:flex;align-items:center;justify-content:center;z-index:1}
       @media(min-width:768px){.hero-wrapper,.prerender-hero{min-height:600px;max-height:700px}}
       .glass-strong{background:rgba(255,255,255,.85);backdrop-filter:blur(12px)}
-      .gradient-text-secondary{background:linear-gradient(135deg,#f59e0b,#fbbf24,#fcd34d);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .gradient-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);-webkit-background-clip:text;background-clip:text;color:transparent}
       .text-white{color:#fff}
       .container{width:100%;max-width:1280px;margin:0 auto;padding:0 1rem}
-      .btn-modern{background:linear-gradient(135deg,hsl(35,65%,45%),hsl(35,60%,55%));border:none;cursor:pointer}
-      #prerender-hero{transition:opacity .2s}
-      #prerender-hero.hidden{opacity:0;pointer-events:none}
+      .skeleton{background:linear-gradient(90deg,#e5e5e5 25%,#f0f0f0 50%,#e5e5e5 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+      @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+      .search-card-skeleton{max-width:64rem;margin:-4rem auto 2rem;background:#fff;border-radius:1rem;padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.1)}
+      .skeleton-input{height:2.5rem;border-radius:.5rem;margin-bottom:.75rem}
+      .skeleton-btn{height:3rem;border-radius:.5rem;width:100%}
+      #prerender-hero{transition:opacity .15s ease-out}
+      #prerender-hero.hidden{opacity:0;pointer-events:none;display:none}
     </style>
     
     <title>Omra Bons Plans | Comparateur d'agences agréées</title>
@@ -90,30 +94,53 @@
   </head>
 
   <body>
-    <!-- ⚡ PRE-RENDER: Hero statique visible IMMÉDIATEMENT avant React hydrate -->
-    <div id="prerender-hero" class="prerender-hero" style="position:relative;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a">
-      <picture style="position:absolute;inset:0;width:100%;height:100%">
+    <!-- ⚡ PRE-RENDER: Hero + Search Card skeleton visible IMMÉDIATEMENT -->
+    <div id="prerender-hero" class="prerender-hero" style="position:relative;width:100%;min-height:100svh;overflow:hidden;background:#1a1a1a;contain:layout style paint">
+      <picture style="position:absolute;inset:0;width:100%;height:100%;content-visibility:auto">
         <source srcset="/hero-kaaba-2025-optimized.avif" type="image/avif">
-        <img src="/hero-kaaba-2025-new.jpg" alt="Comparateur Omra - La Kaaba à La Mecque" 
+        <img src="/hero-kaaba-2025-new.jpg" alt="Omra Bons Plans - Comparateur Omra & Hajj" 
              width="1600" height="900" fetchpriority="high" decoding="sync" loading="eager"
              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
       </picture>
       <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.45),rgba(0,0,0,.6));display:flex;align-items:center;justify-content:center;z-index:1">
         <div style="text-align:center;color:#fff;padding:1rem;max-width:90%">
-          <h1 style="font-size:clamp(1.8rem,6vw,3rem);font-weight:700;margin-bottom:1rem;line-height:1.2">
-            <span>Tous les services</span><br>
-            <span style="background:linear-gradient(135deg,#f59e0b,#fbbf24,#fcd34d);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:clamp(2.5rem,8vw,4rem);font-weight:900">Hajj & Omra</span><br>
-            <span>en un seul endroit</span>
+          <h1 style="font-size:clamp(2.5rem,8vw,4rem);font-weight:900;margin-bottom:.5rem;line-height:1.1">
+            <span style="background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);-webkit-background-clip:text;background-clip:text;color:transparent">Omra Bons Plans</span>
           </h1>
-          <p style="font-size:clamp(0.9rem,3vw,1.25rem);max-width:600px;margin:0 auto 1.5rem;opacity:.9">
-            Trouvez facilement des bons plans pour le Hajj et la Omra
+          <p style="font-size:clamp(1.2rem,4vw,1.8rem);font-weight:600;margin-bottom:.5rem;color:#fff">
+            Votre comparateur de séjours Omra & Hajj 2026
+          </p>
+          <p style="font-size:clamp(.9rem,2.5vw,1.1rem);opacity:.9;max-width:500px;margin:0 auto">
+            Le seul comparateur français pour la Omra et le Hajj
           </p>
         </div>
       </div>
     </div>
     
+    <!-- ⚡ Search Card Skeleton - matches ComparateurOmra layout -->
+    <div id="prerender-skeleton" class="search-card-skeleton" style="position:relative;z-index:20;margin-top:-4rem">
+      <div style="text-align:center;padding:1rem;margin-bottom:1rem;background:linear-gradient(to right,rgba(180,130,60,.1),rgba(180,130,60,.05),rgba(180,130,60,.1));border-radius:.75rem;border:1px solid rgba(180,130,60,.2)">
+        <p style="font-weight:700;color:#8b6914;font-size:1rem">Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2026</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:1rem">
+        <div class="skeleton skeleton-input"></div>
+        <div class="skeleton skeleton-input"></div>
+      </div>
+      <div class="skeleton skeleton-btn"></div>
+    </div>
+    
     <!-- ⚡ React mount point -->
     <div id="root"></div>
+    
+    <!-- ⚡ Hide pre-render when React mounts -->
+    <script>
+      window.__HIDE_PRERENDER__=function(){
+        var h=document.getElementById('prerender-hero');
+        var s=document.getElementById('prerender-skeleton');
+        if(h)h.classList.add('hidden');
+        if(s)s.style.display='none';
+      };
+    </script>
     
     <!-- ⚡ Main App Bundle -->
     <script type="module" src="/src/main.tsx"></script>

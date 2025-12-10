@@ -22,7 +22,12 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   console.log('✅ Root element found, rendering React app...');
   
-  // Nettoyer le contenu de pré-rendu immédiatement
+  // ⚡ Hide pre-render elements IMMEDIATELY before React hydration
+  if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
+    window.__HIDE_PRERENDER__();
+  }
+  
+  // Nettoyer le contenu de pré-rendu
   rootElement.innerHTML = '';
   
   createRoot(rootElement).render(
@@ -35,14 +40,28 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  // ⚡ Hide pre-render hero IMMEDIATELY once React mounts
-  const prerenderHero = document.getElementById('prerender-hero');
-  if (prerenderHero) {
-    prerenderHero.classList.add('hidden');
-    setTimeout(() => prerenderHero.remove(), 200);
-  }
+  // ⚡ Remove pre-render elements after short delay
+  requestAnimationFrame(() => {
+    const prerenderHero = document.getElementById('prerender-hero');
+    const prerenderSkeleton = document.getElementById('prerender-skeleton');
+    if (prerenderHero) {
+      prerenderHero.classList.add('hidden');
+      setTimeout(() => prerenderHero.remove(), 150);
+    }
+    if (prerenderSkeleton) {
+      prerenderSkeleton.style.display = 'none';
+      setTimeout(() => prerenderSkeleton.remove(), 150);
+    }
+  });
   
   console.log('✅ React app rendered successfully');
 } else {
   console.error('❌ Root element not found!');
+}
+
+// Extend window type
+declare global {
+  interface Window {
+    __HIDE_PRERENDER__?: () => void;
+  }
 }
