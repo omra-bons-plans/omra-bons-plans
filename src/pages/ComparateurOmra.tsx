@@ -274,6 +274,7 @@ export default function ComparateurOmra() {
         }
 
         const allData = allActiveOffers || [];
+        console.log('📦 Fetched offers:', allData.length, 'offers from Supabase');
         if (isMounted) setAllOffers(allData);
         
         // Calculer le prix maximum des offres (seulement au premier chargement)
@@ -366,6 +367,7 @@ export default function ComparateurOmra() {
         }
         
         
+        console.log('📋 Filtered offers:', filtered.length, 'offers to display');
         if (isMounted) {
           setOffers(filtered);
           setIsLoading(false); // Force stop loading after successful fetch
