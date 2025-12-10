@@ -5,7 +5,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
 
-// ⚡ Create QueryClient with optimized settings
+console.log('🚀 App starting...');
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -19,10 +20,15 @@ const queryClient = new QueryClient({
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  // ⚡ Hide pre-render elements before React hydration
+  console.log('✅ Root element found, rendering React app...');
+  
+  // ⚡ Hide pre-render elements IMMEDIATELY before React hydration
   if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
     window.__HIDE_PRERENDER__();
   }
+  
+  // Nettoyer le contenu de pré-rendu
+  rootElement.innerHTML = '';
   
   createRoot(rootElement).render(
     <React.StrictMode>
@@ -47,4 +53,8 @@ if (rootElement) {
       setTimeout(() => prerenderSkeleton.remove(), 150);
     }
   });
+  
+  console.log('✅ React app rendered successfully');
+} else {
+  console.error('❌ Root element not found!');
 }

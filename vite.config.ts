@@ -15,17 +15,27 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        // ⚡ STABLE CHUNKING: Simple vendor separation
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // Vendor bundle for stable caching
-            if (id.includes('lucide-react')) return 'icons';
-            if (id.includes('@radix-ui')) return 'ui';
-            if (id.includes('@supabase')) return 'supabase';
-            if (id.includes('@tanstack')) return 'query';
-            if (id.includes('date-fns')) return 'date';
-            return 'vendor';
-          }
+        // ⚡ OPTIMIZED CHUNKING: Separate vendor bundles for better caching
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+        manualChunks: {
+          // ⚡ Core React - cached long-term
+          'react-vendor': ['react', 'react-dom'],
+          // Router - separate chunk
+          'router': ['react-router-dom'],
+          // ⚡ Icons - separate chunk for better caching (large bundle)
+          'icons': ['lucide-react'],
+          // ⚡ UI components - single chunk to reduce requests
+          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
+          // Data fetching
+          'query': ['@tanstack/react-query'],
+          // Supabase
+          'supabase': ['@supabase/supabase-js'],
+          // ⚡ Date utilities - separate chunk with locale
+          'date': ['date-fns'],
+          // ⚡ Forms - separate chunk
+          'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],
         }
       },
     },
@@ -34,8 +44,10 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: false, // Keep console for debugging
+        drop_console: true,
         drop_debugger: true,
+        passes: 2,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
       },
       mangle: {
         safari10: true

@@ -23,17 +23,13 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
-    <!-- ⚡ Performance optimizations - Critical preconnects -->
-    <link rel="preconnect" href="https://lptyhenryzhztdwpkvsc.supabase.co" crossorigin>
+    <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="//lptyhenryzhztdwpkvsc.supabase.co">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- ⚡ Preload critical LCP hero image - HIGHEST priority -->
+    <!-- ⚡ Preload critical LCP hero image WebP - MUST be first resource -->
     <link rel="preload" as="image" href="/hero-kaaba-new.webp" type="image/webp" fetchpriority="high">
-    
-    <!-- ⚡ Preload critical CSS - reduces render blocking -->
-    <link rel="modulepreload" href="/src/main.tsx">
     
     <!-- ⚡ Preload critical font for faster text rendering -->
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2" type="font/woff2" crossorigin>
