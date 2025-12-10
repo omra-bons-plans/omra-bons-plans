@@ -42,6 +42,8 @@ import { InternalLinks } from '@/components/SEO/InternalLinks';
 const Textarea = lazy(() => import('@/components/ui/textarea').then(m => ({ default: m.Textarea })));
 import { toast } from 'sonner';
 import { z } from 'zod';
+// ⚡ PERFORMANCE: Preload agency logos
+import { usePreloadAgencyLogos } from '@/hooks/usePreloadAgencyLogos';
 
 // ⚡ LAZY LOAD: Composants non-critiques pour réduire le bundle initial
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
@@ -141,6 +143,9 @@ const agencyFormSchema = z.object({
 });
 
 export default function ComparateurOmra() {
+  // ⚡ PERFORMANCE: Preload agency logos
+  usePreloadAgencyLogos();
+  
   const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
