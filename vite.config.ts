@@ -20,16 +20,21 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
-          // Core React - cached long-term
+          // ⚡ Core React - cached long-term
           'react-vendor': ['react', 'react-dom'],
           // Router - separate chunk
           'router': ['react-router-dom'],
-          // UI components - frequently updated
-          'ui-vendor': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover'],
+          // ⚡ UI components - split by usage frequency
+          'ui-core': ['@radix-ui/react-select', '@radix-ui/react-dialog'],
+          'ui-extra': ['@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
           // Data fetching
           'query': ['@tanstack/react-query'],
           // Supabase
           'supabase': ['@supabase/supabase-js'],
+          // ⚡ Date utilities - separate chunk
+          'date': ['date-fns'],
+          // ⚡ Forms - separate chunk
+          'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],
         }
       },
     },

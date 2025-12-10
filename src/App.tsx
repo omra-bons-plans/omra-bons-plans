@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// QueryClient moved to main.tsx for single instance
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
@@ -68,11 +68,10 @@ const PageLoader = () => (
   </div>
 );
 
-const queryClient = new QueryClient();
+// ⚡ REMOVED: QueryClient is already created in main.tsx - no duplicate needed
 
 const App = () => (
   <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <AdminProvider>
           <TooltipProvider>
@@ -280,7 +279,6 @@ const App = () => (
           </TooltipProvider>
         </AdminProvider>
       </AuthProvider>
-    </QueryClientProvider>
   </ErrorBoundary>
 );
 
