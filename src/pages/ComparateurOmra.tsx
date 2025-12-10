@@ -65,9 +65,9 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Gateway travel': '/lovable-uploads/logogatewaytravel.webp',
   'Gatewaytravel': '/lovable-uploads/logogatewaytravel.webp',
   'Labbayk': '/lovable-uploads/logo-labayk-optimized.webp',
-  'OMRA GATE': '/lovable-uploads/logoomragate.webp',
-  'Omra Gate': '/lovable-uploads/logoomragate.webp',
-  'OmraGate': '/lovable-uploads/logoomragate.webp',
+  'OMRA GATE': '/lovable-uploads/logoomragate-new.webp',
+  'Omra Gate': '/lovable-uploads/logoomragate-new.webp',
+  'OmraGate': '/lovable-uploads/logoomragate-new.webp',
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {
