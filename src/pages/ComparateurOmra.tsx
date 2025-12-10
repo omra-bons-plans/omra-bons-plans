@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, startTransition, useCallback, useMemo } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -36,13 +36,6 @@ const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterF
 // ⚡ Hide pre-render hero immediately when component mounts
 if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
   window.__HIDE_PRERENDER__();
-}
-
-// Extend window type for pre-render function
-declare global {
-  interface Window {
-    __HIDE_PRERENDER__?: () => void;
-  }
 }
 
 const MONTHS = [

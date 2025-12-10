@@ -58,10 +58,3 @@ if (rootElement) {
 } else {
   console.error('❌ Root element not found!');
 }
-
-// Extend window type
-declare global {
-  interface Window {
-    __HIDE_PRERENDER__?: () => void;
-  }
-}
