@@ -19,23 +19,38 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
-        manualChunks: {
-          // ⚡ Core React - cached long-term
-          'react-vendor': ['react', 'react-dom'],
-          // Router - separate chunk
-          'router': ['react-router-dom'],
-          // ⚡ Icons - separate chunk for better caching (large bundle)
-          'icons': ['lucide-react'],
-          // ⚡ UI components - single chunk to reduce requests
-          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
-          // Data fetching
-          'query': ['@tanstack/react-query'],
-          // Supabase
-          'supabase': ['@supabase/supabase-js'],
-          // ⚡ Date utilities - separate chunk with locale
-          'date': ['date-fns'],
-          // ⚡ Forms - separate chunk
-          'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],
+        manualChunks(id) {
+          // ⚡ Ultra-optimized chunking for mobile LCP
+          if (id.includes('node_modules')) {
+            // React core - smallest possible chunk
+            if (id.includes('react-dom')) return 'react-dom';
+            if (id.includes('react') && !id.includes('react-router') && !id.includes('react-hook-form') && !id.includes('react-helmet') && !id.includes('react-query')) return 'react-core';
+            
+            // Router - separate chunk
+            if (id.includes('react-router')) return 'router';
+            
+            // ⚡ Icons - LARGE bundle, must be separate
+            if (id.includes('lucide-react')) return 'icons';
+            
+            // ⚡ Radix UI - grouped by usage frequency
+            if (id.includes('@radix-ui/react-select') || id.includes('@radix-ui/react-popover')) return 'ui-critical';
+            if (id.includes('@radix-ui')) return 'ui-deferred';
+            
+            // Supabase - deferred
+            if (id.includes('@supabase')) return 'supabase';
+            
+            // Data fetching - deferred
+            if (id.includes('@tanstack')) return 'query';
+            
+            // Date utilities - deferred
+            if (id.includes('date-fns')) return 'date';
+            
+            // Forms - deferred
+            if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) return 'forms';
+            
+            // Helmet - deferred
+            if (id.includes('react-helmet')) return 'helmet';
+          }
         }
       },
     },

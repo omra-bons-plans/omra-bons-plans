@@ -509,22 +509,52 @@
   }
 }
 
-/* ⚡ MOBILE PERFORMANCE OPTIMIZATIONS - Simplified */
+/* ⚡ MOBILE PERFORMANCE OPTIMIZATIONS - Aggressive */
 @layer utilities {
-  /* Disable only expensive animations on mobile */
+  /* Disable expensive animations on mobile for TBT reduction */
   @media (max-width: 767px) {
     .animate-fade-in,
     .animate-scale-in,
     .animate-slide-in-right,
-    .animate-enter {
-      animation: none;
+    .animate-enter,
+    .animate-pulse,
+    .animate-accordion-down,
+    .animate-accordion-up {
+      animation: none !important;
     }
     
-    /* Disable backdrop blur (expensive) */
+    /* Disable all transitions on mobile for faster paint */
+    .card-modern,
+    .hover-scale,
+    .btn-modern {
+      transition: none !important;
+      transform: none !important;
+    }
+    
+    /* Disable backdrop blur (very expensive on mobile) */
     .glass,
-    .glass-strong {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+    .glass-strong,
+    [class*="backdrop-blur"] {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Reduce shadow complexity */
+    .shadow-lg,
+    .shadow-xl,
+    .shadow-2xl {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Disable will-change (causes layer creation overhead) */
+    [style*="will-change"] {
+      will-change: auto !important;
+    }
+    
+    /* Optimize contain for mobile rendering */
+    .hero-wrapper,
+    .hero-media {
+      contain: layout style paint !important;
     }
   }
   
@@ -537,5 +567,14 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* ⚡ CRITICAL: Reduce unused CSS by scoping mobile-only rules */
+@media (min-width: 768px) {
+  /* Desktop-only complex styles */
+  .card-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elegant);
   }
 }
