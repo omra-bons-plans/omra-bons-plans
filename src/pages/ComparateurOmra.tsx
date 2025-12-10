@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -23,16 +23,15 @@ import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
-// ⚡ LAZY LOAD: Textarea for non-critical form
-const Textarea = lazy(() => import('@/components/ui/textarea').then(m => ({ default: m.Textarea })));
 import { toast } from 'sonner';
 import { z } from 'zod';
-// ⚡ PERFORMANCE: Preload agency logos
 import { usePreloadAgencyLogos } from '@/hooks/usePreloadAgencyLogos';
 
-// ⚡ LAZY LOAD: Only large non-critical components
+// ⚡ LAZY LOAD: Heavy non-critical components only
+const Textarea = lazy(() => import('@/components/ui/textarea').then(m => ({ default: m.Textarea })));
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
+
 // Direct imports for above-the-fold components
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';

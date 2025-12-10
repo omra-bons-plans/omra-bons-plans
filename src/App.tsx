@@ -61,10 +61,23 @@ const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
 
-// Loading component
+// ⚡ OPTIMIZED: Minimal loading component - no heavy styles
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  <div style={{ 
+    minHeight: '100vh', 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    background: 'hsl(var(--background))'
+  }}>
+    <div style={{
+      width: '32px',
+      height: '32px',
+      border: '3px solid hsl(var(--muted))',
+      borderTopColor: 'hsl(var(--primary))',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }} />
   </div>
 );
 
