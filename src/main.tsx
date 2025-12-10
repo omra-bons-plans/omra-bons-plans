@@ -22,13 +22,13 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   console.log('✅ Root element found, rendering React app...');
   
-  // ⚡ Hide pre-render elements IMMEDIATELY before React hydration
-  if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
-    window.__HIDE_PRERENDER__();
+  // ⚡ LCP FIX: NE PAS supprimer le prerender-hero - il sert de LCP
+  // React va se superposer dessus avec z-index plus élevé
+  // On supprime UNIQUEMENT le skeleton (pas l'image hero)
+  const prerenderSkeleton = document.getElementById('prerender-skeleton');
+  if (prerenderSkeleton) {
+    prerenderSkeleton.style.display = 'none';
   }
-  
-  // Nettoyer le contenu de pré-rendu
-  rootElement.innerHTML = '';
   
   createRoot(rootElement).render(
     <React.StrictMode>
@@ -40,19 +40,17 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  // ⚡ Remove pre-render elements after short delay
-  requestAnimationFrame(() => {
+  // ⚡ LCP FIX: Supprimer le prerender-hero APRÈS que React soit complètement rendu
+  // Utiliser un délai plus long pour s'assurer que le LCP est mesuré
+  setTimeout(() => {
     const prerenderHero = document.getElementById('prerender-hero');
-    const prerenderSkeleton = document.getElementById('prerender-skeleton');
     if (prerenderHero) {
-      prerenderHero.classList.add('hidden');
-      setTimeout(() => prerenderHero.remove(), 150);
+      prerenderHero.style.opacity = '0';
+      prerenderHero.style.pointerEvents = 'none';
+      // Supprimer du DOM après la transition
+      setTimeout(() => prerenderHero.remove(), 300);
     }
-    if (prerenderSkeleton) {
-      prerenderSkeleton.style.display = 'none';
-      setTimeout(() => prerenderSkeleton.remove(), 150);
-    }
-  });
+  }, 1500); // 1.5s après le rendu React - le LCP aura été mesuré
   
   console.log('✅ React app rendered successfully');
 } else {
