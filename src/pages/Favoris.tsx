@@ -15,13 +15,16 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
   'Almaqam': '/lovable-uploads/logoalmaqam.webp',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
-  'Al Bayt': '/lovable-uploads/logoalbayt.webp',
+  'Al Bayt': '/lovable-uploads/logoalbayt-optimized.webp',
   'Hayat': '/lovable-uploads/logohayat.webp',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
   'Omra Discount': '/lovable-uploads/logoomradiscount.webp',
-  'Sabil Voyages': '/lovable-uploads/logosabile.webp',
+  'Sabil Voyages': '/lovable-uploads/logosabile-optimized.webp',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
-  'Gateway travel': '/lovable-uploads/logogatewaytravel.webp',
+  'Gateway travel': '/lovable-uploads/logogatewaytravel-optimized.webp',
+  'Labbayk': '/lovable-uploads/logolabbayk-optimized.webp',
+  'Omra Pour Tous': '/lovable-uploads/logoomrapourtous-optimized.webp',
+  'Al Sirate Voyage': '/lovable-uploads/logoalsirate-optimized.webp',
 };
 
 const getAgencyLogo = (agencyName: string): string | null => {
