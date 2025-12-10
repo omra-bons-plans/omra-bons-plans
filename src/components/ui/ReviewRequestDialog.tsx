@@ -21,15 +21,6 @@ interface ReviewRequestDialogProps {
 }
 
 export const ReviewRequestDialog = ({ isOpen, onClose, onContinue, offerUrl }: ReviewRequestDialogProps) => {
-  const handleLeaveReview = () => {
-    window.open(GOOGLE_REVIEW_URL, '_blank', 'noopener,noreferrer');
-    onClose();
-    // Ouvrir l'offre après un court délai
-    setTimeout(() => {
-      window.open(offerUrl, '_blank', 'noopener,noreferrer');
-    }, 500);
-  };
-
   const handleContinue = () => {
     onContinue();
     onClose();
@@ -59,12 +50,19 @@ export const ReviewRequestDialog = ({ isOpen, onClose, onContinue, offerUrl }: R
 
         <div className="flex flex-col gap-3 pt-2">
           <Button 
-            onClick={handleLeaveReview}
+            asChild
             className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-semibold"
           >
-            <Star className="h-4 w-4 mr-2 fill-white" />
-            Laisser un avis Google
-            <ExternalLink className="h-4 w-4 ml-2" />
+            <a 
+              href={GOOGLE_REVIEW_URL} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={onClose}
+            >
+              <Star className="h-4 w-4 mr-2 fill-white" />
+              Laisser un avis Google
+              <ExternalLink className="h-4 w-4 ml-2" />
+            </a>
           </Button>
           
           <Button 
