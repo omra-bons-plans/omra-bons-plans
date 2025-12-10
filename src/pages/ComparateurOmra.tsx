@@ -370,16 +370,22 @@ export default function ComparateurOmra() {
         }
         
         console.log('✅ Offres finales affichées:', filtered.length);
-        if (isMounted) setOffers(filtered);
+        if (isMounted) {
+          setOffers(filtered);
+          setIsLoading(false); // Force stop loading after successful fetch
+        }
+        
+        // Clear timeout since we finished successfully
+        if (timeoutId) clearTimeout(timeoutId);
+        
       } catch (err: any) {
         console.error('❌ Erreur critique:', err);
         if (isMounted) {
           setError(err.message || 'Une erreur est survenue');
           setOffers([]);
           setAllOffers([]);
+          setIsLoading(false);
         }
-      } finally {
-        if (isMounted) setIsLoading(false);
       }
     };
 
