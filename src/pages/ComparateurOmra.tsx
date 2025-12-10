@@ -36,6 +36,7 @@ const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterF
 // Direct imports for above-the-fold components
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
+import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
 
 // ⚡ Hide pre-render hero immediately when component mounts
 if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
@@ -131,6 +132,9 @@ const agencyFormSchema = z.object({
 export default function ComparateurOmra() {
   // ⚡ PERFORMANCE: Preload agency logos
   usePreloadAgencyLogos();
+  
+  // Review request dialog
+  const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
   
   const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
@@ -1150,7 +1154,13 @@ export default function ComparateurOmra() {
                       asChild 
                       className="w-full h-9 md:h-10 group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300 text-sm md:text-base"
                     >
-                      <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 md:gap-2">
+                      <a 
+                        href={offer.offer_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center justify-center gap-1.5 md:gap-2"
+                        onClick={(e) => handleOfferClick(e, offer.offer_url)}
+                      >
                         <span className="font-semibold">Voir l'offre</span>
                         <ExternalLink className="h-3.5 w-3.5 md:h-4 md:w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
                       </a>
@@ -1354,7 +1364,13 @@ export default function ComparateurOmra() {
                                 className="w-full lg:w-auto group/btn bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all duration-300"
                                 disabled={offer.is_complet}
                               >
-                                <a href={offer.offer_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <a 
+                                  href={offer.offer_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="flex items-center justify-center gap-2"
+                                  onClick={(e) => !offer.is_complet && handleOfferClick(e, offer.offer_url)}
+                                >
                                   <span className="font-semibold">{offer.is_complet ? 'Complet' : "Voir l'offre"}</span>
                                   {!offer.is_complet && (
                                     <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
@@ -1738,6 +1754,14 @@ export default function ComparateurOmra() {
        </div>
       </div>
       </div>
+      
+      {/* Review Request Dialog */}
+      <ReviewRequestDialog 
+        isOpen={isDialogOpen}
+        onClose={handleClose}
+        onContinue={handleContinue}
+        offerUrl={pendingOfferUrl || ''}
+      />
     </ResponsiveLayout>
   );
 }

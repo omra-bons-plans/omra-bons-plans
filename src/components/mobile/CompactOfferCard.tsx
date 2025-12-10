@@ -5,6 +5,7 @@ import { Calendar, MapPin, Hotel, Plane, ExternalLink, CheckCircle2, Star } from
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
+import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
 
 interface CompactOfferCardProps {
   offer: any;
@@ -14,6 +15,7 @@ interface CompactOfferCardProps {
 
 export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOfferCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
 
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
@@ -180,6 +182,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center justify-center gap-1.5"
+                onClick={(e) => !offer.is_complet && handleOfferClick(e, offer.offer_url)}
               >
                 <span>{offer.is_complet ? 'Complet' : 'Voir l\'offre'}</span>
                 {!offer.is_complet && <ExternalLink className="h-3 w-3" />}
@@ -203,6 +206,14 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
           </div>
         </div>
       )}
+      
+      {/* Review Request Dialog */}
+      <ReviewRequestDialog 
+        isOpen={isDialogOpen}
+        onClose={handleClose}
+        onContinue={handleContinue}
+        offerUrl={pendingOfferUrl || ''}
+      />
     </Card>
   );
 };
