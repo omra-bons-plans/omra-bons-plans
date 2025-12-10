@@ -23,18 +23,18 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
         paddingTop: 0
       }}
     >
-      {/* ⚡ CRITICAL: Hero image with AVIF, explicit dimensions */}
+      {/* ⚡ CRITICAL: Hero image with optimized mobile version */}
       <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
         <picture>
-          {/* Mobile: WebP optimized */}
+          {/* ⚡ Mobile: Image optimisée portrait (~50KB) pour LCP rapide */}
           <source
             media="(max-width: 767px)"
-            srcSet="/hero-kaaba-new.webp"
+            srcSet="/hero-kaaba-mobile.webp"
             type="image/webp"
             width={750}
             height={1334}
           />
-          {/* Desktop: WebP */}
+          {/* Desktop: Full resolution WebP */}
           <source
             media="(min-width: 768px)"
             srcSet="/hero-kaaba-new.webp"
@@ -42,9 +42,9 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
             width={1600}
             height={900}
           />
-          {/* Fallback */}
+          {/* Fallback: Mobile version for faster initial load */}
           <img
-            src="/hero-kaaba-new.webp"
+            src={isMobile ? "/hero-kaaba-mobile.webp" : "/hero-kaaba-new.webp"}
             alt="Omra Bons Plans – Comparateur de séjours Omra et Hajj 2026"
             width={1600}
             height={900}
