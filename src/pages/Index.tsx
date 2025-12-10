@@ -276,9 +276,12 @@ const Index = () => {
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>
           <picture>
-            <source srcSet="/hero-kaaba-new.webp" type="image/webp" />
+            {/* ⚡ Mobile: Image optimisée portrait pour LCP rapide */}
+            <source srcSet="/hero-kaaba-mobile.webp" type="image/webp" media="(max-width: 767px)" />
+            {/* Desktop: Image full resolution */}
+            <source srcSet="/hero-kaaba-new.webp" type="image/webp" media="(min-width: 768px)" />
             <img
-              src="/hero-kaaba-new.webp"
+              src={isMobile ? "/hero-kaaba-mobile.webp" : "/hero-kaaba-new.webp"}
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
               width={1600}
               height={900}
