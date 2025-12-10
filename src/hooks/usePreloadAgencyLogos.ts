@@ -29,10 +29,11 @@ export const usePreloadAgencyLogos = () => {
       });
     };
 
+    // ⚡ Defer to 3s to reduce initial TBT
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(preload, { timeout: 2000 });
+      requestIdleCallback(preload, { timeout: 3000 });
     } else {
-      setTimeout(preload, 500);
+      setTimeout(preload, 3000);
     }
   }, []);
 };

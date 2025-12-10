@@ -24,9 +24,8 @@ export default defineConfig(({ mode }) => ({
           'react-vendor': ['react', 'react-dom'],
           // Router - separate chunk
           'router': ['react-router-dom'],
-          // ⚡ UI components - split by usage frequency
-          'ui-core': ['@radix-ui/react-select', '@radix-ui/react-dialog'],
-          'ui-extra': ['@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
+          // ⚡ UI components - single chunk to reduce requests
+          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
           // Data fetching
           'query': ['@tanstack/react-query'],
           // Supabase
