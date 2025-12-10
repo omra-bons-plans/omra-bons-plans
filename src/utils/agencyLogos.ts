@@ -13,7 +13,7 @@ export const agencyLogos: Record<string, string> = {
   "Al Bayt": "/lovable-uploads/logoalbayt-optimized.webp",
   "Gateway-travel": "/lovable-uploads/logogatewaytravel.webp",
   "Omra Discount": "/lovable-uploads/logoomradiscount.webp",
-  "Labbayk": "/lovable-uploads/logolabbayk-optimized.webp",
+  "Labbayk": "/lovable-uploads/logo-labayk-optimized.webp",
   "OMRA GATE": "/lovable-uploads/logoomragate.webp",
 };
 
