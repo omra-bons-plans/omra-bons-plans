@@ -15,34 +15,44 @@ export const useGoogleAnalytics = (measurementId?: string) => {
   useEffect(() => {
     if (!measurementId) return;
 
-    // Initialiser Google Analytics seulement si pas encore fait
-    if (!window.gtag) {
-      // Créer le script GA4
-      const script1 = document.createElement('script');
-      script1.async = true;
-      script1.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-      document.head.appendChild(script1);
+    // ⚡ OPTIMIZED: Defer GA loading to 8s to reduce TBT on mobile
+    const loadGA = () => {
+      // Initialiser Google Analytics seulement si pas encore fait
+      if (!window.gtag) {
+        // Créer le script GA4
+        const script1 = document.createElement('script');
+        script1.async = true;
+        script1.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(script1);
 
-      // Créer le script de configuration
-      const script2 = document.createElement('script');
-      script2.innerHTML = `
+        // Créer le script de configuration
+        const script2 = document.createElement('script');
+        script2.innerHTML = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${measurementId}', {
+            page_title: document.title,
+            page_location: window.location.href,
+            send_page_view: false
+          });
+        `;
+        document.head.appendChild(script2);
+
+        // Initialiser gtag globalement
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${measurementId}', {
-          page_title: document.title,
-          page_location: window.location.href,
-          send_page_view: false
-        });
-      `;
-      document.head.appendChild(script2);
+        window.gtag = function() {
+          window.dataLayer.push(arguments);
+        };
+      }
+    };
 
-      // Initialiser gtag globalement
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function() {
-        window.dataLayer.push(arguments);
-      };
-    }
+    // Defer 8 seconds on mobile, 4 seconds on desktop
+    const isMobile = window.innerWidth < 768;
+    const delay = isMobile ? 8000 : 4000;
+    const timer = setTimeout(loadGA, delay);
+
+    return () => clearTimeout(timer);
   }, [measurementId]);
 
   useEffect(() => {

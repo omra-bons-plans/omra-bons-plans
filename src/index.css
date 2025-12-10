@@ -515,20 +515,42 @@
   @media (max-width: 767px) {
     .animate-fade-in,
     .animate-scale-in,
-    .animate-slide-in-right {
+    .animate-slide-in-right,
+    .animate-enter,
+    .animate-accordion-down,
+    .animate-accordion-up {
       animation: none !important;
     }
     
     /* Reduce paint complexity */
-    .card-modern:hover {
+    .card-modern:hover,
+    .hover\:scale-105:hover,
+    .hover\:scale-\[1\.02\]:hover {
       transform: none !important;
     }
     
-    /* Optimize rendering */
+    /* Disable expensive shadow/transform transitions */
+    .transition-all,
+    .transition-transform,
+    .transition-shadow {
+      transition-duration: 0ms !important;
+    }
+    
+    /* Optimize rendering - disable backdrop blur */
     .glass,
-    .glass-strong {
+    .glass-strong,
+    .backdrop-blur-md,
+    .backdrop-blur-sm,
+    .backdrop-blur {
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Reduce box-shadow complexity */
+    .shadow-lg,
+    .shadow-xl,
+    .shadow-2xl {
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important;
     }
   }
   
