@@ -51,7 +51,6 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Almaqam': '/lovable-uploads/logoalmaqam.webp',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelerinhajj.webp',
-  'Al Bayt': '/lovable-uploads/logoalbayt-optimized.webp',
   'Hayat': '/lovable-uploads/logohayat.webp',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.webp',
