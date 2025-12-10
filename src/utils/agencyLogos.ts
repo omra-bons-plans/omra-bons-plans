@@ -6,7 +6,7 @@ export const agencyLogos: Record<string, string> = {
   "Omra Sounnah": "/lovable-uploads/logoomrasounnah.webp",
   "Omra Pour Tous": "/lovable-uploads/logoomrapourtous.webp",
   "TAWAF": "/lovable-uploads/logotawaf.webp",
-  "Sabil Voyages": "/lovable-uploads/logosabile-optimized.webp",
+  "Sabil Voyages": "/lovable-uploads/logosabile-new.webp",
   "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.webp",
   "Pelerinhajj": "/lovable-uploads/logopelerinhajj.webp",
   "Al Hayat Voyages": "/lovable-uploads/logohayat.webp",

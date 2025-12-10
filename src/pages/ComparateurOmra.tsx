@@ -57,7 +57,7 @@ const AGENCY_LOGOS: Record<string, string> = {
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.webp',
   'Omra Discount': '/lovable-uploads/logoomradiscount.png',
   'Sabil': '/lovable-uploads/logosabile.webp',
-  'Sabil Voyages': '/lovable-uploads/logosabile-optimized.webp',
+  'Sabil Voyages': '/lovable-uploads/logosabile-new.webp',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
   'Al Sirate Voyage': '/lovable-uploads/logoalsirate.webp',
   'Alsirate Voyage': '/lovable-uploads/logoalsirate.webp',
