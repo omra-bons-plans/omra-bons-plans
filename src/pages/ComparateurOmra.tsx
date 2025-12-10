@@ -7,14 +7,29 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
-import { 
-  Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, 
-  CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, 
-  List, Grid3x3, Send, Package 
-} from 'lucide-react';
+// ⚡ LAZY LOAD: Non-critical UI components
+const Slider = lazy(() => import('@/components/ui/slider').then(m => ({ default: m.Slider })));
+const Badge = lazy(() => import('@/components/ui/badge').then(m => ({ default: m.Badge })));
+const Checkbox = lazy(() => import('@/components/ui/checkbox').then(m => ({ default: m.Checkbox })));
+// ⚡ OPTIMIZED: Individual Lucide imports for tree-shaking
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
+import Filter from 'lucide-react/dist/esm/icons/filter';
+import Plane from 'lucide-react/dist/esm/icons/plane';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Building2 from 'lucide-react/dist/esm/icons/building-2';
+import X from 'lucide-react/dist/esm/icons/x';
+import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import List from 'lucide-react/dist/esm/icons/list';
+import Grid3x3 from 'lucide-react/dist/esm/icons/grid-3x3';
+import Send from 'lucide-react/dist/esm/icons/send';
+import Package from 'lucide-react/dist/esm/icons/package';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -23,7 +38,8 @@ import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
-import { Textarea } from '@/components/ui/textarea';
+// ⚡ LAZY LOAD: Textarea for non-critical form
+const Textarea = lazy(() => import('@/components/ui/textarea').then(m => ({ default: m.Textarea })));
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -141,9 +157,10 @@ export default function ComparateurOmra() {
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
   const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
   
-  // ⚡ PAGINATION: Réduire nombre d'offres chargées initialement
+  // ⚡ PAGINATION: Réduire nombre d'offres chargées initialement (6 mobile, 12 desktop)
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = window.innerWidth < 768 ? 8 : 12; // 8 mobile, 12 desktop
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const itemsPerPage = isMobile ? 6 : 12;
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -259,10 +276,10 @@ export default function ComparateurOmra() {
           tripType
         });
         
-        // Récupérer TOUTES les offres actives pour calculer les options disponibles
+        // ⚡ OPTIMIZED: Select only needed columns to reduce payload
         const { data: allActiveOffers, error: allOffersError } = await supabase
           .from('omra_offers')
-          .select('*')
+          .select('id,agency_name,agency_url,price_eur,month_departure,date_start,date_end,departure_city,formula_type,duration_nights,makkah_nights,medina_nights,hotel_makkah,hotel_medinah,hotel_makkah_stars,hotel_medina_stars,distance_to_haram_m,offer_url,board,flights_included,visa_included,offer_title,is_recommended,is_complet,notes,airline')
           .eq('status', 'active');
 
         if (allOffersError) {

@@ -508,3 +508,38 @@
     display: none;  /* Chrome, Safari and Opera */
   }
 }
+
+/* ⚡ MOBILE PERFORMANCE OPTIMIZATIONS */
+@layer utilities {
+  /* Disable expensive animations on mobile for better TBT */
+  @media (max-width: 767px) {
+    .animate-fade-in,
+    .animate-scale-in,
+    .animate-slide-in-right {
+      animation: none !important;
+    }
+    
+    /* Reduce paint complexity */
+    .card-modern:hover {
+      transform: none !important;
+    }
+    
+    /* Optimize rendering */
+    .glass,
+    .glass-strong {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+  }
+  
+  /* Respect user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
