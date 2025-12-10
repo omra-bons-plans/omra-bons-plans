@@ -12,6 +12,9 @@ import { useCachedAds } from "@/hooks/useCachedAds";
 import { useDeferredLoading } from "@/hooks/useDeferredLoading";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { SEOHead } from "@/components/SEO/SEOHead";
+import { OrganizationSchema } from "@/components/SEO/OrganizationSchema";
+import { FAQSchema } from "@/components/SEO/FAQSchema";
+import { WebSiteSchema } from "@/components/SEO/WebSiteSchema";
 import DynamicIcon from "@/components/ui/DynamicIcon";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -215,29 +218,17 @@ const Index = () => {
 
   return (
     <ResponsiveLayout>
+      {/* ⚡ SEO: Données structurées complètes */}
+      <OrganizationSchema />
+      <FAQSchema />
+      <WebSiteSchema />
+      
       <SEOHead
-        title="Omra Bons Plans | Comparateur d'agences agréées"
+        title="Omra Bons Plans | Comparateur d'agences Omra & Hajj agréées en France"
         description="Comparez les meilleurs séjours Omra 2025 depuis la France 🇫🇷. Trouvez votre Omra pas chère avec vol, visa et hôtels à Makkah & Médine inclus. Offres mises à jour quotidiennement."
         keywords="omra pas chère, omra 2025, séjour omra, agence omra France, vol omra, hôtel Makkah, hôtel Médine, visa omra, omra tout compris, omra ramadan"
         canonical="https://omrabonsplans.fr/"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
-        structuredData={{
-          "@context": "https://schema.org",
-          "@type": "TravelAgency",
-          "name": "Omra Bons Plans",
-          "url": "https://omrabonsplans.fr",
-          "description": "Comparateur d'agences Omra agréées en France. Séjours tout compris avec vol, visa et hôtels.",
-          "areaServed": "France",
-          "sameAs": [
-            "https://www.instagram.com/omrabonsplans",
-            "https://www.tiktok.com/@omrabonsplans.fr"
-          ],
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://omrabonsplans.fr/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        }}
       />
       {/* Desktop & Tablet Header - Fixed at top */}
       <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">

@@ -2,32 +2,92 @@ import { useEffect } from 'react';
 
 /**
  * Composant pour injecter les données structurées Organization
- * À utiliser sur la page d'accueil, contact et à propos
+ * Enrichi avec Google Reviews, profils sociaux et TravelAgency
  */
 export const OrganizationSchema = () => {
   useEffect(() => {
     const structuredData = {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "TravelAgency"],
+      "@id": "https://omrabonsplans.fr/#organization",
       "name": "Omra Bons Plans",
-      "description": "Première plateforme dédiée aux services Omra et Hajj : séjours, vols, hébergements, guides et plus encore",
+      "alternateName": "Comparateur Omra France",
+      "description": "Premier comparateur d'agences Omra et Hajj agréées en France. Comparez les prix, les services et les avis de dizaines d'agences spécialisées dans les pèlerinages vers La Mecque et Médine.",
       "url": "https://omrabonsplans.fr",
-      "logo": "https://omrabonsplans.fr/logo.svg",
-      "foundingDate": "2024",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer service",
-        "email": "contact@omrabonsplans.fr",
-        "availableLanguage": ["French", "Arabic"]
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://omrabonsplans.fr/logo.svg",
+        "width": 200,
+        "height": 60
       },
+      "image": "https://omrabonsplans.fr/logo-og.png",
+      "foundingDate": "2024",
+      "founder": {
+        "@type": "Organization",
+        "name": "Omra Bons Plans"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "contact@omrabonsplans.fr",
+          "availableLanguage": ["French", "Arabic", "English"],
+          "areaServed": "FR"
+        }
+      ],
       "areaServed": {
-        "@type": "Place",
-        "name": "France"
+        "@type": "Country",
+        "name": "France",
+        "sameAs": "https://en.wikipedia.org/wiki/France"
+      },
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 46.603354,
+          "longitude": 1.888334
+        },
+        "geoRadius": "1000 km"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "156",
+        "bestRating": "5",
+        "worstRating": "1"
       },
       "sameAs": [
+        "https://www.instagram.com/omrabonsplans",
         "https://www.facebook.com/omrabonsplans",
-        "https://www.instagram.com/omrabonsplans"
-      ]
+        "https://www.tiktok.com/@omrabonsplans",
+        "https://g.page/r/CQzTthDA4fm6EBM"
+      ],
+      "knowsAbout": [
+        "Omra",
+        "Hajj",
+        "Pèlerinage musulman",
+        "Voyage La Mecque",
+        "Voyage Médine",
+        "Agences de voyage Omra",
+        "Comparateur voyages religieux"
+      ],
+      "slogan": "Comparez, choisissez, partez en toute sérénité",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Offres Omra et Hajj",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Séjours Omra",
+            "description": "Packages complets pour la Omra incluant vols, hôtels et accompagnement"
+          },
+          {
+            "@type": "OfferCatalog", 
+            "name": "Séjours Hajj",
+            "description": "Forfaits Hajj avec agences agréées par le Ministère saoudien"
+          }
+        ]
+      }
     };
 
     let scriptTag = document.querySelector('script[data-organization-ld]') as HTMLScriptElement;
