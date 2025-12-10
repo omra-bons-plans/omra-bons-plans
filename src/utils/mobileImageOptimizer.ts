@@ -63,7 +63,7 @@ export const preloadMobileLCP = () => {
   const link = document.createElement('link');
   link.rel = 'preload';
   link.as = 'image';
-  link.href = '/hero-kaaba-new.webp';
+  link.href = '/hero-kaaba-mobile-portrait.webp';
   link.type = 'image/webp';
   link.fetchPriority = 'high';
   

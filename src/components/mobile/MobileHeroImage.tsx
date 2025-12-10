@@ -56,10 +56,10 @@ export const MobileHeroImage = () => {
       }}
     >
       <img
-        src="/hero-kaaba-new.webp"
+        src="/hero-kaaba-mobile-portrait.webp"
         alt="Omra Bons Plans – Séjours Omra et Hajj"
-        width="750"
-        height="1334"
+        width="576"
+        height="1024"
         fetchPriority="high"
         loading="eager"
         decoding="sync"

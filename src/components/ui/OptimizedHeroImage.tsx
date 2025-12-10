@@ -32,14 +32,15 @@ export const OptimizedHeroImage = ({
         aspectRatio: `${desktopWidth}/${desktopHeight}`
       }}
     >
-      {/* WebP format - optimized */}
+      {/* Mobile: Image portrait optimisée */}
       <source
         media="(max-width: 767px)"
-        srcSet="/hero-kaaba-new.webp"
+        srcSet="/hero-kaaba-mobile-portrait.webp"
         type="image/webp"
-        width={mobileWidth}
-        height={mobileHeight}
+        width={576}
+        height={1024}
       />
+      {/* Desktop: Image full resolution */}
       <source
         media="(min-width: 768px)"
         srcSet="/hero-kaaba-new.webp"
@@ -48,23 +49,20 @@ export const OptimizedHeroImage = ({
         height={desktopHeight}
       />
       
-      {/* Default img - always visible immediately */}
-      {/* eslint-disable-next-line react/no-unknown-property */}
+      {/* Fallback: Image mobile par défaut pour PageSpeed */}
       <img 
-        src="/hero-kaaba-new.webp"
+        src="/hero-kaaba-mobile-portrait.webp"
         alt="Omra Bons Plans - Comparateur Omra & Hajj - La Kaaba à La Mecque" 
         className="absolute inset-0 w-full h-full object-cover"
-        width={desktopWidth}
-        height={desktopHeight}
-        // @ts-expect-error - fetchpriority is valid HTML attribute
-        fetchpriority="high"
+        width={576}
+        height={1024}
+        fetchPriority="high"
         loading="eager"
         decoding="sync"
         style={{ 
           display: 'block',
           contentVisibility: 'auto',
-          willChange: 'auto',
-          aspectRatio: `${desktopWidth}/${desktopHeight}`
+          willChange: 'auto'
         }}
       />
     </picture>
