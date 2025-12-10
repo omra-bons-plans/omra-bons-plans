@@ -1,102 +1,50 @@
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { StrictMode, lazy, Suspense } from 'react'
-
-// ⚡ CRITICAL: Import CSS first for fastest paint
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from 'react-helmet-async';
+import App from './App.tsx'
 import './index.css'
 
-// ⚡ LAZY LOAD: Heavy dependencies loaded after initial render
-const QueryClientProvider = lazy(() => 
-  import('@tanstack/react-query').then(m => ({ default: m.QueryClientProvider }))
-);
-const HelmetProvider = lazy(() => 
-  import('react-helmet-async').then(m => ({ default: m.HelmetProvider }))
-);
-const App = lazy(() => import('./App'));
-
-// ⚡ Minimal loading state - no heavy components
-const MinimalLoader = () => (
-  <div style={{ 
-    minHeight: '100vh', 
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'center',
-    background: '#f5f5f0'
-  }}>
-    <div style={{
-      width: '32px',
-      height: '32px',
-      border: '3px solid #e5e5e5',
-      borderTopColor: '#b4823c',
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
-    }} />
-    <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-  </div>
-);
+// ⚡ Create QueryClient with optimized settings
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  // ⚡ Hide pre-render IMMEDIATELY
+  // ⚡ Hide pre-render elements before React hydration
   if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
     window.__HIDE_PRERENDER__();
   }
   
-  // ⚡ Create QueryClient lazily to reduce initial bundle
-  const getQueryClient = () => {
-    const { QueryClient } = require('@tanstack/react-query');
-    return new QueryClient({
-      defaultOptions: {
-        queries: {
-          staleTime: 1000 * 60 * 5,
-          gcTime: 1000 * 60 * 10,
-          refetchOnWindowFocus: false,
-        },
-      },
-    });
-  };
-
-  // ⚡ Deferred render with lazy providers
-  const renderApp = async () => {
-    const { QueryClient, QueryClientProvider: QCP } = await import('@tanstack/react-query');
-    const { HelmetProvider: HP } = await import('react-helmet-async');
-    const AppComponent = (await import('./App')).default;
-    
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          staleTime: 1000 * 60 * 5,
-          gcTime: 1000 * 60 * 10,
-          refetchOnWindowFocus: false,
-        },
-      },
-    });
-
-    createRoot(rootElement).render(
-      <StrictMode>
-        <HP>
-          <QCP client={queryClient}>
-            <AppComponent />
-          </QCP>
-        </HP>
-      </StrictMode>
-    );
-  };
-
-  // ⚡ Start render immediately
-  renderApp();
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </HelmetProvider>
+    </React.StrictMode>
+  );
   
-  // ⚡ Cleanup pre-render elements
+  // ⚡ Remove pre-render elements after short delay
   requestAnimationFrame(() => {
     const prerenderHero = document.getElementById('prerender-hero');
     const prerenderSkeleton = document.getElementById('prerender-skeleton');
     if (prerenderHero) {
       prerenderHero.classList.add('hidden');
-      setTimeout(() => prerenderHero.remove(), 100);
+      setTimeout(() => prerenderHero.remove(), 150);
     }
     if (prerenderSkeleton) {
       prerenderSkeleton.style.display = 'none';
-      setTimeout(() => prerenderSkeleton.remove(), 100);
+      setTimeout(() => prerenderSkeleton.remove(), 150);
     }
   });
 }
