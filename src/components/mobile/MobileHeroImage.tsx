@@ -22,10 +22,10 @@ export const MobileHeroImage = () => {
         }}
       >
         <img
-          src="/hero-kaaba-new.webp"
+          src="/hero-kaaba-mobile-portrait.webp"
           alt="Omra Bons Plans – La Kaaba sacrée à La Mecque"
-          width="1600"
-          height="900"
+          width="576"
+          height="1024"
           fetchPriority="high"
           loading="eager"
           decoding="sync"
