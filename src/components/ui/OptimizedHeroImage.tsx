@@ -57,20 +57,22 @@ export const OptimizedHeroImage = ({
       />
       
       {/* Default img - always visible immediately */}
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <img 
         src="/hero-kaaba-2025-new.jpg" 
         alt="Omra Bons Plans - Comparateur Omra & Hajj - La Kaaba à La Mecque" 
         className="absolute inset-0 w-full h-full object-cover"
         width={desktopWidth}
         height={desktopHeight}
-        fetchPriority="high"
+        // @ts-expect-error - fetchpriority is valid HTML attribute
+        fetchpriority="high"
         loading="eager"
         decoding="sync"
         style={{ 
           display: 'block',
           contentVisibility: 'auto',
           willChange: 'transform',
-          transform: 'translateZ(0)', // Force GPU layer
+          transform: 'translateZ(0)',
         }}
       />
     </picture>
