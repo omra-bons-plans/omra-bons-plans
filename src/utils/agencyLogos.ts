@@ -10,7 +10,6 @@ export const agencyLogos: Record<string, string> = {
   "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.webp",
   "Pelerinhajj": "/lovable-uploads/logopelerinhajj.webp",
   "Al Hayat Voyages": "/lovable-uploads/logohayat.webp",
-  "Al Bayt": "/lovable-uploads/logoalbayt-optimized.webp",
   "Gateway-travel": "/lovable-uploads/logogatewaytravel-new.webp",
   "Omra Discount": "/lovable-uploads/logoomradiscount.webp",
   "Labbayk": "/lovable-uploads/logo-labayk-optimized.webp",
