@@ -6,14 +6,14 @@ export const agencyLogos: Record<string, string> = {
   "Omra Sounnah": "/lovable-uploads/logoomrasounnah.webp",
   "Omra Pour Tous": "/lovable-uploads/logoomrapourtous.webp",
   "TAWAF": "/lovable-uploads/logotawaf.webp",
-  "Sabil Voyages": "/lovable-uploads/logosabile.webp",
+  "Sabil Voyages": "/lovable-uploads/logosabile-optimized.webp",
   "Al Maqam Voyages": "/lovable-uploads/logoalmaqam.webp",
   "Pelerinhajj": "/lovable-uploads/logopelerinhajj.webp",
   "Al Hayat Voyages": "/lovable-uploads/logohayat.webp",
-  "Al Bayt": "/lovable-uploads/logoalbayt.webp",
+  "Al Bayt": "/lovable-uploads/logoalbayt-optimized.webp",
   "Gateway-travel": "/lovable-uploads/logogatewaytravel.webp",
   "Omra Discount": "/lovable-uploads/logoomradiscount.webp",
-  "Labbayk": "/lovable-uploads/logolabbayk.webp",
+  "Labbayk": "/lovable-uploads/logolabbayk-optimized.webp",
   "OMRA GATE": "/lovable-uploads/logoomragate.webp",
 };
 
