@@ -3,10 +3,10 @@
  */
 
 /**
- * Génère un titre SEO optimisé
+ * Génère un titre SEO optimisé avec "Omra Bons Plans" en premier
  */
-export const generateSEOTitle = (title: string, suffix = " | Omra Bons Plans"): string => {
-  return title + suffix;
+export const generateSEOTitle = (title: string, prefix = "Omra Bons Plans | "): string => {
+  return prefix + title;
 };
 
 /**
