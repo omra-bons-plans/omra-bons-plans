@@ -8,6 +8,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useAuth } from "@/contexts/AuthContext";
 // ⚡ OPTIMIZED: Use cached ads hook instead of full useAds
 import { useCachedAds } from "@/hooks/useCachedAds";
+// ⚡ PHASE 2: Hook de chargement différé
+import { useDeferredLoading } from "@/hooks/useDeferredLoading";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { SEOHead } from "@/components/SEO/SEOHead";
 import DynamicIcon from "@/components/ui/DynamicIcon";
@@ -26,6 +28,7 @@ import { HomeHeader } from "@/components/home/HomeHeader";
 import { OptimizedAdCard } from "@/components/home/OptimizedAdCard";
 import { MobileListItem } from "@/components/home/MobileListItem";
 import { OffersSkeleton } from "@/components/ui/OffersSkeleton";
+import { DeferredOffersSection } from "@/components/home/DeferredOffersSection";
 
 // ⚡ CRITICAL: Import Logo and UserMenu directly - used in header without Suspense
 import Logo from '@/components/ui/Logo';
@@ -60,9 +63,18 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
+  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 1s)
+  const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
+    delay: 1000,        // Déclencher après 1 seconde
+    rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
+    threshold: 0.1
+  });
+  
   // ⚡ OPTIMIZED: Use cached ads hook - 70% smaller payload, 5min cache
-  // Valeur fixe pour éviter les re-fetches lors des changements de isMobile
-  const { formattedListings, loading: adsLoading, error: adsError } = useCachedAds(12);
+  // Chargement différé: n'appelle Supabase que lorsque shouldLoadOffers est true
+  const { formattedListings, loading: adsLoading, error: adsError } = useCachedAds(12, {
+    enabled: shouldLoadOffers
+  });
   const hasMore = false; // Simplified for faster LCP
   const total = formattedListings.length;
   const loadMore = () => {}; // No pagination needed
@@ -341,6 +353,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ⚡ PHASE 2 TRIGGER: Point d'observation pour IntersectionObserver */}
+      <div ref={triggerRef} className="h-1" aria-hidden="true" />
+      
       {/* Main Content Tabs - Mobile First */}
       <section className="pt-8 md:pt-16 lg:pt-32 pb-12 md:pb-20 px-0 md:px-6">
         <div className="container mx-auto">
@@ -365,6 +380,12 @@ const Index = () => {
             </TabsList>
 
             <TabsContent value="annonces" className="space-y-0">
+              {/* ⚡ DEFERRED OFFERS: Chargement Phase 2 */}
+              <DeferredOffersSection
+                shouldLoad={shouldLoadOffers}
+                isLoading={adsLoading}
+                isMobile={isMobile}
+              >
               {/* Flash Sales Section - Mobile First */}
               {filteredFlashSalesListings.length > 0 && (
                 <section className="pb-12 md:pb-20">
@@ -519,11 +540,7 @@ const Index = () => {
 
                     {/* Desktop: Grid Layout */}
                     <div className="hidden lg:grid grid-cols-4 gap-8">
-                      {adsLoading ? (
-                        <div className="col-span-4">
-                          <OffersSkeleton count={8} isMobile={false} />
-                        </div>
-                      ) : filteredFlashSalesListings.length > 0 ? (
+                      {filteredFlashSalesListings.length > 0 ? (
                         filteredFlashSalesListings.map((listing) => (
                           <OptimizedAdCard 
                             key={listing.id} 
@@ -559,9 +576,7 @@ const Index = () => {
 
                   {/* Mobile: Vue Liste ou Grille */}
                   <div className="block md:hidden mb-20">
-                    {adsLoading ? (
-                      <OffersSkeleton count={6} isMobile={true} />
-                    ) : filteredFlashSalesListings.length > 0 ? (
+                    {filteredFlashSalesListings.length > 0 ? (
                       viewMode === "list" ? (
                         /* Vue Liste - HORIZONTALE optimisée comme comparateur */
                         <div className="space-y-3">
@@ -1293,6 +1308,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+              </DeferredOffersSection>
             </TabsContent>
 
             <TabsContent value="discussions" className="space-y-0">

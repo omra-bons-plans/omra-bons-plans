@@ -71,16 +71,31 @@ const getStableReviews = (id: string): number => {
   return Math.abs(hash % 90) + 10;
 };
 
-export const useCachedAds = (limit: number = 12) => {
+interface UseCachedAdsOptions {
+  /** Retarder le fetch jusqu'à ce que enabled soit true */
+  enabled?: boolean;
+}
+
+export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = {}) => {
+  const { enabled = true } = options;
   const [ads, setAds] = useState<CachedAd[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // ⚡ DEFERRED: Ne pas fetch si enabled est false
+    if (!enabled) {
+      setLoading(false);
+      return;
+    }
+
     let isMounted = true;
     let timeoutId: NodeJS.Timeout;
     
     const fetchAds = async () => {
+      // Remettre loading à true quand on commence à fetch
+      if (isMounted) setLoading(true);
+      
       try {
         // ⚡ TIMEOUT: Force stop loading after 8 seconds
         timeoutId = setTimeout(() => {
@@ -162,7 +177,7 @@ export const useCachedAds = (limit: number = 12) => {
       isMounted = false;
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []); // ⚡ FIXED: No dependencies to prevent re-fetches
+  }, [enabled]); // ⚡ FIXED: Only re-fetch when enabled changes
 
   // ⚡ FIXED: useMemo to prevent recalculation on every render
   const formattedListings = useMemo((): CachedFormattedListing[] => {
