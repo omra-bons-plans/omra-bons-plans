@@ -24,13 +24,15 @@ export default defineConfig(({ mode }) => ({
           'react-vendor': ['react', 'react-dom'],
           // Router - separate chunk
           'router': ['react-router-dom'],
+          // ⚡ Icons - separate chunk for better caching (large bundle)
+          'icons': ['lucide-react'],
           // ⚡ UI components - single chunk to reduce requests
-          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
+          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
           // Data fetching
           'query': ['@tanstack/react-query'],
           // Supabase
           'supabase': ['@supabase/supabase-js'],
-          // ⚡ Date utilities - separate chunk
+          // ⚡ Date utilities - separate chunk with locale
           'date': ['date-fns'],
           // ⚡ Forms - separate chunk
           'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],

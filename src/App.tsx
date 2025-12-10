@@ -53,8 +53,8 @@ const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
-// ⚡ CRITICAL: Direct import for homepage - no lazy loading
-import ComparateurOmra from "./pages/ComparateurOmra";
+// ⚡ OPTIMIZED: Lazy load homepage for better code splitting
+const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));

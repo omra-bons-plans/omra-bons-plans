@@ -35,7 +35,16 @@ export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAge
   }, []);
 
   return (
-    <div ref={imgRef} className={`relative ${className}`}>
+    <div 
+      ref={imgRef} 
+      className={`relative ${className}`}
+      style={{ 
+        aspectRatio: '160/60', 
+        minHeight: '60px',
+        width: '100%',
+        maxWidth: '160px'
+      }}
+    >
       {!isLoaded && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded" />
       )}
@@ -57,6 +66,7 @@ export const LazyAgencyLogo = ({ src, alt, agencyName, className = '' }: LazyAge
             height: 'auto',
             maxWidth: '160px',
             objectFit: 'contain',
+            aspectRatio: '160/60'
           }}
         />
       )}
