@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, startTransition } from 'react';
+import { useState, useEffect, lazy, Suspense, startTransition, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -10,27 +10,40 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, List, Grid3x3, Send } from 'lucide-react';
+import { 
+  Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, 
+  CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, 
+  List, Grid3x3, Send, Package 
+} from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
-import { Package } from 'lucide-react';
 import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
-
-// ⚡ DIRECT IMPORTS: Ces composants sont critiques pour le rendu initial
-import { FilterForm } from '@/components/ui/FilterForm';
-import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
-
-// ⚡ LAZY LOAD: Composants vraiment non-critiques 
-const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
-const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { z } from 'zod';
+
+// ⚡ LAZY LOAD: Composants non-critiques pour réduire le bundle initial
+const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
+const CompactOfferCard = lazy(() => import('@/components/mobile/CompactOfferCard').then(m => ({ default: m.CompactOfferCard })));
+const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
+const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
+
+// ⚡ Hide pre-render hero immediately when component mounts
+if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
+  window.__HIDE_PRERENDER__();
+}
+
+// Extend window type for pre-render function
+declare global {
+  interface Window {
+    __HIDE_PRERENDER__?: () => void;
+  }
+}
 
 const MONTHS = [
   'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -158,7 +171,7 @@ export default function ComparateurOmra() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch last successful update info
+  // ⚡ LCP OPTIMIZATION: Defer non-critical queries with staleTime
   const { data: lastUpdate } = useQuery({
     queryKey: ['last-successful-update'],
     queryFn: async () => {
@@ -170,10 +183,12 @@ export default function ComparateurOmra() {
         offers_rejected: number;
         message?: string;
       };
-    }
+    },
+    staleTime: 1000 * 60 * 10, // 10 minutes cache
+    gcTime: 1000 * 60 * 30, // 30 minutes garbage collection
   });
 
-  // Fetch agencies data from database
+  // ⚡ DEFERRED: Agencies data with long cache
   const { data: agenciesFromDb } = useQuery({
     queryKey: ['agencies'],
     queryFn: async () => {
@@ -182,7 +197,9 @@ export default function ComparateurOmra() {
         .select('name, google_rating, review_count, url, strengths, weaknesses, specialties, price_range, highlight');
       if (error) throw error;
       return data;
-    }
+    },
+    staleTime: 1000 * 60 * 30, // 30 minutes cache
+    gcTime: 1000 * 60 * 60, // 1 hour garbage collection
   });
 
   // Helper function to get agency info from database
@@ -527,19 +544,29 @@ export default function ComparateurOmra() {
               </p>
             </div>
 
-            {/* New Filter Form */}
-            <FilterForm
-              tripType={tripType}
-              setTripType={setTripType}
-              selectedCity={selectedCity}
-              setSelectedCity={setSelectedCity}
-              selectedMonth={selectedMonth}
-              setSelectedMonth={setSelectedMonth}
-              selectedDuration={selectedDuration}
-              setSelectedDuration={setSelectedDuration}
-              availableCities={availableCities}
-              availableMonths={availableMonths}
-            />
+            {/* ⚡ Filter Form with Suspense fallback */}
+            <Suspense fallback={
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <Skeleton className="h-10 w-full rounded-lg" />
+                  <Skeleton className="h-10 w-full rounded-lg" />
+                </div>
+                <Skeleton className="h-12 w-full rounded-lg" />
+              </div>
+            }>
+              <FilterForm
+                tripType={tripType}
+                setTripType={setTripType}
+                selectedCity={selectedCity}
+                setSelectedCity={setSelectedCity}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
+                selectedDuration={selectedDuration}
+                setSelectedDuration={setSelectedDuration}
+                availableCities={availableCities}
+                availableMonths={availableMonths}
+              />
+            </Suspense>
             
             {/* Last Update Info */}
             {lastUpdate && lastUpdate.last_update && (

@@ -15,10 +15,22 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        // ⚡ SIMPLIFIED: No manual chunking to avoid React initialization issues
+        // ⚡ OPTIMIZED CHUNKING: Separate vendor bundles for better caching
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+        manualChunks: {
+          // Core React - cached long-term
+          'react-vendor': ['react', 'react-dom'],
+          // Router - separate chunk
+          'router': ['react-router-dom'],
+          // UI components - frequently updated
+          'ui-vendor': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover'],
+          // Data fetching
+          'query': ['@tanstack/react-query'],
+          // Supabase
+          'supabase': ['@supabase/supabase-js'],
+        }
       },
     },
     chunkSizeWarningLimit: 1000,
