@@ -281,10 +281,10 @@ const Index = () => {
             {/* Desktop: Image full resolution */}
             <source srcSet="/hero-kaaba-new.webp" type="image/webp" media="(min-width: 768px)" />
             <img
-              src={isMobile ? "/hero-kaaba-mobile-portrait.webp" : "/hero-kaaba-new.webp"}
+              src="/hero-kaaba-mobile-portrait.webp"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
-              width={1600}
-              height={900}
+              width={576}
+              height={1024}
               fetchPriority="high"
               decoding="sync"
               loading="eager"
