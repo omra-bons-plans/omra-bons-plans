@@ -206,7 +206,7 @@ const Index = () => {
         description="Comparez les meilleurs séjours Omra 2025 depuis la France 🇫🇷. Trouvez votre Omra pas chère avec vol, visa et hôtels à Makkah & Médine inclus. Offres mises à jour quotidiennement."
         keywords="omra pas chère, omra 2025, séjour omra, agence omra France, vol omra, hôtel Makkah, hôtel Médine, visa omra, omra tout compris, omra ramadan"
         canonical="https://omrabonsplans.fr/"
-        ogImage="https://omrabonsplans.fr/hero-kaaba-2025-optimized.avif"
+        ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "TravelAgency",
@@ -271,9 +271,9 @@ const Index = () => {
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>
           <picture>
-            <source srcSet="/hero-kaaba-2025-optimized.avif" type="image/avif" />
+            <source srcSet="/hero-kaaba-new.webp" type="image/webp" />
             <img
-              src="/hero-kaaba-2025-new.jpg"
+              src="/hero-kaaba-new.webp"
               alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
               width={1600}
               height={900}

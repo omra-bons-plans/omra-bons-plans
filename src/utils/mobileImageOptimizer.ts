@@ -63,8 +63,8 @@ export const preloadMobileLCP = () => {
   const link = document.createElement('link');
   link.rel = 'preload';
   link.as = 'image';
-  link.href = '/hero-kaaba-2025-optimized.avif';
-  link.type = 'image/avif';
+  link.href = '/hero-kaaba-new.webp';
+  link.type = 'image/webp';
   link.fetchPriority = 'high';
   
   // Nettoyer après 10s

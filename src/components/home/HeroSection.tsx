@@ -26,25 +26,25 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
       {/* ⚡ CRITICAL: Hero image with AVIF, explicit dimensions */}
       <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
         <picture>
-          {/* Mobile: AVIF optimized */}
+          {/* Mobile: WebP optimized */}
           <source
             media="(max-width: 767px)"
-            srcSet="/hero-kaaba-2025-optimized.avif"
-            type="image/avif"
+            srcSet="/hero-kaaba-new.webp"
+            type="image/webp"
             width={750}
             height={1334}
           />
-          {/* Desktop: AVIF */}
+          {/* Desktop: WebP */}
           <source
             media="(min-width: 768px)"
-            srcSet="/hero-kaaba-2025-optimized.avif"
-            type="image/avif"
+            srcSet="/hero-kaaba-new.webp"
+            type="image/webp"
             width={1600}
             height={900}
           />
-          {/* Fallback JPG */}
+          {/* Fallback */}
           <img
-            src="/hero-kaaba-2025-new.jpg"
+            src="/hero-kaaba-new.webp"
             alt="Omra Bons Plans – Comparateur de séjours Omra et Hajj 2026"
             width={1600}
             height={900}

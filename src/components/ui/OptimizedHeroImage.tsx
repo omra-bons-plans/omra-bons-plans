@@ -31,35 +31,26 @@ export const OptimizedHeroImage = ({
         containIntrinsicSize: `${desktopWidth}px ${desktopHeight}px`
       }}
     >
-      {/* AVIF format - smallest file size, best compression */}
+      {/* WebP format - optimized */}
       <source
         media="(max-width: 767px)"
-        srcSet="/hero-kaaba-2025-optimized.avif"
-        type="image/avif"
+        srcSet="/hero-kaaba-new.webp"
+        type="image/webp"
         width={mobileWidth}
         height={mobileHeight}
       />
       <source
         media="(min-width: 768px)"
-        srcSet="/hero-kaaba-2025-optimized.avif"
-        type="image/avif"
+        srcSet="/hero-kaaba-new.webp"
+        type="image/webp"
         width={desktopWidth}
         height={desktopHeight}
-      />
-      
-      {/* JPG fallback for older browsers */}
-      <source
-        media="(max-width: 767px)"
-        srcSet="/hero-kaaba-2025-new.jpg"
-        type="image/jpeg"
-        width={mobileWidth}
-        height={mobileHeight}
       />
       
       {/* Default img - always visible immediately */}
       {/* eslint-disable-next-line react/no-unknown-property */}
       <img 
-        src="/hero-kaaba-2025-new.jpg" 
+        src="/hero-kaaba-new.webp"
         alt="Omra Bons Plans - Comparateur Omra & Hajj - La Kaaba à La Mecque" 
         className="absolute inset-0 w-full h-full object-cover"
         width={desktopWidth}
