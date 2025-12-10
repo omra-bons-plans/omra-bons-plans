@@ -7,29 +7,14 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-// ⚡ LAZY LOAD: Non-critical UI components
-const Slider = lazy(() => import('@/components/ui/slider').then(m => ({ default: m.Slider })));
-const Badge = lazy(() => import('@/components/ui/badge').then(m => ({ default: m.Badge })));
-const Checkbox = lazy(() => import('@/components/ui/checkbox').then(m => ({ default: m.Checkbox })));
-// ⚡ OPTIMIZED: Individual Lucide imports for tree-shaking
-import Calendar from 'lucide-react/dist/esm/icons/calendar';
-import MapPin from 'lucide-react/dist/esm/icons/map-pin';
-import Hotel from 'lucide-react/dist/esm/icons/hotel';
-import Clock from 'lucide-react/dist/esm/icons/clock';
-import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
-import Filter from 'lucide-react/dist/esm/icons/filter';
-import Plane from 'lucide-react/dist/esm/icons/plane';
-import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
-import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
-import Star from 'lucide-react/dist/esm/icons/star';
-import Building2 from 'lucide-react/dist/esm/icons/building-2';
-import X from 'lucide-react/dist/esm/icons/x';
-import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw';
-import Mail from 'lucide-react/dist/esm/icons/mail';
-import List from 'lucide-react/dist/esm/icons/list';
-import Grid3x3 from 'lucide-react/dist/esm/icons/grid-3x3';
-import Send from 'lucide-react/dist/esm/icons/send';
-import Package from 'lucide-react/dist/esm/icons/package';
+import { Slider } from '@/components/ui/slider';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { 
+  Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, 
+  CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, 
+  List, Grid3x3, Send, Package 
+} from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -45,11 +30,12 @@ import { z } from 'zod';
 // ⚡ PERFORMANCE: Preload agency logos
 import { usePreloadAgencyLogos } from '@/hooks/usePreloadAgencyLogos';
 
-// ⚡ LAZY LOAD: Composants non-critiques pour réduire le bundle initial
+// ⚡ LAZY LOAD: Only large non-critical components
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
-const CompactOfferCard = lazy(() => import('@/components/mobile/CompactOfferCard').then(m => ({ default: m.CompactOfferCard })));
-const LazyAgencyLogo = lazy(() => import('@/components/ui/LazyAgencyLogo').then(m => ({ default: m.LazyAgencyLogo })));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
+// Direct imports for above-the-fold components
+import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
+import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
 
 // ⚡ Hide pre-render hero immediately when component mounts
 if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
@@ -162,10 +148,10 @@ export default function ComparateurOmra() {
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
   const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
   
-  // ⚡ PAGINATION: Réduire nombre d'offres chargées initialement (6 mobile, 12 desktop)
+  // ⚡ PAGINATION: 8 mobile (less re-renders), 12 desktop
   const [currentPage, setCurrentPage] = useState(1);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const itemsPerPage = isMobile ? 6 : 12;
+  const itemsPerPage = isMobile ? 8 : 12;
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
@@ -270,16 +256,6 @@ export default function ComparateurOmra() {
           }
         }, 5000);
         
-        console.log('🔍 Filtres actifs:', {
-          selectedMonth,
-          selectedCity,
-          selectedFormula,
-          priceMin: currentPriceMin,
-          priceMax: currentPriceMax,
-          maxDuration,
-          selectedAgencies,
-          tripType
-        });
         
         // ⚡ OPTIMIZED: Select only needed columns to reduce payload
         const { data: allActiveOffers, error: allOffersError } = await supabase
@@ -350,7 +326,7 @@ export default function ComparateurOmra() {
           filtered = filtered.filter(offer => selectedAgencies.includes(offer.agency_name));
         }
         
-        console.log('🏢 Après filtre agences:', { count: filtered.length, selectedAgencies });
+        
         
         // Filtrer par durée de séjour Hajj
         if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
@@ -390,7 +366,7 @@ export default function ComparateurOmra() {
             });
         }
         
-        console.log('✅ Offres finales affichées:', filtered.length);
+        
         if (isMounted) {
           setOffers(filtered);
           setIsLoading(false); // Force stop loading after successful fetch
