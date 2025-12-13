@@ -153,6 +153,13 @@
     <priority>0.6</priority>
   </url>
 
+  <url>
+    <loc>https://omrabonsplans.fr/bons-plans</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Blog Posts -->
   <url>
     <loc>https://omrabonsplans.fr/blog/general/les-10-derniers-jours-du-ramadan-2026</loc>

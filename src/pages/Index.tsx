@@ -224,10 +224,10 @@ const Index = () => {
       <WebSiteSchema />
       
       <SEOHead
-        title="Omra Bons Plans | Comparateur d'agences Omra & Hajj agréées en France"
-        description="Comparez les meilleurs séjours Omra 2025 depuis la France 🇫🇷. Trouvez votre Omra pas chère avec vol, visa et hôtels à Makkah & Médine inclus. Offres mises à jour quotidiennement."
-        keywords="omra pas chère, omra 2025, séjour omra, agence omra France, vol omra, hôtel Makkah, hôtel Médine, visa omra, omra tout compris, omra ramadan"
-        canonical="https://omrabonsplans.fr/"
+        title="Bons Plans Omra & Hajj | Chauffeurs, Guides, Hébergements"
+        description="Trouvez des bons plans pour votre Omra : chauffeurs privés, guides spirituels, hébergements et baby-sitting à La Mecque et Médine. Annonces de la communauté."
+        keywords="bons plans omra, chauffeur privé mecque, guide omra, hébergement médine, baby-sitting omra, services hajj"
+        canonical="https://omrabonsplans.fr/bons-plans"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
       />
       {/* Desktop & Tablet Header - Fixed at top */}
