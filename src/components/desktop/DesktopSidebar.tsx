@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { 
   User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
   Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid
+  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid, Search
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -91,6 +91,14 @@ export function DesktopSidebar() {
                   <NavLink to="/favoris" className={getNavCls}>
                     <Heart className="w-4 h-4" />
                     {!collapsed && <span>Favoris</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink to="/search" className={getNavCls}>
+                    <Search className="w-4 h-4" />
+                    {!collapsed && <span>Recherche</span>}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>

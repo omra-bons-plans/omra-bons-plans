@@ -1,4 +1,4 @@
-import { Home, Package, Star, BookOpen, User } from 'lucide-react';
+import { Home, Package, Star, BookOpen, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -66,10 +66,10 @@ export const MobileBottomNav = () => {
       badge: null
     },
     { 
-      icon: User, 
-      label: user ? 'Profil' : 'Connexion', 
-      path: user ? '/profile' : '/auth', 
-      active: currentPath === '/profile' || currentPath === '/auth',
+      icon: Search, 
+      label: 'Recherche', 
+      path: '/search', 
+      active: currentPath === '/search',
       badge: null
     },
   ];
