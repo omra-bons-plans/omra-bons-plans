@@ -31,7 +31,7 @@ const allInternalLinks: InternalLink[] = [
     icon: <Star className="w-4 h-4" />
   },
   { 
-    href: '/agences', 
+    href: '/agences-liste', 
     label: 'Liste des Agences', 
     description: 'Agences Omra agréées',
     icon: <Users className="w-4 h-4" />
@@ -43,25 +43,31 @@ const allInternalLinks: InternalLink[] = [
     icon: <Star className="w-4 h-4" />
   },
   { 
+    href: '/comparatif-visuel', 
+    label: 'Comparatif Visuel', 
+    description: 'Comparez visuellement',
+    icon: <Star className="w-4 h-4" />
+  },
+  { 
     href: '/blog', 
     label: 'Blog Omra & Hajj', 
     description: 'Conseils et guides',
     icon: <BookOpen className="w-4 h-4" />
   },
   { 
-    href: '/horaires-prieres', 
+    href: '/prayer-times', 
     label: 'Horaires de Prière', 
     description: 'Heures de prière',
     icon: <Calendar className="w-4 h-4" />
   },
   { 
-    href: '/calendrier-islamique', 
+    href: '/islamic-calendar', 
     label: 'Calendrier Islamique', 
     description: 'Calendrier Hijri',
     icon: <Calendar className="w-4 h-4" />
   },
   { 
-    href: '/dates-ramadan-hajj', 
+    href: '/ramadan-hajj-dates', 
     label: 'Dates Ramadan & Hajj', 
     description: 'Dates 2025-2028',
     icon: <Calendar className="w-4 h-4" />
@@ -73,7 +79,7 @@ const allInternalLinks: InternalLink[] = [
     icon: <Users className="w-4 h-4" />
   },
   { 
-    href: '/a-propos', 
+    href: '/about', 
     label: 'À Propos', 
     description: 'Notre mission',
     icon: <Users className="w-4 h-4" />
@@ -84,23 +90,37 @@ const allInternalLinks: InternalLink[] = [
     description: 'Nous contacter',
     icon: <MapPin className="w-4 h-4" />
   },
+  { 
+    href: '/search', 
+    label: 'Recherche', 
+    description: 'Rechercher des offres',
+    icon: <Search className="w-4 h-4" />
+  },
+  { 
+    href: '/favoris', 
+    label: 'Mes Favoris', 
+    description: 'Vos offres sauvegardées',
+    icon: <Star className="w-4 h-4" />
+  },
 ];
 
 // Liens recommandés par page pour éviter le contenu dupliqué
 const relatedLinksMap: Record<string, string[]> = {
-  '/': ['/bons-plans', '/agences', '/blog', '/comparatif-agences'],
-  '/bons-plans': ['/', '/agences', '/comparatif-agences', '/blog'],
-  '/agences': ['/comparatif-agences', '/', '/bons-plans', '/blog'],
-  '/comparatif-agences': ['/agences', '/', '/bons-plans', '/blog'],
-  '/blog': ['/', '/discussions', '/horaires-prieres', '/calendrier-islamique'],
-  '/horaires-prieres': ['/calendrier-islamique', '/dates-ramadan-hajj', '/blog', '/'],
-  '/calendrier-islamique': ['/horaires-prieres', '/dates-ramadan-hajj', '/blog', '/'],
-  '/dates-ramadan-hajj': ['/calendrier-islamique', '/horaires-prieres', '/blog', '/'],
-  '/discussions': ['/blog', '/', '/a-propos', '/contact'],
-  '/a-propos': ['/contact', '/', '/blog', '/discussions'],
-  '/contact': ['/a-propos', '/', '/blog', '/discussions'],
-  '/favoris': ['/', '/bons-plans', '/agences', '/blog'],
-  '/publish': ['/', '/bons-plans', '/a-propos', '/contact'],
+  '/': ['/bons-plans', '/agences-liste', '/blog', '/comparatif-agences'],
+  '/bons-plans': ['/', '/agences-liste', '/comparatif-agences', '/blog'],
+  '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/', '/bons-plans'],
+  '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/', '/bons-plans'],
+  '/comparatif-visuel': ['/agences-liste', '/comparatif-agences', '/', '/blog'],
+  '/blog': ['/', '/discussions', '/prayer-times', '/islamic-calendar'],
+  '/prayer-times': ['/islamic-calendar', '/ramadan-hajj-dates', '/blog', '/'],
+  '/islamic-calendar': ['/prayer-times', '/ramadan-hajj-dates', '/blog', '/'],
+  '/ramadan-hajj-dates': ['/islamic-calendar', '/prayer-times', '/blog', '/'],
+  '/discussions': ['/blog', '/', '/about', '/contact'],
+  '/about': ['/contact', '/', '/blog', '/discussions'],
+  '/contact': ['/about', '/', '/blog', '/discussions'],
+  '/favoris': ['/', '/bons-plans', '/agences-liste', '/blog'],
+  '/search': ['/', '/bons-plans', '/agences-liste', '/favoris'],
+  '/publish': ['/', '/bons-plans', '/about', '/contact'],
 };
 
 export const InternalLinks: React.FC<InternalLinksProps> = ({
