@@ -115,6 +115,12 @@ const staticRoutes: SitemapUrl[] = [
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'daily',
     priority: 0.6
+  },
+  {
+    loc: 'https://omrabonsplans.fr/bons-plans',
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'daily',
+    priority: 0.8
   }
 ];
 
