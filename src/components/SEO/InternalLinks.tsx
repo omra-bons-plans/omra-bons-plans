@@ -68,9 +68,15 @@ const allInternalLinks: InternalLink[] = [
   },
   { 
     href: '/ramadan-hajj-dates', 
-    label: 'Dates Ramadan & Hajj', 
-    description: 'Dates 2025-2028',
+    label: 'Dates Ramadan & Hajj 2026', 
+    description: 'Dates 2026-2028',
     icon: <Calendar className="w-4 h-4" />
+  },
+  { 
+    href: '/blog/general/les-10-derniers-jours-du-ramadan-2026', 
+    label: '10 Derniers Jours Ramadan 2026', 
+    description: 'Guide complet Laylat al-Qadr',
+    icon: <Star className="w-4 h-4" />
   },
   { 
     href: '/discussions', 
@@ -106,8 +112,8 @@ const allInternalLinks: InternalLink[] = [
 
 // Liens recommandés par page pour éviter le contenu dupliqué
 const relatedLinksMap: Record<string, string[]> = {
-  '/': ['/bons-plans', '/agences-liste', '/blog', '/comparatif-agences'],
-  '/bons-plans': ['/', '/agences-liste', '/comparatif-agences', '/blog'],
+  '/': ['/bons-plans', '/agences-liste', '/blog/general/les-10-derniers-jours-du-ramadan-2026', '/comparatif-agences'],
+  '/bons-plans': ['/', '/agences-liste', '/blog/general/les-10-derniers-jours-du-ramadan-2026', '/blog'],
   '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/', '/bons-plans'],
   '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/', '/bons-plans'],
   '/comparatif-visuel': ['/agences-liste', '/comparatif-agences', '/', '/blog'],

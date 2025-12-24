@@ -1750,6 +1750,81 @@ export default function ComparateurOmra() {
           </Card>
         </div>
         
+        {/* Section SEO - Contenu riche en mots-clés */}
+        <section className="mt-12 space-y-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Omra Ramadan 2026 */}
+            <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-amber-200 dark:border-amber-800">
+              <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-amber-600" />
+                Omra Ramadan 2026 : Les Meilleures Offres
+              </h2>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Réservez votre <strong>Omra Ramadan 2026</strong> avec notre comparateur. 
+                Le Ramadan 2026 débutera fin février et c'est la période la plus spirituelle 
+                pour accomplir la Omra. Comparez les prix des agences agréées pour trouver 
+                votre séjour idéal à <strong>La Mecque</strong> et <strong>Médine</strong>.
+              </p>
+              <a 
+                href="#offers" 
+                className="text-amber-700 dark:text-amber-400 font-semibold hover:underline text-sm"
+              >
+                Voir les offres Omra Ramadan →
+              </a>
+            </Card>
+
+            {/* Hajj 2026 */}
+            <Card className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 border-emerald-200 dark:border-emerald-800">
+              <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+                <Star className="w-5 h-5 text-emerald-600" />
+                Hajj 2026 : Comparez les Prix
+              </h2>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Préparez votre <strong>Hajj 2026</strong> en comparant les offres des meilleures 
+                agences de voyage. Le Hajj est le 5ème pilier de l'Islam et nécessite une 
+                réservation anticipée. Trouvez des formules complètes avec vol, visa, 
+                hébergement et encadrement religieux.
+              </p>
+              <a 
+                href="/ramadan-hajj-dates" 
+                className="text-emerald-700 dark:text-emerald-400 font-semibold hover:underline text-sm"
+              >
+                Voir les dates Hajj 2026 →
+              </a>
+            </Card>
+          </div>
+
+          {/* 10 Derniers Jours du Ramadan */}
+          <Card className="p-6 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20 border-purple-200 dark:border-purple-800">
+            <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-600" />
+              Les 10 Derniers Jours du Ramadan 2026 : Guide Complet
+            </h2>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+              Les <strong>10 derniers jours du Ramadan</strong> sont les plus précieux de l'année. 
+              C'est durant cette période que se trouve <strong>Laylat al-Qadr</strong> (la Nuit du Destin), 
+              une nuit meilleure que mille mois. Vivre ces 10 derniers jours à La Mecque est une 
+              expérience spirituelle inoubliable. Nos agences partenaires proposent des séjours 
+              spéciaux pour cette période exceptionnelle.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a 
+                href="/blog/general/les-10-derniers-jours-du-ramadan-2026" 
+                className="text-purple-700 dark:text-purple-400 font-semibold hover:underline text-sm"
+              >
+                Lire notre guide complet →
+              </a>
+              <span className="text-muted-foreground text-sm">|</span>
+              <a 
+                href="#offers" 
+                className="text-purple-700 dark:text-purple-400 font-semibold hover:underline text-sm"
+              >
+                Offres 10 derniers jours →
+              </a>
+            </div>
+          </Card>
+        </section>
+        
         {/* Liens internes SEO */}
         <InternalLinks currentPage="/" variant="related" className="mt-8" />
        </div>
