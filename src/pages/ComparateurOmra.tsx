@@ -307,7 +307,8 @@ export default function ComparateurOmra() {
         
         // Appliquer les filtres
         if (selectedMonth && selectedMonth !== 'all') {
-          filtered = filtered.filter(offer => offer.month_departure === selectedMonth);
+          const selectedMonthNorm = selectedMonth.trim().toLowerCase();
+          filtered = filtered.filter(offer => (offer.month_departure || '').trim().toLowerCase() === selectedMonthNorm);
         }
         if (selectedCity && selectedCity !== 'all') {
           filtered = filtered.filter(offer => offer.departure_city === selectedCity);
