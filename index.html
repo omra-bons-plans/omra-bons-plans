@@ -101,6 +101,76 @@
     <!-- Hreflang - Site français uniquement -->
     <link rel="alternate" hreflang="fr" href="https://omrabonsplans.fr/" />
     <link rel="alternate" hreflang="x-default" href="https://omrabonsplans.fr/" />
+    
+    <!-- Données structurées Schema.org - Visibles immédiatement pour les crawlers -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Omra Bons Plans",
+      "alternateName": ["Comparateur Omra", "Omra Bons Plans France"],
+      "url": "https://omrabonsplans.fr",
+      "description": "Premier comparateur d'agences Omra et Hajj agréées en France. Comparez les prix Omra 2026, Hajj 2026, Omra Ramadan.",
+      "inLanguage": "fr-FR",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://omrabonsplans.fr/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Organization", "TravelAgency"],
+      "name": "Omra Bons Plans",
+      "url": "https://omrabonsplans.fr",
+      "logo": "https://omrabonsplans.fr/logo.svg",
+      "description": "Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan",
+      "sameAs": [
+        "https://www.instagram.com/omrabonsplans",
+        "https://www.facebook.com/omrabonsplans"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "contact@omrabonsplans.fr",
+        "availableLanguage": ["French", "Arabic"]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Comment réserver une Omra 2026 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Utilisez notre comparateur pour comparer les offres de plus de 15 agences agréées. Sélectionnez votre ville de départ, vos dates et votre budget."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel est le prix d'une Omra Ramadan 2026 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le prix d'une Omra Ramadan 2026 varie entre 1800€ et 5000€ selon la formule et la proximité des hôtels au Haram."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien coûte le Hajj 2026 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le prix du Hajj 2026 depuis la France varie entre 6000€ et 15000€ selon la formule choisie."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>
