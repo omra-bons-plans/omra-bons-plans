@@ -61,7 +61,8 @@ export const useOmraOffers = (filters: FilterOptions) => {
 
         // Appliquer les filtres
         if (filters.month) {
-          query = query.eq('month_departure', filters.month);
+          // Comparaison insensible à la casse avec ilike
+          query = query.ilike('month_departure', filters.month);
         }
         if (filters.city) {
           query = query.eq('departure_city', filters.city);
