@@ -45,7 +45,7 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
           {/* Fallback: Mobile image par défaut pour que PageSpeed détecte la bonne image */}
           <img
             src="/hero-kaaba-mobile-portrait.webp"
-            alt="Omra Bons Plans – Comparateur de séjours Omra et Hajj 2026"
+            alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
             width={576}
             height={1024}
             fetchPriority="high"
@@ -69,13 +69,13 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
           <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
             <div className="space-y-6 md:space-y-10 w-full px-2">
               <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold leading-tight">
-                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Tous les services</span><br />
-                <span className="gradient-text-secondary font-black text-5xl md:text-7xl lg:text-9xl xl:text-[10rem]">Hajj & Omra</span><br />
-                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">en un seul endroit</span>
+                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Comparateur</span><br />
+                <span className="gradient-text-secondary font-black text-5xl md:text-7xl lg:text-9xl xl:text-[10rem]">Omra & Hajj 2026</span><br />
+                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Omra Ramadan & Plus</span>
               </h1>
               
               <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
-                <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
+                <span className="text-white">Comparez les offres Omra 2026, Hajj 2026, Omra Ramadan et les 10 derniers jours du Ramadan depuis la France</span>
               </p>
 
               {/* WhatsApp Button */}

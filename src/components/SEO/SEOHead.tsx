@@ -13,7 +13,7 @@ interface SEOHeadProps {
 export const SEOHead = ({
   title,
   description,
-  keywords = 'omra, hajj, pèlerinage, arabie saoudite, la mecque, médine, voyage religieux, islam',
+  keywords = 'omra 2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
   canonical,
   ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
   ogType = 'website',
@@ -103,16 +103,16 @@ export const SEOHead = ({
 // SEO configuration for each page
 export const seoConfig = {
   home: {
-    title: 'Omra Bons Plans - Comparateur de séjours Omra & Hajj 2026',
-    description: 'Trouvez les meilleures offres pour votre Omra et Hajj. Comparez hébergements, vols, guides et services en Arabie Saoudite sur la 1ère plateforme dédiée.',
-    keywords: 'omra pas cher, hajj, voyage omra, arabie saoudite, la mecque, médine, pèlerinage islam, hébergement omra, vol omra, guide omra',
+    title: 'Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan, 10 Derniers Jours - Omra Bons Plans',
+    description: 'Comparez les meilleures offres Omra 2026 et Hajj 2026. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France.',
+    keywords: 'omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France',
     canonical: 'https://omrabonsplans.fr/',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Omra Bons Plans",
       "url": "https://omrabonsplans.fr",
-      "description": "Plateforme de comparaison pour services Omra et Hajj en Arabie Saoudite",
+      "description": "Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan",
       "sameAs": ["https://www.facebook.com/omrabonsplans", "https://www.instagram.com/omrabonsplans"],
       "potentialAction": {
         "@type": "SearchAction",

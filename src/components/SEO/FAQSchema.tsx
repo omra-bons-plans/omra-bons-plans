@@ -12,18 +12,34 @@ export const FAQSchema = () => {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Qu'est-ce qu'Omra Bons Plans ?",
+          "name": "Comment réserver une Omra 2026 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Omra Bons Plans est le premier comparateur d'agences Omra et Hajj agréées en France. Notre plateforme permet de comparer les prix, les services et les avis de dizaines d'agences de voyage spécialisées dans les pèlerinages musulmans vers La Mecque et Médine."
+            "text": "Pour réserver une Omra 2026, utilisez notre comparateur pour comparer les offres de plus de 15 agences agréées. Sélectionnez votre ville de départ, vos dates et votre budget. Vous verrez instantanément les prix, hôtels à La Mecque et Médine, et avis clients. Réservez directement auprès de l'agence choisie."
           }
         },
         {
           "@type": "Question",
-          "name": "Comment comparer les offres Omra sur votre site ?",
+          "name": "Quel est le prix d'une Omra Ramadan 2026 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pour comparer les offres Omra, utilisez notre comparateur en sélectionnant votre ville de départ, vos dates souhaitées et votre budget. Vous verrez instantanément toutes les offres disponibles avec les prix, les hôtels, la distance au Haram et les avis clients pour chaque agence."
+            "text": "Le prix d'une Omra Ramadan 2026 varie entre 1800€ et 5000€ selon la formule (économique, confort ou luxe), la proximité des hôtels au Haram et si vous choisissez les 10 derniers jours du Ramadan. Les prix sont plus élevés pendant le Ramadan en raison de la forte demande spirituelle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment participer aux 10 derniers jours du Ramadan à La Mecque ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les 10 derniers jours du Ramadan incluent la nuit du Destin (Laylat al-Qadr). Pour y participer, réservez une Omra spéciale '10 derniers jours' via notre comparateur. Ces séjours sont très demandés, réservez plusieurs mois à l'avance. Les prix varient de 2500€ à 6000€ selon la formule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien coûte le Hajj 2026 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le prix du Hajj 2026 depuis la France varie entre 6000€ et 15000€ selon la formule choisie. Ce prix inclut généralement le vol, l'hébergement à La Mecque, Médine et Mina, les repas, le visa Hajj et l'encadrement religieux. Les places sont limitées par quotas, réservez tôt."
           }
         },
         {
@@ -31,31 +47,15 @@ export const FAQSchema = () => {
           "name": "Quelles sont les agences Omra agréées en France ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Les agences Omra agréées en France doivent posséder une licence ATOUT France et une accréditation du Ministère saoudien du Hajj. Sur Omra Bons Plans, nous référençons uniquement des agences agréées comme Tawaf, Sabile, Al Maqam, Hayat Voyages, et bien d'autres."
+            "text": "Les agences Omra agréées en France doivent posséder une licence ATOUT France et une accréditation du Ministère saoudien du Hajj. Sur Omra Bons Plans, nous référençons uniquement des agences agréées comme Tawaf, Sabile, Al Maqam, Hayat Voyages, Omra Gate, et bien d'autres."
           }
         },
         {
           "@type": "Question",
-          "name": "Quel est le prix moyen d'une Omra depuis la France ?",
+          "name": "Quelle est la meilleure période pour faire la Omra 2026 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Le prix d'une Omra depuis la France varie entre 1200€ et 4000€ selon la formule choisie (économique, confort ou luxe), la période de départ, la durée du séjour et la proximité des hôtels au Haram. Les formules Ramadan sont généralement plus chères en raison de la forte demande."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quelle est la meilleure période pour faire la Omra ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "La Omra peut être effectuée toute l'année, contrairement au Hajj. Les périodes les plus prisées sont le Ramadan (pour sa spiritualité) et les vacances scolaires. Pour des prix plus avantageux et moins de foule, privilégiez les mois hors Ramadan comme janvier, février ou septembre."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Comment fonctionne le comparateur d'agences Omra ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Notre comparateur analyse en temps réel les offres de plus de 15 agences agréées. Il affiche pour chaque offre : le prix total, les dates de départ, les hôtels à La Mecque et Médine, la distance au Haram, les vols inclus et les avis vérifiés des pèlerins. Vous pouvez filtrer par budget, ville de départ et formule."
+            "text": "La Omra peut être effectuée toute l'année 2026. Les périodes les plus prisées sont le Ramadan (février-mars 2026) pour sa spiritualité intense. Pour des prix plus avantageux, privilégiez janvier, septembre ou novembre 2026. Les vacances scolaires sont aussi populaires pour les familles."
           }
         }
       ]
