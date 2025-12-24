@@ -224,10 +224,10 @@ const Index = () => {
       <WebSiteSchema />
       
       <SEOHead
-        title="Bons Plans Omra & Hajj | Chauffeurs, Guides, Hébergements"
-        description="Trouvez des bons plans pour votre Omra : chauffeurs privés, guides spirituels, hébergements et baby-sitting à La Mecque et Médine. Annonces de la communauté."
-        keywords="bons plans omra, chauffeur privé mecque, guide omra, hébergement médine, baby-sitting omra, services hajj"
-        canonical="https://omrabonsplans.fr/bons-plans"
+        title="Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan - Omra Bons Plans"
+        description="Comparez les meilleures offres Omra 2026 et Hajj 2026. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France."
+        keywords="omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris"
+        canonical="https://omrabonsplans.fr/"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
       />
       {/* Desktop & Tablet Header - Fixed at top */}
