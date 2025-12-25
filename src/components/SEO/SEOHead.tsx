@@ -8,6 +8,7 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: string;
   structuredData?: object;
+  noindex?: boolean;
 }
 
 export const SEOHead = ({
@@ -17,7 +18,8 @@ export const SEOHead = ({
   canonical,
   ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
   ogType = 'website',
-  structuredData
+  structuredData,
+  noindex = false
 }: SEOHeadProps) => {
   useEffect(() => {
     // Update document title
@@ -53,7 +55,9 @@ export const SEOHead = ({
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
     updateMetaTag('author', 'Omra Bons Plans');
-    updateMetaTag('robots', 'index, follow');
+    
+    // Robots meta tag - noindex if specified
+    updateMetaTag('robots', noindex ? 'noindex, nofollow' : 'index, follow');
 
     // Open Graph tags (Complete set for better SEO)
     updateMetaTag('og:title', title, true);
@@ -95,7 +99,7 @@ export const SEOHead = ({
       }
       scriptTag.textContent = JSON.stringify(structuredData);
     }
-  }, [title, description, keywords, canonical, ogImage, ogType, structuredData]);
+  }, [title, description, keywords, canonical, ogImage, ogType, structuredData, noindex]);
 
   return null;
 };

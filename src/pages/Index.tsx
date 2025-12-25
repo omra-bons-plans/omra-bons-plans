@@ -224,11 +224,12 @@ const Index = () => {
       <WebSiteSchema />
       
       <SEOHead
-        title="Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan - Omra Bons Plans"
-        description="Comparez les meilleures offres Omra 2026 et Hajj 2026. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France."
-        keywords="omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris"
-        canonical="https://omrabonsplans.fr/"
+        title="Services Omra & Hajj | Omra Bons Plans"
+        description="Découvrez tous les services pour votre Omra et Hajj : séjours, vols, hébergements, guides et plus encore."
+        keywords="services omra, annonces omra, hajj services"
+        canonical="https://omrabonsplans.fr/bons-plans"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
+        noindex={true}
       />
       {/* Desktop & Tablet Header - Fixed at top */}
       <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
