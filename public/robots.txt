@@ -1,39 +1,54 @@
+# Robots.txt for omrabonsplans.fr
 User-agent: *
 Allow: /
 
 # Sitemap
 Sitemap: https://omrabonsplans.fr/sitemap.xml
 
-# Google verification
+# Verification files
 Allow: /google-site-verification.html
 Allow: /BingSiteAuth.xml
 
-# Disallow admin and private areas
+# Disallow private/admin areas
 Disallow: /admin/
 Disallow: /profile/
 Disallow: /my-ads/
 Disallow: /notifications/
 Disallow: /publish/
 Disallow: /settings/
+Disallow: /auth
+Disallow: /favoris
+Disallow: /search
 
-# Allow important pages
+# Disallow duplicate/redirect URLs (eviter indexation de pages qui redirigent)
+Disallow: /a-propos
+Disallow: /calendrier-islamique
+Disallow: /dates-ramadan-hajj
+Disallow: /horaires-prieres
+Disallow: /services/
+Disallow: /bons-plans
+Disallow: /comparateur-omra
+Disallow: /home
+Disallow: /test
+Disallow: /checkout
+Disallow: /all-ads
+Disallow: /2019/
+Disallow: /category/hebergement
+
+# Allow main pages
 Allow: /
-Allow: /a-propos
+Allow: /about
 Allow: /contact
 Allow: /blog
-Allow: /blog/*
-Allow: /blog/restaurants
-Allow: /blog/associations  
-Allow: /blog/vendeurs
-Allow: /blog/general
-Allow: /services/*
-Allow: /horaires-prieres
-Allow: /calendrier-islamique
-Allow: /dates-ramadan-hajj
+Allow: /blog/
+Allow: /category/
+Allow: /prayer-times
+Allow: /islamic-calendar
+Allow: /ramadan-hajj-dates
 Allow: /agences-liste
 Allow: /comparatif-agences
 Allow: /comparatif-visuel
 Allow: /discussions
 
-# Crawl delay (optional)
+# Crawl delay
 Crawl-delay: 1
