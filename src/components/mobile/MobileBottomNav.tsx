@@ -1,4 +1,4 @@
-import { Home, Package, Star, BookOpen, Search } from 'lucide-react';
+import { Home, Package, Star, BookOpen, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
  * Bottom Navigation Mobile-First - Option 2: Focus Services
  * - 5 actions principales (pas de menu "Plus")
  * - Favoris pour comparaisons rapides
- * - Aide directe pour améliorer la conversion
+ * - Connexion / Profil utilisateur
  */
 export const MobileBottomNav = () => {
   const location = useLocation();
@@ -66,10 +66,10 @@ export const MobileBottomNav = () => {
       badge: null
     },
     { 
-      icon: Search, 
-      label: 'Recherche', 
-      path: '/search', 
-      active: currentPath === '/search',
+      icon: User, 
+      label: user ? 'Profil' : 'Connexion', 
+      path: user ? '/profile' : '/auth', 
+      active: currentPath === '/profile' || currentPath === '/auth',
       badge: null
     },
   ];
