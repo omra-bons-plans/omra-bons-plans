@@ -85,16 +85,16 @@ const MobileSidebar = () => {
       {/* Sidebar Overlay */}
       {isOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 bg-black/60 z-[190] backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`lg:hidden fixed top-0 left-0 h-full w-full max-w-sm bg-background border-r border-border z-50 transform transition-transform duration-300 ${
+      <div className={`lg:hidden fixed top-0 left-0 h-full w-full max-w-sm bg-background border-r border-border z-[200] transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full pb-24">
           <div className="p-6 pb-0 flex-shrink-0">
           {/* Close Button */}
           <div className="flex justify-end mb-6">
@@ -503,7 +503,7 @@ const MobileSidebar = () => {
       </div>
 
       {/* Fixed Publish Button */}
-      <div className="lg:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
+      <div className="lg:hidden fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[210]">
         <Link to="/publish">
           <Button 
             className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2 text-base font-semibold"
