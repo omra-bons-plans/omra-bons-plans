@@ -502,18 +502,20 @@ const MobileSidebar = () => {
         </div>
       </div>
 
-      {/* Fixed Publish Button */}
-      <div className="lg:hidden fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[210]">
-        <Link to="/publish">
-          <Button 
-            className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2 text-base font-semibold"
-            onClick={() => setIsOpen(false)}
-          >
-            <Plus className="w-5 h-5" />
-            <span>Publier une annonce</span>
-          </Button>
-        </Link>
-      </div>
+      {/* Fixed Publish Button (hidden when sidebar is open to avoid overlap) */}
+      {!isOpen && (
+        <div className="lg:hidden fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[210]">
+          <Link to="/publish">
+            <Button
+              className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2 text-base font-semibold"
+              onClick={() => setIsOpen(false)}
+            >
+              <Plus className="w-5 h-5" />
+              <span>Publier une annonce</span>
+            </Button>
+          </Link>
+        </div>
+      )}
 
       {/* Mobile Content Padding */}
       {/* Bottom padding for fixed button */}
