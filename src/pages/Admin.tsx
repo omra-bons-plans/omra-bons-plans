@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, UserCheck, UserX, Mail, Phone, Building, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle, Lock, PlaneTakeoff } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Phone, Building, Building2, Calendar, Eye, Trash2, Shield, MousePointer, Activity, Menu, FileText, Settings, MessageCircle, Lock, PlaneTakeoff } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -480,6 +480,18 @@ const Admin = () => {
             <Settings className="w-4 h-4 mr-2" />
             Gestion Offres Omra
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log('📱 Navigating to /admin/agencies from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/agencies');
+            }}
+            className="justify-start"
+          >
+            <Building2 className="w-4 h-4 mr-2" />
+            Gestion Agences
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -661,6 +673,17 @@ const Admin = () => {
                     className="text-sm"
                   >
                     🛡️ Audit Sécurité
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/agencies');
+                      navigate('/admin/agencies');
+                    }}
+                    className="text-sm"
+                  >
+                    <Building2 className="w-4 h-4 mr-2" />
+                    Gestion Agences
                   </Button>
                 </>
               )}
