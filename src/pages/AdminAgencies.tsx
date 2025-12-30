@@ -145,13 +145,24 @@ const AdminAgencies = () => {
           <div className="flex flex-col sm:flex-row gap-4 items-end">
             <div className="flex-1 min-w-[200px]">
               <label className="text-sm font-medium mb-2 block">Agence</label>
-              <Select value={selectedAgencyId} onValueChange={setSelectedAgencyId}>
-                <SelectTrigger>
+              <Select value={selectedAgencyId} onValueChange={(value) => {
+                console.log('Agency selected:', value);
+                setSelectedAgencyId(value);
+              }}>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Sélectionner une agence..." />
                 </SelectTrigger>
-                <SelectContent className="max-h-[300px]">
+                <SelectContent 
+                  className="max-h-[300px] z-[9999] bg-background border shadow-lg"
+                  position="popper"
+                  sideOffset={4}
+                >
                   {agencies?.map((agency) => (
-                    <SelectItem key={agency.id} value={agency.id}>
+                    <SelectItem 
+                      key={agency.id} 
+                      value={agency.id}
+                      className="cursor-pointer"
+                    >
                       {agency.name} ({agency.review_count.toLocaleString()} avis)
                     </SelectItem>
                   ))}
