@@ -141,26 +141,8 @@ const BlogEditor = () => {
     try {
       setSaving(true);
       
-      // Format automatique du contenu avec titre H1 et résumé H2
-      let formattedContent = formData.content;
-      
-      // Ajouter automatiquement le titre en H1 au début s'il n'y est pas déjà
-      const titleH1 = `# ${formData.title}`;
-      if (!formattedContent.startsWith('# ') && !formattedContent.includes(titleH1)) {
-        formattedContent = titleH1 + '\n\n' + formattedContent;
-      }
-      
-      // Ajouter automatiquement le résumé en H2 après le titre s'il existe
-      if (formData.excerpt && formData.excerpt.trim()) {
-        const excerptH2 = `## ${formData.excerpt.replace(/^#+\s*/, '').trim()}`;
-        const lines = formattedContent.split('\n');
-        const titleIndex = lines.findIndex(line => line.startsWith('# '));
-        
-        if (titleIndex !== -1 && !formattedContent.includes(excerptH2)) {
-          lines.splice(titleIndex + 1, 0, '', excerptH2);
-          formattedContent = lines.join('\n');
-        }
-      }
+      // Ne pas modifier le contenu automatiquement - laisser l'utilisateur contrôler le contenu
+      const formattedContent = formData.content;
       
       const postData = {
         ...formData,
