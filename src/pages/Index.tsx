@@ -66,9 +66,9 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
-  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 3s)
+  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 500ms)
   const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
-    delay: 3000,        // Déclencher après 3 secondes
+    delay: 500,          // Déclencher après 500ms (plus rapide pour /bons-plans)
     rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
     threshold: 0.1
   });
@@ -1892,19 +1892,7 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Floating Publish Button - Mobile Only */}
-      {isMobile && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40">
-          <Link to="/publish">
-            <Button 
-              className="btn-modern text-primary-foreground px-6 py-3 rounded-full font-semibold text-sm shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105 min-h-[48px]"
-            >
-              <DynamicIcon name="plus" className="w-5 h-5 mr-2" />
-              Publier une annonce
-            </Button>
-          </Link>
-        </div>
-      )}
+      {/* Floating Publish Button supprimé - se superposait à la nav mobile */}
       </div>
     </ResponsiveLayout>
   );
