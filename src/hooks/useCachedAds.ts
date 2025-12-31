@@ -83,9 +83,8 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // ⚡ DEFERRED: Ne pas fetch si enabled est false
+    // ⚡ DEFERRED: Ne pas fetch si enabled est false, garder loading=true
     if (!enabled) {
-      setLoading(false);
       return;
     }
 
