@@ -66,10 +66,10 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
-  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 500ms)
+  // ⚡ PHASE 2: Chargement différé des offres (dès l'arrivée sur la page)
   const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
-    delay: 500,          // Déclencher après 500ms (plus rapide pour /bons-plans)
-    rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
+    delay: 0,            // Déclencher immédiatement (améliore l'affichage des annonces)
+    rootMargin: '600px', // Précharger avant le scroll
     threshold: 0.1
   });
   
