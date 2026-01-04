@@ -149,16 +149,17 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
 
         console.log('🔄 Fetching fresh ads (cache miss)');
 
-        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+        const nowIso = new Date().toISOString();
 
         // ⚡ OPTIMIZED: Only select essential fields (reduces payload ~70%)
         const { data: adsData, error: adsError } = await supabase
           .from('ads')
           .select('id, title, price, original_price, category, location, cover_image, is_promotion, promotion_end_date, publish_end_date')
           .eq('is_published', true)
-          .eq('is_draft', false)
-          .eq('is_paused', false)
-          .gt('publish_end_date', sevenDaysAgo)
+          // Compat: dans les anciennes lignes, is_draft/is_paused peuvent être NULL
+          .or('is_draft.is.null,is_draft.eq.false')
+          .or('is_paused.is.null,is_paused.eq.false')
+          .gt('publish_end_date', nowIso)
           .order('created_at', { ascending: false })
           .limit(limit);
 
