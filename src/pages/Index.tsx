@@ -176,12 +176,12 @@ const Index = () => {
     ? flashSalesListings
     : flashSalesListings.filter(listing => listing.type === selectedCategory);
 
-  // Filter listings based on selected category - exclude flash sales
+  // Filter listings based on selected category
+  // - Quand on est sur une catégorie spécifique, on inclut aussi les "flash" (sinon elles disparaissent)
+  // - Quand on est sur "Tous", on exclut les flash car elles sont déjà affichées dans la section dédiée au-dessus
   const filteredListings = selectedCategory === "all" 
-    ? featuredListings.filter(listing => !listing.isFlashSale) // Exclude flash sales from "all"
-    : featuredListings.filter(listing => 
-        listing.type === selectedCategory && !listing.isFlashSale // Exclude flash sales from specific categories
-      );
+    ? featuredListings.filter(listing => !listing.isFlashSale)
+    : featuredListings.filter(listing => listing.type === selectedCategory);
 
   // Filter and reorder categories - selected category first
   const getOrderedCategories = () => {
@@ -396,7 +396,7 @@ const Index = () => {
                 isMobile={isMobile}
               >
               {/* Flash Sales Section - Mobile First */}
-              {filteredFlashSalesListings.length > 0 && (
+              {selectedCategory === "all" && filteredFlashSalesListings.length > 0 && (
                 <section className="pb-12 md:pb-20">
                   <div className="container mx-auto px-3 sm:px-4 md:px-6">
                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-3 md:mb-4 gradient-text-primary">
