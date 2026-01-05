@@ -83,60 +83,29 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // ⚡ DEFERRED: Ne pas fetch si enabled est false, garder loading=true
+    // ⚡ DEFERRED: Ne pas fetch si enabled est false
     if (!enabled) {
+      setLoading(false);
       return;
     }
 
     let isMounted = true;
     let timeoutId: NodeJS.Timeout;
     
-    const LS_KEY = 'obp_cached_ads_v1';
-
-    const readLocalCache = (): { data: CachedAd[]; timestamp: number } | null => {
-      try {
-        const raw = localStorage.getItem(LS_KEY);
-        if (!raw) return null;
-        const parsed = JSON.parse(raw) as { data?: CachedAd[]; timestamp?: number };
-        if (!parsed?.data || !parsed?.timestamp) return null;
-        return { data: parsed.data, timestamp: parsed.timestamp };
-      } catch {
-        return null;
-      }
-    };
-
-    const writeLocalCache = (data: CachedAd[], timestamp: number) => {
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify({ data, timestamp }));
-      } catch {
-        // ignore quota / privacy mode
-      }
-    };
-
-    // ⚡ INSTANT: Hydrate depuis localStorage (si valide) pour afficher plus vite sur mobile
-    const now = Date.now();
-    const local = readLocalCache();
-    if (local && (now - local.timestamp) < adsCache.ttl) {
-      adsCache.data = local.data;
-      adsCache.timestamp = local.timestamp;
-      setAds(local.data);
-      setLoading(false);
-    }
-
     const fetchAds = async () => {
       // Remettre loading à true quand on commence à fetch
       if (isMounted) setLoading(true);
-
+      
       try {
         // ⚡ TIMEOUT: Force stop loading after 8 seconds
         timeoutId = setTimeout(() => {
-          if (isMounted) {
+          if (isMounted && loading) {
             console.warn('⚠️ Ads loading timeout - forcing completion');
             setLoading(false);
           }
         }, 8000);
 
-        // Check in-memory cache first
+        // Check cache first
         const now = Date.now();
         if (adsCache.data && (now - adsCache.timestamp) < adsCache.ttl) {
           console.log('⚡ Using cached ads:', adsCache.data.length);
@@ -149,19 +118,18 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
 
         console.log('🔄 Fetching fresh ads (cache miss)');
 
-        const nowIso = new Date().toISOString();
-
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+        
         // ⚡ OPTIMIZED: Only select essential fields (reduces payload ~70%)
         const { data: adsData, error: adsError } = await supabase
           .from('ads')
           .select('id, title, price, original_price, category, location, cover_image, is_promotion, promotion_end_date, publish_end_date')
           .eq('is_published', true)
-          // Compat: dans les anciennes lignes, is_draft/is_paused peuvent être NULL
-          .or('is_draft.is.null,is_draft.eq.false')
-          .or('is_paused.is.null,is_paused.eq.false')
-          .gt('publish_end_date', nowIso)
+          .eq('is_draft', false)
+          .eq('is_paused', false)
+          .gt('publish_end_date', sevenDaysAgo)
           .order('created_at', { ascending: false })
-          .limit(limit);
+          .limit(20);
 
         if (adsError) {
           console.error('❌ Supabase error:', adsError);
@@ -185,10 +153,9 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
           publishEndDate: ad.publish_end_date,
         }));
 
-        // Update cache (mémoire + localStorage)
+        // Update cache
         adsCache.data = enrichedAds;
         adsCache.timestamp = now;
-        writeLocalCache(enrichedAds, now);
 
         if (isMounted) {
           setAds(enrichedAds);

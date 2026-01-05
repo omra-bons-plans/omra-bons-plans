@@ -66,10 +66,10 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
-  // ⚡ PHASE 2: Chargement différé des offres (dès l'arrivée sur la page)
+  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 3s)
   const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
-    delay: 0,            // Déclencher immédiatement (améliore l'affichage des annonces)
-    rootMargin: '600px', // Précharger avant le scroll
+    delay: 3000,        // Déclencher après 3 secondes
+    rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
     threshold: 0.1
   });
   
@@ -111,17 +111,6 @@ const Index = () => {
       setTimeout(scrollToServices, 500);
     }
   }, [location.state, location.hash]);
-
-
-  // Si on arrive avec une catégorie vide (via navigation), revenir à "Tous" dès que les annonces sont chargées
-  useEffect(() => {
-    if (formattedListings.length === 0) return;
-    if (selectedCategory === "all") return;
-    const hasAnyForSelected = formattedListings.some((l) => l.type === selectedCategory);
-    if (!hasAnyForSelected) {
-      setSelectedCategory("all");
-    }
-  }, [formattedListings, selectedCategory]);
 
   // ⚡ REMOVED: Carousel tracking effects - not needed for optimized mobile LCP
 
@@ -176,12 +165,12 @@ const Index = () => {
     ? flashSalesListings
     : flashSalesListings.filter(listing => listing.type === selectedCategory);
 
-  // Filter listings based on selected category
-  // - Quand on est sur une catégorie spécifique, on inclut aussi les "flash" (sinon elles disparaissent)
-  // - Quand on est sur "Tous", on exclut les flash car elles sont déjà affichées dans la section dédiée au-dessus
+  // Filter listings based on selected category - exclude flash sales
   const filteredListings = selectedCategory === "all" 
-    ? featuredListings.filter(listing => !listing.isFlashSale)
-    : featuredListings.filter(listing => listing.type === selectedCategory);
+    ? featuredListings.filter(listing => !listing.isFlashSale) // Exclude flash sales from "all"
+    : featuredListings.filter(listing => 
+        listing.type === selectedCategory && !listing.isFlashSale // Exclude flash sales from specific categories
+      );
 
   // Filter and reorder categories - selected category first
   const getOrderedCategories = () => {
@@ -277,9 +266,6 @@ const Index = () => {
       {/* Container principal - ZERO ESPACE sur mobile */}
       <div className="min-h-screen bg-background" style={{ padding: 0, margin: 0 }}>
 
-      {/* ⚡ PHASE 2 TRIGGER: placer au-dessus du hero pour déclencher immédiatement */}
-      <div ref={triggerRef} className="h-1" aria-hidden="true" />
-
       {/* Hero Section - IDENTIQUE au pre-render HTML pour transition fluide */}
       {/* ⚡ LCP FIX: z-index élevé pour se superposer au prerender-hero */}
       <section 
@@ -365,6 +351,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ⚡ PHASE 2 TRIGGER: Point d'observation pour IntersectionObserver */}
+      <div ref={triggerRef} className="h-1" aria-hidden="true" />
+      
       {/* Main Content Tabs - Mobile First */}
       <section className="pt-8 md:pt-16 lg:pt-32 pb-12 md:pb-20 px-0 md:px-6">
         <div className="container mx-auto">
@@ -396,7 +385,7 @@ const Index = () => {
                 isMobile={isMobile}
               >
               {/* Flash Sales Section - Mobile First */}
-              {selectedCategory === "all" && filteredFlashSalesListings.length > 0 && (
+              {filteredFlashSalesListings.length > 0 && (
                 <section className="pb-12 md:pb-20">
                   <div className="container mx-auto px-3 sm:px-4 md:px-6">
                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-3 md:mb-4 gradient-text-primary">
@@ -1903,7 +1892,19 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Floating Publish Button supprimé - se superposait à la nav mobile */}
+      {/* Floating Publish Button - Mobile Only */}
+      {isMobile && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40">
+          <Link to="/publish">
+            <Button 
+              className="btn-modern text-primary-foreground px-6 py-3 rounded-full font-semibold text-sm shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105 min-h-[48px]"
+            >
+              <DynamicIcon name="plus" className="w-5 h-5 mr-2" />
+              Publier une annonce
+            </Button>
+          </Link>
+        </div>
+      )}
       </div>
     </ResponsiveLayout>
   );
