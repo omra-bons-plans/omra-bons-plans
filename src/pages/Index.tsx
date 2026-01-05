@@ -112,6 +112,17 @@ const Index = () => {
     }
   }, [location.state, location.hash]);
 
+
+  // Si on arrive avec une catégorie vide (via navigation), revenir à "Tous" dès que les annonces sont chargées
+  useEffect(() => {
+    if (formattedListings.length === 0) return;
+    if (selectedCategory === "all") return;
+    const hasAnyForSelected = formattedListings.some((l) => l.type === selectedCategory);
+    if (!hasAnyForSelected) {
+      setSelectedCategory("all");
+    }
+  }, [formattedListings, selectedCategory]);
+
   // ⚡ REMOVED: Carousel tracking effects - not needed for optimized mobile LCP
 
   const getCategoryCount = (categoryId: string) => {
@@ -266,6 +277,9 @@ const Index = () => {
       {/* Container principal - ZERO ESPACE sur mobile */}
       <div className="min-h-screen bg-background" style={{ padding: 0, margin: 0 }}>
 
+      {/* ⚡ PHASE 2 TRIGGER: placer au-dessus du hero pour déclencher immédiatement */}
+      <div ref={triggerRef} className="h-1" aria-hidden="true" />
+
       {/* Hero Section - IDENTIQUE au pre-render HTML pour transition fluide */}
       {/* ⚡ LCP FIX: z-index élevé pour se superposer au prerender-hero */}
       <section 
@@ -351,9 +365,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ⚡ PHASE 2 TRIGGER: Point d'observation pour IntersectionObserver */}
-      <div ref={triggerRef} className="h-1" aria-hidden="true" />
-      
       {/* Main Content Tabs - Mobile First */}
       <section className="pt-8 md:pt-16 lg:pt-32 pb-12 md:pb-20 px-0 md:px-6">
         <div className="container mx-auto">
