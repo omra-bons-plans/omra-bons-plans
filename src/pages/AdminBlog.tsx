@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, Eye, Edit, Trash2, Shield, Calendar, MapPin, User, Video, Image } from 'lucide-react';
+import { ArrowLeft, Plus, Eye, Edit, Trash2, Shield, Calendar, MapPin, User, Video, Image, RefreshCw, Copy, Check, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -62,6 +64,10 @@ const AdminBlog = () => {
     associations: 0,
     vendeurs: 0
   });
+  const [sitemapContent, setSitemapContent] = useState<string>('');
+  const [sitemapLoading, setSitemapLoading] = useState(false);
+  const [sitemapCopied, setSitemapCopied] = useState(false);
+  const [sitemapDialogOpen, setSitemapDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!adminLoading && !isAdmin) {
@@ -195,6 +201,52 @@ const AdminBlog = () => {
     return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800';
   };
 
+  const handleGenerateSitemap = async () => {
+    try {
+      setSitemapLoading(true);
+      const response = await supabase.functions.invoke('generate-sitemap');
+      
+      if (response.error) throw response.error;
+      
+      // The response is XML text
+      const sitemapXml = response.data;
+      setSitemapContent(sitemapXml);
+      setSitemapDialogOpen(true);
+      
+      toast({
+        title: "Sitemap généré",
+        description: "Le sitemap a été régénéré avec succès. Copiez-le pour mettre à jour public/sitemap.xml",
+      });
+    } catch (error) {
+      console.error('Erreur lors de la génération du sitemap:', error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de générer le sitemap",
+        variant: "destructive",
+      });
+    } finally {
+      setSitemapLoading(false);
+    }
+  };
+
+  const handleCopySitemap = async () => {
+    try {
+      await navigator.clipboard.writeText(sitemapContent);
+      setSitemapCopied(true);
+      toast({
+        title: "Copié",
+        description: "Le sitemap a été copié dans le presse-papiers",
+      });
+      setTimeout(() => setSitemapCopied(false), 2000);
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de copier le sitemap",
+        variant: "destructive",
+      });
+    }
+  };
+
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -249,6 +301,53 @@ const AdminBlog = () => {
               </Badge>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
+              <Dialog open={sitemapDialogOpen} onOpenChange={setSitemapDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    onClick={handleGenerateSitemap}
+                    disabled={sitemapLoading}
+                    className="hidden sm:flex"
+                  >
+                    {sitemapLoading ? (
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <FileText className="w-4 h-4 mr-2" />
+                    )}
+                    Sitemap
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl max-h-[80vh]">
+                  <DialogHeader>
+                    <DialogTitle>Sitemap XML généré</DialogTitle>
+                    <DialogDescription>
+                      Copiez ce contenu et collez-le dans le fichier <code className="bg-muted px-1 rounded">public/sitemap.xml</code> de votre projet.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="flex justify-end">
+                      <Button onClick={handleCopySitemap} variant="outline">
+                        {sitemapCopied ? (
+                          <>
+                            <Check className="w-4 h-4 mr-2" />
+                            Copié !
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-4 h-4 mr-2" />
+                            Copier le sitemap
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    <Textarea
+                      value={sitemapContent}
+                      readOnly
+                      className="font-mono text-xs h-[400px] overflow-auto"
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
               <Button
                 onClick={() => navigate('/admin/blog/new')}
                 className="bg-primary hover:bg-primary/90 flex-1 sm:flex-initial"
