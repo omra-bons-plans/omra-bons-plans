@@ -60,6 +60,7 @@ const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
+const SitemapXml = lazy(() => import("./pages/SitemapXml"));
 
 // Loading component
 const PageLoader = () => (
@@ -82,6 +83,8 @@ const App = () => (
               <Suspense fallback={<PageLoader />}>
                 <CanonicalRedirect>
                   <Routes>
+                  {/* Sitemap dynamique - doit être avant les autres routes */}
+                  <Route path="/sitemap.xml" element={<SitemapXml />} />
                   <Route path="/" element={<ComparateurOmra />} />
                   <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
