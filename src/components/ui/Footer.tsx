@@ -77,9 +77,6 @@ const Footer = () => {
               <Link to="/blog" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Blog
               </Link>
-              <Link to="/blog/general/les-10-derniers-jours-du-ramadan-2026" className="block text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">
-                10 Derniers Jours Ramadan 2026
-              </Link>
               <Link to="/discussions" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Discussions
               </Link>
