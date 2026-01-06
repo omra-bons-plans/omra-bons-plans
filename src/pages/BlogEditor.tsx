@@ -169,10 +169,18 @@ const BlogEditor = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Succès",
-        description: `Article ${isEditMode ? 'mis à jour' : 'créé'} avec succès`,
-      });
+      // Notifier que le sitemap doit être mis à jour si l'article est publié
+      if (formData.is_published) {
+        toast({
+          title: "Succès",
+          description: `Article ${isEditMode ? 'mis à jour' : 'créé'}. Pensez à régénérer le sitemap depuis la page Blog Admin.`,
+        });
+      } else {
+        toast({
+          title: "Succès",
+          description: `Article ${isEditMode ? 'mis à jour' : 'créé'} avec succès`,
+        });
+      }
 
       navigate('/admin/blog');
     } catch (error) {
