@@ -3,9 +3,6 @@ User-agent: *
 Allow: /
 
 # Sitemap dynamique (généré automatiquement avec les derniers articles)
-Sitemap: https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/generate-sitemap
-
-# Sitemap statique de secours
 Sitemap: https://omrabonsplans.fr/sitemap.xml
 
 # Verification files
