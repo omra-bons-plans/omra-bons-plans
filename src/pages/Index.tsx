@@ -1122,13 +1122,13 @@ const Index = () => {
               </p>
               
               <div className="space-y-3 md:space-y-4">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary">Omra Janvier 2025</h3>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary">Omra Janvier 2026</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Profitez des prix attractifs de la basse saison avec des hôtels proches du Haram.</p>
                 
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Ramadan 2025</h3>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Ramadan 2026</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Vivez le Ramadan à La Mecque, période la plus spirituelle de l'année.</p>
                 
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Décembre 2025</h3>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Décembre 2026</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Partez pendant les vacances scolaires, idéal pour les familles.</p>
               </div>
               
@@ -1425,7 +1425,7 @@ const Index = () => {
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Pourquoi choisir Omra Bons Plans ?</h2>
             <p className="text-muted-foreground text-lg leading-relaxed md:max-w-4xl mx-auto">
-              La plateforme de référence pour trouver et comparer les meilleures offres Omra 2025.
+              La plateforme de référence pour trouver et comparer les meilleures offres Omra 2026.
             </p>
           </div>
 
@@ -1487,7 +1487,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Explorez les meilleurs prix Omra 2025. Comparez facilement les tarifs, les itinéraires et les prestations pour économiser temps et argent.
+                  Explorez les meilleurs prix Omra 2026. Comparez facilement les tarifs, les itinéraires et les prestations pour économiser temps et argent.
                 </p>
               </div>
             </Card>

@@ -105,8 +105,6 @@ export const useOmraOffers = (filters: FilterOptions) => {
           
           // Fallback: use month_departure to estimate date
           const monthMap: Record<string, string> = {
-            'Novembre 2025': '2025-11',
-            'Décembre 2025': '2025-12',
             'Janvier 2026': '2026-01',
             'Février 2026': '2026-02',
             'Mars 2026': '2026-03',
@@ -118,7 +116,9 @@ export const useOmraOffers = (filters: FilterOptions) => {
             'Septembre 2026': '2026-09',
             'Octobre 2026': '2026-10',
             'Novembre 2026': '2026-11',
-            'Décembre 2026': '2026-12'
+            'Décembre 2026': '2026-12',
+            'Janvier 2027': '2027-01',
+            'Février 2027': '2027-02'
           };
           
           const monthStr = monthMap[offer.month_departure];
