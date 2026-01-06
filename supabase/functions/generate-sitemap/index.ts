@@ -4,7 +4,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Content-Type': 'application/xml',
+  'Content-Type': 'application/xml; charset=utf-8',
+  'Cache-Control': 'public, max-age=3600', // Cache 1 heure
 };
 
 serve(async (req) => {
@@ -15,13 +16,14 @@ serve(async (req) => {
 
   try {
     console.log('📍 Generating dynamic sitemap...');
+    const startTime = Date.now();
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Static routes
+    // Static routes avec priorités optimisées
     const staticRoutes = [
       { loc: '/', changefreq: 'daily', priority: 1.0 },
       { loc: '/about', changefreq: 'monthly', priority: 0.8 },
@@ -46,32 +48,45 @@ serve(async (req) => {
       { loc: '/discussions', changefreq: 'daily', priority: 0.6 },
     ];
 
-    // Fetch published blog posts
+    // Fetch ALL published blog posts (sans limite)
     const { data: blogPosts, error: blogError } = await supabase
       .from('blog_posts')
-      .select('slug, category, updated_at, published_at')
+      .select('slug, category, updated_at, published_at, is_published')
       .eq('is_published', true)
-      .order('published_at', { ascending: false });
+      .order('updated_at', { ascending: false });
 
     if (blogError) {
-      console.error('Error fetching blog posts:', blogError);
+      console.error('❌ Error fetching blog posts:', blogError);
     }
 
-    console.log(`📝 Found ${blogPosts?.length || 0} blog posts`);
+    console.log(`📝 Found ${blogPosts?.length || 0} published blog posts`);
 
     // Fetch active ads (non-expired)
     const { data: ads, error: adsError } = await supabase
       .from('ads')
-      .select('id, type, updated_at')
+      .select('id, category, updated_at, is_published')
+      .eq('is_published', true)
       .gte('publish_end_date', new Date().toISOString())
-      .order('created_at', { ascending: false })
-      .limit(1000);
+      .order('updated_at', { ascending: false })
+      .limit(500);
 
     if (adsError) {
-      console.error('Error fetching ads:', adsError);
+      console.error('❌ Error fetching ads:', adsError);
     }
 
     console.log(`📢 Found ${ads?.length || 0} active ads`);
+
+    // Fetch agencies for individual pages
+    const { data: agencies, error: agenciesError } = await supabase
+      .from('agencies')
+      .select('id, name, updated_at')
+      .order('name', { ascending: true });
+
+    if (agenciesError) {
+      console.error('❌ Error fetching agencies:', agenciesError);
+    }
+
+    console.log(`🏢 Found ${agencies?.length || 0} agencies`);
 
     // Generate sitemap XML
     const baseUrl = 'https://omrabonsplans.fr';
@@ -84,6 +99,7 @@ serve(async (req) => {
         xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- Generated at ${new Date().toISOString()} -->
   <!-- Static Routes -->
 `;
 
@@ -95,14 +111,15 @@ serve(async (req) => {
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>
   </url>
-
 `;
     });
 
     // Add blog posts
     if (blogPosts && blogPosts.length > 0) {
-      sitemap += `  <!-- Blog Posts -->\n`;
+      sitemap += `\n  <!-- Blog Posts (${blogPosts.length} articles) -->\n`;
       blogPosts.forEach(post => {
+        if (!post.slug || !post.category) return;
+        
         const lastmod = post.updated_at 
           ? new Date(post.updated_at).toISOString().split('T')[0]
           : today;
@@ -112,14 +129,30 @@ serve(async (req) => {
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+`;
+      });
+    }
 
+    // Add agencies
+    if (agencies && agencies.length > 0) {
+      sitemap += `\n  <!-- Agencies (${agencies.length} agences) -->\n`;
+      agencies.forEach(agency => {
+        const lastmod = agency.updated_at 
+          ? new Date(agency.updated_at).toISOString().split('T')[0]
+          : today;
+        sitemap += `  <url>
+    <loc>${baseUrl}/agence/${agency.id}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 `;
       });
     }
 
     // Add ads
     if (ads && ads.length > 0) {
-      sitemap += `  <!-- Active Listings -->\n`;
+      sitemap += `\n  <!-- Active Listings (${ads.length} annonces) -->\n`;
       ads.forEach(ad => {
         const lastmod = ad.updated_at 
           ? new Date(ad.updated_at).toISOString().split('T')[0]
@@ -128,16 +161,17 @@ serve(async (req) => {
     <loc>${baseUrl}/ad/${ad.id}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
-
 `;
       });
     }
 
-    sitemap += `</urlset>`;
+    sitemap += `\n</urlset>`;
 
-    console.log('✅ Sitemap generated successfully');
+    const duration = Date.now() - startTime;
+    const totalUrls = staticRoutes.length + (blogPosts?.length || 0) + (agencies?.length || 0) + (ads?.length || 0);
+    console.log(`✅ Sitemap generated in ${duration}ms with ${totalUrls} URLs`);
 
     return new Response(sitemap, {
       status: 200,
@@ -147,10 +181,18 @@ serve(async (req) => {
   } catch (error) {
     console.error('❌ Error generating sitemap:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://omrabonsplans.fr/</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`,
       {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 200,
+        headers: corsHeaders,
       }
     );
   }
