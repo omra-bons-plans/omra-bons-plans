@@ -73,13 +73,7 @@ const allInternalLinks: InternalLink[] = [
     icon: <Calendar className="w-4 h-4" />
   },
   { 
-    href: '/ramadan-hajj-dates', 
-    label: 'Dates Ramadan & Hajj 2026', 
-    description: 'Calendrier complet 2026-2028',
-    icon: <Calendar className="w-4 h-4" />
-  },
-  { 
-    href: '/discussions', 
+    href: '/discussions',
     label: 'Forum Discussions', 
     description: 'Communauté de pèlerins',
     icon: <Users className="w-4 h-4" />
