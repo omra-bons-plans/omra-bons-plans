@@ -1798,7 +1798,7 @@ export default function ComparateurOmra() {
           <Card className="p-6 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20 border-purple-200 dark:border-purple-800">
             <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-purple-600" />
-              Les 10 Derniers Jours du Ramadan 2026 : Guide Complet
+              Les 10 Derniers Jours du Ramadan 2026
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
               Les <strong>10 derniers jours du Ramadan</strong> sont les plus précieux de l'année. 
@@ -1809,17 +1809,17 @@ export default function ComparateurOmra() {
             </p>
             <div className="flex flex-wrap gap-3">
               <a 
-                href="/blog/general/les-10-derniers-jours-du-ramadan-2026" 
+                href="/ramadan-hajj-dates" 
                 className="text-purple-700 dark:text-purple-400 font-semibold hover:underline text-sm"
               >
-                Lire notre guide complet →
+                Voir les dates du Ramadan 2026 →
               </a>
               <span className="text-muted-foreground text-sm">|</span>
               <a 
                 href="#offers" 
                 className="text-purple-700 dark:text-purple-400 font-semibold hover:underline text-sm"
               >
-                Offres 10 derniers jours →
+                Offres Omra Ramadan →
               </a>
             </div>
           </Card>
