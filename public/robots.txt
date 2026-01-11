@@ -46,7 +46,6 @@ Disallow: /calendrier-islamique
 Disallow: /dates-ramadan-hajj
 Disallow: /horaires-prieres
 Disallow: /services/
-Disallow: /bons-plans
 Disallow: /comparateur-omra
 Disallow: /home
 Disallow: /test
