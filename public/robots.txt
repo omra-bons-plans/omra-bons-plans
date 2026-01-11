@@ -2,8 +2,8 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://omrabonsplans.fr/sitemap.xml
+# Sitemap dynamique (généré automatiquement avec tous les articles de blog)
+Sitemap: https://gszlavxqhbjfouvkewgq.supabase.co/functions/v1/generate-sitemap
 
 # Verification files
 Allow: /google-site-verification.html
