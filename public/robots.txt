@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap dynamique (généré automatiquement avec tous les articles de blog)
-Sitemap: https://gszlavxqhbjfouvkewgq.supabase.co/functions/v1/generate-sitemap
+Sitemap: https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/generate-sitemap
 
 # Verification files
 Allow: /google-site-verification.html
