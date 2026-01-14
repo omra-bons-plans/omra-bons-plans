@@ -129,6 +129,8 @@ const PhotoNusukHajj = () => {
     switch (progress.stage) {
       case 'loading':
         return 'Chargement de l\'image...';
+      case 'removing-bg':
+        return 'Suppression du fond par IA...';
       case 'processing':
         return 'Traitement en cours...';
       case 'resizing':
@@ -170,11 +172,10 @@ const PhotoNusukHajj = () => {
         </Alert>
 
         {/* Important Notice */}
-        <Alert className="mb-6 border-amber-500/50 bg-amber-500/10">
-          <AlertCircle className="h-4 w-4 text-amber-600" />
-          <AlertDescription className="text-amber-800 dark:text-amber-200">
-            <strong>Important :</strong> Pour un résultat optimal, utilisez une photo avec un fond clair ou uni. 
-            La photo sera recadrée au centre en format carré.
+        <Alert className="mb-6 border-green-500/50 bg-green-500/10">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertDescription className="text-green-800 dark:text-green-200">
+            <strong>Nouveau :</strong> Notre IA supprime automatiquement le fond de votre photo et le remplace par un fond blanc !
           </AlertDescription>
         </Alert>
 
