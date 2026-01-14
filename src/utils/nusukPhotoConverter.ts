@@ -1,36 +1,30 @@
-import { removeBackground } from '@imgly/background-removal';
-
 export interface ConversionProgress {
-  stage: 'loading' | 'removing-background' | 'resizing' | 'complete';
+  stage: 'loading' | 'processing' | 'resizing' | 'complete';
   progress: number;
 }
 
 export type ProgressCallback = (progress: ConversionProgress) => void;
 
 /**
- * Remove background from image and convert to Nusuk format (200x200, white background)
+ * Convert image to Nusuk format (200x200, white background)
+ * Note: This does not remove background - user should provide a photo with clean background
  */
-export async function removeBackgroundAndConvert(
+export async function convertToNusukFormat(
   file: File,
   onProgress?: ProgressCallback
 ): Promise<Blob> {
   // Stage 1: Loading image
   onProgress?.({ stage: 'loading', progress: 10 });
   
-  // Stage 2: Remove background using AI
-  onProgress?.({ stage: 'removing-background', progress: 20 });
+  const imageBlob = await loadImageAsBlob(file);
   
-  const blob = await removeBackground(file, {
-    progress: (key, current, total) => {
-      const progressPercent = 20 + (current / total) * 50;
-      onProgress?.({ stage: 'removing-background', progress: Math.round(progressPercent) });
-    },
-  });
+  // Stage 2: Processing
+  onProgress?.({ stage: 'processing', progress: 50 });
   
   // Stage 3: Resize and add white background
   onProgress?.({ stage: 'resizing', progress: 75 });
   
-  const result = await centerImageOnWhiteBackground(blob, 200);
+  const result = await centerImageOnWhiteBackground(imageBlob, 200);
   
   onProgress?.({ stage: 'complete', progress: 100 });
   
@@ -38,7 +32,24 @@ export async function removeBackgroundAndConvert(
 }
 
 /**
+ * Load file as blob
+ */
+async function loadImageAsBlob(file: File): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const blob = new Blob([arrayBuffer], { type: file.type });
+      resolve(blob);
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+/**
  * Center the image on a white background canvas with specified size
+ * Crops to square and centers the subject
  */
 export async function centerImageOnWhiteBackground(
   imageBlob: Blob,
@@ -66,17 +77,17 @@ export async function centerImageOnWhiteBackground(
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, size, size);
       
-      // Calculate scale to fit image
-      const scale = Math.min(size / img.width, size / img.height) * 0.9; // 90% to add padding
-      const newWidth = img.width * scale;
-      const newHeight = img.height * scale;
+      // Calculate crop to make square (center crop)
+      const minDimension = Math.min(img.width, img.height);
+      const cropX = (img.width - minDimension) / 2;
+      const cropY = (img.height - minDimension) / 2;
       
-      // Center the image
-      const x = (size - newWidth) / 2;
-      const y = (size - newHeight) / 2;
-      
-      // Draw the image
-      ctx.drawImage(img, x, y, newWidth, newHeight);
+      // Draw the image cropped and scaled to fit
+      ctx.drawImage(
+        img,
+        cropX, cropY, minDimension, minDimension,  // Source crop
+        0, 0, size, size  // Destination
+      );
       
       // Convert to blob
       canvas.toBlob(
