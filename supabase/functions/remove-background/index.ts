@@ -45,21 +45,26 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash-image-preview',
+        model: 'google/gemini-3-pro-image-preview',
         messages: [
           {
             role: 'user',
             content: [
               {
                 type: 'text',
-                text: `Edit this photo for an official ID/passport photo:
-1. Remove ONLY the background and replace it with pure white (#FFFFFF)
-2. Keep the person EXACTLY as they are - same face, same features, same quality
-3. Do NOT modify, blur, or regenerate the person's face or body
-4. Keep the FULL head visible with some space above
-5. Maintain the original image quality and sharpness
-6. The result must look like the original photo but with a clean white background
-7. Frame it properly for an ID photo: head and shoulders visible, centered`
+                text: `You are a professional photo editor. Edit this photo for an official ID/passport photo:
+
+CRITICAL REQUIREMENTS:
+1. ONLY remove the background - replace it with pure solid white (#FFFFFF)
+2. DO NOT alter, blur, smooth, or regenerate ANY facial features
+3. DO NOT change skin texture, hair details, or any part of the person
+4. Keep EXACT same face, same lighting, same sharpness, same colors
+5. The person must look IDENTICAL to the original - only the background changes
+6. Output should be HIGH RESOLUTION and SHARP
+7. Proper ID photo framing: full head visible with space above, shoulders visible
+8. The result must be photo-realistic, not AI-generated looking
+
+This is for an official government document - quality and accuracy are critical.`
               },
               {
                 type: 'image_url',
