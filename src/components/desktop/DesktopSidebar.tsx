@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { 
   User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
   Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid, Search
+  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid, Search, Camera
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -350,6 +350,14 @@ export function DesktopSidebar() {
                       <NavLink to="/comparatif-visuel" className={getNavCls}>
                         <BarChart3 className="w-4 h-4" />
                         <span>Comparatif Visuel</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <NavLink to="/photo-nusuk-hajj" className={getNavCls}>
+                        <Camera className="w-4 h-4" />
+                        <span>Photo Nusuk Hajj</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
