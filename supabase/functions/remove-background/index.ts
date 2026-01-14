@@ -1,114 +1,99 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+};
 
 serve(async (req) => {
-  // Handle CORS preflight
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders })
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const formData = await req.formData()
-    const imageFile = formData.get('image') as File
-    
+    const formData = await req.formData();
+    const imageFile = formData.get('image') as File;
+
     if (!imageFile) {
       return new Response(
-        JSON.stringify({ error: 'No image provided' }),
+        JSON.stringify({ error: 'No image file provided' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      )
+      );
     }
 
-    // Convert file to base64
-    const arrayBuffer = await imageFile.arrayBuffer()
-    const base64Image = btoa(
-      new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
-    )
-    const mimeType = imageFile.type || 'image/jpeg'
-    const dataUrl = `data:${mimeType};base64,${base64Image}`
-
-    // Use Lovable AI Gateway to edit the image (remove background)
-    const apiKey = Deno.env.get('LOVABLE_API_KEY')
-    if (!apiKey) {
-      throw new Error('LOVABLE_API_KEY not configured')
+    const REMOVE_BG_API_KEY = Deno.env.get('REMOVE_BG_API_KEY');
+    if (!REMOVE_BG_API_KEY) {
+      return new Response(
+        JSON.stringify({ error: 'REMOVE_BG_API_KEY not configured' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    console.log('Calling AI Gateway to remove background...')
-    
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    console.log('Processing image with remove.bg:', imageFile.name, 'Size:', imageFile.size);
+
+    // Prepare form data for remove.bg API
+    const removeBgFormData = new FormData();
+    removeBgFormData.append('image_file', imageFile);
+    removeBgFormData.append('size', 'full'); // Full resolution for HD quality
+    removeBgFormData.append('bg_color', 'FFFFFF'); // White background
+    removeBgFormData.append('format', 'png'); // PNG for best quality
+
+    // Call remove.bg API
+    const response = await fetch('https://api.remove.bg/v1.0/removebg', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
+        'X-Api-Key': REMOVE_BG_API_KEY,
       },
-      body: JSON.stringify({
-        model: 'google/gemini-3-pro-image-preview',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: `You are a professional photo editor. Edit this photo for an official ID/passport photo:
-
-CRITICAL REQUIREMENTS:
-1. ONLY remove the background - replace it with pure solid white (#FFFFFF)
-2. DO NOT alter, blur, smooth, or regenerate ANY facial features
-3. DO NOT change skin texture, hair details, or any part of the person
-4. Keep EXACT same face, same lighting, same sharpness, same colors
-5. The person must look IDENTICAL to the original - only the background changes
-6. Output should be HIGH RESOLUTION and SHARP
-7. Proper ID photo framing: full head visible with space above, shoulders visible
-8. The result must be photo-realistic, not AI-generated looking
-
-This is for an official government document - quality and accuracy are critical.`
-              },
-              {
-                type: 'image_url',
-                image_url: {
-                  url: dataUrl
-                }
-              }
-            ]
-          }
-        ],
-        modalities: ['image', 'text']
-      })
-    })
+      body: removeBgFormData,
+    });
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error('AI Gateway error:', errorText)
-      throw new Error(`AI Gateway error: ${response.status}`)
+      const errorData = await response.json().catch(() => ({}));
+      console.error('remove.bg API error:', response.status, errorData);
+      
+      // Handle specific error codes
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Crédits remove.bg épuisés. Veuillez recharger votre compte.',
+            details: errorData
+          }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      return new Response(
+        JSON.stringify({ 
+          error: 'Erreur lors de la suppression du fond',
+          details: errorData
+        }),
+        { status: response.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    const data = await response.json()
-    console.log('AI Gateway response received')
-    
-    // Extract the generated image
-    const generatedImage = data.choices?.[0]?.message?.images?.[0]?.image_url?.url
-    
-    if (!generatedImage) {
-      console.error('No image in response:', JSON.stringify(data))
-      throw new Error('No image generated by AI')
-    }
+    // Get the processed image as array buffer
+    const imageBuffer = await response.arrayBuffer();
+    const base64Image = btoa(
+      new Uint8Array(imageBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+
+    console.log('Image processed successfully, output size:', imageBuffer.byteLength);
 
     return new Response(
       JSON.stringify({ 
         success: true,
-        image: generatedImage 
+        image: `data:image/png;base64,${base64Image}`,
+        credits_charged: response.headers.get('X-Credits-Charged') || '1'
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    );
 
   } catch (error) {
-    console.error('Error removing background:', error)
+    console.error('Error processing image:', error);
     return new Response(
-      JSON.stringify({ error: error.message || 'Failed to remove background' }),
+      JSON.stringify({ error: error.message || 'Failed to process image' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    );
   }
-})
+});
