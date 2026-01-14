@@ -1,44 +1,35 @@
-import { supabase } from '@/integrations/supabase/client';
+import { removeBackground } from '@imgly/background-removal';
 
 export interface ConversionProgress {
-  stage: 'loading' | 'removing-bg' | 'processing' | 'resizing' | 'complete';
+  stage: 'loading' | 'removing-bg' | 'downloading-model' | 'processing' | 'resizing' | 'complete';
   progress: number;
 }
 
 export type ProgressCallback = (progress: ConversionProgress) => void;
 
 /**
- * Remove background using AI
+ * Remove background using local AI (runs in browser - free, no API credits!)
  */
-async function removeBackgroundWithAI(file: File): Promise<Blob> {
-  const formData = new FormData();
-  formData.append('image', file);
-
-  const { data: { session } } = await supabase.auth.getSession();
-  
-  const response = await supabase.functions.invoke('remove-background', {
-    body: formData,
-  });
-
-  if (response.error) {
-    throw new Error(response.error.message || 'Failed to remove background');
+async function removeBackgroundLocal(imageBlob: Blob, onProgress?: ProgressCallback): Promise<Blob> {
+  try {
+    const result = await removeBackground(imageBlob, {
+      output: {
+        format: 'image/png',
+        quality: 1.0
+      },
+      progress: (key, current, total) => {
+        // Report model download progress
+        if (key === 'fetch:model' && onProgress) {
+          const downloadProgress = Math.round((current / total) * 20) + 10; // 10-30%
+          onProgress({ stage: 'downloading-model', progress: downloadProgress });
+        }
+      }
+    });
+    return result;
+  } catch (error) {
+    console.error('Local background removal failed:', error);
+    throw error;
   }
-
-  const { image } = response.data;
-  
-  if (!image) {
-    throw new Error('No processed image returned');
-  }
-
-  // Convert base64 data URL to Blob
-  const base64Data = image.split(',')[1];
-  const byteCharacters = atob(base64Data);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  return new Blob([byteArray], { type: 'image/png' });
 }
 
 /**
@@ -48,26 +39,23 @@ async function removeBackgroundWithAI(file: File): Promise<Blob> {
 export async function convertToNusukFormat(
   file: File,
   onProgress?: ProgressCallback,
-  removeBackground: boolean = true
+  removeBackgroundOption: boolean = true
 ): Promise<Blob> {
   // Stage 1: Loading image
-  onProgress?.({ stage: 'loading', progress: 10 });
+  onProgress?.({ stage: 'loading', progress: 5 });
   
-  let imageBlob: Blob;
+  let imageBlob: Blob = await loadImageAsBlob(file);
   
-  if (removeBackground) {
-    // Stage 2: Remove background with AI
-    onProgress?.({ stage: 'removing-bg', progress: 30 });
+  if (removeBackgroundOption) {
+    // Stage 2: Remove background with local AI
+    onProgress?.({ stage: 'removing-bg', progress: 10 });
     
     try {
-      imageBlob = await removeBackgroundWithAI(file);
+      imageBlob = await removeBackgroundLocal(imageBlob, onProgress);
     } catch (error) {
       console.error('Background removal failed, using original:', error);
       // Fallback to original image if AI fails
-      imageBlob = await loadImageAsBlob(file);
     }
-  } else {
-    imageBlob = await loadImageAsBlob(file);
   }
   
   // Stage 3: Processing

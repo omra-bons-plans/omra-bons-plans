@@ -129,6 +129,8 @@ const PhotoNusukHajj = () => {
     switch (progress.stage) {
       case 'loading':
         return 'Chargement de l\'image...';
+      case 'downloading-model':
+        return 'Téléchargement du modèle IA (1ère fois)...';
       case 'removing-bg':
         return 'Suppression du fond par IA...';
       case 'processing':
