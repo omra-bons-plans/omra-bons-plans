@@ -14,9 +14,6 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      external: [
-        'onnxruntime-web/webgpu'
-      ],
       output: {
         // ⚡ OPTIMIZED CHUNKING: Separate vendor bundles for better caching
         entryFileNames: 'assets/[name]-[hash].js',
@@ -77,12 +74,13 @@ export default defineConfig(({ mode }) => ({
   // ⚡ Optimize dependencies - pre-bundle critical ones
   optimizeDeps: {
     include: [
-      'react', 
-      'react-dom', 
+      'react',
+      'react-dom',
       'react-router-dom',
-      '@supabase/supabase-js'
+      '@supabase/supabase-js',
+      'onnxruntime-web'
     ],
-    exclude: ['@tanstack/react-query-devtools', '@imgly/background-removal']
+    exclude: ['@tanstack/react-query-devtools']
   },
   // ⚡ Faster dev builds
   esbuild: {
