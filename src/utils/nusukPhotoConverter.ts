@@ -113,54 +113,68 @@ export async function centerImageOnWhiteBackground(
     
     img.onload = () => {
       URL.revokeObjectURL(url);
-      
-      // For ID photos, we want to:
-      // 1. Keep aspect ratio if possible
-      // 2. Crop from top (face is usually in upper portion)
-      // 3. Use high-quality scaling
-      
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext('2d', { alpha: false });
-      
-      if (!ctx) {
+
+      // Goal: ID photo should NOT be overly zoomed/cropped.
+      // We fit the full image into a square (with a small margin),
+      // and we render at higher resolution then downsample for sharpness.
+
+      const scaleFactor = 2; // super-sampling to reduce blur on downscale
+      const hiSize = size * scaleFactor;
+
+      const hiCanvas = document.createElement('canvas');
+      hiCanvas.width = hiSize;
+      hiCanvas.height = hiSize;
+      const hiCtx = hiCanvas.getContext('2d', { alpha: false });
+
+      if (!hiCtx) {
         reject(new Error('Could not create canvas context'));
         return;
       }
-      
-      // Enable high-quality image scaling
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      
-      // Fill with white background
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, size, size);
-      
-      // Calculate crop dimensions (center horizontally, bias toward top for face)
-      const aspectRatio = img.width / img.height;
-      let srcX = 0, srcY = 0, srcW = img.width, srcH = img.height;
-      
-      if (aspectRatio > 1) {
-        // Wider than tall - crop sides, keep full height
-        srcW = img.height;
-        srcX = (img.width - srcW) / 2;
-      } else if (aspectRatio < 1) {
-        // Taller than wide - crop from bottom (keep top where face is)
-        srcH = img.width;
-        srcY = 0; // Start from top to keep the face
+
+      // High quality scaling
+      hiCtx.imageSmoothingEnabled = true;
+      hiCtx.imageSmoothingQuality = 'high';
+
+      // White background
+      hiCtx.fillStyle = '#FFFFFF';
+      hiCtx.fillRect(0, 0, hiSize, hiSize);
+
+      // Fit image INSIDE the square (contain), with a small margin
+      const margin = Math.round(hiSize * 0.06); // ~6% padding
+      const available = hiSize - margin * 2;
+
+      const scale = Math.min(available / img.width, available / img.height);
+      const drawW = Math.round(img.width * scale);
+      const drawH = Math.round(img.height * scale);
+
+      const dstX = Math.round((hiSize - drawW) / 2);
+      // Slightly bias upward (face is usually higher), but keep within bounds
+      const centerY = (hiSize - drawH) / 2;
+      const biasY = -Math.round(hiSize * 0.03);
+      const dstY = Math.max(margin, Math.round(centerY + biasY));
+
+      hiCtx.drawImage(img, dstX, dstY, drawW, drawH);
+
+      // Downsample to final 200x200
+      const outCanvas = document.createElement('canvas');
+      outCanvas.width = size;
+      outCanvas.height = size;
+      const outCtx = outCanvas.getContext('2d', { alpha: false });
+
+      if (!outCtx) {
+        reject(new Error('Could not create canvas context'));
+        return;
       }
-      // If square, use full image
-      
-      // Draw with high quality
-      ctx.drawImage(
-        img,
-        srcX, srcY, srcW, srcH,  // Source (cropped)
-        0, 0, size, size         // Destination (full canvas)
-      );
-      
-      // Convert to blob with maximum quality
-      canvas.toBlob(
+
+      outCtx.imageSmoothingEnabled = true;
+      outCtx.imageSmoothingQuality = 'high';
+      outCtx.fillStyle = '#FFFFFF';
+      outCtx.fillRect(0, 0, size, size);
+      outCtx.drawImage(hiCanvas, 0, 0, size, size);
+
+      // Export: PNG avoids extra compression blur; Nusuk usually accepts JPG too,
+      // but PNG gives the crispest result at small sizes.
+      outCanvas.toBlob(
         (blob) => {
           if (blob) {
             resolve(blob);
@@ -168,8 +182,7 @@ export async function centerImageOnWhiteBackground(
             reject(new Error('Failed to create image blob'));
           }
         },
-        'image/jpeg',
-        1.0  // Maximum quality
+        'image/png'
       );
     };
     
@@ -185,7 +198,7 @@ export async function centerImageOnWhiteBackground(
 /**
  * Download the converted photo
  */
-export function downloadConvertedPhoto(blob: Blob, filename: string = 'photo-nusuk-hajj.jpg'): void {
+export function downloadConvertedPhoto(blob: Blob, filename: string = 'photo-nusuk-hajj.png'): void {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
