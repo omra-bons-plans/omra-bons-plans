@@ -101,7 +101,7 @@ async function loadImageAsBlob(file: File): Promise<Blob> {
 
 /**
  * Center the image on a white background canvas with specified size
- * Crops to square and centers the subject
+ * Uses high-quality resizing and proper ID photo framing
  */
 export async function centerImageOnWhiteBackground(
   imageBlob: Blob,
@@ -114,34 +114,52 @@ export async function centerImageOnWhiteBackground(
     img.onload = () => {
       URL.revokeObjectURL(url);
       
-      // Create canvas
+      // For ID photos, we want to:
+      // 1. Keep aspect ratio if possible
+      // 2. Crop from top (face is usually in upper portion)
+      // 3. Use high-quality scaling
+      
       const canvas = document.createElement('canvas');
       canvas.width = size;
       canvas.height = size;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: false });
       
       if (!ctx) {
         reject(new Error('Could not create canvas context'));
         return;
       }
       
+      // Enable high-quality image scaling
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      
       // Fill with white background
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, size, size);
       
-      // Calculate crop to make square (center crop)
-      const minDimension = Math.min(img.width, img.height);
-      const cropX = (img.width - minDimension) / 2;
-      const cropY = (img.height - minDimension) / 2;
+      // Calculate crop dimensions (center horizontally, bias toward top for face)
+      const aspectRatio = img.width / img.height;
+      let srcX = 0, srcY = 0, srcW = img.width, srcH = img.height;
       
-      // Draw the image cropped and scaled to fit
+      if (aspectRatio > 1) {
+        // Wider than tall - crop sides, keep full height
+        srcW = img.height;
+        srcX = (img.width - srcW) / 2;
+      } else if (aspectRatio < 1) {
+        // Taller than wide - crop from bottom (keep top where face is)
+        srcH = img.width;
+        srcY = 0; // Start from top to keep the face
+      }
+      // If square, use full image
+      
+      // Draw with high quality
       ctx.drawImage(
         img,
-        cropX, cropY, minDimension, minDimension,  // Source crop
-        0, 0, size, size  // Destination
+        srcX, srcY, srcW, srcH,  // Source (cropped)
+        0, 0, size, size         // Destination (full canvas)
       );
       
-      // Convert to blob
+      // Convert to blob with maximum quality
       canvas.toBlob(
         (blob) => {
           if (blob) {
@@ -151,7 +169,7 @@ export async function centerImageOnWhiteBackground(
           }
         },
         'image/jpeg',
-        0.95
+        1.0  // Maximum quality
       );
     };
     
