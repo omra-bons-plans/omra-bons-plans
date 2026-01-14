@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { toast } from 'sonner';
 import { 
-  removeBackgroundAndConvert, 
+  convertToNusukFormat, 
   downloadConvertedPhoto, 
   validateImageFile,
   type ConversionProgress 
@@ -82,14 +82,14 @@ const PhotoNusukHajj = () => {
       const blob = await response.blob();
       const file = new File([blob], 'photo.jpg', { type: blob.type });
       
-      const result = await removeBackgroundAndConvert(file, setProgress);
+      const result = await convertToNusukFormat(file, setProgress);
       
       setConvertedBlob(result);
       setConvertedImage(URL.createObjectURL(result));
       toast.success('Photo convertie avec succès !');
     } catch (err) {
       console.error('Conversion error:', err);
-      setError('Erreur lors de la conversion. Veuillez réessayer avec une autre photo.');
+      setError('Erreur lors de la conversion. Veuillez réessayer.');
       toast.error('Erreur lors de la conversion');
     } finally {
       setIsConverting(false);
@@ -120,8 +120,8 @@ const PhotoNusukHajj = () => {
     switch (progress.stage) {
       case 'loading':
         return 'Chargement de l\'image...';
-      case 'removing-background':
-        return 'Suppression du fond (IA)...';
+      case 'processing':
+        return 'Traitement en cours...';
       case 'resizing':
         return 'Redimensionnement 200x200...';
       case 'complete':
@@ -134,9 +134,9 @@ const PhotoNusukHajj = () => {
   return (
     <ResponsiveLayout>
       <SEOHead
-        title="Photo Nusuk Hajj - Convertisseur Format 200x200 Fond Blanc"
-        description="Outil gratuit pour convertir votre photo d'identité au format officiel Nusuk pour le Hajj et l'Omra. Fond blanc automatique et redimensionnement 200x200 pixels."
-        keywords="nusuk, hajj, photo, identité, fond blanc, 200x200, visa, omra, pèlerinage"
+        title="Photo Nusuk Hajj - Convertisseur Format 200x200"
+        description="Outil gratuit pour convertir votre photo d'identité au format officiel Nusuk pour le Hajj et l'Omra. Redimensionnement 200x200 pixels avec recadrage automatique."
+        keywords="nusuk, hajj, photo, identité, 200x200, visa, omra, pèlerinage, format photo"
       />
       
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -146,7 +146,7 @@ const PhotoNusukHajj = () => {
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Préparez votre photo d'identité au format officiel requis pour le portail Nusuk (Hajj/Omra).
-            Notre outil supprime automatiquement le fond et redimensionne votre photo.
+            Notre outil recadre et redimensionne automatiquement votre photo au format 200×200 pixels.
           </p>
         </div>
 
@@ -155,8 +155,17 @@ const PhotoNusukHajj = () => {
           <Info className="h-4 w-4" />
           <AlertDescription className="flex flex-wrap gap-4">
             <span><strong>Format requis :</strong> 200 × 200 pixels</span>
-            <span><strong>Fond :</strong> Blanc</span>
+            <span><strong>Recadrage :</strong> Carré centré</span>
             <span><strong>Fichiers acceptés :</strong> JPG, PNG, WebP (max 10 Mo)</span>
+          </AlertDescription>
+        </Alert>
+
+        {/* Important Notice */}
+        <Alert className="mb-6 border-amber-500/50 bg-amber-500/10">
+          <AlertCircle className="h-4 w-4 text-amber-600" />
+          <AlertDescription className="text-amber-800 dark:text-amber-200">
+            <strong>Important :</strong> Pour un résultat optimal, utilisez une photo avec un fond clair ou uni. 
+            La photo sera recadrée au centre en format carré.
           </AlertDescription>
         </Alert>
 
@@ -237,7 +246,7 @@ const PhotoNusukHajj = () => {
             <CardContent>
               {convertedImage ? (
                 <div className="flex flex-col items-center">
-                  <div className="w-[200px] h-[200px] border-2 border-dashed border-muted-foreground/25 rounded-lg overflow-hidden">
+                  <div className="w-[200px] h-[200px] border-2 border-dashed border-muted-foreground/25 rounded-lg overflow-hidden bg-white">
                     <img
                       src={convertedImage}
                       alt="Photo convertie"
@@ -249,7 +258,7 @@ const PhotoNusukHajj = () => {
                   </p>
                 </div>
               ) : (
-                <div className="w-full h-48 border-2 border-dashed border-muted-foreground/25 rounded-lg flex items-center justify-center">
+                <div className="w-full h-48 border-2 border-dashed border-muted-foreground/25 rounded-lg flex items-center justify-center bg-muted/20">
                   <p className="text-sm text-muted-foreground text-center px-4">
                     {isConverting 
                       ? 'Conversion en cours...' 
@@ -326,11 +335,11 @@ const PhotoNusukHajj = () => {
           <CardContent>
             <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
               <li>Utilisez une photo récente de face, expression neutre</li>
-              <li>Évitez les photos floues ou mal éclairées</li>
+              <li>Privilégiez un fond clair ou blanc pour un meilleur résultat</li>
               <li>Assurez-vous que votre visage est bien visible et centré</li>
               <li>Retirez les accessoires (lunettes de soleil, chapeau) sauf si requis</li>
-              <li>Le fond sera automatiquement remplacé par un fond blanc</li>
-              <li>Le traitement IA peut prendre quelques secondes selon votre appareil</li>
+              <li>Évitez les photos floues ou mal éclairées</li>
+              <li>La photo sera automatiquement recadrée au centre en format carré</li>
             </ul>
           </CardContent>
         </Card>
