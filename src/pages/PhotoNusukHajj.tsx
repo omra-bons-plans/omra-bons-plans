@@ -16,6 +16,7 @@ import SEOHead from '@/components/SEO/SEOHead';
 
 const PhotoNusukHajj = () => {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
+  const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [convertedImage, setConvertedImage] = useState<string | null>(null);
   const [convertedBlob, setConvertedBlob] = useState<Blob | null>(null);
   const [isConverting, setIsConverting] = useState(false);
@@ -35,11 +36,12 @@ const PhotoNusukHajj = () => {
       return;
     }
     
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setOriginalImage(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
+    // Store the file for later use
+    setOriginalFile(file);
+    
+    // Create preview URL
+    const previewUrl = URL.createObjectURL(file);
+    setOriginalImage(previewUrl);
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -70,19 +72,17 @@ const PhotoNusukHajj = () => {
   }, [handleFile]);
 
   const handleConvert = async () => {
-    if (!originalImage) return;
+    if (!originalFile) {
+      setError('Veuillez d\'abord sélectionner une photo.');
+      return;
+    }
     
     setIsConverting(true);
     setError(null);
     setProgress({ stage: 'loading', progress: 0 });
     
     try {
-      // Convert data URL to File
-      const response = await fetch(originalImage);
-      const blob = await response.blob();
-      const file = new File([blob], 'photo.jpg', { type: blob.type });
-      
-      const result = await convertToNusukFormat(file, setProgress);
+      const result = await convertToNusukFormat(originalFile, setProgress);
       
       setConvertedBlob(result);
       setConvertedImage(URL.createObjectURL(result));
@@ -105,7 +105,16 @@ const PhotoNusukHajj = () => {
   };
 
   const handleReset = () => {
+    // Revoke old URLs to prevent memory leaks
+    if (originalImage) {
+      URL.revokeObjectURL(originalImage);
+    }
+    if (convertedImage) {
+      URL.revokeObjectURL(convertedImage);
+    }
+    
     setOriginalImage(null);
+    setOriginalFile(null);
     setConvertedImage(null);
     setConvertedBlob(null);
     setError(null);
@@ -299,7 +308,7 @@ const PhotoNusukHajj = () => {
           <Button
             size="lg"
             onClick={handleConvert}
-            disabled={!originalImage || isConverting}
+            disabled={!originalFile || isConverting}
             className="min-w-[200px]"
           >
             {isConverting ? (
