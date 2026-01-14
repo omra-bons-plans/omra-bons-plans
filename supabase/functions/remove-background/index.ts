@@ -52,7 +52,14 @@ serve(async (req) => {
             content: [
               {
                 type: 'text',
-                text: 'Remove the background from this photo completely. Keep only the person/subject. Make the background pure white (#FFFFFF). The result should be suitable for an official ID photo with a clean white background.'
+                text: `Edit this photo for an official ID/passport photo:
+1. Remove ONLY the background and replace it with pure white (#FFFFFF)
+2. Keep the person EXACTLY as they are - same face, same features, same quality
+3. Do NOT modify, blur, or regenerate the person's face or body
+4. Keep the FULL head visible with some space above
+5. Maintain the original image quality and sharpness
+6. The result must look like the original photo but with a clean white background
+7. Frame it properly for an ID photo: head and shoulders visible, centered`
               },
               {
                 type: 'image_url',
