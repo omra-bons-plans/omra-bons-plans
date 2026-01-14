@@ -1,28 +1,80 @@
+import { supabase } from '@/integrations/supabase/client';
+
 export interface ConversionProgress {
-  stage: 'loading' | 'processing' | 'resizing' | 'complete';
+  stage: 'loading' | 'removing-bg' | 'processing' | 'resizing' | 'complete';
   progress: number;
 }
 
 export type ProgressCallback = (progress: ConversionProgress) => void;
 
 /**
+ * Remove background using AI
+ */
+async function removeBackgroundWithAI(file: File): Promise<Blob> {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  const response = await supabase.functions.invoke('remove-background', {
+    body: formData,
+  });
+
+  if (response.error) {
+    throw new Error(response.error.message || 'Failed to remove background');
+  }
+
+  const { image } = response.data;
+  
+  if (!image) {
+    throw new Error('No processed image returned');
+  }
+
+  // Convert base64 data URL to Blob
+  const base64Data = image.split(',')[1];
+  const byteCharacters = atob(base64Data);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: 'image/png' });
+}
+
+/**
  * Convert image to Nusuk format (200x200, white background)
- * Note: This does not remove background - user should provide a photo with clean background
+ * Now with AI background removal!
  */
 export async function convertToNusukFormat(
   file: File,
-  onProgress?: ProgressCallback
+  onProgress?: ProgressCallback,
+  removeBackground: boolean = true
 ): Promise<Blob> {
   // Stage 1: Loading image
   onProgress?.({ stage: 'loading', progress: 10 });
   
-  const imageBlob = await loadImageAsBlob(file);
+  let imageBlob: Blob;
   
-  // Stage 2: Processing
-  onProgress?.({ stage: 'processing', progress: 50 });
+  if (removeBackground) {
+    // Stage 2: Remove background with AI
+    onProgress?.({ stage: 'removing-bg', progress: 30 });
+    
+    try {
+      imageBlob = await removeBackgroundWithAI(file);
+    } catch (error) {
+      console.error('Background removal failed, using original:', error);
+      // Fallback to original image if AI fails
+      imageBlob = await loadImageAsBlob(file);
+    }
+  } else {
+    imageBlob = await loadImageAsBlob(file);
+  }
   
-  // Stage 3: Resize and add white background
-  onProgress?.({ stage: 'resizing', progress: 75 });
+  // Stage 3: Processing
+  onProgress?.({ stage: 'processing', progress: 70 });
+  
+  // Stage 4: Resize and add white background
+  onProgress?.({ stage: 'resizing', progress: 85 });
   
   const result = await centerImageOnWhiteBackground(imageBlob, 200);
   
