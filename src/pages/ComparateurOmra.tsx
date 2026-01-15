@@ -594,14 +594,6 @@ export default function ComparateurOmra() {
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight px-2">
               Omra Bons Plans – votre comparateur de séjours Omra & Hajj au départ de tous les aéroports de France
             </h2>
-            <div className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-3xl mx-auto space-y-2 sm:space-y-3 px-2">
-              <p className="leading-relaxed">
-                Bienvenue sur Omra Bons Plans, le comparateur pensé pour vous aider à trouver la meilleure offre Omra ou Hajj en quelques clics. Que vous prépariez votre voyage en 2026, que vous cherchiez une Omra pas chère ou un Hajj tout confort, notre plateforme compare pour vous les prix, services et prestations des agences agréées.
-              </p>
-              <p className="leading-relaxed">
-                Depuis tous les aéroports de France (Paris, Lyon, Marseille, Toulouse, Nice, Nantes, Bordeaux, Lille… et plus encore), accédez instantanément à des séjours personnalisés selon vos critères : dates, budget, ville de départ, type de formule, hôtels à Makkah/Médine, vols et accompagnement francophone. Nous mettons la transparence au cœur de la recherche pour que vous choisissiez sereinement l&apos;offre qui vous ressemble.
-              </p>
-            </div>
           </div>
 
       <div className="space-y-4 md:space-y-8">
