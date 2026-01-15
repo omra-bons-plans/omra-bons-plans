@@ -74,11 +74,10 @@ export default defineConfig(({ mode }) => ({
   // ⚡ Optimize dependencies - pre-bundle critical ones
   optimizeDeps: {
     include: [
-      'react',
-      'react-dom',
+      'react', 
+      'react-dom', 
       'react-router-dom',
-      '@supabase/supabase-js',
-      'onnxruntime-web'
+      '@supabase/supabase-js'
     ],
     exclude: ['@tanstack/react-query-devtools']
   },

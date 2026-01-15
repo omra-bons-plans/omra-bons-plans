@@ -61,7 +61,6 @@ const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
-const PhotoNusukHajj = lazy(() => import("./pages/PhotoNusukHajj"));
 
 // Loading component
 const PageLoader = () => (
@@ -232,7 +231,6 @@ const App = () => (
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
-                   <Route path="/photo-nusuk-hajj" element={<PhotoNusukHajj />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/" replace />} />
                    
                    {/* Redirections vers les URLs françaises */}
