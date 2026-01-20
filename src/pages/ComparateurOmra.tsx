@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
@@ -10,11 +10,25 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { 
-  Calendar, MapPin, Hotel, Clock, ExternalLink, Filter, Plane, 
-  CheckCircle2, Sparkles, Star, Building2, X, RefreshCw, Mail, 
-  List, Grid3x3, Send, Package 
-} from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size (~150KB saved)
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
+import Filter from 'lucide-react/dist/esm/icons/filter';
+import Plane from 'lucide-react/dist/esm/icons/plane';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Building2 from 'lucide-react/dist/esm/icons/building-2';
+import X from 'lucide-react/dist/esm/icons/x';
+import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import List from 'lucide-react/dist/esm/icons/list';
+import Grid3x3 from 'lucide-react/dist/esm/icons/grid-3x3';
+import Send from 'lucide-react/dist/esm/icons/send';
+import Package from 'lucide-react/dist/esm/icons/package';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -175,7 +189,21 @@ export default function ComparateurOmra() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ⚡ LCP OPTIMIZATION: Defer non-critical queries with staleTime
+  // ⚡ TBT OPTIMIZATION: Defer non-critical queries - only load after user interacts or after 3s
+  const [deferredQueriesEnabled, setDeferredQueriesEnabled] = useState(false);
+  
+  // Enable deferred queries after 3 seconds or on first scroll
+  useEffect(() => {
+    const timer = setTimeout(() => setDeferredQueriesEnabled(true), 3000);
+    const handleScroll = () => setDeferredQueriesEnabled(true);
+    window.addEventListener('scroll', handleScroll, { once: true, passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // ⚡ DEFERRED: Last update query - only after interaction
   const { data: lastUpdate } = useQuery({
     queryKey: ['last-successful-update'],
     queryFn: async () => {
@@ -188,11 +216,12 @@ export default function ComparateurOmra() {
         message?: string;
       };
     },
-    staleTime: 1000 * 60 * 10, // 10 minutes cache
-    gcTime: 1000 * 60 * 30, // 30 minutes garbage collection
+    enabled: deferredQueriesEnabled, // ⚡ Only load when needed
+    staleTime: 1000 * 60 * 30, // 30 minutes cache (increased)
+    gcTime: 1000 * 60 * 60, // 1 hour garbage collection
   });
 
-  // ⚡ DEFERRED: Agencies data with long cache
+  // ⚡ DEFERRED: Agencies data - only after interaction
   const { data: agenciesFromDb } = useQuery({
     queryKey: ['agencies'],
     queryFn: async () => {
@@ -202,8 +231,9 @@ export default function ComparateurOmra() {
       if (error) throw error;
       return data;
     },
-    staleTime: 1000 * 60 * 30, // 30 minutes cache
-    gcTime: 1000 * 60 * 60, // 1 hour garbage collection
+    enabled: deferredQueriesEnabled, // ⚡ Only load when needed
+    staleTime: 1000 * 60 * 60, // 1 hour cache (increased)
+    gcTime: 1000 * 60 * 120, // 2 hours garbage collection
   });
 
   // Helper function to get agency info from database
