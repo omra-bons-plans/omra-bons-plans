@@ -45,14 +45,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    // ⚡ TIMEOUT: Force stop loading after 3 seconds (reduced from 5)
+    // ⚡ TIMEOUT: Force stop loading after 1.5 seconds (reduced from 3s for better TBT)
     const timeout = setTimeout(() => {
       if (mounted && !hasResolved) {
-        console.warn('⚠️ Auth session timeout - forcing completion after 3s');
+        console.warn('⚠️ Auth session timeout - forcing completion after 1.5s');
         hasResolved = true;
         setLoading(false);
       }
-    }, 3000);
+    }, 1500);
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
