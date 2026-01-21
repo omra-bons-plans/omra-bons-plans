@@ -29,13 +29,11 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  // ⚡ CRITICAL: Start with loading=false for instant render - auth resolves in background
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let mounted = true;
-    let hasResolved = false; // ⚡ Track if we've already resolved
-    
-    console.log('🔐 AuthContext: Starting auth check...');
     
     // Check for recovery mode
     const urlHash = window.location.hash;
@@ -45,21 +43,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    // ⚡ TIMEOUT: Force stop loading after 1.5 seconds (reduced from 3s for better TBT)
-    const timeout = setTimeout(() => {
-      if (mounted && !hasResolved) {
-        console.warn('⚠️ Auth session timeout - forcing completion after 1.5s');
-        hasResolved = true;
-        setLoading(false);
-      }
-    }, 1500);
+    // ⚡ Get session in background - don't block render
 
-    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!mounted || hasResolved) return;
-      hasResolved = true;
-      
-      console.log('✅ AuthContext: Session loaded', session ? 'with user' : 'no user');
+      if (!mounted) return;
       
       const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
       
@@ -70,13 +57,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setSession(session);
         setUser(session?.user ?? null);
       }
-      setLoading(false);
     }).catch((error) => {
       console.error('❌ Auth session error:', error);
-      if (mounted && !hasResolved) {
-        hasResolved = true;
-        setLoading(false);
-      }
     });
 
     // Set up auth listener - MUST be synchronous only
@@ -101,7 +83,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     return () => {
       mounted = false;
-      clearTimeout(timeout);
       subscription.unsubscribe();
     };
   }, []);

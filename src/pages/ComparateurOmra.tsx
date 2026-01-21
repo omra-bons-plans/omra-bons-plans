@@ -31,7 +31,7 @@ import Send from 'lucide-react/dist/esm/icons/send';
 import Package from 'lucide-react/dist/esm/icons/package';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { useDateLocale } from '@/hooks/useDateLocale';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
@@ -144,6 +144,9 @@ const agencyFormSchema = z.object({
 });
 
 export default function ComparateurOmra() {
+  // ⚡ PERFORMANCE: Lazy load date locale
+  const dateLocale = useDateLocale();
+  
   // ⚡ PERFORMANCE: Preload agency logos
   usePreloadAgencyLogos();
   
@@ -176,7 +179,9 @@ export default function ComparateurOmra() {
   const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
   const [availableCities, setAvailableCities] = useState<string[]>([]);
   const [availableMonths, setAvailableMonths] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // ⚡ PHASE 2 LOADING: Start with loading=false, trigger data fetch on scroll/timeout
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataPhaseEnabled, setDataPhaseEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Formulaire agence
@@ -192,14 +197,26 @@ export default function ComparateurOmra() {
   // ⚡ TBT OPTIMIZATION: Defer non-critical queries - only load after user interacts or after 3s
   const [deferredQueriesEnabled, setDeferredQueriesEnabled] = useState(false);
   
-  // Enable deferred queries after 3 seconds or on first scroll
+  // ⚡ PHASE 2: Enable data loading after 2 seconds or on first scroll/interaction
   useEffect(() => {
-    const timer = setTimeout(() => setDeferredQueriesEnabled(true), 3000);
-    const handleScroll = () => setDeferredQueriesEnabled(true);
-    window.addEventListener('scroll', handleScroll, { once: true, passive: true });
+    const enableDataPhase = () => {
+      setDataPhaseEnabled(true);
+      setDeferredQueriesEnabled(true);
+    };
+    
+    // Trigger on scroll, click, or after 2s timeout
+    const timer = setTimeout(enableDataPhase, 2000);
+    const handleInteraction = () => enableDataPhase();
+    
+    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
+    window.addEventListener('click', handleInteraction, { once: true, passive: true });
+    window.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
+    
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
     };
   }, []);
 
@@ -265,8 +282,11 @@ export default function ComparateurOmra() {
     });
   };
 
-  // Fetch offers effect - avec valeurs stables et timeout
+  // ⚡ PHASE 2: Fetch offers only after user interaction or timeout
   useEffect(() => {
+    // ⚡ CRITICAL: Don't fetch until data phase is enabled (reduces initial TBT)
+    if (!dataPhaseEnabled) return;
+    
     let isMounted = true;
     let timeoutId: NodeJS.Timeout;
     let loadingStarted = false;
@@ -427,7 +447,7 @@ export default function ComparateurOmra() {
       isMounted = false;
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration]);
+  }, [dataPhaseEnabled, selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration]);
 
   // ⚡ PAGINATION: Calculer offres paginées
   const totalPages = Math.ceil(offers.length / itemsPerPage);
@@ -605,7 +625,7 @@ export default function ComparateurOmra() {
                 <div className="flex items-center gap-1.5">
                   <RefreshCw className="h-3 w-3" />
                   <span className="text-center">
-                    Mise à jour : {format(new Date(lastUpdate.last_update), "d MMM yyyy", { locale: fr })}
+                    Mise à jour : {dateLocale ? format(new Date(lastUpdate.last_update), "d MMM yyyy", { locale: dateLocale }) : format(new Date(lastUpdate.last_update), "d MMM yyyy")}
                   </span>
                 </div>
                 <Badge variant="outline" className="bg-green-500/10 text-green-700 text-xs">

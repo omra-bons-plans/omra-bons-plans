@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronUp } from 'lucide-react';
+import ChevronUp from 'lucide-react/dist/esm/icons/chevron-up';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 
