@@ -43,6 +43,8 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 // ⚡ PERFORMANCE: Preload agency logos
 import { usePreloadAgencyLogos } from '@/hooks/usePreloadAgencyLogos';
+// ⚡ PERFORMANCE: Constants extracted to reduce main bundle parsing
+import { MONTHS, FORMULA_TYPES, CITIES, AGENCY_LOGOS, getAgencyLogo, extractStarsFromHotel, cleanHotelName } from '@/utils/comparateurConstants';
 
 // ⚡ LAZY LOAD: Only large non-critical components
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
@@ -56,84 +58,6 @@ import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewReq
 if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
   window.__HIDE_PRERENDER__();
 }
-
-const MONTHS = [
-  'Ramadan', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-];
-
-const FORMULA_TYPES = ['Essentiel', 'Confort'];
-const CITIES = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Bordeaux', 'Lille'];
-
-const AGENCY_LOGOS: Record<string, string> = {
-  'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
-  'Almaqam': '/lovable-uploads/logoalmaqam.webp',
-  'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
-  'Pelerin': '/lovable-uploads/logopelerinhajj.webp',
-  'Hayat': '/lovable-uploads/logohayat.webp',
-  'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
-  'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.webp',
-  'Omra Discount': '/lovable-uploads/logoomradiscount.webp',
-  'Sabil': '/lovable-uploads/logosabile-new.webp',
-  'Sabil Voyages': '/lovable-uploads/logosabile-new.webp',
-  'Tawaf': '/lovable-uploads/logotawaf.webp',
-  'Al Sirate Voyage': '/lovable-uploads/logoalsirate.webp',
-  'Alsirate Voyage': '/lovable-uploads/logoalsirate.webp',
-  'Gateway-travel': '/lovable-uploads/logogatewaytravel-new.webp',
-  'Gateway travel': '/lovable-uploads/logogatewaytravel-new.webp',
-  'Gatewaytravel': '/lovable-uploads/logogatewaytravel-new.webp',
-  'Labbayk': '/lovable-uploads/logo-labayk-optimized.webp',
-  'OMRA GATE': '/lovable-uploads/logoomragate-new.webp',
-  'Omra Gate': '/lovable-uploads/logoomragate-new.webp',
-  'OmraGate': '/lovable-uploads/logoomragate-new.webp',
-};
-
-const getAgencyLogo = (agencyName: string): string | null => {
-  const normalizedName = agencyName?.trim().toLowerCase()
-    .replace(/[àáâãäå]/g, 'a')
-    .replace(/[èéêë]/g, 'e')
-    .replace(/[ìíîï]/g, 'i')
-    .replace(/[òóôõö]/g, 'o')
-    .replace(/[ùúûü]/g, 'u')
-    .replace(/[ç]/g, 'c')
-    .replace(/\s+/g, '');
-  
-  for (const [key, logo] of Object.entries(AGENCY_LOGOS)) {
-    const normalizedKey = key.toLowerCase()
-      .replace(/[àáâãäå]/g, 'a')
-      .replace(/[èéêë]/g, 'e')
-      .replace(/[ìíîï]/g, 'i')
-      .replace(/[òóôõö]/g, 'o')
-      .replace(/[ùúûü]/g, 'u')
-      .replace(/[ç]/g, 'c')
-      .replace(/\s+/g, '');
-    
-    if (normalizedName?.includes(normalizedKey) || normalizedKey.includes(normalizedName)) {
-      return logo;
-    }
-  }
-  return null;
-};
-
-// Fonction pour extraire le nombre d'étoiles depuis le nom de l'hôtel
-const extractStarsFromHotel = (hotelName: string | null): number => {
-  if (!hotelName) return 3; // Par défaut 3 étoiles
-  
-  // Recherche de patterns comme "5 étoiles", "(5 étoiles)", "5*", etc.
-  const starsMatch = hotelName.match(/(\d)\s*(?:étoiles?|\*)/i);
-  if (starsMatch) {
-    return parseInt(starsMatch[1]);
-  }
-  
-  // Si pas de match, retourner 3 par défaut
-  return 3;
-};
-
-// Fonction pour nettoyer le nom de l'hôtel (enlever les étoiles)
-const cleanHotelName = (hotelName: string | null): string => {
-  if (!hotelName) return '';
-  return hotelName.replace(/\s*\(?\d\s*étoiles?\)?/gi, '').trim();
-};
 
 const agencyFormSchema = z.object({
   agencyName: z.string().trim().min(2, { message: "Le nom de l'agence est requis" }).max(100, { message: "Le nom de l'agence doit faire moins de 100 caractères" }),
