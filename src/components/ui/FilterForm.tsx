@@ -1,5 +1,9 @@
 import React from "react";
-import { Calendar, MapPin, Search, X } from "lucide-react";
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Search from 'lucide-react/dist/esm/icons/search';
+import X from 'lucide-react/dist/esm/icons/x';
 
 interface FilterFormProps {
   tripType: 'omra' | 'hajj';

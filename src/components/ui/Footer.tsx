@@ -1,5 +1,16 @@
 import { Link } from 'react-router-dom';
-import { Search, Star, Users, BookOpen, Calendar, Clock, MessageCircle, Mail, Info, BarChart3, Heart } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import Search from 'lucide-react/dist/esm/icons/search';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Users from 'lucide-react/dist/esm/icons/users';
+import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import Info from 'lucide-react/dist/esm/icons/info';
+import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
+import Heart from 'lucide-react/dist/esm/icons/heart';
 
 const Footer = () => {
   return (

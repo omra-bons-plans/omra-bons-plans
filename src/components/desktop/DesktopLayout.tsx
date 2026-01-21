@@ -4,7 +4,8 @@ import { DesktopSidebar } from './DesktopSidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications } from '@/hooks/useNotifications';
 import { Badge } from '@/components/ui/badge';
-import { Bell } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon import
+import Bell from 'lucide-react/dist/esm/icons/bell';
 import { Link } from 'react-router-dom';
 
 interface DesktopLayoutProps {

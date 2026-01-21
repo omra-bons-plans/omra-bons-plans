@@ -1,4 +1,5 @@
-import { Star } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon import to reduce bundle size
+import Star from 'lucide-react/dist/esm/icons/star';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { toggleFavorite, isFavorite } from '@/utils/favoritesHelper';

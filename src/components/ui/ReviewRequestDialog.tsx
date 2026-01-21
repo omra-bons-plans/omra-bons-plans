@@ -7,7 +7,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Star, ExternalLink, X } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import Star from 'lucide-react/dist/esm/icons/star';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
+import X from 'lucide-react/dist/esm/icons/x';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CQzTthDA4fm6EBM/review';
 const STORAGE_KEY = 'review_request_shown_count';
