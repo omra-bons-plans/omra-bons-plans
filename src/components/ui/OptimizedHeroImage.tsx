@@ -56,7 +56,8 @@ export const OptimizedHeroImage = ({
         className="absolute inset-0 w-full h-full object-cover"
         width={576}
         height={1024}
-        fetchPriority="high"
+        // @ts-expect-error React 18 doesn't have fetchPriority types yet
+        fetchpriority="high"
         loading="eager"
         decoding="sync"
         style={{ 
