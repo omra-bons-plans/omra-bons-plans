@@ -1,7 +1,14 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Hotel, Plane, ExternalLink, CheckCircle2, Star } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import Plane from 'lucide-react/dist/esm/icons/plane';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
+import Star from 'lucide-react/dist/esm/icons/star';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';

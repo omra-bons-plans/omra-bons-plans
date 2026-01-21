@@ -1,10 +1,35 @@
 import { useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  User, Settings, LogOut, Plus, FileText, Bell, Shield, Building, 
-  Plane, Hotel, BookOpen, Car, Heart, UtensilsCrossed, HelpingHand, 
-  Leaf, Activity, ChevronRight, ChevronDown, Home, Info, Mail, Clock, Calendar, CalendarDays, BarChart3, MessageCircle, LayoutGrid, Search
-} from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import User from 'lucide-react/dist/esm/icons/user';
+import Settings from 'lucide-react/dist/esm/icons/settings';
+import LogOut from 'lucide-react/dist/esm/icons/log-out';
+import Plus from 'lucide-react/dist/esm/icons/plus';
+import FileText from 'lucide-react/dist/esm/icons/file-text';
+import Bell from 'lucide-react/dist/esm/icons/bell';
+import Shield from 'lucide-react/dist/esm/icons/shield';
+import Building from 'lucide-react/dist/esm/icons/building';
+import Plane from 'lucide-react/dist/esm/icons/plane';
+import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import Car from 'lucide-react/dist/esm/icons/car';
+import Heart from 'lucide-react/dist/esm/icons/heart';
+import UtensilsCrossed from 'lucide-react/dist/esm/icons/utensils-crossed';
+import HelpingHand from 'lucide-react/dist/esm/icons/helping-hand';
+import Leaf from 'lucide-react/dist/esm/icons/leaf';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
+import Home from 'lucide-react/dist/esm/icons/home';
+import Info from 'lucide-react/dist/esm/icons/info';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import CalendarDays from 'lucide-react/dist/esm/icons/calendar-days';
+import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import LayoutGrid from 'lucide-react/dist/esm/icons/layout-grid';
+import Search from 'lucide-react/dist/esm/icons/search';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';

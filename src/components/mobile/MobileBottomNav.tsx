@@ -1,4 +1,9 @@
-import { Home, Package, Star, BookOpen, User } from 'lucide-react';
+// ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
+import Home from 'lucide-react/dist/esm/icons/home';
+import Package from 'lucide-react/dist/esm/icons/package';
+import Star from 'lucide-react/dist/esm/icons/star';
+import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import User from 'lucide-react/dist/esm/icons/user';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
