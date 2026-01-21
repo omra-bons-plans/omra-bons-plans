@@ -20,21 +20,22 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
-          // ⚡ Core React - cached long-term
+          // ⚡ Core React - cached long-term, smallest possible
           'react-vendor': ['react', 'react-dom'],
           // Router - separate chunk
           'router': ['react-router-dom'],
-          // ⚡ Icons - separate chunk for better caching (large bundle)
-          'icons': ['lucide-react'],
-          // ⚡ UI components - single chunk to reduce requests
-          'ui': ['@radix-ui/react-select', '@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-checkbox', '@radix-ui/react-slider', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
+          // ⚡ REMOVED icons chunk - using individual imports now for tree-shaking
+          // ⚡ UI Critical - only components used in initial render
+          'ui-critical': ['@radix-ui/react-select', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
+          // UI Secondary - loaded later
+          'ui-secondary': ['@radix-ui/react-dialog', '@radix-ui/react-popover', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
           // Data fetching
           'query': ['@tanstack/react-query'],
           // Supabase
           'supabase': ['@supabase/supabase-js'],
-          // ⚡ Date utilities - separate chunk with locale
-          'date': ['date-fns'],
-          // ⚡ Forms - separate chunk
+          // ⚡ Date core - WITHOUT locale (locale loaded async)
+          'date-core': ['date-fns'],
+          // ⚡ Forms - loaded only when needed
           'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],
         }
       },

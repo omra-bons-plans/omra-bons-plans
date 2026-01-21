@@ -40,17 +40,15 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  // ⚡ LCP FIX: Supprimer le prerender-hero rapidement (500ms au lieu de 1.5s)
-  // Le LCP est mesuré dès que l'image est visible, pas besoin d'attendre longtemps
-  setTimeout(() => {
+  // ⚡ LCP FIX: Supprimer le prerender-hero INSTANTANÉMENT
+  // Pas d'animation - suppression directe pour un LCP optimal
+  requestAnimationFrame(() => {
     const prerenderHero = document.getElementById('prerender-hero');
     if (prerenderHero) {
-      prerenderHero.style.opacity = '0';
-      prerenderHero.style.pointerEvents = 'none';
-      // Supprimer du DOM après la transition
-      setTimeout(() => prerenderHero.remove(), 200);
+      prerenderHero.style.display = 'none'; // Plus rapide que opacity
+      prerenderHero.remove();
     }
-  }, 500); // ⚡ Réduit de 1.5s à 500ms - plus rapide pour l'utilisateur
+  });
   
   console.log('✅ React app rendered successfully');
 } else {
