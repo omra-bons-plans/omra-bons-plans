@@ -53,8 +53,8 @@ const Discussions = lazy(() => import("./pages/Discussions"));
 const AdminTopicRequests = lazy(() => import("./pages/AdminTopicRequests"));
 const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
-// ⚡ OPTIMIZED: Lazy load homepage for better code splitting
-const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
+// ⚡ OPTIMIZED: Shell-first architecture for instant LCP
+const ProgressiveComparateur = lazy(() => import("./components/ProgressiveComparateur"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
@@ -85,7 +85,7 @@ const App = () => (
                   <Routes>
                   {/* Sitemap dynamique - doit être avant les autres routes */}
                   <Route path="/sitemap.xml" element={<SitemapXml />} />
-                  <Route path="/" element={<ComparateurOmra />} />
+                  <Route path="/" element={<ProgressiveComparateur />} />
                   <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={

@@ -155,19 +155,9 @@
   </head>
 
   <body>
-    <!-- ⚡ PRE-RENDER: Hero visible IMMÉDIATEMENT - Sert de LCP pour PageSpeed -->
+    <!-- ⚡ PRE-RENDER: Simplified hero for faster LCP -->
     <div id="prerender-hero" class="prerender-hero">
-      <picture>
-        <source srcset="/hero-kaaba-mobile-portrait.webp" type="image/webp" media="(max-width: 767px)">
-        <source srcset="/hero-kaaba-new.webp" type="image/webp" media="(min-width: 768px)">
-        <img src="/hero-kaaba-mobile-portrait.webp" alt="Comparateur Omra" width="576" height="1024" fetchpriority="high" decoding="sync" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-      </picture>
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.45),rgba(0,0,0,.6));display:flex;align-items:center;justify-content:center">
-        <div style="text-align:center;color:#fff;padding:1rem">
-          <h1 style="font-size:clamp(2.5rem,8vw,4rem);font-weight:900;margin-bottom:.5rem"><span class="gradient-text">Omra Bons Plans</span></h1>
-          <p style="font-size:clamp(1.2rem,4vw,1.8rem);font-weight:600">Votre comparateur de séjours Omra & Hajj 2026</p>
-        </div>
-      </div>
+      <img src="/hero-kaaba-mobile-portrait.webp" alt="Comparateur Omra" width="576" height="1024" fetchpriority="high" decoding="sync" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     </div>
     
     <!-- ⚡ React mount point -->
@@ -179,7 +169,8 @@
     <!-- ⚡ Main App Bundle -->
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- ⚡ Fonts: Non-blocking -->
+    <!-- ⚡ Fonts: Preloaded + swap for better FCP -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
     
