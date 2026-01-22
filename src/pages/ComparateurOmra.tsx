@@ -781,47 +781,7 @@ export default function ComparateurOmra() {
           </Select>
         </div>
 
-        {tripType === 'hajj' ? (
-          <Card className="p-8 md:p-12 text-center bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/20">
-            <div className="max-w-3xl mx-auto space-y-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:w-20 rounded-full bg-primary/10 mb-4">
-                <Calendar className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-                Offres Hajj 2026
-              </h3>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Les offres pour le Hajj ne sont pas encore disponibles. Nous vous invitons à revenir début janvier 2026 pour découvrir et comparer toutes les offres Hajj des agences agréées.
-              </p>
-              <Badge variant="outline" className="mt-4 text-sm px-4 py-2">
-                Disponible à partir de janvier 2026
-              </Badge>
-              
-              {/* Image des providers Nusuk */}
-              <div className="mt-8 pt-6 border-t border-border/50">
-                <p className="text-foreground font-semibold text-base md:text-lg mb-3">
-                  Voici les 12 providers qui proposeront très prochainement leurs offres "Hajj 2026" sur la plateforme Nusuk
-                </p>
-                <p className="text-muted-foreground text-sm md:text-base mb-6">
-                  Pensez à mettre de l'argent sur votre compte Nusuk pour être prêt lors de l'ouverture des ventes !
-                </p>
-                <div className="rounded-xl overflow-hidden border-2 border-border/50 shadow-lg">
-                  <img 
-                    src="/images/hajj-providers-nusuk.png"
-                    alt="Les 12 providers Hajj 2026 sur la plateforme Nusuk"
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              
-              {/* Newsletter Subscription Form */}
-              <Suspense fallback={<div className="animate-pulse h-32 bg-muted/20 rounded-lg" />}>
-                <HajjNewsletterForm />
-              </Suspense>
-            </div>
-          </Card>
-        ) : error ? (
+        {error ? (
           <Card className="p-12 text-center border-destructive">
             <p className="text-destructive text-lg font-semibold mb-2">
               Erreur: {error}
