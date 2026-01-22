@@ -164,7 +164,7 @@ export default function ComparateurOmra() {
 
   // ⚡ DEFERRED: Agencies data - only after interaction
   const { data: agenciesFromDb } = useQuery({
-    queryKey: ['agencies'],
+    queryKey: ['agencies-comparateur'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('agencies')
