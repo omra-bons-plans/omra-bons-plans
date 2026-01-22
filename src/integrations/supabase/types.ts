@@ -850,6 +850,75 @@ export type Database = {
         }
         Relationships: []
       }
+      hajj_offers: {
+        Row: {
+          accommodation_zone: string
+          agency_name: string
+          agency_url: string
+          airline: string
+          camp_mina: string | null
+          created_at: string
+          departure_cities: string[]
+          departure_date: string
+          duration_nights: number | null
+          half_board: boolean
+          hotel_makkah: string
+          hotel_medina: string
+          id: string
+          is_recommended: boolean
+          offer_url: string
+          package_type: string
+          price_quad_eur: number
+          return_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          accommodation_zone?: string
+          agency_name: string
+          agency_url: string
+          airline: string
+          camp_mina?: string | null
+          created_at?: string
+          departure_cities?: string[]
+          departure_date: string
+          duration_nights?: number | null
+          half_board?: boolean
+          hotel_makkah: string
+          hotel_medina: string
+          id?: string
+          is_recommended?: boolean
+          offer_url: string
+          package_type?: string
+          price_quad_eur: number
+          return_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          accommodation_zone?: string
+          agency_name?: string
+          agency_url?: string
+          airline?: string
+          camp_mina?: string | null
+          created_at?: string
+          departure_cities?: string[]
+          departure_date?: string
+          duration_nights?: number | null
+          half_board?: boolean
+          hotel_makkah?: string
+          hotel_medina?: string
+          id?: string
+          is_recommended?: boolean
+          offer_url?: string
+          package_type?: string
+          price_quad_eur?: number
+          return_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       hotel_presets: {
         Row: {
           city: string
