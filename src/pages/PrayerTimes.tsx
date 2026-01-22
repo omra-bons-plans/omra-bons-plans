@@ -5,7 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Clock, Search, Sun, Sunset, Star } from 'lucide-react';
+// ⚡ PERF: Individual icon imports
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import Search from 'lucide-react/dist/esm/icons/search';
+import Sun from 'lucide-react/dist/esm/icons/sun';
+import Sunset from 'lucide-react/dist/esm/icons/sunset';
+import Star from 'lucide-react/dist/esm/icons/star';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import ResponsiveLayout from '@/components/ResponsiveLayout';

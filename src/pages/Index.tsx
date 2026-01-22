@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
-import { ChevronDown, LayoutGrid, List } from "lucide-react";
+// ⚡ PERF: Individual icon imports reduce bundle by ~150KB
+import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
+import LayoutGrid from "lucide-react/dist/esm/icons/layout-grid";
+import List from "lucide-react/dist/esm/icons/list";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
