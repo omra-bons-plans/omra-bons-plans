@@ -174,6 +174,27 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 {offer.airline}
               </Badge>
             )}
+            {/* Hajj-specific badges */}
+            {offer.board && (
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-orange-500/10 text-orange-700 border-orange-500/30">
+                🍽️ {offer.board}
+              </Badge>
+            )}
+            {offer.accommodation_zone && (
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30">
+                📍 Zone {offer.accommodation_zone}
+              </Badge>
+            )}
+            {offer.camp_mina && (
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30">
+                ⛺ {offer.camp_mina}
+              </Badge>
+            )}
+            {offer.nusuk_code && (
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-indigo-500/10 text-indigo-700 border-indigo-500/30">
+                🔑 Nusuk: {offer.nusuk_code}
+              </Badge>
+            )}
           </div>
 
           {/* Boutons CTA */}

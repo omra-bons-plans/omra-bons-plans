@@ -248,7 +248,7 @@ export default function ComparateurOmra() {
             .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
             .eq('status', 'active');
           
-          // Map hajj_offers to a unified format
+          // Map hajj_offers to a unified format with Hajj-specific fields
           allActiveOffers = (data || []).map((offer: any) => ({
             id: offer.id,
             agency_name: offer.agency_name,
@@ -264,12 +264,17 @@ export default function ComparateurOmra() {
             hotel_medinah: offer.hotel_medina,
             offer_url: offer.offer_url,
             is_recommended: offer.is_recommended,
-            notes: `Zone ${offer.accommodation_zone}${offer.camp_mina ? ` - Camp: ${offer.camp_mina}` : ''}${offer.nusuk_code ? ` - Code Nusuk: ${offer.nusuk_code}` : ''}`,
+            notes: offer.notes || null,
             airline: offer.airline,
             flights_included: true,
             visa_included: true,
             is_complet: false,
-            board: offer.half_board ? 'demi-pension' : null,
+            board: offer.half_board ? 'Demi-pension' : 'Pension complète',
+            // ⚡ Hajj-specific fields
+            accommodation_zone: offer.accommodation_zone,
+            camp_mina: offer.camp_mina,
+            nusuk_code: offer.nusuk_code,
+            is_hajj: true,
           }));
           allOffersError = error;
         } else {
@@ -1006,6 +1011,27 @@ export default function ComparateurOmra() {
                           Visa inclus
                         </Badge>
                       )}
+                      {/* Hajj-specific badges */}
+                      {offer.board && (
+                        <Badge variant="outline" className="bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/30 px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          🍽️ {offer.board}
+                        </Badge>
+                      )}
+                      {offer.accommodation_zone && (
+                        <Badge variant="outline" className="bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30 px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          📍 Zone {offer.accommodation_zone}
+                        </Badge>
+                      )}
+                      {offer.camp_mina && (
+                        <Badge variant="outline" className="bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-500/30 px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          ⛺ {offer.camp_mina}
+                        </Badge>
+                      )}
+                      {offer.nusuk_code && (
+                        <Badge variant="outline" className="bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/30 px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs">
+                          🔑 Nusuk: {offer.nusuk_code}
+                        </Badge>
+                      )}
                     </div>
 
                     <div className="space-y-2 md:space-y-3">
@@ -1246,6 +1272,27 @@ export default function ComparateurOmra() {
                                 <Badge variant="outline" className="bg-blue-500/10 text-blue-700 border-blue-500/30">
                                   <CheckCircle2 className="h-3 w-3 mr-1" />
                                   Visa inclus
+                                </Badge>
+                              )}
+                              {/* Hajj-specific badges */}
+                              {offer.board && (
+                                <Badge variant="outline" className="bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/30">
+                                  🍽️ {offer.board}
+                                </Badge>
+                              )}
+                              {offer.accommodation_zone && (
+                                <Badge variant="outline" className="bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30">
+                                  📍 Zone {offer.accommodation_zone}
+                                </Badge>
+                              )}
+                              {offer.camp_mina && (
+                                <Badge variant="outline" className="bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-500/30">
+                                  ⛺ {offer.camp_mina}
+                                </Badge>
+                              )}
+                              {offer.nusuk_code && (
+                                <Badge variant="outline" className="bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/30">
+                                  🔑 Nusuk: {offer.nusuk_code}
                                 </Badge>
                               )}
                             </div>
