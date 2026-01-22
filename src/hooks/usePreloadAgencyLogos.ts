@@ -13,10 +13,8 @@ const TOP_AGENCY_LOGOS = [
 
 export const usePreloadAgencyLogos = () => {
   useEffect(() => {
-    // Only preload on desktop (mobile has limited bandwidth)
     const isMobile = window.innerWidth < 768;
-    if (isMobile) return;
-
+    
     // Use requestIdleCallback to avoid blocking main thread
     const preload = () => {
       TOP_AGENCY_LOGOS.forEach(src => {
@@ -29,11 +27,13 @@ export const usePreloadAgencyLogos = () => {
       });
     };
 
-    // ⚡ Defer to 3s to reduce initial TBT
+    // ⚡ MOBILE: Defer to 5s (vs 3s desktop) to prioritize LCP
+    const delay = isMobile ? 5000 : 3000;
+    
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(preload, { timeout: 3000 });
+      (window as any).requestIdleCallback(preload, { timeout: delay });
     } else {
-      setTimeout(preload, 3000);
+      setTimeout(preload, delay);
     }
   }, []);
 };

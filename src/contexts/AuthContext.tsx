@@ -43,23 +43,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    // ⚡ Get session in background - don't block render
+    // ⚡ MOBILE OPTIMIZATION: Defer auth session to reduce TBT
+    const loadSession = () => {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (!mounted) return;
+        
+        const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
+        
+        if (isPasswordResetMode && session) {
+          setSession(session);
+          setUser(null);
+        } else {
+          setSession(session);
+          setUser(session?.user ?? null);
+        }
+      }).catch((error) => {
+        console.error('❌ Auth session error:', error);
+      });
+    };
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!mounted) return;
-      
-      const isPasswordResetMode = sessionStorage.getItem('password_reset_mode') === 'true';
-      
-      if (isPasswordResetMode && session) {
-        setSession(session);
-        setUser(null);
-      } else {
-        setSession(session);
-        setUser(session?.user ?? null);
-      }
-    }).catch((error) => {
-      console.error('❌ Auth session error:', error);
-    });
+    // ⚡ On mobile: defer auth to after LCP using requestIdleCallback
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile && 'requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(loadSession, { timeout: 2000 });
+    } else {
+      loadSession();
+    }
 
     // Set up auth listener - MUST be synchronous only
     const { data: { subscription } } = supabase.auth.onAuthStateChange(

@@ -23,25 +23,32 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
         paddingTop: 0
       }}
     >
-      {/* ⚡ CRITICAL: Single compressed hero image for all devices */}
+      {/* ⚡ CRITICAL: Responsive hero image - Mobile (640x360) vs Desktop (1280x720) */}
       <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
-        <img
-          src="/hero-kaaba-optimized.webp"
-          alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
-          width={1280}
-          height={720}
-          fetchPriority="high"
-          decoding="sync"
-          loading="eager"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-            position: 'absolute',
-            inset: 0
-          }}
-        />
+        <picture>
+          <source 
+            media="(max-width: 767px)" 
+            srcSet="/hero-kaaba-mobile.webp" 
+            type="image/webp"
+          />
+          <img
+            src="/hero-kaaba-optimized.webp"
+            alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
+            width={isMobile ? 640 : 1280}
+            height={isMobile ? 360 : 720}
+            fetchPriority="high"
+            decoding="sync"
+            loading="eager"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              position: 'absolute',
+              inset: 0
+            }}
+          />
+        </picture>
       </div>
       
       {/* Overlay with hero content */}
