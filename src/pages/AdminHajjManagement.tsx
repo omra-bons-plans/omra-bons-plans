@@ -49,7 +49,8 @@ const DEPARTURE_CITIES = [
   'Lille',
   'Rennes',
   'Montpellier',
-  'Bruxelles'
+  'Bruxelles',
+  'Genève'
 ];
 
 const PACKAGE_TYPES = [
