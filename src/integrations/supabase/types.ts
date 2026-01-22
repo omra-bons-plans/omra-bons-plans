@@ -866,6 +866,7 @@ export type Database = {
           hotel_medina: string
           id: string
           is_recommended: boolean
+          nusuk_code: string | null
           offer_url: string
           package_type: string
           price_quad_eur: number
@@ -888,6 +889,7 @@ export type Database = {
           hotel_medina: string
           id?: string
           is_recommended?: boolean
+          nusuk_code?: string | null
           offer_url: string
           package_type?: string
           price_quad_eur: number
@@ -910,6 +912,7 @@ export type Database = {
           hotel_medina?: string
           id?: string
           is_recommended?: boolean
+          nusuk_code?: string | null
           offer_url?: string
           package_type?: string
           price_quad_eur?: number

@@ -87,6 +87,7 @@ interface HajjOfferFormData {
   hotel_makkah_stars: number;
   hotel_medina: string;
   hotel_medina_stars: number;
+  nusuk_code: string;
   camp_mina: string;
   half_board: boolean;
   departure_cities: string[];
@@ -147,6 +148,7 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
     hotel_makkah_stars: 4,
     hotel_medina: '',
     hotel_medina_stars: 4,
+    nusuk_code: '',
     camp_mina: '',
     half_board: false,
     departure_cities: [],
@@ -240,6 +242,7 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
         accommodation_zone: formData.accommodation_zone,
         airline: AIRLINES.find(a => a.value === formData.airline)?.label || formData.airline,
         is_recommended: formData.is_recommended,
+        nusuk_code: formData.nusuk_code || null,
         status: 'active',
       };
 
@@ -276,6 +279,7 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
         hotel_makkah_stars: 4,
         hotel_medina: '',
         hotel_medina_stars: 4,
+        nusuk_code: '',
         camp_mina: '',
         half_board: false,
         departure_cities: [],
@@ -647,6 +651,27 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Code Nusuk */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Code Nusuk</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            <Label htmlFor="nusuk_code">Code Nusuk (optionnel)</Label>
+            <Input
+              id="nusuk_code"
+              placeholder="Ex: NSK-12345"
+              value={formData.nusuk_code}
+              onChange={(e) => setFormData({ ...formData, nusuk_code: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">
+              Entrez le code Nusuk fourni par l'agence pour cette offre
+            </p>
           </div>
         </CardContent>
       </Card>
