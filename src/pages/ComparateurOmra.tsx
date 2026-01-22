@@ -733,25 +733,28 @@ export default function ComparateurOmra() {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-              <div className="space-y-1.5 md:space-y-2">
-                <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                  <Hotel className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                  Formule
-                </label>
-                <Select value={selectedFormula} onValueChange={setSelectedFormula}>
-                  <SelectTrigger className="h-9 md:h-10 text-sm">
-                    <SelectValue placeholder="Toutes les formules" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Toutes les formules</SelectItem>
-                    {FORMULA_TYPES.map(formula => (
-                      <SelectItem key={formula} value={formula}>{formula}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+            {/* Filtre Formule - uniquement pour Omra */}
+            {tripType === 'omra' && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                <div className="space-y-1.5 md:space-y-2">
+                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
+                    <Hotel className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                    Formule
+                  </label>
+                  <Select value={selectedFormula} onValueChange={setSelectedFormula}>
+                    <SelectTrigger className="h-9 md:h-10 text-sm">
+                      <SelectValue placeholder="Toutes les formules" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Toutes les formules</SelectItem>
+                      {FORMULA_TYPES.map(formula => (
+                        <SelectItem key={formula} value={formula}>{formula}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {showFilters && (
