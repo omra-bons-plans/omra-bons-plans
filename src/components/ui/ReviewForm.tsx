@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, Send } from 'lucide-react';
 import { Button } from './button';
 import { Card, CardContent, CardHeader, CardTitle } from './card';
@@ -18,6 +18,14 @@ export const ReviewForm = ({ onSubmit, existingReview, loading }: ReviewFormProp
   const [comment, setComment] = useState(existingReview?.comment || '');
   const [submitting, setSubmitting] = useState(false);
   const { user } = useAuth();
+
+  // ⚡ FIX: Sync form state when existingReview changes (for edit mode)
+  useEffect(() => {
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setComment(existingReview.comment || '');
+    }
+  }, [existingReview?.id, existingReview?.rating, existingReview?.comment]);
 
   if (!user) {
     return (
