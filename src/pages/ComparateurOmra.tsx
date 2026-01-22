@@ -255,7 +255,7 @@ export default function ComparateurOmra() {
           // Query hajj_offers table for Hajj trips
           const { data, error } = await supabase
             .from('hajj_offers')
-            .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
+            .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,hotel_makkah_stars,hotel_medina_stars,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
             .eq('status', 'active');
           
           // Map hajj_offers to a unified format with Hajj-specific fields
@@ -272,6 +272,8 @@ export default function ComparateurOmra() {
             duration_nights: offer.duration_nights,
             hotel_makkah: offer.hotel_makkah,
             hotel_medinah: offer.hotel_medina,
+            hotel_makkah_stars: offer.hotel_makkah_stars,
+            hotel_medina_stars: offer.hotel_medina_stars,
             offer_url: offer.offer_url,
             is_recommended: offer.is_recommended,
             notes: offer.notes || null,
