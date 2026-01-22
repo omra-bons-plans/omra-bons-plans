@@ -506,14 +506,14 @@ export default function AdminHajjManagement() {
         <div>
           <Label>Camp Mina</Label>
           <Select
-            value={offer.camp_mina || ''}
-            onValueChange={(value) => setOffer({ ...offer, camp_mina: value || null })}
+            value={offer.camp_mina || 'none'}
+            onValueChange={(value) => setOffer({ ...offer, camp_mina: value === 'none' ? null : value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="Sélectionner..." />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Non spécifié</SelectItem>
+              <SelectItem value="none">Non spécifié</SelectItem>
               {CAMP_MINA_OPTIONS.map((camp) => (
                 <SelectItem key={camp.value} value={camp.value}>
                   {camp.label}

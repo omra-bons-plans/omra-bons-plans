@@ -863,7 +863,9 @@ export type Database = {
           duration_nights: number | null
           half_board: boolean
           hotel_makkah: string
+          hotel_makkah_stars: number | null
           hotel_medina: string
+          hotel_medina_stars: number | null
           id: string
           is_recommended: boolean
           nusuk_code: string | null
@@ -886,7 +888,9 @@ export type Database = {
           duration_nights?: number | null
           half_board?: boolean
           hotel_makkah: string
+          hotel_makkah_stars?: number | null
           hotel_medina: string
+          hotel_medina_stars?: number | null
           id?: string
           is_recommended?: boolean
           nusuk_code?: string | null
@@ -909,7 +913,9 @@ export type Database = {
           duration_nights?: number | null
           half_board?: boolean
           hotel_makkah?: string
+          hotel_makkah_stars?: number | null
           hotel_medina?: string
+          hotel_medina_stars?: number | null
           id?: string
           is_recommended?: boolean
           nusuk_code?: string | null
