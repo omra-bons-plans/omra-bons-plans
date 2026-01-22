@@ -23,44 +23,25 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
         paddingTop: 0
       }}
     >
-      {/* ⚡ CRITICAL: Hero image with optimized mobile version */}
+      {/* ⚡ CRITICAL: Single compressed hero image for all devices */}
       <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
-        <picture>
-          {/* ⚡ Mobile: Image portrait ultra-optimisée (~40KB) pour LCP rapide */}
-          <source
-            media="(max-width: 767px)"
-            srcSet="/hero-kaaba-mobile-portrait.webp"
-            type="image/webp"
-            width={576}
-            height={1024}
-          />
-          {/* Desktop: Full resolution WebP */}
-          <source
-            media="(min-width: 768px)"
-            srcSet="/hero-kaaba-new.webp"
-            type="image/webp"
-            width={1600}
-            height={900}
-          />
-          {/* Fallback: Mobile image par défaut pour que PageSpeed détecte la bonne image */}
-          <img
-            src="/hero-kaaba-mobile-portrait.webp"
-            alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
-            width={576}
-            height={1024}
-            fetchPriority="high"
-            decoding="sync"
-            loading="eager"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-              position: 'absolute',
-              inset: 0
-            }}
-          />
-        </picture>
+        <img
+          src="/hero-kaaba-compressed.webp"
+          alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
+          width={1024}
+          height={576}
+          fetchPriority="high"
+          decoding="sync"
+          loading="eager"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            position: 'absolute',
+            inset: 0
+          }}
+        />
       </div>
       
       {/* Overlay with hero content */}
