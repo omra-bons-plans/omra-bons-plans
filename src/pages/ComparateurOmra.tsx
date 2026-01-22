@@ -58,6 +58,35 @@ import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewReq
 
 // ⚡ REMOVED: Pre-render hero logic (simplified architecture)
 
+// Helper function to normalize city names with proper capitalization
+const normalizeCity = (city: string) => {
+  if (!city) return '';
+  const normalized = city.trim().toLowerCase();
+  const cityMap: Record<string, string> = {
+    'paris': 'Paris',
+    'lyon': 'Lyon',
+    'marseille': 'Marseille',
+    'toulouse': 'Toulouse',
+    'bordeaux': 'Bordeaux',
+    'nice': 'Nice',
+    'nantes': 'Nantes',
+    'strasbourg': 'Strasbourg',
+    'lille': 'Lille',
+    'rennes': 'Rennes',
+    'montpellier': 'Montpellier',
+    'bruxelles': 'Bruxelles',
+    'geneve': 'Genève',
+    'genève': 'Genève',
+    'frankfurt': 'Frankfurt',
+    'londres': 'Londres',
+    'montreal': 'Montréal',
+    'montréal': 'Montréal',
+    'belgique': 'Belgique',
+    'amsterdam': 'Amsterdam',
+  };
+  return cityMap[normalized] || city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+};
+
 const agencyFormSchema = z.object({
   agencyName: z.string().trim().min(2, { message: "Le nom de l'agence est requis" }).max(100, { message: "Le nom de l'agence doit faire moins de 100 caractères" }),
   contactName: z.string().trim().min(2, { message: "Votre nom est requis" }).max(100, { message: "Le nom doit faire moins de 100 caractères" }),
@@ -267,7 +296,7 @@ export default function ComparateurOmra() {
             month_departure: offer.departure_date ? new Date(offer.departure_date).toLocaleString('fr-FR', { month: 'long' }) : null,
             date_start: offer.departure_date,
             date_end: offer.return_date,
-            departure_city: offer.departure_cities?.[0] || 'Paris',
+            departure_city: normalizeCity(offer.departure_cities?.[0] || 'Paris'),
             formula_type: offer.package_type || 'standard',
             duration_nights: offer.duration_nights,
             hotel_makkah: offer.hotel_makkah,
@@ -327,32 +356,6 @@ export default function ComparateurOmra() {
         if (isMounted) setAvailableAgencies(agencies);
         
         // Extraire les villes disponibles depuis TOUTES les offres (normalisées)
-        const normalizeCity = (city: string) => {
-          const normalized = city.trim().toLowerCase();
-          const cityMap: Record<string, string> = {
-            'paris': 'Paris',
-            'lyon': 'Lyon',
-            'marseille': 'Marseille',
-            'toulouse': 'Toulouse',
-            'bordeaux': 'Bordeaux',
-            'nice': 'Nice',
-            'nantes': 'Nantes',
-            'strasbourg': 'Strasbourg',
-            'lille': 'Lille',
-            'rennes': 'Rennes',
-            'montpellier': 'Montpellier',
-            'bruxelles': 'Bruxelles',
-            'geneve': 'Genève',
-            'genève': 'Genève',
-            'frankfurt': 'Frankfurt',
-            'londres': 'Londres',
-            'montreal': 'Montréal',
-            'montréal': 'Montréal',
-            'belgique': 'Belgique',
-            'amsterdam': 'Amsterdam',
-          };
-          return cityMap[normalized] || city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-        };
         const allCities = Array.from(new Set(allData.map(offer => normalizeCity(offer.departure_city || '')).filter(Boolean)));
         if (isMounted) setAvailableCities(allCities.sort());
         
