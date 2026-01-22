@@ -1,4 +1,4 @@
-import { Bell } from 'lucide-react';
+import Bell from 'lucide-react/dist/esm/icons/bell';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';

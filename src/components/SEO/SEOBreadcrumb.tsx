@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
-import { Home } from 'lucide-react';
+import Home from 'lucide-react/dist/esm/icons/home';
 
 interface BreadcrumbItem {
   name: string;

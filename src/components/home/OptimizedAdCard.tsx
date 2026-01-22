@@ -1,7 +1,9 @@
 import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Zap, Clock } from 'lucide-react';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Zap from 'lucide-react/dist/esm/icons/zap';
+import Clock from 'lucide-react/dist/esm/icons/clock';
 import { Link } from 'react-router-dom';
 import { CachedFormattedListing } from '@/hooks/useCachedAds';
 

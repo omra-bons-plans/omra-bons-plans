@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Upload, X, CalendarIcon } from 'lucide-react';
+import Upload from 'lucide-react/dist/esm/icons/upload';
+import X from 'lucide-react/dist/esm/icons/x';
+import CalendarIcon from 'lucide-react/dist/esm/icons/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,13 +13,15 @@ import { useHotelPresets } from '@/hooks/useHotelPresets';
 import { useAirlinePresets } from '@/hooks/useAirlinePresets';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import Check from 'lucide-react/dist/esm/icons/check';
+import ChevronsUpDown from 'lucide-react/dist/esm/icons/chevrons-up-down';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import type { DateRange } from 'react-day-picker';
 import { Button } from '@/components/ui/button';
-import { Save, Trash2 } from 'lucide-react';
+import Save from 'lucide-react/dist/esm/icons/save';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 

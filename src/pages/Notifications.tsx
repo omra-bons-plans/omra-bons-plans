@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { ArrowLeft, Bell } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
+import Bell from 'lucide-react/dist/esm/icons/bell';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

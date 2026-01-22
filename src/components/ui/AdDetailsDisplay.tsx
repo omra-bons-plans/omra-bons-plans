@@ -2,7 +2,16 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageGalleryDisplay } from './ImageGalleryDisplay';
 import VideoPlayer from './VideoPlayer';
-import { MapPin, Users, Languages, Calendar, Car, Baby, User, Plane, Home, Clock } from 'lucide-react';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Users from 'lucide-react/dist/esm/icons/users';
+import Languages from 'lucide-react/dist/esm/icons/languages';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Car from 'lucide-react/dist/esm/icons/car';
+import Baby from 'lucide-react/dist/esm/icons/baby';
+import User from 'lucide-react/dist/esm/icons/user';
+import Plane from 'lucide-react/dist/esm/icons/plane';
+import Home from 'lucide-react/dist/esm/icons/home';
+import Clock from 'lucide-react/dist/esm/icons/clock';
 import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 // Function to convert airline IATA code to full name

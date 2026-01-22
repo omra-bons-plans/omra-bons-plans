@@ -9,19 +9,17 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { 
-  Play, 
-  Pause, 
-  RefreshCw, 
-  Activity, 
-  CheckCircle, 
-  XCircle,
-  Clock,
-  Database,
-  Globe,
-  Calendar,
-  AlertCircle
-} from 'lucide-react';
+import Play from 'lucide-react/dist/esm/icons/play';
+import Pause from 'lucide-react/dist/esm/icons/pause';
+import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import CheckCircle from 'lucide-react/dist/esm/icons/check-circle';
+import XCircle from 'lucide-react/dist/esm/icons/x-circle';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import Database from 'lucide-react/dist/esm/icons/database';
+import Globe from 'lucide-react/dist/esm/icons/globe';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import AlertCircle from 'lucide-react/dist/esm/icons/alert-circle';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function AdminScrapers() {

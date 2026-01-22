@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Menu } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Tag from 'lucide-react/dist/esm/icons/tag';
+import Video from 'lucide-react/dist/esm/icons/video';
+import User from 'lucide-react/dist/esm/icons/user';
+import Menu from 'lucide-react/dist/esm/icons/menu';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

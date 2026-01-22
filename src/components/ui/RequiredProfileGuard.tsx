@@ -4,7 +4,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { UserCheck, ArrowRight } from 'lucide-react';
+import UserCheck from 'lucide-react/dist/esm/icons/user-check';
+import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
 
 interface RequiredProfileGuardProps {
   children: React.ReactNode;

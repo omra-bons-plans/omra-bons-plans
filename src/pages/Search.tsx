@@ -7,7 +7,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search as SearchIcon, MapPin, Calendar, ExternalLink } from 'lucide-react';
+import SearchIcon from 'lucide-react/dist/esm/icons/search';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import { Link } from 'react-router-dom';
 
 interface SearchResult {

@@ -5,7 +5,13 @@ import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { CheckCircle, AlertCircle, XCircle, Search, Target, FileText, Image } from 'lucide-react';
+import CheckCircle from 'lucide-react/dist/esm/icons/check-circle';
+import AlertCircle from 'lucide-react/dist/esm/icons/alert-circle';
+import XCircle from 'lucide-react/dist/esm/icons/x-circle';
+import Search from 'lucide-react/dist/esm/icons/search';
+import Target from 'lucide-react/dist/esm/icons/target';
+import FileText from 'lucide-react/dist/esm/icons/file-text';
+import Image from 'lucide-react/dist/esm/icons/image';
 
 interface SEOAnalysis {
   title: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { List, ChevronRight } from 'lucide-react';
+import List from 'lucide-react/dist/esm/icons/list';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
 
 interface TableOfContentsProps {
   content: string;

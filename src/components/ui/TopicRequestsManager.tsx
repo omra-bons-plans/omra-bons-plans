@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Check, X, Clock, User, MessageCircle, Eye } from 'lucide-react';
+import Check from 'lucide-react/dist/esm/icons/check';
+import X from 'lucide-react/dist/esm/icons/x';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import User from 'lucide-react/dist/esm/icons/user';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Eye from 'lucide-react/dist/esm/icons/eye';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield, Eye, AlertTriangle, Clock } from 'lucide-react';
+import Shield from 'lucide-react/dist/esm/icons/shield';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import AlertTriangle from 'lucide-react/dist/esm/icons/alert-triangle';
+import Clock from 'lucide-react/dist/esm/icons/clock';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

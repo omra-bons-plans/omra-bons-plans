@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, MessageCircle, Shield } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Shield from 'lucide-react/dist/esm/icons/shield';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAdmin } from '@/contexts/AdminContext';

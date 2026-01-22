@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Mail, CheckCircle2 } from 'lucide-react';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';

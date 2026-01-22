@@ -1,6 +1,10 @@
 import { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
-import { Bold, Link2, Eye, Code, ImageIcon } from 'lucide-react';
+import Bold from 'lucide-react/dist/esm/icons/bold';
+import Link2 from 'lucide-react/dist/esm/icons/link-2';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import Code from 'lucide-react/dist/esm/icons/code';
+import ImageIcon from 'lucide-react/dist/esm/icons/image';
 import { Button } from './button';
 import { Textarea } from './textarea';
 import { Input } from './input';
