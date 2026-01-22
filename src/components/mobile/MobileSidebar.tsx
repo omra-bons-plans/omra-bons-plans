@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 // ⚡ PERFORMANCE: Individual icon imports to reduce bundle size (~100KB saved)
 import User from 'lucide-react/dist/esm/icons/user';
 import Settings from 'lucide-react/dist/esm/icons/settings';
@@ -46,6 +46,11 @@ const MobileSidebar = () => {
   const { isAdmin } = useAdmin();
   const { unreadCount } = useNotifications();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Pages où le bouton "Publier une annonce" ne doit pas s'afficher (car déjà présent dans la page)
+  const hidePublishButtonOnPages = ['/', '/publish'];
+  const shouldShowPublishButton = !hidePublishButtonOnPages.includes(location.pathname) && !location.pathname.startsWith('/publish/');
 
   const handleSignOut = async () => {
     try {
@@ -530,8 +535,8 @@ const MobileSidebar = () => {
         </div>
       </div>
 
-      {/* Fixed Publish Button (hidden when sidebar is open to avoid overlap) */}
-      {!isOpen && (
+      {/* Fixed Publish Button (hidden when sidebar is open or on homepage to avoid overlap) */}
+      {!isOpen && shouldShowPublishButton && (
         <div className="lg:hidden fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[210]">
           <Link to="/publish">
             <Button
