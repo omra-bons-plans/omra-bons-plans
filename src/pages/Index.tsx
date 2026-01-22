@@ -279,29 +279,23 @@ const Index = () => {
         }}
       >
         <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>
-          <picture>
-            {/* ⚡ Mobile: Image portrait ultra-optimisée (~40KB) pour LCP rapide */}
-            <source srcSet="/hero-kaaba-mobile-portrait.webp" type="image/webp" media="(max-width: 767px)" />
-            {/* Desktop: Image full resolution */}
-            <source srcSet="/hero-kaaba-new.webp" type="image/webp" media="(min-width: 768px)" />
-            <img
-              src="/hero-kaaba-mobile-portrait.webp"
-              alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
-              width={576}
-              height={1024}
-              fetchPriority="high"
-              decoding="sync"
-              loading="eager"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-                position: 'absolute',
-                inset: 0
-              }}
-            />
-          </picture>
+          <img
+            src="/hero-kaaba-optimized.webp"
+            alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
+            width={1280}
+            height={720}
+            fetchPriority="high"
+            decoding="sync"
+            loading="eager"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              position: 'absolute',
+              inset: 0
+            }}
+          />
         </div>
         
         <div className="hero-overlay">

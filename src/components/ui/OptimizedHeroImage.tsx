@@ -32,21 +32,21 @@ export const OptimizedHeroImage = ({
         aspectRatio: `${desktopWidth}/${desktopHeight}`
       }}
     >
-      {/* Image unique pour tous les appareils */}
+      {/* Image unique optimisée pour tous les appareils */}
       <source
-        srcSet="/hero-kaaba-compressed.webp"
+        srcSet="/hero-kaaba-optimized.webp"
         type="image/webp"
-        width={desktopWidth}
-        height={desktopHeight}
+        width={1280}
+        height={720}
       />
       
-      {/* Fallback: Image unique */}
+      {/* Fallback: Image optimisée */}
       <img 
-        src="/hero-kaaba-compressed.webp"
+        src="/hero-kaaba-optimized.webp"
         alt="Omra Bons Plans - Comparateur Omra & Hajj - La Kaaba à La Mecque" 
         className="absolute inset-0 w-full h-full object-cover"
-        width={desktopWidth}
-        height={desktopHeight}
+        width={1280}
+        height={720}
         // @ts-expect-error React 18 doesn't have fetchPriority types yet
         fetchpriority="high"
         loading="eager"
