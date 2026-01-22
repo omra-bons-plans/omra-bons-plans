@@ -18,12 +18,7 @@ const queryClient = new QueryClient({
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  // ⚡ LCP FIX: Hide skeleton immediately
-  const prerenderSkeleton = document.getElementById('prerender-skeleton');
-  if (prerenderSkeleton) {
-    prerenderSkeleton.style.display = 'none';
-  }
-  
+  // ⚡ SIMPLIFIED: Direct render without pre-render complexity
   createRoot(rootElement).render(
     <React.StrictMode>
       <HelmetProvider>
@@ -33,13 +28,4 @@ if (rootElement) {
       </HelmetProvider>
     </React.StrictMode>
   );
-  
-  // ⚡ LCP FIX: Delay pre-render removal to ensure React has painted
-  setTimeout(() => {
-    const prerenderHero = document.getElementById('prerender-hero');
-    if (prerenderHero) {
-      prerenderHero.style.display = 'none';
-      prerenderHero.remove();
-    }
-  }, 50);
 }

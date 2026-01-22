@@ -13,6 +13,8 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   build: {
+    // ⚡ OPTIMIZED: Disable modulePreload to reduce initial requests
+    modulePreload: false,
     rollupOptions: {
       output: {
         // ⚡ OPTIMIZED CHUNKING: Separate vendor bundles for better caching
@@ -24,7 +26,8 @@ export default defineConfig(({ mode }) => ({
           'react-vendor': ['react', 'react-dom'],
           // Router - separate chunk
           'router': ['react-router-dom'],
-          // ⚡ REMOVED icons chunk - using individual imports now for tree-shaking
+          // ⚡ SEO - separate chunk, lazy loaded
+          'seo': ['react-helmet-async'],
           // ⚡ UI Critical - only components used in initial render
           'ui-critical': ['@radix-ui/react-select', '@radix-ui/react-checkbox', '@radix-ui/react-slider'],
           // UI Secondary - loaded later
