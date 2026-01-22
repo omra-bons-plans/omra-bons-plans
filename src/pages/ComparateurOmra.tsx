@@ -111,6 +111,10 @@ export default function ComparateurOmra() {
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
   const [selectedAgencies, setSelectedAgencies] = useState<string[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<string>('all');
+  // Hajj-specific filters
+  const [selectedZone, setSelectedZone] = useState<string>('all');
+  const [selectedCamp, setSelectedCamp] = useState<string>('all');
+  const [selectedPackage, setSelectedPackage] = useState<string>('all');
   const [maxPrice, setMaxPrice] = useState<number>(10000);
   const [priceMin, setPriceMin] = useState<number>(0);
   const [priceMax, setPriceMax] = useState<number>(10000);
@@ -131,6 +135,10 @@ export default function ComparateurOmra() {
   const [availableAgencies, setAvailableAgencies] = useState<string[]>([]);
   const [availableCities, setAvailableCities] = useState<string[]>([]);
   const [availableMonths, setAvailableMonths] = useState<string[]>([]);
+  // Hajj-specific available options
+  const [availableZones, setAvailableZones] = useState<string[]>([]);
+  const [availableCamps, setAvailableCamps] = useState<string[]>([]);
+  const [availablePackages, setAvailablePackages] = useState<string[]>([]);
   // ⚡ PHASE 2 LOADING: Start with loading=false, trigger data fetch on scroll/timeout
   const [isLoading, setIsLoading] = useState(false);
   const [dataPhaseEnabled, setDataPhaseEnabled] = useState(false);
@@ -174,7 +182,7 @@ export default function ComparateurOmra() {
     };
   }, []);
 
-  // ⚡ FIX: Réinitialiser les filtres de prix quand tripType change (Omra ↔ Hajj)
+  // ⚡ FIX: Réinitialiser les filtres de prix et Hajj-specifiques quand tripType change (Omra ↔ Hajj)
   useEffect(() => {
     // Réinitialiser les valeurs de prix pour le nouveau type de séjour
     setPriceMin(0);
@@ -182,6 +190,11 @@ export default function ComparateurOmra() {
     setMaxPrice(10000);
     setIsInitialLoad(true); // Permettre au nouveau maxPrice de s'appliquer lors du fetch
     setCurrentPage(1); // Revenir à la première page
+    // Reset Hajj-specific filters
+    setSelectedZone('all');
+    setSelectedCamp('all');
+    setSelectedPackage('all');
+    setSelectedDuration('all');
   }, [tripType]);
 
   // ⚡ DEFERRED: Last update query - only after interaction
@@ -363,6 +376,18 @@ export default function ComparateurOmra() {
         const allMonths = Array.from(new Set(allData.map(offer => offer.month_departure).filter(Boolean)));
         if (isMounted) setAvailableMonths(allMonths);
         
+        // ⚡ Hajj-specific: Extract available zones, camps, and packages
+        if (tripType === 'hajj') {
+          const zones = Array.from(new Set(allData.map(offer => offer.accommodation_zone).filter(Boolean))).sort();
+          const camps = Array.from(new Set(allData.map(offer => offer.camp_mina).filter(Boolean))).sort();
+          const packages = Array.from(new Set(allData.map(offer => offer.formula_type).filter(Boolean))).sort();
+          if (isMounted) {
+            setAvailableZones(zones);
+            setAvailableCamps(camps);
+            setAvailablePackages(packages);
+          }
+        }
+        
         // Filtrer les offres pour l'affichage
         let filtered = allData;
         
@@ -404,6 +429,20 @@ export default function ComparateurOmra() {
             const nights = offer.duration_nights || 0;
             return isCourtSejour ? nights <= 20 : nights > 20;
           });
+        }
+        
+        // ⚡ Hajj-specific filters: Zone, Camp, Package
+        if (tripType === 'hajj') {
+          if (selectedZone && selectedZone !== 'all') {
+            filtered = filtered.filter(offer => offer.accommodation_zone === selectedZone);
+          }
+          if (selectedCamp && selectedCamp !== 'all') {
+            filtered = filtered.filter(offer => offer.camp_mina === selectedCamp);
+          }
+          if (selectedPackage && selectedPackage !== 'all') {
+            const selectedPkgNorm = selectedPackage.trim().toLowerCase();
+            filtered = filtered.filter(offer => (offer.formula_type || '').trim().toLowerCase() === selectedPkgNorm);
+          }
         }
         
         // Trier
@@ -462,7 +501,7 @@ export default function ComparateurOmra() {
       isMounted = false;
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [dataPhaseEnabled, selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration]);
+  }, [dataPhaseEnabled, selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies.length, tripType, selectedDuration, selectedZone, selectedCamp, selectedPackage]);
 
   // ⚡ PAGINATION: Calculer offres paginées
   const totalPages = Math.ceil(offers.length / itemsPerPage);
@@ -473,7 +512,7 @@ export default function ComparateurOmra() {
   // Reset page quand les filtres changent
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies, tripType]);
+  }, [selectedMonth, selectedCity, selectedFormula, priceMin, priceMax, maxDuration, sortBy, selectedAgencies, tripType, selectedZone, selectedCamp, selectedPackage]);
 
   // Scroll vers la liste des offres quand la page change
   useEffect(() => {
@@ -502,6 +541,10 @@ export default function ComparateurOmra() {
     setPriceMin(0);
     setPriceMax(maxPrice);
     setMaxDuration('');
+    // Reset Hajj-specific filters
+    setSelectedZone('all');
+    setSelectedCamp('all');
+    setSelectedPackage('all');
   };
 
   const handleAgencyFormSubmit = async (e: React.FormEvent) => {
@@ -629,8 +672,17 @@ export default function ComparateurOmra() {
                 setSelectedMonth={setSelectedMonth}
                 selectedDuration={selectedDuration}
                 setSelectedDuration={setSelectedDuration}
+                selectedZone={selectedZone}
+                setSelectedZone={setSelectedZone}
+                selectedCamp={selectedCamp}
+                setSelectedCamp={setSelectedCamp}
+                selectedPackage={selectedPackage}
+                setSelectedPackage={setSelectedPackage}
                 availableCities={availableCities}
                 availableMonths={availableMonths}
+                availableZones={availableZones}
+                availableCamps={availableCamps}
+                availablePackages={availablePackages}
               />
             </Suspense>
             

@@ -4,6 +4,9 @@ import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Search from 'lucide-react/dist/esm/icons/search';
 import X from 'lucide-react/dist/esm/icons/x';
+import Tent from 'lucide-react/dist/esm/icons/tent';
+import Building from 'lucide-react/dist/esm/icons/building';
+import Package from 'lucide-react/dist/esm/icons/package';
 
 interface FilterFormProps {
   tripType: 'omra' | 'hajj';
@@ -14,11 +17,21 @@ interface FilterFormProps {
   setSelectedMonth: (month: string) => void;
   selectedDuration?: string;
   setSelectedDuration?: (duration: string) => void;
+  // Hajj-specific filters
+  selectedZone?: string;
+  setSelectedZone?: (zone: string) => void;
+  selectedCamp?: string;
+  setSelectedCamp?: (camp: string) => void;
+  selectedPackage?: string;
+  setSelectedPackage?: (pkg: string) => void;
   onSearch?: () => void;
   onReset?: () => void;
   compact?: boolean;
   availableCities?: string[];
   availableMonths?: string[];
+  availableZones?: string[];
+  availableCamps?: string[];
+  availablePackages?: string[];
 }
 
 const DEFAULT_MONTHS = [
@@ -46,16 +59,26 @@ export function FilterForm({
   setSelectedMonth,
   selectedDuration,
   setSelectedDuration,
+  selectedZone,
+  setSelectedZone,
+  selectedCamp,
+  setSelectedCamp,
+  selectedPackage,
+  setSelectedPackage,
   onSearch,
   onReset,
   compact = false,
   availableCities = [],
-  availableMonths = []
+  availableMonths = [],
+  availableZones = [],
+  availableCamps = [],
+  availablePackages = []
 }: FilterFormProps) {
   const cities = availableCities.length > 0 ? ["Toutes les villes", ...availableCities] : ["Toutes les villes"];
   const months = availableMonths.length > 0 
     ? DEFAULT_MONTHS.filter(m => availableMonths.includes(m.value))
     : DEFAULT_MONTHS;
+  
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     onSearch?.();
@@ -65,10 +88,18 @@ export function FilterForm({
     setSelectedCity('all');
     setSelectedMonth('all');
     setSelectedDuration?.('all');
+    setSelectedZone?.('all');
+    setSelectedCamp?.('all');
+    setSelectedPackage?.('all');
     onReset?.();
   }
 
-  const hasActiveFilters = selectedCity !== 'all' || selectedMonth !== 'all' || (selectedDuration && selectedDuration !== 'all');
+  const hasActiveFilters = selectedCity !== 'all' || 
+    selectedMonth !== 'all' || 
+    (selectedDuration && selectedDuration !== 'all') ||
+    (selectedZone && selectedZone !== 'all') ||
+    (selectedCamp && selectedCamp !== 'all') ||
+    (selectedPackage && selectedPackage !== 'all');
 
   return (
     <form 
@@ -139,7 +170,7 @@ export function FilterForm({
           </div>
         </div>
 
-        {/* MONTH for Omra OR DURATION for Hajj */}
+        {/* MONTH for Omra OR Hajj-specific filters */}
         {tripType === "omra" ? (
           <div className="flex flex-col">
             <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -164,25 +195,31 @@ export function FilterForm({
             </div>
           </div>
         ) : (
-          <div className="flex flex-col">
-            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Durée de séjour
-            </label>
-            <div className="relative">
-              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
-                <Calendar size={18} />
-              </span>
-              <select
-                value={selectedDuration || 'all'}
-                onChange={(e) => setSelectedDuration?.(e.target.value)}
-                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="all">Toutes durées</option>
-                <option value="court">Court séjour</option>
-                <option value="long">Long séjour</option>
-              </select>
+          <>
+            {/* Zone d'hébergement (Hajj) */}
+            <div className="flex flex-col">
+              <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Zone d'hébergement
+              </label>
+              <div className="relative">
+                <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                  <Building size={18} />
+                </span>
+                <select
+                  value={selectedZone || 'all'}
+                  onChange={(e) => setSelectedZone?.(e.target.value)}
+                  className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="all">Toutes les zones</option>
+                  {availableZones.map((zone) => (
+                    <option key={zone} value={zone}>
+                      Zone {zone}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* CTA */}
@@ -211,6 +248,80 @@ export function FilterForm({
           </div>
         </div>
       </div>
+
+      {/* Hajj-specific additional filters row */}
+      {tripType === "hajj" && (
+        <div className="grid gap-3 mt-3 grid-cols-1 md:grid-cols-3">
+          {/* Camp Mina */}
+          <div className="flex flex-col">
+            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Camp Mina
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                <Tent size={18} />
+              </span>
+              <select
+                value={selectedCamp || 'all'}
+                onChange={(e) => setSelectedCamp?.(e.target.value)}
+                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">Tous les camps</option>
+                {availableCamps.map((camp) => (
+                  <option key={camp} value={camp}>
+                    {camp}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Type de formule (Package) */}
+          <div className="flex flex-col">
+            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Type de formule
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                <Package size={18} />
+              </span>
+              <select
+                value={selectedPackage || 'all'}
+                onChange={(e) => setSelectedPackage?.(e.target.value)}
+                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">Toutes les formules</option>
+                {availablePackages.map((pkg) => (
+                  <option key={pkg} value={pkg}>
+                    {pkg}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Durée de séjour (Hajj) */}
+          <div className="flex flex-col">
+            <label className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Durée de séjour
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                <Calendar size={18} />
+              </span>
+              <select
+                value={selectedDuration || 'all'}
+                onChange={(e) => setSelectedDuration?.(e.target.value)}
+                className="h-12 w-full rounded-xl border border-input bg-background pl-10 pr-10 text-[15px] font-medium text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">Toutes durées</option>
+                <option value="court">Court séjour (≤20 nuits)</option>
+                <option value="long">Long séjour (&gt;20 nuits)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
