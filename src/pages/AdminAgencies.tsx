@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAgencies } from '@/hooks/useAgencies';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -10,28 +9,16 @@ import { Loader2, RefreshCw, Star, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useAdmin } from '@/contexts/AdminContext';
 
 const AdminAgencies = () => {
-  const navigate = useNavigate();
   const { data: agencies, isLoading, refetch } = useAgencies();
   const { toast } = useToast();
-  const { isAdmin, loading: adminLoading } = useAdmin();
   const [updating, setUpdating] = useState(false);
   const [selectedAgencyId, setSelectedAgencyId] = useState<string>('');
   const [newReviewCount, setNewReviewCount] = useState<string>('');
   const [updatingReviewCount, setUpdatingReviewCount] = useState(false);
 
   const handleUpdateReviewCount = async () => {
-    if (!isAdmin) {
-      toast({
-        title: 'Accès refusé',
-        description: "Action réservée aux administrateurs.",
-        variant: 'destructive',
-      });
-      return;
-    }
-
     if (!selectedAgencyId || !newReviewCount) {
       toast({
         title: 'Erreur',
@@ -53,18 +40,6 @@ const AdminAgencies = () => {
 
     setUpdatingReviewCount(true);
     try {
-      // Extra safety: validate admin status via DB function (matches RLS)
-      const { data: isAdminDb, error: isAdminDbError } = await supabase.rpc('is_admin');
-      if (isAdminDbError) throw isAdminDbError;
-      if (!isAdminDb) {
-        toast({
-          title: 'Accès refusé',
-          description: "Votre session n'a pas les droits admin (RLS).",
-          variant: 'destructive',
-        });
-        return;
-      }
-
       const { error } = await supabase
         .from('agencies')
         .update({ 
@@ -83,11 +58,11 @@ const AdminAgencies = () => {
 
       setNewReviewCount('');
       refetch();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating review count:', error);
       toast({
         title: 'Erreur',
-        description: `Impossible de mettre à jour le nombre d'avis${error?.message ? ` — ${error.message}` : ''}${error?.code ? ` (code ${error.code})` : ''}`,
+        description: 'Impossible de mettre à jour le nombre d\'avis',
         variant: 'destructive',
       });
     } finally {
@@ -96,29 +71,8 @@ const AdminAgencies = () => {
   };
 
   const handleManualUpdate = async () => {
-    if (!isAdmin) {
-      toast({
-        title: 'Accès refusé',
-        description: "Action réservée aux administrateurs.",
-        variant: 'destructive',
-      });
-      return;
-    }
-
     setUpdating(true);
     try {
-      // Extra safety: validate admin status via DB function (matches RLS)
-      const { data: isAdminDb, error: isAdminDbError } = await supabase.rpc('is_admin');
-      if (isAdminDbError) throw isAdminDbError;
-      if (!isAdminDb) {
-        toast({
-          title: 'Accès refusé',
-          description: "Votre session n'a pas les droits admin (RLS).",
-          variant: 'destructive',
-        });
-        return;
-      }
-
       const { data, error } = await supabase.functions.invoke('update-agency-reviews');
 
       if (error) throw error;
@@ -130,11 +84,11 @@ const AdminAgencies = () => {
 
       // Rafraîchir les données
       refetch();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating agencies:', error);
       toast({
         title: 'Erreur',
-        description: `Impossible de mettre à jour les avis des agences${error?.message ? ` — ${error.message}` : ''}${error?.code ? ` (code ${error.code})` : ''}`,
+        description: 'Impossible de mettre à jour les avis des agences',
         variant: 'destructive',
       });
     } finally {
@@ -146,32 +100,6 @@ const AdminAgencies = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="w-8 h-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (adminLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Accès refusé</CardTitle>
-            <CardDescription>
-              Cette page est réservée aux administrateurs.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button onClick={() => navigate('/')}>Retour à l'accueil</Button>
-          </CardContent>
-        </Card>
       </div>
     );
   }
