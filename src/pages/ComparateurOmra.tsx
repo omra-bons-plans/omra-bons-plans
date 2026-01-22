@@ -92,10 +92,10 @@ export default function ComparateurOmra() {
   const [mobileViewMode, setMobileViewMode] = useState<'cards' | 'compact'>('compact');
   const [desktopViewMode, setDesktopViewMode] = useState<'cards' | 'list'>('list');
   
-  // ⚡ PAGINATION: 8 mobile (less re-renders), 12 desktop
+  // ⚡ PAGINATION: 6 mobile (reduce TBT), 12 desktop
   const [currentPage, setCurrentPage] = useState(1);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const itemsPerPage = isMobile ? 8 : 12;
+  const itemsPerPage = isMobile ? 6 : 12;
 
   const [offers, setOffers] = useState<any[]>([]);
   const [allOffers, setAllOffers] = useState<any[]>([]);
