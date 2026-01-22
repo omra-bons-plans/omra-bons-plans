@@ -235,10 +235,50 @@ export default function ComparateurOmra() {
         
         
         // ⚡ OPTIMIZED: Select only needed columns to reduce payload
-        const { data: allActiveOffers, error: allOffersError } = await supabase
-          .from('omra_offers')
-          .select('id,agency_name,agency_url,price_eur,month_departure,date_start,date_end,departure_city,formula_type,duration_nights,makkah_nights,medina_nights,hotel_makkah,hotel_medinah,hotel_makkah_stars,hotel_medina_stars,distance_to_haram_m,offer_url,board,flights_included,visa_included,offer_title,is_recommended,is_complet,notes,airline')
-          .eq('status', 'active');
+        // Query the appropriate table based on trip type
+        let allActiveOffers: any[] = [];
+        let allOffersError: any = null;
+        
+        if (tripType === 'hajj') {
+          // Query hajj_offers table for Hajj trips
+          const { data, error } = await supabase
+            .from('hajj_offers')
+            .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
+            .eq('status', 'active');
+          
+          // Map hajj_offers to a unified format
+          allActiveOffers = (data || []).map((offer: any) => ({
+            id: offer.id,
+            agency_name: offer.agency_name,
+            agency_url: offer.agency_url,
+            price_eur: offer.price_quad_eur,
+            month_departure: offer.departure_date ? new Date(offer.departure_date).toLocaleString('fr-FR', { month: 'long' }) : null,
+            date_start: offer.departure_date,
+            date_end: offer.return_date,
+            departure_city: offer.departure_cities?.[0] || 'Paris',
+            formula_type: offer.package_type || 'standard',
+            duration_nights: offer.duration_nights,
+            hotel_makkah: offer.hotel_makkah,
+            hotel_medinah: offer.hotel_medina,
+            offer_url: offer.offer_url,
+            is_recommended: offer.is_recommended,
+            notes: `Zone ${offer.accommodation_zone}${offer.camp_mina ? ` - Camp: ${offer.camp_mina}` : ''}${offer.nusuk_code ? ` - Code Nusuk: ${offer.nusuk_code}` : ''}`,
+            airline: offer.airline,
+            flights_included: true,
+            visa_included: true,
+            is_complet: false,
+            board: offer.half_board ? 'demi-pension' : null,
+          }));
+          allOffersError = error;
+        } else {
+          // Query omra_offers table for Omra trips
+          const { data, error } = await supabase
+            .from('omra_offers')
+            .select('id,agency_name,agency_url,price_eur,month_departure,date_start,date_end,departure_city,formula_type,duration_nights,makkah_nights,medina_nights,hotel_makkah,hotel_medinah,hotel_makkah_stars,hotel_medina_stars,distance_to_haram_m,offer_url,board,flights_included,visa_included,offer_title,is_recommended,is_complet,notes,airline')
+            .eq('status', 'active');
+          allActiveOffers = data || [];
+          allOffersError = error;
+        }
 
         if (allOffersError) {
           console.error('Erreur de chargement:', allOffersError);
