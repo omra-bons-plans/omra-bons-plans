@@ -51,6 +51,7 @@ const DEPARTURE_CITIES = [
   { value: 'belgique', label: 'Belgique' },
   { value: 'bruxelles', label: 'Bruxelles' },
   { value: 'frankfurt', label: 'Frankfurt' },
+  { value: 'geneve', label: 'Genève' },
   { value: 'londres', label: 'Londres' },
   { value: 'lyon', label: 'Lyon' },
   { value: 'montreal', label: 'Montréal' },
