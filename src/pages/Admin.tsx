@@ -19,6 +19,7 @@ import Settings from 'lucide-react/dist/esm/icons/settings';
 import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
 import Lock from 'lucide-react/dist/esm/icons/lock';
 import PlaneTakeoff from 'lucide-react/dist/esm/icons/plane-takeoff';
+import Landmark from 'lucide-react/dist/esm/icons/landmark';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -501,6 +502,18 @@ const Admin = () => {
           <Button
             variant="outline"
             onClick={() => {
+              console.log('📱 Navigating to /admin/hajj-management from mobile menu');
+              setMobileSheetOpen(false);
+              navigate('/admin/hajj-management');
+            }}
+            className="justify-start"
+          >
+            <Landmark className="w-4 h-4 mr-2" />
+            Gestion Offres Hajj
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
               console.log('📱 Navigating to /admin/agencies from mobile menu');
               setMobileSheetOpen(false);
               navigate('/admin/agencies');
@@ -681,6 +694,17 @@ const Admin = () => {
                   >
                     <Settings className="w-4 h-4 mr-2" />
                     Gestion Offres Omra
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      console.log('🖥️ Desktop: Navigating to /admin/hajj-management');
+                      navigate('/admin/hajj-management');
+                    }}
+                    className="text-sm bg-gradient-to-r from-amber-500/10 to-yellow-500/10"
+                  >
+                    <Landmark className="w-4 h-4 mr-2" />
+                    Gestion Offres Hajj
                   </Button>
                   <Button
                     variant="outline"

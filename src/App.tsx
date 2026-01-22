@@ -60,6 +60,7 @@ const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
+const AdminHajjManagement = lazy(() => import("./pages/AdminHajjManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
@@ -193,6 +194,11 @@ const App = () => (
                    <Route path="/admin/omra-management" element={
                      <ProtectedRoute>
                        <AdminOmraManagement />
+                     </ProtectedRoute>
+                   } />
+                   <Route path="/admin/hajj-management" element={
+                     <ProtectedRoute>
+                       <AdminHajjManagement />
                      </ProtectedRoute>
                    } />
                    <Route path="/admin/agencies" element={
