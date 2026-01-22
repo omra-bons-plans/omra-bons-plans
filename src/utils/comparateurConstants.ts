@@ -14,16 +14,21 @@ export const CITIES = [
 
 export const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
+  'Medin Voyages': '/lovable-uploads/logomedinvoyages.webp',
   'Almaqam': '/lovable-uploads/logoalmaqam.webp',
+  'Al Maqam Voyages': '/lovable-uploads/logoalmaqam.webp',
   'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
   'Pelerin': '/lovable-uploads/logopelerinhajj.webp',
   'Hayat': '/lovable-uploads/logohayat.webp',
+  'Al Hayat Voyages': '/lovable-uploads/logohayat.webp',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
+  'Omra Du Savoir': '/lovable-uploads/logoomrasounnah.webp',
   'Omra Pour Tous': '/lovable-uploads/logoomrapourtous.webp',
   'Omra Discount': '/lovable-uploads/logoomradiscount.webp',
   'Sabil': '/lovable-uploads/logosabile-new.webp',
   'Sabil Voyages': '/lovable-uploads/logosabile-new.webp',
   'Tawaf': '/lovable-uploads/logotawaf.webp',
+  'TAWAF': '/lovable-uploads/logotawaf.webp',
   'Al Sirate Voyage': '/lovable-uploads/logoalsirate.webp',
   'Alsirate Voyage': '/lovable-uploads/logoalsirate.webp',
   'Gateway-travel': '/lovable-uploads/logogatewaytravel-new.webp',
@@ -33,6 +38,9 @@ export const AGENCY_LOGOS: Record<string, string> = {
   'OMRA GATE': '/lovable-uploads/logoomragate-new.webp',
   'Omra Gate': '/lovable-uploads/logoomragate-new.webp',
   'OmraGate': '/lovable-uploads/logoomragate-new.webp',
+  // Hajj agencies
+  'Haramain Voyages': '/lovable-uploads/logoharamainvoyages.webp',
+  'Haramain': '/lovable-uploads/logoharamainvoyages.webp',
 };
 
 /**
