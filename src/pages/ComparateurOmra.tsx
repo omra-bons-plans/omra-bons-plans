@@ -1359,6 +1359,13 @@ export default function ComparateurOmra() {
                                     <div className="flex-1">
                                       <div className="text-xs text-muted-foreground">Mecque</div>
                                       <div className="text-sm font-semibold">{offer.hotel_makkah}</div>
+                                      {offer.hotel_makkah_stars && (
+                                        <div className="flex items-center gap-0.5 mt-0.5">
+                                          {[...Array(offer.hotel_makkah_stars)].map((_, i) => (
+                                            <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                                          ))}
+                                        </div>
+                                      )}
                                       {offer.distance_to_haram_m && (
                                         <div className="text-xs text-muted-foreground">{offer.distance_to_haram_m}m du Haram</div>
                                       )}
@@ -1371,6 +1378,13 @@ export default function ComparateurOmra() {
                                     <div className="flex-1">
                                       <div className="text-xs text-muted-foreground">Médine</div>
                                       <div className="text-sm font-semibold">{offer.hotel_medinah}</div>
+                                      {offer.hotel_medina_stars && (
+                                        <div className="flex items-center gap-0.5 mt-0.5">
+                                          {[...Array(offer.hotel_medina_stars)].map((_, i) => (
+                                            <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                                          ))}
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
                                 )}
