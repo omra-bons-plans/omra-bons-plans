@@ -43,6 +43,7 @@ export interface FormattedListing {
   location: string;
   isPopular: boolean;
   isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
+  hotelStars?: number; // Nombre d'étoiles pour les hébergements de type hôtel
 }
 
 export const useAds = (limit: number = 15, offset: number = 0) => {
@@ -311,6 +312,12 @@ export const useAds = (limit: number = 15, offset: number = 0) => {
         preloadImage(coverImageUrl, true);
       }
 
+      // Extraire les étoiles d'hôtel si disponibles
+      const hotelStars = (ad.category === 'hebergement' || ad.category === 'hebergements') && 
+                         ad.categoryDetails?.hotel_stars 
+                         ? ad.categoryDetails.hotel_stars 
+                         : undefined;
+
       return {
         id: ad.id,
         type: ad.category,
@@ -330,6 +337,7 @@ export const useAds = (limit: number = 15, offset: number = 0) => {
         location,
         isPopular: ad.isPromotion || discount > 20, // Popular if promoted or big discount
         isExpired, // Nouvelle propriété pour indiquer si l'annonce est expirée
+        hotelStars, // Nombre d'étoiles pour les hébergements
       };
     });
   };

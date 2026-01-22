@@ -149,7 +149,18 @@ const AdCard = ({ listing, className = "", imageHeight = "h-56", priority = fals
         </div>
         
         {!listing.isExpired && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-wrap gap-y-1">
+            {/* Étoiles d'hôtel pour les hébergements */}
+            {listing.hotelStars && listing.hotelStars > 0 && (
+              <>
+                <div className="flex items-center">
+                  {[...Array(listing.hotelStars)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-muted-foreground">•</span>
+              </>
+            )}
             <div className="flex items-center">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
               <span className="font-semibold">{listing.rating.toFixed(1)}</span>
