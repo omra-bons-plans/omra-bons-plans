@@ -1,9 +1,11 @@
 import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { DynamicSEO } from '@/components/SEO/DynamicSEO';
-import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card } from '@/components/ui/card';
+
+// ⚡ LAZY LOAD: SEO components - not critical for initial render
+const DynamicSEO = lazy(() => import('@/components/SEO/DynamicSEO').then(m => ({ default: m.DynamicSEO })));
+const SEOBreadcrumb = lazy(() => import('@/components/SEO/SEOBreadcrumb').then(m => ({ default: m.SEOBreadcrumb })));
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -54,10 +56,7 @@ import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
 import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
 
-// ⚡ Hide pre-render hero immediately when component mounts
-if (typeof window !== 'undefined' && window.__HIDE_PRERENDER__) {
-  window.__HIDE_PRERENDER__();
-}
+// ⚡ REMOVED: Pre-render hero logic (simplified architecture)
 
 const agencyFormSchema = z.object({
   agencyName: z.string().trim().min(2, { message: "Le nom de l'agence est requis" }).max(100, { message: "Le nom de l'agence doit faire moins de 100 caractères" }),
@@ -128,8 +127,8 @@ export default function ComparateurOmra() {
       setDeferredQueriesEnabled(true);
     };
     
-    // Trigger on scroll, click, or after 2s timeout
-    const timer = setTimeout(enableDataPhase, 2000);
+    // ⚡ OPTIMIZED: Trigger on scroll, click, or after 3s timeout (was 2s)
+    const timer = setTimeout(enableDataPhase, 3000);
     const handleInteraction = () => enableDataPhase();
     
     window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
