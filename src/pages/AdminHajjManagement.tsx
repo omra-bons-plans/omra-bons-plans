@@ -84,7 +84,9 @@ interface HajjOffer {
   camp_mina: string | null;
   duration_nights: number | null;
   hotel_makkah: string;
+  hotel_makkah_stars: number | null;
   hotel_medina: string;
+  hotel_medina_stars: number | null;
   airline: string;
   half_board: boolean;
   offer_url: string;
@@ -136,7 +138,9 @@ export default function AdminHajjManagement() {
     accommodation_zone: 'A',
     camp_mina: null,
     hotel_makkah: '',
+    hotel_makkah_stars: 4,
     hotel_medina: '',
+    hotel_medina_stars: 4,
     airline: '',
     half_board: false,
     offer_url: '',
@@ -272,7 +276,9 @@ export default function AdminHajjManagement() {
           camp_mina: selectedOffer.camp_mina,
           duration_nights: duration,
           hotel_makkah: selectedOffer.hotel_makkah,
+          hotel_makkah_stars: selectedOffer.hotel_makkah_stars,
           hotel_medina: selectedOffer.hotel_medina,
+          hotel_medina_stars: selectedOffer.hotel_medina_stars,
           airline: selectedOffer.airline,
           half_board: selectedOffer.half_board,
           offer_url: selectedOffer.offer_url,
@@ -326,7 +332,9 @@ export default function AdminHajjManagement() {
           camp_mina: newOffer.camp_mina,
           duration_nights: duration,
           hotel_makkah: newOffer.hotel_makkah,
+          hotel_makkah_stars: newOffer.hotel_makkah_stars || 4,
           hotel_medina: newOffer.hotel_medina,
+          hotel_medina_stars: newOffer.hotel_medina_stars || 4,
           airline: newOffer.airline,
           half_board: newOffer.half_board || false,
           offer_url: newOffer.offer_url,
@@ -354,7 +362,9 @@ export default function AdminHajjManagement() {
         accommodation_zone: 'A',
         camp_mina: null,
         hotel_makkah: '',
+        hotel_makkah_stars: 4,
         hotel_medina: '',
+        hotel_medina_stars: 4,
         airline: '',
         half_board: false,
         offer_url: '',
@@ -569,7 +579,7 @@ export default function AdminHajjManagement() {
                       key={hotel.id}
                       value={hotel.hotel_name}
                       onSelect={() => {
-                        setOffer({ ...offer, hotel_makkah: hotel.hotel_name });
+                        setOffer({ ...offer, hotel_makkah: hotel.hotel_name, hotel_makkah_stars: hotel.stars || offer.hotel_makkah_stars });
                         setOpenMakkahHotelPopover(false);
                       }}
                     >
@@ -579,7 +589,7 @@ export default function AdminHajjManagement() {
                           offer.hotel_makkah === hotel.hotel_name ? "opacity-100" : "opacity-0"
                         )}
                       />
-                      {hotel.hotel_name}
+                      {hotel.hotel_name} ({hotel.stars}⭐)
                     </CommandItem>
                   ))}
                 </CommandGroup>
@@ -587,6 +597,27 @@ export default function AdminHajjManagement() {
             </PopoverContent>
           </Popover>
         </div>
+        <div>
+          <Label>Étoiles Makkah</Label>
+          <Select
+            value={(offer.hotel_makkah_stars || 4).toString()}
+            onValueChange={(value) => setOffer({ ...offer, hotel_makkah_stars: parseInt(value) })}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">1 ⭐</SelectItem>
+              <SelectItem value="2">2 ⭐⭐</SelectItem>
+              <SelectItem value="3">3 ⭐⭐⭐</SelectItem>
+              <SelectItem value="4">4 ⭐⭐⭐⭐</SelectItem>
+              <SelectItem value="5">5 ⭐⭐⭐⭐⭐</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <Label>Hôtel Médina</Label>
           <Popover open={openMedinaHotelPopover} onOpenChange={setOpenMedinaHotelPopover}>
@@ -621,7 +652,7 @@ export default function AdminHajjManagement() {
                       key={hotel.id}
                       value={hotel.hotel_name}
                       onSelect={() => {
-                        setOffer({ ...offer, hotel_medina: hotel.hotel_name });
+                        setOffer({ ...offer, hotel_medina: hotel.hotel_name, hotel_medina_stars: hotel.stars || offer.hotel_medina_stars });
                         setOpenMedinaHotelPopover(false);
                       }}
                     >
@@ -631,13 +662,31 @@ export default function AdminHajjManagement() {
                           offer.hotel_medina === hotel.hotel_name ? "opacity-100" : "opacity-0"
                         )}
                       />
-                      {hotel.hotel_name}
+                      {hotel.hotel_name} ({hotel.stars}⭐)
                     </CommandItem>
                   ))}
                 </CommandGroup>
               </Command>
             </PopoverContent>
           </Popover>
+        </div>
+        <div>
+          <Label>Étoiles Médina</Label>
+          <Select
+            value={(offer.hotel_medina_stars || 4).toString()}
+            onValueChange={(value) => setOffer({ ...offer, hotel_medina_stars: parseInt(value) })}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">1 ⭐</SelectItem>
+              <SelectItem value="2">2 ⭐⭐</SelectItem>
+              <SelectItem value="3">3 ⭐⭐⭐</SelectItem>
+              <SelectItem value="4">4 ⭐⭐⭐⭐</SelectItem>
+              <SelectItem value="5">5 ⭐⭐⭐⭐⭐</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
