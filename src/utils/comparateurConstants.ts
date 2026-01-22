@@ -39,8 +39,8 @@ export const AGENCY_LOGOS: Record<string, string> = {
   'Omra Gate': '/lovable-uploads/logoomragate-new.webp',
   'OmraGate': '/lovable-uploads/logoomragate-new.webp',
   // Hajj agencies
-  'Haramain Voyages': '/lovable-uploads/logoharamainvoyages.webp',
-  'Haramain': '/lovable-uploads/logoharamainvoyages.webp',
+  'Haramain Voyages': '/lovable-uploads/logoharamainvoyages-new.webp',
+  'Haramain': '/lovable-uploads/logoharamainvoyages-new.webp',
 };
 
 /**

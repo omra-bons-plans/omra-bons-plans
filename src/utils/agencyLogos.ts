@@ -14,7 +14,7 @@ export const agencyLogos: Record<string, string> = {
   "Omra Discount": "/lovable-uploads/logoomradiscount.webp",
   "Labbayk": "/lovable-uploads/logo-labayk-optimized.webp",
   "OMRA GATE": "/lovable-uploads/logoomragate-new.webp",
-  "Haramain Voyages": "/lovable-uploads/logoharamainvoyages.webp",
+  "Haramain Voyages": "/lovable-uploads/logoharamainvoyages-new.webp",
 };
 
 export const getAgencyLogo = (agencyName: string): string | null => {
