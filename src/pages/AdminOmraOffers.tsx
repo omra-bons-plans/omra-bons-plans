@@ -34,6 +34,7 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import type { DateRange } from 'react-day-picker';
 import { OmraOfferFormCard } from '@/components/forms/OmraOfferFormCard';
+import { HajjOfferForm } from '@/components/forms/HajjOfferForm';
 
 const MONTHS = [
   { value: 'janvier', label: 'Janvier' },
@@ -386,90 +387,103 @@ const AdminOmraOffers = () => {
             </CardContent>
           </Card>
 
-          {/* Informations de l'agence */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Building2 className="h-5 w-5" />
-                Informations de l'agence
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="agency_name">Nom de l'agence *</Label>
-                <Select
-                  value={formData.agency_name}
-                  onValueChange={(value) => {
-                    setFormData({ ...formData, agency_name: value });
-                    // Charger automatiquement le logo de l'agence
-                    const logo = getAgencyLogo(value);
-                    if (logo) {
-                      setLogoPreview(logo);
-                      setFormData(prev => ({ ...prev, agency_logo: logo }));
-                    }
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionner une agence" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[300px]">
-                    {getAgencyNames().map((agencyName) => (
-                      <SelectItem key={agencyName} value={agencyName}>
-                        {agencyName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+          {/* Rendu conditionnel: Formulaire Omra ou Hajj */}
+          {offerType === 'hajj' ? (
+            <HajjOfferForm 
+              onCancel={() => navigate('/admin')}
+              onSuccess={() => {
+                toast({
+                  title: "✅ Offre Hajj ajoutée",
+                  description: "Vous pouvez ajouter une autre offre.",
+                });
+              }}
+            />
+          ) : (
+            <>
+              {/* Informations de l'agence - OMRA */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Building2 className="h-5 w-5" />
+                    Informations de l'agence
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="agency_name">Nom de l'agence *</Label>
+                    <Select
+                      value={formData.agency_name}
+                      onValueChange={(value) => {
+                        setFormData({ ...formData, agency_name: value });
+                        // Charger automatiquement le logo de l'agence
+                        const logo = getAgencyLogo(value);
+                        if (logo) {
+                          setLogoPreview(logo);
+                          setFormData(prev => ({ ...prev, agency_logo: logo }));
+                        }
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Sélectionner une agence" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px]">
+                        {getAgencyNames().map((agencyName) => (
+                          <SelectItem key={agencyName} value={agencyName}>
+                            {agencyName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="offer_url">Lien de l'offre *</Label>
-                <Input
-                  id="offer_url"
-                  type="url"
-                  value={formData.offer_url}
-                  onChange={(e) => setFormData({ ...formData, offer_url: e.target.value })}
-                  placeholder="https://exemple.com/offre-omra"
-                  required
-                />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="offer_url">Lien de l'offre *</Label>
+                    <Input
+                      id="offer_url"
+                      type="url"
+                      value={formData.offer_url}
+                      onChange={(e) => setFormData({ ...formData, offer_url: e.target.value })}
+                      placeholder="https://exemple.com/offre-omra"
+                      required
+                    />
+                  </div>
 
-              <div className="space-y-2">
-                <Label>Logo de l'agence</Label>
-                <div className="flex items-center gap-4">
-                  {logoPreview ? (
-                    <div className="relative w-32 h-32 border rounded-lg overflow-hidden bg-white">
-                      <img
-                        src={logoPreview}
-                        alt="Logo preview"
-                        className="w-full h-full object-contain p-2"
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-1 right-1 h-6 w-6"
-                        onClick={handleRemoveLogo}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
+                  <div className="space-y-2">
+                    <Label>Logo de l'agence</Label>
+                    <div className="flex items-center gap-4">
+                      {logoPreview ? (
+                        <div className="relative w-32 h-32 border rounded-lg overflow-hidden bg-white">
+                          <img
+                            src={logoPreview}
+                            alt="Logo preview"
+                            className="w-full h-full object-contain p-2"
+                          />
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            className="absolute top-1 right-1 h-6 w-6"
+                            onClick={handleRemoveLogo}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                          <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                          <span className="text-xs text-muted-foreground text-center px-2">Ajouter logo</span>
+                          <input
+                            type="file"
+                            className="hidden"
+                            accept="image/*"
+                            onChange={handleLogoSelect}
+                          />
+                        </label>
+                      )}
                     </div>
-                  ) : (
-                    <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
-                      <Upload className="h-8 w-8 text-muted-foreground mb-2" />
-                      <span className="text-xs text-muted-foreground text-center px-2">Ajouter logo</span>
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={handleLogoSelect}
-                      />
-                    </label>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                  </div>
+                </CardContent>
+              </Card>
 
           {/* Détails du séjour */}
           <Card>
@@ -628,24 +642,6 @@ const AdminOmraOffers = () => {
                   </Label>
                 </div>
               </div>
-
-              {offerType === 'hajj' && (
-                <div className="space-y-2">
-                  <Label htmlFor="hajj_duration_type">Durée de séjour Hajj *</Label>
-                  <Select
-                    value={formData.hajj_duration_type}
-                    onValueChange={(value) => setFormData({ ...formData, hajj_duration_type: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="court">Court séjour</SelectItem>
-                      <SelectItem value="long">Long séjour</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
             </CardContent>
           </Card>
 
@@ -959,6 +955,8 @@ const AdminOmraOffers = () => {
               </Button>
             </div>
           </div>
+            </>
+          )}
         </form>
 
         {/* Formulaires supplémentaires */}
