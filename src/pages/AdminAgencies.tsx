@@ -53,6 +53,18 @@ const AdminAgencies = () => {
 
     setUpdatingReviewCount(true);
     try {
+      // Extra safety: validate admin status via DB function (matches RLS)
+      const { data: isAdminDb, error: isAdminDbError } = await supabase.rpc('is_admin');
+      if (isAdminDbError) throw isAdminDbError;
+      if (!isAdminDb) {
+        toast({
+          title: 'Accès refusé',
+          description: "Votre session n'a pas les droits admin (RLS).",
+          variant: 'destructive',
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('agencies')
         .update({ 
@@ -71,11 +83,11 @@ const AdminAgencies = () => {
 
       setNewReviewCount('');
       refetch();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating review count:', error);
       toast({
         title: 'Erreur',
-        description: 'Impossible de mettre à jour le nombre d\'avis',
+        description: `Impossible de mettre à jour le nombre d'avis${error?.message ? ` — ${error.message}` : ''}${error?.code ? ` (code ${error.code})` : ''}`,
         variant: 'destructive',
       });
     } finally {
@@ -95,6 +107,18 @@ const AdminAgencies = () => {
 
     setUpdating(true);
     try {
+      // Extra safety: validate admin status via DB function (matches RLS)
+      const { data: isAdminDb, error: isAdminDbError } = await supabase.rpc('is_admin');
+      if (isAdminDbError) throw isAdminDbError;
+      if (!isAdminDb) {
+        toast({
+          title: 'Accès refusé',
+          description: "Votre session n'a pas les droits admin (RLS).",
+          variant: 'destructive',
+        });
+        return;
+      }
+
       const { data, error } = await supabase.functions.invoke('update-agency-reviews');
 
       if (error) throw error;
@@ -106,11 +130,11 @@ const AdminAgencies = () => {
 
       // Rafraîchir les données
       refetch();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating agencies:', error);
       toast({
         title: 'Erreur',
-        description: 'Impossible de mettre à jour les avis des agences',
+        description: `Impossible de mettre à jour les avis des agences${error?.message ? ` — ${error.message}` : ''}${error?.code ? ` (code ${error.code})` : ''}`,
         variant: 'destructive',
       });
     } finally {
