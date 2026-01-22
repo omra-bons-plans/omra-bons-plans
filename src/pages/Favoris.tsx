@@ -47,20 +47,57 @@ export default function Favoris() {
     setFavoriteIds(favorites);
   }, []);
   
-  // Fetch les offres favorites depuis la DB
+  // Fetch les offres favorites depuis la DB (Omra + Hajj)
   const { data: offers, isLoading, refetch } = useQuery({
     queryKey: ['favorite-offers', favoriteIds],
     queryFn: async () => {
       if (favoriteIds.length === 0) return [];
       
-      const { data, error } = await supabase
+      // Récupérer les offres Omra
+      const { data: omraData, error: omraError } = await supabase
         .from('omra_offers')
         .select('*')
         .in('id', favoriteIds)
         .eq('status', 'active');
       
-      if (error) throw error;
-      return data || [];
+      if (omraError) throw omraError;
+      
+      // Récupérer les offres Hajj
+      const { data: hajjData, error: hajjError } = await supabase
+        .from('hajj_offers')
+        .select('*')
+        .in('id', favoriteIds)
+        .eq('status', 'active');
+      
+      if (hajjError) throw hajjError;
+      
+      // Normaliser les offres Hajj pour correspondre au format Omra
+      const normalizedHajjOffers = (hajjData || []).map(offer => ({
+        ...offer,
+        offer_type: 'hajj' as const,
+        offer_title: `Hajj ${offer.package_type} - ${offer.accommodation_zone}`,
+        departure_city: offer.departure_cities?.[0] || 'Paris',
+        price_eur: offer.price_quad_eur,
+        hotel_makkah: offer.hotel_makkah,
+        hotel_medinah: offer.hotel_medina,
+        hotel_makkah_stars: offer.hotel_makkah_stars,
+        hotel_medina_stars: offer.hotel_medina_stars,
+        date_start: offer.departure_date,
+        date_end: offer.return_date,
+        flights_included: true,
+        formula_type: offer.package_type,
+      }));
+      
+      // Marquer les offres Omra
+      const normalizedOmraOffers = (omraData || []).map(offer => ({
+        ...offer,
+        offer_type: 'omra' as const,
+      }));
+      
+      // Combiner et trier par date de création
+      return [...normalizedOmraOffers, ...normalizedHajjOffers].sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
     },
     enabled: favoriteIds.length > 0
   });
