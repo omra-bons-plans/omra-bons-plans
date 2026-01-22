@@ -145,6 +145,16 @@ export default function ComparateurOmra() {
     };
   }, []);
 
+  // ⚡ FIX: Réinitialiser les filtres de prix quand tripType change (Omra ↔ Hajj)
+  useEffect(() => {
+    // Réinitialiser les valeurs de prix pour le nouveau type de séjour
+    setPriceMin(0);
+    setPriceMax(10000);
+    setMaxPrice(10000);
+    setIsInitialLoad(true); // Permettre au nouveau maxPrice de s'appliquer lors du fetch
+    setCurrentPage(1); // Revenir à la première page
+  }, [tripType]);
+
   // ⚡ DEFERRED: Last update query - only after interaction
   const { data: lastUpdate } = useQuery({
     queryKey: ['last-successful-update'],
