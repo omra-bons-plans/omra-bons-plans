@@ -29,11 +29,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- ⚡ Preload critical LCP hero image - CONDITIONAL par device -->
-    <!-- Mobile: Image portrait ultra-optimisée (~40KB) pour LCP rapide -->
-    <link rel="preload" as="image" href="/hero-kaaba-mobile-portrait.webp" type="image/webp" fetchpriority="high" media="(max-width: 767px)">
-    <!-- Desktop: Image full resolution -->
-    <link rel="preload" as="image" href="/hero-kaaba-new.webp" type="image/webp" fetchpriority="high" media="(min-width: 768px)">
+    <!-- ⚡ Preload critical LCP hero image - Single compressed image -->
+    <link rel="preload" as="image" href="/hero-kaaba-compressed.webp" type="image/webp" fetchpriority="high">
     
     <!-- ⚡ Preload critical font for faster text rendering -->
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2" type="font/woff2" crossorigin>
@@ -155,9 +152,9 @@
   </head>
 
   <body>
-    <!-- ⚡ PRE-RENDER: Simplified hero for faster LCP -->
+    <!-- ⚡ PRE-RENDER: Compressed hero for faster LCP -->
     <div id="prerender-hero" class="prerender-hero">
-      <img src="/hero-kaaba-mobile-portrait.webp" alt="Comparateur Omra" width="576" height="1024" fetchpriority="high" decoding="sync" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <img src="/hero-kaaba-compressed.webp" alt="Comparateur Omra" width="1024" height="576" fetchpriority="high" decoding="sync" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     </div>
     
     <!-- ⚡ React mount point -->
