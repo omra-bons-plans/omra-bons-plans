@@ -84,7 +84,9 @@ interface HajjOfferFormData {
   price_quad_eur: number;
   package_type: string;
   hotel_makkah: string;
+  hotel_makkah_stars: number;
   hotel_medina: string;
+  hotel_medina_stars: number;
   camp_mina: string;
   half_board: boolean;
   departure_cities: string[];
@@ -142,7 +144,9 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
     price_quad_eur: 0,
     package_type: 'standard',
     hotel_makkah: '',
+    hotel_makkah_stars: 4,
     hotel_medina: '',
+    hotel_medina_stars: 4,
     camp_mina: '',
     half_board: false,
     departure_cities: [],
@@ -269,7 +273,9 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
         price_quad_eur: 0,
         package_type: 'standard',
         hotel_makkah: '',
+        hotel_makkah_stars: 4,
         hotel_medina: '',
+        hotel_medina_stars: 4,
         camp_mina: '',
         half_board: false,
         departure_cities: [],
@@ -517,12 +523,16 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
                           key={hotel.id}
                           value={hotel.hotel_name}
                           onSelect={(value) => {
-                            setFormData({ ...formData, hotel_makkah: value });
+                            setFormData({ 
+                              ...formData, 
+                              hotel_makkah: value,
+                              hotel_makkah_stars: hotel.stars || 4
+                            });
                             setOpenMakkahHotel(false);
                           }}
                         >
                           <Check className={cn("mr-2 h-4 w-4", formData.hotel_makkah === hotel.hotel_name ? "opacity-100" : "opacity-0")} />
-                          {hotel.hotel_name}
+                          {hotel.hotel_name} ({hotel.stars}⭐)
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -531,6 +541,25 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
               </Popover>
             </div>
 
+            <div className="space-y-2">
+              <Label>Étoiles Makkah *</Label>
+              <Select
+                value={formData.hotel_makkah_stars.toString()}
+                onValueChange={(value) => setFormData({ ...formData, hotel_makkah_stars: parseInt(value) })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="3">3 ⭐⭐⭐</SelectItem>
+                  <SelectItem value="4">4 ⭐⭐⭐⭐</SelectItem>
+                  <SelectItem value="5">5 ⭐⭐⭐⭐⭐</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Hôtel à Médine *</Label>
               <Popover open={openMedinaHotel} onOpenChange={setOpenMedinaHotel}>
@@ -556,18 +585,39 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
                           key={hotel.id}
                           value={hotel.hotel_name}
                           onSelect={(value) => {
-                            setFormData({ ...formData, hotel_medina: value });
+                            setFormData({ 
+                              ...formData, 
+                              hotel_medina: value,
+                              hotel_medina_stars: hotel.stars || 4
+                            });
                             setOpenMedinaHotel(false);
                           }}
                         >
                           <Check className={cn("mr-2 h-4 w-4", formData.hotel_medina === hotel.hotel_name ? "opacity-100" : "opacity-0")} />
-                          {hotel.hotel_name}
+                          {hotel.hotel_name} ({hotel.stars}⭐)
                         </CommandItem>
                       ))}
                     </CommandGroup>
                   </Command>
                 </PopoverContent>
               </Popover>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Étoiles Médine *</Label>
+              <Select
+                value={formData.hotel_medina_stars.toString()}
+                onValueChange={(value) => setFormData({ ...formData, hotel_medina_stars: parseInt(value) })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="3">3 ⭐⭐⭐</SelectItem>
+                  <SelectItem value="4">4 ⭐⭐⭐⭐</SelectItem>
+                  <SelectItem value="5">5 ⭐⭐⭐⭐⭐</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </CardContent>
