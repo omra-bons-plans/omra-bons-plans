@@ -120,16 +120,18 @@ export default function ComparateurOmra() {
   // ⚡ TBT OPTIMIZATION: Defer non-critical queries - only load after user interacts or after 3s
   const [deferredQueriesEnabled, setDeferredQueriesEnabled] = useState(false);
   
-  // ⚡ PHASE 2: Enable data loading after 2 seconds or on first scroll/interaction
+  // ⚡ PHASE 2: Enable data loading immediately for main offers, defer secondary queries
   useEffect(() => {
-    const enableDataPhase = () => {
-      setDataPhaseEnabled(true);
+    // ⚡ CRITICAL FIX: Enable offers fetch immediately (was blocking for 3s)
+    setDataPhaseEnabled(true);
+    
+    const enableDeferredQueries = () => {
       setDeferredQueriesEnabled(true);
     };
     
-    // ⚡ OPTIMIZED: Trigger on scroll, click, or after 3s timeout (was 2s)
-    const timer = setTimeout(enableDataPhase, 3000);
-    const handleInteraction = () => enableDataPhase();
+    // ⚡ DEFERRED: Secondary queries (agencies, lastUpdate) still wait for interaction or 2s
+    const timer = setTimeout(enableDeferredQueries, 2000);
+    const handleInteraction = () => enableDeferredQueries();
     
     window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
     window.addEventListener('click', handleInteraction, { once: true, passive: true });
@@ -348,12 +350,14 @@ export default function ComparateurOmra() {
         
         
         
-        // Filtrer par durée de séjour Hajj
+        // Filtrer par durée de séjour Hajj (basé sur duration_nights, pas sur notes)
         if (tripType === 'hajj' && selectedDuration && selectedDuration !== 'all') {
-          const durationText = selectedDuration === 'court' ? 'Court séjour' : 'Long séjour';
-          filtered = filtered.filter(offer => 
-            offer.notes?.includes(durationText)
-          );
+          // Court séjour = <= 20 nuits, Long séjour = > 20 nuits
+          const isCourtSejour = selectedDuration === 'court';
+          filtered = filtered.filter(offer => {
+            const nights = offer.duration_nights || 0;
+            return isCourtSejour ? nights <= 20 : nights > 20;
+          });
         }
         
         // Trier
