@@ -5,8 +5,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx'
 import './index.css'
 
-console.log('🚀 App starting...');
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -20,11 +18,7 @@ const queryClient = new QueryClient({
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  console.log('✅ Root element found, rendering React app...');
-  
-  // ⚡ LCP FIX: NE PAS supprimer le prerender-hero - il sert de LCP
-  // React va se superposer dessus avec z-index plus élevé
-  // On supprime UNIQUEMENT le skeleton (pas l'image hero)
+  // ⚡ LCP FIX: Hide skeleton immediately
   const prerenderSkeleton = document.getElementById('prerender-skeleton');
   if (prerenderSkeleton) {
     prerenderSkeleton.style.display = 'none';
@@ -40,17 +34,12 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  // ⚡ LCP FIX: Supprimer le prerender-hero INSTANTANÉMENT
-  // Pas d'animation - suppression directe pour un LCP optimal
-  requestAnimationFrame(() => {
+  // ⚡ LCP FIX: Delay pre-render removal to ensure React has painted
+  setTimeout(() => {
     const prerenderHero = document.getElementById('prerender-hero');
     if (prerenderHero) {
-      prerenderHero.style.display = 'none'; // Plus rapide que opacity
+      prerenderHero.style.display = 'none';
       prerenderHero.remove();
     }
-  });
-  
-  console.log('✅ React app rendered successfully');
-} else {
-  console.error('❌ Root element not found!');
+  }, 50);
 }

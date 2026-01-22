@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react';
-// App v2.1.0 - Security review completed
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+// App v2.2.0 - PageSpeed optimized: lazy-load Toasters
+
+// ⚡ PERF: Lazy-load non-critical toast components
+const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
+const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
 import { TooltipProvider } from "@/components/ui/tooltip";
 // QueryClient moved to main.tsx for single instance
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -76,8 +78,11 @@ const App = () => (
       <AuthProvider>
         <AdminProvider>
           <TooltipProvider>
-            <Toaster />
-            <Sonner />
+            {/* ⚡ PERF: Toasters lazy-loaded, won't block LCP */}
+            <Suspense fallback={null}>
+              <Toaster />
+              <Sonner />
+            </Suspense>
             <BrowserRouter>
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
