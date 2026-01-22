@@ -348,57 +348,57 @@ const AdminOmraOffers = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Type d'annonce */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Plane className="h-5 w-5" />
-                Type d'annonce
-              </CardTitle>
-              <CardDescription>Sélectionnez le type de séjour à ajouter</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Label htmlFor="offer_type">Type de séjour *</Label>
-                <Select
-                  value={offerType}
-                  onValueChange={(value: 'omra' | 'hajj') => setOfferType(value)}
-                >
-                  <SelectTrigger className="w-full md:w-64">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="omra">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4" />
-                        <span>Omra</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="hajj">
-                      <div className="flex items-center gap-2">
-                        <CalendarIcon className="h-4 w-4" />
-                        <span>Hajj</span>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Type d'annonce - Toujours visible */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Plane className="h-5 w-5" />
+              Type d'annonce
+            </CardTitle>
+            <CardDescription>Sélectionnez le type de séjour à ajouter</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Label htmlFor="offer_type">Type de séjour *</Label>
+              <Select
+                value={offerType}
+                onValueChange={(value: 'omra' | 'hajj') => setOfferType(value)}
+              >
+                <SelectTrigger className="w-full md:w-64">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="omra">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4" />
+                      <span>Omra</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="hajj">
+                    <div className="flex items-center gap-2">
+                      <CalendarIcon className="h-4 w-4" />
+                      <span>Hajj</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Rendu conditionnel: Formulaire Omra ou Hajj */}
-          {offerType === 'hajj' ? (
-            <HajjOfferForm 
-              onCancel={() => navigate('/admin')}
-              onSuccess={() => {
-                toast({
-                  title: "✅ Offre Hajj ajoutée",
-                  description: "Vous pouvez ajouter une autre offre.",
-                });
-              }}
-            />
-          ) : (
+        {/* Rendu conditionnel: Formulaire Omra ou Hajj */}
+        {offerType === 'hajj' ? (
+          <HajjOfferForm 
+            onCancel={() => navigate('/admin')}
+            onSuccess={() => {
+              toast({
+                title: "✅ Offre Hajj ajoutée",
+                description: "Vous pouvez ajouter une autre offre.",
+              });
+            }}
+          />
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
             <>
               {/* Informations de l'agence - OMRA */}
               <Card>
@@ -955,9 +955,9 @@ const AdminOmraOffers = () => {
               </Button>
             </div>
           </div>
-            </>
-          )}
-        </form>
+          </>
+          </form>
+        )}
 
         {/* Formulaires supplémentaires */}
         {additionalForms.map((form, index) => (

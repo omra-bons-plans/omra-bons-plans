@@ -12,6 +12,7 @@ import ChevronsUpDown from 'lucide-react/dist/esm/icons/chevrons-up-down';
 import Check from 'lucide-react/dist/esm/icons/check';
 import Save from 'lucide-react/dist/esm/icons/save';
 import X from 'lucide-react/dist/esm/icons/x';
+import Upload from 'lucide-react/dist/esm/icons/upload';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +28,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { getAgencyLogo, getAgencyNames } from '@/utils/agencyLogos';
 import { useHotelPresets } from '@/hooks/useHotelPresets';
+import { useImageUpload } from '@/hooks/useImageUpload';
 import { cn } from '@/lib/utils';
 
 // Constants for Hajj form
@@ -101,12 +103,35 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
   const [saving, setSaving] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
 
   const [openMakkahHotel, setOpenMakkahHotel] = useState(false);
   const [openMedinaHotel, setOpenMedinaHotel] = useState(false);
 
   const { hotels: makkahHotels, saveHotel: saveMakkahHotel } = useHotelPresets('makkah');
   const { hotels: medinaHotels, saveHotel: saveMedinaHotel } = useHotelPresets('medina');
+  const { uploadImage, uploading } = useImageUpload('ad-images');
+
+  const handleLogoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Fichier trop volumineux",
+          description: "Le logo ne doit pas dépasser 5MB",
+          variant: "destructive"
+        });
+        return;
+      }
+      setLogoFile(file);
+      setLogoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveLogo = () => {
+    setLogoFile(null);
+    setLogoPreview(null);
+  };
 
   const [formData, setFormData] = useState<HajjOfferFormData>({
     agency_name: '',
@@ -311,13 +336,40 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
             <p className="text-xs text-muted-foreground">https:// sera ajouté automatiquement si nécessaire</p>
           </div>
 
-          {logoPreview && (
+          <div className="space-y-2">
+            <Label>Logo de l'agence</Label>
             <div className="flex items-center gap-4">
-              <div className="w-20 h-20 border rounded-lg overflow-hidden bg-white p-2">
-                <img src={logoPreview} alt="Logo agence" className="w-full h-full object-contain" />
-              </div>
+              {logoPreview ? (
+                <div className="relative w-32 h-32 border rounded-lg overflow-hidden bg-white">
+                  <img
+                    src={logoPreview}
+                    alt="Logo preview"
+                    className="w-full h-full object-contain p-2"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-1 right-1 h-6 w-6"
+                    onClick={handleRemoveLogo}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                  <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                  <span className="text-xs text-muted-foreground text-center px-2">Ajouter logo</span>
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleLogoSelect}
+                  />
+                </label>
+              )}
             </div>
-          )}
+          </div>
         </CardContent>
       </Card>
 
