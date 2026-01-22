@@ -324,10 +324,12 @@ export default function ComparateurOmra() {
           filtered = filtered.filter(offer => (offer.month_departure || '').trim().toLowerCase() === selectedMonthNorm);
         }
         if (selectedCity && selectedCity !== 'all') {
-          filtered = filtered.filter(offer => offer.departure_city === selectedCity);
+          const selectedCityNorm = selectedCity.trim().toLowerCase();
+          filtered = filtered.filter(offer => (offer.departure_city || '').trim().toLowerCase() === selectedCityNorm);
         }
         if (selectedFormula && selectedFormula !== 'all') {
-          filtered = filtered.filter(offer => offer.formula_type === selectedFormula.toLowerCase());
+          const selectedFormulaNorm = selectedFormula.trim().toLowerCase();
+          filtered = filtered.filter(offer => (offer.formula_type || '').trim().toLowerCase() === selectedFormulaNorm);
         }
         if (currentPriceMin > 0) {
           filtered = filtered.filter(offer => offer.price_eur >= currentPriceMin);
