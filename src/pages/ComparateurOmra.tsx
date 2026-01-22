@@ -326,8 +326,34 @@ export default function ComparateurOmra() {
         const agencies = Array.from(new Set(allData.map(offer => offer.agency_name).filter(Boolean)));
         if (isMounted) setAvailableAgencies(agencies);
         
-        // Extraire les villes disponibles depuis TOUTES les offres
-        const allCities = Array.from(new Set(allData.map(offer => offer.departure_city?.trim()).filter(Boolean)));
+        // Extraire les villes disponibles depuis TOUTES les offres (normalisées)
+        const normalizeCity = (city: string) => {
+          const normalized = city.trim().toLowerCase();
+          const cityMap: Record<string, string> = {
+            'paris': 'Paris',
+            'lyon': 'Lyon',
+            'marseille': 'Marseille',
+            'toulouse': 'Toulouse',
+            'bordeaux': 'Bordeaux',
+            'nice': 'Nice',
+            'nantes': 'Nantes',
+            'strasbourg': 'Strasbourg',
+            'lille': 'Lille',
+            'rennes': 'Rennes',
+            'montpellier': 'Montpellier',
+            'bruxelles': 'Bruxelles',
+            'geneve': 'Genève',
+            'genève': 'Genève',
+            'frankfurt': 'Frankfurt',
+            'londres': 'Londres',
+            'montreal': 'Montréal',
+            'montréal': 'Montréal',
+            'belgique': 'Belgique',
+            'amsterdam': 'Amsterdam',
+          };
+          return cityMap[normalized] || city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+        };
+        const allCities = Array.from(new Set(allData.map(offer => normalizeCity(offer.departure_city || '')).filter(Boolean)));
         if (isMounted) setAvailableCities(allCities.sort());
         
         // Extraire les mois disponibles depuis TOUTES les offres
