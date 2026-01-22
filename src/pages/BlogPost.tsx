@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { ArrowLeft, MapPin, Eye, Calendar, Tag, Video, User, Share2, Phone, Instagram, MessageCircle } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Tag from 'lucide-react/dist/esm/icons/tag';
+import Video from 'lucide-react/dist/esm/icons/video';
+import User from 'lucide-react/dist/esm/icons/user';
+import Share2 from 'lucide-react/dist/esm/icons/share-2';
+import Phone from 'lucide-react/dist/esm/icons/phone';
+import Instagram from 'lucide-react/dist/esm/icons/instagram';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

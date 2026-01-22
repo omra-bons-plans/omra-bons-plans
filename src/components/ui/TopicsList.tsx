@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { MessageCircle, Plus, Pin, Trash2, Users, Clock, Search } from 'lucide-react';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Plus from 'lucide-react/dist/esm/icons/plus';
+import Pin from 'lucide-react/dist/esm/icons/pin';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
+import Users from 'lucide-react/dist/esm/icons/users';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import Search from 'lucide-react/dist/esm/icons/search';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';

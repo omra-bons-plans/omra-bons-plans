@@ -1,4 +1,8 @@
-import { Star, User, Calendar, Edit2, Trash2 } from 'lucide-react';
+import Star from 'lucide-react/dist/esm/icons/star';
+import User from 'lucide-react/dist/esm/icons/user';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Edit2 from 'lucide-react/dist/esm/icons/edit-2';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
 import { Button } from './button';
 import { Card, CardContent } from './card';
 import { Badge } from './badge';

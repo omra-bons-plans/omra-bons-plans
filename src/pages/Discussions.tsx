@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { MessageCircle, Hash, ArrowLeft } from 'lucide-react';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Hash from 'lucide-react/dist/esm/icons/hash';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTopics } from '@/hooks/useTopics';

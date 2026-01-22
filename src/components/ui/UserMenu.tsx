@@ -1,4 +1,9 @@
-import { User, LogOut, Settings, FileText, Shield, Bell as BellIcon } from 'lucide-react';
+import User from 'lucide-react/dist/esm/icons/user';
+import LogOut from 'lucide-react/dist/esm/icons/log-out';
+import Settings from 'lucide-react/dist/esm/icons/settings';
+import FileText from 'lucide-react/dist/esm/icons/file-text';
+import Shield from 'lucide-react/dist/esm/icons/shield';
+import BellIcon from 'lucide-react/dist/esm/icons/bell';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {

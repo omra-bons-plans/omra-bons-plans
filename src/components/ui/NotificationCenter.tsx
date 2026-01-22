@@ -1,4 +1,10 @@
-import { Bell, Check, CheckCheck, Eye, MessageSquare, AlertTriangle, Settings } from 'lucide-react';
+import Bell from 'lucide-react/dist/esm/icons/bell';
+import Check from 'lucide-react/dist/esm/icons/check';
+import CheckCheck from 'lucide-react/dist/esm/icons/check-check';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square';
+import AlertTriangle from 'lucide-react/dist/esm/icons/alert-triangle';
+import Settings from 'lucide-react/dist/esm/icons/settings';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

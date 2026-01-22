@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { UniversalImage } from '@/components/ui/UniversalImage';
-import { Clock, MapPin, Users } from 'lucide-react';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Users from 'lucide-react/dist/esm/icons/users';
 
 interface OptimizedCardProps {
   image: string | null;

@@ -11,7 +11,10 @@ import {
   TableHeader, 
   TableRow 
 } from '@/components/ui/table';
-import { Star, Search, ExternalLink, Loader2 } from 'lucide-react';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Search from 'lucide-react/dist/esm/icons/search';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { agenciesData } from '@/utils/agenciesData';
 import { useIsMobile } from '@/hooks/use-mobile';

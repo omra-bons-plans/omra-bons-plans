@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Edit, MapPin, Euro, Calendar, Play, Trash2, Pause } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
+import Edit from 'lucide-react/dist/esm/icons/edit';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Euro from 'lucide-react/dist/esm/icons/euro';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Play from 'lucide-react/dist/esm/icons/play';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
+import Pause from 'lucide-react/dist/esm/icons/pause';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

@@ -1,4 +1,7 @@
-import { User, Building, Star, Eye } from 'lucide-react';
+import User from 'lucide-react/dist/esm/icons/user';
+import Building from 'lucide-react/dist/esm/icons/building';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Eye from 'lucide-react/dist/esm/icons/eye';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

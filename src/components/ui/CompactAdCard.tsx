@@ -1,7 +1,12 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Euro, Phone, Eye, Star } from 'lucide-react';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Euro from 'lucide-react/dist/esm/icons/euro';
+import Phone from 'lucide-react/dist/esm/icons/phone';
+import Eye from 'lucide-react/dist/esm/icons/eye';
+import Star from 'lucide-react/dist/esm/icons/star';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { UniversalImage } from '@/components/ui/UniversalImage';

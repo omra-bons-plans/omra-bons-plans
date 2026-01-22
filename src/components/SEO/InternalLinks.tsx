@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, Users, BookOpen, MapPin, Search, Star } from 'lucide-react';
+import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Users from 'lucide-react/dist/esm/icons/users';
+import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Search from 'lucide-react/dist/esm/icons/search';
+import Star from 'lucide-react/dist/esm/icons/star';
 
 interface InternalLink {
   href: string;

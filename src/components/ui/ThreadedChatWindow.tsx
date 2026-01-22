@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, MessageCircle, Trash2, Reply, AtSign, Hash } from 'lucide-react';
+import Send from 'lucide-react/dist/esm/icons/send';
+import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
+import Reply from 'lucide-react/dist/esm/icons/reply';
+import AtSign from 'lucide-react/dist/esm/icons/at-sign';
+import Hash from 'lucide-react/dist/esm/icons/hash';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useThreadedChat } from '@/hooks/useThreadedChat';

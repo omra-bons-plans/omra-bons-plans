@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { MessageSquare, Edit2, Trash2, Send, X } from 'lucide-react';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square';
+import Edit2 from 'lucide-react/dist/esm/icons/edit-2';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
+import Send from 'lucide-react/dist/esm/icons/send';
+import X from 'lucide-react/dist/esm/icons/x';
 import { Button } from './button';
 import { Textarea } from './textarea';
 import { Card, CardContent } from './card';

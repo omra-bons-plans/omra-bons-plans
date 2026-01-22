@@ -3,7 +3,9 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import { Helmet } from "react-helmet-async";
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 

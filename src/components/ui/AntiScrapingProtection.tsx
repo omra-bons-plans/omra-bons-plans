@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAntiScraping } from '@/hooks/useAntiScraping';
-import { Shield } from 'lucide-react';
+import Shield from 'lucide-react/dist/esm/icons/shield';
 
 /**
  * Composant de protection anti-scraping amélioré

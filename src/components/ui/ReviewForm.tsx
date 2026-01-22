@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Star, Send } from 'lucide-react';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Send from 'lucide-react/dist/esm/icons/send';
 import { Button } from './button';
 import { Card, CardContent, CardHeader, CardTitle } from './card';
 import { Textarea } from './textarea';

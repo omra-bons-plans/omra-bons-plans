@@ -2,7 +2,7 @@ import React from 'react';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import { useNavigate } from 'react-router-dom';
 import AgencyComparison from '@/components/ui/AgencyComparison';
 import { useIsMobile } from '@/hooks/use-mobile';
