@@ -249,68 +249,80 @@ export default function OfferDetails() {
 
           {/* Main offer card */}
           <Card className="overflow-hidden border-2 border-primary/10 shadow-xl">
-            {/* Header with agency info */}
-            <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-6">
-              <div className="flex items-start gap-4">
-                {/* Agency logo */}
-                {agencyLogo && (
-                  <div className="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white shadow-md">
-                    <img 
-                      src={agencyLogo} 
-                      alt={offer.agency_name}
-                      className="w-full h-full object-contain p-2"
-                    />
-                  </div>
-                )}
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h1 className="text-2xl font-bold">{offer.agency_name}</h1>
-                    {offer.is_recommended && (
-                      <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-md font-bold">
-                        ⭐ Recommandé
-                      </Badge>
-                    )}
-                    {offer.is_complet && (
-                      <Badge variant="destructive">COMPLET</Badge>
-                    )}
-                  </div>
-
-                  {agencyInfo && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span className="font-semibold">{agencyInfo.google_rating.toFixed(1)}</span>
-                      <span className="text-muted-foreground">({agencyInfo.review_count} avis)</span>
+            {/* Header with agency info - Mobile optimized */}
+            <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4 md:p-6">
+              {/* Mobile: Stack layout */}
+              <div className="flex flex-col gap-4">
+                {/* Top row: Logo + Agency name + Favorite */}
+                <div className="flex items-start gap-3">
+                  {/* Agency logo */}
+                  {agencyLogo && (
+                    <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-white shadow-md">
+                      <img 
+                        src={agencyLogo} 
+                        alt={offer.agency_name}
+                        className="w-full h-full object-contain p-1.5"
+                      />
                     </div>
                   )}
 
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      {offer.month_departure}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      {offer.departure_city}
-                    </span>
-                    {offer.duration_nights && (
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {offer.duration_nights} nuits
-                      </span>
-                    )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <h1 className="text-lg md:text-2xl font-bold leading-tight truncate">{offer.agency_name}</h1>
+                        {agencyInfo && (
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
+                            <span className="font-semibold text-sm">{agencyInfo.google_rating.toFixed(1)}</span>
+                            <span className="text-xs text-muted-foreground">({agencyInfo.review_count} avis)</span>
+                          </div>
+                        )}
+                      </div>
+                      <FavoriteButton offerId={offer.id} variant="icon" />
+                    </div>
                   </div>
                 </div>
 
-                {/* Price & Favorite */}
-                <div className="flex flex-col items-end gap-2">
+                {/* Badges row */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  {offer.is_recommended && (
+                    <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white border-0 shadow-md font-bold text-xs">
+                      ⭐ Recommandé
+                    </Badge>
+                  )}
+                  {offer.is_complet && (
+                    <Badge variant="destructive" className="text-xs">COMPLET</Badge>
+                  )}
+                </div>
+
+                {/* Price - Prominent display */}
+                <div className="flex items-center justify-between bg-primary/5 rounded-xl p-3 -mx-1">
+                  <div>
+                    <span className="text-xs text-muted-foreground uppercase tracking-wide">Prix par personne</span>
+                  </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-primary">
+                    <div className="text-2xl md:text-3xl font-bold text-primary">
                       {Number(offer.price_eur).toLocaleString('fr-FR')}€
                     </div>
-                    <span className="text-sm text-muted-foreground">/ personne</span>
                   </div>
-                  <FavoriteButton offerId={offer.id} variant="icon" />
+                </div>
+
+                {/* Metadata row */}
+                <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
+                  <span className="flex items-center gap-1.5 bg-muted/50 px-2.5 py-1 rounded-full">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {offer.month_departure}
+                  </span>
+                  <span className="flex items-center gap-1.5 bg-muted/50 px-2.5 py-1 rounded-full">
+                    <MapPin className="h-3.5 w-3.5" />
+                    {offer.departure_city}
+                  </span>
+                  {offer.duration_nights && (
+                    <span className="flex items-center gap-1.5 bg-muted/50 px-2.5 py-1 rounded-full">
+                      <Clock className="h-3.5 w-3.5" />
+                      {offer.duration_nights} nuits
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
