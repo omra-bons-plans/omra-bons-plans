@@ -38,7 +38,7 @@ const ZONE_DESCRIPTIONS: Record<string, { title: string; description: string }> 
   }
 };
 
-// Camp Mina descriptions for Hajj offers
+// Camp Mina descriptions for Hajj offers - normalize all possible variations
 const CAMP_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
   'Majar Al Kabsh': {
     title: 'Majar Al Kabsh',
@@ -51,7 +51,27 @@ const CAMP_DESCRIPTIONS: Record<string, { title: string; description: string }> 
   'Al Mouaisem': {
     title: 'Al Mouaisem',
     description: 'Situé à environ 4 km des Jamaraat, impliquant une marche d\'au moins 45 minutes. Il est considéré comme faisant partie des services standards ou non spéciaux.'
+  },
+  'mouassim': {
+    title: 'Al Mouaisem',
+    description: 'Situé à environ 4 km des Jamaraat, impliquant une marche d\'au moins 45 minutes. Il est considéré comme faisant partie des services standards ou non spéciaux.'
+  },
+  'al mouaisem': {
+    title: 'Al Mouaisem',
+    description: 'Situé à environ 4 km des Jamaraat, impliquant une marche d\'au moins 45 minutes. Il est considéré comme faisant partie des services standards ou non spéciaux.'
+  },
+  'majar al kabsh': {
+    title: 'Majar Al Kabsh',
+    description: 'Très proche du site de lapidation (Jamaraat) et de la gare du train. Les tentes sont généralement plus petites, offrant une intimité supérieure avec moins de personnes par tente. C\'est souvent un choix recommandé pour les personnes âgées en raison de la marche réduite.'
   }
+};
+
+// Helper to get camp description with case-insensitive lookup
+const getCampDescription = (campName: string) => {
+  return CAMP_DESCRIPTIONS[campName] || CAMP_DESCRIPTIONS[campName.toLowerCase()] || {
+    title: campName,
+    description: 'Camp situé à Mina pour le Hajj'
+  };
 };
 
 interface CompactOfferCardProps {
@@ -311,10 +331,10 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                   </TooltipTrigger>
                   <TooltipContent side="top" className="max-w-[280px] p-3">
                     <p className="font-semibold text-sm mb-1">
-                      {CAMP_DESCRIPTIONS[offer.camp_mina]?.title || offer.camp_mina}
+                      {getCampDescription(offer.camp_mina).title}
                     </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      {CAMP_DESCRIPTIONS[offer.camp_mina]?.description || 'Camp situé à Mina pour le Hajj'}
+                      {getCampDescription(offer.camp_mina).description}
                     </p>
                   </TooltipContent>
                 </Tooltip>
@@ -389,11 +409,11 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
         <DialogContent className="max-w-[320px] rounded-xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-base">
-              ⛺ {CAMP_DESCRIPTIONS[offer.camp_mina]?.title || offer.camp_mina}
+              ⛺ {getCampDescription(offer.camp_mina).title}
             </DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            {CAMP_DESCRIPTIONS[offer.camp_mina]?.description || 'Camp situé à Mina pour le Hajj'}
+            {getCampDescription(offer.camp_mina).description}
           </p>
         </DialogContent>
       </Dialog>
