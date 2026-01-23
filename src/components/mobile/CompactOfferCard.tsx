@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 // ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
@@ -19,6 +20,7 @@ import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Zone descriptions for Hajj offers
 const ZONE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
@@ -61,7 +63,10 @@ interface CompactOfferCardProps {
 export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOfferCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [zonePopupOpen, setZonePopupOpen] = useState(false);
+  const [campPopupOpen, setCampPopupOpen] = useState(false);
   const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
+  const isMobile = useIsMobile();
 
   const offerType = offer.is_hajj ? 'hajj' : 'omra';
 
@@ -248,43 +253,69 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               </Badge>
             )}
             {offer.accommodation_zone && (
-              <Tooltip delayDuration={0}>
-                <TooltipTrigger asChild>
-                  <Badge 
-                    variant="outline" 
-                    className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30 cursor-help"
-                  >
-                    📍 Zone {offer.accommodation_zone}
-                    <Info className="h-2.5 w-2.5 ml-0.5 inline" />
-                  </Badge>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[280px] p-3">
-                  <p className="font-semibold text-sm mb-1">
-                    {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.title || `Zone ${offer.accommodation_zone}`}
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.description || 'Zone d\'hébergement pour le Hajj'}
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-            {offer.camp_mina && (
-              CAMP_DESCRIPTIONS[offer.camp_mina] ? (
+              isMobile ? (
+                // Mobile: clickable badge that opens a dialog
+                <Badge 
+                  variant="outline" 
+                  className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30 cursor-pointer"
+                  onClick={(e) => { e.stopPropagation(); setZonePopupOpen(true); }}
+                >
+                  📍 Zone {offer.accommodation_zone}
+                  <Info className="h-2.5 w-2.5 ml-0.5 inline" />
+                </Badge>
+              ) : (
+                // Desktop: tooltip on hover
                 <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
                     <Badge 
                       variant="outline" 
-                      className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-help"
+                      className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30 cursor-help"
                     >
-                      ⛺ {offer.camp_mina}
+                      📍 Zone {offer.accommodation_zone}
                       <Info className="h-2.5 w-2.5 ml-0.5 inline" />
                     </Badge>
                   </TooltipTrigger>
                   <TooltipContent side="top" className="max-w-[280px] p-3">
-                    <p className="font-semibold text-sm mb-1">{CAMP_DESCRIPTIONS[offer.camp_mina].title}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{CAMP_DESCRIPTIONS[offer.camp_mina].description}</p>
+                    <p className="font-semibold text-sm mb-1">
+                      {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.title || `Zone ${offer.accommodation_zone}`}
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.description || 'Zone d\'hébergement pour le Hajj'}
+                    </p>
                   </TooltipContent>
                 </Tooltip>
+              )
+            )}
+            {offer.camp_mina && (
+              CAMP_DESCRIPTIONS[offer.camp_mina] ? (
+                isMobile ? (
+                  // Mobile: clickable badge that opens a dialog
+                  <Badge 
+                    variant="outline" 
+                    className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-pointer"
+                    onClick={(e) => { e.stopPropagation(); setCampPopupOpen(true); }}
+                  >
+                    ⛺ {offer.camp_mina}
+                    <Info className="h-2.5 w-2.5 ml-0.5 inline" />
+                  </Badge>
+                ) : (
+                  // Desktop: tooltip on hover
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger asChild>
+                      <Badge 
+                        variant="outline" 
+                        className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-help"
+                      >
+                        ⛺ {offer.camp_mina}
+                        <Info className="h-2.5 w-2.5 ml-0.5 inline" />
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[280px] p-3">
+                      <p className="font-semibold text-sm mb-1">{CAMP_DESCRIPTIONS[offer.camp_mina].title}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{CAMP_DESCRIPTIONS[offer.camp_mina].description}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )
               ) : (
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30">
                   ⛺ {offer.camp_mina}
@@ -327,31 +358,47 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
                 {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
               </Button>
             </div>
-            <div className="flex gap-1.5">
-              <Button 
-                asChild 
-                size="sm"
-                variant="outline"
-                className="flex-1 h-8 text-xs"
-              >
-                <Link to={`/offre-${offerType}/${offer.id}`}>
-                  Voir les détails
-                </Link>
-              </Button>
-              <Button 
-                asChild 
-                size="sm"
-                variant="outline"
-                className="flex-1 h-8 text-xs"
-              >
-                <Link to="/agences-liste">
-                  Comparer agences
-                </Link>
-              </Button>
-            </div>
+            <Button 
+              asChild 
+              size="sm"
+              variant="outline"
+              className="flex-1 h-8 text-xs"
+            >
+              <Link to="/agences-liste">
+                Comparer agences
+              </Link>
+            </Button>
           </div>
         </div>
       )}
+      
+      {/* Zone Popup for Mobile */}
+      <Dialog open={zonePopupOpen} onOpenChange={setZonePopupOpen}>
+        <DialogContent className="max-w-[320px] rounded-xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base">
+              📍 {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.title || `Zone ${offer.accommodation_zone}`}
+            </DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.description || 'Zone d\'hébergement pour le Hajj'}
+          </p>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Camp Mina Popup for Mobile */}
+      <Dialog open={campPopupOpen} onOpenChange={setCampPopupOpen}>
+        <DialogContent className="max-w-[320px] rounded-xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base">
+              ⛺ {CAMP_DESCRIPTIONS[offer.camp_mina]?.title || offer.camp_mina}
+            </DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {CAMP_DESCRIPTIONS[offer.camp_mina]?.description || 'Camp situé à Mina pour le Hajj'}
+          </p>
+        </DialogContent>
+      </Dialog>
       
       {/* Review Request Dialog */}
       <ReviewRequestDialog 
