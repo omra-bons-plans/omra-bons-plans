@@ -73,10 +73,10 @@ export default function OfferDetails() {
   const isHajj = type === 'hajj';
   const tableName = isHajj ? 'hajj_offers' : 'omra_offers';
 
-  // Fetch offer details
-  const { data: offerData, isLoading, error } = useQuery({
+  // Fetch offer details - unified type using any to avoid union type issues
+  const { data: offer, isLoading, error } = useQuery<any>({
     queryKey: ['offer-details', type, id],
-    queryFn: async () => {
+    queryFn: async (): Promise<any> => {
       if (isHajj) {
         const { data, error } = await supabase
           .from('hajj_offers')
@@ -85,7 +85,7 @@ export default function OfferDetails() {
           .single();
         if (error) throw error;
         
-        // Map to unified format
+        // Map Hajj to unified format
         return {
           ...data,
           price_eur: data.price_quad_eur,
@@ -101,9 +101,12 @@ export default function OfferDetails() {
           is_hajj: true,
           is_complet: false,
           notes: null,
-          makkah_nights: null,
-          medina_nights: null,
-        } as any;
+          makkah_nights: (data as any).makkah_nights || null,
+          medina_nights: (data as any).medina_nights || null,
+          accommodation_zone: data.accommodation_zone || null,
+          camp_mina: data.camp_mina || null,
+          nusuk_code: data.nusuk_code || null,
+        };
       } else {
         const { data, error } = await supabase
           .from('omra_offers')
@@ -111,14 +114,21 @@ export default function OfferDetails() {
           .eq('id', id)
           .single();
         if (error) throw error;
-        return { ...data, is_hajj: false } as any;
+        
+        // Map Omra to unified format with null Hajj fields
+        return {
+          ...data,
+          is_hajj: false,
+          accommodation_zone: null,
+          camp_mina: null,
+          nusuk_code: null,
+          makkah_nights: null,
+          medina_nights: null,
+        };
       }
     },
     enabled: !!id && !!type,
   });
-  
-  // Force any type to avoid union type issues
-  const offer = offerData as any;
 
   // Fetch agency info
   const { data: agencyInfo } = useQuery({
