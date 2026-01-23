@@ -287,39 +287,37 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               )
             )}
             {offer.camp_mina && (
-              CAMP_DESCRIPTIONS[offer.camp_mina] ? (
-                isMobile ? (
-                  // Mobile: clickable badge that opens a dialog
-                  <Badge 
-                    variant="outline" 
-                    className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-pointer"
-                    onClick={(e) => { e.stopPropagation(); setCampPopupOpen(true); }}
-                  >
-                    ⛺ {offer.camp_mina}
-                    <Info className="h-2.5 w-2.5 ml-0.5 inline" />
-                  </Badge>
-                ) : (
-                  // Desktop: tooltip on hover
-                  <Tooltip delayDuration={0}>
-                    <TooltipTrigger asChild>
-                      <Badge 
-                        variant="outline" 
-                        className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-help"
-                      >
-                        ⛺ {offer.camp_mina}
-                        <Info className="h-2.5 w-2.5 ml-0.5 inline" />
-                      </Badge>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-[280px] p-3">
-                      <p className="font-semibold text-sm mb-1">{CAMP_DESCRIPTIONS[offer.camp_mina].title}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{CAMP_DESCRIPTIONS[offer.camp_mina].description}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                )
-              ) : (
-                <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30">
+              isMobile ? (
+                // Mobile: clickable badge that opens a dialog
+                <Badge 
+                  variant="outline" 
+                  className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-pointer"
+                  onClick={(e) => { e.stopPropagation(); setCampPopupOpen(true); }}
+                >
                   ⛺ {offer.camp_mina}
+                  <Info className="h-2.5 w-2.5 ml-0.5 inline" />
                 </Badge>
+              ) : (
+                // Desktop: tooltip on hover
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger asChild>
+                    <Badge 
+                      variant="outline" 
+                      className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30 cursor-help"
+                    >
+                      ⛺ {offer.camp_mina}
+                      <Info className="h-2.5 w-2.5 ml-0.5 inline" />
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[280px] p-3">
+                    <p className="font-semibold text-sm mb-1">
+                      {CAMP_DESCRIPTIONS[offer.camp_mina]?.title || offer.camp_mina}
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {CAMP_DESCRIPTIONS[offer.camp_mina]?.description || 'Camp situé à Mina pour le Hajj'}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
               )
             )}
             {offer.nusuk_code && (
