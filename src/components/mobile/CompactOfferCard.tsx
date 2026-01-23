@@ -67,7 +67,10 @@ const CAMP_DESCRIPTIONS: Record<string, { title: string; description: string }> 
 };
 
 // Helper to get camp description with case-insensitive lookup
-const getCampDescription = (campName: string) => {
+const getCampDescription = (campName: string | null | undefined) => {
+  if (!campName) {
+    return { title: 'Camp', description: 'Camp situé à Mina pour le Hajj' };
+  }
   return CAMP_DESCRIPTIONS[campName] || CAMP_DESCRIPTIONS[campName.toLowerCase()] || {
     title: campName,
     description: 'Camp situé à Mina pour le Hajj'
