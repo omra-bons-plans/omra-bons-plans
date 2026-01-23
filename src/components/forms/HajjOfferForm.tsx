@@ -255,12 +255,12 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
 
       if (error) throw error;
 
-      // Save hotel presets
+      // Save hotel presets with the selected star ratings
       if (formData.hotel_makkah) {
-        await saveMakkahHotel(formData.hotel_makkah, 4);
+        await saveMakkahHotel(formData.hotel_makkah, formData.hotel_makkah_stars);
       }
       if (formData.hotel_medina) {
-        await saveMedinaHotel(formData.hotel_medina, 4);
+        await saveMedinaHotel(formData.hotel_medina, formData.hotel_medina_stars);
       }
 
       toast({
