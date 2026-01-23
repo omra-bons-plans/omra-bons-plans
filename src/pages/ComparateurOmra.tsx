@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
 
@@ -31,6 +32,9 @@ import List from 'lucide-react/dist/esm/icons/list';
 import Grid3x3 from 'lucide-react/dist/esm/icons/grid-3x3';
 import Send from 'lucide-react/dist/esm/icons/send';
 import Package from 'lucide-react/dist/esm/icons/package';
+import Share2 from 'lucide-react/dist/esm/icons/share-2';
+import Copy from 'lucide-react/dist/esm/icons/copy';
+import Check from 'lucide-react/dist/esm/icons/check';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { useDateLocale } from '@/hooks/useDateLocale';
@@ -98,6 +102,8 @@ const agencyFormSchema = z.object({
 export default function ComparateurOmra() {
   // ⚡ PERFORMANCE: Lazy load date locale
   const dateLocale = useDateLocale();
+  const location = useLocation();
+  const navigate = useNavigate();
   
   // ⚡ PERFORMANCE: Preload agency logos
   usePreloadAgencyLogos();
@@ -105,7 +111,14 @@ export default function ComparateurOmra() {
   // Review request dialog
   const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
   
-  const [tripType, setTripType] = useState<'omra' | 'hajj'>('omra');
+  // ⚡ URL SYNC: Determine tripType from URL path
+  const getInitialTripType = (): 'omra' | 'hajj' => {
+    if (location.pathname === '/hajj') return 'hajj';
+    return 'omra';
+  };
+  
+  const [tripType, setTripType] = useState<'omra' | 'hajj'>(getInitialTripType);
+  const [copied, setCopied] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
   const [selectedFormula, setSelectedFormula] = useState<string>('all');
@@ -196,6 +209,49 @@ export default function ComparateurOmra() {
     setSelectedPackage('all');
     setSelectedDuration('all');
   }, [tripType]);
+
+  // ⚡ URL SYNC: Update URL when tripType changes
+  useEffect(() => {
+    const targetPath = tripType === 'hajj' ? '/hajj' : '/omra';
+    // Only navigate if we're on a comparator page and path doesn't match
+    if ((location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj') && location.pathname !== targetPath) {
+      navigate(targetPath, { replace: true });
+    }
+  }, [tripType, location.pathname, navigate]);
+
+  // ⚡ URL SYNC: Update tripType when URL changes (back/forward navigation)
+  useEffect(() => {
+    if (location.pathname === '/hajj' && tripType !== 'hajj') {
+      setTripType('hajj');
+    } else if ((location.pathname === '/omra' || location.pathname === '/') && tripType !== 'omra') {
+      setTripType('omra');
+    }
+  }, [location.pathname]);
+
+  // Share page URL
+  const handleSharePage = async () => {
+    const shareUrl = `${window.location.origin}/${tripType}`;
+    
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `Comparateur ${tripType === 'hajj' ? 'Hajj' : 'Omra'} 2026`,
+          text: `Comparez les meilleures offres ${tripType === 'hajj' ? 'Hajj' : 'Omra'} en France`,
+          url: shareUrl,
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        toast.success('Lien copié dans le presse-papier !');
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      toast.success('Lien copié dans le presse-papier !');
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   // ⚡ DEFERRED: Last update query - only after interaction
   const { data: lastUpdate } = useQuery({
@@ -593,15 +649,16 @@ export default function ComparateurOmra() {
     <ResponsiveLayout>
       <div className="min-h-screen bg-background">
       <DynamicSEO
-        title="Comparateur de séjours Omra & Hajj 2026"
-        description="Trouvez, comparez et réservez votre séjour pour la Omra au meilleur prix parmi des centaines d'offres"
-        keywords={['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
-        path="/"
+        title={tripType === 'hajj' ? "Comparateur Hajj 2026 - Trouvez le meilleur pèlerinage" : "Comparateur Omra 2026 - Trouvez le meilleur séjour"}
+        description={tripType === 'hajj' ? "Comparez les offres Hajj 2026 : packages, zones Mina, camps et prix. Trouvez le pèlerinage idéal parmi les meilleures agences françaises." : "Trouvez, comparez et réservez votre séjour Omra au meilleur prix parmi des centaines d'offres d'agences françaises."}
+        keywords={tripType === 'hajj' ? ['hajj', 'hajj 2026', 'pèlerinage mecque', 'comparateur hajj'] : ['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
+        path={`/${tripType}`}
       />
       
       <SEOBreadcrumb
         items={[
-          { name: 'Accueil', url: '/' }
+          { name: 'Accueil', url: '/' },
+          { name: tripType === 'hajj' ? 'Hajj' : 'Omra', url: `/${tripType}` }
         ]}
       />
 
@@ -866,13 +923,25 @@ export default function ComparateurOmra() {
           )}
         </Card>
 
-        {/* Barre de résultats */}
+        {/* Barre de résultats avec bouton partage */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 bg-card/50 p-3 md:p-4 rounded-lg border border-primary/10">
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <p className="text-xs md:text-sm text-muted-foreground font-medium">
-              <span className="text-foreground font-bold">{offers.length}</span> offre{offers.length > 1 ? 's' : ''} disponible{offers.length > 1 ? 's' : ''}
-            </p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              <p className="text-xs md:text-sm text-muted-foreground font-medium">
+                <span className="text-foreground font-bold">{offers.length}</span> offre{offers.length > 1 ? 's' : ''} disponible{offers.length > 1 ? 's' : ''}
+              </p>
+            </div>
+            {/* Bouton partage de la page */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSharePage}
+              className="h-8 gap-1.5 text-xs"
+            >
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+              {copied ? 'Copié !' : 'Partager'}
+            </Button>
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-full md:w-[220px] bg-background/50 h-9 md:h-10 text-sm">

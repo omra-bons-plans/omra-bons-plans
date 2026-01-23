@@ -26,6 +26,8 @@ serve(async (req) => {
     // Static routes avec priorités optimisées
     const staticRoutes = [
       { loc: '/', changefreq: 'daily', priority: 1.0 },
+      { loc: '/omra', changefreq: 'daily', priority: 1.0 },
+      { loc: '/hajj', changefreq: 'daily', priority: 1.0 },
       { loc: '/about', changefreq: 'monthly', priority: 0.8 },
       { loc: '/contact', changefreq: 'monthly', priority: 0.7 },
       { loc: '/blog', changefreq: 'daily', priority: 0.9 },

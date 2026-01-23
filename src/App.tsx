@@ -57,6 +57,7 @@ const AdminSecurityAudit = lazy(() => import("./pages/AdminSecurityAudit"));
 const Search = lazy(() => import("./pages/Search"));
 // ⚡ OPTIMIZED: Direct lazy load - shell-first added overhead
 const ComparateurOmra = lazy(() => import("./pages/ComparateurOmra"));
+const OfferDetails = lazy(() => import("./pages/OfferDetails"));
 const AdminScrapers = lazy(() => import("./pages/AdminScrapers"));
 const AdminOmraOffers = lazy(() => import("./pages/AdminOmraOffers"));
 const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
@@ -91,7 +92,16 @@ const App = () => (
                   <Routes>
                   {/* Sitemap dynamique - doit être avant les autres routes */}
                   <Route path="/sitemap.xml" element={<SitemapXml />} />
+                  
+                  {/* Comparateur Omra & Hajj - Routes dédiées pour partage */}
                   <Route path="/" element={<ComparateurOmra />} />
+                  <Route path="/omra" element={<ComparateurOmra />} />
+                  <Route path="/hajj" element={<ComparateurOmra />} />
+                  
+                  {/* Pages de détails d'offres individuelles */}
+                  <Route path="/offre-omra/:id" element={<OfferDetails />} />
+                  <Route path="/offre-hajj/:id" element={<OfferDetails />} />
+                  
                   <Route path="/bons-plans" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/profile" element={

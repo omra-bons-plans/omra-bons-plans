@@ -9,10 +9,14 @@ import Plane from 'lucide-react/dist/esm/icons/plane';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
 import Star from 'lucide-react/dist/esm/icons/star';
+import Share2 from 'lucide-react/dist/esm/icons/share-2';
+import Check from 'lucide-react/dist/esm/icons/check';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
+import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 interface CompactOfferCardProps {
   offer: any;
@@ -22,7 +26,36 @@ interface CompactOfferCardProps {
 
 export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOfferCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
+
+  const offerType = offer.is_hajj ? 'hajj' : 'omra';
+
+  // Share offer link
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareUrl = `${window.location.origin}/offre-${offerType}/${offer.id}`;
+    
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `Offre ${offer.is_hajj ? 'Hajj' : 'Omra'} - ${offer.agency_name}`,
+          text: `${offer.agency_name} - ${Number(offer.price_eur).toLocaleString('fr-FR')}€`,
+          url: shareUrl,
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        toast.success('Lien copié !');
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      toast.success('Lien copié !');
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
@@ -199,38 +232,55 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
 
           {/* Boutons CTA */}
           <div className="space-y-1.5">
-            <Button 
-              asChild 
-              size="sm"
-              className="w-full h-8 text-xs"
-              disabled={offer.is_complet}
-            >
-              <a 
-                href={offer.offer_url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-1.5"
-                onClick={(e) => !offer.is_complet && handleOfferClick(e, offer.offer_url)}
+            <div className="flex gap-1.5">
+              <Button 
+                asChild 
+                size="sm"
+                className="flex-1 h-8 text-xs"
+                disabled={offer.is_complet}
               >
-                <span>{offer.is_complet ? 'Complet' : 'Voir l\'offre'}</span>
-                {!offer.is_complet && <ExternalLink className="h-3 w-3" />}
-              </a>
-            </Button>
-            <Button 
-              asChild 
-              size="sm"
-              variant="outline"
-              className="w-full h-8 text-xs"
-            >
-              <a 
-                href="https://omrabonsplans.fr/agences-liste" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-1.5"
+                <a 
+                  href={offer.offer_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-1.5"
+                  onClick={(e) => !offer.is_complet && handleOfferClick(e, offer.offer_url)}
+                >
+                  <span>{offer.is_complet ? 'Complet' : 'Voir l\'offre'}</span>
+                  {!offer.is_complet && <ExternalLink className="h-3 w-3" />}
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleShare}
+                className="h-8 px-2"
               >
-                <span>Voir le comparatif d'agences</span>
-              </a>
-            </Button>
+                {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+              </Button>
+            </div>
+            <div className="flex gap-1.5">
+              <Button 
+                asChild 
+                size="sm"
+                variant="outline"
+                className="flex-1 h-8 text-xs"
+              >
+                <Link to={`/offre-${offerType}/${offer.id}`}>
+                  Voir les détails
+                </Link>
+              </Button>
+              <Button 
+                asChild 
+                size="sm"
+                variant="outline"
+                className="flex-1 h-8 text-xs"
+              >
+                <Link to="/agences-liste">
+                  Comparer agences
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       )}
