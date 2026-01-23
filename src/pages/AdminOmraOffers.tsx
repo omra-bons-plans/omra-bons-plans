@@ -137,6 +137,54 @@ const AdminOmraOffers = () => {
     }
   }, [isAdmin, adminLoading, navigate, user]);
 
+  const handleAddAnotherOffer = () => {
+    if (offerType === 'omra') {
+      const newForm: OmraOfferForm = {
+        agency_name: formData.agency_name || commonData.agency_name,
+        agency_logo: formData.agency_logo || commonData.agency_logo,
+        offer_url: formData.offer_url || commonData.offer_url,
+        month_departure: formData.month_departure || commonData.month_departure,
+        departure_city: formData.departure_city || commonData.departure_city,
+        date_start: '',
+        date_end: '',
+        duration_nights: 0,
+        price_eur: 0,
+        formula_type: 'essentiel',
+        hotel_makkah: '',
+        hotel_makkah_stars: 3,
+        hotel_medinah: '',
+        hotel_medinah_stars: 3,
+        airline: '',
+        visa_included: true,
+        hajj_duration_type: 'court',
+        is_recommended: false,
+      };
+
+      setAdditionalForms(prev => [...prev, newForm]);
+      setFormCounter(prev => prev + 1);
+      toast({
+        title: `Formulaire Omra #${additionalForms.length + 2} ajouté`,
+        description: "Remplissez les détails de cette nouvelle offre",
+      });
+    } else {
+      const newHajjForm = {
+        agency_name: formData.agency_name || commonData.agency_name || '',
+        offer_url: formData.offer_url || commonData.offer_url || '',
+      };
+
+      setAdditionalHajjForms(prev => [...prev, newHajjForm]);
+      setFormCounter(prev => prev + 1);
+      toast({
+        title: `Formulaire Hajj #${additionalHajjForms.length + 2} ajouté`,
+        description: "Remplissez les détails de cette nouvelle offre Hajj",
+      });
+    }
+
+    setTimeout(() => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    }, 100);
+  };
+
   // Mettre à jour formData quand dateRange change
   useEffect(() => {
     if (dateRange?.from) {
@@ -400,21 +448,7 @@ const AdminOmraOffers = () => {
                 description: "Vous pouvez ajouter une autre offre.",
               });
             }}
-            onAddAnother={() => {
-              const newHajjForm = {
-                agency_name: '',
-                offer_url: '',
-              };
-              setAdditionalHajjForms([...additionalHajjForms, newHajjForm]);
-              setFormCounter(prev => prev + 1);
-              toast({
-                title: `Formulaire Hajj #${additionalHajjForms.length + 2} ajouté`,
-                description: "Remplissez les détails de cette nouvelle offre Hajj",
-              });
-              setTimeout(() => {
-                window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-              }, 100);
-            }}
+            onAddAnother={handleAddAnotherOffer}
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -941,36 +975,7 @@ const AdminOmraOffers = () => {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => {
-                  // Créer un nouveau formulaire avec les données communes pré-remplies
-                  const newForm: OmraOfferForm = {
-                    agency_name: formData.agency_name || commonData.agency_name,
-                    agency_logo: formData.agency_logo || commonData.agency_logo,
-                    offer_url: formData.offer_url || commonData.offer_url,
-                    month_departure: formData.month_departure || commonData.month_departure,
-                    departure_city: formData.departure_city || commonData.departure_city,
-                    date_start: '',
-                    date_end: '',
-                    duration_nights: 0,
-                    price_eur: 0,
-                    formula_type: 'essentiel',
-                    hotel_makkah: '',
-                    hotel_makkah_stars: 3,
-                    hotel_medinah: '',
-                    hotel_medinah_stars: 3,
-                    airline: '',
-                    visa_included: true,
-                    hajj_duration_type: 'court',
-                    is_recommended: false
-                  };
-                  setAdditionalForms([...additionalForms, newForm]);
-                  setFormCounter(prev => prev + 1);
-                  
-                  // Scroll vers le nouveau formulaire après un court délai
-                  setTimeout(() => {
-                    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-                  }, 100);
-                }}
+                onClick={handleAddAnotherOffer}
                 className="gap-2"
               >
                 <Plus className="h-4 w-4" />
@@ -1015,6 +1020,14 @@ const AdminOmraOffers = () => {
           />
         ))}
 
+        {/* Bouton toujours visible pour ajouter un formulaire (utile quand on est sur les cartes #2/#3/...) */}
+        <div className="flex justify-center py-4">
+          <Button type="button" variant="secondary" onClick={handleAddAnotherOffer} className="gap-2">
+            <Plus className="h-4 w-4" />
+            Ajouter une offre
+          </Button>
+        </div>
+
         {/* Compteur d'offres ajoutées */}
         {(offerType === 'omra' ? additionalForms.length : additionalHajjForms.length) > 0 && (
           <div className="text-center py-4 text-muted-foreground">
@@ -1027,55 +1040,7 @@ const AdminOmraOffers = () => {
       <Button
         type="button"
         size="lg"
-        onClick={() => {
-          if (offerType === 'omra') {
-            const newForm = {
-              agency_name: formData.agency_name || commonData.agency_name,
-              agency_logo: formData.agency_logo || commonData.agency_logo,
-              offer_url: formData.offer_url || commonData.offer_url,
-              month_departure: formData.month_departure || commonData.month_departure,
-              departure_city: formData.departure_city || commonData.departure_city,
-              date_start: '',
-              date_end: '',
-              duration_nights: 0,
-              price_eur: 0,
-              formula_type: 'essentiel',
-              hotel_makkah: '',
-              hotel_makkah_stars: 3,
-              hotel_medinah: '',
-              hotel_medinah_stars: 3,
-              airline: '',
-              visa_included: true,
-              hajj_duration_type: 'court',
-              is_recommended: false
-            };
-            setAdditionalForms([...additionalForms, newForm]);
-            setFormCounter(prev => prev + 1);
-            
-            toast({
-              title: `Formulaire Omra #${additionalForms.length + 2} ajouté`,
-              description: "Remplissez les détails de cette nouvelle offre",
-            });
-          } else {
-            // Hajj - récupérer les infos du formulaire principal via le DOM ou utiliser des valeurs par défaut
-            const newHajjForm = {
-              agency_name: formData.agency_name || commonData.agency_name || '',
-              offer_url: formData.offer_url || commonData.offer_url || '',
-            };
-            setAdditionalHajjForms([...additionalHajjForms, newHajjForm]);
-            setFormCounter(prev => prev + 1);
-            
-            toast({
-              title: `Formulaire Hajj #${additionalHajjForms.length + 2} ajouté`,
-              description: "Remplissez les détails de cette nouvelle offre Hajj",
-            });
-          }
-          
-          // Scroll vers le nouveau formulaire après un court délai
-          setTimeout(() => {
-            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-          }, 100);
-        }}
+        onClick={handleAddAnotherOffer}
         className="fixed bottom-6 right-6 z-[200] h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all gap-0 p-0"
         title={`Ajouter une offre ${offerType === 'omra' ? 'Omra' : 'Hajj'}`}
       >
