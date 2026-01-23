@@ -66,6 +66,7 @@ const ACCOMMODATION_ZONES = [
 
 const AIRLINES = [
   { value: 'sans_vol', label: 'Sans vol' },
+  { value: 'ajet', label: 'AJET' },
   { value: 'saudia', label: 'Saudia Airlines' },
   { value: 'egyptair', label: 'EgyptAir' },
   { value: 'royal_jordanian', label: 'Royal Jordanian' },
