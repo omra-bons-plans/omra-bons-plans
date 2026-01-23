@@ -748,12 +748,198 @@ export default function ComparateurOmra() {
                 availableZones={availableZones}
                 availableCamps={availableCamps}
                 availablePackages={availablePackages}
-              />
+            />
             </Suspense>
+            
+            {/* ⚡ UNIFIED CONTROL BAR - Filters + Counter + Share + Sort */}
+            <div className="border-t border-primary/10 mt-4 pt-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                {/* Left: Formula filter (Omra only) + Advanced filters toggle */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  {/* Filtre Formule - uniquement pour Omra */}
+                  {tripType === 'omra' && (
+                    <div className="flex items-center gap-2">
+                      <Hotel className="h-4 w-4 text-primary hidden sm:block" />
+                      <Select value={selectedFormula} onValueChange={setSelectedFormula}>
+                        <SelectTrigger className="h-8 w-[140px] sm:w-[160px] text-xs sm:text-sm bg-background/50">
+                          <SelectValue placeholder="Formule" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background">
+                          <SelectItem value="all">Toutes formules</SelectItem>
+                          {FORMULA_TYPES.map(formula => (
+                            <SelectItem key={formula} value={formula}>{formula}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                  
+                  {/* Bouton filtres avancés */}
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowFilters(!showFilters)}
+                    className="h-8 text-xs gap-1.5 px-2 sm:px-3"
+                  >
+                    <Filter className="h-3.5 w-3.5" />
+                    <span className="hidden xs:inline">{showFilters ? 'Masquer' : 'Plus de filtres'}</span>
+                    <span className="xs:hidden">{showFilters ? '−' : '+'}</span>
+                  </Button>
+                </div>
+                
+                {/* Right: Counter + Share + Sort */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                  {/* Compteur d'offres */}
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                    <span className="text-xs font-medium">
+                      <span className="font-bold text-foreground">{offers.length}</span> offre{offers.length > 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  
+                  {/* Bouton Partager */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSharePage}
+                    className="h-8 gap-1.5 text-xs px-2 sm:px-3"
+                  >
+                    {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+                    <span className="hidden sm:inline">{copied ? 'Copié' : 'Partager'}</span>
+                  </Button>
+                  
+                  {/* Tri */}
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="h-8 w-[130px] sm:w-[160px] text-xs bg-background/50">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background">
+                      <SelectItem value="date_asc">📅 Date proche</SelectItem>
+                      <SelectItem value="price_asc">💰 Prix ↗</SelectItem>
+                      <SelectItem value="price_desc">💎 Prix ↘</SelectItem>
+                      <SelectItem value="duration_asc">⏱️ Durée ↗</SelectItem>
+                      <SelectItem value="duration_desc">📅 Durée ↘</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              {/* Filtres avancés (collapsibles) */}
+              {showFilters && (
+                <div className="mt-4 pt-4 border-t border-primary/10 space-y-4 animate-fade-in">
+                  {/* Filtre par agence */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs sm:text-sm font-medium flex items-center gap-1.5">
+                        <Building2 className="h-3.5 w-3.5 text-primary" />
+                        Agences (max 4)
+                      </label>
+                      {selectedAgencies.length > 0 && (
+                        <Badge variant="secondary" className="text-xs">
+                          {selectedAgencies.length}/4
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                      {availableAgencies.map(agency => {
+                        const isSelected = selectedAgencies.includes(agency);
+                        const isDisabled = !isSelected && selectedAgencies.length >= 4;
+                        const agencyLogo = getAgencyLogo(agency);
+                        
+                        return (
+                          <button
+                            key={agency}
+                            onClick={() => !isDisabled && toggleAgency(agency)}
+                            disabled={isDisabled}
+                            className={`
+                              relative flex items-center gap-2 p-2 rounded-lg border-2 transition-all text-left
+                              ${isSelected 
+                                ? 'border-primary bg-primary/10 shadow-sm' 
+                                : isDisabled
+                                  ? 'border-muted bg-muted/5 opacity-50 cursor-not-allowed'
+                                  : 'border-border hover:border-primary/50 hover:bg-primary/5'
+                              }
+                            `}
+                          >
+                            <Checkbox 
+                              checked={isSelected}
+                              disabled={isDisabled}
+                              className="pointer-events-none h-3.5 w-3.5"
+                            />
+                            <div className="flex items-center gap-1.5 flex-1 min-w-0">
+                              {agencyLogo && (
+                                <img 
+                                  src={agencyLogo} 
+                                  alt={agency}
+                                  className="h-5 w-5 object-cover flex-shrink-0 rounded"
+                                />
+                              )}
+                              <span className="text-xs font-medium truncate">
+                                {agency}
+                              </span>
+                            </div>
+                            {isSelected && (
+                              <X 
+                                className="h-3 w-3 text-primary flex-shrink-0" 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleAgency(agency);
+                                }}
+                              />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {/* Budget slider */}
+                    <div className="space-y-2">
+                      <label className="text-xs sm:text-sm font-medium flex items-center justify-between">
+                        <span>Budget</span>
+                        <span className="text-primary font-bold text-xs">{priceMin}€ - {priceMax}€</span>
+                      </label>
+                      <Slider
+                        min={0}
+                        max={maxPrice}
+                        step={100}
+                        value={[priceMin, priceMax]}
+                        onValueChange={(values) => { setPriceMin(values[0]); setPriceMax(values[1]); }}
+                        className="py-2"
+                      />
+                    </div>
+
+                    {/* Durée max */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs sm:text-sm font-medium flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5 text-primary" />
+                        Durée max (nuits)
+                      </label>
+                      <Input
+                        type="number"
+                        placeholder="Ex: 15"
+                        value={maxDuration}
+                        onChange={(e) => setMaxDuration(e.target.value)}
+                        className="bg-background/50 h-8 text-xs"
+                      />
+                    </div>
+
+                    {/* Reset button */}
+                    <div className="flex items-end">
+                      <Button variant="outline" onClick={resetFilters} size="sm" className="w-full h-8 text-xs">
+                        Réinitialiser
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
             
             {/* Last Update Info */}
             {lastUpdate && lastUpdate.last_update && (
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-3 border-t">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-muted-foreground pt-3 border-t border-primary/10">
                 <div className="flex items-center gap-1.5">
                   <RefreshCw className="h-3 w-3" />
                   <span className="text-center">
@@ -769,201 +955,10 @@ export default function ComparateurOmra() {
         </Card>
       </div>
 
-      {/* Main Content Section */}
-      <div className="bg-gradient-to-b from-muted/30 to-background pt-10 pb-6 sm:py-8 md:py-12">
+      {/* Main Content Section - Offers List */}
+      <div className="bg-gradient-to-b from-muted/30 to-background py-6 sm:py-8">
         <div className="container mx-auto px-3 sm:px-4">
-          <div className="text-center mb-6 sm:mb-8 md:mb-12 animate-fade-in">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight px-2">
-              Omra Bons Plans – votre comparateur de séjours Omra & Hajj au départ de tous les aéroports de France
-            </h2>
-          </div>
-
-      <div className="space-y-4 md:space-y-8">
-
-        {/* Filtres avancés */}
-        <Card className="p-3 md:p-6 bg-card shadow-lg">
-          <div className="flex flex-col gap-3 md:gap-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-base md:text-lg font-semibold flex items-center gap-2">
-                <Filter className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-                Affiner votre recherche
-              </h3>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setShowFilters(!showFilters)}
-                className="text-xs md:text-sm"
-              >
-                {showFilters ? 'Masquer' : 'Afficher les filtres'}
-              </Button>
-            </div>
-
-            {/* Filtre Formule - uniquement pour Omra */}
-            {tripType === 'omra' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="space-y-1.5 md:space-y-2">
-                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                    <Hotel className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                    Formule
-                  </label>
-                  <Select value={selectedFormula} onValueChange={setSelectedFormula}>
-                    <SelectTrigger className="h-9 md:h-10 text-sm">
-                      <SelectValue placeholder="Toutes les formules" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Toutes les formules</SelectItem>
-                      {FORMULA_TYPES.map(formula => (
-                        <SelectItem key={formula} value={formula}>{formula}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {showFilters && (
-            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-primary/10 space-y-4 md:space-y-6 animate-fade-in">
-              {/* Filtre par agence */}
-              <div className="space-y-2 md:space-y-3">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                    <Building2 className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                    Agences (max 4)
-                  </label>
-                  {selectedAgencies.length > 0 && (
-                    <Badge variant="secondary" className="text-xs">
-                      {selectedAgencies.length}/4 sélectionnées
-                    </Badge>
-                  )}
-                </div>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
-                  {availableAgencies.map(agency => {
-                    const isSelected = selectedAgencies.includes(agency);
-                    const isDisabled = !isSelected && selectedAgencies.length >= 4;
-                    const agencyLogo = getAgencyLogo(agency);
-                    
-                    return (
-                      <button
-                        key={agency}
-                        onClick={() => !isDisabled && toggleAgency(agency)}
-                        disabled={isDisabled}
-                        className={`
-                          relative flex items-center gap-2 p-2 md:p-3 rounded-lg border-2 transition-all
-                          ${isSelected 
-                            ? 'border-primary bg-primary/10 shadow-md' 
-                            : isDisabled
-                              ? 'border-muted bg-muted/5 opacity-50 cursor-not-allowed'
-                              : 'border-border hover:border-primary/50 hover:bg-primary/5'
-                          }
-                        `}
-                      >
-                        <Checkbox 
-                          checked={isSelected}
-                          disabled={isDisabled}
-                          className="pointer-events-none"
-                        />
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                          {agencyLogo && (
-                            <img 
-                              src={agencyLogo} 
-                              alt={agency}
-                              className="h-6 w-6 md:h-8 md:w-8 object-cover flex-shrink-0 rounded-lg"
-                            />
-                          )}
-                          <span className="text-xs md:text-sm font-medium truncate">
-                            {agency}
-                          </span>
-                        </div>
-                        {isSelected && (
-                          <X 
-                            className="h-3 w-3 text-primary flex-shrink-0" 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleAgency(agency);
-                            }}
-                          />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2 md:space-y-3">
-                  <label className="text-xs md:text-sm font-medium flex items-center justify-between">
-                    <span>Budget</span>
-                    <span className="text-primary font-bold text-xs md:text-sm">{priceMin}€ - {priceMax}€</span>
-                  </label>
-                  <Slider
-                    min={0}
-                    max={maxPrice}
-                    step={100}
-                    value={[priceMin, priceMax]}
-                    onValueChange={(values) => { setPriceMin(values[0]); setPriceMax(values[1]); }}
-                    className="py-3 md:py-4"
-                  />
-                </div>
-
-                <div className="space-y-1.5 md:space-y-2">
-                  <label className="text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2">
-                    <Clock className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                    Durée maximum (nuits)
-                  </label>
-                  <Input
-                    type="number"
-                    placeholder="Ex: 15"
-                    value={maxDuration}
-                    onChange={(e) => setMaxDuration(e.target.value)}
-                    className="bg-background/50 h-9 md:h-10 text-sm"
-                  />
-                </div>
-
-                <div className="flex items-end">
-                  <Button variant="outline" onClick={resetFilters} className="w-full hover-scale h-9 md:h-10 text-sm">
-                    Réinitialiser les filtres
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-        </Card>
-
-        {/* Barre de résultats avec bouton partage */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 bg-card/50 p-3 md:p-4 rounded-lg border border-primary/10">
-          <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <p className="text-xs md:text-sm text-muted-foreground font-medium">
-                <span className="text-foreground font-bold">{offers.length}</span> offre{offers.length > 1 ? 's' : ''} disponible{offers.length > 1 ? 's' : ''}
-              </p>
-            </div>
-            {/* Bouton partage de la page */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleSharePage}
-              className="h-8 gap-1.5 text-xs"
-            >
-              {copied ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
-              {copied ? 'Copié !' : 'Partager'}
-            </Button>
-          </div>
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full md:w-[220px] bg-background/50 h-9 md:h-10 text-sm">
-              <SelectValue placeholder="Trier par" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="date_asc">📅 Date la plus proche</SelectItem>
-              <SelectItem value="price_asc">💰 Prix croissant</SelectItem>
-              <SelectItem value="price_desc">💎 Prix décroissant</SelectItem>
-              <SelectItem value="duration_asc">⏱️ Durée croissante</SelectItem>
-              <SelectItem value="duration_desc">📅 Durée décroissante</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="space-y-4">
 
         {error ? (
           <Card className="p-12 text-center border-destructive">
