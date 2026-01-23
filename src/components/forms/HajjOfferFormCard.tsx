@@ -117,9 +117,29 @@ export const HajjOfferFormCard = ({
     half_board: false,
     departure_cities: [] as string[],
     accommodation_zone: 'A',
-    airline: 'saudia',
+    airline: ['saudia'] as string[],
     is_recommended: false,
   });
+
+  const handleAirlineToggle = (airlineValue: string) => {
+    setFormData((prev) => {
+      const current = prev.airline || [];
+
+      // "Sans vol" est exclusif
+      if (airlineValue === 'sans_vol') {
+        return { ...prev, airline: current.includes('sans_vol') ? [] : ['sans_vol'] };
+      }
+
+      // Si on choisit une compagnie, on retire "sans_vol" si présent
+      const withoutSansVol = current.filter((v) => v !== 'sans_vol');
+
+      const next = withoutSansVol.includes(airlineValue)
+        ? withoutSansVol.filter((v) => v !== airlineValue)
+        : [...withoutSansVol, airlineValue];
+
+      return { ...prev, airline: next };
+    });
+  };
 
   useEffect(() => {
     if (dateRange?.from) {
@@ -200,7 +220,9 @@ export const HajjOfferFormCard = ({
         half_board: formData.half_board,
         departure_cities: formData.departure_cities,
         accommodation_zone: formData.accommodation_zone,
-        airline: AIRLINES.find(a => a.value === formData.airline)?.label || formData.airline,
+        airline: (formData.airline || [])
+          .map((v) => AIRLINES.find((a) => a.value === v)?.label || v)
+          .join(', '),
         is_recommended: formData.is_recommended,
         nusuk_code: formData.nusuk_code || null,
         status: 'active',
@@ -533,20 +555,22 @@ export const HajjOfferFormCard = ({
             </div>
 
             <div className="space-y-2">
-              <Label>Compagnie aérienne</Label>
-              <Select
-                value={formData.airline}
-                onValueChange={(value) => setFormData({ ...formData, airline: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {AIRLINES.map((airline) => (
-                    <SelectItem key={airline.value} value={airline.value}>{airline.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label>Compagnies aériennes (choix multiple)</Label>
+              <div className="flex flex-wrap gap-2">
+                {AIRLINES.map((airline) => {
+                  const isSelected = formData.airline.includes(airline.value);
+                  return (
+                    <Badge
+                      key={airline.value}
+                      variant={isSelected ? 'default' : 'outline'}
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleAirlineToggle(airline.value)}
+                    >
+                      {airline.label}
+                    </Badge>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
