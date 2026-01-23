@@ -171,8 +171,8 @@ export default function AdminHajjManagement() {
 
       setOffers(data || []);
       
-      // Extraire les agences uniques
-      const uniqueAgencies = [...new Set(data?.map(o => o.agency_name) || [])];
+      // Extraire les agences uniques (filtrer les valeurs vides)
+      const uniqueAgencies = [...new Set(data?.map(o => o.agency_name).filter(name => name && name.trim() !== '') || [])];
       setAgencies(uniqueAgencies.sort());
 
     } catch (err: any) {
