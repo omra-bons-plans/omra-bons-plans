@@ -284,28 +284,6 @@ const agenciesFeatures: AgencyFeatures[] = [
     }
   },
   {
-    name: "Al Bayt",
-    url: "https://www.albayt.fr/",
-    googleRating: 4.7,
-    reviewCount: 930,
-    priceRange: "Standard",
-    highlight: "Pionnier avec 13 ans d'expérience",
-    features: {
-      formulesToutInclus: true,
-      guidesExperience: true,
-      hotelsProximiteMosquees: false,
-      departsMultiVilles: false,
-      accompagnementSpirituel: true,
-      organisationLogistique: true,
-      serviceClientReactif: false,
-      groupesTailleHumaine: false,
-      dimensionEducative: false,
-      agenceAgreee: true,
-      tarifsClairs: false,
-      optionsPersonnalisees: false
-    }
-  },
-  {
     name: "Omra Sounnah",
     url: "https://www.omrasounnah.com/",
     googleRating: 4.9,
