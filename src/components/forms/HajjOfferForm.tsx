@@ -11,6 +11,7 @@ import Tent from 'lucide-react/dist/esm/icons/tent';
 import ChevronsUpDown from 'lucide-react/dist/esm/icons/chevrons-up-down';
 import Check from 'lucide-react/dist/esm/icons/check';
 import Save from 'lucide-react/dist/esm/icons/save';
+import Plus from 'lucide-react/dist/esm/icons/plus';
 import X from 'lucide-react/dist/esm/icons/x';
 import Upload from 'lucide-react/dist/esm/icons/upload';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -101,9 +102,10 @@ interface HajjOfferFormData {
 interface HajjOfferFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
+  onAddAnother?: () => void;
 }
 
-export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
+export const HajjOfferForm = ({ onSuccess, onCancel, onAddAnother }: HajjOfferFormProps) => {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
@@ -801,23 +803,36 @@ export const HajjOfferForm = ({ onSuccess, onCancel }: HajjOfferFormProps) => {
       </Card>
 
       {/* Actions */}
-      <div className="flex justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-4">
         <Button type="button" variant="outline" onClick={onCancel}>
           Annuler
         </Button>
-        <Button type="submit" disabled={saving} className="gap-2">
-          {saving ? (
-            <>
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-              Enregistrement...
-            </>
-          ) : (
-            <>
-              <Save className="h-4 w-4" />
-              Enregistrer l'offre Hajj
-            </>
+        <div className="flex flex-col sm:flex-row gap-2">
+          {onAddAnother && (
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={onAddAnother}
+              className="gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter une offre
+            </Button>
           )}
-        </Button>
+          <Button type="submit" disabled={saving} className="gap-2">
+            {saving ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
+                Enregistrement...
+              </>
+            ) : (
+              <>
+                <Save className="h-4 w-4" />
+                Enregistrer l'offre Hajj
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );
