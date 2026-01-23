@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ChevronUp from 'lucide-react/dist/esm/icons/chevron-up';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 
 const BackToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+  
+  // Hide on admin pages to avoid hiding FAB buttons
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   // Show button when page is scrolled down
   const toggleVisibility = () => {
@@ -29,6 +34,11 @@ const BackToTopButton = () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
+
+  // Don't render on admin pages
+  if (isAdminRoute) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-4 right-4 z-50">

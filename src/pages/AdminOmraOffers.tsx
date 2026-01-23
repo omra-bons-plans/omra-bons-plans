@@ -1061,7 +1061,7 @@ const AdminOmraOffers = () => {
             window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
           }, 100);
         }}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all gap-0 p-0"
+        className="fixed bottom-6 right-6 z-[200] h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all gap-0 p-0"
         title={`Ajouter une offre ${offerType === 'omra' ? 'Omra' : 'Hajj'}`}
       >
         <Plus className="h-6 w-6" />
