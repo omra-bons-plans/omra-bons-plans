@@ -112,7 +112,7 @@ export const HajjOfferFormCard = ({
     hotel_medina: '',
     hotel_medina_stars: 4,
     nusuk_code: '',
-    camp_mina: '',
+    camp_mina: [] as string[],
     half_board: false,
     departure_cities: [] as string[],
     accommodation_zone: 'A',
@@ -141,6 +141,15 @@ export const HajjOfferFormCard = ({
       departure_cities: prev.departure_cities.includes(city)
         ? prev.departure_cities.filter(c => c !== city)
         : [...prev.departure_cities, city]
+    }));
+  };
+
+  const handleCampToggle = (camp: string) => {
+    setFormData(prev => ({
+      ...prev,
+      camp_mina: prev.camp_mina.includes(camp)
+        ? prev.camp_mina.filter(c => c !== camp)
+        : [...prev.camp_mina, camp]
     }));
   };
 
@@ -186,7 +195,7 @@ export const HajjOfferFormCard = ({
         package_type: formData.package_type,
         hotel_makkah: formData.hotel_makkah,
         hotel_medina: formData.hotel_medina,
-        camp_mina: formData.camp_mina || null,
+        camp_mina: formData.camp_mina.length > 0 ? formData.camp_mina.join(', ') : null,
         half_board: formData.half_board,
         departure_cities: formData.departure_cities,
         accommodation_zone: formData.accommodation_zone,
@@ -504,20 +513,22 @@ export const HajjOfferFormCard = ({
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Camp Mina</Label>
-              <Select
-                value={formData.camp_mina}
-                onValueChange={(value) => setFormData({ ...formData, camp_mina: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner" />
-                </SelectTrigger>
-                <SelectContent>
-                  {MINA_CAMPS.map((camp) => (
-                    <SelectItem key={camp.value} value={camp.value}>{camp.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label>Camp Mina (sélection multiple)</Label>
+              <div className="flex flex-wrap gap-2">
+                {MINA_CAMPS.map((camp) => {
+                  const isSelected = formData.camp_mina.includes(camp.value);
+                  return (
+                    <Badge
+                      key={camp.value}
+                      variant={isSelected ? "default" : "outline"}
+                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => handleCampToggle(camp.value)}
+                    >
+                      {camp.label}
+                    </Badge>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="space-y-2">
