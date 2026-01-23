@@ -41,6 +41,8 @@ export const AGENCY_LOGOS: Record<string, string> = {
   // Hajj agencies
   'Haramain Voyages': '/lovable-uploads/logoharamainvoyages-new.webp',
   'Haramain': '/lovable-uploads/logoharamainvoyages-new.webp',
+  'MERIDIANIS': '/lovable-uploads/logomeridianis.webp',
+  'Meridianis': '/lovable-uploads/logomeridianis.webp',
 };
 
 /**
