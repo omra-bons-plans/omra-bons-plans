@@ -210,23 +210,31 @@ export default function ComparateurOmra() {
     setSelectedDuration('all');
   }, [tripType]);
 
-  // ⚡ URL SYNC: Update URL when tripType changes
+  // ⚡ URL SYNC: Update URL when tripType changes (one-way sync only)
   useEffect(() => {
     const targetPath = tripType === 'hajj' ? '/hajj' : '/omra';
     // Only navigate if we're on a comparator page and path doesn't match
     if ((location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj') && location.pathname !== targetPath) {
       navigate(targetPath, { replace: true });
     }
-  }, [tripType, location.pathname, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tripType]); // Only depend on tripType, not location.pathname to avoid loops
 
-  // ⚡ URL SYNC: Update tripType when URL changes (back/forward navigation)
+  // ⚡ URL SYNC: Update tripType when URL changes (back/forward navigation only)
   useEffect(() => {
-    if (location.pathname === '/hajj' && tripType !== 'hajj') {
-      setTripType('hajj');
-    } else if ((location.pathname === '/omra' || location.pathname === '/') && tripType !== 'omra') {
-      setTripType('omra');
-    }
-  }, [location.pathname]);
+    // Only sync from URL on initial mount or popstate (back/forward)
+    const handlePopState = () => {
+      if (window.location.pathname === '/hajj' && tripType !== 'hajj') {
+        setTripType('hajj');
+      } else if ((window.location.pathname === '/omra' || window.location.pathname === '/') && tripType !== 'omra') {
+        setTripType('omra');
+      }
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Share page URL
   const handleSharePage = async () => {
