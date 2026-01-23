@@ -8,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Trash2, Edit, Search, Filter, Plus, Check, ChevronsUpDown } from "lucide-react";
 import { useHotelPresets } from "@/hooks/useHotelPresets";
-import { useAirlinePresets } from "@/hooks/useAirlinePresets";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
@@ -71,6 +70,19 @@ const CAMP_MINA_OPTIONS = [
   { value: 'Majar Al Kabsh', label: 'Majar Al Kabsh' }
 ];
 
+const AIRLINE_OPTIONS = [
+  'Saudia',
+  'Royal Air Maroc',
+  'Turkish Airlines',
+  'Qatar Airways',
+  'Emirates',
+  'Air France',
+  'Egyptair',
+  'AJET',
+  'Flynas',
+  'Kuwait Airways'
+];
+
 interface HajjOffer {
   id: string;
   agency_name: string;
@@ -109,12 +121,10 @@ export default function AdminHajjManagement() {
   // Popovers state
   const [openMakkahHotelPopover, setOpenMakkahHotelPopover] = useState(false);
   const [openMedinaHotelPopover, setOpenMedinaHotelPopover] = useState(false);
-  const [openAirlinePopover, setOpenAirlinePopover] = useState(false);
   
-  // Hotel and airline presets
+  // Hotel presets
   const { hotels: makkahHotels } = useHotelPresets('makkah');
   const { hotels: medinaHotels } = useHotelPresets('medina');
-  const { airlines: airlinePresets } = useAirlinePresets();
 
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -423,6 +433,24 @@ export default function AdminHajjManagement() {
     setOffer({ ...offer, departure_cities: newCities });
   };
 
+  const toggleAirline = (
+    offer: HajjOffer | Partial<HajjOffer>,
+    setOffer: (next: any) => void,
+    airline: string
+  ) => {
+    const currentAirlines = offer.airline ? offer.airline.split(',').map(a => a.trim()).filter(Boolean) : [];
+    const newAirlines = currentAirlines.includes(airline)
+      ? currentAirlines.filter(a => a !== airline)
+      : [...currentAirlines, airline];
+    
+    setOffer({ ...offer, airline: newAirlines.join(', ') });
+  };
+
+  const getSelectedAirlines = (airlineString: string | undefined | null): string[] => {
+    if (!airlineString) return [];
+    return airlineString.split(',').map(a => a.trim()).filter(Boolean);
+  };
+
   // Composant réutilisable pour le formulaire d'offre
   const OfferFormFields = ({ offer, setOffer, isNew = false }: { 
     offer: HajjOffer | Partial<HajjOffer>, 
@@ -709,57 +737,26 @@ export default function AdminHajjManagement() {
         </div>
       </div>
 
-      {/* Compagnie aérienne */}
+      {/* Compagnies aériennes (multi-select) */}
       <div>
-        <Label>Compagnie aérienne</Label>
-        <Popover open={openAirlinePopover} onOpenChange={setOpenAirlinePopover}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              className="w-full justify-between"
+        <Label>Compagnies aériennes</Label>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {AIRLINE_OPTIONS.map((airline) => (
+            <Badge
+              key={airline}
+              variant={getSelectedAirlines(offer.airline).includes(airline) ? "default" : "outline"}
+              className="cursor-pointer"
+              onClick={() => toggleAirline(offer, setOffer, airline)}
             >
-              {offer.airline || "Sélectionner..."}
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-full p-0">
-            <Command>
-              <CommandInput placeholder="Rechercher..." />
-              <CommandEmpty>
-                <Input
-                  placeholder="Nouvelle compagnie..."
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      setOffer({ ...offer, airline: e.currentTarget.value });
-                      setOpenAirlinePopover(false);
-                    }
-                  }}
-                />
-              </CommandEmpty>
-              <CommandGroup>
-                {airlinePresets.map((airline) => (
-                  <CommandItem
-                    key={airline.id}
-                    value={airline.airline_name}
-                    onSelect={() => {
-                      setOffer({ ...offer, airline: airline.airline_name });
-                      setOpenAirlinePopover(false);
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        offer.airline === airline.airline_name ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {airline.airline_name}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </Command>
-          </PopoverContent>
-        </Popover>
+              {airline}
+            </Badge>
+          ))}
+        </div>
+        {getSelectedAirlines(offer.airline).length > 0 && (
+          <p className="text-xs text-muted-foreground mt-1">
+            Sélectionnées : {getSelectedAirlines(offer.airline).join(', ')}
+          </p>
+        )}
       </div>
 
       {/* Villes de départ */}
@@ -954,6 +951,7 @@ export default function AdminHajjManagement() {
                     <TableHead>Zone</TableHead>
                     <TableHead>Dates</TableHead>
                     <TableHead>Villes</TableHead>
+                    <TableHead>Compagnies</TableHead>
                     <TableHead>Statut</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -961,7 +959,7 @@ export default function AdminHajjManagement() {
                 <TableBody>
                   {filteredOffers.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                      <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
                         Aucune offre Hajj trouvée
                       </TableCell>
                     </TableRow>
@@ -993,6 +991,18 @@ export default function AdminHajjManagement() {
                               </Badge>
                             ))}
                             {(!offer.departure_cities || offer.departure_cities.length === 0) && (
+                              <span className="text-muted-foreground text-xs">Aucune</span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-wrap gap-1 max-w-[180px]">
+                            {getSelectedAirlines(offer.airline).map((airline) => (
+                              <Badge key={airline} variant="outline" className="text-xs">
+                                {airline}
+                              </Badge>
+                            ))}
+                            {getSelectedAirlines(offer.airline).length === 0 && (
                               <span className="text-muted-foreground text-xs">Aucune</span>
                             )}
                           </div>
