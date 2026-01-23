@@ -425,7 +425,7 @@ export const HajjOfferFormCard = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {[3, 4, 5].map((s) => (
+                  {[1, 2, 3, 4, 5].map((s) => (
                     <SelectItem key={s} value={String(s)}>{s}⭐</SelectItem>
                   ))}
                 </SelectContent>
@@ -483,7 +483,7 @@ export const HajjOfferFormCard = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {[3, 4, 5].map((s) => (
+                  {[1, 2, 3, 4, 5].map((s) => (
                     <SelectItem key={s} value={String(s)}>{s}⭐</SelectItem>
                   ))}
                 </SelectContent>
