@@ -47,7 +47,7 @@ const DEPARTURE_CITIES = [
   'Nantes',
   'Strasbourg',
   'Lille',
-  'Rennes',
+  'Londres',
   'Montpellier',
   'Bruxelles',
   'Genève'
