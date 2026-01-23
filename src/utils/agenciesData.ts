@@ -348,6 +348,29 @@ export const agenciesData: AgencyData[] = [
     ],
     priceRange: "Standard",
     highlight: "Agence de qualité avec service personnalisé et note exceptionnelle 4.9/5 - Accompagnement francophone 7j/7"
+  },
+  {
+    name: "MERIDIANIS",
+    url: "https://meridianis.fr",
+    googleRating: 4.6,
+    reviewCount: 646,
+    strengths: [
+      "Excellente réputation avec 4.6/5 sur Google",
+      "Grande expérience (646 avis clients)",
+      "Service client réactif",
+      "Formules Hajj et Omra complètes"
+    ],
+    weaknesses: [
+      "Moins d'avis que certains concurrents majeurs"
+    ],
+    specialties: [
+      "Hajj organisé",
+      "Omra tout inclus",
+      "Voyages spirituels",
+      "Accompagnement francophone"
+    ],
+    priceRange: "Standard",
+    highlight: "Agence établie avec excellente note 4.6/5 et plus de 600 avis clients satisfaits"
   }
 ];
 
