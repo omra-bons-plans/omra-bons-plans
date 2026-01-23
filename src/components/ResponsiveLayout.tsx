@@ -1,5 +1,6 @@
 import { ReactNode, lazy, Suspense } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useLocation } from 'react-router-dom';
 
 // ⚡ PERFORMANCE: Lazy load mobile components - they're not needed for initial render
 const MobileSidebar = lazy(() => import('./mobile/MobileSidebar'));
@@ -18,22 +19,30 @@ const MobileNavSkeleton = () => (
 
 const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
   const isMobile = useIsMobile();
+  const location = useLocation();
+  
+  // Hide mobile nav on admin pages to avoid hiding FAB buttons
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   if (isMobile) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <Suspense fallback={null}>
-          <MobileSidebar />
-        </Suspense>
-        <main className="flex-1 pb-20">
+        {!isAdminRoute && (
+          <Suspense fallback={null}>
+            <MobileSidebar />
+          </Suspense>
+        )}
+        <main className={`flex-1 ${isAdminRoute ? 'pb-4' : 'pb-20'}`}>
           {children}
         </main>
         <Suspense fallback={null}>
           <Footer />
         </Suspense>
-        <Suspense fallback={<MobileNavSkeleton />}>
-          <MobileBottomNav />
-        </Suspense>
+        {!isAdminRoute && (
+          <Suspense fallback={<MobileNavSkeleton />}>
+            <MobileBottomNav />
+          </Suspense>
+        )}
       </div>
     );
   }
