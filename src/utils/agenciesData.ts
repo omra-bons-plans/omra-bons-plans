@@ -234,27 +234,6 @@ export const agenciesData: AgencyData[] = [
     highlight: "Organisation complète de A à Z avec suivi personnalisé"
   },
   {
-    name: "Al Bayt",
-    url: "https://www.albayt.fr/",
-    googleRating: 4.7,
-    reviewCount: 959,
-    strengths: [
-      "Bonne réputation (13 ans, 98% satisfaction)",
-      "Offres variées (Essentielle, Confort, VIP)",
-      "Accompagnement complet (vols, hôtels, transferts)",
-      "Identité spirituelle rassurante"
-    ],
-    weaknesses: [
-      "Manque de détails clairs sur les formules",
-      "Navigation et présentation peu comparatives",
-      "Contenu limité (FAQ, blog)",
-      "Peu d'outils de fidélisation"
-    ],
-    specialties: ["Hajj & Omra traditionnel", "Réservation en ligne", "Offres variées"],
-    priceRange: "Standard",
-    highlight: "Agence pionnière avec 13 ans d'expérience et 98% de satisfaction"
-  },
-  {
     name: "Omra Sounnah",
     url: "https://www.omrasounnah.com/",
     googleRating: 4.9,
