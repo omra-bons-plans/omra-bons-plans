@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useState, lazy, Suspense } from 'react';
@@ -65,17 +65,20 @@ const CAMP_DESCRIPTIONS: Record<string, { title: string; description: string }> 
 };
 
 export default function OfferDetails() {
-  const { id, type } = useParams<{ id: string; type: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [copied, setCopied] = useState(false);
   const { isDialogOpen, pendingOfferUrl, handleOfferClick, handleContinue, handleClose } = useReviewRequest();
 
-  const isHajj = type === 'hajj';
+  // Détermine le type d'offre à partir du chemin URL (pas des paramètres)
+  const isHajj = location.pathname.startsWith('/offre-hajj/');
+  const offerType = isHajj ? 'hajj' : 'omra';
   const tableName = isHajj ? 'hajj_offers' : 'omra_offers';
 
   // Fetch offer details - unified type using any to avoid union type issues
   const { data: offer, isLoading, error } = useQuery<any>({
-    queryKey: ['offer-details', type, id],
+    queryKey: ['offer-details', offerType, id],
     queryFn: async (): Promise<any> => {
       if (isHajj) {
         const { data, error } = await supabase
@@ -127,7 +130,7 @@ export default function OfferDetails() {
         };
       }
     },
-    enabled: !!id && !!type,
+    enabled: !!id,
   });
 
   // Fetch agency info
@@ -149,7 +152,7 @@ export default function OfferDetails() {
 
   // Copy share link
   const handleShare = async () => {
-    const shareUrl = `${window.location.origin}/offre-${type}/${id}`;
+    const shareUrl = `${window.location.origin}/offre-${offerType}/${id}`;
     
     try {
       if (navigator.share) {
@@ -211,13 +214,13 @@ export default function OfferDetails() {
             title={`${offer.agency_name} - Offre ${isHajj ? 'Hajj' : 'Omra'} ${Number(offer.price_eur).toLocaleString('fr-FR')}€`}
             description={`Offre ${isHajj ? 'Hajj' : 'Omra'} par ${offer.agency_name} au départ de ${offer.departure_city} - ${offer.duration_nights} nuits - ${Number(offer.price_eur).toLocaleString('fr-FR')}€`}
             keywords={[isHajj ? 'hajj' : 'omra', offer.agency_name, offer.departure_city, 'voyage']}
-            path={`/offre-${type}/${id}`}
+            path={`/offre-${offerType}/${id}`}
           />
           <SEOBreadcrumb
             items={[
               { name: 'Accueil', url: '/' },
               { name: isHajj ? 'Hajj' : 'Omra', url: isHajj ? '/hajj' : '/omra' },
-              { name: offer.agency_name, url: `/offre-${type}/${id}` }
+              { name: offer.agency_name, url: `/offre-${offerType}/${id}` }
             ]}
           />
         </Suspense>
