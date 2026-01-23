@@ -73,7 +73,7 @@ export default function OfferDetails() {
   const isHajj = type === 'hajj';
   const tableName = isHajj ? 'hajj_offers' : 'omra_offers';
 
-  // Fetch offer details - using any type for unified format
+  // Fetch offer details
   const { data: offerData, isLoading, error } = useQuery({
     queryKey: ['offer-details', type, id],
     queryFn: async () => {
@@ -103,7 +103,7 @@ export default function OfferDetails() {
           notes: null,
           makkah_nights: null,
           medina_nights: null,
-        };
+        } as any;
       } else {
         const { data, error } = await supabase
           .from('omra_offers')
@@ -111,13 +111,13 @@ export default function OfferDetails() {
           .eq('id', id)
           .single();
         if (error) throw error;
-        return { ...data, is_hajj: false };
+        return { ...data, is_hajj: false } as any;
       }
     },
     enabled: !!id && !!type,
   });
-
-  // Cast to any to avoid union type issues
+  
+  // Force any type to avoid union type issues
   const offer = offerData as any;
 
   // Fetch agency info
