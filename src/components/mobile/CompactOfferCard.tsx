@@ -189,7 +189,11 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               <Calendar className="h-3.5 w-3.5" />
               <span className="truncate">{offer.month_departure}</span>
               <MapPin className="h-3.5 w-3.5" />
-              <span>{offer.departure_city}</span>
+              <span className="truncate max-w-[120px]">
+                {offer.is_hajj && offer.departure_cities?.length > 0 
+                  ? offer.departure_cities.join(', ') 
+                  : offer.departure_city}
+              </span>
             </div>
           </div>
 
