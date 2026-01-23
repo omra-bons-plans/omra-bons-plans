@@ -90,6 +90,34 @@ serve(async (req) => {
 
     console.log(`🏢 Found ${agencies?.length || 0} agencies`);
 
+    // Fetch active Omra offers
+    const { data: omraOffers, error: omraError } = await supabase
+      .from('omra_offers')
+      .select('id, updated_at')
+      .eq('status', 'active')
+      .order('updated_at', { ascending: false })
+      .limit(500);
+
+    if (omraError) {
+      console.error('❌ Error fetching omra offers:', omraError);
+    }
+
+    console.log(`🕋 Found ${omraOffers?.length || 0} active Omra offers`);
+
+    // Fetch active Hajj offers
+    const { data: hajjOffers, error: hajjError } = await supabase
+      .from('hajj_offers')
+      .select('id, updated_at')
+      .eq('status', 'active')
+      .order('updated_at', { ascending: false })
+      .limit(500);
+
+    if (hajjError) {
+      console.error('❌ Error fetching hajj offers:', hajjError);
+    }
+
+    console.log(`🕌 Found ${hajjOffers?.length || 0} active Hajj offers`);
+
     // Generate sitemap XML
     const baseUrl = 'https://omrabonsplans.fr';
     const today = new Date().toISOString().split('T')[0];
@@ -169,10 +197,44 @@ serve(async (req) => {
       });
     }
 
+    // Add Omra offers
+    if (omraOffers && omraOffers.length > 0) {
+      sitemap += `\n  <!-- Omra Offers (${omraOffers.length} offres) -->\n`;
+      omraOffers.forEach(offer => {
+        const lastmod = offer.updated_at 
+          ? new Date(offer.updated_at).toISOString().split('T')[0]
+          : today;
+        sitemap += `  <url>
+    <loc>${baseUrl}/offre-omra/${offer.id}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+      });
+    }
+
+    // Add Hajj offers
+    if (hajjOffers && hajjOffers.length > 0) {
+      sitemap += `\n  <!-- Hajj Offers (${hajjOffers.length} offres) -->\n`;
+      hajjOffers.forEach(offer => {
+        const lastmod = offer.updated_at 
+          ? new Date(offer.updated_at).toISOString().split('T')[0]
+          : today;
+        sitemap += `  <url>
+    <loc>${baseUrl}/offre-hajj/${offer.id}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+      });
+    }
+
     sitemap += `\n</urlset>`;
 
     const duration = Date.now() - startTime;
-    const totalUrls = staticRoutes.length + (blogPosts?.length || 0) + (agencies?.length || 0) + (ads?.length || 0);
+    const totalUrls = staticRoutes.length + (blogPosts?.length || 0) + (agencies?.length || 0) + (ads?.length || 0) + (omraOffers?.length || 0) + (hajjOffers?.length || 0);
     console.log(`✅ Sitemap generated in ${duration}ms with ${totalUrls} URLs`);
 
     return new Response(sitemap, {
