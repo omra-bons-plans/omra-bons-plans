@@ -55,6 +55,7 @@ const DEPARTURE_CITIES = [
   { value: 'geneve', label: 'Genève' },
   { value: 'londres', label: 'Londres' },
   { value: 'lyon', label: 'Lyon' },
+  { value: 'marseille', label: 'Marseille' },
   { value: 'montreal', label: 'Montréal' },
   { value: 'paris', label: 'Paris' },
 ];
