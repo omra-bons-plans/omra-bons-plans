@@ -966,7 +966,7 @@ const AdminOmraOffers = () => {
         {/* Formulaires supplémentaires */}
         {additionalForms.map((form, index) => (
           <OmraOfferFormCard
-            key={index}
+            key={`form-${index}-${formCounter}`}
             index={index + 1}
             initialData={form}
             offerType={offerType}
@@ -979,7 +979,58 @@ const AdminOmraOffers = () => {
             }}
           />
         ))}
+
+        {/* Compteur d'offres ajoutées */}
+        {additionalForms.length > 0 && (
+          <div className="text-center py-4 text-muted-foreground">
+            {additionalForms.length} offre(s) supplémentaire(s) en attente
+          </div>
+        )}
       </div>
+
+      {/* FAB - Bouton flottant pour ajouter une offre */}
+      <Button
+        type="button"
+        size="lg"
+        onClick={() => {
+          const newForm = {
+            agency_name: formData.agency_name || commonData.agency_name,
+            agency_logo: formData.agency_logo || commonData.agency_logo,
+            offer_url: formData.offer_url || commonData.offer_url,
+            month_departure: formData.month_departure || commonData.month_departure,
+            departure_city: formData.departure_city || commonData.departure_city,
+            date_start: '',
+            date_end: '',
+            duration_nights: 0,
+            price_eur: 0,
+            formula_type: 'essentiel',
+            hotel_makkah: '',
+            hotel_makkah_stars: 3,
+            hotel_medinah: '',
+            hotel_medinah_stars: 3,
+            airline: '',
+            visa_included: true,
+            hajj_duration_type: 'court',
+            is_recommended: false
+          };
+          setAdditionalForms([...additionalForms, newForm]);
+          setFormCounter(prev => prev + 1);
+          
+          // Scroll vers le nouveau formulaire après un court délai
+          setTimeout(() => {
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+          }, 100);
+          
+          toast({
+            title: `Formulaire #${additionalForms.length + 2} ajouté`,
+            description: "Remplissez les détails de cette nouvelle offre",
+          });
+        }}
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all gap-0 p-0"
+        title="Ajouter une offre"
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
     </div>
   );
 };
