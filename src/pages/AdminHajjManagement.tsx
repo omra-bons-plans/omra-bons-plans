@@ -71,16 +71,21 @@ const CAMP_MINA_OPTIONS = [
 ];
 
 const AIRLINE_OPTIONS = [
-  'Saudia',
+  'Sans vol',
+  'AJET',
+  'Saudia Airlines',
+  'Qatar Airways',
+  'EgyptAir',
+  'Royal Jordanian',
+  'Etihad',
+  'Flynas',
+  'Transavia',
+  'Kuwait Airways',
+  'IAT',
   'Royal Air Maroc',
   'Turkish Airlines',
-  'Qatar Airways',
   'Emirates',
-  'Air France',
-  'Egyptair',
-  'AJET',
-  'Flynas',
-  'Kuwait Airways'
+  'Air France'
 ];
 
 interface HajjOffer {
