@@ -986,16 +986,14 @@ export default function AdminHajjManagement() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <div className="flex flex-wrap gap-1">
-                            {offer.departure_cities?.slice(0, 2).map((city) => (
+                          <div className="flex flex-wrap gap-1 max-w-[200px]">
+                            {offer.departure_cities?.map((city) => (
                               <Badge key={city} variant="secondary" className="text-xs">
                                 {city}
                               </Badge>
                             ))}
-                            {offer.departure_cities?.length > 2 && (
-                              <Badge variant="secondary" className="text-xs">
-                                +{offer.departure_cities.length - 2}
-                              </Badge>
+                            {(!offer.departure_cities || offer.departure_cities.length === 0) && (
+                              <span className="text-muted-foreground text-xs">Aucune</span>
                             )}
                           </div>
                         </TableCell>
