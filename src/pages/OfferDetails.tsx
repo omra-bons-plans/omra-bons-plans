@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 // ⚡ PERFORMANCE: Individual icon imports
 import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
@@ -19,6 +20,7 @@ import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Clock from 'lucide-react/dist/esm/icons/clock';
 import Copy from 'lucide-react/dist/esm/icons/copy';
 import Check from 'lucide-react/dist/esm/icons/check';
+import Info from 'lucide-react/dist/esm/icons/info';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
@@ -29,6 +31,22 @@ import { getAgencyLogo } from '@/utils/comparateurConstants';
 // ⚡ LAZY LOAD: SEO components
 const DynamicSEO = lazy(() => import('@/components/SEO/DynamicSEO').then(m => ({ default: m.DynamicSEO })));
 const SEOBreadcrumb = lazy(() => import('@/components/SEO/SEOBreadcrumb').then(m => ({ default: m.SEOBreadcrumb })));
+
+// Zone descriptions for Hajj offers
+const ZONE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
+  'M': {
+    title: 'Zone M (Mashair)',
+    description: 'Hébergement dans des tentes climatisées à Mina (Mashair), à proximité immédiate des sites des rituels. Option très demandée pour son accessibilité.'
+  },
+  'C': {
+    title: 'Zone C (Économique)',
+    description: 'Hébergement plus éloigné du Haram et des sites des rituels, avec des tentes plus simples. Conçue pour un Hajj à coût raisonnable.'
+  },
+  'A': {
+    title: 'Zone A (Premium)',
+    description: 'Forfaits premium avec hébergements proches du Haram à La Mecque et tentes bien situées à Mina. Confort et proximité garantis.'
+  }
+};
 
 export default function OfferDetails() {
   const { id, type } = useParams<{ id: string; type: string }>();
@@ -371,9 +389,25 @@ export default function OfferDetails() {
 
                 {/* Hajj-specific badges */}
                 {offer.accommodation_zone && (
-                  <Badge variant="outline" className="px-3 py-1 bg-purple-500/10 text-purple-700 border-purple-500/30">
-                    📍 Zone {offer.accommodation_zone}
-                  </Badge>
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger asChild>
+                      <Badge 
+                        variant="outline" 
+                        className="px-3 py-1 bg-purple-500/10 text-purple-700 border-purple-500/30 cursor-help"
+                      >
+                        📍 Zone {offer.accommodation_zone}
+                        <Info className="h-3 w-3 ml-1 inline" />
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[320px] p-4">
+                      <p className="font-semibold text-sm mb-1">
+                        {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.title || `Zone ${offer.accommodation_zone}`}
+                      </p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.description || 'Zone d\'hébergement pour le Hajj'}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
                 )}
 
                 {offer.camp_mina && (
