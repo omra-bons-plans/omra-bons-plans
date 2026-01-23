@@ -400,6 +400,21 @@ const AdminOmraOffers = () => {
                 description: "Vous pouvez ajouter une autre offre.",
               });
             }}
+            onAddAnother={() => {
+              const newHajjForm = {
+                agency_name: '',
+                offer_url: '',
+              };
+              setAdditionalHajjForms([...additionalHajjForms, newHajjForm]);
+              setFormCounter(prev => prev + 1);
+              toast({
+                title: `Formulaire Hajj #${additionalHajjForms.length + 2} ajouté`,
+                description: "Remplissez les détails de cette nouvelle offre Hajj",
+              });
+              setTimeout(() => {
+                window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+              }, 100);
+            }}
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
