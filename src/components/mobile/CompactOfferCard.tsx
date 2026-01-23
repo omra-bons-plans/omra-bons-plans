@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 // ⚡ PERFORMANCE: Individual icon imports to reduce bundle size
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
@@ -11,12 +12,29 @@ import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
 import Star from 'lucide-react/dist/esm/icons/star';
 import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Check from 'lucide-react/dist/esm/icons/check';
+import Info from 'lucide-react/dist/esm/icons/info';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { ReviewRequestDialog, useReviewRequest } from '@/components/ui/ReviewRequestDialog';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+
+// Zone descriptions for Hajj offers
+const ZONE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
+  'M': {
+    title: 'Zone M (Mashair)',
+    description: 'Hébergement dans des tentes climatisées à Mina (Mashair), à proximité immédiate des sites des rituels. Option très demandée pour son accessibilité.'
+  },
+  'C': {
+    title: 'Zone C (Économique)',
+    description: 'Hébergement plus éloigné du Haram et des sites des rituels, avec des tentes plus simples. Conçue pour un Hajj à coût raisonnable.'
+  },
+  'A': {
+    title: 'Zone A (Premium)',
+    description: 'Forfaits premium avec hébergements proches du Haram à La Mecque et tentes bien situées à Mina. Confort et proximité garantis.'
+  }
+};
 
 interface CompactOfferCardProps {
   offer: any;
@@ -214,9 +232,25 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               </Badge>
             )}
             {offer.accommodation_zone && (
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30">
-                📍 Zone {offer.accommodation_zone}
-              </Badge>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <Badge 
+                    variant="outline" 
+                    className="text-[10px] px-1.5 py-0 bg-purple-500/10 text-purple-700 border-purple-500/30 cursor-help"
+                  >
+                    📍 Zone {offer.accommodation_zone}
+                    <Info className="h-2.5 w-2.5 ml-0.5 inline" />
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-[280px] p-3">
+                  <p className="font-semibold text-sm mb-1">
+                    {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.title || `Zone ${offer.accommodation_zone}`}
+                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {ZONE_DESCRIPTIONS[offer.accommodation_zone]?.description || 'Zone d\'hébergement pour le Hajj'}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
             )}
             {offer.camp_mina && (
               <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-teal-500/10 text-teal-700 border-teal-500/30">
