@@ -126,8 +126,7 @@ export default function AdminHajjManagement() {
   // Données pour les filtres
   const [agencies, setAgencies] = useState<string[]>([]);
 
-  // Nouvelle offre
-  const [newOffer, setNewOffer] = useState<Partial<HajjOffer>>({
+  const getEmptyOffer = (): Partial<HajjOffer> => ({
     agency_name: '',
     agency_url: '',
     price_quad_eur: 0,
@@ -148,6 +147,9 @@ export default function AdminHajjManagement() {
     status: 'active',
     is_recommended: false
   });
+
+  // Nouvelles offres (multi-ajout)
+  const [newOffers, setNewOffers] = useState<Partial<HajjOffer>[]>([getEmptyOffer()]);
 
   useEffect(() => {
     loadOffers();
@@ -308,70 +310,87 @@ export default function AdminHajjManagement() {
     }
   };
 
-  const handleAdd = async () => {
+  const buildInsertPayload = (offer: Partial<HajjOffer>) => {
+    // Calculer la durée automatiquement
+    let duration = null;
+    if (offer.departure_date && offer.return_date) {
+      const start = new Date(offer.departure_date);
+      const end = new Date(offer.return_date);
+      duration = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    return {
+      agency_name: offer.agency_name,
+      agency_url: offer.agency_url,
+      price_quad_eur: offer.price_quad_eur,
+      departure_date: offer.departure_date,
+      return_date: offer.return_date,
+      departure_cities: offer.departure_cities || [],
+      package_type: offer.package_type || 'standard',
+      accommodation_zone: offer.accommodation_zone || 'A',
+      camp_mina: offer.camp_mina,
+      duration_nights: duration,
+      hotel_makkah: offer.hotel_makkah,
+      hotel_makkah_stars: offer.hotel_makkah_stars || 4,
+      hotel_medina: offer.hotel_medina,
+      hotel_medina_stars: offer.hotel_medina_stars || 4,
+      airline: offer.airline,
+      half_board: offer.half_board || false,
+      offer_url: offer.offer_url,
+      nusuk_code: offer.nusuk_code,
+      status: 'active',
+      is_recommended: offer.is_recommended || false,
+    };
+  };
+
+  const handleAddMany = async () => {
     try {
-      // Calculer la durée automatiquement
-      let duration = null;
-      if (newOffer.departure_date && newOffer.return_date) {
-        const start = new Date(newOffer.departure_date);
-        const end = new Date(newOffer.return_date);
-        duration = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+      const nonEmptyOffers = newOffers.filter((o) => {
+        const hasAny = Boolean(
+          o.agency_name ||
+            o.offer_url ||
+            o.departure_date ||
+            o.return_date ||
+            (o.price_quad_eur && o.price_quad_eur > 0)
+        );
+        return hasAny;
+      });
+
+      if (nonEmptyOffers.length === 0) {
+        toast({
+          title: "Aucune offre à ajouter",
+          description: "Remplissez au moins une offre avant d'enregistrer.",
+          variant: "destructive",
+        });
+        return;
       }
 
-      const { error } = await supabase
-        .from("hajj_offers")
-        .insert({
-          agency_name: newOffer.agency_name,
-          agency_url: newOffer.agency_url,
-          price_quad_eur: newOffer.price_quad_eur,
-          departure_date: newOffer.departure_date,
-          return_date: newOffer.return_date,
-          departure_cities: newOffer.departure_cities || [],
-          package_type: newOffer.package_type || 'standard',
-          accommodation_zone: newOffer.accommodation_zone || 'A',
-          camp_mina: newOffer.camp_mina,
-          duration_nights: duration,
-          hotel_makkah: newOffer.hotel_makkah,
-          hotel_makkah_stars: newOffer.hotel_makkah_stars || 4,
-          hotel_medina: newOffer.hotel_medina,
-          hotel_medina_stars: newOffer.hotel_medina_stars || 4,
-          airline: newOffer.airline,
-          half_board: newOffer.half_board || false,
-          offer_url: newOffer.offer_url,
-          nusuk_code: newOffer.nusuk_code,
-          status: 'active',
-          is_recommended: newOffer.is_recommended || false,
+      // Validation minimale (alignée sur l'existant)
+      const invalidIndex = nonEmptyOffers.findIndex(
+        (o) => !o.agency_name || !o.offer_url || !o.departure_date || !o.return_date || !o.price_quad_eur
+      );
+      if (invalidIndex !== -1) {
+        toast({
+          title: "Champs manquants",
+          description: `Veuillez compléter l'offre #${invalidIndex + 1} (agence, URL, dates, prix).`,
+          variant: "destructive",
         });
+        return;
+      }
+
+      const payload = nonEmptyOffers.map(buildInsertPayload);
+      const { error } = await supabase.from("hajj_offers").insert(payload as any);
 
       if (error) throw error;
 
       toast({
-        title: "✅ Offre ajoutée",
-        description: "L'offre Hajj a été créée avec succès",
+        title: "✅ Offres ajoutées",
+        description: `${payload.length} offre(s) Hajj créée(s) avec succès`,
       });
 
       setIsAddDialogOpen(false);
-      setNewOffer({
-        agency_name: '',
-        agency_url: '',
-        price_quad_eur: 0,
-        departure_date: '',
-        return_date: '',
-        departure_cities: [],
-        package_type: 'standard',
-        accommodation_zone: 'A',
-        camp_mina: null,
-        hotel_makkah: '',
-        hotel_makkah_stars: 4,
-        hotel_medina: '',
-        hotel_medina_stars: 4,
-        airline: '',
-        half_board: false,
-        offer_url: '',
-        nusuk_code: null,
-        status: 'active',
-        is_recommended: false
-      });
+
+      setNewOffers([getEmptyOffer()]);
       loadOffers();
     } catch (err: any) {
       console.error("Erreur d'ajout:", err);
@@ -391,17 +410,17 @@ export default function AdminHajjManagement() {
     setMaxPrice("");
   };
 
-  const toggleDepartureCity = (offer: HajjOffer | Partial<HajjOffer>, city: string, isNew: boolean = false) => {
+  const toggleDepartureCity = (
+    offer: HajjOffer | Partial<HajjOffer>,
+    setOffer: (next: any) => void,
+    city: string
+  ) => {
     const currentCities = offer.departure_cities || [];
     const newCities = currentCities.includes(city)
       ? currentCities.filter(c => c !== city)
       : [...currentCities, city];
-    
-    if (isNew) {
-      setNewOffer({ ...newOffer, departure_cities: newCities });
-    } else if (selectedOffer) {
-      setSelectedOffer({ ...selectedOffer, departure_cities: newCities });
-    }
+
+    setOffer({ ...offer, departure_cities: newCities });
   };
 
   // Composant réutilisable pour le formulaire d'offre
@@ -752,7 +771,7 @@ export default function AdminHajjManagement() {
               key={city}
               variant={offer.departure_cities?.includes(city) ? "default" : "outline"}
               className="cursor-pointer"
-              onClick={() => toggleDepartureCity(offer, city, isNew)}
+              onClick={() => toggleDepartureCity(offer, setOffer, city)}
             >
               {city}
             </Badge>
@@ -817,7 +836,13 @@ export default function AdminHajjManagement() {
             Retour Admin
           </Button>
           <h1 className="text-3xl font-bold">🕋 Gestion des Offres Hajj</h1>
-          <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
+          <Button
+            onClick={() => {
+              setNewOffers([getEmptyOffer()]);
+              setIsAddDialogOpen(true);
+            }}
+            className="gap-2"
+          >
             <Plus className="h-4 w-4" />
             Nouvelle offre
           </Button>
@@ -1013,6 +1038,29 @@ export default function AdminHajjManagement() {
         </Card>
       </div>
 
+      {/* FAB - Ajout rapide multi-offres */}
+      <Button
+        type="button"
+        size="lg"
+        onClick={() => {
+          if (!isAddDialogOpen) {
+            setNewOffers([getEmptyOffer()]);
+            setIsAddDialogOpen(true);
+            return;
+          }
+
+          setNewOffers((prev) => [...prev, getEmptyOffer()]);
+          toast({
+            title: `Formulaire Hajj #${newOffers.length + 1} ajouté`,
+            description: "Remplissez les détails de cette nouvelle offre",
+          });
+        }}
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all gap-0 p-0"
+        title="Ajouter une offre Hajj"
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
+
       {/* Dialog de modification */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -1040,16 +1088,61 @@ export default function AdminHajjManagement() {
           <DialogHeader>
             <DialogTitle>Ajouter une offre Hajj</DialogTitle>
           </DialogHeader>
-          <OfferFormFields 
-            offer={newOffer} 
-            setOffer={setNewOffer}
-            isNew
-          />
+
+          <div className="space-y-6">
+            {newOffers.map((offer, idx) => (
+              <Card key={`new-hajj-offer-${idx}`} className="p-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Offre #{idx + 1}</h3>
+                  {newOffers.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setNewOffers((prev) => prev.filter((_, i) => i !== idx))}
+                      className="gap-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      Retirer
+                    </Button>
+                  )}
+                </div>
+
+                <div className="mt-4">
+                  <OfferFormFields
+                    offer={offer}
+                    setOffer={(updated) =>
+                      setNewOffers((prev) => prev.map((o, i) => (i === idx ? updated : o)))
+                    }
+                    isNew
+                  />
+                </div>
+              </Card>
+            ))}
+
+            <div className="flex justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setNewOffers((prev) => [...prev, getEmptyOffer()]);
+                  toast({
+                    title: `Formulaire Hajj #${newOffers.length + 1} ajouté`,
+                    description: "Remplissez les détails de cette nouvelle offre",
+                  });
+                }}
+                className="gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Ajouter une offre
+              </Button>
+            </div>
+          </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
               Annuler
             </Button>
-            <Button onClick={handleAdd}>Ajouter</Button>
+            <Button onClick={handleAddMany}>Enregistrer</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
