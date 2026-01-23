@@ -269,9 +269,15 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               </Badge>
             )}
             {offer.airline && (
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                {offer.airline}
-              </Badge>
+              offer.airline
+                .split(',')
+                .map((a: string) => a.trim())
+                .filter(Boolean)
+                .map((airline: string) => (
+                  <Badge key={airline} variant="outline" className="text-[10px] px-1.5 py-0">
+                    {airline}
+                  </Badge>
+                ))
             )}
             {/* Hajj-specific badges */}
             {offer.board && (
