@@ -98,7 +98,7 @@ export default function OfferDetails() {
           departure_city: data.departure_cities?.[0] || 'Paris',
           formula_type: data.package_type || 'standard',
           hotel_medinah: data.hotel_medina,
-          flights_included: true,
+          flights_included: !data.airline?.toLowerCase().includes('sans vol'),
           visa_included: true,
           board: data.half_board ? 'Demi-pension' : 'Pension complète',
           is_hajj: true,
