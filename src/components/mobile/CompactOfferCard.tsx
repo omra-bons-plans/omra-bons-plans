@@ -256,10 +256,14 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
 
           {/* Badges services */}
           <div className="flex flex-wrap gap-1">
-            {offer.flights_included && (
+            {offer.flights_included ? (
               <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-emerald-500/10 text-emerald-700 border-emerald-500/30">
                 <Plane className="h-2.5 w-2.5 mr-0.5" />
                 Vol
+              </Badge>
+            ) : (
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-gray-500/10 text-gray-600 border-gray-500/30">
+                Sans vol
               </Badge>
             )}
             {offer.visa_included && (
