@@ -384,7 +384,7 @@ export default function ComparateurOmra() {
             is_recommended: offer.is_recommended,
             notes: offer.notes || null,
             airline: offer.airline,
-            flights_included: true,
+            flights_included: !offer.airline?.toLowerCase().includes('sans vol'),
             visa_included: true,
             is_complet: false,
             board: offer.half_board ? 'Demi-pension' : 'Pension complète',
