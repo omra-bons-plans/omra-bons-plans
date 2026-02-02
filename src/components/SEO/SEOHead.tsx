@@ -110,7 +110,7 @@ export const seoConfig = {
     title: 'Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan, 10 Derniers Jours - Omra Bons Plans',
     description: 'Comparez les meilleures offres Omra 2026 et Hajj 2026. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France.',
     keywords: 'omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France',
-    canonical: 'https://omrabonsplans.fr/',
+    canonical: 'https://omrabonsplans.fr/omra',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebSite",

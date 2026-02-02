@@ -94,7 +94,8 @@ const App = () => (
                   <Route path="/sitemap.xml" element={<SitemapXml />} />
                   
                   {/* Comparateur Omra & Hajj - Routes dédiées pour partage */}
-                  <Route path="/" element={<ComparateurOmra />} />
+                  {/* SEO: / redirige vers /omra pour éviter le contenu dupliqué */}
+                  <Route path="/" element={<Navigate to="/omra" replace />} />
                   <Route path="/omra" element={<ComparateurOmra />} />
                   <Route path="/hajj" element={<ComparateurOmra />} />
                   
@@ -252,7 +253,7 @@ const App = () => (
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
-                   <Route path="/comparateur-omra" element={<Navigate to="/" replace />} />
+                   <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />
                    
                    {/* Redirections vers les URLs françaises */}
                   <Route path="/a-propos" element={<Navigate to="/about" replace />} />
@@ -269,10 +270,10 @@ const App = () => (
                   <Route path="/services/vols-omra" element={<Navigate to="/category/vols" replace />} />
                   
                   {/* Redirections pour les anciennes URLs obsolètes */}
-                  <Route path="/home" element={<Navigate to="/" replace />} />
-                  <Route path="/test" element={<Navigate to="/" replace />} />
-                  <Route path="/checkout" element={<Navigate to="/" replace />} />
-                  <Route path="/all-ads" element={<Navigate to="/" replace />} />
+                  <Route path="/home" element={<Navigate to="/omra" replace />} />
+                  <Route path="/test" element={<Navigate to="/omra" replace />} />
+                  <Route path="/checkout" element={<Navigate to="/omra" replace />} />
+                  <Route path="/all-ads" element={<Navigate to="/omra" replace />} />
                   
                   {/* Anciennes archives de blog */}
                   <Route path="/2019" element={<Navigate to="/blog" replace />} />

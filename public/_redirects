@@ -1,3 +1,6 @@
+# SEO: Redirection racine vers /omra (évite contenu dupliqué)
+/ /omra 301
+
 # Redirections françaises vers anglaises (consolidation SEO)
 /a-propos /about 301
 /calendrier-islamique /islamic-calendar 301

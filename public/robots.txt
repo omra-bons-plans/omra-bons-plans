@@ -2,7 +2,7 @@
 User-agent: *
 Allow: /
 
-# Sitemap statique
+# Sitemap
 Sitemap: https://omrabonsplans.fr/sitemap.xml
 
 # Verification files
@@ -10,7 +10,8 @@ Allow: /google-site-verification.html
 Allow: /BingSiteAuth.xml
 
 # Main public pages - explicitly allowed
-Allow: /
+Allow: /omra
+Allow: /hajj
 Allow: /about
 Allow: /contact
 Allow: /blog
@@ -25,6 +26,8 @@ Allow: /comparatif-visuel
 Allow: /discussions
 Allow: /category/
 Allow: /ad/
+Allow: /offre-omra/
+Allow: /offre-hajj/
 
 # Private/admin areas - block indexing
 Disallow: /admin
@@ -39,33 +42,6 @@ Disallow: /auth
 Disallow: /favoris
 Disallow: /search
 Disallow: /ad-summary/
-
-# Block old/redirect URLs to avoid confusion (these redirect anyway)
-Disallow: /a-propos
-Disallow: /calendrier-islamique
-Disallow: /dates-ramadan-hajj
-Disallow: /horaires-prieres
-Disallow: /services/
-Disallow: /comparateur-omra
-Disallow: /home
-Disallow: /test
-Disallow: /checkout
-Disallow: /all-ads
-Disallow: /2019/
-
-# Block old English articles (they redirect to /blog)
-Disallow: /competitive-analysis-for-entrepreneurs
-Disallow: /five-ways-to-create-your-classified-ad-that-will-stand-out
-Disallow: /how-to-choose-best-laptops-under-30000-in-2018
-Disallow: /how-to-create-listing-that-gets-traffic
-Disallow: /how-to-do-market-research-for-to-sell-faster
-Disallow: /how-to-explode-your-leads-with-local-search
-Disallow: /how-to-leverage-contests-to-generate-thousands-of-leads-10
-Disallow: /how-to-place-an-ad-for-immigration-advertising
-Disallow: /increase-your-business-leads-with-classified-advertising
-Disallow: /three-powerful-tricks-for-online-classified-advertising
-Disallow: /use-the-right-partner-to-sell-your-products
-Disallow: /why-online-free-classified-sites-are-essential-for-marketing
 
 # Crawl delay
 Crawl-delay: 1

@@ -54,20 +54,14 @@
             background: #2563eb;
         }
     </style>
-    <script>
-        // Redirection vers l'app React après 3 secondes
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 3000);
-    </script>
+    <!-- SEO FIX: Removed auto-redirect script to avoid soft 404 detection by Google -->
 </head>
 <body>
     <div class="container">
         <h1>404</h1>
         <h2>Page non trouvée</h2>
         <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
-        <p>Vous allez être redirigé vers l'accueil dans 3 secondes...</p>
-        <a href="/" class="btn">Retour immédiat à l'accueil</a>
+        <a href="/omra" class="btn">Retour à l'accueil</a>
     </div>
 </body>
 </html>
