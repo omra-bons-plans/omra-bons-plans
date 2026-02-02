@@ -24,8 +24,8 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Static routes avec priorités optimisées
+    // SEO: /omra est maintenant la page principale (/ redirige vers /omra)
     const staticRoutes = [
-      { loc: '/', changefreq: 'daily', priority: 1.0 },
       { loc: '/omra', changefreq: 'daily', priority: 1.0 },
       { loc: '/hajj', changefreq: 'daily', priority: 1.0 },
       { loc: '/about', changefreq: 'monthly', priority: 0.8 },
@@ -248,7 +248,7 @@ serve(async (req) => {
       `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://omrabonsplans.fr/</loc>
+    <loc>https://omrabonsplans.fr/omra</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
