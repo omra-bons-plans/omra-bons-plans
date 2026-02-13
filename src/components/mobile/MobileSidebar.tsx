@@ -49,7 +49,7 @@ const MobileSidebar = () => {
   const location = useLocation();
   
   // Pages où le bouton "Publier une annonce" ne doit pas s'afficher (car déjà présent dans la page ou non pertinent)
-  const hidePublishButtonOnPages = ['/', '/publish', '/omra', '/hajj'];
+  const hidePublishButtonOnPages = ['/', '/publish', '/omra', '/hajj', '/bons-plans'];
   const shouldShowPublishButton = !hidePublishButtonOnPages.includes(location.pathname) && !location.pathname.startsWith('/publish/') && !location.pathname.startsWith('/offre-omra/') && !location.pathname.startsWith('/offre-hajj/');
 
   const handleSignOut = async () => {
