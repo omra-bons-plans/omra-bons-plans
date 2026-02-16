@@ -25,6 +25,7 @@ import { TableOfContents } from '@/components/ui/TableOfContents';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getImageUrl } from '@/utils/imageUtils';
 import { DynamicSEO } from '@/components/SEO/DynamicSEO';
+import { InternalLinks } from '@/components/SEO/InternalLinks';
 
 interface BlogPost {
   id: string;
@@ -516,6 +517,9 @@ const BlogPost = () => {
                 </div>
               </div>
             )}
+
+            {/* Internal Links for SEO */}
+            <InternalLinks currentPage={`/blog/${category}/${slug}`} variant="related" maxLinks={6} />
 
             {/* WhatsApp Community Link */}
             <Card className="mt-12 border-green-200 bg-green-50/50">
