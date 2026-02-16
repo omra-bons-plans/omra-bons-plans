@@ -242,6 +242,7 @@ export default function AdminOmraManagement() {
           hotel_medinah: selectedOffer.hotel_medinah,
           distance_to_haram_m: selectedOffer.distance_to_haram_m,
           offer_title: selectedOffer.offer_title,
+          offer_url: selectedOffer.offer_url,
           visa_included: selectedOffer.visa_included,
           flights_included: selectedOffer.flights_included,
           airline: selectedOffer.airline,
