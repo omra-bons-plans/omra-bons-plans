@@ -25,9 +25,15 @@ interface InternalLinksProps {
 // Définition de toutes les pages principales du site avec leurs liens
 const allInternalLinks: InternalLink[] = [
   { 
-    href: '/', 
+    href: '/omra', 
     label: 'Comparateur Omra', 
     description: 'Comparez les offres Omra',
+    icon: <Search className="w-4 h-4" />
+  },
+  { 
+    href: '/hajj', 
+    label: 'Comparateur Hajj', 
+    description: 'Comparez les offres Hajj',
     icon: <Search className="w-4 h-4" />
   },
   { 
@@ -112,21 +118,22 @@ const allInternalLinks: InternalLink[] = [
 
 // Liens recommandés par page pour éviter le contenu dupliqué
 const relatedLinksMap: Record<string, string[]> = {
-  '/': ['/bons-plans', '/agences-liste', '/ramadan-hajj-dates', '/comparatif-agences'],
-  '/bons-plans': ['/', '/agences-liste', '/ramadan-hajj-dates', '/blog'],
-  '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/', '/bons-plans'],
-  '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/', '/bons-plans'],
-  '/comparatif-visuel': ['/agences-liste', '/comparatif-agences', '/', '/blog'],
-  '/blog': ['/', '/discussions', '/prayer-times', '/islamic-calendar'],
-  '/prayer-times': ['/islamic-calendar', '/ramadan-hajj-dates', '/blog', '/'],
-  '/islamic-calendar': ['/prayer-times', '/ramadan-hajj-dates', '/blog', '/'],
-  '/ramadan-hajj-dates': ['/islamic-calendar', '/prayer-times', '/blog', '/'],
-  '/discussions': ['/blog', '/', '/about', '/contact'],
-  '/about': ['/contact', '/', '/blog', '/discussions'],
-  '/contact': ['/about', '/', '/blog', '/discussions'],
-  '/favoris': ['/', '/bons-plans', '/agences-liste', '/blog'],
-  '/search': ['/', '/bons-plans', '/agences-liste', '/favoris'],
-  '/publish': ['/', '/bons-plans', '/about', '/contact'],
+  '/omra': ['/hajj', '/bons-plans', '/agences-liste', '/ramadan-hajj-dates', '/comparatif-agences'],
+  '/hajj': ['/omra', '/bons-plans', '/agences-liste', '/ramadan-hajj-dates'],
+  '/bons-plans': ['/omra', '/hajj', '/agences-liste', '/ramadan-hajj-dates', '/blog'],
+  '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/omra', '/hajj', '/bons-plans'],
+  '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/omra', '/hajj', '/bons-plans'],
+  '/comparatif-visuel': ['/agences-liste', '/comparatif-agences', '/omra', '/hajj', '/blog'],
+  '/blog': ['/omra', '/hajj', '/discussions', '/prayer-times', '/islamic-calendar'],
+  '/prayer-times': ['/islamic-calendar', '/ramadan-hajj-dates', '/blog', '/omra'],
+  '/islamic-calendar': ['/prayer-times', '/ramadan-hajj-dates', '/blog', '/omra'],
+  '/ramadan-hajj-dates': ['/islamic-calendar', '/prayer-times', '/blog', '/omra', '/hajj'],
+  '/discussions': ['/blog', '/omra', '/hajj', '/about', '/contact'],
+  '/about': ['/contact', '/omra', '/blog', '/discussions'],
+  '/contact': ['/about', '/omra', '/blog', '/discussions'],
+  '/favoris': ['/omra', '/hajj', '/bons-plans', '/agences-liste', '/blog'],
+  '/search': ['/omra', '/hajj', '/bons-plans', '/agences-liste', '/favoris'],
+  '/publish': ['/omra', '/bons-plans', '/about', '/contact'],
 };
 
 export const InternalLinks: React.FC<InternalLinksProps> = ({
@@ -137,7 +144,14 @@ export const InternalLinks: React.FC<InternalLinksProps> = ({
 }) => {
   // Obtenir les liens recommandés pour la page courante
   const getRelevantLinks = (): InternalLink[] => {
-    const recommendedPaths = relatedLinksMap[currentPage] || ['/bons-plans', '/agences', '/blog', '/'];
+    // Support blog pages via prefix matching
+    let recommendedPaths = relatedLinksMap[currentPage];
+    if (!recommendedPaths && currentPage.startsWith('/blog/')) {
+      recommendedPaths = ['/omra', '/hajj', '/agences-liste', '/ramadan-hajj-dates', '/blog', '/comparatif-agences'];
+    }
+    if (!recommendedPaths) {
+      recommendedPaths = ['/omra', '/hajj', '/blog', '/agences-liste'];
+    }
     
     return recommendedPaths
       .filter(path => path !== currentPage)
