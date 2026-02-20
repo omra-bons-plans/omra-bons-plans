@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Pages principales -->
   <url>
-    <loc>https://omrabonsplans.fr/</loc>
-    <lastmod>2026-01-11</lastmod>
+    <loc>https://omrabonsplans.fr/omra</loc>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/hajj</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://omrabonsplans.fr/about</loc>
@@ -38,10 +44,10 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/bons-plans</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <loc>https://omrabonsplans.fr/guide-omra-pas-chere</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://omrabonsplans.fr/prayer-times</loc>
@@ -199,12 +205,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://omrabonsplans.fr/blog/general/10-astuces-pour-conomiser-sur-votre-voyage-la-omra</loc>
-    <lastmod>2025-12-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- 10-astuces article consolidated into /guide-omra-pas-chere -->
   <url>
     <loc>https://omrabonsplans.fr/blog/general/5-erreurs-viter-pendant-la-omra-et-le-hajj</loc>
     <lastmod>2025-12-10</lastmod>
@@ -295,12 +296,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://omrabonsplans.fr/blog/general/prix-omra-20252026-une-omra-pas-chre</loc>
-    <lastmod>2025-10-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- prix-omra article consolidated into /guide-omra-pas-chere -->
   <url>
     <loc>https://omrabonsplans.fr/blog/general/les-10-derniers-jours-du-ramadan-2026</loc>
     <lastmod>2025-10-14</lastmod>
@@ -325,12 +321,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://omrabonsplans.fr/blog/general/omra-pas-chre-ou-omra-tout-compris</loc>
-    <lastmod>2025-10-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- omra-pas-chere-tout-compris article consolidated into /guide-omra-pas-chere -->
   <url>
     <loc>https://omrabonsplans.fr/blog/general/la-omra-en-famille-conseils-et-organisation</loc>
     <lastmod>2025-10-10</lastmod>
