@@ -64,6 +64,7 @@ const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const AdminHajjManagement = lazy(() => import("./pages/AdminHajjManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
+const GuideOmraPasChere = lazy(() => import("./pages/GuideOmraPasChere"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
 
 // Loading component
@@ -251,6 +252,7 @@ const App = () => (
                   <Route path="/agences-liste" element={<AgencesListe />} />
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
+                   <Route path="/guide-omra-pas-chere" element={<GuideOmraPasChere />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />
