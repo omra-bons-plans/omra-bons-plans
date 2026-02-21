@@ -41,10 +41,18 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
     "headline": title,
     "description": optimizedDescription,
     "url": canonicalUrl,
-    "image": defaultImage,
+    "image": {
+      "@type": "ImageObject",
+      "url": defaultImage
+    },
     "datePublished": new Date().toISOString(),
     "dateModified": new Date().toISOString(),
     "inLanguage": "fr-FR",
+    "author": {
+      "@type": "Organization",
+      "name": "Omra Bons Plans",
+      "url": "https://omrabonsplans.fr"
+    },
     "publisher": {
       "@type": "Organization",
       "name": "Omra Bons Plans",
