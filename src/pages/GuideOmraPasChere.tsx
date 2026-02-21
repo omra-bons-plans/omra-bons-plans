@@ -81,7 +81,10 @@ export default function GuideOmraPasChere() {
               "name": "Omra Bons Plans",
               "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" }
             },
-            "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
+            },
             "mainEntityOfPage": "https://omrabonsplans.fr/guide-omra-pas-chere"
           })}
         </script>
