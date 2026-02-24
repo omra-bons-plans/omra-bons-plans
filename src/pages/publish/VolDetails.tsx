@@ -145,7 +145,9 @@ const VolDetails = () => {
           show_whatsapp: data.showWhatsapp,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          publish_end_date: data.publishEndDate 
+            ? new Date(new Date(data.publishEndDate).setHours(23, 59, 59, 999)).toISOString()
+            : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         };
 
         const categoryData = {
@@ -169,6 +171,11 @@ const VolDetails = () => {
         return;
       }
 
+      // Ensure publishEndDate is set to end of day to pass validation trigger
+      const safePublishEndDate = data.publishEndDate 
+        ? new Date(new Date(data.publishEndDate).setHours(23, 59, 59, 999)).toISOString()
+        : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+
       const adPayload = {
         user_id: user.id,
         category: 'vols',
@@ -182,9 +189,9 @@ const VolDetails = () => {
         show_email: data.showEmail,
         show_phone: data.showPhone,
         show_whatsapp: data.showWhatsapp,
-        is_promotion: data.isPromotion,
+        is_promotion: data.isPromotion || false,
         promotion_end_date: data.promotionEndDate || null,
-        publish_end_date: data.publishEndDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours par défaut
+        publish_end_date: safePublishEndDate,
         is_published: true,
         is_draft: false,
       };
