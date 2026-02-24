@@ -650,29 +650,6 @@ const Index = () => {
             </div>
           )}
 
-          {/* View Mode Toggle - Mobile Only */}
-          {isMobile && (
-            <div className="flex gap-2 mb-6">
-              <Button
-                variant={viewMode === "list" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode("list")}
-                className="flex-1 min-h-[44px]"
-              >
-                <List className="h-4 w-4 mr-2" />
-                Liste
-              </Button>
-              <Button
-                variant={viewMode === "grid" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode("grid")}
-                className="flex-1 min-h-[44px]"
-              >
-                <LayoutGrid className="h-4 w-4 mr-2" />
-                Cartes
-              </Button>
-            </div>
-          )}
 
           {/* Listings under tabs */}
           <div id="services-listing" />
