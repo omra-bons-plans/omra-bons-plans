@@ -755,27 +755,6 @@ const Index = () => {
               </section>
             )}
 
-      {/* Introduction SEO Section - Mobile First */}
-      <section className="py-8 md:py-12 lg:py-16 px-3 sm:px-4 md:px-6 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto md:max-w-4xl">
-          <div className="space-y-4 md:space-y-6 text-center">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-              Préparez votre Omra 2026 avec Omra Bons Plans
-            </h2>
-            <div className="space-y-3 md:space-y-4 text-muted-foreground text-sm md:text-base lg:text-lg leading-relaxed">
-              <p>
-                Bienvenue sur <strong className="text-foreground">Omra Bons Plans</strong>, la première plateforme française dédiée à l'organisation de votre pèlerinage en Arabie Saoudite. Que vous recherchiez un <strong className="text-foreground">séjour Omra tout compris</strong>, des <strong className="text-foreground">vols pas chers vers Jeddah</strong>, un <strong className="text-foreground">hébergement près du Haram</strong> à La Mecque ou Médine, ou encore un <strong className="text-foreground">guide spirituel expérimenté</strong>, nous centralisons toutes les offres pour faciliter vos recherches.
-              </p>
-              <p>
-                Notre mission est de vous aider à trouver une <strong className="text-foreground">Omra pas chère</strong> sans compromis sur la qualité. Comparez les prix, consultez les avis authentiques des pèlerins, et accédez à des conseils d'experts pour préparer votre voyage religieux sereinement. Du <strong className="text-foreground">visa Omra</strong> aux formalités administratives, en passant par les meilleures périodes pour partir, nous vous accompagnons à chaque étape de votre préparation.
-              </p>
-              <p>
-                Avec des annonces vérifiées, des <Link to="/comparatif-agences" className="text-primary hover:underline font-semibold">comparatifs d'agences</Link> détaillés, et des <Link to="/blog" className="text-primary hover:underline font-semibold">guides pratiques sur notre blog</Link>, Omra Bons Plans est votre partenaire de confiance pour réaliser le voyage spirituel de votre vie. Consultez également notre <Link to="/prayer-times" className="text-primary hover:underline font-semibold">outil des horaires de prière</Link> et notre <Link to="/islamic-calendar" className="text-primary hover:underline font-semibold">calendrier islamique</Link> pour planifier votre séjour aux dates les plus propices.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* All Services Section - Mobile First */}
       <section className="py-12 md:py-16 lg:py-20">
