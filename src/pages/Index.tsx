@@ -33,6 +33,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { HomeHeader } from "@/components/home/HomeHeader";
 import { OptimizedAdCard } from "@/components/home/OptimizedAdCard";
 import { MobileListItem } from "@/components/home/MobileListItem";
+import { CompactAdListItem } from "@/components/home/CompactAdListItem";
 import { OffersSkeleton } from "@/components/ui/OffersSkeleton";
 import { DeferredOffersSection } from "@/components/home/DeferredOffersSection";
 
@@ -509,253 +510,26 @@ const Index = () => {
                       </div>
                     )}
 
-                    {/* View Mode Toggle - Mobile Only */}
-                    {isMobile && (
-                      <div className="flex gap-2 mb-6">
-                        <Button
-                          variant={viewMode === "list" ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setViewMode("list")}
-                          className="flex-1 min-h-[44px]"
-                        >
-                          <List className="h-4 w-4 mr-2" />
-                          Liste
-                        </Button>
-                        <Button
-                          variant={viewMode === "grid" ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setViewMode("grid")}
-                          className="flex-1 min-h-[44px]"
-                        >
-                          <LayoutGrid className="h-4 w-4 mr-2" />
-                          Cartes
-                        </Button>
-                      </div>
-                    )}
 
-                    {/* Desktop: Grid Layout */}
-                    <div className="hidden lg:grid grid-cols-4 gap-8">
+                    {/* All screens: Compact list layout like Omra page */}
+                    <div className="space-y-3">
                       {filteredFlashSalesListings.length > 0 ? (
                         filteredFlashSalesListings.map((listing) => (
-                          <OptimizedAdCard 
-                            key={listing.id} 
+                          <CompactAdListItem
+                            key={listing.id}
                             listing={listing}
-                            imageHeight="h-56"
+                            selectedCategory={selectedCategory}
                           />
                         ))
                       ) : (
-                        <div className="col-span-4 text-center py-12 text-muted-foreground">
+                        <div className="text-center py-12 text-muted-foreground">
                           Aucune annonce trouvée
                         </div>
                       )}
                     </div>
-
-                    {/* Tablet: Carousel with 2 items */}
-                    <div className="hidden md:block lg:hidden carousel-item-peek">
-                      <Carousel className="w-full">
-                        <CarouselContent className="-ml-4">
-                          {filteredFlashSalesListings.map((listing) => (
-                          <CarouselItem key={listing.id} className="pl-4 basis-1/2">
-                            <OptimizedAdCard 
-                              key={listing.id}
-                              listing={listing} 
-                              className="w-full"
-                            />
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="hidden sm:flex" />
-                      <CarouselNext className="hidden sm:flex" />
-                    </Carousel>
-                  </div>
-
-                  {/* Mobile: Vue Liste ou Grille */}
-                  <div className="block md:hidden mb-20">
-                    {filteredFlashSalesListings.length > 0 ? (
-                      viewMode === "list" ? (
-                        /* Vue Liste - HORIZONTALE optimisée comme comparateur */
-                        <div className="space-y-3">
-                          {filteredFlashSalesListings.map((listing) => (
-                            <div 
-                              key={listing.id} 
-                              onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} 
-                              className="cursor-pointer"
-                            >
-                              <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-border/30 bg-card">
-                                <div className="p-3">
-                                  <div className="flex items-center gap-3">
-                                    {/* Logo/Image carré à gauche */}
-                                    {listing.image && (
-                                      <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white shadow-sm">
-                                        <img
-                                          src={listing.image}
-                                          alt={listing.title}
-                                          loading="lazy"
-                                          className="w-full h-full object-cover"
-                                        />
-                                      </div>
-                                    )}
-
-                                    {/* Infos au milieu */}
-                                    <div className="flex-1 min-w-0">
-                                      <h3 className="font-bold text-sm truncate mb-1">
-                                        {listing.title}
-                                      </h3>
-                                      
-                                      <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                                        {listing.type && (
-                                          <Badge 
-                                            variant="outline" 
-                                            className={`text-[10px] px-1.5 py-0 flex-shrink-0 ${
-                                              listing.type === 'sejours' ? 'bg-blue-500/10 text-blue-700 border-blue-500/30' :
-                                              listing.type === 'hebergement' ? 'bg-purple-500/10 text-purple-700 border-purple-500/30' :
-                                              listing.type === 'chauffeurs' ? 'bg-green-500/10 text-green-700 border-green-500/30' :
-                                              listing.type === 'guides' ? 'bg-orange-500/10 text-orange-700 border-orange-500/30' :
-                                              listing.type === 'babysitting' ? 'bg-pink-500/10 text-pink-700 border-pink-500/30' :
-                                              listing.type === 'vols' ? 'bg-indigo-500/10 text-indigo-700 border-indigo-500/30' :
-                                              'bg-gray-500/10 text-gray-700 border-gray-500/30'
-                                            }`}
-                                          >
-                                            {listing.type === 'sejours' ? 'Séjour' :
-                                             listing.type === 'hebergement' ? 'Hébergement' :
-                                             listing.type === 'chauffeurs' ? 'Chauffeur' :
-                                             listing.type === 'guides' ? 'Guide' :
-                                             listing.type === 'babysitting' ? 'Baby-sitting' :
-                                             listing.type === 'vols' ? 'Vol' : listing.type}
-                                          </Badge>
-                                        )}
-
-                                        {listing.rating && (
-                                          <div className="flex items-center gap-0.5">
-                                            <span className="text-yellow-500">⭐</span>
-                                            <span className="text-[10px] font-semibold">{listing.rating}</span>
-                                          </div>
-                                        )}
-                                      </div>
-
-                                      {listing.location && (
-                                        <div className="text-xs text-muted-foreground truncate">
-                                          📍 {listing.location}
-                                        </div>
-                                      )}
-                                    </div>
-
-                                    {/* Prix à droite */}
-                                    {listing.price && (
-                                      <div className="flex-shrink-0 text-right">
-                                        <div className="flex items-baseline gap-0.5 justify-end">
-                                          <span className="text-lg font-bold text-primary">
-                                            {typeof listing.price === 'string' ? listing.price : `${listing.price}€`}
-                                          </span>
-                                        </div>
-                                        {listing.discount && (
-                                          <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-[10px] px-1.5 py-0 mt-1">
-                                            -{listing.discount}%
-                                          </Badge>
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </Card>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        /* Vue Cartes - VERTICALE complète comme comparateur */
-                        <div className="space-y-4">
-                          {filteredFlashSalesListings.map((listing) => (
-                            <div key={listing.id} onClick={() => navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } })} className="cursor-pointer">
-                              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/30 bg-card">
-                                {/* Image/Logo grande */}
-                                {listing.image && (
-                                  <div className="relative h-48 bg-white flex items-center justify-center p-6">
-                                    <img
-                                      src={listing.image}
-                                      alt={listing.title}
-                                      loading="lazy"
-                                      className="w-full h-full object-contain"
-                                    />
-                                    {/* Badges sur l'image */}
-                                    {(listing.isPromo || listing.isPopular) && (
-                                      <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
-                                        {listing.isPromo && (
-                                          <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white border-0 font-bold text-xs">
-                                            -{listing.discount}% 🔥
-                                          </Badge>
-                                        )}
-                                        {listing.isPopular && (
-                                          <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 font-bold text-xs">
-                                            ⭐ Populaire
-                                          </Badge>
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
-
-                                {/* Titre et note */}
-                                <div className="px-4 pt-4 pb-3 text-center border-b border-border">
-                                  <h3 className="font-bold text-lg mb-2">{listing.title}</h3>
-                                  {listing.rating && (
-                                    <div className="flex items-center justify-center gap-1">
-                                      <DynamicIcon name="star" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                                      <span className="text-sm font-semibold">{listing.rating}</span>
-                                    </div>
-                                  )}
-                                </div>
-
-                                {/* Prix en évidence */}
-                                {listing.price && (
-                                  <div className="px-4 py-4 bg-primary/5 text-center">
-                                    <div className="text-sm text-muted-foreground mb-1">Prix</div>
-                                    <div className="flex flex-col items-center gap-1">
-                                      <span className="text-3xl font-bold text-primary">{listing.price}</span>
-                                      {listing.originalPrice && (
-                                        <span className="text-sm text-muted-foreground line-through">{listing.originalPrice}</span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {/* Détails */}
-                                <div className="p-4 space-y-3">
-                                  {listing.subtitle && (
-                                    <div className="flex items-center gap-2 text-sm">
-                                      <DynamicIcon name="calendar" className="w-4 h-4 text-muted-foreground" />
-                                      <span>{listing.subtitle}</span>
-                                    </div>
-                                  )}
-
-                                  {listing.location && (
-                                    <div className="flex items-center gap-2 text-sm">
-                                      <DynamicIcon name="map-pin" className="w-4 h-4 text-muted-foreground" />
-                                      <span>{listing.location}</span>
-                                    </div>
-                                  )}
-
-                                  {/* Bouton CTA */}
-                                  <Button className="w-full mt-4" size="lg">
-                                    Voir l'offre
-                                    <DynamicIcon name="external-link" className="w-4 h-4 ml-2" />
-                                  </Button>
-                                </div>
-                              </Card>
-                            </div>
-                          ))}
-                        </div>
-                      )
-                    ) : (
-                      <div className="text-center py-12 text-muted-foreground">
-                        Aucune annonce trouvée
-                      </div>
-                    )}
-                  </div>
                 </div>
               </section>
             )}
-
-
       {/* All Services Section - Mobile First */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-3 sm:px-4 md:px-6">
@@ -966,49 +740,24 @@ const Index = () => {
             </div>
           ) : (
             <>
-              {/* Desktop: Grille de cartes comme le comparateur */}
+              {/* Unified compact list layout — all screens */}
               {filteredListings.length > 0 ? (
-                <div className="hidden lg:grid lg:grid-cols-3 gap-6 mb-16">
+                <div className="space-y-3 mb-16">
                   {filteredListings.map((listing) => (
-                    <OptimizedAdCard 
-                      key={listing.id} 
-                      listing={listing}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="hidden lg:flex flex-col items-center justify-center py-20 space-y-6 mb-16">
-                  <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                    <span className="text-3xl">✏️</span>
-                  </div>
-                  <div className="text-center space-y-3 max-w-md">
-                    <p className="text-2xl font-bold text-foreground">
-                      Aucune annonce n'est disponible pour cette recherche pour le moment
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Tablet: Grille de cartes comme le comparateur */}
-              {filteredListings.length > 0 ? (
-                <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-6 mb-16">
-                  {filteredListings.map((listing) => (
-                    <OptimizedAdCard 
+                    <CompactAdListItem
                       key={listing.id}
                       listing={listing}
+                      selectedCategory={selectedCategory}
                     />
                   ))}
                 </div>
               ) : (
-                <div className="hidden md:flex lg:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
+                <div className="flex flex-col items-center justify-center py-20 space-y-6 mb-16">
                   <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
                     <span className="text-3xl">✏️</span>
                   </div>
                   <div className="text-center space-y-3 max-w-md px-6">
-                    <p className="text-xl font-bold text-foreground">
+                    <p className="text-xl md:text-2xl font-bold text-foreground">
                       Aucune annonce n'est disponible pour cette recherche pour le moment
                     </p>
                     <p className="text-muted-foreground text-sm leading-relaxed">
@@ -1017,49 +766,6 @@ const Index = () => {
                   </div>
                 </div>
               )}
-
-              {/* Mobile: Vue Liste ou Grille */}
-              {filteredListings.length > 0 ? (
-                <div className="block md:hidden">
-                  {viewMode === "list" ? (
-                    /* Vue Liste - Optimisée pour mobile */
-                    <div className="space-y-3 mb-16">
-                      {filteredListings.slice(0, 6).map((listing) => (
-                        <MobileListItem 
-                          key={listing.id}
-                          listing={listing}
-                          selectedCategory={selectedCategory}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    /* Vue Cartes - Compacte optimisée */
-                    <div className="space-y-3 mb-16">
-                      {filteredListings.slice(0, 6).map((listing) => (
-                        <MobileListItem 
-                          key={listing.id}
-                          listing={listing}
-                          selectedCategory={selectedCategory}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-                ) : (
-                  <div className="flex md:hidden flex-col items-center justify-center py-20 space-y-6 mb-16">
-                    <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
-                      <span className="text-3xl">✏️</span>
-                    </div>
-                    <div className="text-center space-y-3 max-w-md px-6">
-                      <p className="text-xl font-bold text-foreground">
-                        Aucune annonce n'est disponible pour cette recherche pour le moment
-                      </p>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        Nous travaillons activement à enrichir notre site pour mieux répondre à vos besoins.
-                      </p>
-                    </div>
-                  </div>
-                )}
             </>
           )}
          </div>
