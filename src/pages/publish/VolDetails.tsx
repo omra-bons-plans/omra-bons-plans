@@ -256,9 +256,13 @@ const VolDetails = () => {
       }
       sessionStorage.removeItem('selectedCategory');
       navigate('/my-ads');
-    } catch (error) {
-      console.error('Error creating ad:', error);
-      toast.error("Erreur lors de la publication de l'annonce");
+    } catch (error: any) {
+      console.error('❌ VOL PUBLISH ERROR:', JSON.stringify(error, null, 2));
+      console.error('❌ Error message:', error?.message);
+      console.error('❌ Error details:', error?.details);
+      console.error('❌ Error hint:', error?.hint);
+      console.error('❌ Error code:', error?.code);
+      toast.error("Erreur lors de la publication: " + (error?.message || "Erreur inconnue"));
     }
   };
 
