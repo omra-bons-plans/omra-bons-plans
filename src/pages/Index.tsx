@@ -227,9 +227,9 @@ const Index = () => {
       <WebSiteSchema />
       
       <SEOHead
-        title="Services Omra & Hajj | Omra Bons Plans"
-        description="Découvrez tous les services pour votre Omra et Hajj : séjours, vols, hébergements, guides et plus encore."
-        keywords="services omra, annonces omra, hajj services"
+        title="Bons Plans Omra & Hajj | Annonces Hébergement, Vols, Guides"
+        description="Trouvez des annonces hébergement, vols, guides et chauffeurs pour votre Omra et Hajj sur Omra Bons Plans. Petites annonces entre particuliers et professionnels."
+        keywords="annonces omra, hébergement omra, vols omra, guide omra, chauffeur hajj, bons plans pèlerinage"
         canonical="https://omrabonsplans.fr/bons-plans"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
         noindex={true}
