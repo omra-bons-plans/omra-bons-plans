@@ -351,12 +351,18 @@ const Admin = () => {
 
   const handleDeleteUser = async (userId: string) => {
     try {
-      // Utiliser l'Admin API pour supprimer complètement l'utilisateur du système auth
-      const { error: authError } = await supabase.auth.admin.deleteUser(userId);
+      // Appeler l'Edge Function sécurisée pour supprimer l'utilisateur
+      const { data, error: fnError } = await supabase.functions.invoke('delete-user', {
+        body: { userId },
+      });
       
-      if (authError) {
-        console.error('Erreur lors de la suppression du compte auth:', authError);
-        throw authError;
+      if (fnError) {
+        console.error('Erreur lors de la suppression du compte:', fnError);
+        throw fnError;
+      }
+      
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       // Les suppressions en cascade devraient gérer le reste (profils, annonces, etc.)
