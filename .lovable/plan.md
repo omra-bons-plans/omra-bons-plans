@@ -1,36 +1,40 @@
 
 
-# Ajout de liens internes dans les articles de blog
+## Diagnostic : Suppression de compte utilisateur impossible
 
-## Objectif
-Ajouter automatiquement des liens internes vers `/omra`, `/hajj` et d'autres articles dans chaque page de blog, afin de renforcer le maillage interne et signaler a Google l'importance de ces pages.
+### Cause du problème
 
-## Modifications
+Le code dans `src/pages/Admin.tsx` (ligne 355) utilise :
 
-### 1. Mettre a jour InternalLinks.tsx
-- Remplacer le lien `href: '/'` par `href: '/omra'` avec le label "Comparateur Omra"
-- Ajouter un lien vers `/hajj` (Comparateur Hajj)
-- Ajouter une entree dans `relatedLinksMap` pour les pages de blog (`/blog/*`) pointant vers `/omra`, `/hajj`, `/agences-liste` et `/ramadan-hajj-dates`
+```typescript
+await supabase.auth.admin.deleteUser(userId);
+```
 
-### 2. Integrer InternalLinks dans BlogPost.tsx
-- Ajouter le composant `<InternalLinks>` en bas de chaque article (apres les articles similaires, avant le bloc WhatsApp)
-- Utiliser le variant `related` avec `currentPage` dynamique base sur la route actuelle
-- Afficher 4-6 liens vers les pages strategiques du site
+L'API `auth.admin` nécessite un token **service_role**, mais le client Supabase côté navigateur utilise la clé **anon** (publique). Les logs d'authentification confirment l'erreur :
 
-## Section technique
+> "this token needs to have one of the following roles: supabase_admin, service_role"
 
-**Fichier `src/components/SEO/InternalLinks.tsx`** :
-- Ligne 28-32 : changer `href: '/'` en `href: '/omra'`
-- Ajouter apres la ligne 31 un nouveau lien pour `/hajj`
-- Dans `relatedLinksMap` : ajouter une cle generique pour les blogs qui pointe vers `/omra`, `/hajj`, `/agences-liste`, `/ramadan-hajj-dates`
-- Mettre a jour les references a `/` dans `relatedLinksMap` pour pointer vers `/omra`
+**On ne peut jamais appeler `auth.admin.*` depuis le navigateur** car la clé service_role ne doit jamais être exposée côté client.
 
-**Fichier `src/pages/BlogPost.tsx`** :
-- Importer `InternalLinks` depuis `@/components/SEO/InternalLinks`
-- Inserer `<InternalLinks currentPage={/blog/${category}/${slug}} variant="related" maxLinks={6} />` entre la section "Articles similaires" et le bloc WhatsApp (vers la ligne 518)
+### Solution
 
-## Impact attendu
-- Chaque article de blog enverra des signaux de lien interne vers `/omra` et `/hajj`
-- Google considerera ces pages cibles comme plus importantes
-- Resolution du probleme "Aucune page d'origine detectee" pour certaines URLs
+Créer une **Edge Function** `delete-user` qui :
+1. Vérifie que l'appelant est authentifié et a le rôle `admin` (via `has_role()`)
+2. Utilise le client Supabase avec la clé `SERVICE_ROLE_KEY` pour appeler `auth.admin.deleteUser()`
+3. Retourne le résultat
+
+Puis modifier `handleDeleteUser` dans `Admin.tsx` pour appeler cette Edge Function au lieu de `supabase.auth.admin.deleteUser()` directement.
+
+### Fichiers à modifier/créer
+
+1. **Créer** `supabase/functions/delete-user/index.ts` — Edge Function sécurisée qui supprime un utilisateur via l'API admin avec le service_role_key
+2. **Modifier** `src/pages/Admin.tsx` — Remplacer l'appel `supabase.auth.admin.deleteUser()` par un appel à la nouvelle Edge Function
+
+### Détails techniques
+
+L'Edge Function :
+- Extrait le JWT de l'appelant pour vérifier qu'il est admin
+- Crée un client Supabase admin avec `SUPABASE_SERVICE_ROLE_KEY` (déjà configuré dans les secrets)
+- Appelle `auth.admin.deleteUser(userId)` côté serveur
+- Renvoie une réponse appropriée
 
