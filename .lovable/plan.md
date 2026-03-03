@@ -1,40 +1,39 @@
 
 
-## Diagnostic : Suppression de compte utilisateur impossible
+## Diagnostic : "Mot de passe oublié" ne fonctionne pas
 
-### Cause du problème
+### Problèmes identifiés
 
-Le code dans `src/pages/Admin.tsx` (ligne 355) utilise :
+**1. Aucun email de réinitialisation n'est envoyé**
+Les logs d'authentification ne montrent aucune requête `/recover` — l'email de reset n'a jamais été envoyé ou a été bloqué silencieusement.
 
-```typescript
-await supabase.auth.admin.deleteUser(userId);
+**2. Domaine de production absent des URLs de redirection autorisées**
+Dans la configuration Supabase (`config.toml` et probablement le dashboard), seul le domaine Lovable preview est autorisé :
 ```
+site_url = "https://0d32be0f-...lovableproject.com"
+additional_redirect_urls = ["https://0d32be0f-...lovableproject.com", "...lovableproject.com/auth"]
+```
+Or l'utilisateur est sur `https://omrabonsplans.fr`. Le `redirectTo` dans le code utilise `window.location.origin` → `https://omrabonsplans.fr/auth`, qui n'est pas dans la liste autorisée. **Supabase rejette silencieusement les redirections vers des domaines non autorisés.**
 
-L'API `auth.admin` nécessite un token **service_role**, mais le client Supabase côté navigateur utilise la clé **anon** (publique). Les logs d'authentification confirment l'erreur :
+**3. Possible conflit avec le hook `send-reset-password-email`**
+L'edge function `send-reset-password-email` existe mais n'a aucun log — soit le hook n'est pas configuré dans le dashboard Supabase, soit il intercepte la requête et échoue silencieusement.
 
-> "this token needs to have one of the following roles: supabase_admin, service_role"
+### Plan de correction
 
-**On ne peut jamais appeler `auth.admin.*` depuis le navigateur** car la clé service_role ne doit jamais être exposée côté client.
+**Étape 1 — Ajouter le domaine de production aux URLs autorisées (action manuelle dans le dashboard Supabase)**
+- Aller dans **Authentication > URL Configuration** du dashboard Supabase
+- Ajouter `https://omrabonsplans.fr/**` aux **Redirect URLs**
+- Idéalement, mettre le **Site URL** à `https://omrabonsplans.fr`
 
-### Solution
+**Étape 2 — Vérifier le hook email dans le dashboard**
+- Aller dans **Authentication > Hooks** dans le dashboard Supabase
+- Vérifier si un hook "Send Email" est configuré pour pointer vers `send-reset-password-email`
+- Si le hook est configuré mais ne fonctionne pas : soit le corriger, soit le désactiver pour utiliser les emails par défaut de Supabase
 
-Créer une **Edge Function** `delete-user` qui :
-1. Vérifie que l'appelant est authentifié et a le rôle `admin` (via `has_role()`)
-2. Utilise le client Supabase avec la clé `SERVICE_ROLE_KEY` pour appeler `auth.admin.deleteUser()`
-3. Retourne le résultat
+**Étape 3 — Mettre à jour `config.toml` avec le domaine de production**
+- Ajouter `https://omrabonsplans.fr` et `https://omrabonsplans.fr/**` dans `additional_redirect_urls`
 
-Puis modifier `handleDeleteUser` dans `Admin.tsx` pour appeler cette Edge Function au lieu de `supabase.auth.admin.deleteUser()` directement.
-
-### Fichiers à modifier/créer
-
-1. **Créer** `supabase/functions/delete-user/index.ts` — Edge Function sécurisée qui supprime un utilisateur via l'API admin avec le service_role_key
-2. **Modifier** `src/pages/Admin.tsx` — Remplacer l'appel `supabase.auth.admin.deleteUser()` par un appel à la nouvelle Edge Function
-
-### Détails techniques
-
-L'Edge Function :
-- Extrait le JWT de l'appelant pour vérifier qu'il est admin
-- Crée un client Supabase admin avec `SUPABASE_SERVICE_ROLE_KEY` (déjà configuré dans les secrets)
-- Appelle `auth.admin.deleteUser(userId)` côté serveur
-- Renvoie une réponse appropriée
+### Ce que je peux faire maintenant
+- Mettre à jour le `supabase/config.toml` pour inclure le domaine de production
+- Le reste (dashboard Supabase : Site URL, Redirect URLs, vérification du hook) nécessite votre intervention manuelle dans le dashboard
 
