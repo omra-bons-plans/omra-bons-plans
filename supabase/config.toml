@@ -157,6 +157,9 @@ verify_jwt = false
 [functions.publish-scheduled-posts]
 verify_jwt = false
 
+[functions.delete-user]
+verify_jwt = false
+
 # Scheduled function to archive expired Omra offers daily
 [[edge_runtime.scheduled_functions]]
 name = "archive-expired-offers"
