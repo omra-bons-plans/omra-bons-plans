@@ -43,9 +43,6 @@ const Auth = () => {
       sessionStorage.setItem('password_reset_mode', 'true');
       setShowUpdatePasswordForm(true);
       setShowResetForm(false);
-      
-      // Clean the hash from URL
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
       return;
     }
     
@@ -231,6 +228,13 @@ const Auth = () => {
       return;
     }
 
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setError('Session de réinitialisation expirée ou invalide. Cliquez à nouveau sur le lien reçu par email.');
+      setUpdateLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.updateUser({
       password: newPassword
     });
@@ -238,8 +242,10 @@ const Auth = () => {
     if (error) {
       if (error.message.includes('New password should be different from the old password')) {
         setError('Le nouveau mot de passe doit être différent de l\'ancien mot de passe');
+      } else if (error.message.toLowerCase().includes('auth session missing')) {
+        setError('Session de réinitialisation expirée ou invalide. Demandez un nouveau lien de réinitialisation.');
       } else {
-        setError('Erreur lors de la mise à jour du mot de passe');
+        setError(error.message || 'Erreur lors de la mise à jour du mot de passe');
       }
     } else {
       // Clear the password reset mode flag
