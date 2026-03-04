@@ -35,12 +35,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     let mounted = true;
     
-    // Check for recovery mode
+    // Check for recovery mode (do NOT redirect, Supabase must parse hash tokens first)
     const urlHash = window.location.hash;
     if (urlHash.includes('type=recovery')) {
       sessionStorage.setItem('password_reset_mode', 'true');
-      window.location.href = '/auth';
-      return;
     }
 
     // ⚡ Get session in background - don't block render
