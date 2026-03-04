@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { agenciesData } from '@/utils/agenciesData';
+import { useAgencies } from '@/hooks/useAgencies';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -23,8 +24,21 @@ export default function AgencesListe() {
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'name'>('rating');
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { data: dbAgencies } = useAgencies();
   
-  const filteredAgencies = agenciesData
+  // Merge static data with live Supabase data (rating + reviewCount)
+  const mergedAgencies = useMemo(() => {
+    return agenciesData.map(staticAgency => {
+      const dbMatch = dbAgencies?.find(db => db.name === staticAgency.name);
+      return {
+        ...staticAgency,
+        googleRating: dbMatch?.google_rating ?? staticAgency.googleRating,
+        reviewCount: dbMatch?.review_count ?? staticAgency.reviewCount,
+      };
+    });
+  }, [dbAgencies]);
+
+  const filteredAgencies = mergedAgencies
     .filter(agency => 
       agency.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       agency.specialties.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()))
