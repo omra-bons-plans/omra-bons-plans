@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/PasswordInput';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -409,9 +410,8 @@ const Auth = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="new-password">Nouveau mot de passe</Label>
-                  <Input
+                  <PasswordInput
                     id="new-password"
-                    type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
@@ -435,9 +435,8 @@ const Auth = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="confirm-new-password">Confirmer le nouveau mot de passe</Label>
-                  <Input
+                  <PasswordInput
                     id="confirm-new-password"
-                    type="password"
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
                     placeholder="••••••••"
@@ -548,9 +547,8 @@ const Auth = () => {
                   
                   <div className="space-y-2">
                     <Label htmlFor="signin-password">Mot de passe</Label>
-                    <Input
+                    <PasswordInput
                       id="signin-password"
-                      type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
@@ -612,9 +610,8 @@ const Auth = () => {
                   
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Mot de passe</Label>
-                    <Input
+                    <PasswordInput
                       id="signup-password"
-                      type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
@@ -638,9 +635,8 @@ const Auth = () => {
                   
                   <div className="space-y-2">
                     <Label htmlFor="confirm-password">Confirmer le mot de passe</Label>
-                    <Input
+                    <PasswordInput
                       id="confirm-password"
-                      type="password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="••••••••"
