@@ -85,8 +85,18 @@ export function ContactModal({ contactInfo, showOptions, ownerName, isAuthentica
     );
   }
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (open) {
+      // Google Ads conversion tracking
+      if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'ads_conversion_Contact_1', {});
+      }
+    }
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button className="w-full" variant="default">
           <Eye className="w-4 h-4 mr-2" />
