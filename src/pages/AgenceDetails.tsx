@@ -11,14 +11,27 @@ import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { useNavigate } from 'react-router-dom';
+import { useAgency } from '@/hooks/useAgencies';
 import { agenciesData } from '@/utils/agenciesData';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 export default function AgenceDetails() {
   const { agencyName } = useParams();
   const navigate = useNavigate();
+  const decodedName = decodeURIComponent(agencyName || '');
   
-  const agency = agenciesData.find(a => a.name === decodeURIComponent(agencyName || ''));
+  // Fetch live data from Supabase
+  const { data: dbAgency } = useAgency(decodedName);
+  // Fallback to static data for strengths/weaknesses/specialties/highlight
+  const staticAgency = agenciesData.find(a => a.name === decodedName);
+  
+  // Merge: use DB for rating/reviewCount, static for the rest
+  const agency = staticAgency ? {
+    ...staticAgency,
+    googleRating: dbAgency?.google_rating ?? staticAgency.googleRating,
+    reviewCount: dbAgency?.review_count ?? staticAgency.reviewCount,
+    url: dbAgency?.url ?? staticAgency.url,
+  } : null;
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
