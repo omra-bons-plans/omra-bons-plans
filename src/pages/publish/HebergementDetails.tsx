@@ -153,7 +153,7 @@ const HebergementDetails = () => {
         show_professional_phone: data.showProfessionalPhone,
         is_promotion: data.isPromotion,
         promotion_end_date: data.promotionEndDate || null,
-        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate + 'T23:59:59.999Z').toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         is_published: !saveAsDraft,
         is_draft: saveAsDraft,
         updated_at: new Date().toISOString(),
@@ -240,7 +240,7 @@ const HebergementDetails = () => {
           show_professional_phone: data.showProfessionalPhone,
           is_promotion: data.isPromotion,
           promotion_end_date: data.promotionEndDate || null,
-          publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+          publish_end_date: data.publishEndDate ? new Date(data.publishEndDate + 'T23:59:59.999Z').toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         };
 
         // Convert French values to English for database
@@ -331,7 +331,7 @@ const HebergementDetails = () => {
         show_professional_phone: data.showProfessionalPhone,
         is_promotion: data.isPromotion,
         promotion_end_date: data.promotionEndDate || null,
-        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        publish_end_date: data.publishEndDate ? new Date(data.publishEndDate + 'T23:59:59.999Z').toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         is_published: true,
         is_draft: false,
       };
