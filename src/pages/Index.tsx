@@ -308,14 +308,16 @@ const Index = () => {
           <div className="container mx-auto px-4 md:px-6 relative z-20">
             <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
               <div className="space-y-6 md:space-y-10 w-full px-2">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                  <span className="text-white text-2xl md:text-3xl lg:text-4xl">Tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-3xl md:text-5xl lg:text-6xl">Hajj & Omra</span><br />
-                  <span className="text-white text-2xl md:text-3xl lg:text-4xl">en un seul endroit</span>
+                <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
+                  <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">Tous les services</span>
+                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">Hajj & Omra en un seul endroit</span>
                 </h1>
                 
-                <p className="text-base md:text-lg lg:text-xl leading-relaxed md:max-w-4xl mx-auto font-medium">
-                  <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
+                <p className="text-lg md:text-xl lg:text-2xl text-white/90 font-semibold max-w-3xl mx-auto">
+                  Le seul comparateur français pour le Hajj et la Omra
+                </p>
+                <p className="text-sm md:text-base lg:text-lg text-white/70 max-w-2xl mx-auto">
+                  Trouvez facilement des bons plans : chauffeurs, logements, séjours, guides et plus encore
                 </p>
 
                 {/* WhatsApp Community Button - Mobile optimized */}
