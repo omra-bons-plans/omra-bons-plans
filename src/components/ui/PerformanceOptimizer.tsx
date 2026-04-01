@@ -48,7 +48,7 @@ const PerformanceOptimizer = () => {
   }, []);
 
   // En développement uniquement, afficher les métriques de performance
-  if (process.env.NODE_ENV === 'development' && loadTime) {
+  if (import.meta.env.DEV && loadTime) {
     return (
       <div className="fixed bottom-4 right-4 bg-black/80 text-white text-xs p-2 rounded z-50">
         Load: {(loadTime / 1000).toFixed(2)}s

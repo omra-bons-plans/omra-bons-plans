@@ -22,7 +22,7 @@ export const useMobilePerformance = () => {
           document.body.style.willChange = 'auto';
           
           // Log performance (dev only)
-          if (process.env.NODE_ENV === 'development') {
+          if (import.meta.env.DEV) {
             const navigationTiming = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
             if (navigationTiming) {
               const lcp = navigationTiming.loadEventEnd - navigationTiming.fetchStart;
