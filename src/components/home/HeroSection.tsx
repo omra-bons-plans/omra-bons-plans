@@ -17,14 +17,14 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
     <section 
       className="hero-wrapper relative" 
       style={{ 
-        minHeight: isMobile ? '100vh' : '350px', 
-        maxHeight: isMobile ? undefined : '400px',
+        minHeight: isMobile ? '100vh' : '600px', 
+        aspectRatio: isMobile ? '9/16' : '16/9',
         marginTop: 0,
         paddingTop: 0
       }}
     >
       {/* ⚡ CRITICAL: Single compressed hero image for all devices */}
-      <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '350px' }}>
+      <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
         <img
           src="/hero-kaaba-optimized.webp"
           alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
@@ -47,15 +47,15 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
       {/* Overlay with hero content */}
       <div className="hero-overlay">
         <div className="container mx-auto px-4 md:px-6 relative z-20">
-          <div className="flex flex-col items-center justify-center text-center pt-2 pb-4 md:pt-8 md:pb-6">
-            <div className="space-y-3 md:space-y-4 w-full px-2">
-              <h1 className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                <span className="text-white text-3xl md:text-3xl lg:text-4xl xl:text-5xl">Comparateur</span><br />
-                <span className="gradient-text-secondary font-black text-5xl md:text-5xl lg:text-6xl xl:text-7xl">Omra & Hajj 2026</span><br />
-                <span className="text-white text-3xl md:text-3xl lg:text-4xl xl:text-5xl">Omra Ramadan & Plus</span>
+          <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
+            <div className="space-y-6 md:space-y-10 w-full px-2">
+              <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Comparateur</span><br />
+                <span className="gradient-text-secondary font-black text-5xl md:text-7xl lg:text-9xl xl:text-[10rem]">Omra & Hajj 2026</span><br />
+                <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Omra Ramadan & Plus</span>
               </h1>
               
-              <p className="text-lg md:text-lg lg:text-xl xl:text-2xl leading-relaxed md:max-w-4xl mx-auto font-medium">
+              <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
                 <span className="text-white">Comparez les offres Omra 2026, Hajj 2026, Omra Ramadan et les 10 derniers jours du Ramadan depuis la France</span>
               </p>
 
