@@ -55,7 +55,7 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
                 <span className="text-white text-3xl md:text-3xl lg:text-4xl xl:text-5xl">Omra Ramadan & Plus</span>
               </h1>
               
-              <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
+              <p className="text-lg md:text-lg lg:text-xl xl:text-2xl leading-relaxed md:max-w-4xl mx-auto font-medium">
                 <span className="text-white">Comparez les offres Omra 2026, Hajj 2026, Omra Ramadan et les 10 derniers jours du Ramadan depuis la France</span>
               </p>
 
