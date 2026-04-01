@@ -60,9 +60,9 @@ export function DesktopSidebar() {
   const location = useLocation();
   
   // Détermine si on est sur la page comparateur (accueil) ou bons plans
-  const isOnComparateur = location.pathname === '/' || location.pathname === '/comparateur-omra';
+  const isOnComparateur = location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj' || location.pathname === '/comparateur-omra';
   const mainButtonLabel = isOnComparateur ? 'Bons Plans' : 'Comparateur';
-  const mainButtonLink = isOnComparateur ? '/bons-plans' : '/';
+  const mainButtonLink = isOnComparateur ? '/bons-plans' : '/omra';
   const MainButtonIcon = isOnComparateur ? LayoutGrid : Home;
 
   const collapsed = state === "collapsed";
