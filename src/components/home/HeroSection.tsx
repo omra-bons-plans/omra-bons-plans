@@ -17,7 +17,8 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
     <section 
       className="hero-wrapper relative" 
       style={{ 
-        minHeight: isMobile ? '100vh' : '600px', 
+        minHeight: isMobile ? '100vh' : '400px', 
+        maxHeight: isMobile ? undefined : '500px',
         aspectRatio: isMobile ? '9/16' : '16/9',
         marginTop: 0,
         paddingTop: 0
