@@ -306,13 +306,13 @@ const Index = () => {
           <div className="container mx-auto px-4 md:px-6 relative z-20">
             <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
               <div className="space-y-6 md:space-y-10 w-full px-2">
-                <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold leading-tight">
-                  <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-5xl md:text-7xl lg:text-9xl xl:text-[10rem]">Hajj & Omra</span><br />
-                  <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">en un seul endroit</span>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                  <span className="text-white text-2xl md:text-3xl lg:text-4xl">Tous les services</span><br />
+                  <span className="gradient-text-secondary font-black text-3xl md:text-5xl lg:text-6xl">Hajj & Omra</span><br />
+                  <span className="text-white text-2xl md:text-3xl lg:text-4xl">en un seul endroit</span>
                 </h1>
                 
-                <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
+                <p className="text-base md:text-lg lg:text-xl leading-relaxed md:max-w-4xl mx-auto font-medium">
                   <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
                 </p>
 
