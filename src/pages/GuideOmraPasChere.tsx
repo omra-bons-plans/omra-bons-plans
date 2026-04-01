@@ -56,8 +56,8 @@ export default function GuideOmraPasChere() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Guide Omra Pas Chère 2026 : Prix, Astuces & Comparatif | Omra Bons Plans</title>
-        <meta name="description" content="Guide complet pour organiser une Omra pas chère en 2026. Comparez les prix, découvrez 10 astuces pour économiser, choisissez entre tout compris et à la carte. Conseils d'experts." />
+        <title>Omra Pas Chère 2026 : Prix, 10 Astuces & Comparatif Agences</title>
+        <meta name="description" content="Guide complet pour une Omra pas chère en 2026 : prix réels, 10 astuces pour économiser, comparatif tout compris vs à la carte. Conseils d'experts vérifiés." />
         <meta name="keywords" content="omra pas chère, omra pas cher 2026, prix omra, omra économique, omra budget, omra tout compris pas cher, comparateur omra prix" />
         <link rel="canonical" href="https://omrabonsplans.fr/guide-omra-pas-chere" />
         <meta property="og:title" content="Guide Omra Pas Chère 2026 : Prix, Astuces & Comparatif" />

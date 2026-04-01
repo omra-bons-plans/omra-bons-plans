@@ -66,10 +66,31 @@ export default function AgenceDetails() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
-        title={`${agency.name} - Détails Agence Omra & Hajj`}
-        description={`Découvrez tous les détails sur ${agency.name} : note Google ${agency.googleRating}/5, ${agency.reviewCount} avis, points forts et faiblesses détaillés.`}
-        keywords={`${agency.name}, omra, hajj, agence voyage, avis google`}
+      <SEOHead
+        title={`${agency.name} - Agence Omra & Hajj : Avis ${agency.googleRating}/5`}
+        description={`${agency.name} : agence Omra & Hajj agréée. Note Google ${agency.googleRating}/5 (${agency.reviewCount} avis). ${agency.highlight || 'Points forts, faiblesses et tarifs détaillés.'}`}
+        keywords={`${agency.name}, omra, hajj, agence voyage, avis google, agence agrée france`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          "name": agency.name,
+          "url": agency.url,
+          "areaServed": {
+            "@type": "Country",
+            "name": "France"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": agency.googleRating,
+            "reviewCount": agency.reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "priceRange": agency.priceRange || "€€",
+          "serviceType": ["Omra", "Hajj", "Voyage Religieux"],
+          "knowsAbout": agency.specialties || [],
+          "sameAs": [agency.url]
+        }}
       />
 
       <div className="container mx-auto px-4 py-8">
@@ -92,11 +113,10 @@ export default function AgenceDetails() {
 
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Comparatif Agences de Voyages Omra & Hajj
+            {agency.name} — Agence Omra & Hajj
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Analysez et comparez les meilleures agences de voyage pour votre pèlerinage. 
-            Notes Google authentiques, avis clients et analyse détaillée des services.
+            Analyse complète de {agency.name} : note Google, avis clients, points forts, tarifs et spécialités.
           </p>
         </header>
 
@@ -105,7 +125,7 @@ export default function AgenceDetails() {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-start">
-                  <CardTitle className="text-2xl">{agency.name}</CardTitle>
+                  <CardTitle className="text-2xl" aria-label={`Note et avis ${agency.name}`}>{agency.name}</CardTitle>
                   <a 
                     href={agency.url} 
                     target="_blank" 
@@ -135,7 +155,7 @@ export default function AgenceDetails() {
             <div className="grid md:grid-cols-2 gap-6 mt-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-green-600">
+                  <CardTitle as="h2" className="flex items-center gap-2 text-green-600">
                     <TrendingUp className="h-5 w-5" />
                     Points Forts
                   </CardTitle>
@@ -154,7 +174,7 @@ export default function AgenceDetails() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-orange-600">
+                  <CardTitle as="h2" className="flex items-center gap-2 text-orange-600">
                     <TrendingDown className="h-5 w-5" />
                     Points d'Attention
                   </CardTitle>
