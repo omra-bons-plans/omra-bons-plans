@@ -21,7 +21,7 @@ const SENSITIVE_PATTERNS = [
  */
 export const secureLog = (message: string, data?: any) => {
   // Ne pas logger en production
-  if (process.env.NODE_ENV === 'production') {
+  if (import.meta.env.PROD) {
     return;
   }
   

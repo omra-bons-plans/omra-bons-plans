@@ -90,7 +90,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
     }
 
     let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
     
     const fetchAds = async () => {
       // Remettre loading à true quand on commence à fetch
