@@ -155,7 +155,7 @@ export default function AgenceDetails() {
             <div className="grid md:grid-cols-2 gap-6 mt-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-green-600">
+                  <CardTitle as="h2" className="flex items-center gap-2 text-green-600">
                     <TrendingUp className="h-5 w-5" />
                     Points Forts
                   </CardTitle>
@@ -174,7 +174,7 @@ export default function AgenceDetails() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-orange-600">
+                  <CardTitle as="h2" className="flex items-center gap-2 text-orange-600">
                     <TrendingDown className="h-5 w-5" />
                     Points d'Attention
                   </CardTitle>
