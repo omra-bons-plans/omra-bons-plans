@@ -25,7 +25,7 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
       }}
     >
       {/* ⚡ CRITICAL: Single compressed hero image for all devices */}
-      <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '600px' }}>
+      <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '400px' }}>
         <img
           src="/hero-kaaba-optimized.webp"
           alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
