@@ -276,7 +276,7 @@ const Index = () => {
         className="hero-wrapper relative" 
         style={{ 
           minHeight: isMobile ? '100svh' : '400px', 
-          maxHeight: isMobile ? undefined : '500px',
+          maxHeight: isMobile ? undefined : undefined,
           aspectRatio: isMobile ? undefined : '16/9',
           marginTop: 0,
           paddingTop: 0,
