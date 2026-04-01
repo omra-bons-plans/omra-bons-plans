@@ -211,16 +211,47 @@ export default function OfferDetails() {
       <div className="min-h-screen bg-background">
         <Suspense fallback={null}>
           <DynamicSEO
-            title={`${offer.agency_name} - Offre ${isHajj ? 'Hajj' : 'Omra'} ${Number(offer.price_eur).toLocaleString('fr-FR')}€`}
-            description={`Offre ${isHajj ? 'Hajj' : 'Omra'} par ${offer.agency_name} au départ de ${offer.departure_city} - ${offer.duration_nights} nuits - ${Number(offer.price_eur).toLocaleString('fr-FR')}€`}
-            keywords={[isHajj ? 'hajj' : 'omra', offer.agency_name, offer.departure_city, 'voyage']}
+            title={`Offre ${isHajj ? 'Hajj' : 'Omra'} ${offer.month_departure || ''} - ${offer.agency_name} - ${Number(offer.price_eur).toLocaleString('fr-FR')}€`}
+            description={`Offre ${isHajj ? 'Hajj' : 'Omra'} de ${offer.agency_name} au départ de ${offer.departure_city}${offer.duration_nights ? ` - ${offer.duration_nights} nuits` : ''}${offer.hotel_makkah ? ` - Hôtel ${offer.hotel_makkah} à La Mecque` : ''} - ${Number(offer.price_eur).toLocaleString('fr-FR')}€. Comparez et réservez.`}
+            keywords={[isHajj ? 'hajj' : 'omra', offer.agency_name, offer.departure_city, 'voyage', 'pèlerinage', `offre ${isHajj ? 'hajj' : 'omra'} ${offer.departure_city}`]}
             path={`/offre-${offerType}/${id}`}
+            structuredData={{
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": `Offre ${isHajj ? 'Hajj' : 'Omra'} ${offer.month_departure || ''} - ${offer.agency_name}`,
+              "description": `Séjour ${isHajj ? 'Hajj' : 'Omra'} organisé par ${offer.agency_name} au départ de ${offer.departure_city}${offer.duration_nights ? `, ${offer.duration_nights} nuits` : ''}${offer.hotel_makkah ? `, hébergement ${offer.hotel_makkah}` : ''}.`,
+              "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp",
+              "brand": {
+                "@type": "Brand",
+                "name": offer.agency_name
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": offer.price_eur,
+                "priceCurrency": "EUR",
+                "availability": offer.is_complet ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+                "url": `https://omrabonsplans.fr/offre-${offerType}/${id}`,
+                "seller": {
+                  "@type": "TravelAgency",
+                  "name": offer.agency_name
+                }
+              },
+              ...(agencyInfo?.google_rating ? {
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": agencyInfo.google_rating,
+                  "reviewCount": agencyInfo.review_count || 1,
+                  "bestRating": "5",
+                  "worstRating": "1"
+                }
+              } : {})
+            }}
           />
           <SEOBreadcrumb
             items={[
               { name: 'Accueil', url: '/' },
               { name: isHajj ? 'Hajj' : 'Omra', url: isHajj ? '/hajj' : '/omra' },
-              { name: offer.agency_name, url: `/offre-${offerType}/${id}` }
+              { name: `${offer.agency_name} - ${Number(offer.price_eur).toLocaleString('fr-FR')}€`, url: `/offre-${offerType}/${id}` }
             ]}
           />
         </Suspense>
@@ -269,7 +300,9 @@ export default function OfferDetails() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <h1 className="text-lg md:text-2xl font-bold leading-tight truncate">{offer.agency_name}</h1>
+                        <h1 className="text-lg md:text-2xl font-bold leading-tight truncate">
+                          Offre {isHajj ? 'Hajj' : 'Omra'} {offer.month_departure ? `${offer.month_departure} ` : ''}- {offer.agency_name}
+                        </h1>
                         {agencyInfo && (
                           <div className="flex items-center gap-1.5 mt-1">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />

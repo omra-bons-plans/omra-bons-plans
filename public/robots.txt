@@ -77,5 +77,50 @@ Disallow: /2019/
 # Block old services URLs (redirected to /category/)
 Disallow: /services/
 
-# Crawl delay
+# Crawl delay (default for all bots)
 Crawl-delay: 1
+
+# AI Crawlers - explicitly allowed with specific crawl rates
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /profile
+Disallow: /settings
+Crawl-delay: 2
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 1
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 1
+
+User-agent: Bytespider
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2

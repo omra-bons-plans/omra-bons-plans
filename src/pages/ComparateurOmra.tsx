@@ -661,6 +661,60 @@ export default function ComparateurOmra() {
         description={tripType === 'hajj' ? "Comparez les offres Hajj 2026 : packages, zones Mina, camps et prix. Trouvez le pèlerinage idéal parmi les meilleures agences françaises." : "Trouvez, comparez et réservez votre séjour Omra au meilleur prix parmi des centaines d'offres d'agences françaises."}
         keywords={tripType === 'hajj' ? ['hajj', 'hajj 2026', 'pèlerinage mecque', 'comparateur hajj'] : ['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
         path={`/${tripType}`}
+        structuredData={tripType === 'omra' ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Quelles agences sont référencées sur le comparateur ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nous référençons les principales agences de voyages françaises spécialisées dans l'organisation de séjours Omra, notamment Tawaf, Medinvoyages, Almaqam, Pelerinhajj, Hayat, Omra Sounnah, Omra Pour Tous, Sabil Voyages et MERIDIANIS. Toutes sont agréées et reconnues pour leur sérieux et leur expérience dans le pèlerinage."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Les prix affichés sont-ils définitifs ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Les prix sont mis à jour quotidiennement et reflètent les tarifs officiels des agences au moment de l'extraction. Ils peuvent évoluer selon la disponibilité. Nous recommandons de vérifier le prix final directement sur le site de l'agence avant de réserver."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quelle différence entre formule Essentiel et Confort ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La formule Essentiel propose des hôtels 3 étoiles situés à 500m à 1km du Haram, idéale pour les petits budgets. La formule Confort offre des hôtels 4-5 étoiles très proches du Haram (50m à 300m), avec plus de prestations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Puis-je réserver directement sur ce site ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Non, notre site est un comparateur. La réservation se fait directement auprès de l'agence en cliquant sur 'Voir l'offre'. Vous serez redirigé vers le site officiel de l'agence pour finaliser votre inscription."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Comment choisir la meilleure période pour partir en Omra ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La période idéale dépend de votre budget. Le Ramadan est très prisé mais plus cher. Les mois hors vacances scolaires (septembre à novembre, janvier à mars) offrent les meilleurs tarifs. L'été (juin-août) peut être très chaud à La Mecque."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Qu'est-ce qui est généralement inclus dans le prix d'une Omra ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La plupart des forfaits Omra incluent les vols aller-retour depuis la France, l'hébergement en pension complète ou demi-pension, les transferts aéroport-hôtel, le visa saoudien et l'assurance de base. Certaines agences ajoutent des excursions et un accompagnement religieux."
+              }
+            }
+          ]
+        } : undefined}
       />
       
       <SEOBreadcrumb
