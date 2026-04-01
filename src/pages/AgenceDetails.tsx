@@ -174,7 +174,7 @@ export default function AgenceDetails() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle as="h2" className="flex items-center gap-2 text-orange-600">
+                  <CardTitle className="flex items-center gap-2 text-orange-600">
                     <TrendingDown className="h-5 w-5" />
                     Points d'Attention
                   </CardTitle>
