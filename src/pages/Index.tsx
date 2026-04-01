@@ -275,15 +275,15 @@ const Index = () => {
       <section 
         className="hero-wrapper relative" 
         style={{ 
-          minHeight: isMobile ? '100svh' : '400px', 
-          maxHeight: isMobile ? undefined : '500px',
+          minHeight: isMobile ? '100svh' : '500px', 
+          maxHeight: isMobile ? undefined : '600px',
           marginTop: 0,
           paddingTop: 0,
           position: 'relative',
           zIndex: 10
         }}
       >
-        <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '400px', maxHeight: isMobile ? undefined : '500px' }}>
+        <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '500px', maxHeight: isMobile ? undefined : '600px' }}>
           <img
             src="/hero-kaaba-optimized.webp"
             alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
