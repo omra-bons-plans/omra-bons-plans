@@ -150,6 +150,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
           category: ad.category,
           location: ad.location,
           coverImage: ad.cover_image,
+          description: ad.description,
           isPromotion: ad.is_promotion,
           promotionEndDate: ad.promotion_end_date,
           publishEndDate: ad.publish_end_date,
