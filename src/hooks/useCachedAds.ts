@@ -125,7 +125,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
         // ⚡ OPTIMIZED: Only select essential fields (reduces payload ~70%)
         const { data: adsData, error: adsError } = await supabase
           .from('ads')
-          .select('id, title, price, original_price, category, location, cover_image, is_promotion, promotion_end_date, publish_end_date')
+          .select('id, title, price, original_price, category, location, cover_image, description, is_promotion, promotion_end_date, publish_end_date')
           .eq('is_published', true)
           .eq('is_draft', false)
           .eq('is_paused', false)
