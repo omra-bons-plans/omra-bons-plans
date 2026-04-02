@@ -39,6 +39,7 @@ export interface CachedFormattedListing {
   type: string;
   title: string;
   subtitle: string;
+  description: string;
   price: string;
   originalPrice?: string;
   discount?: number;
