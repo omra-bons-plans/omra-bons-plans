@@ -141,6 +141,7 @@ const Index = () => {
       type: "sejours",
       title: "Exemple - Séjour Omra Confort",
       subtitle: "15 jours avec hôtel 5 étoiles",
+      description: "Séjour complet avec vol, hôtel 5 étoiles et guide francophone inclus.",
       price: "1450€",
       originalPrice: "1890€",
       discount: 23,

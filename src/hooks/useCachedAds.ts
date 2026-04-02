@@ -28,6 +28,7 @@ export interface CachedAd {
   category: string;
   location?: string;
   coverImage?: string;
+  description?: string;
   isPromotion: boolean;
   promotionEndDate?: string;
   publishEndDate: string;
@@ -38,6 +39,7 @@ export interface CachedFormattedListing {
   type: string;
   title: string;
   subtitle: string;
+  description: string;
   price: string;
   originalPrice?: string;
   discount?: number;
@@ -123,7 +125,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
         // ⚡ OPTIMIZED: Only select essential fields (reduces payload ~70%)
         const { data: adsData, error: adsError } = await supabase
           .from('ads')
-          .select('id, title, price, original_price, category, location, cover_image, is_promotion, promotion_end_date, publish_end_date')
+          .select('id, title, price, original_price, category, location, cover_image, description, is_promotion, promotion_end_date, publish_end_date')
           .eq('is_published', true)
           .eq('is_draft', false)
           .eq('is_paused', false)
@@ -148,6 +150,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
           category: ad.category,
           location: ad.location,
           coverImage: ad.cover_image,
+          description: ad.description,
           isPromotion: ad.is_promotion,
           promotionEndDate: ad.promotion_end_date,
           publishEndDate: ad.publish_end_date,
@@ -205,6 +208,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
         type: ad.category,
         title: ad.title,
         subtitle: ad.location || '',
+        description: ad.description || '',
         price: ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
           ? 'Sur demande' 
           : `${ad.price}€`,
