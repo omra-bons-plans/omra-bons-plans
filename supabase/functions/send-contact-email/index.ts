@@ -16,6 +16,17 @@ interface ContactEmailRequest {
   message: string;
 }
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -23,31 +34,71 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { nom, prenom, mail, message }: ContactEmailRequest = await req.json();
+    const body = await req.json();
+    const { nom, prenom, mail, message } = body as ContactEmailRequest;
 
-    console.log("Received contact form submission:", { nom, prenom, mail });
+    // Validation des champs requis
+    if (!nom || !prenom || !mail || !message) {
+      return new Response(
+        JSON.stringify({ error: "Tous les champs sont obligatoires" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validation des longueurs
+    if (nom.trim().length < 2 || nom.trim().length > 100) {
+      return new Response(
+        JSON.stringify({ error: "Le nom doit contenir entre 2 et 100 caractères" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    if (prenom.trim().length < 2 || prenom.trim().length > 100) {
+      return new Response(
+        JSON.stringify({ error: "Le prénom doit contenir entre 2 et 100 caractères" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    if (!EMAIL_REGEX.test(mail.trim()) || mail.length > 254) {
+      return new Response(
+        JSON.stringify({ error: "Adresse email invalide" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    if (message.trim().length < 10 || message.trim().length > 5000) {
+      return new Response(
+        JSON.stringify({ error: "Le message doit contenir entre 10 et 5000 caractères" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const safeNom = escapeHtml(nom.trim());
+    const safePrenom = escapeHtml(prenom.trim());
+    const safeMail = mail.trim().toLowerCase();
+    const safeMessage = escapeHtml(message.trim());
+
+    console.log("Received contact form submission:", { nom: safeNom, prenom: safePrenom, mail: safeMail });
 
     const emailResponse = await resend.emails.send({
       from: "OmraBonsPlans <contact@omrabonsplans.fr>",
       to: ["contact@omrabonsplans.fr"],
-      reply_to: mail,
-      subject: `Nouveau message de contact de ${prenom} ${nom}`,
+      reply_to: safeMail,
+      subject: `Nouveau message de contact de ${safePrenom} ${safeNom}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h2 style="color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">
             Nouveau message de contact
           </h2>
-          
+
           <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <p><strong>Nom :</strong> ${nom}</p>
-            <p><strong>Prénom :</strong> ${prenom}</p>
-            <p><strong>Email :</strong> <a href="mailto:${mail}">${mail}</a></p>
+            <p><strong>Nom :</strong> ${safeNom}</p>
+            <p><strong>Prénom :</strong> ${safePrenom}</p>
+            <p><strong>Email :</strong> <a href="mailto:${safeMail}">${safeMail}</a></p>
           </div>
-          
+
           <div style="margin: 20px 0;">
             <h3 style="color: #333;">Message :</h3>
             <div style="background-color: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
-              ${message.replace(/\n/g, '<br>')}
+              ${safeMessage.replace(/\n/g, '<br>')}
             </div>
           </div>
           
