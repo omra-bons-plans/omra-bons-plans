@@ -208,6 +208,7 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
         type: ad.category,
         title: ad.title,
         subtitle: ad.location || '',
+        description: ad.description || '',
         price: ['guides', 'chauffeurs', 'babysitting'].includes(ad.category) 
           ? 'Sur demande' 
           : `${ad.price}€`,
