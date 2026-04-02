@@ -76,6 +76,11 @@ const PrixOmra = lazy(() => import("./pages/PrixOmra"));
 const OmraFemmeSeule = lazy(() => import("./pages/OmraFemmeSeule"));
 const VisaOmra = lazy(() => import("./pages/VisaOmra"));
 const OmraVille = lazy(() => import("./pages/OmraVille"));
+const OmraFamille = lazy(() => import("./pages/OmraFamille"));
+const OmraSeniors = lazy(() => import("./pages/OmraSeniors"));
+const OmraEnfants = lazy(() => import("./pages/OmraEnfants"));
+const OmraBadal = lazy(() => import("./pages/OmraBadal"));
+const DixDerniersJoursRamadan = lazy(() => import("./pages/DixDerniersJoursRamadan"));
 
 // Loading component
 const PageLoader = () => (
@@ -273,6 +278,11 @@ const App = () => (
                    <Route path="/omra-femme-seule" element={<OmraFemmeSeule />} />
                    <Route path="/visa-omra-france" element={<VisaOmra />} />
                    <Route path="/omra-depuis-:ville" element={<OmraVille />} />
+                   <Route path="/omra-famille" element={<OmraFamille />} />
+                   <Route path="/omra-seniors" element={<OmraSeniors />} />
+                   <Route path="/omra-enfants" element={<OmraEnfants />} />
+                   <Route path="/omra-badal" element={<OmraBadal />} />
+                   <Route path="/10-derniers-jours-ramadan" element={<DixDerniersJoursRamadan />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />

@@ -67,18 +67,19 @@ export default function AgenceDetails() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${agency.name} - Agence Omra & Hajj : Avis ${agency.googleRating}/5`}
-        description={`${agency.name} : agence Omra & Hajj agréée. Note Google ${agency.googleRating}/5 (${agency.reviewCount} avis). ${agency.highlight || 'Points forts, faiblesses et tarifs détaillés.'}`}
-        keywords={`${agency.name}, omra, hajj, agence voyage, avis google, agence agrée france`}
+        title={`${agency.name} — Avis ${agency.googleRating}/5 · Agence Omra & Hajj Agréée 2026`}
+        description={`${agency.name} : agence Omra & Hajj agréée en France. Note ${agency.googleRating}/5 sur ${agency.reviewCount} avis vérifiés. ${agency.highlight || 'Comparez les offres, points forts et tarifs 2026.'}`}
+        keywords={`${agency.name}, agence omra ${agency.name.toLowerCase()}, avis ${agency.name.toLowerCase()}, omra hajj agréée, ${agency.name.toLowerCase()} tarifs`}
+        canonical={`https://omrabonsplans.fr/agence-details/${encodeURIComponent(agency.name)}`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "TravelAgency",
           "name": agency.name,
           "url": agency.url,
-          "areaServed": {
-            "@type": "Country",
-            "name": "France"
-          },
+          "sameAs": [agency.url],
+          "areaServed": { "@type": "Country", "name": "France" },
+          "priceRange": agency.priceRange || "€€",
+          "knowsAbout": ["Omra", "Hajj", "Pèlerinage", ...(agency.specialties || [])],
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": agency.googleRating,
@@ -86,10 +87,15 @@ export default function AgenceDetails() {
             "bestRating": "5",
             "worstRating": "1"
           },
-          "priceRange": agency.priceRange || "€€",
-          "serviceType": ["Omra", "Hajj", "Voyage Religieux"],
-          "knowsAbout": agency.specialties || [],
-          "sameAs": [agency.url]
+          "review": {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": agency.googleRating,
+              "bestRating": "5"
+            },
+            "author": { "@type": "Organization", "name": "Omra Bons Plans" }
+          }
         }}
       />
 
