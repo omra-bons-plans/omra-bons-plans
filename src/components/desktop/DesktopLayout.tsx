@@ -24,7 +24,7 @@ const DesktopLayout = ({ children }: DesktopLayoutProps) => {
         <div className="flex-1 flex flex-col">
           {/* Header */}
           <header className="h-14 flex items-center justify-between border-b bg-background px-4">
-            <SidebarTrigger className="lg:flex hidden" aria-label="Ouvrir le menu" />
+            <SidebarTrigger className="flex" aria-label="Ouvrir le menu" />
             
             {/* Right side header content */}
             <div className="flex items-center space-x-4 ml-auto">
