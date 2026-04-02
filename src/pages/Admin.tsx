@@ -82,17 +82,17 @@ const Admin = () => {
   // Vérifier la session admin au chargement
   useEffect(() => {
     const checkAdminSession = () => {
-      const sessionToken = localStorage.getItem('admin_session_token');
-      const sessionExpiry = localStorage.getItem('admin_session_expiry');
-      
+      const sessionToken = sessionStorage.getItem('admin_session_token');
+      const sessionExpiry = sessionStorage.getItem('admin_session_expiry');
+
       if (sessionToken && sessionExpiry) {
         const expiryDate = new Date(sessionExpiry);
         if (expiryDate > new Date()) {
           setShowCodeAuth(false);
           return true;
         } else {
-          localStorage.removeItem('admin_session_token');
-          localStorage.removeItem('admin_session_expiry');
+          sessionStorage.removeItem('admin_session_token');
+          sessionStorage.removeItem('admin_session_expiry');
         }
       }
       return false;
@@ -193,8 +193,8 @@ const Admin = () => {
 
       if (data.success) {
         // Stocker le token de session
-        localStorage.setItem('admin_session_token', data.sessionToken);
-        localStorage.setItem('admin_session_expiry', data.expiresAt);
+        sessionStorage.setItem('admin_session_token', data.sessionToken);
+        sessionStorage.setItem('admin_session_expiry', data.expiresAt);
         
         setShowCodeAuth(false);
         toast({
