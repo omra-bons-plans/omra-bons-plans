@@ -196,20 +196,28 @@ const Blog = () => {
 
   return (
     <ResponsiveLayout>
-      <SEOHead 
-        title={category ? `Blog ${getCategoryName(category)} - Omra Bons Plans` : 'Blog - Omra Bons Plans | Guides et Conseils Omra Hajj'}
-        description={category 
-          ? `Découvrez nos articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage. Conseils experts, guides pratiques et informations essentielles.`
-          : "Blog Omra Bons Plans : guides complets, conseils d'experts et informations pratiques pour organiser votre pèlerinage Omra et Hajj en toute sérénité."
+      <SEOHead
+        title={
+          category === 'general' ? 'Blog Omra & Hajj 2026 | Guides et Conseils Pèlerinage'
+          : category ? `Blog ${getCategoryName(category)} - Omra Bons Plans`
+          : 'Blog Omra & Hajj 2026 | Guides, Conseils et Actualités Pèlerinage'
         }
-        keywords="blog omra, conseils hajj, guide pèlerinage, articles omra, spiritualité islam"
+        description={
+          category === 'general'
+            ? "Guides complets Omra & Hajj 2026 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
+            : category
+            ? `Articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage.`
+            : "Guides complets Omra & Hajj 2026 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
+        }
+        keywords="blog omra, guides hajj, préparation pèlerinage, rites omra, visa omra, prix omra 2026"
         canonical={`https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`}
+        noindex={['restaurants', 'vendeurs', 'associations'].includes(category || '')}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Blog",
-          "name": "Blog Omra Bons Plans",
+          "name": "Blog Omra & Hajj - Omra Bons Plans",
           "url": `https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`,
-          "description": "Blog dédié aux guides et conseils pour le pèlerinage Omra et Hajj",
+          "description": "Guides et conseils pour le pèlerinage Omra et Hajj",
           "publisher": {
             "@type": "Organization",
             "name": "Omra Bons Plans",

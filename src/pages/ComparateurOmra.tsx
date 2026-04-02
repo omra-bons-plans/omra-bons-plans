@@ -657,9 +657,15 @@ export default function ComparateurOmra() {
     <ResponsiveLayout>
       <div className="min-h-screen bg-background">
       <DynamicSEO
-        title={tripType === 'hajj' ? "Comparateur Hajj 2026 - Prix & Offres Agences Françaises" : "Omra Pas Chère 2026 - Comparateur Prix Agences France"}
-        description={tripType === 'hajj' ? "Comparateur Hajj 2026 : comparez les offres et prix de 20+ agences (Tawaf, Medinvoyages, Al-Maqam). Packages tout compris, hôtels, dates. Réservez le meilleur Hajj." : "Omra pas chère 2026 : comparez centaines d'offres de 20+ agences françaises. Prix transparents, hôtels, dates, tout compris. Meilleur comparateur Omra France."}
-        keywords={tripType === 'hajj' ? ['hajj 2026', 'prix hajj', 'agence hajj france', 'comparateur hajj', 'meilleur pèlerinage', 'offres hajj'] : ['omra pas chère', 'prix omra', 'comparateur omra', 'agence omra france', 'omra tout compris', 'meilleur prix omra', 'offres omra 2026']}
+        title={tripType === 'hajj'
+          ? "Comparateur Hajj 2026 — Packages & Prix de 20 Agences Agréées | Omra Bons Plans"
+          : "Comparateur Omra 2026 — Prix en Temps Réel de 20 Agences Vérifiées | Omra Bons Plans"}
+        description={tripType === 'hajj'
+          ? "Comparez les packages Hajj 2026 de 20+ agences françaises agréées. Dates (3-8 juin 2026), prix 5 000€–15 000€, hôtels La Mecque & Médine, vols. Réservez le meilleur Hajj."
+          : "Comparez les offres Omra 2026 de 20+ agences françaises agréées (Tawaf, Medin Voyages, Al-Maqam). Prix transparents, hôtels, dates, vols inclus. Meilleur comparateur Omra France."}
+        keywords={tripType === 'hajj'
+          ? ['hajj 2026', 'prix hajj 2026', 'agence hajj france', 'comparateur hajj', 'package hajj', 'inscription hajj 2026', 'dates hajj 2026']
+          : ['comparateur omra', 'omra 2026', 'prix omra 2026', 'agence omra france', 'omra tout compris', 'omra pas chère', 'offres omra 2026', 'omra ramadan 2026']}
         path={`/${tripType}`}
         structuredData={tripType === 'omra' ? {
           "@context": "https://schema.org",
@@ -747,14 +753,24 @@ export default function ComparateurOmra() {
         {/* ⚡ Contenu texte - rendu immédiat */}
         <div className="relative z-10 container mx-auto px-4 text-center" style={{ contentVisibility: 'auto' }}>
           <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">Omra Bons Plans</span>
-            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">Votre comparateur de séjours Omra & Hajj 2026</span>
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">
+              {tripType === 'hajj' ? 'Comparateur Hajj 2026' : 'Comparateur Omra 2026'}
+            </span>
+            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">
+              {tripType === 'hajj'
+                ? '20+ agences agréées — Packages Hajj vérifiés'
+                : '20+ agences agréées — Offres Omra vérifiées'}
+            </span>
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
-            Le seul comparateur français pour la Omra et le Hajj
+            {tripType === 'hajj'
+              ? 'Comparez les prix, dates et hôtels pour le Hajj 2026'
+              : 'Comparez les prix, hôtels et dates pour votre Omra 2026'}
           </p>
           <p className="text-sm sm:text-base md:text-lg text-white/90 px-4 leading-relaxed max-w-3xl mx-auto">
-            Trouvez et réservez votre séjour au meilleur prix
+            {tripType === 'hajj'
+              ? 'Packages Hajj depuis toutes les villes de France • Prix mis à jour quotidiennement'
+              : 'Offres Omra depuis Paris, Lyon, Marseille, Bordeaux • Prix mis à jour quotidiennement'}
           </p>
         </div>
       </div>
