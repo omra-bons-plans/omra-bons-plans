@@ -28,6 +28,7 @@ export interface CachedAd {
   category: string;
   location?: string;
   coverImage?: string;
+  description?: string;
   isPromotion: boolean;
   promotionEndDate?: string;
   publishEndDate: string;
