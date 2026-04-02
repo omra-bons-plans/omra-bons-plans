@@ -131,15 +131,18 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
           if (!url.startsWith('http')) {
             optimizedUrl = getImageUrl(url, undefined, 'blog-images');
           }
-          return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block" style="max-height: 200px;" loading="lazy" />`;
+          // 🔐 SECURITY: Use class instead of inline style to prevent CSS injection
+          return `<img src="${optimizedUrl}" alt="${alt}" class="inline-block max-w-full h-auto rounded border border-border/20 mx-1 block markdown-img-inline" loading="lazy" />`;
         })
         // Convert links [text](url) to <a href="url">text</a>
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-2 transition-colors">$1</a>');
       
-      // Sanitize the processed line
+      // 🔐 SECURITY: Sanitize the processed line
+      // ⚠️ NOTE: Removed 'style' attribute to prevent CSS injection attacks
       const sanitizedLine = DOMPurify.sanitize(processedLine, {
         ALLOWED_TAGS: ['strong', 'em', 'a', 'img', 'code', 'br', 'div'],
-        ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'target', 'rel', 'loading', 'style']
+        ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'target', 'rel', 'loading'],
+        ALLOW_DATA_ATTR: false // 🔐 Prevent data-* attributes which can be used for injection
       });
       
       if (sanitizedLine.trim()) {

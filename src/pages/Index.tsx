@@ -70,10 +70,10 @@ const Index = () => {
   // ⚡ OPTIMIZED: Only load discussions when tab is clicked (reduces TBT by ~200ms)
   const [discussionsLoaded, setDiscussionsLoaded] = useState(false);
   
-  // ⚡ PHASE 2: Chargement différé des offres (après scroll ou 3s)
+  // ⚡ PHASE 2: Chargement rapide des offres (après 500ms ou scroll)
   const { triggerRef, shouldLoad: shouldLoadOffers } = useDeferredLoading({
-    delay: 3000,        // Déclencher après 3 secondes
-    rootMargin: '300px', // Ou quand le trigger est à 300px de la vue
+    delay: 500,          // Déclencher après 500ms
+    rootMargin: '500px', // Ou quand le trigger est à 500px de la vue
     threshold: 0.1
   });
   
@@ -141,6 +141,7 @@ const Index = () => {
       type: "sejours",
       title: "Exemple - Séjour Omra Confort",
       subtitle: "15 jours avec hôtel 5 étoiles",
+      description: "Séjour complet avec vol, hôtel 5 étoiles et guide francophone inclus.",
       price: "1450€",
       originalPrice: "1890€",
       discount: 23,
@@ -275,14 +276,16 @@ const Index = () => {
       <section 
         className="hero-wrapper relative" 
         style={{ 
-          minHeight: isMobile ? '100svh' : '600px', 
+          minHeight: isMobile ? '100svh' : '400px', 
+          maxHeight: isMobile ? undefined : undefined,
+          aspectRatio: isMobile ? undefined : '16/9',
           marginTop: 0,
           paddingTop: 0,
           position: 'relative',
           zIndex: 10
         }}
       >
-        <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '600px' }}>
+        <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '400px' }}>
           <img
             src="/hero-kaaba-optimized.webp"
             alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
@@ -306,14 +309,15 @@ const Index = () => {
           <div className="container mx-auto px-4 md:px-6 relative z-20">
             <div className="flex flex-col items-center justify-center text-center pt-2 pb-8 md:pt-20 md:pb-12">
               <div className="space-y-6 md:space-y-10 w-full px-2">
-                <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold leading-tight">
-                  <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">Tous les services</span><br />
-                  <span className="gradient-text-secondary font-black text-5xl md:text-7xl lg:text-9xl xl:text-[10rem]">Hajj & Omra</span><br />
-                  <span className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl">en un seul endroit</span>
+                <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
+                  <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">Omra Bons Plans</span>
+                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">Tous les services Hajj & Omra en un seul endroit</span>
                 </h1>
-                
-                <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl leading-relaxed md:max-w-6xl mx-auto font-medium">
-                  <span className="text-white">Trouvez facilement des bons plans pour le Hajj et la Omra : chauffeurs, logements, séjours, guides et plus encore</span>
+                <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
+                  Trouvez facilement des bons plans pour le Hajj et la Omra
+                </p>
+                <p className="text-sm sm:text-base md:text-lg text-white/80 px-4">
+                  Chauffeurs, logements, séjours, guides et plus encore
                 </p>
 
                 {/* WhatsApp Community Button - Mobile optimized */}

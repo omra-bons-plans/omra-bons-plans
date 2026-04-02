@@ -329,7 +329,7 @@ export default function ComparateurOmra() {
     if (!dataPhaseEnabled) return;
     
     let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
     let loadingStarted = false;
     
     const fetchOffers = async () => {
