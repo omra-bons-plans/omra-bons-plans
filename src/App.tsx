@@ -66,6 +66,11 @@ const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
 const GuideOmraPasChere = lazy(() => import("./pages/GuideOmraPasChere"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
+const RitesOmra = lazy(() => import("./pages/RitesOmra"));
+const Hajj2026 = lazy(() => import("./pages/Hajj2026"));
+const OmraToutCompris = lazy(() => import("./pages/OmraToutCompris"));
+const MeilleureAgenceOmra = lazy(() => import("./pages/MeilleureAgenceOmra"));
+const ListeBagagesOmra = lazy(() => import("./pages/ListeBagagesOmra"));
 const OmraRamadan = lazy(() => import("./pages/OmraRamadan"));
 const PrixOmra = lazy(() => import("./pages/PrixOmra"));
 const OmraFemmeSeule = lazy(() => import("./pages/OmraFemmeSeule"));
@@ -258,6 +263,11 @@ const App = () => (
                   <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/guide-omra-pas-chere" element={<GuideOmraPasChere />} />
+                   <Route path="/rites-omra" element={<RitesOmra />} />
+                   <Route path="/hajj-2026" element={<Hajj2026 />} />
+                   <Route path="/omra-tout-compris" element={<OmraToutCompris />} />
+                   <Route path="/meilleure-agence-omra" element={<MeilleureAgenceOmra />} />
+                   <Route path="/liste-bagages-omra" element={<ListeBagagesOmra />} />
                    <Route path="/omra-ramadan-2026" element={<OmraRamadan />} />
                    <Route path="/prix-omra-2026" element={<PrixOmra />} />
                    <Route path="/omra-femme-seule" element={<OmraFemmeSeule />} />
