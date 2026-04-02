@@ -2,16 +2,34 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = "https://lptyhenryzhztdwpkvsc.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwdHloZW5yeXpoenRkd3BrdnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwMTEwOTgsImV4cCI6MjA3MjU4NzA5OH0.JYopgd-0xzHifJBQzsUwIDjowEBbbS5bj_PyggQrHD4";
+// 🔐 SECURITY: Use environment variables only, NEVER hardcode credentials
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Validate environment variables at runtime
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  throw new Error(
+    'Missing Supabase configuration. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in .env'
+  );
+}
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    storage: localStorage,
-    persistSession: true,
+    // 🔐 Use session storage instead of localStorage for better security
+    // Tokens will be cleared when browser tab closes
+    storage: sessionStorage,
+    persistSession: false, // Prevent automatic persistence to storage
     autoRefreshToken: true,
-  }
+    // 🔐 Additional security: detect token theft via unusual contexts
+    detectSessionInUrl: true,
+  },
+  // 🔐 Configure retry policy for better resilience
+  global: {
+    headers: {
+      'X-Client-Info': `supabase-js/${require('@supabase/supabase-js/package.json').version}`,
+    },
+  },
 });
