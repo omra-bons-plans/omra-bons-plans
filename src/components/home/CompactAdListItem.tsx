@@ -178,17 +178,20 @@ export const CompactAdListItem = memo(({ listing, selectedCategory }: CompactAdL
                     </Badge>
                   )}
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {listing.location && (
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
-                      <div>
-                        <div className="text-xs text-muted-foreground">Localisation</div>
-                        <div className="text-sm font-semibold">{listing.location}</div>
-                      </div>
+                {listing.location && (
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Localisation</div>
+                      <div className="text-sm font-semibold">{listing.location}</div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+                {listing.description && (
+                  <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-2">
+                    {listing.description}
+                  </p>
+                )}
               </div>
 
               {/* Right: Price & CTA */}
