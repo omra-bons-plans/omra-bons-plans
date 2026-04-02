@@ -2,34 +2,18 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-// 🔐 SECURITY: Use environment variables only, NEVER hardcode credentials
+// 🔐 SECURITY: Read from environment variables (never hardcode)
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-// Validate environment variables at runtime
-if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-  throw new Error(
-    'Missing Supabase configuration. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in .env'
-  );
-}
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    // 🔐 Use session storage instead of localStorage for better security
-    // Tokens will be cleared when browser tab closes
-    storage: sessionStorage,
-    persistSession: false, // Prevent automatic persistence to storage
+    storage: localStorage,
+    persistSession: true,
     autoRefreshToken: true,
-    // 🔐 Additional security: detect token theft via unusual contexts
     detectSessionInUrl: true,
-  },
-  // 🔐 Configure retry policy for better resilience
-  global: {
-    headers: {
-      'X-Client-Info': `supabase-js/${require('@supabase/supabase-js/package.json').version}`,
-    },
-  },
+  }
 });
