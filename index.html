@@ -2,57 +2,53 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    
-    <!-- Google tag (gtag.js) - Google Ads -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17576286335"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-17576286335');
-    </script>
-    
+
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    
-    <!-- ⚡ Performance optimizations - Preconnect for faster API calls -->
+
+    <!-- Mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
+
+    <!-- ⚡ PERFORMANCE: Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://lptyhenryzhztdwpkvsc.supabase.co" crossorigin>
-    <link rel="dns-prefetch" href="//lptyhenryzhztdwpkvsc.supabase.co">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- ⚡ Preload critical LCP hero image -->
+    <link rel="dns-prefetch" href="//lptyhenryzhztdwpkvsc.supabase.co">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+
+    <!-- ⚡ PERFORMANCE: Preload hero LCP image (highest priority) -->
     <link rel="preload" as="image" href="/hero-kaaba-optimized.webp" type="image/webp" fetchpriority="high">
-    
+
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
     <link rel="manifest" href="/site.webmanifest">
-    
-    <meta name="msapplication-TileImage" content="/favicon.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    
-    <!-- Mobile viewport optimisé -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
-    
-    <!-- ⚡ CRITICAL CSS - Inline for fastest FCP/LCP -->
+
+    <!-- ⚡ CRITICAL CSS — inline pour FCP instantané, aucun flash blanc -->
     <style>
       *,::before,::after{box-sizing:border-box;margin:0;padding:0}
-      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:Inter,system-ui,sans-serif}
-      body{margin:0;background:#f5f5f0;color:#3d3d32;-webkit-font-smoothing:antialiased}
-      #root{position:relative;z-index:10}
-      .gradient-text-secondary{background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);-webkit-background-clip:text;background-clip:text;color:transparent}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;
+           font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+      body{margin:0;background:#f5f5f0;color:#3d3d32;-webkit-font-smoothing:antialiased;
+           text-rendering:optimizeSpeed}
+      #root{position:relative;z-index:10;min-height:100dvh}
+      /* Gradient text prêt immédiatement */
+      .gradient-text-secondary{background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);
+        -webkit-background-clip:text;background-clip:text;color:transparent}
+      /* Hero skeleton — évite CLS */
       .hero-wrapper{position:relative;overflow:hidden}
-      .hero-media{position:absolute;inset:0;width:100%;height:100%}
-      .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.6) 50%,rgba(0,0,0,0.8) 100%);z-index:10;display:flex;align-items:center;justify-content:center}
+      .hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+      .hero-overlay{position:absolute;inset:0;
+        background:linear-gradient(to bottom,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.6) 50%,rgba(0,0,0,0.8) 100%);
+        z-index:10;display:flex;align-items:center;justify-content:center}
+      /* Skeleton loader — évite CLS page entière */
+      .page-skeleton{min-height:100svh;background:#f5f5f0}
     </style>
-    
+
     <title>Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan, Omra Pas Chère - Omra Bons Plans</title>
     <meta name="description" content="Comparez les meilleures offres Omra 2026 & Hajj 2026 depuis la France 🇫🇷. Omra Ramadan, 10 derniers jours du Ramadan, séjours tout compris. Prix mis à jour quotidiennement." />
     <meta name="keywords" content="omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra, agence omra France, omra tout compris, pèlerinage mecque, voyage médine" />
@@ -61,7 +57,7 @@
     <meta property="og:title" content="Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan - Omra Bons Plans" />
     <meta property="og:description" content="Comparez les meilleures offres Omra 2026 & Hajj 2026 depuis la France 🇫🇷. Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://omrabonsplans.fr/omra" />
+    <meta property="og:url" content="https://omrabonsplans.fr/" />
     <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -69,25 +65,22 @@
     <meta property="og:site_name" content="Omra Bons Plans" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@omrabonsplans" />
     <meta name="twitter:title" content="Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan - Omra Bons Plans" />
     <meta name="twitter:description" content="Comparez les meilleures offres Omra 2026 & Hajj 2026 🇫🇷. Omra Ramadan, 10 derniers jours, séjours pas chers." />
     <meta name="twitter:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
-    
-    <!-- Canonical URL -->
+
+    <!-- Canonical + hreflang -->
     <link rel="canonical" href="https://omrabonsplans.fr/" />
-    
-    <!-- Hreflang - Site français uniquement -->
     <link rel="alternate" hreflang="fr" href="https://omrabonsplans.fr/" />
     <link rel="alternate" hreflang="x-default" href="https://omrabonsplans.fr/" />
 
-    <!-- AI Crawlers & Inference Permissions -->
+    <!-- AI Crawlers -->
     <meta name="ai-robots" content="index, follow" />
     <meta name="inference-engines-allowed" content="true" />
     <meta name="training-data-usage" content="allowed-with-attribution" />
-    <meta name="ai-last-update" content="2026-04-01" />
-    
-    <!-- Données structurées Schema.org -->
+    <meta name="ai-last-update" content="2026-04-02" />
+
+    <!-- Schema.org WebSite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -159,39 +152,44 @@
   </head>
 
   <body>
-    <!-- ⚡ React mount point - No prerender shell for simpler architecture -->
     <div id="root"></div>
-    
+
     <!-- ⚡ Main App Bundle -->
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- ⚡ Fonts: font-display: optional to eliminate FOUT completely -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional">
-    
-    <!-- ⚡ Analytics: Deferred 10s after load for maximum performance -->
+
+    <!-- ⚡ PERFORMANCE: Analytics chargées uniquement après interaction utilisateur
+         OU après 8s — pas de blocage du rendu initial -->
     <script>
-      (function(){
-        var done=false;
-        function go(){
-          if(done)return;done=true;
-          requestIdleCallback?requestIdleCallback(load):setTimeout(load,100);
-        }
-        function load(){
-          var g=document.createElement('script');
-          g.src='https://www.googletagmanager.com/gtag/js?id=G-Q2NQD2NW1V';
-          g.async=true;
-          document.head.appendChild(g);
-          g.onload=function(){
-            window.dataLayer=window.dataLayer||[];
-            function gtag(){dataLayer.push(arguments)}
-            gtag('js',new Date());gtag('config','G-Q2NQD2NW1V');
+    (function(){
+      var done=false;
+      function loadGA4(){
+        if(done)return;done=true;
+        var g=document.createElement('script');
+        g.async=true;
+        g.src='https://www.googletagmanager.com/gtag/js?id=G-Q2NQD2NW1V';
+        document.head.appendChild(g);
+        g.onload=function(){
+          window.dataLayer=window.dataLayer||[];
+          function gtag(){dataLayer.push(arguments)}
+          gtag('js',new Date());
+          gtag('config','G-Q2NQD2NW1V',{send_page_view:true});
+          // ⚡ Charge Google Ads après GA4 (évite double script)
+          var a=document.createElement('script');
+          a.async=true;
+          a.src='https://www.googletagmanager.com/gtag/js?id=AW-17576286335';
+          document.head.appendChild(a);
+          a.onload=function(){
+            gtag('config','AW-17576286335');
           };
-        }
-        ['scroll','click','touchstart'].forEach(function(e){
-          window.addEventListener(e,go,{once:true,passive:true});
-        });
-        setTimeout(go,10000);
-      })();
+        };
+      }
+      // Charge dès la première interaction (scroll, clic, touch)
+      ['scroll','click','touchstart','keydown'].forEach(function(e){
+        window.addEventListener(e,loadGA4,{once:true,passive:true});
+      });
+      // Fallback : charge après 8s si pas d'interaction
+      setTimeout(loadGA4,8000);
+    })();
     </script>
   </body>
 </html>
