@@ -657,9 +657,9 @@ export default function ComparateurOmra() {
     <ResponsiveLayout>
       <div className="min-h-screen bg-background">
       <DynamicSEO
-        title={tripType === 'hajj' ? "Comparateur Hajj 2026 - Trouvez le meilleur pèlerinage" : "Comparateur Omra 2026 - Trouvez le meilleur séjour"}
-        description={tripType === 'hajj' ? "Comparez les offres Hajj 2026 : packages, zones Mina, camps et prix. Trouvez le pèlerinage idéal parmi les meilleures agences françaises." : "Trouvez, comparez et réservez votre séjour Omra au meilleur prix parmi des centaines d'offres d'agences françaises."}
-        keywords={tripType === 'hajj' ? ['hajj', 'hajj 2026', 'pèlerinage mecque', 'comparateur hajj'] : ['omra', 'comparateur omra', 'séjour omra', 'meilleur prix omra']}
+        title={tripType === 'hajj' ? "Comparateur Hajj 2026 - Prix & Offres Agences Françaises" : "Omra Pas Chère 2026 - Comparateur Prix Agences France"}
+        description={tripType === 'hajj' ? "Comparateur Hajj 2026 : comparez les offres et prix de 20+ agences (Tawaf, Medinvoyages, Al-Maqam). Packages tout compris, hôtels, dates. Réservez le meilleur Hajj." : "Omra pas chère 2026 : comparez centaines d'offres de 20+ agences françaises. Prix transparents, hôtels, dates, tout compris. Meilleur comparateur Omra France."}
+        keywords={tripType === 'hajj' ? ['hajj 2026', 'prix hajj', 'agence hajj france', 'comparateur hajj', 'meilleur pèlerinage', 'offres hajj'] : ['omra pas chère', 'prix omra', 'comparateur omra', 'agence omra france', 'omra tout compris', 'meilleur prix omra', 'offres omra 2026']}
         path={`/${tripType}`}
         structuredData={tripType === 'omra' ? {
           "@context": "https://schema.org",

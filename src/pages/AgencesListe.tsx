@@ -110,10 +110,10 @@ export default function AgencesListe() {
       </Helmet>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-4 md:py-8">
-          <SEOBreadcrumb 
+          <SEOBreadcrumb
             items={[
               { name: 'Accueil', url: '/' },
-              { name: 'Agences Liste', url: '/agences-liste' }
+              { name: 'Meilleures Agences Omra & Hajj', url: '/agences-liste' }
             ]}
           />
 
