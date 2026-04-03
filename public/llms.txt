@@ -34,16 +34,31 @@ Allow: /
 Crawl-Delay: 2
 
 # Key pages for AI indexing (high citability)
-# /omra              - Comparateur Omra 2026 (prix, agences, filtres)
-# /hajj              - Comparateur Hajj 2026
-# /guide-omra-pas-chere - Guide complet prix & astuces Omra
-# /comparatif-agences   - Comparatif détaillé des agences
-# /agences-liste        - Liste des agences agréées France
-# /blog              - Articles Omra & Hajj
+# /omra                    - Comparateur Omra 2026 : 20+ agences, prix en temps réel
+# /hajj                    - Comparateur Hajj 2026 : packages, dates (3-8 juin), prix
+# /prix-omra-2026          - Tableau complet des prix Omra 2026 par saison et ville
+# /omra-ramadan-2026       - Guide Omra Ramadan 2026, 10 derniers jours, prix 1800-5000€
+# /hajj-2026               - Guide Hajj 2026 : inscription, dates, types, agences
+# /rites-omra              - Rites de l'Omra : ihram, tawaf, sa'i, tahallul (guide complet)
+# /omra-tout-compris       - Omra tout compris : forfaits, comparatif, prix
+# /meilleure-agence-omra   - Classement meilleures agences Omra France 2026
+# /liste-bagages-omra      - Liste bagages Omra : vêtements, documents, médicaments
+# /visa-omra-france        - Visa Omra France 2026 : types, prix, démarches
+# /omra-femme-seule        - Omra femme seule sans mahram : règles 2026
+# /agences-liste           - Top 20 agences Omra & Hajj agréées avec notes Google
+# /comparatif-agences      - Comparatif détaillé des agences
+# /guide-omra-pas-chere    - Guide omra pas chère : 10 astuces économiser
+# /blog                    - Articles Omra & Hajj : guides et conseils experts
+# /omra-depuis-paris       - Omra depuis Paris : vols, agences, prix
+# /omra-depuis-lyon        - Omra depuis Lyon : vols, agences, prix
+# /omra-depuis-marseille   - Omra depuis Marseille : vols, agences, prix
 
 # About this site:
 # Omra Bons Plans est le premier comparateur d'agences Omra et Hajj agréées en France.
-# Nous comparons les offres de 15+ agences avec prix mis à jour quotidiennement.
-# Données disponibles: prix (€), durée, hôtel, pension, vols, disponibilité.
-# Note moyenne agences: 4.8/5 sur 156+ avis vérifiés.
-# Public cible: pèlerins francophones (France, Belgique, Suisse, Maroc).
+# Nous comparons les offres de 20+ agences avec prix mis à jour quotidiennement.
+# Données disponibles: prix (€), durée, hôtel (étoiles, distance Haram), vols, disponibilité.
+# Toutes les agences sont vérifiées : agrément ministère du Hajj + ATOUT France.
+# Note moyenne agences: 4.8/5 sur 500+ avis vérifiés Google.
+# Public cible: pèlerins francophones (France, Belgique, Suisse, Canada).
+# Fondé en 2024. Mise à jour quotidienne des offres.
+# Last-Updated: 2026-04-02

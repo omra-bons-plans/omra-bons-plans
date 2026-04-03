@@ -1,6 +1,6 @@
 import React from 'react';
 import { SEOHead } from './SEOHead';
-import { generateMetaDescription, generateSEOTitle, generateCleanCanonicalUrl } from '@/utils/seoHelpers';
+import { generateMetaDescription, generateCleanCanonicalUrl } from '@/utils/seoHelpers';
 
 interface DynamicSEOProps {
   title: string;
@@ -9,11 +9,11 @@ interface DynamicSEOProps {
   type?: 'page' | 'article' | 'product' | 'service';
   image?: string;
   path: string;
-  structuredData?: any;
+  structuredData?: object;
 }
 
 /**
- * Composant SEO dynamique qui optimise automatiquement les meta tags
+ * Composant SEO dynamique — utilise react-helmet-async via SEOHead
  */
 export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   title,
@@ -24,17 +24,14 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   path,
   structuredData
 }) => {
-  const optimizedTitle = generateSEOTitle(title);
+  // Ne pas ajouter de préfixe — le titre passé est déjà complet et optimisé
   const optimizedDescription = generateMetaDescription(description);
-  
-  // Ensure path starts with /
+
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  
-  // Generate canonical URL - use the path as-is, already contains full category/slug structure
   const canonicalUrl = `https://omrabonsplans.fr${normalizedPath}`;
   
   const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp';
-  
+
   const defaultStructuredData = structuredData || {
     "@context": "https://schema.org",
     "@type": type === 'article' ? 'Article' : 'WebPage',
@@ -45,7 +42,6 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
       "@type": "ImageObject",
       "url": defaultImage
     },
-    "datePublished": new Date().toISOString(),
     "dateModified": new Date().toISOString(),
     "inLanguage": "fr-FR",
     "author": {
@@ -66,7 +62,7 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
 
   return (
     <SEOHead
-      title={optimizedTitle}
+      title={title}
       description={optimizedDescription}
       keywords={keywords.join(', ')}
       canonical={canonicalUrl}

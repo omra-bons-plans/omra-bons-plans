@@ -83,13 +83,13 @@ export default function AgencesListe() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Liste Agences Omra & Hajj 2026 | Comparatif Avis Google</title>
-        <meta name="description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj : notes Google authentiques, avis clients, points forts et tarifs comparés." />
-        <meta name="keywords" content="agence omra 2026, hajj agence voyage, avis google agences, comparatif agences omra" />
+        <title>Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs Comparés</title>
+        <meta name="description" content="Top 20 agences Omra & Hajj en France : notes clients authentiques, agréments ministère du Hajj, points forts, faiblesses et tarifs 2026. Comparez et choisissez en toute confiance." />
+        <meta name="keywords" content="meilleure agence omra 2026, agence hajj france, comparatif agences omra, agence voyage mecque agréée, avis agences omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Liste Agences Omra & Hajj 2026 | Comparatif Avis" />
-        <meta property="og:description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj avec notes Google authentiques." />
+        <meta property="og:title" content="Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs" />
+        <meta property="og:description" content="Top 20 agences Omra & Hajj en France avec notes authentiques, agréments officiels et tarifs comparés 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />

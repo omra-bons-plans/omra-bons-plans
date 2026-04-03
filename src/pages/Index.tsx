@@ -30,7 +30,6 @@ import {
 
 // ⚡ CRITICAL: Import optimized components for LCP
 import { HeroSection } from "@/components/home/HeroSection";
-import { HomeHeader } from "@/components/home/HomeHeader";
 import { OptimizedAdCard } from "@/components/home/OptimizedAdCard";
 import { MobileListItem } from "@/components/home/MobileListItem";
 import { CompactAdListItem } from "@/components/home/CompactAdListItem";
@@ -40,6 +39,7 @@ import { DeferredOffersSection } from "@/components/home/DeferredOffersSection";
 // ⚡ CRITICAL: Import Logo and UserMenu directly - used in header without Suspense
 import Logo from '@/components/ui/Logo';
 import UserMenu from '@/components/ui/UserMenu';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 
 // ⚡ LAZY LOAD: Non-critical components (loaded after LCP)
 const TopicsList = lazy(() => import('@/components/ui/TopicsList'));
@@ -239,11 +239,17 @@ const Index = () => {
       {/* Desktop & Tablet Header - Fixed at top */}
       <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
         <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo - Left aligned */}
-            <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <div className="h-12 md:h-16 flex items-center">
-                <Logo size={120} className="text-primary object-contain md:w-[140px]" style={{ maxHeight: '64px' }} />
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo + sidebar toggle */}
+            <div className="flex items-center gap-3">
+              <SidebarTrigger
+                aria-label="Fermer ou ouvrir la barre latérale"
+                className="h-10 w-10 rounded-lg border border-border/50 bg-background/80 text-foreground shadow-sm backdrop-blur-sm hover:bg-muted"
+              />
+              <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <div className="h-12 md:h-16 flex items-center">
+                  <Logo size={120} className="text-primary object-contain md:w-[140px]" style={{ maxHeight: '64px' }} />
+                </div>
               </div>
             </div>
             

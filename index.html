@@ -99,11 +99,23 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": ["Organization", "TravelAgency"],
+      "@type": "Organization",
       "name": "Omra Bons Plans",
+      "alternateName": "OmraBonsPlans",
       "url": "https://omrabonsplans.fr",
-      "logo": "https://omrabonsplans.fr/logo.svg",
-      "description": "Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://omrabonsplans.fr/favicon.png",
+        "width": 192,
+        "height": 192
+      },
+      "description": "Premier comparateur français d'agences Omra & Hajj agréées. Comparez les offres de 20+ agences vérifiées avec prix, hôtels et dates en temps réel.",
+      "foundingDate": "2024",
+      "areaServed": {
+        "@type": "Country",
+        "name": "France"
+      },
+      "knowsAbout": ["Omra", "Hajj", "Pèlerinage", "Arabie Saoudite", "La Mecque", "Médine"],
       "sameAs": [
         "https://www.instagram.com/omrabonsplans",
         "https://www.facebook.com/omrabonsplans"
