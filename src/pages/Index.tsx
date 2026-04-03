@@ -242,10 +242,12 @@ const Index = () => {
           <div className="flex items-center justify-between gap-4">
             {/* Logo + sidebar toggle */}
             <div className="flex items-center gap-3">
+              {!isMobile && (
               <SidebarTrigger
                 aria-label="Fermer ou ouvrir la barre latérale"
                 className="h-10 w-10 rounded-lg border border-border/50 bg-background/80 text-foreground shadow-sm backdrop-blur-sm hover:bg-muted"
               />
+              )}
               <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <div className="h-12 md:h-16 flex items-center">
                   <Logo size={120} className="text-primary object-contain md:w-[140px]" style={{ maxHeight: '64px' }} />
