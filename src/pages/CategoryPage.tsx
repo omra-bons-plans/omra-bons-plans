@@ -175,7 +175,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/lovable-uploads/9620a4d7-67e8-42d0-b852-bee640f652f1.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/lovable-uploads/9620a4d7-67e8-42d0-b852-bee640f652f1.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
@@ -200,7 +200,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/297b56e8-a8c3-4e62-a5f2-6f6f13481412.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/297b56e8-a8c3-4e62-a5f2-6f6f13481412.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
@@ -225,7 +225,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/lovable-uploads/2ca6155f-3ded-4f14-9525-569582b6e18b.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/lovable-uploads/2ca6155f-3ded-4f14-9525-569582b6e18b.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
@@ -250,7 +250,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/2b8f6eaa-5bcc-4d13-9f74-64f2d80de369.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/2b8f6eaa-5bcc-4d13-9f74-64f2d80de369.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
@@ -275,7 +275,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/ff7dd8f2-dfcd-405e-a4f6-9e59ffc8c580.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/ff7dd8f2-dfcd-405e-a4f6-9e59ffc8c580.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">
@@ -300,7 +300,7 @@ const CategoryPage = () => {
           <div 
             className="relative py-16 lg:py-24 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/56a2ede6-440b-4caf-8593-87bdc843a439.png')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/56a2ede6-440b-4caf-8593-87bdc843a439.webp')`
             }}
           >
             <div className="container mx-auto px-4 relative z-10">

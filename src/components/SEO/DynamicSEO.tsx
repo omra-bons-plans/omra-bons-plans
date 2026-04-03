@@ -29,8 +29,8 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   const canonicalUrl = `https://omrabonsplans.fr${normalizedPath}`;
-
-  const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png';
+  
+  const defaultImage = image || 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp';
 
   const defaultStructuredData = structuredData || {
     "@context": "https://schema.org",
@@ -55,7 +55,7 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
       "url": "https://omrabonsplans.fr",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+        "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp"
       }
     }
   };

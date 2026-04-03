@@ -72,7 +72,7 @@ const RamadanHajjDates = () => {
         <meta property="og:title" content="Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage" />
         <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2026-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
         <meta property="og:url" content="https://omrabonsplans.fr/ramadan-hajj-dates" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
@@ -82,14 +82,14 @@ const RamadanHajjDates = () => {
             "name": "Dates Ramadan & Hajj 2026-2028",
             "description": "Calendrier officiel des dates du Ramadan et du Hajj 2026-2028 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
             "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
-            "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+            "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
             "publisher": {
               "@type": "Organization",
               "name": "Omra Bons Plans",
               "url": "https://omrabonsplans.fr",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+                "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp"
               }
             },
             "mainEntity": {

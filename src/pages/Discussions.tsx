@@ -44,7 +44,7 @@ const Discussions = () => {
         <meta property="og:title" content="Forum Omra & Hajj - Communauté Pèlerins" />
         <meta property="og:description" content="Rejoignez notre communauté de pèlerins francophones. Discutez et partagez vos expériences." />
         <meta property="og:url" content="https://omrabonsplans.fr/discussions" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">

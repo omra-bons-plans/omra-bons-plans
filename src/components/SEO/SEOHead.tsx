@@ -16,7 +16,7 @@ export const SEOHead = ({
   description,
   keywords = 'omra 2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
   canonical,
-  ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
+  ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp',
   ogType = 'website',
   structuredData,
   noindex = false
@@ -117,7 +117,35 @@ export const seoConfig = {
     title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
     description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.',
     keywords: 'dates ramadan 2026, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
-    canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates'
+    canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
+      "name": "Calendrier Ramadan & Hajj 2026-2028",
+      "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
+      "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
+      "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
+      "startDate": "2026-02-18",
+      "endDate": "2028-05-15",
+      "eventStatus": "EventScheduled",
+      "eventAttendanceMode": "MixedEventAttendanceMode",
+      "location": {
+        "@type": "VirtualLocation",
+        "name": "Calendrier en ligne",
+        "url": "https://omrabonsplans.fr/dates-ramadan-hajj"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Omra Bons Plans",
+        "url": "https://omrabonsplans.fr",
+        "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp"
+      },
+      "performer": {
+        "@type": "Organization",
+        "name": "Omra Bons Plans",
+        "url": "https://omrabonsplans.fr"
+      }
+    }
   }
 };
 

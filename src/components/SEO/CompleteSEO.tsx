@@ -24,7 +24,7 @@ export const CompleteSEO: React.FC<CompleteSEOProps> = ({
   title,
   description,
   keywords,
-  image = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
+  image = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp',
   type = 'website',
   article
 }) => {
