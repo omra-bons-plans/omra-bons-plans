@@ -3,6 +3,26 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
 import LayoutGrid from "lucide-react/dist/esm/icons/layout-grid";
 import List from "lucide-react/dist/esm/icons/list";
+import Building from "lucide-react/dist/esm/icons/building";
+import Plane from "lucide-react/dist/esm/icons/plane";
+import Hotel from "lucide-react/dist/esm/icons/hotel";
+import BookOpen from "lucide-react/dist/esm/icons/book-open";
+import Car from "lucide-react/dist/esm/icons/car";
+import Heart from "lucide-react/dist/esm/icons/heart";
+import Star from "lucide-react/dist/esm/icons/star";
+import Grid3x3 from "lucide-react/dist/esm/icons/grid-3x3";
+import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Calendar from "lucide-react/dist/esm/icons/calendar";
+import Shield from "lucide-react/dist/esm/icons/shield";
+import Users from "lucide-react/dist/esm/icons/users";
+import UtensilsCrossed from "lucide-react/dist/esm/icons/utensils-crossed";
+import Headset from "lucide-react/dist/esm/icons/headset";
+import Store from "lucide-react/dist/esm/icons/store";
+import Plus from "lucide-react/dist/esm/icons/plus";
+import Search from "lucide-react/dist/esm/icons/search";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import Instagram from "lucide-react/dist/esm/icons/instagram";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -18,7 +38,19 @@ import { SEOHead } from "@/components/SEO/SEOHead";
 import { OrganizationSchema } from "@/components/SEO/OrganizationSchema";
 import { FAQSchema } from "@/components/SEO/FAQSchema";
 import { WebSiteSchema } from "@/components/SEO/WebSiteSchema";
-import DynamicIcon from "@/components/ui/DynamicIcon";
+// ⚡ PERF: Direct icon map — no lazy loading, no Suspense re-renders
+const ICON_MAP: Record<string, React.ComponentType<{className?: string}>> = {
+  building: Building, plane: Plane, hotel: Hotel, 'book-open': BookOpen,
+  car: Car, heart: Heart, star: Star, 'grid-3x3': Grid3x3,
+  'message-circle': MessageCircle, 'trending-up': TrendingUp,
+  calendar: Calendar, shield: Shield, users: Users,
+  'utensils-crossed': UtensilsCrossed, headset: Headset, store: Store,
+  plus: Plus, search: Search, clock: Clock, instagram: Instagram,
+};
+const Icon = ({ name, className }: { name: string; className?: string }) => {
+  const C = ICON_MAP[name];
+  return C ? <C className={className} /> : null;
+};
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -374,7 +406,7 @@ const Index = () => {
                 value="annonces" 
                 className="rounded-lg font-semibold text-xs md:text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all min-h-[44px]"
               >
-                <DynamicIcon name="building" className="w-4 h-4 mr-1 md:mr-2" />
+                <Icon name="building" className="w-4 h-4 mr-1 md:mr-2" />
                 Annonces
               </TabsTrigger>
               <TabsTrigger 
@@ -382,7 +414,7 @@ const Index = () => {
                 className="rounded-lg font-semibold text-xs md:text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all min-h-[44px]"
                 onClick={() => !discussionsLoaded && setDiscussionsLoaded(true)}
               >
-                <DynamicIcon name="message-circle" className="w-4 h-4 mr-1 md:mr-2" />
+                <Icon name="message-circle" className="w-4 h-4 mr-1 md:mr-2" />
                 Discussions
               </TabsTrigger>
             </TabsList>
@@ -420,7 +452,7 @@ const Index = () => {
                         <CollapsibleTrigger className="w-full">
                           <div className="flex items-center justify-between w-full px-4 py-3 bg-card border-2 rounded-xl hover:border-primary/50 transition-colors">
                             <div className="flex items-center gap-3">
-                              <DynamicIcon 
+                              <Icon 
                                 name={(selectedCategory === "all" ? "grid-3x3" : getOrderedCategories().find(c => c.id === selectedCategory)?.icon || "grid-3x3") as any} 
                                 className="h-5 w-5 text-primary" 
                               />
@@ -448,7 +480,7 @@ const Index = () => {
                               }`}
                             >
                               <div className="flex items-center gap-3">
-                                <DynamicIcon name="grid-3x3" className="h-5 w-5" />
+                                <Icon name="grid-3x3" className="h-5 w-5" />
                                 <span className="font-medium">Tous</span>
                               </div>
                               <Badge variant={selectedCategory === "all" ? "secondary" : "outline"} className="ml-2">
@@ -469,7 +501,7 @@ const Index = () => {
                                 }`}
                               >
                                 <div className="flex items-center gap-3">
-                                  <DynamicIcon name={cat.icon as any} className="h-5 w-5" />
+                                  <Icon name={cat.icon as any} className="h-5 w-5" />
                                   <span className="font-medium">{cat.name}</span>
                                 </div>
                                 {cat.count > 0 && (
@@ -493,7 +525,7 @@ const Index = () => {
                           }`}
                           variant={selectedCategory === "all" ? "default" : "outline"}
                         >
-                          <DynamicIcon name="grid-3x3" className="w-4 h-4" />
+                          <Icon name="grid-3x3" className="w-4 h-4" />
                           <span>Tous</span>
                           <Badge variant="secondary" className="ml-1 text-xs">
                             {filteredFlashSalesListings.length}
@@ -510,7 +542,7 @@ const Index = () => {
                             }`}
                             variant={selectedCategory === category.id ? "default" : "outline"}
                           >
-                            <DynamicIcon name={category.icon as any} className="w-4 h-4" />
+                            <Icon name={category.icon as any} className="w-4 h-4" />
                             <span>{category.name}</span>
                             {category.count > 0 && (
                               <Badge variant="secondary" className="ml-1 text-xs">
@@ -560,7 +592,7 @@ const Index = () => {
               <CollapsibleTrigger className="w-full">
                 <div className="flex items-center justify-between w-full px-4 py-3 bg-card border-2 rounded-xl hover:border-primary/50 transition-colors">
                   <div className="flex items-center gap-3">
-                    <DynamicIcon 
+                    <Icon 
                       name={(selectedCategory === "all" ? "grid-3x3" : getAllOrderedCategories().find(c => c.id === selectedCategory)?.icon || "grid-3x3") as any} 
                       className="h-5 w-5 text-primary" 
                     />
@@ -588,7 +620,7 @@ const Index = () => {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <DynamicIcon name="grid-3x3" className="h-5 w-5" />
+                      <Icon name="grid-3x3" className="h-5 w-5" />
                       <span className="font-medium">Tous</span>
                     </div>
                     <Badge variant={selectedCategory === "all" ? "secondary" : "outline"} className="ml-2">
@@ -609,7 +641,7 @@ const Index = () => {
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <DynamicIcon name={cat.icon as any} className="h-5 w-5" />
+                        <Icon name={cat.icon as any} className="h-5 w-5" />
                         <span className="font-medium">{cat.name}</span>
                       </div>
                       {cat.count > 0 && (
@@ -633,7 +665,7 @@ const Index = () => {
                 }`}
                 variant={selectedCategory === "all" ? "default" : "outline"}
               >
-                <DynamicIcon name="grid-3x3" className="w-4 h-4" />
+                <Icon name="grid-3x3" className="w-4 h-4" />
                 <span>Tous</span>
                 <Badge variant="secondary" className="ml-1 text-xs">
                   {filteredListings.length}
@@ -650,7 +682,7 @@ const Index = () => {
                   }`}
                   variant={selectedCategory === category.id ? "default" : "outline"}
                 >
-                  <DynamicIcon name={category.icon as any} className="w-4 h-4" />
+                  <Icon name={category.icon as any} className="w-4 h-4" />
                   <span>{category.name}</span>
                   {category.count > 0 && (
                     <Badge variant="secondary" className="ml-1 text-xs">
@@ -674,7 +706,7 @@ const Index = () => {
                   <div className="text-center space-y-6">
                     {/* Icon */}
                     <div className="w-20 h-20 md:w-24 md:h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                      <DynamicIcon name="calendar" className="w-10 h-10 md:w-12 md:h-12 text-primary" />
+                      <Icon name="calendar" className="w-10 h-10 md:w-12 md:h-12 text-primary" />
                     </div>
                     
                     {/* Title */}
@@ -812,7 +844,7 @@ const Index = () => {
                 <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">Restaurants halal & Transport</h3>
                 <Link to="/blog/restaurants" className="flex items-start space-x-4 hover:bg-background/50 p-3 rounded-lg transition-colors group">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <DynamicIcon name="utensils-crossed" className="w-6 h-6 text-primary" />
+                    <Icon name="utensils-crossed" className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">Restaurants Halal</h3>
@@ -1104,7 +1136,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="shield" className="w-6 h-6 text-primary" />
+                  <Icon name="shield" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Agences agréées</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1116,7 +1148,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="star" className="w-6 h-6 text-primary" />
+                  <Icon name="star" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Avis vérifiés</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1128,7 +1160,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="headset" className="w-6 h-6 text-primary" />
+                  <Icon name="headset" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Assistance 7j/7</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1142,7 +1174,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="search" className="w-6 h-6 text-primary" />
+                  <Icon name="search" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Recherche facilitée</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1154,7 +1186,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="trending-up" className="w-6 h-6 text-primary" />
+                  <Icon name="trending-up" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Comparaison simplifiée</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1166,7 +1198,7 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <DynamicIcon name="clock" className="w-6 h-6 text-primary" />
+                  <Icon name="clock" className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">Offres mises à jour</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -1381,7 +1413,7 @@ const Index = () => {
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <DynamicIcon name="book-open" className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <Icon name="book-open" className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
                     Blog Général
@@ -1398,7 +1430,7 @@ const Index = () => {
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <DynamicIcon name="utensils" className="w-6 h-6 text-green-600 dark:text-green-400" />
+                    <Icon name="utensils" className="w-6 h-6 text-green-600 dark:text-green-400" />
                   </div>
                   <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
                     Restaurants Halal
@@ -1415,7 +1447,7 @@ const Index = () => {
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <DynamicIcon name="heart" className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                    <Icon name="heart" className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
                     Associations
@@ -1432,7 +1464,7 @@ const Index = () => {
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <DynamicIcon name="store" className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                    <Icon name="store" className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                   </div>
                   <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
                     Vendeurs & Commerçants
@@ -1479,7 +1511,7 @@ const Index = () => {
                   className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
                   aria-label="Suivez-nous sur Instagram"
                 >
-                  <DynamicIcon name="instagram" className="w-4 h-4 text-primary" />
+                  <Icon name="instagram" className="w-4 h-4 text-primary" />
                 </a>
                 <a 
                   href="https://www.tiktok.com/@omrabonsplans.fr?_t=ZS-8ze7UP4jLne&_r=1"
@@ -1570,7 +1602,7 @@ const Index = () => {
             <Button 
               className="btn-modern text-primary-foreground px-6 py-3 rounded-full font-semibold text-sm shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105 min-h-[48px]"
             >
-              <DynamicIcon name="plus" className="w-5 h-5 mr-2" />
+              <Icon name="plus" className="w-5 h-5 mr-2" />
               Publier une annonce
             </Button>
           </Link>
