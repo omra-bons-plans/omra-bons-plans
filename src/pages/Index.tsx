@@ -148,7 +148,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.png",
+      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.webp",
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",
@@ -834,7 +834,7 @@ const Index = () => {
               <div className="bg-gradient-subtle rounded-3xl overflow-hidden shadow-large">
                 <div className="aspect-video bg-gradient-primary/20 relative">
                   <img 
-                    src="/lovable-uploads/f137f21e-556a-46f4-affa-52a97b71a0b8.png"
+                    src="/lovable-uploads/f137f21e-556a-46f4-affa-52a97b71a0b8.webp"
                     alt="Train Haramain Express traversant le désert saoudien au coucher du soleil"
                     className="w-full h-full object-cover"
                     width={640}

@@ -91,7 +91,7 @@ export default function AgencesListe() {
         <meta property="og:title" content="Liste Agences Omra & Hajj 2026 | Comparatif Avis" />
         <meta property="og:description" content="Découvrez la liste complète des meilleures agences de voyage pour Omra et Hajj avec notes Google authentiques." />
         <meta property="og:url" content="https://omrabonsplans.fr/agences-liste" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">

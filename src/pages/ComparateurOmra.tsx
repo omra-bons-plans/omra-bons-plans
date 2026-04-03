@@ -745,7 +745,7 @@ export default function ComparateurOmra() {
         <div className="hero-overlay" />
         
         {/* ⚡ Contenu texte - rendu immédiat */}
-        <div className="relative z-10 container mx-auto px-4 text-center" style={{ contentVisibility: 'auto' }}>
+        <div className="relative z-10 container mx-auto px-4 text-center" >
           <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">Omra Bons Plans</span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">Votre comparateur de séjours Omra & Hajj 2026</span>
@@ -761,7 +761,7 @@ export default function ComparateurOmra() {
 
       {/* Search Card - positioned below hero */}
       <div className="container mx-auto px-4 -mt-16 sm:-mt-20 relative z-20 mb-8">
-        <Card className="max-w-5xl mx-auto bg-gradient-to-br from-background via-background to-primary/5 backdrop-blur-sm shadow-2xl border-2 border-primary/10 animate-scale-in overflow-hidden">
+        <Card className="max-w-5xl mx-auto bg-background shadow-2xl border-2 border-primary/10 overflow-hidden">
           {/* Decorative gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none" />
           
@@ -1026,7 +1026,7 @@ export default function ComparateurOmra() {
         ) : isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-sm animate-pulse">
+              <Card key={i} className="p-6 bg-card/80 animate-pulse">
                 <div className="space-y-4">
                   <div className="flex justify-between items-start">
                     <Skeleton className="h-8 w-3/4" />
@@ -1128,11 +1128,11 @@ export default function ComparateurOmra() {
               return (
                 <Card 
                   key={offer.id} 
-                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 animate-fade-in relative"
+                  className="group overflow-hidden hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 border-primary/10 bg-card/80 hover:border-primary/30 animate-fade-in relative"
                 >
                   {/* Bouton Favoris en overlay - repositionné en haut à gauche */}
                   <div className="absolute top-3 left-3 z-20">
-                    <div className="bg-background/90 backdrop-blur-sm rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
+                    <div className="bg-background/90 rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
                       <FavoriteButton offerId={offer.id} variant="icon" />
                     </div>
                   </div>
@@ -1151,7 +1151,7 @@ export default function ComparateurOmra() {
                           />
                           {offer.is_complet && (
                             <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-                              <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white border-2 border-white font-black px-6 md:px-8 py-3 md:py-4 text-xl md:text-3xl shadow-2xl transform rotate-[-5deg] animate-pulse">
+                              <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white border-2 border-white font-black px-6 md:px-8 py-3 md:py-4 text-xl md:text-3xl shadow-2xl transform rotate-[-5deg]">
                                 ❌ COMPLET
                               </Badge>
                             </div>
@@ -1208,7 +1208,7 @@ export default function ComparateurOmra() {
                   <div className="p-3 md:p-6 space-y-3 md:space-y-4">
                     <div className="flex flex-wrap gap-1.5 md:gap-2">
                       {offer.is_recommended && (
-                        <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-3 md:px-5 py-1.5 md:py-2.5 text-sm md:text-lg shadow-xl animate-pulse">
+                        <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-3 md:px-5 py-1.5 md:py-2.5 text-sm md:text-lg shadow-xl">
                           ⭐ RECOMMANDÉ
                         </Badge>
                       )}
@@ -1409,11 +1409,11 @@ export default function ComparateurOmra() {
                 return (
                   <Card 
                     key={offer.id} 
-                    className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 backdrop-blur-sm hover:border-primary/30 relative"
+                    className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-primary/10 bg-card/80 hover:border-primary/30 relative"
                   >
                     {/* Bouton Favoris en overlay - repositionné en haut à gauche */}
                     <div className="absolute top-3 left-3 z-20">
-                      <div className="bg-background/90 backdrop-blur-sm rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
+                      <div className="bg-background/90 rounded-full p-1.5 shadow-lg border border-border/50 hover:scale-110 transition-transform">
                         <FavoriteButton offerId={offer.id} variant="icon" />
                       </div>
                     </div>
@@ -1471,7 +1471,7 @@ export default function ComparateurOmra() {
                           <div className="flex-1 space-y-3">
                             <div className="flex flex-wrap gap-2">
                               {offer.is_recommended && (
-                                <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-4 py-1.5 text-base shadow-xl animate-pulse">
+                                <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-0 hover:from-yellow-500 hover:to-amber-600 font-black px-4 py-1.5 text-base shadow-xl">
                                   ⭐ RECOMMANDÉ
                                 </Badge>
                               )}
@@ -1661,7 +1661,7 @@ export default function ComparateurOmra() {
             />
           </div>
         ) : (
-          <Card className="p-16 text-center bg-card/50 backdrop-blur-sm border-primary/10">
+          <Card className="p-16 text-center bg-card/50 border-primary/10">
             <div className="max-w-md mx-auto space-y-4">
               <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
                 <Filter className="h-8 w-8 text-primary" />

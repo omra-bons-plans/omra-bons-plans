@@ -24,11 +24,11 @@ const About = () => {
         <meta property="og:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
         <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
         <meta property="og:url" content="https://omrabonsplans.fr/about" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
         <meta name="twitter:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
-        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -41,7 +41,7 @@ const About = () => {
               "@type": "Organization",
               "name": "Omra Bons Plans",
               "url": "https://omrabonsplans.fr",
-              "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+              "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
               "description": "Première plateforme au monde dédiée aux services Omra et Hajj"
             }
           })}

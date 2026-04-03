@@ -24,7 +24,7 @@ export default function ComparatifVisuel() {
         <meta property="og:title" content="Comparateur Visuel Agences Omra - Outil Interactif" />
         <meta property="og:description" content="Comparez jusqu'à 4 agences Omra et Hajj côte à côte avec notre outil interactif." />
         <meta property="og:url" content="https://omrabonsplans.fr/comparatif-visuel" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">

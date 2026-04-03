@@ -16,7 +16,7 @@ export const SEOHead = ({
   description,
   keywords = 'omra 2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
   canonical,
-  ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png',
+  ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp',
   ogType = 'website',
   structuredData,
   noindex = false
@@ -195,7 +195,7 @@ export const seoConfig = {
       "name": "Calendrier Ramadan & Hajj 2026-2028",
       "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
       "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
-      "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png",
+      "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
       "startDate": "2026-02-18",
       "endDate": "2028-05-15",
       "eventStatus": "EventScheduled",
@@ -209,7 +209,7 @@ export const seoConfig = {
         "@type": "Organization",
         "name": "Omra Bons Plans",
         "url": "https://omrabonsplans.fr",
-        "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+        "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp"
       },
       "offers": {
         "@type": "Offer",

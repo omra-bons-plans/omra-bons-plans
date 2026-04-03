@@ -213,7 +213,7 @@ const Blog = () => {
           "publisher": {
             "@type": "Organization",
             "name": "Omra Bons Plans",
-            "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png"
+            "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp"
           }
         }}
       />

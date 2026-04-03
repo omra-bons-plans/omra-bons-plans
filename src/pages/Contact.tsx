@@ -91,11 +91,11 @@ const Contact = () => {
         <meta property="og:title" content="Contact - Omra Bons Plans | Contactez-nous" />
         <meta property="og:description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions." />
         <meta property="og:url" content="https://omrabonsplans.fr/contact" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Contact - Omra Bons Plans | Contactez-nous" />
         <meta name="twitter:description" content="Contactez l'équipe Omra Bons Plans. Posez vos questions, obtenez de l'aide ou partagez vos suggestions." />
-        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
           {JSON.stringify({

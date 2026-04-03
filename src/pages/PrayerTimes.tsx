@@ -148,7 +148,7 @@ const PrayerTimes = () => {
         <meta property="og:title" content="Horaires de Prière - Omra Bons Plans" />
         <meta property="og:description" content="Trouvez les horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha." />
         <meta property="og:url" content="https://omrabonsplans.fr/prayer-times" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">

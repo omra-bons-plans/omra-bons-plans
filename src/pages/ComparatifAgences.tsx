@@ -99,7 +99,7 @@ export default function ComparatifAgences() {
         <meta property="og:title" content="Tableau Comparatif Agences Omra - Notes & Tarifs 2026" />
         <meta property="og:description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, tarifs et spécialités." />
         <meta property="og:url" content="https://omrabonsplans.fr/comparatif-agences" />
-        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.png" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
