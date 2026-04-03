@@ -81,6 +81,10 @@ const OmraSeniors = lazy(() => import("./pages/OmraSeniors"));
 const OmraEnfants = lazy(() => import("./pages/OmraEnfants"));
 const OmraBadal = lazy(() => import("./pages/OmraBadal"));
 const DixDerniersJoursRamadan = lazy(() => import("./pages/DixDerniersJoursRamadan"));
+const DefinitionOmra = lazy(() => import("./pages/DefinitionOmra"));
+const QuandPartirOmra = lazy(() => import("./pages/QuandPartirOmra"));
+const OmraDebutant = lazy(() => import("./pages/OmraDebutant"));
+const ConditionsOmra = lazy(() => import("./pages/ConditionsOmra"));
 
 // Loading component
 const PageLoader = () => (
@@ -283,6 +287,10 @@ const App = () => (
                    <Route path="/omra-enfants" element={<OmraEnfants />} />
                    <Route path="/omra-badal" element={<OmraBadal />} />
                    <Route path="/10-derniers-jours-ramadan" element={<DixDerniersJoursRamadan />} />
+                   <Route path="/definition-omra" element={<DefinitionOmra />} />
+                   <Route path="/quand-partir-omra" element={<QuandPartirOmra />} />
+                   <Route path="/omra-debutant" element={<OmraDebutant />} />
+                   <Route path="/conditions-omra" element={<ConditionsOmra />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />
