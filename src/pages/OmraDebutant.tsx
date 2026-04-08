@@ -292,17 +292,7 @@ export default function OmraDebutant() {
           </section>
 
           {/* Internal links */}
-          <InternalLinks
-            currentPage="/omra-debutant"
-            links={[
-              { href: "/definition-omra", label: "Qu'est-ce que l'Omra ?", description: "Définition complète" },
-              { href: "/quand-partir-omra", label: "Quand partir ?", description: "Meilleures périodes et prix" },
-              { href: "/conditions-omra", label: "Conditions requises", description: "Qui peut faire l'Omra ?" },
-              { href: "/rites-omra", label: "Les rites de l'Omra", description: "Guide détaillé des rites" },
-              { href: "/visa-omra", label: "Visa Omra", description: "Démarches et documents" },
-              { href: "/omra", label: "Comparer les offres", description: "Trouver son séjour" }
-            ]}
-          />
+          <InternalLinks currentPage="/omra-debutant" />
         </div>
       </div>
     </ResponsiveLayout>

@@ -263,19 +263,7 @@ export default function DefinitionOmra() {
           </div>
         </section>
 
-        <InternalLinks
-          currentPath="/definition-omra"
-          links={[
-            { href: "/omra", label: "Comparateur Omra 2026 — Comparer les prix" },
-            { href: "/rites-omra", label: "Les rites de l'Omra — Guide complet" },
-            { href: "/prix-omra-2026", label: "Prix Omra 2026 — Combien ça coûte ?" },
-            { href: "/visa-omra-france", label: "Visa Omra depuis la France" },
-            { href: "/omra-ramadan-2026", label: "Omra Ramadan 2026 — Prix et dates" },
-            { href: "/guide-omra-pas-chere", label: "Comment trouver une Omra pas chère" },
-            { href: "/quand-partir-omra", label: "Quand partir en Omra ? Guide des périodes" },
-            { href: "/omra-debutant", label: "Guide Omra pour débutant" },
-          ]}
-        />
+        <InternalLinks currentPage="/definition-omra" />
       </article>
     </ResponsiveLayout>
   );
