@@ -302,17 +302,7 @@ export default function QuandPartirOmra() {
           </section>
 
           {/* Internal links */}
-          <InternalLinks
-            currentPage="/quand-partir-omra"
-            links={[
-              { href: "/definition-omra", label: "Qu'est-ce que l'Omra ?", description: "Définition, conditions et étapes" },
-              { href: "/omra-debutant", label: "Guide pour débutant", description: "Votre premier pèlerinage" },
-              { href: "/omra-ramadan", label: "Omra pendant le Ramadan", description: "Offres et conseils" },
-              { href: "/omra-famille", label: "Omra en famille", description: "Partir avec enfants" },
-              { href: "/prix-omra-2026", label: "Prix Omra 2026", description: "Tous les tarifs" },
-              { href: "/omra", label: "Comparateur d'offres", description: "Trouver la meilleure offre" }
-            ]}
-          />
+          <InternalLinks currentPage="/quand-partir-omra" />
         </div>
       </div>
     </ResponsiveLayout>

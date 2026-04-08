@@ -274,17 +274,7 @@ export default function ConditionsOmra() {
           </section>
 
           {/* Internal links */}
-          <InternalLinks
-            currentPage="/conditions-omra"
-            links={[
-              { href: "/definition-omra", label: "Qu'est-ce que l'Omra ?", description: "Définition complète" },
-              { href: "/omra-debutant", label: "Guide débutant", description: "Préparer son premier pèlerinage" },
-              { href: "/quand-partir-omra", label: "Quand partir ?", description: "Meilleures périodes" },
-              { href: "/visa-omra", label: "Visa Omra", description: "Démarches et documents" },
-              { href: "/omra-femme-seule", label: "Omra femme seule", description: "Conditions et conseils" },
-              { href: "/omra", label: "Comparer les offres", description: "Trouver son séjour" }
-            ]}
-          />
+          <InternalLinks currentPage="/conditions-omra" />
         </div>
       </div>
     </ResponsiveLayout>
