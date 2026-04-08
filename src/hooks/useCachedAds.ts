@@ -197,10 +197,9 @@ export const useCachedAds = (limit: number = 12, options: UseCachedAdsOptions = 
       const isPromo = discount > 0 && discount <= 30;
       const isExpired = ad.publishEndDate ? new Date(ad.publishEndDate) <= new Date() : false;
 
-      // ⚡ OPTIMIZED: Use smaller image dimensions for mobile
       let coverImageUrl = '/ad-placeholder.jpg';
       if (ad.coverImage) {
-        coverImageUrl = getImageUrl(ad.coverImage, { width: 320, height: 240, quality: 75 });
+        coverImageUrl = getImageUrl(ad.coverImage);
       }
 
       return {
