@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
@@ -27,34 +26,10 @@ const faqs = [
   }
 ];
 
-function FAQSchema() {
-  useEffect(() => {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(f => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    };
-    let s = document.querySelector('script[data-conditions-faq-ld]') as HTMLScriptElement;
-    if (!s) {
-      s = document.createElement('script');
-      s.setAttribute('type', 'application/ld+json');
-      s.setAttribute('data-conditions-faq-ld', 'true');
-      document.head.appendChild(s);
-    }
-    s.textContent = JSON.stringify(data);
-    return () => { document.querySelector('script[data-conditions-faq-ld]')?.remove(); };
-  }, []);
-  return null;
-}
 
 export default function ConditionsOmra() {
   return (
     <ResponsiveLayout>
-      <FAQSchema />
       <Helmet>
         <title>Conditions pour Faire l'Omra 2026 : Qui Peut Partir ? | Omra Bons Plans</title>
         <meta name="description" content="Toutes les conditions pour faire l'Omra en 2026 : conditions religieuses, documents obligatoires, règles pour les femmes seules, vaccins et conditions de santé." />
@@ -78,6 +53,15 @@ export default function ConditionsOmra() {
           "datePublished": "2025-01-01",
           "dateModified": "2026-01-01",
           "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
