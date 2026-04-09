@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Quels documents sont obligatoires pour l'Omra ?",
-    answer: "Documents obligatoires : passeport valide au moins 6 mois après la date de retour, visa Omra (délivré par l'agence), certificat de vaccination méningocoque ACWY (obligatoire), et acte de mariage pour les couples non-mahram. Les femmes de moins de 45 ans doivent partir en groupe organisé."
+    answer: "Documents obligatoires : passeport valide au moins 6 mois après la date de retour, visa Omra (délivré par l'agence), certificat de vaccination méningocoque ACWY (obligatoire), et acte de mariage si vous voyagez en couple. Concernant le mahram : la loi saoudienne ne l'exige plus depuis 2021, mais il reste religieusement obligatoire selon la majorité des savants."
   }
 ];
 
