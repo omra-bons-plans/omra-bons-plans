@@ -146,7 +146,7 @@ export default function DefinitionOmra() {
               { titre: "Être musulman", desc: "L'Omra est un acte d'adoration exclusivement islamique. Les non-musulmans n'ont pas accès à La Mecque." },
               { titre: "Être en bonne santé", desc: "L'Omra nécessite une capacité physique minimale. Les personnes en situation de handicap sont acceptées, des fauteuils roulants sont disponibles." },
               { titre: "Avoir les ressources financières", desc: "L'Omra ne doit pas être financée par des dettes. Il est recommandé d'attendre d'avoir épargné suffisamment." },
-              { titre: "Le Mahram pour les femmes", desc: "Depuis 2021, les femmes de plus de 45 ans peuvent voyager sans mahram avec un groupe agréé. Les femmes plus jeunes doivent être accompagnées d'un mahram (mari, père, fils, frère)." },
+              { titre: "Le Mahram pour les femmes", desc: "Selon la loi saoudienne, les femmes n'ont plus besoin de mahram pour effectuer l'Omra depuis 2021, quel que soit leur âge. Cependant, d'un point de vue religieux, la majorité des savants considèrent que le mahram (mari, père, fils, frère) reste obligatoire." },
               { titre: "Documents officiels", desc: "Passeport valide 6 mois, visa Omra, et vaccin contre la méningite (ACWY) obligatoire." }
             ].map((item, i) => (
               <li key={i} className="flex gap-3">

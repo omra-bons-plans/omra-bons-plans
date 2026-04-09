@@ -10,11 +10,11 @@ import { Button } from '@/components/ui/button';
 const faqs = [
   {
     question: "Une femme peut-elle faire l'Omra seule sans mahram en 2026 ?",
-    answer: "Depuis 2021, l'Arabie Saoudite a assoupli les règles. Les femmes de tout âge peuvent désormais accomplir l'Omra sans mahram (tuteur masculin), à condition de voyager en groupe organisé avec une agence agréée. C'est donc tout à fait possible et légal."
+    answer: "Selon la loi saoudienne, oui : depuis 2021, les femmes de tout âge peuvent accomplir l'Omra sans mahram, à condition de voyager en groupe organisé avec une agence agréée. C'est légalement autorisé. Cependant, d'un point de vue religieux, la majorité des savants considèrent que le mahram reste obligatoire pour le voyage de la femme."
   },
   {
     question: "Quelles sont les conditions pour une femme seule en Omra ?",
-    answer: "Les conditions sont : voyager avec un groupe organisé par une agence agréée (ne pas voyager seule en dehors du groupe), rester avec le groupe lors des déplacements, suivre les consignes de l'accompagnatrice ou du guide. Il n'y a plus d'obligation d'avoir un mahram."
+    answer: "Les conditions légales saoudiennes sont : voyager avec un groupe organisé par une agence agréée, rester avec le groupe lors des déplacements, suivre les consignes de l'accompagnatrice ou du guide. Il n'y a plus d'obligation légale d'avoir un mahram. Toutefois, religieusement, le mahram reste obligatoire selon la majorité des savants."
   },
   {
     question: "Y a-t-il des groupes spécialement pour femmes seules ?",
@@ -99,10 +99,10 @@ export default function OmraFemmeSeule() {
             Omra Femme Seule en 2026 : Tout Ce Qu'il Faut Savoir
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Depuis la réforme saoudienne de 2021, les femmes peuvent accomplir l'Omra <strong>sans mahram</strong>
-            (tuteur masculin), à condition de voyager avec un groupe organisé. Des milliers de Françaises
-            partent chaque année seules pour vivre cette expérience spirituelle unique. Voici le guide
-            complet et actualisé pour 2026.
+            Depuis la réforme saoudienne de 2021, la loi saoudienne n'exige plus de <strong>mahram</strong>
+            (tuteur masculin) pour accomplir l'Omra. Les femmes de tout âge peuvent voyager en groupe organisé.
+            Cependant, d'un point de vue religieux, le mahram reste obligatoire selon la majorité des savants.
+            Voici le guide complet et actualisé pour 2026.
           </p>
           <Button asChild size="lg" className="mt-4">
             <Link to="/omra">Voir les offres Omra pour femmes →</Link>
@@ -111,17 +111,33 @@ export default function OmraFemmeSeule() {
 
         {/* Règles actuelles */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">📋 Règles officielles : Omra sans mahram en 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">📋 Règles concernant le mahram en 2026</h2>
           <Card className="border-green-200 bg-green-50">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
-                <span className="text-3xl">✅</span>
+                <span className="text-3xl">⚖️</span>
                 <div>
-                  <h3 className="font-bold text-green-800 mb-2">OUI, une femme peut faire l'Omra sans mahram en 2026</h3>
+                  <h3 className="font-bold text-green-800 mb-2">Loi saoudienne : le mahram n'est plus exigé</h3>
                   <p className="text-green-700 text-sm">
-                    Depuis août 2021, l'Arabie Saoudite a officiellement levé l'obligation de mahram pour l'Omra.
-                    Les femmes de tout âge peuvent désormais voyager seules pour accomplir l'Omra,
+                    Depuis août 2021, l'Arabie Saoudite a officiellement levé l'obligation légale de mahram pour l'Omra et le Hajj.
+                    Les femmes de tout âge peuvent désormais voyager pour accomplir l'Omra,
                     à condition de passer par une <strong>agence agréée</strong> avec un groupe organisé.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-amber-200 bg-amber-50 mt-4">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-3">
+                <span className="text-3xl">🕌</span>
+                <div>
+                  <h3 className="font-bold text-amber-800 mb-2">Point de vue religieux : le mahram reste obligatoire</h3>
+                  <p className="text-amber-700 text-sm">
+                    D'un point de vue religieux, la majorité des savants considèrent que le mahram (mari, père, frère, oncle paternel, fils majeur)
+                    reste <strong>obligatoire</strong> pour le voyage de la femme. Il est recommandé de consulter
+                    votre référent religieux avant de prendre une décision.
                   </p>
                 </div>
               </div>

@@ -6,11 +6,11 @@ import { InternalLinks } from '@/components/SEO/InternalLinks';
 const faqs = [
   {
     question: "Quelles sont les conditions pour faire l'Omra ?",
-    answer: "Les conditions principales pour faire l'Omra sont : (1) Être musulman(e), (2) Avoir un passeport valide, (3) Être en bonne santé physique, (4) Avoir le vaccin méningocoque ACWY, (5) Pour les femmes de moins de 45 ans : voyager avec un mahram (mari, père, frère) ou en groupe organisé. Il n'y a pas de condition d'âge minimum ni de niveau religieux requis."
+    answer: "Les conditions principales pour faire l'Omra sont : (1) Être musulman(e), (2) Avoir un passeport valide, (3) Être en bonne santé physique, (4) Avoir le vaccin méningocoque ACWY. Concernant le mahram : selon la loi saoudienne, les femmes n'ont plus besoin de mahram pour effectuer l'Omra depuis 2021. Cependant, d'un point de vue religieux, le mahram reste obligatoire selon la majorité des savants."
   },
   {
     question: "Une femme seule peut-elle faire l'Omra ?",
-    answer: "Oui, depuis 2021, l'Arabie Saoudite autorise les femmes de plus de 45 ans à partir en Omra sans mahram, en groupe organisé avec une agence agréée. Pour les femmes de moins de 45 ans, un mahram (mari, père, frère, oncle) est toujours requis. Les règles évoluent régulièrement — vérifiez avec votre agence avant de réserver."
+    answer: "Selon la loi saoudienne, oui : depuis 2021, les femmes de tout âge peuvent partir en Omra sans mahram, en groupe organisé avec une agence agréée. Il n'y a plus de restriction d'âge. Toutefois, d'un point de vue religieux, la majorité des savants considèrent que le mahram (mari, père, frère, oncle) reste obligatoire pour le voyage de la femme. Renseignez-vous auprès de votre agence et de votre référent religieux."
   },
   {
     question: "Faut-il être en bonne santé pour faire l'Omra ?",
@@ -140,13 +140,13 @@ export default function ConditionsOmra() {
                   required: true
                 },
                 {
-                  title: "Mahram pour les femmes (selon l'âge)",
-                  detail: "Femmes de moins de 45 ans : un mahram (mari, père, frère, oncle paternel) doit les accompagner, ou elles doivent voyager en groupe organisé avec une agence agréée et fournir une attestation du groupe. Femmes de 45 ans et plus : peuvent voyager sans mahram en groupe organisé depuis 2021.",
-                  required: true
+                  title: "Mahram pour les femmes",
+                  detail: "Selon la loi saoudienne, les femmes n'ont plus besoin de mahram pour effectuer l'Omra depuis 2021, quel que soit leur âge. Elles peuvent voyager en groupe organisé avec une agence agréée. Cependant, d'un point de vue religieux, la majorité des savants considèrent que le mahram (mari, père, frère, oncle paternel, fils majeur) reste obligatoire pour le voyage de la femme.",
+                  required: false
                 },
                 {
                   title: "Acte de mariage (si applicable)",
-                  detail: "Si vous voyagez avec votre épouse, l'acte de mariage est nécessaire pour prouver la relation mahram. Une traduction officielle peut être exigée.",
+                  detail: "Si vous voyagez en couple, l'acte de mariage peut être demandé lors des formalités. Une traduction officielle peut être exigée.",
                   required: false
                 }
               ].map((item, i) => (
@@ -177,9 +177,9 @@ export default function ConditionsOmra() {
                   </thead>
                   <tbody>
                     {[
-                      { sit: "Femme mariée (tous âges)", cond: "Peut partir avec son mari. L'acte de mariage est requis." },
-                      { sit: "Femme célibataire de moins de 45 ans", cond: "Doit être accompagnée d'un mahram (père, frère, oncle paternel, fils majeur) OU voyager en groupe organisé avec attestation." },
-                      { sit: "Femme de 45 ans et plus", cond: "Peut voyager sans mahram en groupe organisé depuis 2021. Une attestation du groupe est requise." },
+                      { sit: "Femme (tout âge) — Loi saoudienne", cond: "Depuis 2021, la loi saoudienne n'exige plus de mahram pour l'Omra. Les femmes de tout âge peuvent voyager en groupe organisé avec une agence agréée." },
+                      { sit: "Femme — Point de vue religieux", cond: "La majorité des savants considèrent que le mahram (mari, père, frère, oncle paternel, fils majeur) reste religieusement obligatoire pour le voyage de la femme." },
+                      { sit: "Femme mariée", cond: "Peut partir avec son mari. L'acte de mariage peut être demandé lors des formalités." },
                       { sit: "Femme enceinte", cond: "Aucune interdiction légale, mais un certificat médical d'aptitude au voyage est fortement recommandé." },
                       { sit: "Femme en état de menstruation (Hayd)", cond: "Peut voyager et visiter Médine, mais ne peut pas entrer dans la Masjid al-Haram pour le Tawaf jusqu'à la fin de ses règles." }
                     ].map((row, i) => (
