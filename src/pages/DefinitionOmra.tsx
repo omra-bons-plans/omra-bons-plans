@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
@@ -26,30 +25,6 @@ const faqs = [
     answer: "Il n'y a pas d'âge minimum officiel. Les enfants sont acceptés et accomplissent l'Omra avec leurs parents. Les bébés en bas âge peuvent accompagner leurs parents. L'important est que l'enfant soit en bonne santé pour supporter le voyage."
   }
 ];
-
-function FAQSchema() {
-  useEffect(() => {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(f => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    };
-    let s = document.querySelector('script[data-definition-faq-ld]') as HTMLScriptElement;
-    if (!s) {
-      s = document.createElement('script');
-      s.setAttribute('type', 'application/ld+json');
-      s.setAttribute('data-definition-faq-ld', 'true');
-      document.head.appendChild(s);
-    }
-    s.textContent = JSON.stringify(data);
-    return () => { document.querySelector('script[data-definition-faq-ld]')?.remove(); };
-  }, []);
-  return null;
-}
 
 export default function DefinitionOmra() {
   return (
@@ -79,6 +54,15 @@ export default function DefinitionOmra() {
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://omrabonsplans.fr/omra" },
@@ -86,7 +70,6 @@ export default function DefinitionOmra() {
           ]
         })}</script>
       </Helmet>
-      <FAQSchema />
 
       <article className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-muted-foreground">

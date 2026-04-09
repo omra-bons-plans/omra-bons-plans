@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
@@ -27,29 +26,6 @@ const faqs = [
   }
 ];
 
-function FAQSchema() {
-  useEffect(() => {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(f => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    };
-    let s = document.querySelector('script[data-quand-faq-ld]') as HTMLScriptElement;
-    if (!s) {
-      s = document.createElement('script');
-      s.setAttribute('type', 'application/ld+json');
-      s.setAttribute('data-quand-faq-ld', 'true');
-      document.head.appendChild(s);
-    }
-    s.textContent = JSON.stringify(data);
-    return () => { document.querySelector('script[data-quand-faq-ld]')?.remove(); };
-  }, []);
-  return null;
-}
 
 const seasons = [
   {
@@ -102,7 +78,6 @@ const seasons = [
 export default function QuandPartirOmra() {
   return (
     <ResponsiveLayout>
-      <FAQSchema />
       <Helmet>
         <title>Quand partir en Omra ? Meilleures Périodes & Prix 2026 | Omra Bons Plans</title>
         <meta name="description" content="Découvrez la meilleure période pour partir en Omra selon votre budget : Ramadan, hiver, hors saison. Comparatif des prix et conseils pour choisir la bonne date en 2026." />
@@ -126,6 +101,15 @@ export default function QuandPartirOmra() {
           "datePublished": "2025-01-01",
           "dateModified": "2026-01-01",
           "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

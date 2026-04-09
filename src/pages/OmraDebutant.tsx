@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
 
@@ -27,29 +26,6 @@ const faqs = [
   }
 ];
 
-function FAQSchema() {
-  useEffect(() => {
-    const data = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(f => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    };
-    let s = document.querySelector('script[data-debutant-faq-ld]') as HTMLScriptElement;
-    if (!s) {
-      s = document.createElement('script');
-      s.setAttribute('type', 'application/ld+json');
-      s.setAttribute('data-debutant-faq-ld', 'true');
-      document.head.appendChild(s);
-    }
-    s.textContent = JSON.stringify(data);
-    return () => { document.querySelector('script[data-debutant-faq-ld]')?.remove(); };
-  }, []);
-  return null;
-}
 
 const steps = [
   {
@@ -97,7 +73,6 @@ const steps = [
 export default function OmraDebutant() {
   return (
     <ResponsiveLayout>
-      <FAQSchema />
       <Helmet>
         <title>Guide Omra pour Débutant : Premier Pèlerinage 2026 | Omra Bons Plans</title>
         <meta name="description" content="Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra : préparation, documents, rites étape par étape, budget et conseils pratiques pour 2026." />
@@ -128,6 +103,15 @@ export default function OmraDebutant() {
             { "@type": "ListItem", "position": 2, "name": "Guide Omra", "item": "https://omrabonsplans.fr/definition-omra" },
             { "@type": "ListItem", "position": 3, "name": "Omra pour débutant", "item": "https://omrabonsplans.fr/omra-debutant" }
           ]
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
         })}</script>
       </Helmet>
 
