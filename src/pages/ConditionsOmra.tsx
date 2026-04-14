@@ -39,19 +39,24 @@ export default function ConditionsOmra() {
         <meta property="og:description" content="Conditions religieuses, documents, vaccins, règles pour les femmes : tout ce qu'il faut savoir pour pouvoir partir en Omra en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/conditions-omra" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Conditions pour Faire l'Omra 2026" />
+        <meta name="twitter:description" content="Conditions religieuses, documents, vaccins, règles pour les femmes pour partir en Omra." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Conditions pour Faire l'Omra 2026 : Qui Peut Partir ?",
           "description": "Guide complet des conditions religieuses, administratives et sanitaires pour partir en Omra en 2026.",
           "url": "https://omrabonsplans.fr/conditions-omra",
-          "publisher": {
-            "@type": "Organization",
-            "name": "Omra Bons Plans",
-            "url": "https://omrabonsplans.fr"
-          },
+          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
-          "dateModified": "2026-01-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
