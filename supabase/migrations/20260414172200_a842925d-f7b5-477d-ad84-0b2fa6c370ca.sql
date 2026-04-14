@@ -1,0 +1,1 @@
+UPDATE blog_posts SET slug = 'perdu-ablutions-pendant-tawaf', excerpt = 'Vous avez perdu votre wudu en cours de tawaf ? Voici la règle islamique à appliquer selon les quatre écoles de jurisprudence pour ne pas invalider votre omra.' WHERE id = '60cfbe5b-20b5-4f4d-9fb0-4ea1b1a45ff9'
