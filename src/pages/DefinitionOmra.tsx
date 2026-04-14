@@ -39,6 +39,12 @@ export default function DefinitionOmra() {
         <meta property="og:url" content="https://omrabonsplans.fr/definition-omra" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Qu'est-ce que l'Omra ? Définition complète 2026" />
+        <meta name="twitter:description" content="Définition de l'Omra, différence avec le Hajj, conditions et rites expliqués." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
