@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,30 +29,6 @@ const faqs = [
   }
 ];
 
-function FAQSchema({ faqs }: { faqs: { question: string; answer: string }[] }) {
-  useEffect(() => {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(f => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    };
-    let s = document.querySelector('script[data-femme-faq]') as HTMLScriptElement;
-    if (!s) {
-      s = document.createElement('script');
-      s.type = 'application/ld+json';
-      s.setAttribute('data-femme-faq', 'true');
-      document.head.appendChild(s);
-    }
-    s.textContent = JSON.stringify(schema);
-    return () => { document.querySelector('script[data-femme-faq]')?.remove(); };
-  }, [faqs]);
-  return null;
-}
-
 export default function OmraFemmeSeule() {
   return (
     <ResponsiveLayout>
@@ -79,8 +54,16 @@ export default function OmraFemmeSeule() {
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
+        })}</script>
       </Helmet>
-      <FAQSchema faqs={faqs} />
 
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
@@ -328,6 +311,8 @@ export default function OmraFemmeSeule() {
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/visa-omra-france" className="text-primary hover:underline text-sm">Visa Omra 2026</Link>
+            <span className="text-muted-foreground">·</span>
+            <Link to="/blog/general/omra-sans-mahram-femme-seule" className="text-primary hover:underline text-sm">Omra sans Mahram : Guide détaillé</Link>
           </div>
         </nav>
       </article>
