@@ -312,7 +312,7 @@ export default function OmraFemmeSeule() {
             <span className="text-muted-foreground">·</span>
             <Link to="/visa-omra-france" className="text-primary hover:underline text-sm">Visa Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/blog/general/omra-sans-mahram-femme-seule" className="text-primary hover:underline text-sm">Omra sans Mahram : Guide détaillé</Link>
+            <Link to="/blog/general/omra-sans-mahram-pour-femme-seule-en-2026-guide-complet" className="text-primary hover:underline text-sm">Omra sans Mahram : Guide détaillé</Link>
           </div>
         </nav>
       </article>
