@@ -1,0 +1,1 @@
+UPDATE blog_posts SET slug = 'combien-omra-durant-sejour', excerpt = 'Combien de omras est-il permis d''accomplir lors d''un même séjour à La Mecque ? Découvrez la règle des savants et les conseils pour optimiser votre temps spirituel.', scheduled_publish_at = '2026-05-15 07:00:00+00' WHERE id = '35bfa858-9cdf-4d6e-a002-83dc59fa7cb9'
