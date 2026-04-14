@@ -293,6 +293,7 @@ export default function ComparateurOmraFrance() {
 
           <InternalLinks
             currentPage="/comparateur-omra-france"
+            maxLinks={6}
             links={[
               { href: "/omra", label: "Comparateur Omra 2026", description: "Comparer les offres maintenant" },
               { href: "/meilleure-agence-omra", label: "Meilleures agences Omra", description: "Classement et avis" },
