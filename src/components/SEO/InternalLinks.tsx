@@ -20,6 +20,7 @@ interface InternalLinksProps {
   variant?: 'footer' | 'sidebar' | 'inline' | 'related';
   className?: string;
   maxLinks?: number;
+  links?: InternalLink[];
 }
 
 // Définition de toutes les pages principales du site avec leurs liens
@@ -140,10 +141,17 @@ export const InternalLinks: React.FC<InternalLinksProps> = ({
   currentPage = '/',
   variant = 'related',
   className = '',
-  maxLinks = 4
+  maxLinks = 4,
+  links: customLinks
 }) => {
   // Obtenir les liens recommandés pour la page courante
   const getRelevantLinks = (): InternalLink[] => {
+    if (customLinks?.length) {
+      return customLinks
+        .filter(link => link.href !== currentPage)
+        .slice(0, maxLinks);
+    }
+
     // Support blog pages via prefix matching
     let recommendedPaths = relatedLinksMap[currentPage];
     if (!recommendedPaths && currentPage.startsWith('/blog/')) {
