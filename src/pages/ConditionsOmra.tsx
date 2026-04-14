@@ -17,8 +17,8 @@ const faqs = [
     answer: "L'Omra implique beaucoup de marche (5 à 15 km par jour) dans un environnement souvent chaud et bondé. Une bonne condition physique est recommandée. Les personnes âgées, les femmes enceintes et les personnes avec des problèmes de mobilité peuvent partir mais doivent consulter leur médecin au préalable et choisir un hébergement proche de la mosquée."
   },
   {
-    question: "Peut-on faire l'Omra avec un visa touriste ?",
-    answer: "Non. Vous devez obligatoirement disposer d'un visa Omra spécifique, délivré par une agence agréée par le Ministère Saoudien des Affaires Religieuses. Depuis 2019, l'Arabie Saoudite délivre aussi des e-visas touristiques qui permettent de visiter les lieux non-sacrés, mais les rites de l'Omra nécessitent un visa Omra officiel."
+    question: "Quel visa faut-il pour faire l'Omra ?",
+    answer: "Deux options s'offrent à vous : le visa Omra, délivré par une agence de voyage agréée par le Ministère Saoudien des Affaires Religieuses (inclus dans la plupart des forfaits), ou le visa touristique saoudien (eVisa), que vous pouvez obtenir vous-même en ligne sur le site officiel visa.visitsaudi.com. Depuis 2019, le visa touristique permet également d'accomplir les rites de l'Omra."
   },
   {
     question: "Les non-musulmans peuvent-ils accompagner pour l'Omra ?",
@@ -135,8 +135,8 @@ export default function ConditionsOmra() {
                   required: true
                 },
                 {
-                  title: "Visa Omra",
-                  detail: "Le visa Omra est obligatoire. Il est délivré exclusivement par les agences de voyage agréées par le Ministère Saoudien des Affaires Religieuses. Ne tentez pas d'entrer en Arabie Saoudite sans visa Omra valide.",
+                  title: "Visa Omra ou visa touristique",
+                  detail: "Un visa est obligatoire pour entrer en Arabie Saoudite. Deux options : le visa Omra, délivré par une agence de voyage agréée (inclus dans la plupart des forfaits), ou le visa touristique (eVisa) que vous pouvez obtenir vous-même en ligne sur visa.visitsaudi.com. Les deux permettent d'accomplir l'Omra.",
                   required: true
                 },
                 {
