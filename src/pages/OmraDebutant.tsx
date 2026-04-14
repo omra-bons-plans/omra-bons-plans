@@ -82,17 +82,33 @@ export default function OmraDebutant() {
         <meta property="og:description" content="Guide complet étape par étape pour préparer et réussir votre première Omra : documents, rites, budget et conseils pratiques." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-debutant" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Guide Omra pour débutant - Omra Bons Plans" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Guide Omra pour Débutant : Premier Pèlerinage 2026" />
+        <meta name="twitter:description" content="Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra en 2026." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "HowTo",
           "name": "Comment faire l'Omra : Guide pour débutant",
           "description": "Guide complet pour préparer et accomplir son premier pèlerinage Omra",
           "url": "https://omrabonsplans.fr/omra-debutant",
+          "totalTime": "P7D",
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://omrabonsplans.fr/og-omra-debutant.jpg",
+            "width": 1200,
+            "height": 630
+          },
           "step": steps.map(s => ({
             "@type": "HowToStep",
             "name": s.title,
             "text": s.desc,
-            "position": parseInt(s.num)
+            "position": parseInt(s.num),
+            "url": "https://omrabonsplans.fr/omra-debutant#etape-" + s.num
           }))
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
