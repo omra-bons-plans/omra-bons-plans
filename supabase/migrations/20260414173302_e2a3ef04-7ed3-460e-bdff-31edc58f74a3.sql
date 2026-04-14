@@ -1,0 +1,1 @@
+UPDATE blog_posts SET slug = 'regles-menstrues-avant-fin-omra', excerpt = 'Vous avez vos menstrues avant d''avoir terminé votre omra ? Voici ce que prescrit la jurisprudence islamique concernant le tawaf, le sa''i et la coupe des cheveux.' WHERE id = '7cfd3e87-85ab-4f20-8a09-a8e5cb751980'
