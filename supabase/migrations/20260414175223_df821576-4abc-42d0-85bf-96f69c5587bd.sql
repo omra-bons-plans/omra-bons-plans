@@ -1,0 +1,1 @@
+UPDATE blog_posts SET slug = 'faire-omra-lendemain-arrivee-mecque', excerpt = 'Est-il permis de réaliser sa omra le lendemain de son arrivée à La Mecque ? Découvrez les règles de l''ihram, du miqat et les conseils des savants pour bien débuter votre séjour.', scheduled_publish_at = '2026-05-08 07:00:00+00' WHERE id = 'baac7b05-79d8-4dee-89b4-2f4519c501bf'
