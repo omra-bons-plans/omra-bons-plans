@@ -24,9 +24,8 @@
 # Redirections de normalisation des URLs de catégories (singulier vers pluriel)
 /category/hebergement /category/hebergements 301
 
-# Sitemap dynamique - proxy vers edge function Supabase
-# Le status 200 fait un proxy (pas une redirection) pour que l'URL reste /sitemap.xml
-/sitemap.xml https://lptyhenryzhztdwpkvsc.supabase.co/functions/v1/generate-sitemap 200
+# Sitemap servi depuis le fichier statique public/sitemap.xml (complet, 100+ URLs)
+# Le proxy Supabase est supprimé car il empêchait Google de voir les nouvelles pages
 
 # 404 page - serve with 404 status
 /404 /404.html 404

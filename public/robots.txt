@@ -124,3 +124,19 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 1
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 1
