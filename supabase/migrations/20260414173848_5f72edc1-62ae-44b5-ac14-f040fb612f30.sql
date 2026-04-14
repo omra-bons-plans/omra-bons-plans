@@ -1,0 +1,1 @@
+UPDATE blog_posts SET slug = 'sai-directement-apres-tawaf-ou-se-reposer', excerpt = 'Doit-on enchaîner le sa''i immédiatement après le tawaf lors de la omra ? Voici ce que disent les quatre écoles de jurisprudence islamique sur cette question.' WHERE id = 'efcbb763-86ed-407f-b215-621d237d3c44'
