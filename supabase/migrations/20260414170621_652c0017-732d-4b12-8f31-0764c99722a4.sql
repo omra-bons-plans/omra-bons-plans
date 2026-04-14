@@ -1,0 +1,1 @@
+UPDATE blog_posts SET excerpt = 'Vous avez perdu le compte de vos tours lors du tawaf ? La jurisprudence islamique apporte une réponse précise. Découvrez la règle à appliquer pour valider votre tawaf.' WHERE id = 'daf39838-a7e2-4201-88e9-d66bd954a836'
