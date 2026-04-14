@@ -52,6 +52,11 @@ interface UserProfile {
   slug?: string;
 }
 
+// In-memory session storage — never written to browser storage APIs (sessionStorage/localStorage)
+// This prevents XSS from reading the token via storage APIs
+let _adminSessionToken: string | null = null;
+let _adminSessionExpiry: string | null = null;
+
 const Admin = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -82,8 +87,8 @@ const Admin = () => {
   // Vérifier la session admin au chargement
   useEffect(() => {
     const checkAdminSession = () => {
-      const sessionToken = sessionStorage.getItem('admin_session_token');
-      const sessionExpiry = sessionStorage.getItem('admin_session_expiry');
+      const sessionToken = _adminSessionToken;
+      const sessionExpiry = _adminSessionExpiry;
 
       if (sessionToken && sessionExpiry) {
         const expiryDate = new Date(sessionExpiry);
@@ -91,8 +96,8 @@ const Admin = () => {
           setShowCodeAuth(false);
           return true;
         } else {
-          sessionStorage.removeItem('admin_session_token');
-          sessionStorage.removeItem('admin_session_expiry');
+          _adminSessionToken = null;
+          _adminSessionExpiry = null;
         }
       }
       return false;
@@ -192,9 +197,9 @@ const Admin = () => {
       if (error) throw error;
 
       if (data.success) {
-        // Stocker le token de session
-        sessionStorage.setItem('admin_session_token', data.sessionToken);
-        sessionStorage.setItem('admin_session_expiry', data.expiresAt);
+        // Stocker le token de session en mémoire (jamais dans sessionStorage/localStorage)
+        _adminSessionToken = data.sessionToken;
+        _adminSessionExpiry = data.expiresAt;
         
         setShowCodeAuth(false);
         toast({
