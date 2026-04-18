@@ -10,10 +10,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
-import ScrollToTop from "./components/ui/ScrollToTop";
-import BackToTopButton from "./components/ui/BackToTopButton";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
-import CanonicalRedirect from "./components/SEO/CanonicalRedirect";
+const ScrollToTop = lazy(() => import("./components/ui/ScrollToTop"));
+const BackToTopButton = lazy(() => import("./components/ui/BackToTopButton"));
+const CanonicalRedirect = lazy(() => import("./components/SEO/CanonicalRedirect"));
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
