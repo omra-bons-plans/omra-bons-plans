@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -148,12 +148,11 @@ const saisonsData: Record<string, {
 };
 
 export default function OmraSaison() {
-  const { saison } = useParams<{ saison: string }>();
-  const data = saison ? saisonsData[saison.toLowerCase()] : null;
+  const { pathname } = useLocation();
+  const slug = pathname.replace('/omra-en-', '').toLowerCase();
+  const data = saisonsData[slug] ?? null;
 
   if (!data) return <Navigate to="/omra" replace />;
-
-  const slug = saison!.toLowerCase();
 
   const faqs = [
     {
