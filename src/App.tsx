@@ -86,6 +86,7 @@ const QuandPartirOmra = lazy(() => import("./pages/QuandPartirOmra"));
 const OmraDebutant = lazy(() => import("./pages/OmraDebutant"));
 const ConditionsOmra = lazy(() => import("./pages/ConditionsOmra"));
 const ComparateurOmraFrance = lazy(() => import("./pages/ComparateurOmraFrance"));
+const OmraSaison = lazy(() => import("./pages/OmraSaison"));
 
 // Loading component
 const PageLoader = () => (
@@ -283,6 +284,7 @@ const App = () => (
                    <Route path="/omra-femme-seule" element={<OmraFemmeSeule />} />
                    <Route path="/visa-omra-france" element={<VisaOmra />} />
                    <Route path="/omra-depuis-:ville" element={<OmraVille />} />
+                   <Route path="/omra-en-:saison" element={<OmraSaison />} />
                    <Route path="/omra-famille" element={<OmraFamille />} />
                    <Route path="/omra-seniors" element={<OmraSeniors />} />
                    <Route path="/omra-enfants" element={<OmraEnfants />} />
