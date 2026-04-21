@@ -6,23 +6,23 @@ import { InternalLinks } from '@/components/SEO/InternalLinks';
 const faqs = [
   {
     question: "Quelles sont les conditions pour faire l'Omra ?",
-    answer: "Les conditions principales pour faire l'Omra sont : (1) Être musulman(e), (2) Avoir un passeport valide, (3) Être en bonne santé physique, (4) Avoir le vaccin méningocoque ACWY. Concernant le mahram : selon la loi saoudienne, les femmes n'ont plus besoin de mahram pour effectuer l'Omra depuis 2021. Cependant, d'un point de vue religieux, le mahram reste obligatoire selon la majorité des savants."
+    answer: "Pour accomplir l'Omra, plusieurs conditions doivent être réunies. Sur le plan religieux (les 'chourout') : être musulman(e), être en état de pureté rituelle, avoir atteint l'âge de raison (bâligh), et être libre de toute contrainte majeure. Sur le plan pratique : disposer d'un passeport valide au moins 6 mois après votre retour, obtenir un visa (visa Omra via une agence agréée ou eVisa touristique saoudien), et avoir reçu le vaccin méningocoque ACWY obligatoire au moins 10 jours avant le départ. Sur le plan financier : avoir les ressources nécessaires sans s'endetter et sans négliger ses obligations envers sa famille. Concernant le mahram : selon la loi saoudienne depuis 2021, les femmes de tout âge peuvent partir en Omra sans accompagnateur masculin, en groupe organisé avec une agence agréée. D'un point de vue religieux, la majorité des savants maintiennent l'obligation du mahram. Consultez votre référent religieux pour votre situation personnelle."
   },
   {
     question: "Une femme seule peut-elle faire l'Omra ?",
-    answer: "Selon la loi saoudienne, oui : depuis 2021, les femmes de tout âge peuvent partir en Omra sans mahram, en groupe organisé avec une agence agréée. Il n'y a plus de restriction d'âge. Toutefois, d'un point de vue religieux, la majorité des savants considèrent que le mahram (mari, père, frère, oncle) reste obligatoire pour le voyage de la femme. Renseignez-vous auprès de votre agence et de votre référent religieux."
+    answer: "Oui, selon la réglementation saoudienne en vigueur depuis 2021. L'Arabie Saoudite a officiellement levé l'obligation du mahram pour les femmes souhaitant accomplir l'Omra, sans restriction d'âge. Les femmes peuvent désormais voyager en groupe organisé via une agence agréée par le Ministère Saoudien des Affaires Islamiques. En pratique, toutes les grandes agences françaises proposent des départs spéciaux pour femmes seules ou en groupe mixte accompagné. Sur le plan religieux, la situation est plus nuancée. La majorité des savants traditionnels — notamment les écoles hanafite, malékite et hanbalite — maintiennent que le mahram (mari, père, frère, fils majeur ou oncle paternel) est obligatoire pour le voyage de la femme, quelle que soit la distance. D'autres savants contemporains, s'appuyant sur la sécurité des voyages modernes, considèrent que cette obligation est allégée quand la sécurité est garantie par une agence agréée. Il est recommandé de consulter votre référent religieux de confiance avant de prendre votre décision. Retrouvez notre guide complet : Omra pour femme seule."
   },
   {
     question: "Faut-il être en bonne santé pour faire l'Omra ?",
-    answer: "L'Omra implique beaucoup de marche (5 à 15 km par jour) dans un environnement souvent chaud et bondé. Une bonne condition physique est recommandée. Les personnes âgées, les femmes enceintes et les personnes avec des problèmes de mobilité peuvent partir mais doivent consulter leur médecin au préalable et choisir un hébergement proche de la mosquée."
+    answer: "L'Omra est un pèlerinage physiquement exigeant que vous devez aborder avec préparation. Sur place, vous marcherez entre 5 et 15 kilomètres par jour selon votre programme — le Tawaf (7 tours autour de la Kaaba), le Sa'i (7 allers-retours entre Safa et Marwa) et les déplacements entre les lieux saints. Ces efforts se déroulent dans un environnement chaud (25 à 45°C selon la saison) et souvent très bondé. Une bonne condition physique générale est donc recommandée. Pour les personnes âgées, les femmes enceintes, les cardiaques, les diabétiques ou les personnes à mobilité réduite, un avis médical préalable est indispensable. Votre médecin traitant peut vous délivrer un certificat d'aptitude au voyage. Pensez à choisir un hébergement proche de la Masjid al-Haram (dans un rayon de 500 mètres) pour limiter les distances à pied. Certaines agences françaises proposent des accompagnements médicaux avec des médecins francophones intégrés au groupe, ce qui est rassurant pour les personnes vulnérables."
   },
   {
     question: "Quel visa faut-il pour faire l'Omra ?",
-    answer: "Deux options s'offrent à vous : le visa Omra, délivré par une agence de voyage agréée par le Ministère Saoudien des Affaires Religieuses (inclus dans la plupart des forfaits), ou le visa touristique saoudien (eVisa), que vous pouvez obtenir vous-même en ligne sur le site officiel visa.visitsaudi.com. Depuis 2019, le visa touristique permet également d'accomplir les rites de l'Omra."
+    answer: "Pour entrer en Arabie Saoudite et accomplir l'Omra, deux types de visas sont disponibles pour les ressortissants français. Première option : le visa Omra, délivré par une agence de voyage agréée par le Ministère Saoudien des Affaires Religieuses (MSIAR). Il est inclus dans la quasi-totalité des forfaits Omra vendus par les agences françaises. Sa validité est généralement de 30 jours non renouvelables. Deuxième option : le visa touristique saoudien (eVisa), que vous pouvez obtenir vous-même en ligne sur le site officiel visa.visitsaudi.com. Depuis 2019, ce visa permet également d'accomplir les rites de l'Omra. Son coût est d'environ 110 euros, valable 1 an avec entrées multiples. Quelle que soit votre option, votre passeport doit être valide au moins 6 mois après la date de retour prévue et comporter des pages vierges pour les tampons. Notez qu'il n'y a pas de quota annuel pour l'Omra, contrairement au Hajj, ce qui facilite les démarches tout au long de l'année."
   },
   {
     question: "Les non-musulmans peuvent-ils accompagner pour l'Omra ?",
-    answer: "Non. La ville de La Mecque est interdite aux non-musulmans. Seuls les musulmans peuvent entrer dans le périmètre de La Mecque et accomplir l'Omra. Cette règle est strictement appliquée par les autorités saoudiennes avec des contrôles aux entrées de la ville."
+    answer: "Non, il est impossible pour un non-musulman d'entrer dans la ville sainte de La Mecque (Makkah al-Mukarrama). Cette interdiction est inscrite dans la loi saoudienne et s'appuie sur un verset coranique (Sourate at-Tawba, verset 28). Elle est strictement appliquée : des points de contrôle sont installés à toutes les entrées de la ville, et les forces de l'ordre vérifient l'identité et la religion des voyageurs. Toute tentative d'entrée par un non-musulman expose à une expulsion immédiate et à des poursuites judiciaires en Arabie Saoudite. Il est donc impossible de voyager avec un membre de votre famille ou un ami non-musulman si la destination principale est La Mecque. En revanche, les non-musulmans peuvent visiter la plupart des autres villes saoudiennes, notamment Riyad ou Djeddah. Médine accueille des non-musulmans dans ses parties extérieures, mais l'entrée dans la Masjid an-Nabawi (Mosquée du Prophète) leur est interdite dans les zones centrales."
   }
 ];
 
@@ -52,7 +52,7 @@ export default function ConditionsOmra() {
           "headline": "Conditions pour Faire l'Omra 2026 : Qui Peut Partir ?",
           "description": "Guide complet des conditions religieuses, administratives et sanitaires pour partir en Omra en 2026.",
           "url": "https://omrabonsplans.fr/conditions-omra",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-14",
@@ -253,7 +253,7 @@ export default function ConditionsOmra() {
             <h2 className="text-2xl font-bold mb-3">Vous remplissez les conditions ? Trouvez votre Omra !</h2>
             <p className="text-muted-foreground mb-6">Comparez les offres d'agences agréées et réservez au meilleur prix</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/omra" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+              <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Comparer les offres Omra
               </Link>
               <Link to="/omra-debutant" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">

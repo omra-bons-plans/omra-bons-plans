@@ -6,23 +6,23 @@ import { InternalLinks } from '@/components/SEO/InternalLinks';
 const faqs = [
   {
     question: "Quelle est la meilleure période pour partir en Omra ?",
-    answer: "La meilleure période dépend de votre budget et de vos priorités. Le Ramadan est la période la plus spirituelle mais aussi la plus chère (+50 à +100%). Les mois de Mouharram, Safar et Rajab offrent le meilleur rapport qualité-prix. Évitez les grandes chaleurs de juillet-août (45°C à La Mecque)."
+    answer: "Il n'existe pas de période universellement « meilleure » — tout dépend de vos priorités personnelles. Si la spiritualité prime, le Ramadan est incontestablement la période la plus bénie : des millions de pèlerins s'y retrouvent et l'atmosphère y est unique, surtout pendant les dix derniers jours. Comptez entre 2 500 et 5 000 euros pour cette période. Si vous cherchez le meilleur rapport qualité-prix, les mois de Mouharram et Safar (généralement entre juillet et septembre selon le calendrier grégorien) offrent des séjours dès 800 euros avec peu d'affluence. Si vous voyagez en famille avec des enfants en âge scolaire, la période de décembre (vacances de Noël) offre un bon compromis entre disponibilité et températures agréables à La Mecque. Quelle que soit votre période, évitez la semaine du Hajj (mois de Dhul Hijja), pendant laquelle l'Omra est suspendue pour les pèlerins étrangers par les autorités saoudiennes. Réservez au moins 2 à 3 mois à l'avance pour garantir les meilleures places."
   },
   {
     question: "Peut-on faire l'Omra en dehors du Ramadan ?",
-    answer: "Oui, l'Omra peut être effectuée toute l'année (contrairement au Hajj). En dehors du Ramadan, l'affluence est moindre, les prix sont plus bas et les conditions sont souvent plus confortables pour accomplir les rites à votre rythme."
+    answer: "Absolument — et c'est même ce que font la majorité des pèlerins français chaque année. Contrairement au Hajj qui est strictement réservé au mois de Dhul Hijja, l'Omra est une ibada (acte d'adoration) que l'on peut accomplir à n'importe quel moment de l'année, à l'exception des jours du Hajj lui-même (8 au 13 Dhul Hijja) où l'accès est limité aux pèlerins du Hajj. En dehors du Ramadan, vous bénéficiez de nombreux avantages concrets : des prix sensiblement inférieurs (jusqu'à 50% moins chers que pendant le Ramadan), une affluence réduite permettant d'accomplir le Tawaf et le Sa'i plus sereinement, et des hôtels plus faciles à réserver à proximité de la Masjid al-Haram. Sur le plan spirituel, chaque Omra accomplie avec sincérité et conformément aux rites a une immense valeur. Le Prophète Muhammad (ﷺ) a dit : « D'une Omra à l'autre, les péchés intermédiaires sont effacés. » (Bukhari et Muslim). Il n'est donc pas nécessaire d'attendre le Ramadan pour partir."
   },
   {
     question: "Combien coûte l'Omra selon la période ?",
-    answer: "Le prix varie de 800€ à 4000€+ selon la période et le standing. Hors saison (Mouharram, Safar) : 800-1500€. Haute saison (Ramadan, vacances scolaires) : 2000-4000€. Le prix inclut généralement vols, hôtel et visa."
+    answer: "Le prix d'un séjour Omra varie considérablement selon la période de départ et le niveau de confort souhaité. En basse saison (Mouharram, Safar, Rabi al-Awwal — soit environ juillet à octobre selon le calendrier grégorien), les forfaits démarrent à partir de 800 à 1 200 euros pour un séjour de 10 nuits en hôtel 3 étoiles, vols et visa inclus. En saison intermédiaire (hiver, Sha'ban), comptez entre 1 200 et 2 000 euros. En haute saison (vacances scolaires de Noël et de février), les prix oscillent entre 1 500 et 2 500 euros. Pendant le Ramadan — surtout les 10 derniers jours — les tarifs explosent : de 2 500 à 5 000 euros voire davantage pour un hôtel 4 ou 5 étoiles proche de la mosquée. Ces prix incluent généralement le vol aller-retour depuis une ville française, l'hébergement en demi-pension ou pension complète, les transferts et le visa Omra. Notre comparateur vous permet de voir en temps réel les meilleurs tarifs selon votre date de départ préférée."
   },
   {
     question: "Faut-il partir en Omra à Ramadan ?",
-    answer: "Partir en Omra pendant le Ramadan est très méritoire. Le Prophète Muhammad (ﷺ) a dit qu'une Omra en Ramadan équivaut à un Hajj en récompense. Cependant, les foules sont immenses et les prix très élevés. Si votre budget est limité, une Omra hors Ramadan est tout aussi valide spirituellement."
+    answer: "Partir en Omra pendant le Ramadan est un acte extrêmement méritoire selon les textes islamiques. Le Prophète Muhammad (ﷺ) a dit : « Une Omra pendant le Ramadan vaut un Hajj — ou un Hajj accompli avec moi. » (rapporté par Bukhari et Muslim). La valeur spirituelle est donc maximale, surtout pendant les dix derniers jours et la nuit de Laylat al-Qadr, que les savants situent dans les nuits impaires de cette période bénie. Cela dit, il faut peser les avantages et les inconvénients. Les foules sont immenses — la Masjid al-Haram peut accueillir jusqu'à 2,5 millions de personnes simultanément pendant le Ramadan, ce qui rend les rites physiquement éprouvants, notamment pour les personnes âgées ou fragiles. Les prix sont également très élevés comparés à la basse saison. Si votre budget est serré ou si vous avez des difficultés physiques, une Omra réalisée hors Ramadan avec présence, concentration et sincérité est tout aussi valide et méritoire aux yeux d'Allah (swt)."
   },
   {
     question: "Quelle période éviter pour l'Omra ?",
-    answer: "Évitez juillet et août (chaleur extrême, jusqu'à 50°C), les premières semaines du Ramadan (foules maximum) et les vacances scolaires françaises (prix gonflés). La semaine du Hajj (Dhul Hijja) est réservée aux pèlerins du Hajj uniquement — l'Omra est suspendue pour les étrangers."
+    answer: "Plusieurs périodes sont déconseillées pour partir en Omra, chacune pour des raisons différentes. Évitez absolument la période du Hajj, soit les 8 au 13 du mois de Dhul Hijja : les autorités saoudiennes suspendent les visas Omra pour les pèlerins étrangers pendant cette fenêtre pour gérer l'afflux des hajjis. Les mois de juillet et août correspondent aux grandes chaleurs à La Mecque, avec des températures pouvant dépasser 45 à 50°C. Accomplir le Tawaf en plein soleil dans ces conditions représente un risque sanitaire réel, surtout pour les personnes âgées et les enfants en bas âge. Les premières semaines du Ramadan sont également très chargées — les prix sont au maximum et l'affluence rend les rites éprouvants. Si vous partez pendant le Ramadan, les 10 derniers jours sont les plus bondés mais aussi les plus spirituellement valorisés. Enfin, les périodes de vacances scolaires françaises (Noël, février, Pâques) voient les prix augmenter de 20 à 40% du fait de la forte demande des familles françaises."
   }
 ];
 
@@ -100,7 +100,7 @@ export default function QuandPartirOmra() {
           "headline": "Quand partir en Omra ? Meilleures Périodes & Prix 2026",
           "description": "Guide complet pour choisir la meilleure période pour votre Omra selon votre budget, votre disponibilité et vos objectifs spirituels.",
           "url": "https://omrabonsplans.fr/quand-partir-omra",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-14",
@@ -281,7 +281,7 @@ export default function QuandPartirOmra() {
             <h2 className="text-2xl font-bold mb-3">Trouvez votre Omra au meilleur prix</h2>
             <p className="text-muted-foreground mb-6">Comparez les offres de toutes les agences selon votre période de départ</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/omra" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+              <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Comparer les offres Omra
               </Link>
               <Link to="/prix-omra-2026" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">

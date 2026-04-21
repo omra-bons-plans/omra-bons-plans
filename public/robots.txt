@@ -140,3 +140,9 @@ Crawl-delay: 1
 User-agent: Google-Extended
 Allow: /
 Crawl-delay: 1
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
