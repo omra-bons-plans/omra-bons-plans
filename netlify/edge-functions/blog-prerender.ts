@@ -109,10 +109,9 @@ export default async function handler(req: Request, context: Context) {
     <div>${contentHtml}</div>
   </article>
   <footer>
-    <p><a href="https://omrabonsplans.fr/omra">Comparer les offres Omra</a> · <a href="https://omrabonsplans.fr/comparatif-agences">Comparer les agences</a></p>
+    <p><a href="https://omrabonsplans.fr/">Comparer les offres Omra</a> · <a href="https://omrabonsplans.fr/comparatif-agences">Comparer les agences</a></p>
   </footer>
   <div id="root"></div>
-  <script type="module" src="/assets/index.js"></script>
 </body>
 </html>`;
 
