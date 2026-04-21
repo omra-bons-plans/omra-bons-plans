@@ -212,7 +212,8 @@ export default function ComparateurOmra() {
 
   // ⚡ URL SYNC: Update URL when tripType changes (one-way sync only)
   useEffect(() => {
-    const targetPath = tripType === 'hajj' ? '/hajj' : '/omra';
+    // omra → /, hajj → /hajj
+    const targetPath = tripType === 'hajj' ? '/hajj' : '/';
     // Only navigate if we're on a comparator page and path doesn't match
     if ((location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj') && location.pathname !== targetPath) {
       navigate(targetPath, { replace: true });
