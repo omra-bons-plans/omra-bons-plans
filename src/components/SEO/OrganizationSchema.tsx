@@ -64,7 +64,7 @@ export const OrganizationSchema = () => {
         "https://www.instagram.com/omrabonsplans",
         "https://www.facebook.com/omrabonsplans",
         "https://www.tiktok.com/@omrabonsplans",
-        "https://g.page/r/CQzTthDA4fm6EBM"
+        "https://www.google.com/search?q=Omra+Bons+Plans"
       ],
       "knowsAbout": [
         "Omra",

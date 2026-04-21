@@ -756,7 +756,7 @@ export default function ComparateurOmra() {
           {/* ⭐ AggregateRating badge — visible pour Google et les utilisateurs */}
           <div className="flex items-center justify-center gap-2 mt-4">
             <a
-              href="https://g.page/r/CQzTthDA4fm6EBM/review"
+              href="https://www.google.com/search?q=Omra+Bons+Plans"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 transition-colors"
