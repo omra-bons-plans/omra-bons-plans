@@ -37,13 +37,7 @@ const allInternalLinks: InternalLink[] = [
     description: 'Comparez les offres Hajj',
     icon: <Search className="w-4 h-4" />
   },
-  { 
-    href: '/bons-plans', 
-    label: 'Bons Plans Omra', 
-    description: 'Offres et services',
-    icon: <Star className="w-4 h-4" />
-  },
-  { 
+  {
     href: '/agences-liste', 
     label: 'Liste des Agences', 
     description: 'Agences Omra agréées',
@@ -103,27 +97,15 @@ const allInternalLinks: InternalLink[] = [
     description: 'Nous contacter',
     icon: <MapPin className="w-4 h-4" />
   },
-  { 
-    href: '/search', 
-    label: 'Recherche', 
-    description: 'Rechercher des offres',
-    icon: <Search className="w-4 h-4" />
-  },
-  { 
-    href: '/favoris', 
-    label: 'Mes Favoris', 
-    description: 'Vos offres sauvegardées',
-    icon: <Star className="w-4 h-4" />
-  },
 ];
 
 // Liens recommandés par page pour éviter le contenu dupliqué
 const relatedLinksMap: Record<string, string[]> = {
-  '/omra': ['/hajj', '/bons-plans', '/agences-liste', '/ramadan-hajj-dates', '/comparatif-agences'],
-  '/hajj': ['/omra', '/bons-plans', '/agences-liste', '/ramadan-hajj-dates'],
-  '/bons-plans': ['/omra', '/hajj', '/agences-liste', '/ramadan-hajj-dates', '/blog'],
-  '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/omra', '/hajj', '/bons-plans'],
-  '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/omra', '/hajj', '/bons-plans'],
+  '/omra': ['/hajj', '/omra', '/agences-liste', '/ramadan-hajj-dates', '/comparatif-agences'],
+  '/hajj': ['/omra', '/omra', '/agences-liste', '/ramadan-hajj-dates'],
+  '/omra': ['/omra', '/hajj', '/agences-liste', '/ramadan-hajj-dates', '/blog'],
+  '/agences-liste': ['/comparatif-agences', '/comparatif-visuel', '/omra', '/hajj', '/omra'],
+  '/comparatif-agences': ['/agences-liste', '/comparatif-visuel', '/omra', '/hajj', '/omra'],
   '/comparatif-visuel': ['/agences-liste', '/comparatif-agences', '/omra', '/hajj', '/blog'],
   '/blog': ['/omra', '/hajj', '/discussions', '/prayer-times', '/islamic-calendar'],
   '/prayer-times': ['/islamic-calendar', '/ramadan-hajj-dates', '/blog', '/omra'],
@@ -132,9 +114,9 @@ const relatedLinksMap: Record<string, string[]> = {
   '/discussions': ['/blog', '/omra', '/hajj', '/about', '/contact'],
   '/about': ['/contact', '/omra', '/blog', '/discussions'],
   '/contact': ['/about', '/omra', '/blog', '/discussions'],
-  '/favoris': ['/omra', '/hajj', '/bons-plans', '/agences-liste', '/blog'],
-  '/search': ['/omra', '/hajj', '/bons-plans', '/agences-liste', '/favoris'],
-  '/publish': ['/omra', '/bons-plans', '/about', '/contact'],
+  '/omra': ['/omra', '/hajj', '/omra', '/agences-liste', '/blog'],
+  '/search': ['/omra', '/hajj', '/agences-liste', '/blog'],
+  '/publish': ['/omra', '/omra', '/about', '/contact'],
 };
 
 export const InternalLinks: React.FC<InternalLinksProps> = ({

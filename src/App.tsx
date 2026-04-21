@@ -115,10 +115,9 @@ const App = () => (
                   {/* Sitemap dynamique - doit être avant les autres routes */}
                   <Route path="/sitemap.xml" element={<SitemapXml />} />
                   
-                  {/* Comparateur Omra & Hajj - Routes dédiées pour partage */}
-                  {/* SEO: / redirige vers /omra pour éviter le contenu dupliqué */}
-                  <Route path="/" element={<Navigate to="/omra" replace />} />
-                  <Route path="/omra" element={<ComparateurOmra />} />
+                  {/* Comparateur Omra & Hajj */}
+                  <Route path="/" element={<ComparateurOmra />} />
+                  <Route path="/omra" element={<Navigate to="/" replace />} />
                   <Route path="/hajj" element={<ComparateurOmra />} />
                   
                   {/* Pages de détails d'offres individuelles */}

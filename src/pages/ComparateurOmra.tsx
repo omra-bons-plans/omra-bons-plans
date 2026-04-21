@@ -666,7 +666,7 @@ export default function ComparateurOmra() {
         keywords={tripType === 'hajj'
           ? ['hajj 2026', 'prix hajj 2026', 'agence hajj france', 'comparateur hajj', 'package hajj', 'inscription hajj 2026', 'dates hajj 2026']
           : ['comparateur omra', 'omra 2026', 'prix omra 2026', 'agence omra france', 'omra tout compris', 'omra pas chère', 'offres omra 2026', 'omra ramadan 2026']}
-        path={`/${tripType}`}
+        path={tripType === 'omra' ? '/' : '/hajj'}
         structuredData={tripType === 'omra' ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",

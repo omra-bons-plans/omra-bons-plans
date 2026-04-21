@@ -1,5 +1,5 @@
-# SEO: Rewrite racine vers /omra — 200 évite un aller-retour réseau vs 301
-/ /omra 200
+# /omra redirige vers / (la vraie page d'accueil)
+/omra / 301
 
 # Redirections françaises vers anglaises (consolidation SEO)
 /a-propos /about 301
