@@ -193,7 +193,7 @@ export default async function handler(req: Request, context: Context) {
     .join("\n");
 
   const faqsHtml = page.faqs
-    .map((f) => `<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">${escHtml(f.q)}</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">${escHtml(f.a)}</p></div></div>`)
+    .map((f) => `<div><h3>${escHtml(f.q)}</h3><p>${escHtml(f.a)}</p></div>`)
     .join("\n");
 
   const html = `<!DOCTYPE html>
@@ -217,7 +217,7 @@ export default async function handler(req: Request, context: Context) {
     <h1>${escHtml(page.h1)}</h1>
     <p>${escHtml(page.intro)}</p>
     ${sectionsHtml}
-    <section itemscope itemtype="https://schema.org/FAQPage">
+    <section>
       <h2>Questions fréquentes</h2>
       ${faqsHtml}
     </section>
