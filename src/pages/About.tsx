@@ -107,7 +107,7 @@ const About = () => {
                   <p className="text-muted-foreground leading-relaxed">
                     J&apos;ai vécu plus de <strong>10 années à Makkah (La Mecque)</strong>, au cœur des lieux les plus sacrés de l&apos;Islam.
                     Durant cette période, j&apos;ai eu l&apos;honneur d&apos;accompagner personnellement <strong>plus de 5 000 pèlerins</strong> francophones
-                    lors du Hajj et de l&apos;Omra — des familles, des seniors, des femmes seules, des personnes à mobilité réduite.
+                    lors du Hajj et de l&apos;Omra — des familles, des seniors, des couples, des personnes à mobilité réduite.
                     Cette expérience unique sur le terrain m&apos;a permis de comprendre de l&apos;intérieur les défis que rencontrent
                     les pèlerins français pour trouver une agence fiable et une offre adaptée. C&apos;est de ce constat qu&apos;est né
                     <strong className="text-primary"> Omra Bons Plans</strong>.
