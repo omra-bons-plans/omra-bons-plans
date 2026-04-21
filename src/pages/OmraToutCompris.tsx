@@ -23,6 +23,18 @@ export default function OmraToutCompris() {
         <meta property="og:type" content="article" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Omra Tout Compris 2026 : Forfaits et Meilleures Offres",
+          "description": "Guide complet des forfaits Omra tout compris 2026 : ce qui est inclus, comparatif des prix par standing, et conseils pour bien choisir son package.",
+          "url": "https://omrabonsplans.fr/omra-tout-compris",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-01-01",
+          "dateModified": "2026-04-21",
+          "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
             {
@@ -30,7 +42,7 @@ export default function OmraToutCompris() {
               "name": "Qu'est-ce que la Omra tout compris ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "La Omra tout compris (all-inclusive) est un forfait où tous les frais sont inclus : vol international France-Jeddah, hébergement à La Mecque et Médine, petit-déjeuner et dîner, transport terrestre en bus, encadrement groupe et visa Hajj. Le pèlerin n'a à payer que les repas supplémentaires et dépenses personnelles."
+                "text": "La Omra tout compris (all-inclusive) est un forfait où tous les frais principaux sont inclus dans un prix global. Le pèlerin n'a pas à gérer de réservations séparées : tout est organisé par l'agence. Le forfait comprend généralement le vol international aller-retour depuis la France, l'hébergement à La Mecque et Médine (3 à 5 nuits dans chaque ville), le petit-déjeuner et le dîner, les transferts aéroport-hôtel, le transport entre les villes saintes en bus climatisé, l'encadrement religieux par un guide francophone, le visa Omra et une assurance de base. Les seuls frais restant à votre charge sont le déjeuner (pris librement sur place), les achats personnels, les boissons hors repas et les vaccins obligatoires. Ce type de package est idéal pour les primo-pèlerins, les personnes seules, les seniors et toute personne souhaitant vivre son pèlerinage sans contrainte logistique."
               }
             },
             {
@@ -38,7 +50,7 @@ export default function OmraToutCompris() {
               "name": "Quel est le prix moyen de la Omra tout compris ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Le prix moyen de la Omra tout compris 2026 varie de 1 200€ pour les packages économiques 3-étoiles à 4 000€+ pour les forfaits luxury 5-étoiles. La majorité des agences proposent des packages entre 1 800€ et 2 800€ pour un bon rapport qualité-prix."
+                "text": "Le prix d'un forfait Omra tout compris 2026 varie en fonction de trois facteurs principaux : la période de départ, le niveau de l'hôtel et la durée du séjour. Pour un séjour de 10 nuits en hôtel 3 étoiles pendant la basse saison, comptez 1 200 à 1 500 euros tout compris. En hôtel 4 étoiles standard, les prix oscillent entre 1 800 et 2 500 euros hors Ramadan. Pour un hébergement 4-5 étoiles proche de la Masjid al-Haram (moins de 500 mètres), prévoyez entre 2 500 et 3 500 euros. Les packages luxury 5 étoiles avec vue sur la Kaaba dépassent généralement les 4 000 euros. Pendant le Ramadan, tous les tarifs augmentent de 50 à 100%. Notre comparateur vous permet de voir les prix en temps réel selon votre période et de comparer les offres de 20 agences agréées."
               }
             },
             {
@@ -46,7 +58,7 @@ export default function OmraToutCompris() {
               "name": "La Omra tout compris ou à la carte : quel est le mieux ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Omra tout compris : avantage pour pèlerins tranquilles, groupe soudé, pas de soucis logistiques. À la carte : avantage pour voyageurs indépendants, liberté d'horaires, possibilité de faire des économies. Les couples/familles préfèrent à la carte ; les personnes seules préfèrent tout compris."
+                "text": "Les deux options ont leurs avantages selon votre profil. Le forfait tout compris est recommandé si c'est votre première Omra, si vous voyagez seul(e), si vous êtes senior ou si vous avez des besoins particuliers. L'encadrement d'un guide francophone et le transport organisé vous permettent de vous concentrer entièrement sur votre démarche spirituelle. L'Omra à la carte est préférable si vous avez déjà effectué plusieurs Omra, si vous souhaitez une flexibilité totale dans vos horaires, ou si vous voyagez en groupe avec vos proches. L'option à la carte est généralement 20 à 40% moins chère mais demande beaucoup plus d'organisation. En résumé : tout compris pour la tranquillité d'esprit, à la carte pour l'indépendance et l'économie."
               }
             },
             {
@@ -54,7 +66,7 @@ export default function OmraToutCompris() {
               "name": "Peut-on voyager seul en tout compris ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Oui, absolument. La Omra tout compris est même recommandée pour les pèlerins seuls : encadrement groupe dès l'aéroport, transport fourni, repas collectifs, sécurité. L'isolement et l'angoisse sont mineurs. La plupart des pèlerins tout compris sont des personnes seules."
+                "text": "Oui, absolument — et c'est même l'une des meilleures décisions pour une Omra en solitaire. Les forfaits tout compris sont conçus pour accueillir des pèlerins individuels qui rejoignent un groupe constitué par l'agence. Vous partez seul mais vous ne l'êtes jamais vraiment : dès l'aéroport en France, vous retrouvez les autres membres du groupe, un chef de groupe vous accompagne durant tout le séjour et les repas se prennent en commun à l'hôtel. Cette formule présente de nombreux avantages : sécurité d'être encadré dans un pays que l'on ne connaît pas, suppression de toute contrainte logistique (pas de navette à réserver, pas d'hôtel à chercher), et possibilité de rencontrer d'autres pèlerins francophones. Les femmes seules trouvent également dans les groupes tout compris une solution sûre, conforme aux recommandations des agences agréées."
               }
             }
           ]
@@ -65,7 +77,7 @@ export default function OmraToutCompris() {
         <div className="container mx-auto px-4 py-6 max-w-4xl">
           <SEOBreadcrumb items={[
             { name: 'Accueil', url: '/' },
-            { name: 'Omra', url: '/omra' },
+            { name: 'Omra', url: '/' },
             { name: 'Tout Compris', url: '/omra-tout-compris' }
           ]} />
 

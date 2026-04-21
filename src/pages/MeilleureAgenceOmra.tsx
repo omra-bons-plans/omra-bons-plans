@@ -66,6 +66,18 @@ export default function MeilleureAgenceOmra() {
         <meta property="og:type" content="article" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Meilleure Agence Omra 2026 : Classement et Guide de Choix",
+          "description": "Classement des 5 meilleures agences Omra en France basé sur les avis Google, critères de fiabilité et guide complet pour bien choisir.",
+          "url": "https://omrabonsplans.fr/meilleure-agence-omra",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-01-01",
+          "dateModified": "2026-04-21",
+          "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
             {
@@ -73,7 +85,7 @@ export default function MeilleureAgenceOmra() {
               "name": "Quelle est la meilleure agence Omra en France ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Il n'existe pas une seule « meilleure » agence car cela dépend de vos priorités. Tawaf (4.8★) excelle en sérieux et encadrement. Medinvoyages (4.7★) offre le meilleur rapport qualité-prix. Al-Maqam (4.6★) propose les hôtels les plus luxueux. Omra Discount (4.5★) est pour les petits budgets. Chacune a ses forces."
+                "text": "La question de la meilleure agence Omra n'a pas de réponse universelle — tout dépend de vos priorités et de votre budget. D'après les avis Google de milliers de pèlerins français, Tawaf se distingue avec une note de 4,8/5 sur plus de 520 avis, notamment pour la qualité de son encadrement. Medinvoyages (4,7/5) est souvent citée pour son excellent rapport qualité-prix et sa flexibilité de paiement. Al-Maqam (4,6/5) est la référence pour les hôtels 4-5 étoiles proches de la Masjid al-Haram. Pour les petits budgets, Omra Discount propose les tarifs les plus accessibles. La vraie méthode : comparez au minimum 3 devis pour les mêmes dates, vérifiez l'agrément ATOUT FRANCE, lisez les 10 derniers avis Google et appelez directement l'agence pour tester la qualité de leur service client avant tout engagement."
               }
             },
             {
@@ -81,7 +93,7 @@ export default function MeilleureAgenceOmra() {
               "name": "Comment vérifier qu'une agence Omra est fiable ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Vérifiez : (1) Agrément ATOUT FRANCE officiel, (2) Avis Google authentiques (300+ avis minimum), (3) Présence physique en France avec numéro de téléphone, (4) Site professionnel avec mentions légales, (5) Assurance annulation fournie."
+                "text": "La fiabilité d'une agence Omra se vérifie sur plusieurs critères concrets. L'agrément ATOUT FRANCE est obligatoire pour toute agence de voyages en France — vérifiez le numéro de licence sur le site officiel atout-france.fr. Ensuite, examinez les avis Google : une agence sérieuse doit avoir au minimum 200 à 300 avis récents avec une note d'au moins 4,3/5. Méfiez-vous des agences avec très peu d'avis ou des avis suspects (tous postés le même jour, très courts). Vérifiez que l'agence dispose d'une adresse physique en France, d'un numéro de téléphone fixe (pas uniquement WhatsApp) et de mentions légales complètes. L'assurance annulation est cruciale : demandez le document d'assurance avant de signer. Enfin, appelez et posez des questions précises — une agence sérieuse prend le temps de répondre clairement sans pression à la vente."
               }
             },
             {
@@ -89,7 +101,7 @@ export default function MeilleureAgenceOmra() {
               "name": "Quel budget prévoir pour une Omra de qualité ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Pour une Omra de qualité tout compris en 2026 : minimum 1 500€ pour une Omra correcte en hôtel 3-4★. Entre 2 000€-2 500€ vous obtenez un bon ratio qualité-prix. Au-delà de 3 000€ vous entrez dans le luxe. Les packages sous 1 200€ sont généralement de mauvaise qualité."
+                "text": "Le budget minimum pour une Omra de qualité raisonnable en 2026 se situe autour de 1 500 euros par personne, hors Ramadan, en hôtel 3 à 4 étoiles avec vol inclus depuis Paris pour 10 nuits. En dessous de 1 200 euros, les compromis sont souvent importants : hôtel très éloigné du Haram, vols avec longues correspondances, groupes très chargés et guide peu expérimenté. Pour un bon rapport qualité-prix, la fourchette 1 800 à 2 500 euros correspond à un hôtel 4 étoiles à moins d'un kilomètre du Haram, avec un groupe de taille raisonnable. Au-delà de 3 000 euros, vous entrez dans le segment premium avec des hôtels vue sur la Kaaba et des groupes de moins de 30 personnes. Pendant le Ramadan, multipliez tous ces tarifs par 1,5 à 2 selon la période."
               }
             }
           ]
@@ -321,6 +333,20 @@ export default function MeilleureAgenceOmra() {
               <p className="font-semibold">Liste Complète des Agences Omra & Hajj</p>
               <p className="text-xs text-muted-foreground mt-1">Comparateur avec avis, notes et tarifs à jour</p>
             </Link>
+          </section>
+
+          {/* Avis de l'expert */}
+          <section className="mb-10 bg-primary/5 border border-primary/20 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
+              <div>
+                <p className="font-bold text-foreground">Farid d'Arabie</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  "Après des années à accompagner des pèlerins francophones sur les terres saintes, mon conseil numéro un : <strong>ne choisissez jamais une agence uniquement sur le prix</strong>. J'ai vu trop de pèlerins arriver à La Mecque avec un hôtel à 3 km du Haram, sans guide compétent, pour avoir voulu économiser 200 euros. Le pèlerinage est l'un des actes les plus importants de votre vie — investissez dans une agence qui vous accompagnera vraiment. Vérifiez les avis Google récents, appelez l'agence et posez des questions précises sur l'hôtel et le guide. Une bonne agence ne fuit pas ces questions."
+                </p>
+              </div>
+            </div>
           </section>
 
           <InternalLinks currentPage="/meilleure-agence-omra" variant="related" className="mt-8" />
