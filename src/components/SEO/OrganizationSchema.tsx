@@ -23,8 +23,12 @@ export const OrganizationSchema = () => {
       "image": "https://omrabonsplans.fr/logo-og.png",
       "foundingDate": "2024",
       "founder": {
-        "@type": "Organization",
-        "name": "Omra Bons Plans"
+        "@type": "Person",
+        "@id": "https://omrabonsplans.fr/about#farid",
+        "name": "Farid d'Arabie",
+        "jobTitle": "Expert en pèlerinage islamique & Guide spirituel",
+        "description": "Plus de 10 ans de résidence à La Mecque. A accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra.",
+        "knowsAbout": ["Omra", "Hajj", "Pèlerinage islamique", "La Mecque", "Médine"]
       },
       "contactPoint": [
         {

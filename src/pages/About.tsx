@@ -42,8 +42,36 @@ const About = () => {
               "name": "Omra Bons Plans",
               "url": "https://omrabonsplans.fr",
               "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
-              "description": "Première plateforme au monde dédiée aux services Omra et Hajj"
+              "description": "Première plateforme au monde dédiée aux services Omra et Hajj",
+              "founder": {
+                "@type": "Person",
+                "name": "Farid d'Arabie",
+                "jobTitle": "Expert en pèlerinage islamique & Fondateur",
+                "description": "Plus de 10 ans de résidence à La Mecque. A accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra.",
+                "knowsAbout": ["Omra", "Hajj", "La Mecque", "Médine", "Pèlerinage islamique", "Agences de voyage halal"]
+              }
             }
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": "https://omrabonsplans.fr/about#farid",
+            "name": "Farid d'Arabie",
+            "jobTitle": "Expert en pèlerinage islamique & Fondateur d'Omra Bons Plans",
+            "description": "Plus de 10 ans de résidence à La Mecque (Makkah). Guide spirituel ayant accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra. Fondateur du premier comparateur d'agences Omra en France.",
+            "url": "https://omrabonsplans.fr/about",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Omra Bons Plans",
+              "url": "https://omrabonsplans.fr"
+            },
+            "knowsAbout": ["Omra", "Hajj", "La Mecque", "Médine", "Rites islamiques", "Agences de voyage Omra", "Calendrier islamique"],
+            "hasCredential": [
+              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Guide spirituel agréé", "description": "Plus de 5 000 pèlerins accompagnés lors du Hajj et de l'Omra" },
+              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Résident de Makkah", "description": "Plus de 10 années de résidence à La Mecque" }
+            ]
           })}
         </script>
       </Helmet>
@@ -61,69 +89,75 @@ const About = () => {
             </Button>
           </div>
 
+          {/* Fondateur */}
+          <Card className="mb-8 border-primary/20 bg-primary/5">
+            <CardContent className="pt-6">
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="flex-shrink-0 w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-3xl font-bold text-primary">
+                  F
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold mb-1">Farid d'Arabie</h2>
+                  <p className="text-primary font-semibold mb-3">Expert en pèlerinage islamique · Fondateur d'Omra Bons Plans</p>
+                  <div className="flex flex-wrap gap-3 mb-4">
+                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🕌 +10 ans à La Mecque</span>
+                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🤲 +5 000 pèlerins accompagnés</span>
+                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">✈️ Hajj & Omra</span>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    J&apos;ai vécu plus de <strong>10 années à Makkah (La Mecque)</strong>, au cœur des lieux les plus sacrés de l&apos;Islam.
+                    Durant cette période, j&apos;ai eu l&apos;honneur d&apos;accompagner personnellement <strong>plus de 5 000 pèlerins</strong> francophones
+                    lors du Hajj et de l&apos;Omra — des familles, des seniors, des femmes seules, des personnes à mobilité réduite.
+                    Cette expérience unique sur le terrain m&apos;a permis de comprendre de l&apos;intérieur les défis que rencontrent
+                    les pèlerins français pour trouver une agence fiable et une offre adaptée. C&apos;est de ce constat qu&apos;est né
+                    <strong className="text-primary"> Omra Bons Plans</strong>.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
-              <h1 className="text-3xl font-bold text-center mb-4">À Propos de Nous</h1>
-              <h2 className="text-xl text-muted-foreground text-center">Découvrez l'histoire et la mission de la première plateforme dédiée aux services Omra et Hajj</h2>
+              <h1 className="text-3xl font-bold text-center mb-4">À Propos d'Omra Bons Plans</h1>
+              <p className="text-xl text-muted-foreground text-center">Le premier comparateur d&apos;agences Omra et Hajj agréées en France, fondé par un expert du terrain</p>
             </CardHeader>
             <CardContent className="prose prose-lg max-w-none">
               <div className="space-y-6 text-muted-foreground leading-relaxed">
+                <h3 className="text-xl font-semibold text-foreground mt-4 mb-4">Pourquoi Omra Bons Plans ?</h3>
                 <p>
-                  Bienvenue sur Omra Bons Plans, la première plateforme francophone entièrement dédiée au pèlerinage musulman. 
-                  Nous sommes une équipe passionnée composée d&apos;anciens guides spirituels ayant vécu de nombreuses années 
-                  en Arabie saoudite et accompagné des milliers de pèlerins dans leur voyage sacré vers La Mecque et Médine.
+                  Après des années passées à La Mecque et des milliers de pèlerins accompagnés, j&apos;ai observé une réalité
+                  difficile : de nombreux fidèles francophones payaient trop cher, ou pire, se retrouvaient avec des agences
+                  peu sérieuses. Le manque de transparence sur les prix, les hôtels et les services inclus était flagrant.
                 </p>
-                
-                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Notre Histoire</h3>
                 <p>
-                  Au fil des années passées sur les terres saintes, nous avons été témoins d&apos;une problématique récurrente : 
-                  de nombreux pèlerins francophones recherchent désespérément des services fiables, transparents et adaptés 
-                  à leurs besoins spécifiques, mais peinent à trouver les bons prestataires dans la multitude d&apos;offres disponibles. 
-                  Parallèlement, de nombreux prestataires sérieux et professionnels souhaitent proposer leurs services de qualité, 
-                  sans toujours disposer de la visibilité nécessaire pour atteindre efficacement les futurs pèlerins.
-                </p>
-
-                <p>
-                  C&apos;est précisément de ce double constat, fruit de notre expérience terrain et de notre proximité avec 
-                  la communauté musulmane francophone, qu&apos;est née <strong className="text-primary font-bold">omrabonsplans.fr</strong>. 
-                  Nous avons créé la première plateforme au monde spécialement conçue pour mettre en relation directe les futurs 
-                  pèlerins avec des prestataires de confiance vérifiés, dans un environnement sécurisé et transparent.
+                  C&apos;est précisément de cette expérience terrain qu&apos;est née <strong className="text-primary font-bold">omrabonsplans.fr</strong> —
+                  la première plateforme francophone permettant de comparer en temps réel les offres de plus de 20 agences
+                  françaises agréées, avec des prix transparents, des avis vérifiés et des informations détaillées sur
+                  chaque séjour.
                 </p>
 
                 <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Notre Mission</h3>
                 <p>
-                  Notre mission est claire et ambitieuse : <strong className="text-foreground">faciliter l&apos;organisation complète 
-                  du voyage religieux</strong> en offrant un espace digital sécurisé, transparent et accessible où chacun peut 
-                  facilement trouver ou proposer les services qui correspondent précisément à ses attentes et à son budget. 
-                  Nous croyons fermement que la préparation d&apos;un pèlerinage ne devrait pas être source de stress ou d&apos;inquiétude, 
-                  mais plutôt une étape sereine et joyeuse du voyage spirituel.
+                  Notre mission est simple : <strong className="text-foreground">que chaque pèlerin français puisse partir
+                  en Omra ou Hajj en toute confiance</strong>, avec la certitude d&apos;avoir trouvé la meilleure offre
+                  pour son budget et ses besoins. La préparation d&apos;un pèlerinage ne devrait pas être source de stress —
+                  elle devrait être une étape sereine et joyeuse du voyage spirituel.
                 </p>
 
-                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Nos Services</h3>
-                <p>
-                  Sur Omra Bons Plans, vous trouverez une gamme complète de services pour votre pèlerinage :
-                </p>
+                <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">Ce que vous trouverez ici</h3>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Comparaison détaillée des agences de voyage Omra et Hajj certifiées</li>
-                  <li>Annonces de vols directs et avec escale vers Jeddah et Médine</li>
-                  <li>Hébergements variés : hôtels face au Haram, appartements familiaux, résidences</li>
-                  <li>Services de guides spirituels francophones expérimentés</li>
-                  <li>Transport privé avec chauffeurs professionnels</li>
-                  <li>Services de garde d&apos;enfants certifiés</li>
+                  <li>Comparatif en temps réel de 20+ agences agréées (prix, hôtels, vols, services)</li>
+                  <li>Guides pratiques rédigés par un expert ayant vécu sur les terres saintes</li>
+                  <li>Informations vérifiées sur les conditions d&apos;entrée, les rites, les dates</li>
+                  <li>Horaires de prière, calendrier islamique, dates du Ramadan et Hajj</li>
                   <li>Forum communautaire pour échanger avec d&apos;autres pèlerins</li>
-                  <li>Blog avec guides pratiques et conseils d&apos;experts</li>
-                  <li>Outils religieux : horaires de prière, calendrier islamique, dates du Ramadan et Hajj</li>
                 </ul>
 
-                <p className="mt-6">
-                  Avec omrabonsplans.fr, nous souhaitons apporter plus de sérénité, de clarté et de confiance dans la préparation 
-                  de la Omra et du Hajj, afin que chaque pèlerin puisse se concentrer sur l&apos;essentiel : son adoration, 
-                  sa spiritualité et sa connexion avec Allah dans les lieux les plus sacrés de l&apos;Islam.
-                </p>
-
-                <p className="mt-6 text-primary font-semibold">
+                <p className="mt-8 text-primary font-semibold text-center text-lg">
                   Qu&apos;Allah accepte votre pèlerinage et facilite votre voyage spirituel. Amin.
                 </p>
+                <p className="text-right text-sm text-muted-foreground italic">— Farid d&apos;Arabie, fondateur</p>
               </div>
             </CardContent>
           </Card>
