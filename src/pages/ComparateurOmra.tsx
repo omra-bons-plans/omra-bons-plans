@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense, useMemo } from 'react';
+import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -118,7 +118,6 @@ export default function ComparateurOmra() {
   };
   
   const [tripType, setTripType] = useState<'omra' | 'hajj'>(getInitialTripType);
-  const isFirstRender = useRef(true);
   const [copied, setCopied] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -211,32 +210,11 @@ export default function ComparateurOmra() {
     setSelectedDuration('all');
   }, [tripType]);
 
-  // ⚡ URL SYNC: Update URL when tripType changes — skip on first render to prevent mount-time navigation loops
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    const targetPath = tripType === 'hajj' ? '/hajj' : '/';
-    navigate(targetPath, { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tripType]);
-
-  // ⚡ URL SYNC: Update tripType when URL changes (back/forward navigation only)
-  useEffect(() => {
-    // Only sync from URL on initial mount or popstate (back/forward)
-    const handlePopState = () => {
-      if (window.location.pathname === '/hajj' && tripType !== 'hajj') {
-        setTripType('hajj');
-      } else if ((window.location.pathname === '/omra' || window.location.pathname === '/') && tripType !== 'omra') {
-        setTripType('omra');
-      }
-    };
-    
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // ⚡ URL SYNC: Navigate directly when user switches tabs — no useEffect needed
+  const handleSetTripType = (type: 'omra' | 'hajj') => {
+    setTripType(type);
+    navigate(type === 'hajj' ? '/hajj' : '/', { replace: true });
+  };
 
   // Share page URL
   const handleSharePage = async () => {
@@ -802,7 +780,7 @@ export default function ComparateurOmra() {
             }>
               <FilterForm
                 tripType={tripType}
-                setTripType={setTripType}
+                setTripType={handleSetTripType}
                 selectedCity={selectedCity}
                 setSelectedCity={setSelectedCity}
                 selectedMonth={selectedMonth}
