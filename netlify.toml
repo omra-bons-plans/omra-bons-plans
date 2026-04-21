@@ -8,3 +8,31 @@
 [[edge_functions]]
   path = "/blog/*"
   function = "blog-prerender"
+
+[[edge_functions]]
+  path = "/omra-femme-seule"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/conditions-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/quand-partir-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-tout-compris"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/meilleure-agence-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/definition-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/prix-omra-2026"
+  function = "guide-prerender"
