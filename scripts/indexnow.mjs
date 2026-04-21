@@ -53,16 +53,25 @@ const body = JSON.stringify({
 
 console.log(`Submitting ${urls.length} URLs to IndexNow...`);
 
-const res = await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body,
-});
+const endpoints = [
+  'https://www.bing.com/indexnow',
+  'https://yandex.com/indexnow',
+];
 
-if (res.ok) {
-  console.log(`✓ IndexNow accepted (HTTP ${res.status})`);
-} else {
-  const text = await res.text();
-  console.error(`✗ IndexNow rejected (HTTP ${res.status}): ${text}`);
-  process.exit(1);
+let success = false;
+for (const url of endpoints) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body,
+  });
+  if (res.ok || res.status === 202) {
+    console.log(`✓ ${url} accepted (HTTP ${res.status})`);
+    success = true;
+  } else {
+    const text = await res.text();
+    console.warn(`✗ ${url} rejected (HTTP ${res.status}): ${text}`);
+  }
 }
+
+if (!success) process.exit(1);
