@@ -15,6 +15,8 @@ const saisonsData: Record<string, {
   tempsMedine: string;
   prixMin: string;
   prixMax: string;
+  prixMinNum: number;
+  prixMaxNum: number;
   affluence: string;
   avantages: string[];
   inconvenients: string[];
@@ -31,6 +33,8 @@ const saisonsData: Record<string, {
     tempsMedine: "20°C – 32°C",
     prixMin: "950€",
     prixMax: "2 000€",
+    prixMinNum: 950,
+    prixMaxNum: 2000,
     affluence: "Faible à modérée",
     avantages: [
       "Températures plus douces qu'en été (25–35°C)",
@@ -62,6 +66,8 @@ const saisonsData: Record<string, {
     tempsMedine: "16°C – 28°C",
     prixMin: "900€",
     prixMax: "1 900€",
+    prixMinNum: 900,
+    prixMaxNum: 1900,
     affluence: "Faible",
     avantages: [
       "Températures agréables : idéal pour marcher entre sites",
@@ -93,6 +99,8 @@ const saisonsData: Record<string, {
     tempsMedine: "12°C – 25°C",
     prixMin: "950€",
     prixMax: "2 500€",
+    prixMinNum: 950,
+    prixMaxNum: 2500,
     affluence: "Modérée (hausse fin décembre)",
     avantages: [
       "Températures les plus fraîches de l'année : très confortable",
@@ -123,6 +131,8 @@ const saisonsData: Record<string, {
     tempsMedine: "12°C – 26°C",
     prixMin: "900€",
     prixMax: "2 000€",
+    prixMinNum: 900,
+    prixMaxNum: 2000,
     affluence: "Faible à modérée",
     avantages: [
       "Début d'année : beaucoup d'offres promotionnelles",
@@ -276,9 +286,9 @@ export default function OmraSaison() {
               </thead>
               <tbody>
                 {[
-                  ["Économique (3★)", "10 nuits", data.prixMin + " – " + parseInt(data.prixMin) + 400 + "€"],
-                  ["Confort (4★)", "14 nuits", parseInt(data.prixMin) + 300 + "€ – " + parseInt(data.prixMax) - 200 + "€"],
-                  ["Premium (5★)", "14–21 nuits", parseInt(data.prixMax) - 300 + "€ – " + data.prixMax],
+                  ["Économique (3★)", "10 nuits", `${data.prixMin} – ${(data.prixMinNum + 400).toLocaleString('fr-FR')}€`],
+                  ["Confort (4★)", "14 nuits", `${(data.prixMinNum + 300).toLocaleString('fr-FR')}€ – ${(data.prixMaxNum - 200).toLocaleString('fr-FR')}€`],
+                  ["Premium (5★)", "14–21 nuits", `${(data.prixMaxNum - 300).toLocaleString('fr-FR')}€ – ${data.prixMax}`],
                 ].map(([formule, duree, prix], i) => (
                   <tr key={i} className={i % 2 === 0 ? "bg-muted/20" : ""}>
                     <td className="border border-border p-3 font-medium">{formule}</td>

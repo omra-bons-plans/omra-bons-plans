@@ -95,7 +95,7 @@ export default function GuideOmraPasChere() {
         <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-muted-foreground">
           <ol className="flex flex-wrap gap-1" itemScope itemType="https://schema.org/BreadcrumbList">
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link to="/omra" itemProp="item" className="hover:text-primary"><span itemProp="name">Accueil</span></Link>
+              <Link to="/" itemProp="item" className="hover:text-primary"><span itemProp="name">Accueil</span></Link>
               <meta itemProp="position" content="1" />
               <span className="mx-1">/</span>
             </li>
