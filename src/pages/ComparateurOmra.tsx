@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -118,6 +118,7 @@ export default function ComparateurOmra() {
   };
   
   const [tripType, setTripType] = useState<'omra' | 'hajj'>(getInitialTripType);
+  const isFirstRender = useRef(true);
   const [copied, setCopied] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -210,16 +211,16 @@ export default function ComparateurOmra() {
     setSelectedDuration('all');
   }, [tripType]);
 
-  // ⚡ URL SYNC: Update URL when tripType changes (one-way sync only)
+  // ⚡ URL SYNC: Update URL when tripType changes — skip on first render to prevent mount-time navigation loops
   useEffect(() => {
-    // omra → /, hajj → /hajj
-    const targetPath = tripType === 'hajj' ? '/hajj' : '/';
-    // Only navigate if we're on a comparator page and path doesn't match
-    if ((location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj') && location.pathname !== targetPath) {
-      navigate(targetPath, { replace: true });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+    const targetPath = tripType === 'hajj' ? '/hajj' : '/';
+    navigate(targetPath, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tripType]); // Only depend on tripType, not location.pathname to avoid loops
+  }, [tripType]);
 
   // ⚡ URL SYNC: Update tripType when URL changes (back/forward navigation only)
   useEffect(() => {
