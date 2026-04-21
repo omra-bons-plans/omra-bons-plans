@@ -9,23 +9,23 @@ import { Button } from '@/components/ui/button';
 const faqs = [
   {
     question: "Une femme peut-elle faire l'Omra seule sans mahram en 2026 ?",
-    answer: "Selon la loi saoudienne, oui : depuis 2021, les femmes de tout âge peuvent accomplir l'Omra sans mahram, à condition de voyager en groupe organisé avec une agence agréée. C'est légalement autorisé. Cependant, d'un point de vue religieux, la majorité des savants considèrent que le mahram reste obligatoire pour le voyage de la femme."
+    answer: "Selon la loi saoudienne en vigueur depuis 2021, oui : les femmes de tout âge peuvent accomplir l'Omra sans mahram, à condition de voyager avec un groupe organisé par une agence agréée par le Ministère saoudien du Hajj et de l'Omra. Cette réforme a été officiellement annoncée par les autorités saoudiennes et est appliquée sans restriction depuis lors. D'un point de vue légal, aucun document attestant d'un mahram n'est requis à l'entrée en Arabie Saoudite pour l'Omra. Cependant, d'un point de vue religieux, la majorité des savants (hanafite, malikite, shafiite) considèrent que le mahram reste obligatoire pour le voyage de la femme. Il est recommandé de consulter votre référent religieux avant de prendre votre décision."
   },
   {
-    question: "Quelles sont les conditions pour une femme seule en Omra ?",
-    answer: "Les conditions légales saoudiennes sont : voyager avec un groupe organisé par une agence agréée, rester avec le groupe lors des déplacements, suivre les consignes de l'accompagnatrice ou du guide. Il n'y a plus d'obligation légale d'avoir un mahram. Toutefois, religieusement, le mahram reste obligatoire selon la majorité des savants."
+    question: "Quelles sont les conditions officielles pour une femme seule en Omra ?",
+    answer: "Les conditions légales saoudiennes pour une femme voyageant sans mahram sont : (1) voyager avec un groupe organisé par une agence agréée par le Ministère saoudien du Hajj — cette agence doit fournir un encadrement; (2) rester avec le groupe lors des déplacements officiels vers le Masjid al-Haram et à Médine; (3) être titulaire d'un passeport valide ou d'une carte nationale d'identité française en cours de validité; (4) avoir au moins 18 ans (les mineures nécessitent une autorisation parentale notariée); (5) respecter les règles vestimentaires islamiques. Il n'y a plus d'obligation légale de présenter un acte de mariage ou de parenté avec un homme."
   },
   {
     question: "Y a-t-il des groupes spécialement pour femmes seules ?",
-    answer: "Oui, plusieurs agences françaises proposent des groupes de femmes exclusivement ou des groupes mixtes avec accompagnatrices féminines. Ces groupes offrent plus de confort et de sécurité pour les femmes voyageant seules. Tawaf, Medinvoyages et Al Maqam proposent ce type de formules."
+    answer: "Oui, plusieurs agences françaises ont développé des formules dédiées. Il existe deux types principaux : les groupes 100% féminins, composés exclusivement de femmes et accompagnés par une accompagnatrice désignée — disponibles chez certaines agences sur demande, souvent sur des dates spécifiques hors Ramadan; et les groupes mixtes avec accompagnatrice dédiée, qui est la formule la plus courante et la plus accessible tout au long de l'année. Les agences Tawaf, Medinvoyages, Pelerinhajj et Al Maqam proposent ces deux types de formules. Il est conseillé de préciser votre situation au moment de la réservation pour être orientée vers le groupe le plus adapté."
   },
   {
     question: "Quel est le prix d'une Omra pour femme seule ?",
-    answer: "Le prix est identique à celui d'une Omra standard. Comptez 900€ à 1 400€ hors Ramadan, et 1 800€ à 4 000€ pendant le Ramadan. Certaines agences proposent des chambres doubles ou quadruples partagées pour réduire les coûts."
+    answer: "Le prix d'une Omra pour une femme seule est identique à celui d'une Omra standard — aucun surcoût lié au statut de voyageuse seule. Comptez 900€ à 1 400€ pour une formule économique (3★, 10 nuits) hors Ramadan, et 1 800€ à 4 000€ pendant le Ramadan. Pour réduire les coûts, de nombreuses agences proposent des chambres partagées (chambre double ou quadruple) avec d'autres femmes du groupe, ce qui peut économiser 200 à 400€ par rapport à une chambre individuelle. Réservez 3 à 4 mois à l'avance pour bénéficier des meilleurs tarifs."
   },
   {
     question: "Comment se passe la sécurité à La Mecque et Médine pour une femme ?",
-    answer: "La Mecque et Médine sont des villes très sûres pour les femmes. La présence de nombreux gardiens et agents de sécurité est importante. Il est recommandé de rester avec le groupe, d'éviter de sortir seule la nuit, et d'avoir toujours le numéro de votre guide à portée."
+    answer: "La Mecque et Médine sont parmi les villes les plus sécurisées au monde pour les femmes. Le Masjid al-Haram est surveillé 24h/24 par des milliers d'agents de sécurité saoudiens et des organisations bénévoles. Des sections séparées pour hommes et femmes existent dans la grande mosquée. Pratiquement, il est recommandé de : rester avec votre groupe lors des déplacements nocturnes, noter le nom et l'adresse de votre hôtel en arabe sur un papier, garder le numéro de votre guide à portée, éviter de porter des bijoux de valeur. En cas de perte dans la foule, les postes de sécurité du Haram disposent de personnel arabophone et francophone."
   }
 ];
 
@@ -50,7 +50,7 @@ export default function OmraFemmeSeule() {
           "url": "https://omrabonsplans.fr/omra-femme-seule",
           "datePublished": "2026-01-20",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
         })}</script>
@@ -285,6 +285,133 @@ export default function OmraFemmeSeule() {
               </Card>
             ))}
           </div>
+        </section>
+
+        {/* Visa et documents */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">📄 Visa et documents nécessaires pour une femme seule</h2>
+          <p className="text-muted-foreground mb-4">
+            Depuis 2019, les ressortissantes françaises peuvent obtenir un visa Omra électronique (e-visa) sans passer par une agence.
+            Cependant, dans la pratique, les agences agréées incluent généralement le visa dans leur package.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-primary/10">
+                  <th className="border border-border p-3 text-left">Document</th>
+                  <th className="border border-border p-3 text-left">Obligatoire ?</th>
+                  <th className="border border-border p-3 text-left">Remarque</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Passeport français valide", "Oui", "Valide au moins 6 mois après le retour"],
+                  ["Visa Omra (e-visa)", "Oui", "Inclus dans la plupart des packages agence"],
+                  ["Acte de mahram", "Non (depuis 2021)", "Plus requis par la loi saoudienne"],
+                  ["Acte de mariage / naissance", "Non", "Plus exigé aux frontières"],
+                  ["Certificat vaccin méningite ACYW", "Oui", "Obligatoire — à faire avant départ"],
+                  ["Assurance voyage", "Recommandée", "Couvre rapatriement, frais médicaux"],
+                ].map(([doc, obligatoire, remarque], i) => (
+                  <tr key={i} className={i % 2 === 0 ? "bg-muted/20" : ""}>
+                    <td className="border border-border p-3 font-medium">{doc}</td>
+                    <td className="border border-border p-3">
+                      <span className={obligatoire === "Oui" ? "text-green-600 font-semibold" : obligatoire.startsWith("Non") ? "text-amber-600" : "text-muted-foreground"}>
+                        {obligatoire}
+                      </span>
+                    </td>
+                    <td className="border border-border p-3 text-muted-foreground">{remarque}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Source : Ministère saoudien du Hajj et de l'Omra — réforme de 2021. Vérifiez les conditions actualisées auprès de votre agence.
+          </p>
+        </section>
+
+        {/* Prix détaillé */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">💰 Prix Omra pour femme seule en 2026 : tableau détaillé</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-primary/10">
+                  <th className="border border-border p-3 text-left">Période</th>
+                  <th className="border border-border p-3 text-left">Chambre partagée</th>
+                  <th className="border border-border p-3 text-left">Chambre double</th>
+                  <th className="border border-border p-3 text-left">Chambre individuelle</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Hors saison (sept-nov)", "850 – 1 100€", "950 – 1 300€", "1 200 – 1 700€"],
+                  ["Hiver (janv-fév)", "900 – 1 200€", "1 000 – 1 400€", "1 300 – 1 800€"],
+                  ["Vacances scolaires", "1 100 – 1 500€", "1 300 – 1 800€", "1 600 – 2 200€"],
+                  ["Ramadan 2026", "1 600 – 2 500€", "1 900 – 3 000€", "2 500 – 4 500€"],
+                ].map(([periode, partage, double_, individuelle], i) => (
+                  <tr key={i} className={i % 2 === 0 ? "bg-muted/20" : ""}>
+                    <td className="border border-border p-3 font-medium">{periode}</td>
+                    <td className="border border-border p-3 text-green-700 font-semibold">{partage}</td>
+                    <td className="border border-border p-3 text-amber-700">{double_}</td>
+                    <td className="border border-border p-3 text-muted-foreground">{individuelle}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">Prix par personne depuis Paris, hôtel 3★, vols inclus. La chambre partagée avec d'autres femmes du groupe est l'option la plus économique.</p>
+        </section>
+
+        {/* Bagages spécifiques femme */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">🧳 Liste de bagages spécifique pour une femme en Omra</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold mb-3">Vêtements obligatoires</h3>
+              <ul className="space-y-1 text-sm text-muted-foreground">
+                <li>✓ 2-3 abayas ou robes longues amples (couleurs sobres)</li>
+                <li>✓ 3-4 hijabs (coton léger recommandé)</li>
+                <li>✓ Sous-vêtements respirants</li>
+                <li>✓ Chaussettes pour les prières</li>
+                <li>✓ Chaussures confortables à enfiler/enlever facilement</li>
+                <li>✓ Vêtements de nuit couvrants</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-3">Indispensables sur place</h3>
+              <ul className="space-y-1 text-sm text-muted-foreground">
+                <li>✓ Crème solaire SPF50+ (chaleur intense)</li>
+                <li>✓ Brumisateur (utile autour du Haram)</li>
+                <li>✓ Médicaments habituels + anti-douleur</li>
+                <li>✓ Serviettes hygiéniques (disponibles sur place)</li>
+                <li>✓ Coran numérique ou petit Coran de poche</li>
+                <li>✓ Carnet et stylo (dou'as, notes spirituelles)</li>
+                <li>✓ Batterie externe pour téléphone</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+            <strong>⚠ À ne pas emporter :</strong> parfum pendant l'état d'ihram, bijoux voyants, valise trop lourde (vous marcherez beaucoup).
+          </div>
+        </section>
+
+        {/* L'avis de l'expert */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">🎙️ L'avis de l'expert : Farid d'Arabie</h2>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary">F</div>
+                <div>
+                  <p className="text-sm font-semibold text-primary mb-1">Farid d'Arabie — Expert pèlerinage, +10 ans à La Mecque, +5 000 pèlerins accompagnés</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    "Au fil des années, j'ai accompagné des centaines de femmes en Omra — des mères de famille, des retraitées, des jeunes femmes. La réforme de 2021 a changé les choses légalement, mais sur le terrain, ce qui fait la différence c'est le choix de l'agence et la qualité de l'accompagnement. Une bonne agence avec une accompagnatrice compétente vaut mille fois mieux qu'un groupe anonyme. Mon conseil : demandez systématiquement si un guide ou une accompagnatrice sera présent(e) lors des rites, pas seulement à l'aéroport. Et partez avec une copie de tous vos documents sur vous — pas seulement dans votre valise."
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* CTA */}
