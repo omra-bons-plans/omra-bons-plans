@@ -63,7 +63,7 @@ export default function ComparateurOmraFrance() {
           "url": "https://omrabonsplans.fr/comparateur-omra-france",
           "datePublished": "2026-04-14",
           "dateModified": "2026-04-14",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/hero-kaaba-optimized.webp" }
         })}</script>
@@ -108,7 +108,7 @@ export default function ComparateurOmraFrance() {
         <div className="bg-gradient-to-br from-primary/20 via-background to-background py-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <nav className="text-sm text-muted-foreground mb-6">
-              <Link to="/omra" className="hover:text-primary">Accueil</Link>
+              <Link to="/" className="hover:text-primary">Accueil</Link>
               <span className="mx-2">/</span>
               <span className="text-foreground">Comparateur Omra France</span>
             </nav>
@@ -119,7 +119,7 @@ export default function ComparateurOmraFrance() {
               Comparez les offres de 20+ agences Omra agréées en France — prix en temps réel, avis vérifiés, 100% gratuit
             </p>
             <Link
-              to="/omra"
+              to="/"
               className="inline-block bg-primary text-primary-foreground px-10 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-colors"
             >
               Comparer les offres maintenant →
@@ -282,7 +282,7 @@ export default function ComparateurOmraFrance() {
             <h2 className="text-2xl font-bold mb-3">Prêt à comparer les offres Omra ?</h2>
             <p className="text-muted-foreground mb-6">Accédez au comparateur et trouvez votre séjour au meilleur prix en moins de 2 minutes</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/omra" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+              <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Accéder au comparateur Omra
               </Link>
               <Link to="/prix-omra-2026" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">

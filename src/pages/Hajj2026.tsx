@@ -363,7 +363,7 @@ export default function Hajj2026() {
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">Pour préparer votre Hajj</h2>
             <div className="grid md:grid-cols-3 gap-3">
-              <Link to="/omra" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
+              <Link to="/" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
                 <p className="font-semibold text-sm">Comparateur Hajj 2026</p>
                 <p className="text-xs text-muted-foreground mt-1">Voir toutes les offres</p>
               </Link>

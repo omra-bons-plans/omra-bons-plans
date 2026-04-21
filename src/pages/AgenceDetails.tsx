@@ -94,7 +94,7 @@ export default function AgenceDetails() {
               "ratingValue": agency.googleRating,
               "bestRating": "5"
             },
-            "author": { "@type": "Organization", "name": "Omra Bons Plans" }
+            "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" }
           }
         }}
       />

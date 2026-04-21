@@ -282,7 +282,7 @@ export default function OmraDebutant() {
             <h2 className="text-2xl font-bold mb-3">Prêt pour votre première Omra ?</h2>
             <p className="text-muted-foreground mb-6">Comparez les offres et trouvez le séjour idéal pour votre premier pèlerinage</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/omra" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+              <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Comparer les offres Omra
               </Link>
               <Link to="/conditions-omra" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">

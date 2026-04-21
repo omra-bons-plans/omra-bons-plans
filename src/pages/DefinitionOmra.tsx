@@ -54,7 +54,7 @@ export default function DefinitionOmra() {
           "url": "https://omrabonsplans.fr/definition-omra",
           "datePublished": "2026-04-03",
           "dateModified": "2026-04-03",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/hero-kaaba-optimized.webp" }
         })}</script>
@@ -81,7 +81,7 @@ export default function DefinitionOmra() {
         <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-muted-foreground">
           <ol className="flex flex-wrap gap-1" itemScope itemType="https://schema.org/BreadcrumbList">
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link to="/omra" itemProp="item" className="hover:text-primary"><span itemProp="name">Accueil</span></Link>
+              <Link to="/" itemProp="item" className="hover:text-primary"><span itemProp="name">Accueil</span></Link>
               <meta itemProp="position" content="1" />
               <span className="mx-1">/</span>
             </li>
@@ -228,7 +228,7 @@ export default function DefinitionOmra() {
             <li>🔴 <strong>10 derniers jours Ramadan</strong> : 3 000€ – 6 000€</li>
           </ul>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
-            <Link to="/omra" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/90 transition-colors">
               Comparer les prix maintenant →
             </Link>
             <Link to="/prix-omra-2026" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/5 transition-colors">

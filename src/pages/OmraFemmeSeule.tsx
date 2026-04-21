@@ -88,7 +88,7 @@ export default function OmraFemmeSeule() {
             Voici le guide complet et actualisé pour 2026.
           </p>
           <Button asChild size="lg" className="mt-4">
-            <Link to="/omra">Voir les offres Omra pour femmes →</Link>
+            <Link to="/">Voir les offres Omra pour femmes →</Link>
           </Button>
         </header>
 
@@ -421,7 +421,7 @@ export default function OmraFemmeSeule() {
             Comparez les offres de 15+ agences agréées proposant des groupes adaptés aux femmes voyageant seules.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button asChild size="lg"><Link to="/omra">Comparer les offres →</Link></Button>
+            <Button asChild size="lg"><Link to="/">Comparer les offres →</Link></Button>
             <Button asChild variant="outline" size="lg"><Link to="/comparatif-agences">Comparer les agences</Link></Button>
           </div>
         </section>
@@ -429,7 +429,7 @@ export default function OmraFemmeSeule() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/omra" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
             <span className="text-muted-foreground">·</span>

@@ -162,7 +162,7 @@ export default function OmraSaison() {
   const slug = pathname.replace('/omra-en-', '').toLowerCase();
   const data = saisonsData[slug] ?? null;
 
-  if (!data) return <Navigate to="/omra" replace />;
+  if (!data) return <Navigate to="/" replace />;
 
   const faqs = [
     {
@@ -214,7 +214,7 @@ export default function OmraSaison() {
           "url": `https://omrabonsplans.fr/omra-en-${slug}`,
           "datePublished": "2026-02-01",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } }
         })}</script>
       </Helmet>
@@ -240,7 +240,7 @@ export default function OmraSaison() {
             {data.description}
           </p>
           <Button asChild size="lg" className="mt-4">
-            <Link to="/omra">Comparer les offres Omra {data.nom} →</Link>
+            <Link to="/">Comparer les offres Omra {data.nom} →</Link>
           </Button>
         </header>
 
@@ -367,7 +367,7 @@ export default function OmraSaison() {
           <p className="text-muted-foreground mb-6">
             Comparez les meilleures offres Omra pour {data.mois} {data.annee} — prix en temps réel, agences agréées.
           </p>
-          <Button asChild size="lg"><Link to="/omra">Voir les offres →</Link></Button>
+          <Button asChild size="lg"><Link to="/">Voir les offres →</Link></Button>
         </section>
 
         {/* Liens internes */}
@@ -389,7 +389,7 @@ export default function OmraSaison() {
                 <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
                 <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2026</Link>
                 <Link to="/ramadan-hajj-dates" className="text-primary hover:underline text-sm">Dates Ramadan & Hajj</Link>
-                <Link to="/omra" className="text-primary hover:underline text-sm">Comparateur Omra</Link>
+                <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra</Link>
               </div>
             </div>
           </div>

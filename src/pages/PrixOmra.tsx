@@ -76,7 +76,7 @@ export default function PrixOmra() {
           "url": "https://omrabonsplans.fr/prix-omra-2026",
           "datePublished": "2026-01-10",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
         })}</script>
@@ -105,7 +105,7 @@ export default function PrixOmra() {
             françaises agréées pour vous donner les tarifs les plus précis et actualisés.
           </p>
           <Button asChild size="lg" className="mt-4">
-            <Link to="/omra">Voir les offres disponibles →</Link>
+            <Link to="/">Voir les offres disponibles →</Link>
           </Button>
         </header>
 
@@ -287,7 +287,7 @@ export default function PrixOmra() {
             Filtrez par ville, mois et budget.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button asChild size="lg"><Link to="/omra">Comparer les prix →</Link></Button>
+            <Button asChild size="lg"><Link to="/">Comparer les prix →</Link></Button>
             <Button asChild variant="outline" size="lg"><Link to="/omra-ramadan-2026">Prix Omra Ramadan</Link></Button>
           </div>
         </section>
@@ -295,7 +295,7 @@ export default function PrixOmra() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/omra" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2026</Link>
             <span className="text-muted-foreground">·</span>

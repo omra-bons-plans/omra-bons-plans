@@ -54,7 +54,7 @@ const articleSchema = {
   "description": "Guide complet des rites de la Omra : comment se mettre en ihram, effectuer le tawaf, le sa'i entre Safa et Marwa et le tahallul. Étapes détaillées avec conseils pratiques.",
   "url": "https://omrabonsplans.fr/rites-omra",
   "dateModified": "2026-04-01",
-  "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+  "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
   "publisher": {
     "@type": "Organization",
     "name": "Omra Bons Plans",

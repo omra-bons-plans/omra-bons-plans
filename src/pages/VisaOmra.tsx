@@ -75,7 +75,7 @@ export default function VisaOmra() {
           "url": "https://omrabonsplans.fr/visa-omra-france",
           "datePublished": "2026-01-25",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
         })}</script>
@@ -105,7 +105,7 @@ export default function VisaOmra() {
             pour 2026 : types de visas, prix, délais et documents nécessaires.
           </p>
           <Button asChild size="lg" className="mt-4">
-            <Link to="/omra">Trouver une agence avec visa inclus →</Link>
+            <Link to="/">Trouver une agence avec visa inclus →</Link>
           </Button>
         </header>
 
@@ -272,13 +272,13 @@ export default function VisaOmra() {
             La solution la plus simple : réservez un forfait Omra tout compris avec visa inclus.
             L'agence s'occupe de tout. Comparez 15+ agences françaises agréées.
           </p>
-          <Button asChild size="lg"><Link to="/omra">Comparer les offres avec visa inclus →</Link></Button>
+          <Button asChild size="lg"><Link to="/">Comparer les offres avec visa inclus →</Link></Button>
         </section>
 
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/omra" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
             <span className="text-muted-foreground">·</span>

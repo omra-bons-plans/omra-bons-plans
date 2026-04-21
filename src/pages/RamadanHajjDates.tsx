@@ -427,7 +427,7 @@ const RamadanHajjDates = () => {
             <div className="mt-6 p-4 bg-primary/5 rounded-lg border">
               <p className="text-sm text-muted-foreground">
                 Vous souhaitez accomplir l'Omra pendant le Ramadan 2026 ?{' '}
-                <Link to="/omra" className="text-primary hover:underline font-medium">
+                <Link to="/" className="text-primary hover:underline font-medium">
                   Comparez les offres des agences agréées →
                 </Link>
               </p>

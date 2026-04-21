@@ -156,7 +156,7 @@ export default function DixDerniersJoursRamadan() {
           <p className="text-muted-foreground mb-2">Les places pour les 10 derniers jours s'épuisent en quelques semaines. Réservez dès maintenant.</p>
           <p className="text-sm text-orange-600 dark:text-orange-400 font-medium mb-5">⚡ Places très limitées pour les 10 derniers jours</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/omra" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Ramadan
             </Link>
             <Link to="/omra-ramadan-2026" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">

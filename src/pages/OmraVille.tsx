@@ -114,7 +114,7 @@ export default function OmraVille() {
   const { ville } = useParams<{ ville: string }>();
   const data = ville ? villesData[ville.toLowerCase()] : null;
 
-  if (!data) return <Navigate to="/omra" replace />;
+  if (!data) return <Navigate to="/" replace />;
 
   const faqs = [
     {
@@ -157,7 +157,7 @@ export default function OmraVille() {
           "url": `https://omrabonsplans.fr/omra-depuis-${slug}`,
           "datePublished": "2026-02-01",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } }
         })}</script>
       </Helmet>
@@ -186,7 +186,7 @@ export default function OmraVille() {
             votre pèlerinage depuis {data.nom}.
           </p>
           <Button asChild size="lg" className="mt-4">
-            <Link to="/omra">Voir les offres disponibles →</Link>
+            <Link to="/">Voir les offres disponibles →</Link>
           </Button>
         </header>
 
@@ -295,7 +295,7 @@ export default function OmraVille() {
           <p className="text-muted-foreground mb-6">
             Filtrez par ville de départ "{data.nom}" sur notre comparateur pour voir toutes les offres disponibles.
           </p>
-          <Button asChild size="lg"><Link to="/omra">Voir les offres →</Link></Button>
+          <Button asChild size="lg"><Link to="/">Voir les offres →</Link></Button>
         </section>
 
         <nav className="mt-10 pt-6 border-t" aria-label="Autres villes">

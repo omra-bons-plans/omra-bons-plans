@@ -144,7 +144,7 @@ export default function OmraSeniors() {
           <h2 className="text-2xl font-bold mb-3">Trouver une agence spécialisée seniors</h2>
           <p className="text-muted-foreground mb-5">Certaines agences proposent des formules "confort seniors" avec encadrement renforcé et hôtels accessibles</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/omra" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Omra
             </Link>
             <Link to="/meilleure-agence-omra" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">

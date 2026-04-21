@@ -170,7 +170,7 @@ export default function OmraFamille() {
           <h2 className="text-2xl font-bold mb-3">Comparez les offres Omra en famille</h2>
           <p className="text-muted-foreground mb-5">Utilisez notre comparateur pour trouver le meilleur prix famille parmi 20+ agences agréées</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/omra" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Omra
             </Link>
             <Link to="/agences-liste" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">

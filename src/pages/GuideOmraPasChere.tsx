@@ -75,7 +75,7 @@ export default function GuideOmraPasChere() {
             "url": "https://omrabonsplans.fr/guide-omra-pas-chere",
             "datePublished": "2026-01-15",
             "dateModified": "2026-02-20",
-            "author": { "@type": "Organization", "name": "Omra Bons Plans" },
+            "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
             "publisher": {
               "@type": "Organization",
               "name": "Omra Bons Plans",
@@ -208,7 +208,7 @@ export default function GuideOmraPasChere() {
                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">1</span>
                 <div>
                   <h3 className="font-semibold text-foreground">Comparez systématiquement avec un comparateur</h3>
-                  <p className="text-muted-foreground text-sm">Les écarts de prix entre agences pour une même prestation peuvent atteindre 30%. Notre <Link to="/omra" className="text-primary hover:underline">comparateur Omra</Link> vous fait gagner du temps et de l'argent.</p>
+                  <p className="text-muted-foreground text-sm">Les écarts de prix entre agences pour une même prestation peuvent atteindre 30%. Notre <Link to="/" className="text-primary hover:underline">comparateur Omra</Link> vous fait gagner du temps et de l'argent.</p>
                 </div>
               </div>
               <div className="flex gap-3 items-start">
@@ -386,7 +386,7 @@ export default function GuideOmraPasChere() {
           <section id="comparateur">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">7. Utilisez notre comparateur pour trouver le meilleur prix</h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Notre <Link to="/omra" className="text-primary font-semibold hover:underline">comparateur Omra</Link> agrège les offres de plus de 15 agences agréées en France. 
+              Notre <Link to="/" className="text-primary font-semibold hover:underline">comparateur Omra</Link> agrège les offres de plus de 15 agences agréées en France. 
               Il est mis à jour quotidiennement et vous permet de filtrer par ville de départ, période, budget et formule. 
               C'est l'outil idéal pour trouver votre <strong className="text-foreground">Omra pas chère</strong> en toute sérénité.
             </p>
@@ -395,7 +395,7 @@ export default function GuideOmraPasChere() {
               <h3 className="text-xl font-bold text-foreground mb-2">🔍 Comparez maintenant</h3>
               <p className="text-muted-foreground mb-4">Plus de 200 offres mises à jour quotidiennement</p>
               <Link 
-                to="/omra" 
+                to="/" 
                 className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
               >
                 Voir les offres Omra

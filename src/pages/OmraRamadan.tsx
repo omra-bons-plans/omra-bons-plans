@@ -80,7 +80,7 @@ export default function OmraRamadan() {
           "url": "https://omrabonsplans.fr/omra-ramadan-2026",
           "datePublished": "2026-01-15",
           "dateModified": "2026-04-01",
-          "author": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp",
           "mainEntityOfPage": "https://omrabonsplans.fr/omra-ramadan-2026"
@@ -113,7 +113,7 @@ export default function OmraRamadan() {
           </p>
           <div className="mt-6">
             <Button asChild size="lg" className="bg-primary text-white mr-3">
-              <Link to="/omra">Comparer les offres Omra Ramadan →</Link>
+              <Link to="/">Comparer les offres Omra Ramadan →</Link>
             </Button>
           </div>
         </header>
@@ -377,7 +377,7 @@ export default function OmraRamadan() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg">
-              <Link to="/omra">Comparer les offres Omra →</Link>
+              <Link to="/">Comparer les offres Omra →</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link to="/guide-omra-pas-chere">Guide Omra Pas Chère</Link>
@@ -389,7 +389,7 @@ export default function OmraRamadan() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/omra" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/hajj" className="text-primary hover:underline text-sm">Comparateur Hajj 2026</Link>
             <span className="text-muted-foreground">·</span>

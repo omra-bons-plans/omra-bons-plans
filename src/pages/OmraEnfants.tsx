@@ -133,7 +133,7 @@ export default function OmraEnfants() {
           <h2 className="text-2xl font-bold mb-3">Planifiez votre Omra en famille</h2>
           <p className="text-muted-foreground mb-5">Comparez les offres de 20+ agences et trouvez la formule idéale pour votre famille</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/omra" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Omra
             </Link>
             <Link to="/omra-famille" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">

@@ -134,7 +134,7 @@ export default function OmraBadal() {
           <h2 className="text-2xl font-bold mb-3">Planifier votre Omra ou Omra Badal</h2>
           <p className="text-muted-foreground mb-5">Comparez les offres de 20+ agences agréées pour organiser votre voyage</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/omra" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Omra
             </Link>
             <Link to="/rites-omra" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">
