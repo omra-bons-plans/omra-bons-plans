@@ -59,7 +59,7 @@ const DivergenceCard = ({ icon, title, children }: { icon: string; title: string
   </div>
 );
 
-const DgSchool = ({ school, label, children }: { school: string; label: string; children: string }) => (
+const DgSchool = ({ school, label, children }: { school: string; label: string; children: React.ReactNode }) => (
   <div className={`hajj-dg-school ${school}`}>
     <div className="hajj-dg-label">{label}</div>
     <p>{children}</p>
