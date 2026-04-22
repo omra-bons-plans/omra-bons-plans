@@ -286,6 +286,32 @@ export default function AgencesListe() {
             ))}
           </div>
           
+          {/* FAQ */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-4">Questions Fréquentes sur les Agences Omra</h2>
+            <div className="space-y-3">
+              {[
+                {
+                  q: "Comment vérifier qu'une agence Omra est agréée ?",
+                  a: "Une agence agréée doit être enregistrée auprès du Ministère Saoudien du Hajj et de l'Omra (Nusuk). En France, elle doit également être immatriculée au registre des opérateurs de voyages (ATOUT France). Demandez systématiquement le numéro d'agrément avant de réserver."
+                },
+                {
+                  q: "Quelle note Google minimum pour une agence fiable ?",
+                  a: "Nous recommandons de ne pas choisir une agence avec moins de 4.2/5 sur Google avec au moins 50 avis. Les agences top du marché (Tawaf, Medinvoyages, Al-Maqam) affichent généralement 4.6 à 4.9/5 avec plusieurs centaines d'avis."
+                },
+                {
+                  q: "Peut-on négocier le prix avec une agence Omra ?",
+                  a: "Oui, surtout pour les réservations de groupe (4 personnes+) ou hors saison. Certaines agences proposent des remises de 5 à 15% pour les paiements anticipés (3 mois avant). Utilisez notre comparateur pour avoir plusieurs devis et négocier en toute connaissance."
+                }
+              ].map((item, i) => (
+                <details key={i} className="border border-border rounded-lg">
+                  <summary className="p-4 font-semibold cursor-pointer hover:bg-muted/30 text-sm">{item.q}</summary>
+                  <p className="px-4 pb-4 text-sm text-muted-foreground">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
           {/* Liens internes SEO */}
           <InternalLinks currentPage="/agences-liste" variant="related" className="mt-8" />
         </div>
