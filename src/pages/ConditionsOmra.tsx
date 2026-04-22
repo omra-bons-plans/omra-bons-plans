@@ -262,6 +262,20 @@ export default function ConditionsOmra() {
             </div>
           </section>
 
+          {/* Avis de l'expert */}
+          <section className="mb-10 bg-primary/5 border border-primary/20 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
+              <div>
+                <p className="font-bold text-foreground">Farid d'Arabie</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  "Parmi les questions les plus fréquentes que me posent les pèlerins avant leur départ : <strong>'Ai-je le droit de partir ?'</strong> La réponse est presque toujours oui. Les conditions de l'Omra sont accessibles à la grande majorité des musulmans de France. Ce qui bloque le plus souvent, ce n'est pas l'éligibilité — c'est l'hésitation. J'ai accompagné des personnes de 18 à 85 ans, des femmes seules, des familles, des malades chroniques. Avec une bonne préparation et une agence sérieuse, tout le monde peut accomplir ce voyage béni."
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Internal links */}
           <InternalLinks currentPage="/conditions-omra" />
         </div>

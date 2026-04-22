@@ -239,6 +239,20 @@ export default function OmraToutCompris() {
             </div>
           </section>
 
+          {/* Avis de l'expert */}
+          <section className="mb-10 bg-primary/5 border border-primary/20 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
+              <div>
+                <p className="font-bold text-foreground">Farid d'Arabie</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  "Un forfait 'tout compris' est la meilleure option pour une première Omra — à condition de bien lire ce que 'tout compris' veut dire. <strong>Vérifiez toujours trois points : la distance exacte de l'hôtel au Haram, le nombre de pèlerins par chambre, et si un accompagnateur francophone est inclus</strong> ou optionnel. J'ai vu des pèlerins payer un forfait soi-disant complet pour se retrouver à partager une chambre à 8 personnes à 1,5 km du Haram. Posez ces questions par écrit à l'agence avant de réserver — une bonne agence vous répondra clairement."
+                </p>
+              </div>
+            </div>
+          </section>
+
           <InternalLinks currentPage="/omra-tout-compris" variant="related" className="mt-8" />
         </div>
       </div>
