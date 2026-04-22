@@ -46,7 +46,7 @@ export default function ComparateurOmraFrance() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Comparateur Omra France 2026 — Comparez 20+ Agences Agréées | Omra Bons Plans</title>
+        <title>Comparateur Omra France 2026 — 20+ Agences Agréées</title>
         <meta name="description" content="Comparateur Omra France : 20+ agences agréées, prix temps réel, avis vérifiés. Trouvez votre séjour Omra 2026 au meilleur prix. 100% gratuit." />
         <meta name="keywords" content="comparateur omra france, comparateur omra, comparateur omra hajj france, comparer omra france, meilleur comparateur omra, agences omra comparatif" />
         <link rel="canonical" href="https://omrabonsplans.fr/comparateur-omra-france" />

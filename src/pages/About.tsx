@@ -62,6 +62,12 @@ const About = () => {
             "jobTitle": "Expert en pèlerinage islamique & Fondateur d'Omra Bons Plans",
             "description": "Plus de 10 ans de résidence à La Mecque (Makkah). Guide spirituel ayant accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra. Fondateur du premier comparateur d'agences Omra en France.",
             "url": "https://omrabonsplans.fr/about",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
+              "width": 1200,
+              "height": 630
+            },
             "worksFor": {
               "@type": "Organization",
               "name": "Omra Bons Plans",
