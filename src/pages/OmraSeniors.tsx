@@ -31,7 +31,7 @@ export default function OmraSeniors() {
     <ResponsiveLayout>
       <Helmet>
         <title>Omra Seniors 2026 — Guide pour Personnes Âgées, Mobilité Réduite & Fauteuil</title>
-        <meta name="description" content="Guide complet Omra seniors 2026 : fauteuil roulant à La Mecque, conseils médicaux, formules adaptées, agences spécialisées. Faire l'Omra à tout âge avec sérénité." />
+        <meta name="description" content="Omra seniors 2026 : fauteuil roulant à La Mecque, conseils médicaux, formules adaptées, agences spécialisées. Accomplir l'Omra à tout âge en sérénité." />
         <meta name="keywords" content="omra seniors, omra personnes âgées, omra fauteuil roulant, omra mobilité réduite, pèlerinage senior, omra 3ème âge" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-seniors" />
         <meta property="og:title" content="Omra Seniors 2026 — Guide Personnes Âgées & Mobilité Réduite" />

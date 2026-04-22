@@ -80,7 +80,7 @@ export default function QuandPartirOmra() {
     <ResponsiveLayout>
       <Helmet>
         <title>Quand partir en Omra ? Meilleures Périodes & Prix 2026 | Omra Bons Plans</title>
-        <meta name="description" content="Découvrez la meilleure période pour partir en Omra selon votre budget : Ramadan, hiver, hors saison. Comparatif des prix et conseils pour choisir la bonne date en 2026." />
+        <meta name="description" content="Meilleure période pour partir en Omra 2026 : Ramadan, hiver, hors saison. Comparatif des prix par mois et conseils pour choisir la bonne date." />
         <meta name="keywords" content="quand partir en omra, meilleure période omra, omra ramadan, omra hiver, prix omra saison, omra 2026" />
         <link rel="canonical" href="https://omrabonsplans.fr/quand-partir-omra" />
         <meta property="og:title" content="Quand partir en Omra ? Guide des Meilleures Périodes 2026" />

@@ -54,7 +54,7 @@ export default function Hajj2026() {
     <ResponsiveLayout>
       <Helmet>
         <title>Hajj 2026 : Dates, Prix, Inscription et Guide Complet</title>
-        <meta name="description" content="Hajj 2026 : dates officielles (3-8 juin), prix des packages (4 500€-15 000€+), inscription Nusuk, types de Hajj (Ifrad/Tamattu/Qiran). Comparateur des meilleures agences françaises." />
+        <meta name="description" content="Hajj 2026 : dates (3-8 juin), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
         <meta name="keywords" content="hajj 2026, date hajj 2026, prix hajj 2026, inscription hajj, agence hajj france, nusuk, types hajj" />
         <link rel="canonical" href="https://omrabonsplans.fr/hajj-2026" />
         <meta property="og:title" content="Hajj 2026 : Dates, Prix et Guide d'Inscription" />
@@ -68,7 +68,7 @@ export default function Hajj2026() {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Hajj 2026 : Dates, Prix, Inscription et Guide Complet",
-          "description": "Hajj 2026 : dates officielles (3-8 juin), prix des packages (4 500€-15 000€+), inscription Nusuk, types de Hajj (Ifrad/Tamattu/Qiran). Comparateur des meilleures agences françaises.",
+          "description": "Hajj 2026 : dates (3-8 juin), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises.",
           "url": "https://omrabonsplans.fr/hajj-2026",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },

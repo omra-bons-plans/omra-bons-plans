@@ -53,6 +53,7 @@ const articleSchema = {
   "headline": "Guide Complet des Rites de la Omra 2026 : Ihram, Tawaf, Sa'i et Tahallul",
   "description": "Guide complet des rites de la Omra : comment se mettre en ihram, effectuer le tawaf, le sa'i entre Safa et Marwa et le tahallul. Étapes détaillées avec conseils pratiques.",
   "url": "https://omrabonsplans.fr/rites-omra",
+  "datePublished": "2025-10-01",
   "dateModified": "2026-04-01",
   "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
   "publisher": {
@@ -67,7 +68,7 @@ export default function RitesOmra() {
     <ResponsiveLayout>
       <Helmet>
         <title>Rites de la Omra 2026 : Guide Complet Ihram, Tawaf, Sa'i, Tahallul</title>
-        <meta name="description" content="Guide complet des rites de la Omra : ihram au miqat, tawaf autour de la Kaaba, sa'i entre Safa et Marwa, tahallul. Toutes les étapes expliquées pour réussir votre pèlerinage." />
+        <meta name="description" content="Rites de la Omra : ihram au miqat, tawaf autour de la Kaaba, sa'i (Safa-Marwa), tahallul. Guide complet des 4 étapes pour réussir votre pèlerinage." />
         <meta name="keywords" content="rites omra, comment faire la omra, étapes omra, ihram omra, tawaf kaaba, sai safa marwa, tahallul omra, guide omra 2026" />
         <link rel="canonical" href="https://omrabonsplans.fr/rites-omra" />
         <meta property="og:title" content="Rites de la Omra 2026 : Guide Complet Étapes" />

@@ -31,7 +31,7 @@ export default function DixDerniersJoursRamadan() {
     <ResponsiveLayout>
       <Helmet>
         <title>10 Derniers Jours Ramadan 2026 à La Mecque — Omra, Prix & Guide</title>
-        <meta name="description" content="Tout sur l'Omra pendant les 10 derniers jours du Ramadan 2026 : dates, prix (2 500€-8 000€), Laylat al-Qadr, comment se préparer, agences spécialisées. Réservez tôt !" />
+        <meta name="description" content="Omra 10 derniers jours Ramadan 2026 : dates, prix (2 500-8 000€), Laylat al-Qadr, conseils de préparation et agences spécialisées. Réservez tôt." />
         <meta name="keywords" content="10 derniers jours ramadan, omra 10 derniers jours, laylat al-qadr, nuit du destin, omra ramadan prix, ramadan mecque 2026, dernières nuits ramadan" />
         <link rel="canonical" href="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
         <meta property="og:title" content="10 Derniers Jours Ramadan 2026 à La Mecque — Omra & Guide" />

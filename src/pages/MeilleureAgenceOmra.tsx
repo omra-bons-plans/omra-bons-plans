@@ -57,7 +57,7 @@ export default function MeilleureAgenceOmra() {
     <ResponsiveLayout>
       <Helmet>
         <title>Meilleure Agence Omra 2026 : Classement et Guide de Choix</title>
-        <meta name="description" content="Meilleure agence omra 2026 : notre classement des 5 meilleures agences (Tawaf, Medinvoyages, Al-Maqam), critères de choix, questions essentielles à poser avant de réserver." />
+        <meta name="description" content="Meilleure agence omra 2026 : classement des 5 meilleures (Tawaf, Medinvoyages, Al-Maqam), critères de sélection et questions essentielles à poser." />
         <meta name="keywords" content="meilleure agence omra, quelle agence omra choisir, agence omra fiable, classement agences omra france, comparatif agences" />
         <link rel="canonical" href="https://omrabonsplans.fr/meilleure-agence-omra" />
         <meta property="og:title" content="Meilleure Agence Omra : Top 5 2026" />

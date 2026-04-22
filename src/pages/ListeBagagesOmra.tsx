@@ -14,7 +14,7 @@ export default function ListeBagagesOmra() {
     <ResponsiveLayout>
       <Helmet>
         <title>Liste Complète Bagages Omra 2026 : Homme & Femme Détaillée</title>
-        <meta name="description" content="Liste bagages Omra complète pour homme et femme : vêtements ihram, documents, médicaments, électronique. Checklist détaillée de tout ce qu'il faut emporter pour la Omra 2026." />
+        <meta name="description" content="Liste bagages Omra homme et femme : vêtements ihram, documents, médicaments. Checklist complète à imprimer pour votre pèlerinage 2026." />
         <meta name="keywords" content="liste bagages omra, quoi emporter omra, valise omra, vetements omra, vêtements ihram, liste packing omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/liste-bagages-omra" />
         <meta property="og:title" content="Liste Bagages Omra 2026 : Tout Ce Qu'il Faut Emporter" />
@@ -28,7 +28,7 @@ export default function ListeBagagesOmra() {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Liste Complète Bagages Omra 2026 : Homme & Femme Détaillée",
-          "description": "Liste bagages Omra complète pour homme et femme : vêtements ihram, documents, médicaments, électronique. Checklist détaillée de tout ce qu'il faut emporter pour la Omra 2026.",
+          "description": "Liste bagages Omra homme et femme : vêtements ihram, documents, médicaments. Checklist complète à imprimer pour votre pèlerinage 2026.",
           "url": "https://omrabonsplans.fr/liste-bagages-omra",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },

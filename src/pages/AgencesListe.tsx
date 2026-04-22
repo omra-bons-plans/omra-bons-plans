@@ -84,7 +84,7 @@ export default function AgencesListe() {
     <ResponsiveLayout>
       <Helmet>
         <title>Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs Comparés</title>
-        <meta name="description" content="Top 20 agences Omra & Hajj en France : notes clients authentiques, agréments ministère du Hajj, points forts, faiblesses et tarifs 2026. Comparez et choisissez en toute confiance." />
+        <meta name="description" content="Top 20 agences Omra & Hajj en France : notes authentiques, agréments officiels, points forts et tarifs 2026. Comparez et choisissez en toute confiance." />
         <meta name="keywords" content="meilleure agence omra 2026, agence hajj france, comparatif agences omra, agence voyage mecque agréée, avis agences omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:type" content="website" />

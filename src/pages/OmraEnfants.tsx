@@ -31,7 +31,7 @@ export default function OmraEnfants() {
     <ResponsiveLayout>
       <Helmet>
         <title>Omra avec Enfants 2026 — Guide Pratique, Vêtements Ihram & Conseils</title>
-        <meta name="description" content="Comment faire l'Omra avec des enfants en 2026 : âge idéal, vêtements ihram enfants, documents nécessaires, conseils pour gérer les foules. Guide complet pour parents." />
+        <meta name="description" content="Omra avec enfants 2026 : âge idéal, vêtements ihram, documents nécessaires et conseils pour gérer les foules. Guide complet pour parents pèlerins." />
         <meta name="keywords" content="omra enfants, omra avec enfants, omra enfant ihram, vêtement ihram enfant, pèlerinage avec enfants, omra famille enfant, omra mineur" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-enfants" />
         <meta property="og:title" content="Omra avec Enfants 2026 — Guide Pratique & Conseils Parents" />
