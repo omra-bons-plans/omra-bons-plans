@@ -4,10 +4,10 @@ import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 import '@/styles/guide-hajj.css';
 
 const schoolColors = {
-  hanafi: '#4E9DD4',
-  maliki: '#5CB85C',
-  shafii: '#D4956A',
-  hanbali: '#9B6BB5',
+  hanafi: 'hsl(207, 60%, 50%)',
+  maliki: 'hsl(120, 40%, 45%)',
+  shafii: 'hsl(25, 55%, 55%)',
+  hanbali: 'hsl(270, 35%, 50%)',
 };
 
 const CompareTable = ({ rows }: { rows: string[][] }) => (
