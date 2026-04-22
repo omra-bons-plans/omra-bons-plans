@@ -385,6 +385,20 @@ export default function OmraRamadan() {
           </div>
         </section>
 
+        {/* Avis de l'expert */}
+        <section className="mb-10 bg-primary/5 border border-primary/20 rounded-2xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
+            <div>
+              <p className="font-bold text-foreground">Farid d'Arabie</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                "L'Omra du Ramadan est spirituellement incomparable — la Kaaba en pleine nuit, entouré de millions de pèlerins récitant le Coran, c'est une expérience qui vous change. <strong>Mais elle demande une préparation physique sérieuse</strong> : la foule pendant les 10 derniers jours peut être écrasante, et la chaleur du jour (35-40°C à La Mecque) épuise rapidement. Si c'est votre première Omra, je recommande Mouharram ou Safar pour une expérience plus sereine. Gardez le Ramadan pour quand vous connaissez déjà les rites et les lieux."
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Liens internes */}
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>

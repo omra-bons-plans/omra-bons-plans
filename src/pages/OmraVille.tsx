@@ -298,6 +298,19 @@ export default function OmraVille() {
           <Button asChild size="lg"><Link to="/">Voir les offres →</Link></Button>
         </section>
 
+        <section className="mb-10 bg-primary/5 border border-primary/20 rounded-2xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
+            <div>
+              <p className="font-bold text-foreground">Farid d'Arabie</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                "Partir en Omra depuis sa ville de région est souvent possible sans transiter par Paris. <strong>Vérifiez toujours les vols en correspondance via Istanbul, Casablanca ou Dubaï</strong> — ils sont parfois moins chers et plus pratiques que les vols directs depuis Roissy. Les agences sérieuses proposent des points de regroupement en province. N'hésitez pas à demander : beaucoup de pèlerins ne savent pas que l'option régionale existe."
+              </p>
+            </div>
+          </div>
+        </section>
+
         <nav className="mt-10 pt-6 border-t" aria-label="Autres villes">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Omra depuis d'autres villes</h3>
           <div className="flex flex-wrap gap-2">

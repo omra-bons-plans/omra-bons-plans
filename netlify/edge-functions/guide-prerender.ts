@@ -175,7 +175,7 @@ export default async function handler(req: Request, context: Context) {
       "name": "Omra Bons Plans",
       "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" },
     },
-    "dateModified": new Date().toISOString().split("T")[0],
+    "dateModified": "2026-04-14",
   });
 
   const sectionsHtml = page.sections

@@ -19,7 +19,7 @@ export default function ComparatifVisuel() {
         <title>Comparateur Visuel Agences Omra - Outil Interactif | Omra Bons Plans</title>
         <meta name="description" content="Outil de comparaison visuel interactif pour choisir votre agence Omra et Hajj. Comparez jusqu'à 4 agences côte à côte : tarifs, services et avis Google." />
         <meta name="keywords" content="comparatif visuel agences omra, hajj comparateur, outil comparaison agences, omra 2026" />
-        <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
+        <link rel="canonical" href="https://omrabonsplans.fr/comparatif-visuel" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Comparateur Visuel Agences Omra - Outil Interactif" />
         <meta property="og:description" content="Comparez jusqu'à 4 agences Omra et Hajj côte à côte avec notre outil interactif." />
