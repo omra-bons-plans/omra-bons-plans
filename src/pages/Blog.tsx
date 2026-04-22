@@ -325,8 +325,8 @@ const Blog = () => {
                     <span className="flex-1">🎁 Guide Hajj 4 Écoles</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
-
-            {/* Desktop tabs */}
+              </DropdownMenu>
+            </div>
             <div className="hidden sm:grid sm:grid-cols-2 lg:flex lg:justify-center lg:gap-4">
               {categories.map((cat) => (
                 <Button
