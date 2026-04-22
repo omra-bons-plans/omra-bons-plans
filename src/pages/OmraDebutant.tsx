@@ -92,6 +92,19 @@ export default function OmraDebutant() {
         <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Guide Omra pour Débutant : Premier Pèlerinage 2026",
+          "description": "Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra : préparation, documents, rites étape par étape, budget et conseils pratiques pour 2026.",
+          "url": "https://omrabonsplans.fr/omra-debutant",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-10-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "HowTo",
           "name": "Comment faire l'Omra : Guide pour débutant",
           "description": "Guide complet pour préparer et accomplir son premier pèlerinage Omra",

@@ -39,6 +39,20 @@ export default function DixDerniersJoursRamadan() {
         <meta property="og:url" content="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Les 10 Derniers Jours du Ramadan 2026 à La Mecque — Omra, Prix & Guide",
+          "description": "Guide complet sur l'Omra pendant les 10 derniers jours du Ramadan 2026 : dates, Laylat al-Qadr, prix et préparation.",
+          "url": "https://omrabonsplans.fr/10-derniers-jours-ramadan",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-11-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

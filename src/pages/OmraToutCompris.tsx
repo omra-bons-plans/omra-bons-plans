@@ -199,14 +199,139 @@ export default function OmraToutCompris() {
             </div>
           </section>
 
+          <section id="periodes" className="mb-10">
+            <h2 className="text-2xl font-bold mb-6">Meilleures Périodes pour Réserver un Forfait Tout Compris</h2>
+            <p className="text-muted-foreground mb-4">
+              Le choix de la période est le facteur numéro un qui influe sur le prix final de votre forfait tout compris. Les agences pratiquent des tarifs très différents selon l'affluence attendue à La Mecque.
+            </p>
+            <div className="overflow-x-auto mb-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-primary/10">
+                    <th className="text-left p-3 font-semibold">Période</th>
+                    <th className="text-center p-3 font-semibold">Foule</th>
+                    <th className="text-center p-3 font-semibold">Prix forfait 10N</th>
+                    <th className="text-left p-3 font-semibold">Recommandé pour</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t">
+                    <td className="p-3 font-medium">Mouharram / Safar (janv.-fév.)</td>
+                    <td className="p-3 text-center">🟢 Faible</td>
+                    <td className="p-3 text-center font-semibold text-green-700">1 200€-1 600€</td>
+                    <td className="p-3">Première Omra, seniors</td>
+                  </tr>
+                  <tr className="border-t bg-muted/30">
+                    <td className="p-3 font-medium">Rabi' / Joumada (mars-avr.)</td>
+                    <td className="p-3 text-center">🟡 Modérée</td>
+                    <td className="p-3 text-center font-semibold text-yellow-700">1 500€-2 000€</td>
+                    <td className="p-3">Bon rapport qualité/prix</td>
+                  </tr>
+                  <tr className="border-t">
+                    <td className="p-3 font-medium">Chaabane (avant Ramadan)</td>
+                    <td className="p-3 text-center">🟡 Modérée</td>
+                    <td className="p-3 text-center font-semibold text-yellow-700">1 600€-2 200€</td>
+                    <td className="p-3">Budget maîtrisé hors Ramadan</td>
+                  </tr>
+                  <tr className="border-t bg-muted/30">
+                    <td className="p-3 font-medium">Ramadan 2026 (mars)</td>
+                    <td className="p-3 text-center">🔴 Très forte</td>
+                    <td className="p-3 text-center font-semibold text-red-700">2 800€-5 000€+</td>
+                    <td className="p-3">Récompense spirituelle maximale</td>
+                  </tr>
+                  <tr className="border-t">
+                    <td className="p-3 font-medium">10 derniers jours du Ramadan</td>
+                    <td className="p-3 text-center">🔴 Extrême</td>
+                    <td className="p-3 text-center font-semibold text-red-700">3 500€-7 000€+</td>
+                    <td className="p-3">Laylat al-Qadr (expérimentés)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Conseil : réservez votre forfait <strong>3 à 6 mois à l'avance</strong> pour les périodes de pointe (Ramadan). Les places à proximité du Haram partent en premier et les prix montent au fur et à mesure que la date approche.
+            </p>
+          </section>
+
           <section id="agences" className="mb-10">
             <h2 className="text-2xl font-bold mb-6">Top Agences pour la Omra Tout Compris</h2>
             <p className="text-muted-foreground mb-4">
-              Consultez notre <Link to="/agences-liste" className="text-primary font-semibold hover:underline">liste complète des agences</Link> et notre <Link to="/comparatif-agences" className="text-primary font-semibold hover:underline">comparatif visuel</Link> pour voir les offres actualisées.
+              Ces agences proposent régulièrement les meilleurs forfaits tout compris en termes de rapport qualité-prix, d'encadrement et de proximité au Haram. Consultez notre <Link to="/meilleure-agence-omra" className="text-primary font-semibold hover:underline">guide des meilleures agences</Link> et notre <Link to="/comparatif-agences" className="text-primary font-semibold hover:underline">comparatif visuel</Link> pour voir les offres actualisées.
             </p>
-            <p className="text-sm text-muted-foreground">
-              Les meilleurs packages tout compris sont proposés par : <strong>Tawaf, Medinvoyages, Al-Maqam, Omra Discount, Pèlerinhajj, Labbayk, Omra Sounnah, Sabil Voyages</strong>.
+            <div className="overflow-x-auto mb-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-primary/10">
+                    <th className="text-left p-3 font-semibold">Agence</th>
+                    <th className="text-center p-3 font-semibold">Note</th>
+                    <th className="text-left p-3 font-semibold">Points forts</th>
+                    <th className="text-center p-3 font-semibold">Prix départ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { name: "Tawaf Voyages", note: "4.7/5", points: "Encadrement religieux, guide francophone", prix: "1 350€" },
+                    { name: "Medinvoyages", note: "4.6/5", points: "Hôtels proches, rapport Q/P", prix: "1 280€" },
+                    { name: "Al-Maqam", note: "4.8/5", points: "Expertise, groupe réduit", prix: "1 490€" },
+                    { name: "Pèlerinhajj", note: "4.6/5", points: "Spécialiste Hajj & Omra", prix: "1 320€" },
+                    { name: "Labbayk Voyages", note: "4.5/5", points: "Prix compétitifs, vols directs", prix: "1 200€" },
+                    { name: "Sabil Voyages", note: "4.7/5", points: "Accompagnement senior, groupes", prix: "1 450€" }
+                  ].map((a, i) => (
+                    <tr key={i} className={`border-t ${i % 2 === 1 ? "bg-muted/30" : ""}`}>
+                      <td className="p-3 font-medium">{a.name}</td>
+                      <td className="p-3 text-center text-yellow-700 font-semibold">{a.note}</td>
+                      <td className="p-3 text-muted-foreground">{a.points}</td>
+                      <td className="p-3 text-center text-primary font-semibold">{a.prix}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground">Prix indicatifs pour un séjour 10 nuits hors Ramadan. Comparez les offres actuelles sur notre comparateur.</p>
+          </section>
+
+          <section id="reservation" className="mb-10">
+            <h2 className="text-2xl font-bold mb-6">Comment Réserver votre Omra Tout Compris : Guide Étape par Étape</h2>
+            <p className="text-muted-foreground mb-6">
+              De la comparaison des offres au départ pour La Mecque, voici les 5 étapes clés pour réserver votre forfait tout compris en toute sécurité.
             </p>
+            <div className="space-y-4">
+              {[
+                {
+                  step: "1",
+                  title: "Définissez vos critères",
+                  text: "Choisissez votre période de départ, votre budget maximum et le niveau d'hôtel souhaité. Priorité absolue : la distance de l'hôtel à la Masjid al-Haram (moins de 500 m = confort spirituel optimal, accès aux prières de nuit facilité)."
+                },
+                {
+                  step: "2",
+                  title: "Comparez 3 à 5 agences",
+                  text: "Utilisez notre comparateur pour visualiser les offres en temps réel. Vérifiez que l'agence est agréée par le Ministère Saoudien des Affaires Religieuses. Lisez les avis Google (minimum 50 avis, note ≥ 4.3/5)."
+                },
+                {
+                  step: "3",
+                  title: "Demandez un devis détaillé par écrit",
+                  text: "Avant tout paiement, exigez un devis précisant : adresse exacte de l'hôtel, nombre de nuits à La Mecque et Médine, repas inclus, nombre de pèlerins par chambre, nom du guide francophone."
+                },
+                {
+                  step: "4",
+                  title: "Préparez vos documents",
+                  text: "Passeport valide 6 mois après le retour, certificat de vaccination méningite ACWY (obligatoire), photos d'identité, acte de mariage si vous voyagez en couple. L'agence gérera le visa Omra en ligne (e-Visa saoudien)."
+                },
+                {
+                  step: "5",
+                  title: "Confirmez et versez l'acompte",
+                  text: "L'acompte standard est de 20 à 30% du total. Vérifiez les conditions d'annulation avant de payer : une bonne agence propose au moins 80% de remboursement jusqu'à 30 jours avant le départ."
+                }
+              ].map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">{item.step}</div>
+                  <div>
+                    <h3 className="font-semibold mb-1">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
 
           <section id="conseils" className="mb-10">
@@ -236,6 +361,35 @@ export default function OmraToutCompris() {
                   </ul>
                 </CardContent>
               </Card>
+            </div>
+          </section>
+
+          <section id="faq" className="mb-10">
+            <h2 className="text-2xl font-bold mb-6">Questions Fréquentes sur l'Omra Tout Compris</h2>
+            <div className="space-y-4">
+              {[
+                {
+                  q: "Peut-on voyager seul avec un forfait tout compris ?",
+                  a: "Oui. Les forfaits tout compris accueillent des pèlerins individuels qui rejoignent un groupe constitué par l'agence. Dès l'aéroport, vous retrouvez les autres membres du groupe et un chef de groupe vous accompagne tout au long du séjour."
+                },
+                {
+                  q: "Les repas halal sont-ils garantis ?",
+                  a: "Absolument. Tous les hôtels partenaires des agences françaises spécialisées servent exclusivement des repas halal. La cuisine proposée est généralement internationale avec une orientation moyen-orientale."
+                },
+                {
+                  q: "La Omra tout compris inclut-elle les visites de Médine ?",
+                  a: "La quasi-totalité des forfaits tout compris incluent un séjour à Médine (généralement 3 à 5 nuits) avec la visite de la Mosquée du Prophète (Masjid al-Nabawi). Vérifiez le détail dans votre devis."
+                },
+                {
+                  q: "Peut-on personnaliser un forfait tout compris ?",
+                  a: "Oui, la plupart des agences permettent d'ajouter des nuits supplémentaires, d'upgrader la chambre en individuelle, ou d'opter pour la pension complète (3 repas). Ces options sont facturées en supplément."
+                }
+              ].map((item, i) => (
+                <details key={i} className="border border-border rounded-lg">
+                  <summary className="p-4 font-semibold cursor-pointer hover:bg-muted/30">{item.q}</summary>
+                  <p className="px-4 pb-4 text-sm text-muted-foreground">{item.a}</p>
+                </details>
+              ))}
             </div>
           </section>
 

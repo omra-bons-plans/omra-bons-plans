@@ -39,6 +39,20 @@ export default function OmraEnfants() {
         <meta property="og:url" content="https://omrabonsplans.fr/omra-enfants" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Omra avec Enfants 2026 : Guide Complet pour les Parents",
+          "description": "Tout pour préparer l'Omra avec des enfants : âge idéal, vêtements, documents, conseils pratiques.",
+          "url": "https://omrabonsplans.fr/omra-enfants",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-11-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

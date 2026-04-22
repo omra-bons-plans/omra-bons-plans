@@ -63,6 +63,19 @@ export default function Hajj2026() {
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Hajj 2026 : Dates, Prix, Inscription et Guide Complet",
+          "description": "Hajj 2026 : dates officielles (3-8 juin), prix des packages (4 500€-15 000€+), inscription Nusuk, types de Hajj (Ifrad/Tamattu/Qiran). Comparateur des meilleures agences françaises.",
+          "url": "https://omrabonsplans.fr/hajj-2026",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-10-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}</script>
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 

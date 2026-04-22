@@ -23,6 +23,19 @@ export default function ListeBagagesOmra() {
         <meta property="og:type" content="article" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Liste Complète Bagages Omra 2026 : Homme & Femme Détaillée",
+          "description": "Liste bagages Omra complète pour homme et femme : vêtements ihram, documents, médicaments, électronique. Checklist détaillée de tout ce qu'il faut emporter pour la Omra 2026.",
+          "url": "https://omrabonsplans.fr/liste-bagages-omra",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-11-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
             {

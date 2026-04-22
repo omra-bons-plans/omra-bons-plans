@@ -43,6 +43,20 @@ export default function OmraBadal() {
         <meta property="og:url" content="https://omrabonsplans.fr/omra-badal" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Omra Badal 2026 : Guide Complet de l'Omra pour un Défunt",
+          "description": "Tout sur l'Omra Badal (par procuration) : conditions islamiques, intention, prix des agences, arnaques à éviter.",
+          "url": "https://omrabonsplans.fr/omra-badal",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-11-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
