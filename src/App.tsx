@@ -87,6 +87,7 @@ const OmraDebutant = lazy(() => import("./pages/OmraDebutant"));
 const ConditionsOmra = lazy(() => import("./pages/ConditionsOmra"));
 const ComparateurOmraFrance = lazy(() => import("./pages/ComparateurOmraFrance"));
 const OmraSaison = lazy(() => import("./pages/OmraSaison"));
+const GuideHajj4Ecoles = lazy(() => import("./pages/GuideHajj4Ecoles"));
 
 // Loading component
 const PageLoader = () => (

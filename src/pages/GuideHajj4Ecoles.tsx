@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
+import '@/styles/guide-hajj.css';
 
 const schoolColors = {
   hanafi: '#4E9DD4',
