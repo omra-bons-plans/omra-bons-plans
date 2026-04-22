@@ -1,63 +1,52 @@
-/* Guide Hajj 4 Écoles - Scoped Styles */
+/* Guide Hajj 4 Écoles - Aligned with site design system */
 .hajj-guide-page {
-  --hajj-gold: #C9A84C;
-  --hajj-gold-light: #E8C96A;
-  --hajj-gold-dark: #8B6914;
-  --hajj-dark: #0D1117;
-  --hajj-dark-2: #161B22;
-  --hajj-dark-3: #1F2937;
-  --hajj-dark-4: #2D3748;
-  --hajj-cream: #F5EDD6;
-  --hajj-cream-2: #EFE0B8;
-  --hajj-text: #E8DFC8;
-  --hajj-text-muted: #9A8E74;
-  --hajj-hanafi: #4E9DD4;
-  --hajj-maliki: #5CB85C;
-  --hajj-shafii: #D4956A;
-  --hajj-hanbali: #9B6BB5;
-  --hajj-border: rgba(201,168,76,0.25);
+  /* School colors kept for functional distinction */
+  --hajj-hanafi: 207 60% 55%;
+  --hajj-maliki: 120 40% 50%;
+  --hajj-shafii: 25 55% 60%;
+  --hajj-hanbali: 270 35% 55%;
 
-  background: var(--hajj-dark);
-  color: var(--hajj-text);
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  line-height: 1.8;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: inherit;
+  line-height: 1.75;
   overflow-x: hidden;
 }
 
 /* HERO */
 .hajj-hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  background: var(--gradient-hero);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .hajj-hero-bg {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,168,76,0.18) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%),
-    linear-gradient(180deg, #050709 0%, #0D1117 40%, #0A0D12 100%);
+  background: linear-gradient(180deg, hsl(35, 65%, 45% / 0.9) 0%, hsl(45, 85%, 55% / 0.85) 50%, hsl(45, 80%, 60% / 0.9) 100%);
   z-index: 0;
 }
 
 .hajj-hero-pattern {
-  position: absolute; inset: 0; opacity: 0.06;
+  position: absolute; inset: 0; opacity: 0.08;
   background-image:
-    repeating-linear-gradient(45deg, var(--hajj-gold) 0, var(--hajj-gold) 1px, transparent 0, transparent 50%),
-    repeating-linear-gradient(-45deg, var(--hajj-gold) 0, var(--hajj-gold) 1px, transparent 0, transparent 50%);
+    repeating-linear-gradient(45deg, white 0, white 1px, transparent 0, transparent 50%),
+    repeating-linear-gradient(-45deg, white 0, white 1px, transparent 0, transparent 50%);
   background-size: 30px 30px;
   z-index: 0;
 }
 
 .hajj-hero-kaaba {
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 900px; opacity: 0.07; z-index: 0;
-  font-size: 28rem; line-height: 1; user-select: none; filter: blur(2px);
+  position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 900px; opacity: 0.1; z-index: 0;
+  font-size: 20rem; line-height: 1; user-select: none; filter: blur(3px);
+  color: white;
 }
 
 .hajj-hero-content {
@@ -67,181 +56,179 @@
 
 .hajj-hero-badge {
   display: inline-block;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--hajj-gold);
-  border: 1px solid var(--hajj-border);
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em;
+  text-transform: uppercase; color: white;
+  border: 1px solid rgba(255,255,255,0.4);
   padding: 0.5rem 1.5rem; margin-bottom: 2rem;
-  background: rgba(201,168,76,0.05);
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
 }
 
 .hajj-hero-arabic {
   font-family: 'Amiri', serif;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  color: var(--hajj-gold); line-height: 1.2; margin-bottom: 1rem;
-  text-shadow: 0 0 60px rgba(201,168,76,0.4);
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: white; line-height: 1.3; margin-bottom: 1rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  opacity: 0.95;
 }
 
 .hajj-hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
-  font-weight: 700; color: var(--hajj-cream);
-  line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 800; color: white;
+  line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.02em;
 }
 
-.hajj-hero h1 em { color: var(--hajj-gold); font-style: italic; }
+.hajj-hero h1 em { font-style: italic; opacity: 0.95; }
 
 .hajj-hero-subtitle {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  color: var(--hajj-text-muted); font-weight: 300;
-  max-width: 600px; margin: 0 auto 3rem;
-  font-family: 'Josefin Sans', sans-serif; letter-spacing: 0.05em;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: rgba(255,255,255,0.85); font-weight: 400;
+  max-width: 550px; margin: 0 auto 2.5rem;
+  letter-spacing: 0.03em;
 }
 
-.hajj-schools-preview { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hajj-schools-preview { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 
 .hajj-school-pill {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
-  text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 2px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 0.4rem 1rem; border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
 }
 
-.hajj-school-pill.hanafi { background: rgba(78,157,212,0.15); color: var(--hajj-hanafi); border: 1px solid rgba(78,157,212,0.3); }
-.hajj-school-pill.maliki { background: rgba(92,184,92,0.15); color: var(--hajj-maliki); border: 1px solid rgba(92,184,92,0.3); }
-.hajj-school-pill.shafii { background: rgba(212,149,106,0.15); color: var(--hajj-shafii); border: 1px solid rgba(212,149,106,0.3); }
-.hajj-school-pill.hanbali { background: rgba(155,107,181,0.15); color: var(--hajj-hanbali); border: 1px solid rgba(155,107,181,0.3); }
+.hajj-school-pill.hanafi { background: rgba(78,157,212,0.25); color: white; border: 1px solid rgba(78,157,212,0.5); }
+.hajj-school-pill.maliki { background: rgba(92,184,92,0.25); color: white; border: 1px solid rgba(92,184,92,0.5); }
+.hajj-school-pill.shafii { background: rgba(212,149,106,0.25); color: white; border: 1px solid rgba(212,149,106,0.5); }
+.hajj-school-pill.hanbali { background: rgba(155,107,181,0.25); color: white; border: 1px solid rgba(155,107,181,0.5); }
 
 .hajj-scroll-indicator {
-  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
   z-index: 1; animation: hajjBounce 2s infinite;
 }
 
 .hajj-scroll-indicator span {
-  display: block; width: 1px; height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--hajj-gold));
+  display: block; width: 1px; height: 50px;
+  background: linear-gradient(to bottom, transparent, white);
   margin: 0 auto;
 }
 
 /* LAYOUT */
-.hajj-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
-.hajj-container-wide { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+.hajj-container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+.hajj-container-wide { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
 /* SECTION HEADERS */
 .hajj-section-number {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
-  color: var(--hajj-gold); margin-bottom: 0.75rem;
+  font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: hsl(var(--primary)); margin-bottom: 0.75rem; font-weight: 600;
   display: flex; align-items: center; gap: 1rem;
 }
 
 .hajj-section-number::after {
-  content: ''; flex: 1; height: 1px; background: var(--hajj-border);
+  content: ''; flex: 1; height: 1px; background: hsl(var(--border));
 }
 
 .hajj-section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 700; color: var(--hajj-cream);
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  font-weight: 800; color: hsl(var(--foreground));
   line-height: 1.2; margin-bottom: 1rem;
 }
 
-.hajj-section-title em { color: var(--hajj-gold); font-style: italic; }
+.hajj-section-title em { color: hsl(var(--primary)); font-style: italic; }
 
 /* INTRO */
-.hajj-intro-section { padding: 6rem 0; border-bottom: 1px solid var(--hajj-border); }
+.hajj-intro-section { padding: 4rem 0; border-bottom: 1px solid hsl(var(--border)); }
 
 .hajj-intro-text {
-  font-size: 1.25rem; line-height: 2; color: var(--hajj-text);
-  font-weight: 300; max-width: 700px;
+  font-size: 1.1rem; line-height: 1.9; color: hsl(var(--foreground));
+  font-weight: 400; max-width: 700px;
 }
 
-.hajj-intro-text strong { color: var(--hajj-gold); font-weight: 600; }
+.hajj-intro-text strong { color: hsl(var(--primary)); font-weight: 600; }
 
 .hajj-hadith-box {
-  margin: 3rem 0; padding: 2rem 2.5rem;
-  border-left: 3px solid var(--hajj-gold);
-  background: rgba(201,168,76,0.05); position: relative;
+  margin: 2.5rem 0; padding: 1.75rem 2rem;
+  border-left: 3px solid hsl(var(--primary));
+  background: hsl(var(--accent)); position: relative;
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 .hajj-hadith-box::before {
   content: '❝'; position: absolute; top: -0.5rem; left: 1.5rem;
-  font-size: 3rem; color: var(--hajj-gold); opacity: 0.4; line-height: 1;
+  font-size: 2.5rem; color: hsl(var(--primary)); opacity: 0.3; line-height: 1;
 }
 
 .hajj-hadith-arabic {
-  font-family: 'Amiri', serif; font-size: 1.5rem;
-  color: var(--hajj-gold-light); text-align: center;
+  font-family: 'Amiri', serif; font-size: 1.4rem;
+  color: hsl(var(--primary-dark)); text-align: center;
   margin-bottom: 0.75rem; direction: rtl;
 }
 
-.hajj-hadith-text { font-style: italic; color: var(--hajj-text-muted); font-size: 1.05rem; }
+.hajj-hadith-text { font-style: italic; color: hsl(var(--muted-foreground)); font-size: 1rem; }
 
 .hajj-hadith-source {
-  font-family: 'Josefin Sans', sans-serif;
   font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--hajj-gold-dark); margin-top: 0.75rem;
+  color: hsl(var(--primary)); margin-top: 0.75rem; font-weight: 600;
 }
 
 /* SCHOOLS LEGEND */
 .hajj-schools-legend {
-  padding: 4rem 0; background: var(--hajj-dark-2);
-  border-top: 1px solid var(--hajj-border);
-  border-bottom: 1px solid var(--hajj-border);
+  padding: 4rem 0; background: hsl(var(--accent));
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .hajj-schools-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem; margin-top: 2.5rem;
+  gap: 1.25rem; margin-top: 2rem;
 }
 
 .hajj-school-card {
-  padding: 1.75rem; border: 1px solid;
-  position: relative; transition: transform 0.3s ease;
+  padding: 1.5rem; border: 1px solid; border-radius: var(--radius);
+  position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: hsl(var(--card));
 }
 
-.hajj-school-card:hover { transform: translateY(-3px); }
+.hajj-school-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-medium); }
 
-.hajj-school-card.hanafi { border-color: rgba(78,157,212,0.4); background: rgba(78,157,212,0.05); }
-.hajj-school-card.maliki { border-color: rgba(92,184,92,0.4); background: rgba(92,184,92,0.05); }
-.hajj-school-card.shafii { border-color: rgba(212,149,106,0.4); background: rgba(212,149,106,0.05); }
-.hajj-school-card.hanbali { border-color: rgba(155,107,181,0.4); background: rgba(155,107,181,0.05); }
+.hajj-school-card.hanafi { border-color: hsl(207, 60%, 75%); }
+.hajj-school-card.maliki { border-color: hsl(120, 40%, 70%); }
+.hajj-school-card.shafii { border-color: hsl(25, 55%, 75%); }
+.hajj-school-card.hanbali { border-color: hsl(270, 35%, 72%); }
 
-.hajj-school-dot { width: 10px; height: 10px; border-radius: 50%; margin-bottom: 1rem; }
+.hajj-school-dot { width: 10px; height: 10px; border-radius: 50%; margin-bottom: 0.75rem; }
 
-.hanafi .hajj-school-dot { background: var(--hajj-hanafi); }
-.maliki .hajj-school-dot { background: var(--hajj-maliki); }
-.shafii .hajj-school-dot { background: var(--hajj-shafii); }
-.hanbali .hajj-school-dot { background: var(--hajj-hanbali); }
+.hanafi .hajj-school-dot { background: hsl(207, 60%, 55%); }
+.maliki .hajj-school-dot { background: hsl(120, 40%, 50%); }
+.shafii .hajj-school-dot { background: hsl(25, 55%, 60%); }
+.hanbali .hajj-school-dot { background: hsl(270, 35%, 55%); }
 
 .hajj-school-card h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem;
+  font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem;
 }
 
-.hajj-school-card.hanafi h3 { color: var(--hajj-hanafi); }
-.hajj-school-card.maliki h3 { color: var(--hajj-maliki); }
-.hajj-school-card.shafii h3 { color: var(--hajj-shafii); }
-.hajj-school-card.hanbali h3 { color: var(--hajj-hanbali); }
+.hajj-school-card.hanafi h3 { color: hsl(207, 60%, 45%); }
+.hajj-school-card.maliki h3 { color: hsl(120, 40%, 38%); }
+.hajj-school-card.shafii h3 { color: hsl(25, 55%, 45%); }
+.hajj-school-card.hanbali h3 { color: hsl(270, 35%, 45%); }
 
 .hajj-school-founder {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--hajj-text-muted); margin-bottom: 0.75rem;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: hsl(var(--muted-foreground)); margin-bottom: 0.75rem; font-weight: 500;
 }
 
-.hajj-school-desc { font-size: 0.95rem; color: var(--hajj-text-muted); line-height: 1.6; }
+.hajj-school-desc { font-size: 0.9rem; color: hsl(var(--muted-foreground)); line-height: 1.6; }
 
 /* STEPS */
-.hajj-steps-section { padding: 6rem 0; }
+.hajj-steps-section { padding: 4rem 0; }
 
 .hajj-step-block {
-  display: grid; grid-template-columns: 80px 1fr;
-  gap: 2rem; margin-bottom: 5rem; position: relative;
+  display: grid; grid-template-columns: 70px 1fr;
+  gap: 1.5rem; margin-bottom: 4rem; position: relative;
 }
 
 .hajj-step-block::before {
-  content: ''; position: absolute; left: 40px; top: 80px; bottom: -5rem;
-  width: 1px; background: linear-gradient(to bottom, var(--hajj-gold-dark), transparent);
+  content: ''; position: absolute; left: 35px; top: 75px; bottom: -4rem;
+  width: 2px; background: linear-gradient(to bottom, hsl(var(--primary) / 0.3), transparent);
 }
 
 .hajj-step-block:last-child::before { display: none; }
@@ -249,321 +236,326 @@
 .hajj-step-number-wrap { display: flex; flex-direction: column; align-items: center; }
 
 .hajj-step-num {
-  width: 80px; height: 80px; border: 1px solid var(--hajj-gold);
+  width: 70px; height: 70px; border: 2px solid hsl(var(--primary));
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem; font-weight: 300; color: var(--hajj-gold);
-  background: rgba(201,168,76,0.05); flex-shrink: 0;
+  font-size: 1.5rem; font-weight: 700; color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.08); flex-shrink: 0;
+  border-radius: var(--radius);
 }
 
 .hajj-step-content h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.9rem; font-weight: 700; color: var(--hajj-cream); margin-bottom: 0.25rem;
+  font-size: 1.5rem; font-weight: 700; color: hsl(var(--foreground)); margin-bottom: 0.25rem;
 }
 
 .hajj-step-arabic {
-  font-family: 'Amiri', serif; font-size: 1.2rem;
-  color: var(--hajj-gold); margin-bottom: 1rem;
+  font-family: 'Amiri', serif; font-size: 1.1rem;
+  color: hsl(var(--primary)); margin-bottom: 0.75rem;
 }
 
 .hajj-step-desc {
-  font-size: 1.05rem; color: var(--hajj-text);
-  margin-bottom: 1.5rem; line-height: 1.9;
+  font-size: 1rem; color: hsl(var(--foreground));
+  margin-bottom: 1.25rem; line-height: 1.8;
 }
 
 /* COMPARE TABLE */
 .hajj-school-compare {
-  margin-top: 1.5rem; border: 1px solid var(--hajj-border); overflow: hidden;
+  margin-top: 1.25rem; border: 1px solid hsl(var(--border)); overflow: hidden;
+  border-radius: var(--radius);
 }
 
 .hajj-compare-row {
   display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-  border-bottom: 1px solid var(--hajj-border);
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .hajj-compare-row:last-child { border-bottom: none; }
-.hajj-compare-row.hajj-header { background: rgba(201,168,76,0.08); }
+.hajj-compare-row.hajj-header { background: hsl(var(--accent)); }
 
 .hajj-compare-cell {
-  padding: 0.9rem 1rem; font-size: 0.92rem;
-  border-right: 1px solid var(--hajj-border); line-height: 1.5;
+  padding: 0.75rem 0.85rem; font-size: 0.85rem;
+  border-right: 1px solid hsl(var(--border)); line-height: 1.5;
+  color: hsl(var(--foreground));
 }
 
 .hajj-compare-cell:last-child { border-right: none; }
 
 .hajj-compare-row.hajj-header .hajj-compare-cell {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.68rem; letter-spacing: 0.2em;
-  text-transform: uppercase; font-weight: 600;
+  font-size: 0.68rem; letter-spacing: 0.15em;
+  text-transform: uppercase; font-weight: 700;
 }
 
-.hajj-compare-row:nth-child(even) .hajj-compare-cell { background: rgba(255,255,255,0.015); }
+.hajj-compare-row:nth-child(even) .hajj-compare-cell { background: hsl(var(--muted) / 0.3); }
 
 /* OBLIGATIONS */
-.hajj-obligations-section { padding: 6rem 0; background: var(--hajj-dark-2); }
+.hajj-obligations-section { padding: 4rem 0; background: hsl(var(--accent)); }
 
 .hajj-obligations-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem; margin-top: 3rem;
+  gap: 1.25rem; margin-top: 2.5rem;
 }
 
 .hajj-obligation-card {
-  padding: 1.75rem; border: 1px solid var(--hajj-border);
-  background: var(--hajj-dark-3); position: relative; overflow: hidden;
+  padding: 1.5rem; border: 1px solid hsl(var(--border));
+  background: hsl(var(--card)); position: relative; overflow: hidden;
+  border-radius: var(--radius);
+  transition: box-shadow 0.3s ease;
 }
+
+.hajj-obligation-card:hover { box-shadow: var(--shadow-soft); }
 
 .hajj-obligation-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: linear-gradient(90deg, var(--hajj-gold), transparent);
+  height: 3px; background: var(--gradient-primary);
 }
 
-.hajj-ob-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+.hajj-ob-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
 
 .hajj-ob-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem; font-weight: 700; color: var(--hajj-cream); margin-bottom: 0.25rem;
+  font-size: 1.1rem; font-weight: 700; color: hsl(var(--foreground)); margin-bottom: 0.25rem;
 }
 
 .hajj-ob-arabic {
-  font-family: 'Amiri', serif; font-size: 0.95rem;
-  color: var(--hajj-gold); margin-bottom: 0.75rem;
+  font-family: 'Amiri', serif; font-size: 0.9rem;
+  color: hsl(var(--primary)); margin-bottom: 0.75rem;
 }
 
-.hajj-ob-desc { font-size: 0.92rem; color: var(--hajj-text-muted); line-height: 1.7; }
+.hajj-ob-desc { font-size: 0.88rem; color: hsl(var(--muted-foreground)); line-height: 1.7; }
 
 /* TYPES */
-.hajj-types-section { padding: 6rem 0; }
+.hajj-types-section { padding: 4rem 0; }
 
 .hajj-types-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem; margin-top: 3rem;
+  gap: 1.5rem; margin-top: 2.5rem;
 }
 
 .hajj-type-card {
-  padding: 2rem; border: 1px solid var(--hajj-border);
-  background: var(--hajj-dark-2); position: relative; transition: transform 0.3s ease;
+  padding: 1.75rem; border: 1px solid hsl(var(--border));
+  background: hsl(var(--card)); position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: var(--radius);
 }
 
-.hajj-type-card:hover { transform: translateY(-4px); }
+.hajj-type-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-medium); }
 
 .hajj-type-card.recommended {
-  border-color: var(--hajj-gold); background: rgba(201,168,76,0.05);
+  border-color: hsl(var(--primary)); background: hsl(var(--primary) / 0.04);
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15);
 }
 
 .hajj-recommended-badge {
-  position: absolute; top: -1px; right: 1.5rem;
-  background: var(--hajj-gold); color: var(--hajj-dark);
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  position: absolute; top: -1px; right: 1.25rem;
+  background: var(--gradient-primary); color: white;
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
   font-weight: 700; padding: 0.3rem 0.8rem;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
 
 .hajj-type-name {
-  font-family: 'Amiri', serif; font-size: 1.7rem;
-  color: var(--hajj-gold-light); margin-bottom: 0.25rem;
+  font-family: 'Amiri', serif; font-size: 1.5rem;
+  color: hsl(var(--primary)); margin-bottom: 0.25rem;
 }
 
 .hajj-type-name-fr {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem; font-weight: 700; color: var(--hajj-cream); margin-bottom: 1rem;
+  font-size: 1.15rem; font-weight: 700; color: hsl(var(--foreground)); margin-bottom: 0.75rem;
 }
 
 .hajj-type-desc {
-  font-size: 0.98rem; color: var(--hajj-text-muted);
-  margin-bottom: 1.25rem; line-height: 1.7;
+  font-size: 0.92rem; color: hsl(var(--muted-foreground));
+  margin-bottom: 1rem; line-height: 1.7;
 }
 
 .hajj-schools-opinion {
-  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--hajj-border);
+  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid hsl(var(--border));
 }
 
 .hajj-schools-opinion-title {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--hajj-text-muted); margin-bottom: 0.75rem;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: hsl(var(--muted-foreground)); margin-bottom: 0.75rem; font-weight: 600;
 }
 
 .hajj-school-vote {
   display: flex; align-items: center; gap: 0.5rem;
-  margin-bottom: 0.4rem; font-size: 0.88rem; color: var(--hajj-text);
+  margin-bottom: 0.4rem; font-size: 0.85rem; color: hsl(var(--foreground));
 }
 
 .hajj-vote-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
 /* FAQ */
-.hajj-faq-section { padding: 6rem 0; background: var(--hajj-dark-2); }
+.hajj-faq-section { padding: 4rem 0; background: hsl(var(--accent)); }
 
-.hajj-faq-item { border: 1px solid var(--hajj-border); margin-bottom: 1rem; overflow: hidden; }
-
-.hajj-faq-question {
-  padding: 1.5rem 1.75rem; cursor: pointer;
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
-  background: var(--hajj-dark-3); transition: background 0.2s; user-select: none;
+.hajj-faq-item {
+  border: 1px solid hsl(var(--border)); margin-bottom: 0.75rem;
+  overflow: hidden; border-radius: var(--radius);
 }
 
-.hajj-faq-question:hover { background: var(--hajj-dark-4); }
+.hajj-faq-question {
+  padding: 1.25rem 1.5rem; cursor: pointer;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  background: hsl(var(--card)); transition: background 0.2s; user-select: none;
+}
+
+.hajj-faq-question:hover { background: hsl(var(--muted) / 0.5); }
 
 .hajj-faq-question h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 600; color: var(--hajj-cream); line-height: 1.4;
+  font-size: 1rem; font-weight: 600; color: hsl(var(--foreground)); line-height: 1.4;
 }
 
 .hajj-faq-toggle {
-  color: var(--hajj-gold); font-size: 1.2rem; flex-shrink: 0;
-  transition: transform 0.3s ease; margin-top: 0.1rem;
+  color: hsl(var(--primary)); font-size: 1.2rem; flex-shrink: 0;
+  transition: transform 0.3s ease; margin-top: 0.1rem; font-weight: 700;
 }
 
 .hajj-faq-item.open .hajj-faq-toggle { transform: rotate(45deg); }
 
-.hajj-faq-answer { padding: 0 1.75rem 1.5rem; background: var(--hajj-dark-3); }
+.hajj-faq-answer { padding: 0 1.5rem 1.25rem; background: hsl(var(--card)); }
 
 .hajj-school-answer {
-  margin-bottom: 1rem; padding: 1rem 1.25rem; border-left: 3px solid;
+  margin-bottom: 0.75rem; padding: 0.85rem 1rem; border-left: 3px solid;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
-.hajj-school-answer.hanafi { border-color: var(--hajj-hanafi); background: rgba(78,157,212,0.05); }
-.hajj-school-answer.maliki { border-color: var(--hajj-maliki); background: rgba(92,184,92,0.05); }
-.hajj-school-answer.shafii { border-color: var(--hajj-shafii); background: rgba(212,149,106,0.05); }
-.hajj-school-answer.hanbali { border-color: var(--hajj-hanbali); background: rgba(155,107,181,0.05); }
+.hajj-school-answer.hanafi { border-color: hsl(207, 60%, 55%); background: hsl(207, 60%, 55% / 0.06); }
+.hajj-school-answer.maliki { border-color: hsl(120, 40%, 50%); background: hsl(120, 40%, 50% / 0.06); }
+.hajj-school-answer.shafii { border-color: hsl(25, 55%, 60%); background: hsl(25, 55%, 60% / 0.06); }
+.hajj-school-answer.hanbali { border-color: hsl(270, 35%, 55%); background: hsl(270, 35%, 55% / 0.06); }
 
 .hajj-school-answer-label {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-  font-weight: 700; margin-bottom: 0.5rem;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 0.4rem;
 }
 
-.hajj-school-answer.hanafi .hajj-school-answer-label { color: var(--hajj-hanafi); }
-.hajj-school-answer.maliki .hajj-school-answer-label { color: var(--hajj-maliki); }
-.hajj-school-answer.shafii .hajj-school-answer-label { color: var(--hajj-shafii); }
-.hajj-school-answer.hanbali .hajj-school-answer-label { color: var(--hajj-hanbali); }
+.hajj-school-answer.hanafi .hajj-school-answer-label { color: hsl(207, 60%, 45%); }
+.hajj-school-answer.maliki .hajj-school-answer-label { color: hsl(120, 40%, 38%); }
+.hajj-school-answer.shafii .hajj-school-answer-label { color: hsl(25, 55%, 45%); }
+.hajj-school-answer.hanbali .hajj-school-answer-label { color: hsl(270, 35%, 45%); }
 
-.hajj-school-answer p { font-size: 0.95rem; color: var(--hajj-text); line-height: 1.7; }
+.hajj-school-answer p { font-size: 0.9rem; color: hsl(var(--foreground)); line-height: 1.65; }
 
 /* DIVERGENCES */
 .hajj-divergences-section {
-  padding: 6rem 0; position: relative; overflow: hidden;
-}
-
-.hajj-divergences-section::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
-  pointer-events: none;
+  padding: 4rem 0; position: relative; overflow: hidden;
 }
 
 .hajj-divergences-intro {
-  font-size: 1.1rem; color: var(--hajj-text-muted);
-  max-width: 650px; margin-bottom: 3rem; line-height: 1.9;
+  font-size: 1.05rem; color: hsl(var(--muted-foreground));
+  max-width: 650px; margin-bottom: 2.5rem; line-height: 1.8;
 }
 
 .hajj-divergence-card {
-  margin-bottom: 2rem; border: 1px solid var(--hajj-border);
-  overflow: hidden; position: relative;
+  margin-bottom: 1.5rem; border: 1px solid hsl(var(--border));
+  overflow: hidden; position: relative; border-radius: var(--radius);
 }
 
 .hajj-divergence-card::before {
   content: ''; position: absolute; top: 0; left: 0; bottom: 0;
-  width: 3px; background: linear-gradient(to bottom, var(--hajj-gold), var(--hajj-gold-dark));
+  width: 3px; background: var(--gradient-primary);
 }
 
 .hajj-divergence-header {
-  padding: 1.5rem 1.75rem 1.5rem 2.25rem;
-  background: var(--hajj-dark-2);
-  display: flex; align-items: center; gap: 1rem;
+  padding: 1.25rem 1.5rem 1.25rem 2rem;
+  background: hsl(var(--accent));
+  display: flex; align-items: center; gap: 0.75rem;
 }
 
-.hajj-divergence-icon { font-size: 1.3rem; flex-shrink: 0; }
+.hajj-divergence-icon { font-size: 1.2rem; flex-shrink: 0; }
 
 .hajj-divergence-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem; font-weight: 700; color: var(--hajj-cream);
+  font-size: 1.1rem; font-weight: 700; color: hsl(var(--foreground));
 }
 
-.hajj-divergence-body { padding: 1.5rem 2.25rem; background: var(--hajj-dark-3); }
+.hajj-divergence-body { padding: 1.25rem 1.5rem 1.25rem 2rem; background: hsl(var(--card)); }
 
 .hajj-divergence-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem;
 }
 
-.hajj-dg-school { padding: 0.85rem 1rem; border: 1px solid; border-radius: 1px; }
+.hajj-dg-school {
+  padding: 0.75rem 0.85rem; border: 1px solid; border-radius: var(--radius-sm);
+}
 
-.hajj-dg-school.hanafi { border-color: rgba(78,157,212,0.35); background: rgba(78,157,212,0.05); }
-.hajj-dg-school.maliki { border-color: rgba(92,184,92,0.35); background: rgba(92,184,92,0.05); }
-.hajj-dg-school.shafii { border-color: rgba(212,149,106,0.35); background: rgba(212,149,106,0.05); }
-.hajj-dg-school.hanbali { border-color: rgba(155,107,181,0.35); background: rgba(155,107,181,0.05); }
+.hajj-dg-school.hanafi { border-color: hsl(207, 60%, 75%); background: hsl(207, 60%, 55% / 0.05); }
+.hajj-dg-school.maliki { border-color: hsl(120, 40%, 70%); background: hsl(120, 40%, 50% / 0.05); }
+.hajj-dg-school.shafii { border-color: hsl(25, 55%, 75%); background: hsl(25, 55%, 60% / 0.05); }
+.hajj-dg-school.hanbali { border-color: hsl(270, 35%, 72%); background: hsl(270, 35%, 55% / 0.05); }
 
 .hajj-dg-label {
-  font-family: 'Josefin Sans', sans-serif;
   font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-  font-weight: 700; margin-bottom: 0.4rem;
+  font-weight: 700; margin-bottom: 0.35rem;
 }
 
-.hajj-dg-school.hanafi .hajj-dg-label { color: var(--hajj-hanafi); }
-.hajj-dg-school.maliki .hajj-dg-label { color: var(--hajj-maliki); }
-.hajj-dg-school.shafii .hajj-dg-label { color: var(--hajj-shafii); }
-.hajj-dg-school.hanbali .hajj-dg-label { color: var(--hajj-hanbali); }
+.hajj-dg-school.hanafi .hajj-dg-label { color: hsl(207, 60%, 45%); }
+.hajj-dg-school.maliki .hajj-dg-label { color: hsl(120, 40%, 38%); }
+.hajj-dg-school.shafii .hajj-dg-label { color: hsl(25, 55%, 45%); }
+.hajj-dg-school.hanbali .hajj-dg-label { color: hsl(270, 35%, 45%); }
 
-.hajj-dg-school p { font-size: 0.88rem; color: var(--hajj-text); line-height: 1.55; }
+.hajj-dg-school p { font-size: 0.85rem; color: hsl(var(--foreground)); line-height: 1.55; }
 
 /* IHRAM */
-.hajj-ihram-section { padding: 6rem 0; background: var(--hajj-dark-2); }
+.hajj-ihram-section { padding: 4rem 0; background: hsl(var(--accent)); }
 
 .hajj-ihram-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;
 }
 
-.hajj-ihram-panel { padding: 2rem; border: 1px solid var(--hajj-border); }
+.hajj-ihram-panel {
+  padding: 1.75rem; border: 1px solid hsl(var(--border));
+  background: hsl(var(--card)); border-radius: var(--radius);
+}
 
 .hajj-ihram-panel h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 700; color: var(--hajj-gold-light);
+  font-size: 1.15rem; font-weight: 700; color: hsl(var(--primary));
   margin-bottom: 1rem; padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--hajj-border);
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .hajj-ihram-rule {
-  display: flex; gap: 0.75rem; margin-bottom: 0.9rem;
-  font-size: 0.95rem; color: var(--hajj-text); line-height: 1.6;
+  display: flex; gap: 0.65rem; margin-bottom: 0.75rem;
+  font-size: 0.9rem; color: hsl(var(--foreground)); line-height: 1.6;
 }
 
-.hajj-ihram-rule-icon { color: var(--hajj-gold); flex-shrink: 0; font-size: 0.8rem; margin-top: 0.25rem; }
+.hajj-ihram-rule-icon { color: hsl(var(--primary)); flex-shrink: 0; font-size: 0.75rem; margin-top: 0.25rem; }
 
 .hajj-school-note {
-  margin-top: 1.5rem; padding: 1rem;
-  background: rgba(201,168,76,0.05);
-  border-left: 2px solid var(--hajj-gold);
-  font-size: 0.88rem; color: var(--hajj-text-muted); line-height: 1.6;
+  margin-top: 1.25rem; padding: 0.85rem;
+  background: hsl(var(--primary) / 0.06);
+  border-left: 2px solid hsl(var(--primary));
+  font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.6;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 /* NOTE BOX */
 .hajj-note-box {
-  padding: 1.25rem 1.5rem;
-  background: rgba(201,168,76,0.06);
-  border: 1px solid var(--hajj-border);
-  font-size: 0.95rem; color: var(--hajj-text-muted); line-height: 1.7;
-  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: hsl(var(--primary) / 0.06);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  font-size: 0.9rem; color: hsl(var(--muted-foreground)); line-height: 1.7;
+  margin: 1.25rem 0;
+  border-radius: var(--radius);
 }
 
-.hajj-note-box strong { color: var(--hajj-gold); }
+.hajj-note-box strong { color: hsl(var(--primary)); }
 
 /* FOOTER */
 .hajj-footer {
-  padding: 4rem 0; border-top: 1px solid var(--hajj-border); text-align: center;
+  padding: 3rem 0; border-top: 1px solid hsl(var(--border)); text-align: center;
 }
 
 .hajj-footer-arabic {
-  font-family: 'Amiri', serif; font-size: 2rem;
-  color: var(--hajj-gold); margin-bottom: 1rem;
+  font-family: 'Amiri', serif; font-size: 1.75rem;
+  color: hsl(var(--primary)); margin-bottom: 1rem;
 }
 
 .hajj-footer-text {
-  font-size: 0.9rem; color: var(--hajj-text-muted);
-  font-family: 'Josefin Sans', sans-serif; letter-spacing: 0.1em;
+  font-size: 0.85rem; color: hsl(var(--muted-foreground));
+  letter-spacing: 0.05em;
 }
 
 .hajj-gold-divider {
-  width: 80px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--hajj-gold), transparent);
-  margin: 2.5rem auto;
+  width: 80px; height: 2px;
+  background: var(--gradient-primary);
+  margin: 2rem auto;
+  border-radius: 1px;
 }
 
 /* ANIMATIONS */
@@ -588,9 +580,14 @@
 @media (max-width: 700px) {
   .hajj-ihram-grid { grid-template-columns: 1fr; }
   .hajj-compare-row { grid-template-columns: 1fr 1fr; }
-  .hajj-step-block { grid-template-columns: 60px 1fr; }
-  .hajj-hero-kaaba { font-size: 12rem; }
+  .hajj-step-block { grid-template-columns: 50px 1fr; gap: 1rem; }
+  .hajj-step-num { width: 50px; height: 50px; font-size: 1.2rem; }
+  .hajj-step-block::before { left: 25px; }
+  .hajj-hero-kaaba { font-size: 10rem; }
   .hajj-divergence-grid { grid-template-columns: 1fr; }
+  .hajj-hero { min-height: 60vh; }
+  .hajj-container { padding: 0 1rem; }
+  .hajj-container-wide { padding: 0 1rem; }
 }
 
 /* Bottom nav spacing */
