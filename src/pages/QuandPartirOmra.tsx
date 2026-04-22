@@ -100,7 +100,7 @@ export default function QuandPartirOmra() {
           "headline": "Quand partir en Omra ? Meilleures Périodes & Prix 2026",
           "description": "Guide complet pour choisir la meilleure période pour votre Omra selon votre budget, votre disponibilité et vos objectifs spirituels.",
           "url": "https://omrabonsplans.fr/quand-partir-omra",
-          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-14",

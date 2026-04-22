@@ -52,7 +52,7 @@ export default function ConditionsOmra() {
           "headline": "Conditions pour Faire l'Omra 2026 : Qui Peut Partir ?",
           "description": "Guide complet des conditions religieuses, administratives et sanitaires pour partir en Omra en 2026.",
           "url": "https://omrabonsplans.fr/conditions-omra",
-          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-14",

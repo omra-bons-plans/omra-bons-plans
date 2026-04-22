@@ -70,7 +70,7 @@ export default function MeilleureAgenceOmra() {
           "headline": "Meilleure Agence Omra 2026 : Classement et Guide de Choix",
           "description": "Classement des 5 meilleures agences Omra en France basé sur les avis Google, critères de fiabilité et guide complet pour bien choisir.",
           "url": "https://omrabonsplans.fr/meilleure-agence-omra",
-          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-21",

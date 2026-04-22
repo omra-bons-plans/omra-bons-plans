@@ -75,7 +75,7 @@ export default function GuideOmraPasChere() {
             "url": "https://omrabonsplans.fr/guide-omra-pas-chere",
             "datePublished": "2026-01-15",
             "dateModified": "2026-02-20",
-            "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+            "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
             "publisher": {
               "@type": "Organization",
               "name": "Omra Bons Plans",

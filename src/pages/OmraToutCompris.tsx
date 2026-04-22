@@ -27,7 +27,7 @@ export default function OmraToutCompris() {
           "headline": "Omra Tout Compris 2026 : Forfaits et Meilleures Offres",
           "description": "Guide complet des forfaits Omra tout compris 2026 : ce qui est inclus, comparatif des prix par standing, et conseils pour bien choisir son package.",
           "url": "https://omrabonsplans.fr/omra-tout-compris",
-          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie" },
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
           "dateModified": "2026-04-21",
