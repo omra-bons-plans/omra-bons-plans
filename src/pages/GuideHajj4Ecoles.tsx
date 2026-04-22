@@ -85,10 +85,27 @@ const GuideHajj4Ecoles = () => {
   return (
     <>
       <Helmet>
-        <title>Guide Complet du Hajj – Les 4 Écoles Juridiques | OmraBonsPlans</title>
-        <meta name="description" content="Guide complet du Hajj selon les 4 écoles juridiques sunnites (Hanafite, Malikite, Shafiite, Hanbalite). Étapes, obligations, divergences et FAQ détaillées." />
+        <title>Guide Hajj 4 Écoles Juridiques : Hanafite, Malikite, Shafiite, Hanbalite</title>
+        <meta name="description" content="Guide complet du Hajj selon les 4 écoles sunnites. Étapes détaillées, obligations, points de divergence entre Hanafite, Malikite, Shafiite et Hanbalite. FAQ pratiques." />
+        <meta name="keywords" content="hajj, guide hajj, 4 écoles juridiques, hanafite, malikite, shafiite, hanbalite, pèlerinage, islam, fiqh, madhab, omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/guide-hajj-4-ecoles" />
-        <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet" />
+        <meta property="og:title" content="Guide Hajj selon les 4 Écoles Juridiques | OmraBonsPlans" />
+        <meta property="og:description" content="Découvrez les étapes du Hajj expliquées selon les 4 madhabs sunnites. Obligations, divergences et FAQ détaillées." />
+        <meta property="og:url" content="https://omrabonsplans.fr/guide-hajj-4-ecoles" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Guide Hajj 4 Écoles Juridiques | OmraBonsPlans" />
+        <meta name="twitter:description" content="Guide complet du Hajj selon les 4 écoles sunnites : étapes, obligations, divergences et FAQ." />
+        <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Guide Complet du Hajj selon les 4 Écoles Juridiques",
+          "description": "Guide détaillé du Hajj selon les 4 madhabs sunnites : Hanafite, Malikite, Shafiite et Hanbalite.",
+          "url": "https://omrabonsplans.fr/guide-hajj-4-ecoles",
+          "publisher": { "@type": "Organization", "name": "OmraBonsPlans", "url": "https://omrabonsplans.fr" },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://omrabonsplans.fr/guide-hajj-4-ecoles" }
+        })}</script>
       </Helmet>
 
       <div ref={pageRef} className="hajj-guide-page">
