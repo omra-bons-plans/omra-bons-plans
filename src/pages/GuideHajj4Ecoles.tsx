@@ -4,10 +4,10 @@ import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 import '@/styles/guide-hajj.css';
 
 const schoolColors = {
-  hanafi: '#4E9DD4',
-  maliki: '#5CB85C',
-  shafii: '#D4956A',
-  hanbali: '#9B6BB5',
+  hanafi: 'hsl(207, 60%, 50%)',
+  maliki: 'hsl(120, 40%, 45%)',
+  shafii: 'hsl(25, 55%, 55%)',
+  hanbali: 'hsl(270, 35%, 50%)',
 };
 
 const CompareTable = ({ rows }: { rows: string[][] }) => (
@@ -85,10 +85,27 @@ const GuideHajj4Ecoles = () => {
   return (
     <>
       <Helmet>
-        <title>Guide Complet du Hajj – Les 4 Écoles Juridiques | OmraBonsPlans</title>
-        <meta name="description" content="Guide complet du Hajj selon les 4 écoles juridiques sunnites (Hanafite, Malikite, Shafiite, Hanbalite). Étapes, obligations, divergences et FAQ détaillées." />
+        <title>Guide Hajj 4 Écoles Juridiques : Hanafite, Malikite, Shafiite, Hanbalite</title>
+        <meta name="description" content="Guide complet du Hajj selon les 4 écoles sunnites. Étapes détaillées, obligations, points de divergence entre Hanafite, Malikite, Shafiite et Hanbalite. FAQ pratiques." />
+        <meta name="keywords" content="hajj, guide hajj, 4 écoles juridiques, hanafite, malikite, shafiite, hanbalite, pèlerinage, islam, fiqh, madhab, omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/guide-hajj-4-ecoles" />
-        <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet" />
+        <meta property="og:title" content="Guide Hajj selon les 4 Écoles Juridiques | OmraBonsPlans" />
+        <meta property="og:description" content="Découvrez les étapes du Hajj expliquées selon les 4 madhabs sunnites. Obligations, divergences et FAQ détaillées." />
+        <meta property="og:url" content="https://omrabonsplans.fr/guide-hajj-4-ecoles" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Guide Hajj 4 Écoles Juridiques | OmraBonsPlans" />
+        <meta name="twitter:description" content="Guide complet du Hajj selon les 4 écoles sunnites : étapes, obligations, divergences et FAQ." />
+        <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Guide Complet du Hajj selon les 4 Écoles Juridiques",
+          "description": "Guide détaillé du Hajj selon les 4 madhabs sunnites : Hanafite, Malikite, Shafiite et Hanbalite.",
+          "url": "https://omrabonsplans.fr/guide-hajj-4-ecoles",
+          "publisher": { "@type": "Organization", "name": "OmraBonsPlans", "url": "https://omrabonsplans.fr" },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://omrabonsplans.fr/guide-hajj-4-ecoles" }
+        })}</script>
       </Helmet>
 
       <div ref={pageRef} className="hajj-guide-page">
@@ -191,7 +208,7 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-container">
             <div className="hajj-section-number">Forme du Hajj</div>
             <h2 className="hajj-section-title">Les Trois <em>Types de Hajj</em></h2>
-            <p style={{ color: 'var(--hajj-text-muted)', fontSize: '1.05rem', marginBottom: '0.5rem' }}>
+            <p style={{ color: 'hsl(25, 15%, 55%)', fontSize: '1.05rem', marginBottom: '0.5rem' }}>
               Avant d'entrer en ihrâm, chaque pèlerin doit choisir l'un des trois types de Hajj. Ce choix détermine les rites à accomplir et les éventuels sacrifices requis.
             </p>
             <div className="hajj-types-grid">
@@ -268,7 +285,7 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-container">
             <div className="hajj-section-number">Le Guide</div>
             <h2 className="hajj-section-title">Étape par Étape : <em>Les Rites du Hajj</em></h2>
-            <p style={{ color: 'var(--hajj-text-muted)', fontSize: '1.05rem', marginBottom: '3rem' }}>Suivez chaque étape du Hajj avec les positions détaillées des quatre madhabs.</p>
+            <p style={{ color: 'hsl(25, 15%, 55%)', fontSize: '1.05rem', marginBottom: '3rem' }}>Suivez chaque étape du Hajj avec les positions détaillées des quatre madhabs.</p>
 
             {/* Étape 1 */}
             <div className="hajj-step-block hajj-reveal">
@@ -425,7 +442,7 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Dress Code Sacré</div>
             <h2 className="hajj-section-title">Les Vêtements de l'<em>Ihrâm</em></h2>
-            <p style={{ color: 'var(--hajj-text-muted)', fontSize: '1.05rem', maxWidth: 650, marginBottom: '2rem' }}>
+            <p style={{ color: 'hsl(25, 15%, 55%)', fontSize: '1.05rem', maxWidth: 650, marginBottom: '2rem' }}>
               L'ihrâm impose des règles vestimentaires strictes. La question des vêtements cousus est l'un des sujets sur lesquels les quatre écoles ont des positions nuancées.
             </p>
             <div className="hajj-ihram-grid">
@@ -466,7 +483,7 @@ const GuideHajj4Ecoles = () => {
             </div>
 
             <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', color: 'var(--hajj-cream)', marginBottom: '1rem' }}>❓ Les vêtements cousus : ce que dit chaque école</h3>
+              <h3 style={{ fontFamily: 'inherit', fontSize: '1.5rem', color: 'inherit', marginBottom: '1rem' }}>❓ Les vêtements cousus : ce que dit chaque école</h3>
               <CompareTable rows={[
                 ["Interdit de porter tout vêtement cousu qui épouse la forme du corps (makhit). Cela inclut les sous-vêtements et les chaussettes",
                  "Interdit de porter tout vêtement confectionné pour le corps (comme une chemise). Le terme utilisé est « malfûq » (assemblé)",
@@ -565,7 +582,7 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-container">
             <div className="hajj-section-number">Questions & Réponses</div>
             <h2 className="hajj-section-title">Les Questions <em>Fréquentes</em><br />selon les Quatre Écoles</h2>
-            <p style={{ color: 'var(--hajj-text-muted)', fontSize: '1.05rem', marginBottom: '2.5rem' }}>Des situations courantes vécues par les pèlerins, avec les réponses détaillées de chaque madhab.</p>
+            <p style={{ color: 'hsl(25, 15%, 55%)', fontSize: '1.05rem', marginBottom: '2.5rem' }}>Des situations courantes vécues par les pèlerins, avec les réponses détaillées de chaque madhab.</p>
 
             <FAQItem question="❓ Un pèlerin porte un pantalon par erreur durant quelques heures en état d'ihrâm. Que doit-il faire ?" defaultOpen>
               <SchoolAnswer school="hanafi" label="🔵 École Hanafite">Il doit enlever le pantalon dès qu'il s'en aperçoit. La kaffarah s'applique même par erreur selon Abou Hanifa : sacrifier un mouton, ou 3 jours de jeûne, ou nourrir 6 pauvres.</SchoolAnswer>
@@ -617,7 +634,7 @@ const GuideHajj4Ecoles = () => {
             <div className="hajj-footer-arabic">رَبَّنَا تَقَبَّلْ مِنَّا</div>
             <div className="hajj-gold-divider" />
             <p className="hajj-footer-text" style={{ marginBottom: '1rem' }}>« Notre Seigneur, accepte cela de notre part. » — Sourate Al-Baqara (2:127)</p>
-            <p className="hajj-footer-text" style={{ fontSize: '0.75rem', marginTop: '1.5rem', color: '#8B6914' }}>
+            <p className="hajj-footer-text" style={{ fontSize: '0.75rem', marginTop: '1.5rem', color: 'hsl(25, 15%, 55%)' }}>
               Ce guide a été rédigé à titre informatif et éducatif. Pour les questions juridiques personnelles,<br />
               consultez toujours un savant ou une autorité religieuse qualifiée selon votre école.
             </p>
