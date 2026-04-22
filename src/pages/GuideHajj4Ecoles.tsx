@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import MobileBottomNav from '@/components/mobile/MobileBottomNav';
+import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 
 const schoolColors = {
   hanafi: '#4E9DD4',
