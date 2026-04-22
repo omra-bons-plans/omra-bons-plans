@@ -298,6 +298,7 @@ const App = () => (
                    <Route path="/omra-debutant" element={<OmraDebutant />} />
                    <Route path="/conditions-omra" element={<ConditionsOmra />} />
                    <Route path="/comparateur-omra-france" element={<ComparateurOmraFrance />} />
+                   <Route path="/guide-hajj-4-ecoles" element={<GuideHajj4Ecoles />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />
