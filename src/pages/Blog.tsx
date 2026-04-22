@@ -194,6 +194,10 @@ const Blog = () => {
     { value: 'vendeurs', label: 'Vendeurs', count: posts.filter(p => p.category === 'vendeurs').length }
   ];
 
+  const specialLinks = [
+    { value: 'guide-hajj-4-ecoles', label: '🎁 Guide Hajj 4 Écoles', href: '/guide-hajj-4-ecoles' }
+  ];
+
   return (
     <ResponsiveLayout>
       <SEOHead
