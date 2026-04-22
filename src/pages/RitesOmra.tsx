@@ -74,6 +74,7 @@ export default function RitesOmra() {
         <meta property="og:description" content="Toutes les étapes de la Omra expliquées : ihram, tawaf, sa'i et tahallul. Guide pratique pour bien préparer votre pèlerinage." />
         <meta property="og:url" content="https://omrabonsplans.fr/rites-omra" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>

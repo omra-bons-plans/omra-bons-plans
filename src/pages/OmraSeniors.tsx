@@ -38,6 +38,7 @@ export default function OmraSeniors() {
         <meta property="og:description" content="Comment faire l'Omra en étant senior ou à mobilité réduite ? Fauteuil roulant, conseils médicaux, formules adaptées." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-seniors" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

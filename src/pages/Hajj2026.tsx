@@ -61,6 +61,7 @@ export default function Hajj2026() {
         <meta property="og:description" content="Tout ce qu'il faut savoir sur le Hajj 2026 : dates, prix, types de Hajj, inscription Nusuk et meilleures agences." />
         <meta property="og:url" content="https://omrabonsplans.fr/hajj-2026" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({

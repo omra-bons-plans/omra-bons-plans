@@ -54,6 +54,7 @@ export default function ComparateurOmraFrance() {
         <meta property="og:description" content="Comparez les offres Omra de toutes les agences agréées en France. Prix en temps réel, avis vérifiés, gratuit." />
         <meta property="og:url" content="https://omrabonsplans.fr/comparateur-omra-france" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

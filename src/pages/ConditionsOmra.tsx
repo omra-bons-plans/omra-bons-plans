@@ -39,6 +39,7 @@ export default function ConditionsOmra() {
         <meta property="og:description" content="Conditions religieuses, documents, vaccins, règles pour les femmes : tout ce qu'il faut savoir pour pouvoir partir en Omra en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/conditions-omra" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

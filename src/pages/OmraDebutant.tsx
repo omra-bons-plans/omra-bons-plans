@@ -82,6 +82,7 @@ export default function OmraDebutant() {
         <meta property="og:description" content="Guide complet étape par étape pour préparer et réussir votre première Omra : documents, rites, budget et conseils pratiques." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-debutant" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

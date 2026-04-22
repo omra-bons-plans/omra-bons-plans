@@ -38,6 +38,7 @@ export default function DixDerniersJoursRamadan() {
         <meta property="og:description" content="Dates, prix et conseils pour l'Omra pendant les 10 derniers jours du Ramadan 2026 incluant Laylat al-Qadr." />
         <meta property="og:url" content="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

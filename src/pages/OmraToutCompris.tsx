@@ -21,6 +21,8 @@ export default function OmraToutCompris() {
         <meta property="og:description" content="Omra tout compris : forfaits all-inclusive avec vol + hôtel + repas. Comparatif des meilleures agences et prix." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-tout-compris" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",

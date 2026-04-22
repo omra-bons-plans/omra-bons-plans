@@ -87,6 +87,7 @@ export default function QuandPartirOmra() {
         <meta property="og:description" content="Ramadan, hiver ou hors saison : quelle est la meilleure période pour votre Omra ? Comparatif complet des prix et de l'affluence." />
         <meta property="og:url" content="https://omrabonsplans.fr/quand-partir-omra" />
         <meta property="og:type" content="article" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

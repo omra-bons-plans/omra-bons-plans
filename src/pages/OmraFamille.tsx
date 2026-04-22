@@ -42,6 +42,7 @@ export default function OmraFamille() {
         <meta property="og:description" content="Prix, documents, conseils : tout pour organiser votre Omra en famille avec enfants en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-famille" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
