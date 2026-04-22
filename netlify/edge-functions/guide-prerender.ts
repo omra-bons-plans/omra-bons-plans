@@ -159,16 +159,6 @@ export default async function handler(req: Request, context: Context) {
 
   if (!page) return context.next();
 
-  const faqSchema = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": page.faqs.map((f) => ({
-      "@type": "Question",
-      "name": f.q,
-      "acceptedAnswer": { "@type": "Answer", "text": f.a },
-    })),
-  });
-
   const articleSchema = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
@@ -208,7 +198,6 @@ export default async function handler(req: Request, context: Context) {
   <meta property="og:description" content="${escHtml(page.description)}">
   <meta property="og:url" content="${page.canonical}">
   <meta property="og:type" content="article">
-  <script type="application/ld+json">${faqSchema}</script>
   <script type="application/ld+json">${articleSchema}</script>
 </head>
 <body>
