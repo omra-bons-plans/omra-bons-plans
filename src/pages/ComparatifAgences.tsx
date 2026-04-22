@@ -94,7 +94,7 @@ export default function ComparatifAgences() {
         <title>Tableau Comparatif Agences Omra - Notes & Tarifs 2026 | Omra Bons Plans</title>
         <meta name="description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, nombre d'avis, tarifs et spécialités. Comparez les meilleures agences pour votre pèlerinage 2026." />
         <meta name="keywords" content="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tableau comparatif" />
-        <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
+        <link rel="canonical" href="https://omrabonsplans.fr/comparatif-agences" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Tableau Comparatif Agences Omra - Notes & Tarifs 2026" />
         <meta property="og:description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, tarifs et spécialités." />
@@ -102,6 +102,19 @@ export default function ComparatifAgences() {
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Tableau Comparatif Agences Omra - Notes & Tarifs 2026",
+          "description": "Tableau comparatif complet des agences Omra et Hajj : notes Google, nombre d'avis, tarifs et spécialités. Comparez les meilleures agences pour votre pèlerinage 2026.",
+          "url": "https://omrabonsplans.fr/comparatif-agences",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-09-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}</script>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

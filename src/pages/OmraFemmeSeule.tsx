@@ -199,7 +199,7 @@ export default function OmraFemmeSeule() {
             {[
               { name: "Tawaf", note: "Groupes femmes disponibles", rating: "4.8/5" },
               { name: "Medinvoyages", note: "Accompagnatrices dédiées", rating: "4.7/5" },
-              { name: "Pelerinhajj", note: "Spécialiste accompagnement féminin", rating: "4.9/5" },
+              { name: "Pelerinhajj", note: "Spécialiste accompagnement féminin", rating: "4.6/5" },
               { name: "Al Maqam", note: "Groupes mixtes sécurisés", rating: "4.6/5" },
               { name: "Omra Pour Tous", note: "Idéal pour voyageuses seules", rating: "4.6/5" },
               { name: "Sabil Voyages", note: "Petits groupes, suivi personnalisé", rating: "4.7/5" }

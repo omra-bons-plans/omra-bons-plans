@@ -94,6 +94,19 @@ export default function AgencesListe() {
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs Comparés",
+          "description": "Top 20 agences Omra & Hajj en France : notes clients authentiques, agréments ministère du Hajj, points forts, faiblesses et tarifs 2026.",
+          "url": "https://omrabonsplans.fr/agences-liste",
+          "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
+          "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
+          "datePublished": "2025-09-01",
+          "dateModified": "2026-04-14",
+          "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
+          "inLanguage": "fr-FR"
+        })}</script>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
