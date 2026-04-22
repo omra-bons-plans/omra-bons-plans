@@ -68,6 +68,7 @@ export default function VisaOmra() {
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
