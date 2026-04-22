@@ -53,13 +53,6 @@ export const OrganizationSchema = () => {
         },
         "geoRadius": "1000 km"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "156",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "sameAs": [
         "https://www.instagram.com/omrabonsplans",
         "https://www.facebook.com/omrabonsplans",

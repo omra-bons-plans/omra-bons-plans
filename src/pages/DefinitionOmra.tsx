@@ -71,7 +71,7 @@ export default function DefinitionOmra() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://omrabonsplans.fr/omra" },
+            { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://omrabonsplans.fr" },
             { "@type": "ListItem", "position": 2, "name": "Définition Omra", "item": "https://omrabonsplans.fr/definition-omra" }
           ]
         })}</script>
@@ -79,15 +79,13 @@ export default function DefinitionOmra() {
 
       <article className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         <nav aria-label="Fil d'Ariane" className="mb-6 text-sm text-muted-foreground">
-          <ol className="flex flex-wrap gap-1" itemScope itemType="https://schema.org/BreadcrumbList">
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link to="/" itemProp="item" className="hover:text-primary"><span itemProp="name">Accueil</span></Link>
-              <meta itemProp="position" content="1" />
+          <ol className="flex flex-wrap gap-1">
+            <li>
+              <Link to="/" className="hover:text-primary">Accueil</Link>
               <span className="mx-1">/</span>
             </li>
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <span itemProp="name" className="text-foreground">Définition Omra</span>
-              <meta itemProp="position" content="2" />
+            <li>
+              <span className="text-foreground">Définition Omra</span>
             </li>
           </ol>
         </nav>
