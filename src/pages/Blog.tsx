@@ -314,9 +314,17 @@ const Blog = () => {
                       </Badge>
                     </DropdownMenuItem>
                   ))}
+                  <DropdownMenuItem
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      navigate('/guide-hajj-4-ecoles');
+                    }}
+                    className="border-t mt-1 pt-1 text-primary font-medium"
+                  >
+                    <span className="flex-1">🎁 Guide Hajj 4 Écoles</span>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
 
             {/* Desktop tabs */}
             <div className="hidden sm:grid sm:grid-cols-2 lg:flex lg:justify-center lg:gap-4">
@@ -345,6 +353,13 @@ const Blog = () => {
                   </Badge>
                 </Button>
               ))}
+              <Button
+                variant="outline"
+                onClick={() => navigate('/guide-hajj-4-ecoles')}
+                className="flex items-center justify-center text-sm h-12 w-full lg:w-auto border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <span className="truncate">🎁 Guide Hajj 4 Écoles</span>
+              </Button>
             </div>
           </div>
 
