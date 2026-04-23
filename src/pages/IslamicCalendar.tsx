@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, ArrowRightLeft } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -52,6 +52,24 @@ const IslamicCalendar = () => {
   const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [manualDate, setManualDate] = useState('');
+  const [todayHijri, setTodayHijri] = useState<ConversionResult | null>(null);
+
+  useEffect(() => {
+    const fetchToday = async () => {
+      try {
+        const today = new Date();
+        const formattedDate = format(today, 'dd-MM-yyyy');
+        const response = await fetch(`https://api.aladhan.com/v1/gToH/${formattedDate}`);
+        const data = await response.json();
+        if (data.code === 200) {
+          setTodayHijri(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch today hijri date', error);
+      }
+    };
+    fetchToday();
+  }, []);
 
   const convertDate = async (date: Date) => {
     setLoading(true);
@@ -157,6 +175,30 @@ const IslamicCalendar = () => {
             les traditions islamiques authentiques.
           </p>
         </div>
+
+        {/* Today's date banner */}
+        {todayHijri && (
+          <Card className="mb-8 border-primary/30 bg-primary/5">
+            <CardContent className="py-5 px-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+                <CalendarIcon className="h-6 w-6 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground font-medium">Aujourd'hui</p>
+                  <p className="text-lg font-bold text-foreground">
+                    {todayHijri.gregorian.day} {todayHijri.gregorian.month.en} {todayHijri.gregorian.year}
+                  </p>
+                </div>
+                <ArrowRightLeft className="h-5 w-5 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground font-medium">Date hégirien</p>
+                  <p className="text-lg font-bold text-primary">
+                    {todayHijri.hijri.day} {todayHijri.hijri.month.ar} {todayHijri.hijri.year} هـ
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <div className="grid gap-6 md:grid-cols-2">
           {/* Date Picker Section */}
