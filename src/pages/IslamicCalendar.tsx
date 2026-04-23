@@ -176,6 +176,30 @@ const IslamicCalendar = () => {
           </p>
         </div>
 
+        {/* Today's date banner */}
+        {todayHijri && (
+          <Card className="mb-8 border-primary/30 bg-primary/5">
+            <CardContent className="py-5 px-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+                <CalendarIcon className="h-6 w-6 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground font-medium">Aujourd'hui</p>
+                  <p className="text-lg font-bold text-foreground">
+                    {todayHijri.gregorian.day} {todayHijri.gregorian.month.en} {todayHijri.gregorian.year}
+                  </p>
+                </div>
+                <ArrowRightLeft className="h-5 w-5 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground font-medium">Date hégirien</p>
+                  <p className="text-lg font-bold text-primary">
+                    {todayHijri.hijri.day} {todayHijri.hijri.month.ar} {todayHijri.hijri.year} هـ
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="grid gap-6 md:grid-cols-2">
           {/* Date Picker Section */}
           <Card>
