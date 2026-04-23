@@ -48,9 +48,8 @@ const MobileSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Pages où le bouton "Publier une annonce" ne doit pas s'afficher (car déjà présent dans la page ou non pertinent)
-  const hidePublishButtonOnPages = ['/', '/publish', '/omra', '/hajj', '/bons-plans'];
-  const shouldShowPublishButton = !hidePublishButtonOnPages.includes(location.pathname) && !location.pathname.startsWith('/publish/') && !location.pathname.startsWith('/offre-omra/') && !location.pathname.startsWith('/offre-hajj/');
+  // Le bouton flottant "Publier une annonce" ne s'affiche QUE sur la page Bons Plans
+  const shouldShowPublishButton = location.pathname === '/bons-plans';
 
   const handleSignOut = async () => {
     try {
