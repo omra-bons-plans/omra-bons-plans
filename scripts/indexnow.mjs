@@ -42,6 +42,7 @@ const urls = [
   `https://${HOST}/omra-en-decembre-2026`,
   `https://${HOST}/omra-en-janvier-2027`,
   `https://${HOST}/prayer-times`,
+  `https://${HOST}/guide-hajj-4-ecoles`,
 ];
 
 const body = JSON.stringify({
