@@ -46,7 +46,7 @@ Disallow: /ad-summary/
 Disallow: /bons-plans
 
 # Block old redirect URLs (avoid "Page with redirect" in GSC)
-Disallow: /comparateur-omra
+Disallow: /comparateur-omra$
 Disallow: /a-propos
 Disallow: /calendrier-islamique
 Disallow: /dates-ramadan-hajj
