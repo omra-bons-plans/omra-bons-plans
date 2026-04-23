@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, ArrowRightLeft } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -52,6 +52,24 @@ const IslamicCalendar = () => {
   const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [manualDate, setManualDate] = useState('');
+  const [todayHijri, setTodayHijri] = useState<ConversionResult | null>(null);
+
+  useEffect(() => {
+    const fetchToday = async () => {
+      try {
+        const today = new Date();
+        const formattedDate = format(today, 'dd-MM-yyyy');
+        const response = await fetch(`https://api.aladhan.com/v1/gToH/${formattedDate}`);
+        const data = await response.json();
+        if (data.code === 200) {
+          setTodayHijri(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch today hijri date', error);
+      }
+    };
+    fetchToday();
+  }, []);
 
   const convertDate = async (date: Date) => {
     setLoading(true);
