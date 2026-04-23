@@ -7,6 +7,10 @@
 /dates-ramadan-hajj /ramadan-hajj-dates 301
 /horaires-prieres /prayer-times 301
 
+# Redirection version accentuée vers version canonique sans accent (consolidation SEO)
+/guide-hajj-4-écoles /guide-hajj-4-ecoles 301
+/guide-hajj-4-%C3%A9coles /guide-hajj-4-ecoles 301
+
 # Redirections services vers catégories
 /services/babysitting-omra /category/babysitting 301
 /services/babysitting /category/babysitting 301
