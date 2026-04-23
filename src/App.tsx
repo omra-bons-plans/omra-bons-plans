@@ -299,6 +299,8 @@ const App = () => (
                    <Route path="/conditions-omra" element={<ConditionsOmra />} />
                    <Route path="/comparateur-omra-france" element={<ComparateurOmraFrance />} />
                    <Route path="/guide-hajj-4-ecoles" element={<GuideHajj4Ecoles />} />
+                   {/* Redirection de la version accentuée vers la version canonique sans accent */}
+                   <Route path="/guide-hajj-4-écoles" element={<Navigate to="/guide-hajj-4-ecoles" replace />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />
