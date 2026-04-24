@@ -266,7 +266,7 @@ const Index = () => {
         keywords="annonces omra, hébergement omra, vols omra, guide omra, chauffeur hajj, bons plans pèlerinage"
         canonical="https://omrabonsplans.fr/bons-plans"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
-        noindex={true}
+        noindex={false}
       />
       {/* Desktop & Tablet Header - Fixed at top */}
       <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">
