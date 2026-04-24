@@ -235,15 +235,18 @@ function runCheck() {
   const dynamicPrefixes = ['/agence-details/', '/blog/', '/category/', '/omra-depuis-'];
 
   const missing = expected.filter((p) => {
+    if (p === '*') return false;                              // route NotFound catch-all
     if (declared.has(p)) return false;
     if (dynamicPrefixes.some((pre) => p.startsWith(pre))) return false;
     return true;
   });
 
   const obsolete = [...declared].filter((p) => {
-    // tolère les variantes Omra-ville et omra-en-* (statiques mais routées via :ville / routes spécifiques)
-    if (p.startsWith('/omra-depuis-')) return false;
-    if (p.startsWith('/omra-en-')) return false;
+    // routes paramétrées du router qui matchent ces chemins
+    if (p.startsWith('/omra-depuis-')) return true && false;  // matched by /omra-depuis-:ville
+    if (p.startsWith('/omra-en-')) return false;              // chaque mois a sa Route explicite
+    if (p.startsWith('/blog/')) return false;                 // matched by /blog/:category
+    if (p.startsWith('/category/')) return false;             // matched by /category/:category
     return !expected.includes(p);
   });
 
