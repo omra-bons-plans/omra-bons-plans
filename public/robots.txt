@@ -29,6 +29,9 @@ Allow: /ad/
 Allow: /offre-omra/
 Allow: /offre-hajj/
 Allow: /guide-omra-pas-chere
+Allow: /guide-hajj-4-ecoles
+Allow: /comparateur-omra-france
+Allow: /bons-plans
 
 # Private/admin areas - block indexing
 Disallow: /admin
@@ -43,10 +46,8 @@ Disallow: /auth
 Disallow: /favoris
 Disallow: /search
 Disallow: /ad-summary/
-Disallow: /bons-plans
 
 # Block old redirect URLs (avoid "Page with redirect" in GSC)
-Disallow: /comparateur-omra$
 Disallow: /a-propos
 Disallow: /calendrier-islamique
 Disallow: /dates-ramadan-hajj
