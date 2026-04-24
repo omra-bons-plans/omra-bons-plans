@@ -8,6 +8,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://omrabonsplans.fr/bons-plans</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://omrabonsplans.fr/omra-famille</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
