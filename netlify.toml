@@ -2,9 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
-# Edge Function — Dynamic rendering pour les bots (Googlebot, etc.)
-# Les bots reçoivent du HTML pré-rendu avec le vrai contenu Supabase.
-# Les utilisateurs normaux voient le React SPA habituel.
+# Edge Functions — Pré-rendu SEO
+# Ordre important : les fonctions spécifiques (guide/blog) tournent en premier,
+# puis seo-prerender s'applique à toutes les autres routes statiques publiques.
+
 [[edge_functions]]
   path = "/blog/*"
   function = "blog-prerender"
@@ -36,3 +37,9 @@
 [[edge_functions]]
   path = "/prix-omra-2026"
   function = "guide-prerender"
+
+# Injection des meta SEO (title/description/canonical/OG/Twitter) pour toutes
+# les pages statiques publiques. Résout le souci de canonique vu par Googlebot.
+[[edge_functions]]
+  path = "/*"
+  function = "seo-prerender"
