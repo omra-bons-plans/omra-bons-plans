@@ -6,6 +6,11 @@
 # Ordre important : les fonctions spécifiques (guide/blog) tournent en premier,
 # puis seo-prerender s'applique à toutes les autres routes statiques publiques.
 
+# Sitemap dynamique — doit être AVANT blog/* pour intercepter /sitemap.xml
+[[edge_functions]]
+  path = "/sitemap.xml"
+  function = "sitemap"
+
 [[edge_functions]]
   path = "/blog/*"
   function = "blog-prerender"
