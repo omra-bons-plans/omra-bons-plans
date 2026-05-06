@@ -34,8 +34,8 @@ export default function OmraBadal() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Badal (Omra pour un Défunt) 2026 — Guide Complet & Agences</title>
-        <meta name="description" content="Omra Badal 2026 : définition, conditions islamiques, intention, agences fiables, prix (300-600€). Accomplir l'Omra au nom d'un défunt ou d'un proche malade." />
+        <title>Omra Badal 2026 — Guide Complet, Conditions & Agences</title>
+        <meta name="description" content="Omra Badal 2026 : définition, conditions islamiques, intention, agences fiables, prix (300-600€). Accomplir l'Omra au nom d'un défunt ou malade." />
         <meta name="keywords" content="omra badal, omra défunt, omra par procuration, omra pour mort, omra pour malade, omra au nom de quelqu'un, pèlerinage défunt" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-badal" />
         <meta property="og:title" content="Omra Badal 2026 — Omra pour un Défunt ou par Procuration" />
