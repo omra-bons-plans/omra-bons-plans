@@ -328,7 +328,50 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
 
-  const meta = PAGES[pathname];
+  let meta = PAGES[pathname];
+
+  // ── Dynamic route patterns ──────────────────────────────────────────────────
+  // For routes not in the static PAGES map, we at minimum inject the correct
+  // canonical so Google doesn't treat them as duplicates of the homepage.
+
+  if (!meta) {
+    // /blog/[category]/[slug] — blog-prerender handles bots; we cover WRS here
+    if (/^\/blog\/(general|restaurants|associations|vendeurs)\/.+$/.test(pathname)) {
+      meta = {
+        title: "Blog Omra & Hajj | Omra Bons Plans",
+        description: "Guides, conseils et actualités sur l'Omra et le Hajj.",
+        canonical: `${SITE}${pathname}`,
+      };
+    }
+    // /omra-depuis-[ville] — 8 city pages in sitemap
+    else if (/^\/omra-depuis-.+$/.test(pathname)) {
+      const city = pathname.replace("/omra-depuis-", "");
+      const cityLabel = city.charAt(0).toUpperCase() + city.slice(1);
+      meta = {
+        title: `Omra depuis ${cityLabel} 2026 : Vols et Séjours | Omra Bons Plans`,
+        description: `Partez en Omra depuis ${cityLabel} en 2026. Comparez les vols, hôtels et séjours tout compris des agences agréées en France.`,
+        canonical: `${SITE}${pathname}`,
+      };
+    }
+    // /agence-details/[nom] — agency detail pages
+    else if (/^\/agence-details\/.+$/.test(pathname)) {
+      const agencyRaw = decodeURIComponent(pathname.replace("/agence-details/", ""));
+      meta = {
+        title: `${agencyRaw} | Avis, Offres Omra & Hajj | Omra Bons Plans`,
+        description: `Découvrez les offres Omra et Hajj de l'agence ${agencyRaw}. Avis clients, prix et contact sur Omra Bons Plans.`,
+        canonical: `${SITE}${pathname}`,
+      };
+    }
+    // /offre-omra/[id] and /offre-hajj/[id] — individual offers (index but with canonical)
+    else if (/^\/(offre-omra|offre-hajj)\/.+$/.test(pathname)) {
+      meta = {
+        title: "Offre Omra & Hajj | Omra Bons Plans",
+        description: "Détail d'une offre Omra ou Hajj depuis la France. Prix, dates, hôtel et agence.",
+        canonical: `${SITE}${pathname}`,
+      };
+    }
+  }
+
   if (!meta) {
     return; // let Netlify serve default index.html
   }
