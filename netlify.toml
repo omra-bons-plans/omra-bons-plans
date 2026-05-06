@@ -11,6 +11,23 @@
   path = "/sitemap.xml"
   function = "sitemap"
 
+# /blog/[category] doit être AVANT /blog/* pour intercepter les pages de liste
+[[edge_functions]]
+  path = "/blog/general"
+  function = "blog-category-prerender"
+
+[[edge_functions]]
+  path = "/blog/restaurants"
+  function = "blog-category-prerender"
+
+[[edge_functions]]
+  path = "/blog/associations"
+  function = "blog-category-prerender"
+
+[[edge_functions]]
+  path = "/blog/vendeurs"
+  function = "blog-category-prerender"
+
 [[edge_functions]]
   path = "/blog/*"
   function = "blog-prerender"
