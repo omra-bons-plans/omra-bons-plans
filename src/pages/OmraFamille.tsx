@@ -34,7 +34,7 @@ export default function OmraFamille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra en Famille 2026 — Guide Complet avec Enfants, Prix & Conseils</title>
+        <title>Omra en Famille 2026 : Guide Complet, Prix & Conseils</title>
         <meta name="description" content="Omra en famille 2026 : prix complets (5 000-14 000€ pour 4), documents enfants, meilleures périodes et conseils pratiques. Guide actualisé." />
         <meta name="keywords" content="omra famille, omra avec enfants, omra famille prix, omra enfant mineur, voyage omra famille, pèlerinage famille france" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-famille" />

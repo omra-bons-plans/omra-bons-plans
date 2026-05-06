@@ -24,7 +24,7 @@ interface PageData {
 const PAGES: Record<string, PageData> = {
   "/omra-femme-seule": {
     title: "Omra Femme Seule 2026 : Guide Complet, Conditions et Conseils",
-    description: "Omra femme seule en 2026 : la loi saoudienne autorise les femmes sans mahram depuis 2021. Visa, conditions, prix (950€-2 200€), liste bagages et avis de l'expert.",
+    description: "Omra femme seule 2026 : autorisée sans mahram depuis 2021. Visa, conditions, prix (950€–2 200€), conseils d'expert pour réussir votre pèlerinage.",
     canonical: "https://omrabonsplans.fr/omra-femme-seule",
     h1: "Omra Femme Seule : Guide Complet 2026",
     intro: "Depuis 2021, l'Arabie Saoudite autorise les femmes de tout âge à effectuer l'Omra sans mahram (accompagnateur masculin), en groupe organisé via une agence agréée. Ce guide répond à toutes vos questions : conditions légales et religieuses, documents nécessaires, prix, et conseils pratiques de Farid d'Arabie, expert ayant accompagné plus de 5 000 pèlerins dont de nombreuses femmes seules.",
@@ -96,7 +96,7 @@ const PAGES: Record<string, PageData> = {
 
   "/meilleure-agence-omra": {
     title: "Meilleure Agence Omra 2026 : Classement et Guide de Choix",
-    description: "Meilleure agence omra 2026 : notre classement des 5 meilleures agences (Tawaf, Medinvoyages, Al-Maqam), critères de choix, questions essentielles à poser avant de réserver.",
+    description: "Meilleure agence omra 2026 : classement Tawaf, Medinvoyages, Al-Maqam. Critères de choix et questions essentielles avant de réserver votre pèlerinage.",
     canonical: "https://omrabonsplans.fr/meilleure-agence-omra",
     h1: "Meilleure Agence Omra 2026 : Guide de Choix et Classement",
     intro: "Choisir la bonne agence Omra est l'une des décisions les plus importantes de votre préparation. D'après les avis Google de milliers de pèlerins français, Tawaf (4,8/5), Medinvoyages (4,7/5) et Al-Maqam (4,6/5) se distinguent parmi les meilleures agences agréées en France. Voici notre guide complet pour bien choisir.",
@@ -113,8 +113,8 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/definition-omra": {
-    title: "Qu'est-ce que l'Omra ? Définition, Rites et Différences avec le Hajj",
-    description: "Définition complète de l'Omra : signification, rites (Ihram, Tawaf, Sa'i), différences avec le Hajj, et pourquoi l'Omra est appelée le 'petit pèlerinage'.",
+    title: "Définition de l'Omra : Rites, Signification et Différences Hajj",
+    description: "Définition complète de l'Omra : signification, rites (Ihram, Tawaf, Sa'i), différences avec le Hajj, et pourquoi l'Omra est le 'petit pèlerinage'.",
     canonical: "https://omrabonsplans.fr/definition-omra",
     h1: "Qu'est-ce que l'Omra ? Définition et Guide Complet",
     intro: "L'Omra (en arabe : العمرة) est un pèlerinage islamique à La Mecque, en Arabie Saoudite. Contrairement au Hajj, qui est obligatoire une fois dans la vie pour tout musulman en capacité, l'Omra est un acte d'adoration (ibada) recommandé mais non obligatoire. On l'appelle parfois le 'petit pèlerinage' ou 'pèlerinage mineur'.",
@@ -130,7 +130,7 @@ const PAGES: Record<string, PageData> = {
 
   "/prix-omra-2026": {
     title: "Prix Omra 2026 : Tarifs par Période, Agence et Standing",
-    description: "Prix Omra 2026 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif détaillé des tarifs par saison, agence et niveau de confort. Trouvez la meilleure offre.",
+    description: "Prix Omra 2026 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif des tarifs par saison, agence et niveau de confort.",
     canonical: "https://omrabonsplans.fr/prix-omra-2026",
     h1: "Prix Omra 2026 : Guide Complet des Tarifs",
     intro: "Le prix d'une Omra en 2026 varie de 800€ à 5 000€+ selon la période de départ, le niveau de l'hôtel et la durée du séjour. Ce guide vous donne une vision complète des tarifs pratiqués par les agences françaises agréées pour vous aider à trouver le meilleur rapport qualité-prix.",

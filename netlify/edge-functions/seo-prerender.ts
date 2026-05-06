@@ -29,19 +29,19 @@ const DEFAULT_OG = `${SITE}/hero-kaaba-optimized.webp`;
 
 const PAGES: Record<string, PageMeta> = {
   "/": {
-    title: "Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan, 10 Derniers Jours - Omra Bons Plans",
+    title: "Comparateur Omra & Hajj 2026 | Omra Ramadan — Omra Bons Plans",
     description: "Comparez les meilleures offres Omra 2026 & Hajj 2026 depuis la France 🇫🇷. Omra Ramadan, 10 derniers jours du Ramadan, séjours tout compris. Prix mis à jour quotidiennement.",
     keywords: "omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France",
     canonical: `${SITE}/`,
   },
   "/omra": {
-    title: "Comparateur Omra 2026 - Toutes les Offres des Agences Agréées | Omra Bons Plans",
+    title: "Comparateur Omra 2026 — Agences Agréées | Omra Bons Plans",
     description: "Comparez les offres Omra 2026 de toutes les agences agréées en France 🇫🇷. Filtres par dates, ville, hôtel, prix. Trouvez votre Omra idéale en quelques clics.",
     keywords: "comparateur omra, omra 2026, agences omra France, prix omra, séjour omra",
     canonical: `${SITE}/omra`,
   },
   "/hajj": {
-    title: "Comparateur Hajj 2026 - Toutes les Offres Agences Agréées | Omra Bons Plans",
+    title: "Comparateur Hajj 2026 — Agences Agréées | Omra Bons Plans",
     description: "Comparez les offres Hajj 2026 des agences agréées en France 🇫🇷. Filtres par dates, hôtel, encadrement, prix. Trouvez votre Hajj idéal facilement.",
     keywords: "hajj 2026, comparateur hajj, agences hajj France, prix hajj, pèlerinage Mecque",
     canonical: `${SITE}/hajj`,
@@ -52,7 +52,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/hajj-2026`,
   },
   "/comparateur-omra": {
-    title: "Comparateur Omra - Comparez les Offres en Temps Réel | Omra Bons Plans",
+    title: "Comparateur Omra 2026 | Offres Temps Réel | Omra Bons Plans",
     description: "Notre comparateur Omra vous permet de comparer les offres des agences agréées en France. Prix, hôtels, dates : trouvez votre voyage idéal.",
     canonical: `${SITE}/comparateur-omra`,
   },
@@ -73,7 +73,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/comparatif-visuel`,
   },
   "/bons-plans": {
-    title: "Bons Plans Omra & Hajj 2026 | Promotions et Offres | Omra Bons Plans",
+    title: "Bons Plans Omra & Hajj 2026 | Promotions | Omra Bons Plans",
     description: "Découvrez les meilleurs bons plans Omra et Hajj 2026 : promotions, offres limitées, prix réduits chez les agences agréées en France.",
     keywords: "bons plans omra, promo omra, omra pas chère, offres hajj",
     canonical: `${SITE}/bons-plans`,
@@ -84,7 +84,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/agences-liste`,
   },
   "/blog": {
-    title: "Blog Omra & Hajj 2026 | Guides, Conseils et Actualités | Omra Bons Plans",
+    title: "Blog Omra & Hajj | Guides et Conseils | Omra Bons Plans",
     description: "Guides complets sur l'Omra et le Hajj : rites, préparation, visa, bagages, prix. Conseils d'experts pour réussir votre pèlerinage.",
     canonical: `${SITE}/blog`,
   },
@@ -104,9 +104,45 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/contact`,
   },
   "/favoris": {
-    title: "Mes Favoris - Omra Bons Plans",
+    title: "Mes Favoris | Omra Bons Plans",
     description: "Retrouvez toutes vos offres Omra et Hajj favorites en un seul endroit. Comparez et choisissez votre voyage.",
     canonical: `${SITE}/favoris`,
+    ogType: "website",
+  },
+  "/discussions": {
+    title: "Forum Omra & Hajj : Questions et Témoignages | Omra Bons Plans",
+    description: "Posez vos questions sur l'Omra et le Hajj, partagez vos expériences et lisez les témoignages de pèlerins. Communauté francophone active.",
+    canonical: `${SITE}/discussions`,
+  },
+  "/category/sejours": {
+    title: "Annonces Séjours Omra & Hajj | Omra Bons Plans",
+    description: "Toutes les annonces de séjours Omra et Hajj tout compris. Comparez les offres des agences agréées en France et réservez votre pèlerinage.",
+    canonical: `${SITE}/category/sejours`,
+  },
+  "/category/vols": {
+    title: "Annonces Vols Omra & Hajj | Omra Bons Plans",
+    description: "Comparez les vols pour l'Omra et le Hajj au départ de France. Vols directs et avec escale vers Djeddah et Médine.",
+    canonical: `${SITE}/category/vols`,
+  },
+  "/category/hebergements": {
+    title: "Annonces Hébergements à La Mecque & Médine | Omra Bons Plans",
+    description: "Hôtels et appartements pour votre Omra à La Mecque et Médine. Annonces triées par distance au Haram et note des pèlerins.",
+    canonical: `${SITE}/category/hebergements`,
+  },
+  "/category/guides": {
+    title: "Guides Francophones Omra & Hajj | Omra Bons Plans",
+    description: "Trouvez un guide francophone expérimenté pour vous accompagner lors de votre Omra ou Hajj. Tarifs, disponibilités et avis.",
+    canonical: `${SITE}/category/guides`,
+  },
+  "/category/chauffeurs": {
+    title: "Chauffeurs & Transport Omra à La Mecque | Omra Bons Plans",
+    description: "Réservez un chauffeur privé pour votre Omra entre La Mecque et Médine. Transport agréé, francophone, disponible 24h/24.",
+    canonical: `${SITE}/category/chauffeurs`,
+  },
+  "/category/babysitting": {
+    title: "Babysitting Omra & Hajj à La Mecque | Omra Bons Plans",
+    description: "Garde d'enfants de confiance pendant votre Omra à La Mecque et Médine. Babysitters francophones vérifiés, disponibles sur réservation.",
+    canonical: `${SITE}/category/babysitting`,
   },
   "/prayer-times": {
     title: "Heures de Prière - La Mecque & Médine | Omra Bons Plans",
@@ -155,7 +191,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/omra-femme-seule`,
   },
   "/omra-famille": {
-    title: "Omra en Famille 2026 : Guide, Conseils et Meilleures Offres",
+    title: "Omra en Famille 2026 : Guide Complet, Prix & Conseils",
     description: "Partir en Omra en famille 2026 : conseils pratiques, hôtels familiaux, prix. Accompagnez vos enfants pour cette expérience spirituelle.",
     canonical: `${SITE}/omra-famille`,
   },
@@ -165,7 +201,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/omra-enfants`,
   },
   "/omra-seniors": {
-    title: "Omra Seniors 2026 : Voyage Adapté aux Personnes Âgées",
+    title: "Omra Seniors 2026 : Guide Mobilité Réduite & Conseils Médicaux",
     description: "Omra pour seniors en 2026 : services adaptés (fauteuil, accompagnement), hôtels proches du Haram, conseils santé.",
     canonical: `${SITE}/omra-seniors`,
   },
@@ -180,7 +216,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/omra-tout-compris`,
   },
   "/omra-badal": {
-    title: "Omra Badal : Faire l'Omra pour un Défunt | Omra Bons Plans",
+    title: "Omra Badal 2026 — Guide Complet, Conditions & Agences",
     description: "Omra Badal : accomplir l'Omra pour un proche défunt ou incapable. Conditions religieuses, agences spécialisées et tarifs.",
     canonical: `${SITE}/omra-badal`,
   },
@@ -220,7 +256,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/meilleure-agence-omra`,
   },
   "/definition-omra": {
-    title: "Qu'est-ce que l'Omra ? Définition, Rites et Différences avec le Hajj",
+    title: "Définition de l'Omra : Rites, Signification et Différences Hajj",
     description: "Définition complète de l'Omra : signification, rites (Ihram, Tawaf, Sa'i), différences avec le Hajj. Le 'petit pèlerinage' expliqué.",
     canonical: `${SITE}/definition-omra`,
   },
@@ -245,8 +281,8 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/rites-omra`,
   },
   "/guide-omra-pas-chere": {
-    title: "Guide Omra Pas Chère 2026 : Comment Économiser sur votre Pèlerinage",
-    description: "Comment partir en Omra pas chère en 2026 : meilleures périodes, agences low-cost, astuces pour réduire le budget.",
+    title: "Omra Pas Chère 2026 : Guide Complet pour Économiser",
+    description: "Comment partir en Omra pas chère en 2026 : meilleures périodes, agences low-cost, 10 astuces pour réduire votre budget pèlerinage.",
     canonical: `${SITE}/guide-omra-pas-chere`,
   },
   "/guide-hajj-4-ecoles": {
