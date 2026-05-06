@@ -328,7 +328,22 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
 
-  const meta = PAGES[pathname];
+  let meta = PAGES[pathname];
+
+  // Dynamic blog post routes: /blog/[category]/[slug]
+  // blog-prerender handles bots; seo-prerender ensures non-bot requests
+  // (incl. Google's Chrome-based Web Rendering Service) also get a canonical.
+  if (!meta) {
+    const blogMatch = pathname.match(/^\/blog\/(general|restaurants|associations|vendeurs)\/.+$/);
+    if (blogMatch) {
+      meta = {
+        title: "Blog Omra & Hajj | Omra Bons Plans",
+        description: "Guides, conseils et actualités sur l'Omra et le Hajj.",
+        canonical: `${SITE}${pathname}`,
+      };
+    }
+  }
+
   if (!meta) {
     return; // let Netlify serve default index.html
   }
