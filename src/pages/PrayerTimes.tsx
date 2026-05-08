@@ -330,10 +330,11 @@ const PrayerTimes = () => {
       
       setPrayerData(data.data);
       toast.success('Horaires de prière récupérés avec succès');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Prayer times error:', err);
-      setError(err.message || 'Une erreur est survenue');
-      toast.error(err.message || 'Une erreur est survenue');
+      const message = err instanceof Error ? err.message : 'Une erreur est survenue';
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
