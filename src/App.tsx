@@ -283,7 +283,20 @@ const App = () => (
                    <Route path="/prix-omra-2026" element={<PrixOmra />} />
                    <Route path="/omra-femme-seule" element={<OmraFemmeSeule />} />
                    <Route path="/visa-omra-france" element={<VisaOmra />} />
-                   <Route path="/omra-depuis-:ville" element={<OmraVille />} />
+                   <Route path="/omra-depuis-paris" element={<OmraVille />} />
+                   <Route path="/omra-depuis-lyon" element={<OmraVille />} />
+                   <Route path="/omra-depuis-marseille" element={<OmraVille />} />
+                   <Route path="/omra-depuis-toulouse" element={<OmraVille />} />
+                   <Route path="/omra-depuis-nice" element={<OmraVille />} />
+                   <Route path="/omra-depuis-bordeaux" element={<OmraVille />} />
+                   <Route path="/omra-depuis-strasbourg" element={<OmraVille />} />
+                   <Route path="/omra-depuis-lille" element={<OmraVille />} />
+                   <Route path="/omra-depuis-nantes" element={<OmraVille />} />
+                   <Route path="/omra-depuis-rennes" element={<OmraVille />} />
+                   <Route path="/omra-depuis-montpellier" element={<OmraVille />} />
+                   <Route path="/omra-depuis-grenoble" element={<OmraVille />} />
+                   <Route path="/omra-depuis-metz" element={<OmraVille />} />
+                   <Route path="/omra-depuis-clermont-ferrand" element={<OmraVille />} />
                    <Route path="/omra-en-octobre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-novembre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-decembre-2026" element={<OmraSaison />} />

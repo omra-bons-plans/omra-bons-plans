@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
 import ResponsiveLayout from '@/components/ResponsiveLayout';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
 import { Badge } from '@/components/ui/badge';
@@ -405,8 +405,9 @@ function PresenceBadge({ presence }: { presence: AgenceLocale['presence'] }) {
 }
 
 export default function OmraVille() {
-  const { ville } = useParams<{ ville: string }>();
-  const slug = (ville || '').toLowerCase().replace(/-/g, '').replace(/é|è|ê|ë/g, 'e').replace(/à|â/g, 'a');
+  const location = useLocation();
+  const ville = location.pathname.replace('/omra-depuis-', '');
+  const slug = ville.toLowerCase().replace(/-/g, '').replace(/é|è|ê|ë/g, 'e').replace(/à|â/g, 'a');
 
   // Mapping slug → key
   const keyMap: Record<string, string> = {
@@ -420,7 +421,7 @@ export default function OmraVille() {
 
   if (!data) return <Navigate to="/" replace />;
 
-  const urlSlug = ville!.toLowerCase();
+  const urlSlug = ville.toLowerCase();
   const canonicalUrl = `${SITE}/omra-depuis-${urlSlug}`;
 
   const tableauPrix = [
