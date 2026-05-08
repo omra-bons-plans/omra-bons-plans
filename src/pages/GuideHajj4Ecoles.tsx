@@ -204,6 +204,117 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-scroll-indicator"><span></span></div>
         </section>
 
+        {/* SOMMAIRE */}
+        <section
+          aria-label="Sommaire"
+          style={{
+            padding: '2rem 1rem',
+            background: 'linear-gradient(180deg, hsl(35, 30%, 96%) 0%, hsl(35, 30%, 98%) 100%)',
+          }}
+        >
+          <div
+            style={{
+              maxWidth: '720px',
+              margin: '0 auto',
+              background: 'white',
+              border: '1px solid hsl(35, 25%, 88%)',
+              borderRadius: '14px',
+              padding: '1.5rem 1.75rem',
+              boxShadow: '0 4px 20px hsla(25, 30%, 20%, 0.06)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                marginBottom: '1rem',
+                paddingBottom: '0.75rem',
+                borderBottom: '1px solid hsl(35, 25%, 90%)',
+              }}
+            >
+              <span style={{ fontSize: '1.4rem' }}>📜</span>
+              <h2
+                style={{
+                  margin: 0,
+                  fontFamily: '"Amiri", serif',
+                  fontSize: '1.4rem',
+                  color: 'hsl(25, 35%, 25%)',
+                  fontWeight: 700,
+                }}
+              >
+                Sommaire
+              </h2>
+            </div>
+            <ol
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'grid',
+                gap: '0.4rem',
+              }}
+            >
+              {[
+                { id: 'intro', label: "Le 5e pilier de l'Islam" },
+                { id: 'ecoles', label: 'Les Quatre Écoles Juridiques' },
+                { id: 'obligations', label: 'Les Obligations du Hajj' },
+                { id: 'types', label: 'Les Trois Types de Hajj' },
+                { id: 'rites', label: 'Étape par Étape : Les Rites du Hajj' },
+                { id: 'ihram', label: "Les Vêtements de l'Ihrâm" },
+                { id: 'divergences', label: 'Les Points de Divergence' },
+                { id: 'faq', label: 'Questions Fréquentes' },
+              ].map((item, i) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.getElementById(item.id);
+                      if (el) {
+                        const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                      }
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      padding: '0.6rem 0.75rem',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      color: 'hsl(25, 35%, 25%)',
+                      fontSize: '0.95rem',
+                      background: 'transparent',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'hsl(35, 30%, 95%)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                  >
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '50%',
+                        background: 'hsl(40, 60%, 55%)',
+                        color: 'white',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         {/* INTRO */}
         <section id="intro" className="hajj-intro-section">
           <div className="hajj-container">
