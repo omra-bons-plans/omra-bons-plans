@@ -2092,6 +2092,40 @@ export default function ComparateurOmra() {
         
         {/* Liens internes SEO */}
         <InternalLinks currentPage="/" variant="related" className="mt-8" />
+
+        {/* Bloc villes de départ */}
+        <section className="mt-10 bg-muted/30 rounded-2xl p-6">
+          <h2 className="text-lg font-bold mb-1">🗺️ Omra depuis votre ville</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Trouvez les meilleures offres et agences au départ de votre région.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+            {[
+              { slug: 'paris', nom: 'Paris' },
+              { slug: 'lyon', nom: 'Lyon' },
+              { slug: 'marseille', nom: 'Marseille' },
+              { slug: 'toulouse', nom: 'Toulouse' },
+              { slug: 'lille', nom: 'Lille' },
+              { slug: 'bordeaux', nom: 'Bordeaux' },
+              { slug: 'nice', nom: 'Nice' },
+              { slug: 'strasbourg', nom: 'Strasbourg' },
+              { slug: 'nantes', nom: 'Nantes' },
+              { slug: 'rennes', nom: 'Rennes' },
+              { slug: 'montpellier', nom: 'Montpellier' },
+              { slug: 'grenoble', nom: 'Grenoble' },
+              { slug: 'metz', nom: 'Metz' },
+              { slug: 'clermont-ferrand', nom: 'Clermont-Ferrand' },
+            ].map(({ slug, nom }) => (
+              <Link
+                key={slug}
+                to={`/omra-depuis-${slug}`}
+                className="flex items-center gap-1.5 text-sm bg-background border rounded-lg px-3 py-2 hover:border-primary hover:text-primary transition-colors"
+              >
+                <span className="text-primary">✈</span> {nom}
+              </Link>
+            ))}
+          </div>
+        </section>
        </div>
       </div>
       </div>
