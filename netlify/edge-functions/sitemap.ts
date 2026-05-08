@@ -57,7 +57,7 @@ const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string; la
   { loc: `${SITE}/omra-en-janvier-2027`, changefreq: "monthly", priority: "0.80" },
   { loc: `${SITE}/prayer-times`, changefreq: "daily", priority: "0.80" },
   { loc: `${SITE}/islamic-calendar`, changefreq: "monthly", priority: "0.70" },
-  { loc: `${SITE}/ramadan-hajj-dates`, changefreq: "monthly", priority: "0.70" },
+  { loc: `${SITE}/ramadan-hajj-dates`, changefreq: "monthly", priority: "0.80" },
   { loc: `${SITE}/discussions`, changefreq: "daily", priority: "0.60" },
   { loc: `${SITE}/category/sejours`, changefreq: "daily", priority: "0.90" },
   { loc: `${SITE}/category/vols`, changefreq: "daily", priority: "0.90" },
