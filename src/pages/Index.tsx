@@ -180,7 +180,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.webp",
+      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.webp",
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",

@@ -21,13 +21,13 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
-          // ⚡ React core — chunk immuable, très bien caché
+          // React core — immutable, well cached
           'react-vendor': ['react', 'react-dom'],
-          // Router séparé — change rarement
+          // Router — rarely changes
           'router': ['react-router-dom'],
-          // SEO — non critique pour le rendu initial
+          // SEO — not critical for initial render
           'seo': ['react-helmet-async'],
-          // ⚡ Radix UI critique (au-dessus du fold)
+          // Radix UI critical (above the fold)
           'ui-radix-core': [
             '@radix-ui/react-select',
             '@radix-ui/react-checkbox',
@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-label',
             '@radix-ui/react-separator',
           ],
-          // Radix UI secondaire — chargé après interaction
+          // Radix UI secondary — loaded after interaction
           'ui-radix-secondary': [
             '@radix-ui/react-dialog',
             '@radix-ui/react-popover',
@@ -47,16 +47,18 @@ export default defineConfig(({ mode }) => ({
           ],
           // Data fetching
           'query': ['@tanstack/react-query'],
-          // Supabase — gros package, chunk dédié
-          'supabase': ['@supabase/supabase-js'],
-          // Date utils
+          // Supabase core client (lightweight, needed immediately)
+          'supabase-core': ['@supabase/supabase-js'],
+          // Date utils — split: only format/locale is on critical path
           'date-core': ['date-fns'],
-          // Forms — chargés seulement sur pages avec formulaires
+          // Forms — only on pages with forms
           'forms': ['react-hook-form', 'zod', '@hookform/resolvers'],
-          // ⚡ Recharts — ~500KB, chargé uniquement sur pages avec graphiques
+          // Recharts — only on stats pages
           'charts': ['recharts'],
-          // Sécurité — chargé seulement pour contenu utilisateur
+          // Sanitizer — only for user-generated content
           'sanitize': ['dompurify'],
+          // Carousel — non-critical
+          'carousel': ['embla-carousel-react'],
         },
       },
     },

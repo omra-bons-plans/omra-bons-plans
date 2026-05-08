@@ -8,8 +8,7 @@
 export const preloadCriticalResources = () => {
   // Images critiques above-the-fold
   const criticalImages = [
-    '/src/assets/mecca-mosque-hero.jpg',
-    '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.webp'
+    '/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.webp'
   ];
 
   criticalImages.forEach(src => {
