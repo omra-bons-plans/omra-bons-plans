@@ -592,3 +592,8 @@
 
 /* Bottom nav spacing */
 .hajj-guide-page { padding-bottom: 80px; }
+
+/* Floating TOC - hidden on tablet/mobile */
+@media (max-width: 1100px) {
+  .hajj-toc-floating { display: none !important; }
+}
