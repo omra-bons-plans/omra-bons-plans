@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -103,7 +103,7 @@ const NextPrayerHero: React.FC = () => {
     return () => clearInterval(id);
   }, []);
 
-  const loadFor = async (latitude: number, longitude: number, cityHint?: string, source = 'géolocalisation') => {
+  const loadFor = useCallback(async (latitude: number, longitude: number, cityHint?: string, source = 'géolocalisation') => {
     const today = new Date();
     const tomorrow = new Date(today.getTime() + 86400000);
 
@@ -126,7 +126,9 @@ const NextPrayerHero: React.FC = () => {
       try {
         const g = await (geo as Response).json();
         city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
-      } catch {}
+      } catch {
+        city = cityHint;
+      }
     }
 
     setState({
@@ -137,9 +139,9 @@ const NextPrayerHero: React.FC = () => {
       timings: j1.data.timings,
       tomorrowFajr: j2.data.timings.Fajr,
     });
-  };
+  }, []);
 
-  const fallbackByIP = async () => {
+  const fallbackByIP = useCallback(async () => {
     for (const provider of IP_LOCATION_PROVIDERS) {
       try {
         const location = await provider();
@@ -147,15 +149,17 @@ const NextPrayerHero: React.FC = () => {
           await loadFor(location.latitude, location.longitude, location.city, 'position approximative');
           return true;
         }
-      } catch {}
+      } catch {
+        continue;
+      }
     }
     return false;
-  };
+  }, [loadFor]);
 
-  const detectLocation = async () => {
+  const detectLocation = useCallback(async () => {
     setState((current) => ({ ...current, loading: true, error: null }));
 
-    const useFallback = async () => {
+    const runFallback = async () => {
       const ok = await fallbackByIP();
       if (!ok) {
         setState({
@@ -166,16 +170,16 @@ const NextPrayerHero: React.FC = () => {
     };
 
     if (!('geolocation' in navigator)) {
-      await useFallback();
+      await runFallback();
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
       (pos) => loadFor(pos.coords.latitude, pos.coords.longitude),
-      () => useFallback(),
+      () => runFallback(),
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 300000 }
     );
-  };
+  }, [fallbackByIP, loadFor]);
 
   const loadManualCity = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -196,7 +200,7 @@ const NextPrayerHero: React.FC = () => {
 
   useEffect(() => {
     detectLocation();
-  }, []);
+  }, [detectLocation]);
 
   const computeNext = () => {
     if (!state.timings) return null;
