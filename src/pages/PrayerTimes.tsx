@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,6 +47,127 @@ interface PrayerData {
 interface FormData {
   city: string;
 }
+
+const PRAYER_ORDER: Array<keyof PrayerTime> = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+const PRAYER_LABELS: Record<string, string> = {
+  Fajr: 'Fajr', Sunrise: 'Shourouq', Dhuhr: 'Dhuhr', Asr: 'Asr', Maghrib: 'Maghrib', Isha: 'Isha'
+};
+
+const NextPrayerHero: React.FC = () => {
+  const [state, setState] = useState<{
+    loading: boolean;
+    error: string | null;
+    city?: string;
+    timings?: PrayerTime;
+    tomorrowFajr?: string;
+  }>({ loading: true, error: null });
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    if (!('geolocation' in navigator)) {
+      setState({ loading: false, error: "Géolocalisation non disponible sur cet appareil." });
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const today = new Date();
+          const dd = String(today.getDate()).padStart(2, '0');
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const yyyy = today.getFullYear();
+          const tomorrow = new Date(today.getTime() + 86400000);
+          const dd2 = String(tomorrow.getDate()).padStart(2, '0');
+          const mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
+          const yyyy2 = tomorrow.getFullYear();
+
+          const [r1, r2, geo] = await Promise.all([
+            fetch(`https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${latitude}&longitude=${longitude}&method=3`),
+            fetch(`https://api.aladhan.com/v1/timings/${dd2}-${mm2}-${yyyy2}?latitude=${latitude}&longitude=${longitude}&method=3`),
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`).catch(() => null),
+          ]);
+          const j1 = await r1.json();
+          const j2 = await r2.json();
+          let city: string | undefined;
+          try {
+            const g = geo ? await geo.json() : null;
+            city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
+          } catch {}
+          setState({
+            loading: false,
+            error: null,
+            city,
+            timings: j1.data.timings,
+            tomorrowFajr: j2.data.timings.Fajr,
+          });
+        } catch (e: any) {
+          setState({ loading: false, error: "Impossible de récupérer les horaires." });
+        }
+      },
+      () => setState({ loading: false, error: "Autorisez la géolocalisation pour voir la prochaine prière." }),
+      { timeout: 10000, maximumAge: 600000 }
+    );
+  }, []);
+
+  const computeNext = () => {
+    if (!state.timings) return null;
+    const today = new Date();
+    for (const key of PRAYER_ORDER) {
+      const [h, m] = state.timings[key].split(':').map(Number);
+      const t = new Date(today);
+      t.setHours(h, m, 0, 0);
+      if (t.getTime() > now.getTime()) {
+        return { name: PRAYER_LABELS[key], time: state.timings[key].slice(0, 5), at: t, isTomorrow: false };
+      }
+    }
+    if (state.tomorrowFajr) {
+      const [h, m] = state.tomorrowFajr.split(':').map(Number);
+      const t = new Date(today.getTime() + 86400000);
+      t.setHours(h, m, 0, 0);
+      return { name: 'Fajr', time: state.tomorrowFajr.slice(0, 5), at: t, isTomorrow: true };
+    }
+    return null;
+  };
+
+  const next = computeNext();
+  const remaining = next ? Math.max(0, next.at.getTime() - now.getTime()) : 0;
+  const hours = Math.floor(remaining / 3600000);
+  const mins = Math.floor((remaining % 3600000) / 60000);
+  const secs = Math.floor((remaining % 60000) / 1000);
+
+  return (
+    <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/20">
+      <CardContent className="py-8 text-center">
+        {state.loading && (
+          <p className="text-muted-foreground">Détection de votre position…</p>
+        )}
+        {state.error && (
+          <p className="text-sm text-muted-foreground">{state.error}</p>
+        )}
+        {next && (
+          <div className="space-y-3">
+            <p className="text-sm uppercase tracking-wider text-muted-foreground flex items-center justify-center gap-2">
+              <MapPin className="w-4 h-4" />
+              Prochaine prière {state.city ? `à ${state.city}` : ''}{next.isTomorrow ? ' (demain)' : ''}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">{next.name}</h2>
+            <div className="text-6xl md:text-7xl font-bold text-primary tabular-nums">
+              {next.time}
+            </div>
+            <p className="text-lg text-muted-foreground tabular-nums">
+              dans {hours}h {String(mins).padStart(2, '0')}m {String(secs).padStart(2, '0')}s
+            </p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 const PrayerTimes = () => {
   const [prayerData, setPrayerData] = useState<PrayerData | null>(null);
@@ -179,6 +300,9 @@ const PrayerTimes = () => {
               (MWL) avec des angles de 18° pour Fajr et 17° pour Isha, garantissant une précision optimale pour votre pratique religieuse.
             </p>
           </div>
+
+          {/* Prochaine prière (géolocalisation) */}
+          <NextPrayerHero />
 
           {/* Introduction détaillée */}
           <Card className="bg-muted/30">
