@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Home, BookOpen } from 'lucide-react';
 import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 import '@/styles/guide-hajj.css';
 
@@ -110,6 +112,79 @@ const GuideHajj4Ecoles = () => {
 
       <div ref={pageRef} className="hajj-guide-page">
         {/* HERO */}
+        {/* TOP NAV BAR */}
+        <nav
+          aria-label="Navigation retour"
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.75rem',
+            padding: '0.625rem 1rem',
+            backgroundColor: 'hsl(35, 30%, 96%)',
+            borderBottom: '1px solid hsl(35, 25%, 85%)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          <Link
+            to="/"
+            aria-label="Retour à l'accueil"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: 'hsl(25, 35%, 25%)',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+            }}
+          >
+            <ArrowLeft size={18} />
+            <span>Retour</span>
+          </Link>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <Link
+              to="/"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.4rem 0.75rem',
+                borderRadius: '999px',
+                backgroundColor: 'hsl(35, 25%, 90%)',
+                color: 'hsl(25, 35%, 25%)',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+              }}
+            >
+              <Home size={15} />
+              <span>Accueil</span>
+            </Link>
+            <Link
+              to="/blog"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.4rem 0.75rem',
+                borderRadius: '999px',
+                backgroundColor: 'hsl(40, 60%, 55%)',
+                color: 'white',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+              }}
+            >
+              <BookOpen size={15} />
+              <span>Blog</span>
+            </Link>
+          </div>
+        </nav>
+
         <section className="hajj-hero">
           <div className="hajj-hero-bg" />
           <div className="hajj-hero-pattern" />
