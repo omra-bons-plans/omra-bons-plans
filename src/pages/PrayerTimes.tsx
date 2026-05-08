@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,103 +52,174 @@ const PRAYER_ORDER: Array<keyof PrayerTime> = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr'
 const PRAYER_LABELS: Record<string, string> = {
   Fajr: 'Fajr', Sunrise: 'Shourouq', Dhuhr: 'Dhuhr', Asr: 'Asr', Maghrib: 'Maghrib', Isha: 'Isha'
 };
+const DAILY_PRAYERS: Array<keyof PrayerTime> = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+const getTimeParts = (value?: string) => {
+  const match = value?.match(/(\d{1,2}):(\d{2})/);
+  if (!match) return null;
+  return { hours: Number(match[1]), minutes: Number(match[2]) };
+};
+
+const formatPrayerTime = (value?: string) => value?.match(/\d{1,2}:\d{2}/)?.[0] ?? '--:--';
+
+const formatApiDate = (date: Date) => {
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const yyyy = date.getFullYear();
+  return `${dd}-${mm}-${yyyy}`;
+};
+
+const IP_LOCATION_PROVIDERS = [
+  async () => {
+    const response = await fetch('https://ipwho.is/?fields=success,latitude,longitude,city');
+    const data = await response.json();
+    if (!response.ok || data?.success === false || !data?.latitude || !data?.longitude) return null;
+    return { latitude: Number(data.latitude), longitude: Number(data.longitude), city: data.city as string | undefined };
+  },
+  async () => {
+    const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
+    const data = await response.json();
+    const latitude = Number(data?.latitude);
+    const longitude = Number(data?.longitude);
+    if (!response.ok || Number.isNaN(latitude) || Number.isNaN(longitude)) return null;
+    return { latitude, longitude, city: data.city as string | undefined };
+  },
+];
 
 const NextPrayerHero: React.FC = () => {
   const [state, setState] = useState<{
     loading: boolean;
     error: string | null;
     city?: string;
+    source?: string;
     timings?: PrayerTime;
     tomorrowFajr?: string;
   }>({ loading: true, error: null });
   const [now, setNow] = useState(new Date());
+  const [manualCity, setManualCity] = useState('');
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    const loadFor = async (latitude: number, longitude: number, cityHint?: string) => {
-      try {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        const tomorrow = new Date(today.getTime() + 86400000);
-        const dd2 = String(tomorrow.getDate()).padStart(2, '0');
-        const mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
-        const yyyy2 = tomorrow.getFullYear();
+  const loadFor = useCallback(async (latitude: number, longitude: number, cityHint?: string, source = 'géolocalisation') => {
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 86400000);
 
-        const [r1, r2, geo] = await Promise.all([
-          fetch(`https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${latitude}&longitude=${longitude}&method=3`),
-          fetch(`https://api.aladhan.com/v1/timings/${dd2}-${mm2}-${yyyy2}?latitude=${latitude}&longitude=${longitude}&method=3`),
-          cityHint
-            ? Promise.resolve(null)
-            : fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`).catch(() => null),
-        ]);
-        const j1 = await r1.json();
-        const j2 = await r2.json();
-        let city: string | undefined = cityHint;
-        if (!city && geo) {
-          try {
-            const g = await (geo as Response).json();
-            city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
-          } catch {}
+    const [r1, r2, geo] = await Promise.all([
+      fetch(`https://api.aladhan.com/v1/timings/${formatApiDate(today)}?latitude=${latitude}&longitude=${longitude}&method=3`),
+      fetch(`https://api.aladhan.com/v1/timings/${formatApiDate(tomorrow)}?latitude=${latitude}&longitude=${longitude}&method=3`),
+      cityHint
+        ? Promise.resolve(null)
+        : fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`).catch(() => null),
+    ]);
+    const j1 = await r1.json();
+    const j2 = await r2.json();
+
+    if (!r1.ok || !r2.ok || !j1?.data?.timings || !j2?.data?.timings?.Fajr) {
+      throw new Error('Horaires indisponibles');
+    }
+
+    let city: string | undefined = cityHint;
+    if (!city && geo) {
+      try {
+        const g = await (geo as Response).json();
+        city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
+      } catch {
+        city = cityHint;
+      }
+    }
+
+    setState({
+      loading: false,
+      error: null,
+      city,
+      source,
+      timings: j1.data.timings,
+      tomorrowFajr: j2.data.timings.Fajr,
+    });
+  }, []);
+
+  const fallbackByIP = useCallback(async () => {
+    for (const provider of IP_LOCATION_PROVIDERS) {
+      try {
+        const location = await provider();
+        if (location) {
+          await loadFor(location.latitude, location.longitude, location.city, 'position approximative');
+          return true;
         }
+      } catch {
+        continue;
+      }
+    }
+    return false;
+  }, [loadFor]);
+
+  const detectLocation = useCallback(async () => {
+    setState((current) => ({ ...current, loading: true, error: null }));
+
+    const runFallback = async () => {
+      const ok = await fallbackByIP();
+      if (!ok) {
         setState({
           loading: false,
-          error: null,
-          city,
-          timings: j1.data.timings,
-          tomorrowFajr: j2.data.timings.Fajr,
+          error: "Impossible de détecter votre position automatiquement. Entrez votre ville ci-dessous.",
         });
-      } catch {
-        setState({ loading: false, error: "Impossible de récupérer les horaires." });
-      }
-    };
-
-    const fallbackByIP = async () => {
-      try {
-        const r = await fetch('https://ipapi.co/json/');
-        const j = await r.json();
-        if (j?.latitude && j?.longitude) {
-          await loadFor(j.latitude, j.longitude, j.city);
-        } else {
-          setState({ loading: false, error: "Impossible de détecter votre position." });
-        }
-      } catch {
-        setState({ loading: false, error: "Impossible de détecter votre position." });
       }
     };
 
     if (!('geolocation' in navigator)) {
-      fallbackByIP();
+      await runFallback();
       return;
     }
+
     navigator.geolocation.getCurrentPosition(
       (pos) => loadFor(pos.coords.latitude, pos.coords.longitude),
-      () => fallbackByIP(),
-      { timeout: 8000, maximumAge: 600000 }
+      () => runFallback(),
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 300000 }
     );
-  }, []);
+  }, [fallbackByIP, loadFor]);
+
+  const loadManualCity = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const city = manualCity.trim();
+    if (!city) return;
+
+    try {
+      setState((current) => ({ ...current, loading: true, error: null }));
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(city)}`);
+      const data = await response.json();
+      const result = Array.isArray(data) ? data[0] : null;
+      if (!response.ok || !result?.lat || !result?.lon) throw new Error('Ville introuvable');
+      await loadFor(Number(result.lat), Number(result.lon), city, 'ville choisie');
+    } catch {
+      setState({ loading: false, error: "Ville introuvable. Essayez avec une ville proche." });
+    }
+  };
+
+  useEffect(() => {
+    detectLocation();
+  }, [detectLocation]);
 
   const computeNext = () => {
     if (!state.timings) return null;
     const today = new Date();
     for (const key of PRAYER_ORDER) {
-      const [h, m] = state.timings[key].split(':').map(Number);
+      const parts = getTimeParts(state.timings[key]);
+      if (!parts) continue;
       const t = new Date(today);
-      t.setHours(h, m, 0, 0);
+      t.setHours(parts.hours, parts.minutes, 0, 0);
       if (t.getTime() > now.getTime()) {
-        return { name: PRAYER_LABELS[key], time: state.timings[key].slice(0, 5), at: t, isTomorrow: false };
+        return { name: PRAYER_LABELS[key], time: formatPrayerTime(state.timings[key]), at: t, isTomorrow: false };
       }
     }
     if (state.tomorrowFajr) {
-      const [h, m] = state.tomorrowFajr.split(':').map(Number);
+      const parts = getTimeParts(state.tomorrowFajr);
+      if (!parts) return null;
       const t = new Date(today.getTime() + 86400000);
-      t.setHours(h, m, 0, 0);
-      return { name: 'Fajr', time: state.tomorrowFajr.slice(0, 5), at: t, isTomorrow: true };
+      t.setHours(parts.hours, parts.minutes, 0, 0);
+      return { name: 'Fajr', time: formatPrayerTime(state.tomorrowFajr), at: t, isTomorrow: true };
     }
     return null;
   };
@@ -166,7 +237,23 @@ const NextPrayerHero: React.FC = () => {
           <p className="text-muted-foreground">Détection de votre position…</p>
         )}
         {state.error && (
-          <p className="text-sm text-muted-foreground">{state.error}</p>
+          <div className="mx-auto max-w-xl space-y-4">
+            <p className="text-sm text-muted-foreground">{state.error}</p>
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <Button type="button" variant="outline" onClick={detectLocation}>
+                Réessayer ma position
+              </Button>
+            </div>
+            <form onSubmit={loadManualCity} className="flex flex-col sm:flex-row gap-2">
+              <Input
+                value={manualCity}
+                onChange={(event) => setManualCity(event.target.value)}
+                placeholder="Votre ville"
+                aria-label="Votre ville"
+              />
+              <Button type="submit">Afficher</Button>
+            </form>
+          </div>
         )}
         {next && (
           <div className="space-y-3">
@@ -181,13 +268,14 @@ const NextPrayerHero: React.FC = () => {
             <p className="text-lg text-muted-foreground tabular-nums">
               dans {hours}h {String(mins).padStart(2, '0')}m {String(secs).padStart(2, '0')}s
             </p>
+            {state.source && <p className="text-xs text-muted-foreground">Source : {state.source}</p>}
           </div>
         )}
         {state.timings && (
           <div className="mt-8 pt-6 border-t border-primary/20">
             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">Horaires d'aujourd'hui</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-              {(['Fajr','Dhuhr','Asr','Maghrib','Isha'] as Array<keyof PrayerTime>).map((k) => {
+              {DAILY_PRAYERS.map((k) => {
                 const isNext = next && !next.isTomorrow && next.name === PRAYER_LABELS[k];
                 return (
                   <div
@@ -195,7 +283,7 @@ const NextPrayerHero: React.FC = () => {
                     className={`rounded-lg p-3 text-center ${isNext ? 'bg-primary text-primary-foreground' : 'bg-background border border-border'}`}
                   >
                     <div className={`text-xs font-medium ${isNext ? 'opacity-90' : 'text-muted-foreground'}`}>{PRAYER_LABELS[k]}</div>
-                    <div className="text-xl font-bold tabular-nums mt-1">{state.timings![k].slice(0,5)}</div>
+                    <div className="text-xl font-bold tabular-nums mt-1">{formatPrayerTime(state.timings![k])}</div>
                   </div>
                 );
               })}
@@ -242,10 +330,11 @@ const PrayerTimes = () => {
       
       setPrayerData(data.data);
       toast.success('Horaires de prière récupérés avec succès');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Prayer times error:', err);
-      setError(err.message || 'Une erreur est survenue');
-      toast.error(err.message || 'Une erreur est survenue');
+      const message = err instanceof Error ? err.message : 'Une erreur est survenue';
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
