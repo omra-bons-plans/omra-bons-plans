@@ -205,7 +205,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* INTRO */}
-        <section className="hajj-intro-section">
+        <section id="intro" className="hajj-intro-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Introduction</div>
             <h2 className="hajj-section-title">Le 5e pilier de l'<em>Islam</em></h2>
@@ -224,7 +224,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* SCHOOLS LEGEND */}
-        <section className="hajj-schools-legend">
+        <section id="ecoles" className="hajj-schools-legend">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Les Madhabs</div>
             <h2 className="hajj-section-title">Les Quatre <em>Écoles Juridiques</em></h2>
@@ -247,7 +247,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* OBLIGATIONS */}
-        <section className="hajj-obligations-section">
+        <section id="obligations" className="hajj-obligations-section">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Fondements</div>
             <h2 className="hajj-section-title">Les <em>Obligations</em> du Hajj</h2>
@@ -279,7 +279,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* TYPES DE HAJJ */}
-        <section className="hajj-types-section">
+        <section id="types" className="hajj-types-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Forme du Hajj</div>
             <h2 className="hajj-section-title">Les Trois <em>Types de Hajj</em></h2>
@@ -356,7 +356,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* ÉTAPES DU HAJJ */}
-        <section className="hajj-steps-section">
+        <section id="rites" className="hajj-steps-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Le Guide</div>
             <h2 className="hajj-section-title">Étape par Étape : <em>Les Rites du Hajj</em></h2>
@@ -513,7 +513,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* VÊTEMENTS IHRAM */}
-        <section className="hajj-ihram-section">
+        <section id="ihram" className="hajj-ihram-section">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Dress Code Sacré</div>
             <h2 className="hajj-section-title">Les Vêtements de l'<em>Ihrâm</em></h2>
@@ -574,7 +574,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* DIVERGENCES */}
-        <section className="hajj-divergences-section">
+        <section id="divergences" className="hajj-divergences-section">
           <div className="hajj-container">
             <div className="hajj-section-number">⚡ Section Clé</div>
             <h2 className="hajj-section-title">Les <em>Points de Divergence</em> Majeurs<br />entre les Quatre Écoles</h2>
@@ -653,7 +653,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* FAQ */}
-        <section className="hajj-faq-section">
+        <section id="faq" className="hajj-faq-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Questions & Réponses</div>
             <h2 className="hajj-section-title">Les Questions <em>Fréquentes</em><br />selon les Quatre Écoles</h2>
