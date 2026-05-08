@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Home, BookOpen } from 'lucide-react';
 import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 import '@/styles/guide-hajj.css';
 
