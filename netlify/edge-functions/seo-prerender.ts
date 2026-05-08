@@ -54,7 +54,7 @@ const PAGES: Record<string, PageMeta> = {
   "/comparateur-omra": {
     title: "Comparateur Omra 2026 | Offres Temps Réel | Omra Bons Plans",
     description: "Notre comparateur Omra vous permet de comparer les offres des agences agréées en France. Prix, hôtels, dates : trouvez votre voyage idéal.",
-    canonical: `${SITE}/comparateur-omra`,
+    canonical: `${SITE}/`,
   },
   "/comparateur-omra-france": {
     title: "Comparateur Omra France 2026 | Toutes les Agences Agréées",
@@ -88,6 +88,26 @@ const PAGES: Record<string, PageMeta> = {
     description: "Guides complets sur l'Omra et le Hajj : rites, préparation, visa, bagages, prix. Conseils d'experts pour réussir votre pèlerinage.",
     canonical: `${SITE}/blog`,
   },
+  "/blog/general": {
+    title: "Blog Général Omra & Hajj : Guides et Conseils | Omra Bons Plans",
+    description: "Articles généraux sur l'Omra et le Hajj : guides pratiques, conseils spirituels, préparation du pèlerinage. Toute l'actualité islamique.",
+    canonical: `${SITE}/blog/general`,
+  },
+  "/blog/restaurants": {
+    title: "Restaurants Halal à La Mecque & Médine | Blog Omra Bons Plans",
+    description: "Découvrez les meilleurs restaurants halal à La Mecque et Médine. Adresses, avis et conseils pour bien manger pendant votre Omra.",
+    canonical: `${SITE}/blog/restaurants`,
+  },
+  "/blog/associations": {
+    title: "Associations Islamiques en France | Blog Omra Bons Plans",
+    description: "Annuaire des associations islamiques en France : mosquées, centres culturels, associations pèlerinage. Trouvez votre communauté.",
+    canonical: `${SITE}/blog/associations`,
+  },
+  "/blog/vendeurs": {
+    title: "Vendeurs & Artisans Islamiques | Blog Omra Bons Plans",
+    description: "Découvrez les meilleurs vendeurs et artisans islamiques : souvenirs de La Mecque, produits halal, tapis de prière, livres islamiques.",
+    canonical: `${SITE}/blog/vendeurs`,
+  },
   "/about": {
     title: "À Propos - Omra Bons Plans | Notre Mission & Équipe",
     description: "Découvrez qui nous sommes : une équipe experte en pèlerinage qui facilite votre voyage religieux en Arabie Saoudite grâce à notre plateforme.",
@@ -96,7 +116,7 @@ const PAGES: Record<string, PageMeta> = {
   "/a-propos": {
     title: "À Propos - Omra Bons Plans | Notre Mission",
     description: "Notre mission : vous aider à trouver la meilleure offre Omra ou Hajj parmi toutes les agences agréées en France.",
-    canonical: `${SITE}/a-propos`,
+    canonical: `${SITE}/about`,
   },
   "/contact": {
     title: "Contact - Omra Bons Plans | Nous Contacter",
@@ -152,7 +172,7 @@ const PAGES: Record<string, PageMeta> = {
   "/horaires-prieres": {
     title: "Horaires de Prières - La Mecque, Médine & France | Omra Bons Plans",
     description: "Horaires de prières précis pour La Mecque, Médine et toutes les villes de France. Fajr, Dhuhr, Asr, Maghrib, Isha.",
-    canonical: `${SITE}/horaires-prieres`,
+    canonical: `${SITE}/prayer-times`,
   },
   "/islamic-calendar": {
     title: "Calendrier Islamique Hijri 2026 | Omra Bons Plans",
@@ -162,12 +182,12 @@ const PAGES: Record<string, PageMeta> = {
   "/calendrier-islamique": {
     title: "Calendrier Islamique 2026 | Dates Hijri | Omra Bons Plans",
     description: "Calendrier islamique 2026 (Hijri) avec toutes les dates importantes : Ramadan, Aïd, Hajj. Planifiez vos voyages religieux.",
-    canonical: `${SITE}/calendrier-islamique`,
+    canonical: `${SITE}/islamic-calendar`,
   },
   "/dates-ramadan-hajj": {
     title: "Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage",
     description: "Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.",
-    canonical: `${SITE}/dates-ramadan-hajj`,
+    canonical: `${SITE}/ramadan-hajj-dates`,
   },
   "/ramadan-hajj-dates": {
     title: "Dates Ramadan & Hajj 2026-2028 | Omra Bons Plans",
@@ -293,32 +313,32 @@ const PAGES: Record<string, PageMeta> = {
   "/services/babysitting-omra": {
     title: "Service Babysitting Omra : Garde d'Enfants à La Mecque & Médine",
     description: "Trouvez un service de babysitting de confiance pour votre Omra. Gardes d'enfants francophones à La Mecque et Médine.",
-    canonical: `${SITE}/services/babysitting-omra`,
+    canonical: `${SITE}/category/babysitting`,
   },
   "/services/guides-omra": {
     title: "Guides Omra Francophones : Accompagnement à La Mecque et Médine",
     description: "Guides Omra francophones expérimentés pour vous accompagner dans les rites à La Mecque et Médine. Réservez en ligne.",
-    canonical: `${SITE}/services/guides-omra`,
+    canonical: `${SITE}/category/guides`,
   },
   "/services/hebergement-omra": {
     title: "Hébergement Omra : Hôtels et Appartements à La Mecque & Médine",
     description: "Trouvez votre hébergement Omra : hôtels et appartements proches du Haram à La Mecque et de la Mosquée du Prophète.",
-    canonical: `${SITE}/services/hebergement-omra`,
+    canonical: `${SITE}/category/hebergements`,
   },
   "/services/sejours-omra": {
     title: "Séjours Omra Tout Compris : Forfaits Complets",
     description: "Séjours Omra tout compris : vol, hôtel, transferts, encadrement. Comparez les meilleures offres des agences agréées.",
-    canonical: `${SITE}/services/sejours-omra`,
+    canonical: `${SITE}/category/sejours`,
   },
   "/services/transport-omra": {
     title: "Transport et Chauffeurs pour l'Omra : Réservez en Ligne",
     description: "Services de transport pour votre Omra : chauffeurs privés, transferts aéroport, transport entre La Mecque et Médine.",
-    canonical: `${SITE}/services/transport-omra`,
+    canonical: `${SITE}/category/chauffeurs`,
   },
   "/services/vols-omra": {
     title: "Vols Omra : Comparez les Vols vers Djeddah et Médine",
     description: "Comparez les vols pour votre Omra vers Djeddah et Médine. Meilleures compagnies aériennes, prix et horaires.",
-    canonical: `${SITE}/services/vols-omra`,
+    canonical: `${SITE}/category/vols`,
   },
 };
 
@@ -379,13 +399,30 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
-    // /omra-depuis-[ville] — 8 city pages in sitemap
+    // /omra-depuis-[ville]
     else if (/^\/omra-depuis-.+$/.test(pathname)) {
-      const city = pathname.replace("/omra-depuis-", "");
-      const cityLabel = city.charAt(0).toUpperCase() + city.slice(1);
+      const citySlug = pathname.replace("/omra-depuis-", "");
+      const cityMeta: Record<string, { label: string; desc: string }> = {
+        paris:            { label: "Paris", desc: "Comparez les meilleures offres Omra 2026 depuis Paris (CDG/ORY). +15 agences agréées, vols directs quotidiens vers Djeddah. Prix à partir de 900€." },
+        lyon:             { label: "Lyon", desc: "Offres Omra 2026 depuis Lyon (LYS). Turkish Airlines via Istanbul, vols directs saisonniers. Agences agréées, prix 950€–1 450€ selon période." },
+        marseille:        { label: "Marseille", desc: "Omra 2026 depuis Marseille (MRS). Vols via Air Algérie, charters directs en saison. Agences locales, prix à partir de 950€." },
+        toulouse:         { label: "Toulouse", desc: "Omra 2026 depuis Toulouse (TLS). Vols via Paris CDG ou Istanbul. Agences agréées, prix 980€–1 500€ hors Ramadan." },
+        nice:             { label: "Nice", desc: "Offres Omra 2026 depuis Nice (NCE). Turkish Airlines via Istanbul, Air France via CDG. Comparez agences et prix pour la Côte d'Azur." },
+        bordeaux:         { label: "Bordeaux", desc: "Omra 2026 depuis Bordeaux (BOD). Royal Air Maroc via Casablanca, Air France via CDG. Agences agréées, prix à partir de 1 000€." },
+        strasbourg:       { label: "Strasbourg", desc: "Omra 2026 depuis Strasbourg (SXB) ou Francfort. Lufthansa, Turkish Airlines. Alsace & Grand Est — comparez les offres agences." },
+        lille:            { label: "Lille", desc: "Omra 2026 depuis Lille (LIL) ou Bruxelles. Brussels Airlines directs, Air France via CDG. Hauts-de-France, prix dès 950€." },
+        nantes:           { label: "Nantes", desc: "Offres Omra 2026 depuis Nantes (NTE). Air France via CDG, Royal Air Maroc. Agences agréées Pays de la Loire, prix à partir de 1 000€." },
+        rennes:           { label: "Rennes", desc: "Omra 2026 depuis Rennes (RNS) ou Paris CDG (1h30 TGV). Comparez les agences agréées et trouvez le meilleur vol pour votre pèlerinage." },
+        montpellier:      { label: "Montpellier", desc: "Omra 2026 depuis Montpellier (MPL). Air Algérie via Alger, Air France via CDG. Occitanie — comparez agences agréées et prix." },
+        grenoble:         { label: "Grenoble", desc: "Omra 2026 depuis Grenoble (GNB) ou Lyon (1h). Turkish Airlines, Air France. Isère & Alpes — agences agréées, prix dès 980€." },
+        metz:             { label: "Metz", desc: "Omra 2026 depuis Metz (ETZ), Francfort FRA ou Luxembourg. Lufthansa, Turkish Airlines. Grand Est — comparez toutes les offres." },
+        "clermont-ferrand": { label: "Clermont-Ferrand", desc: "Omra 2026 depuis Clermont-Ferrand (CFE) ou Lyon (1h30). Air France, Transavia. Auvergne — agences agréées, prix et conseils pratiques." },
+      };
+      const cm = cityMeta[citySlug];
+      const cityLabel = cm ? cm.label : (citySlug.charAt(0).toUpperCase() + citySlug.slice(1).replace(/-/g, ' '));
       meta = {
-        title: `Omra depuis ${cityLabel} 2026 : Vols et Séjours | Omra Bons Plans`,
-        description: `Partez en Omra depuis ${cityLabel} en 2026. Comparez les vols, hôtels et séjours tout compris des agences agréées en France.`,
+        title: `Omra depuis ${cityLabel} 2026 : Agences, Prix & Vols | Omra Bons Plans`,
+        description: cm ? cm.desc : `Partez en Omra depuis ${cityLabel} en 2026. Comparez les agences agréées, vols et séjours tout compris depuis votre ville.`,
         canonical: `${SITE}${pathname}`,
       };
     }
