@@ -69,48 +69,67 @@ const NextPrayerHero: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const loadFor = async (latitude: number, longitude: number, cityHint?: string) => {
+      try {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const tomorrow = new Date(today.getTime() + 86400000);
+        const dd2 = String(tomorrow.getDate()).padStart(2, '0');
+        const mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const yyyy2 = tomorrow.getFullYear();
+
+        const [r1, r2, geo] = await Promise.all([
+          fetch(`https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${latitude}&longitude=${longitude}&method=3`),
+          fetch(`https://api.aladhan.com/v1/timings/${dd2}-${mm2}-${yyyy2}?latitude=${latitude}&longitude=${longitude}&method=3`),
+          cityHint
+            ? Promise.resolve(null)
+            : fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`).catch(() => null),
+        ]);
+        const j1 = await r1.json();
+        const j2 = await r2.json();
+        let city: string | undefined = cityHint;
+        if (!city && geo) {
+          try {
+            const g = await (geo as Response).json();
+            city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
+          } catch {}
+        }
+        setState({
+          loading: false,
+          error: null,
+          city,
+          timings: j1.data.timings,
+          tomorrowFajr: j2.data.timings.Fajr,
+        });
+      } catch {
+        setState({ loading: false, error: "Impossible de récupérer les horaires." });
+      }
+    };
+
+    const fallbackByIP = async () => {
+      try {
+        const r = await fetch('https://ipapi.co/json/');
+        const j = await r.json();
+        if (j?.latitude && j?.longitude) {
+          await loadFor(j.latitude, j.longitude, j.city);
+        } else {
+          setState({ loading: false, error: "Impossible de détecter votre position." });
+        }
+      } catch {
+        setState({ loading: false, error: "Impossible de détecter votre position." });
+      }
+    };
+
     if (!('geolocation' in navigator)) {
-      setState({ loading: false, error: "Géolocalisation non disponible sur cet appareil." });
+      fallbackByIP();
       return;
     }
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        try {
-          const { latitude, longitude } = pos.coords;
-          const today = new Date();
-          const dd = String(today.getDate()).padStart(2, '0');
-          const mm = String(today.getMonth() + 1).padStart(2, '0');
-          const yyyy = today.getFullYear();
-          const tomorrow = new Date(today.getTime() + 86400000);
-          const dd2 = String(tomorrow.getDate()).padStart(2, '0');
-          const mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
-          const yyyy2 = tomorrow.getFullYear();
-
-          const [r1, r2, geo] = await Promise.all([
-            fetch(`https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${latitude}&longitude=${longitude}&method=3`),
-            fetch(`https://api.aladhan.com/v1/timings/${dd2}-${mm2}-${yyyy2}?latitude=${latitude}&longitude=${longitude}&method=3`),
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`).catch(() => null),
-          ]);
-          const j1 = await r1.json();
-          const j2 = await r2.json();
-          let city: string | undefined;
-          try {
-            const g = geo ? await geo.json() : null;
-            city = g?.address?.city || g?.address?.town || g?.address?.village || g?.address?.county;
-          } catch {}
-          setState({
-            loading: false,
-            error: null,
-            city,
-            timings: j1.data.timings,
-            tomorrowFajr: j2.data.timings.Fajr,
-          });
-        } catch (e: any) {
-          setState({ loading: false, error: "Impossible de récupérer les horaires." });
-        }
-      },
-      () => setState({ loading: false, error: "Autorisez la géolocalisation pour voir la prochaine prière." }),
-      { timeout: 10000, maximumAge: 600000 }
+      (pos) => loadFor(pos.coords.latitude, pos.coords.longitude),
+      () => fallbackByIP(),
+      { timeout: 8000, maximumAge: 600000 }
     );
   }, []);
 
