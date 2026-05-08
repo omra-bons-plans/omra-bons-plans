@@ -301,6 +301,9 @@ const PrayerTimes = () => {
             </p>
           </div>
 
+          {/* Prochaine prière (géolocalisation) */}
+          <NextPrayerHero />
+
           {/* Introduction détaillée */}
           <Card className="bg-muted/30">
             <CardContent className="pt-6">
