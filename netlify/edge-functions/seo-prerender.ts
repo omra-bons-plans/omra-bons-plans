@@ -22,6 +22,7 @@ interface PageMeta {
   canonical: string;
   ogImage?: string;
   ogType?: string;
+  robots?: string;
 }
 
 const SITE = "https://omrabonsplans.fr";
@@ -133,6 +134,12 @@ const PAGES: Record<string, PageMeta> = {
     title: "Forum Omra & Hajj : Questions et Témoignages | Omra Bons Plans",
     description: "Posez vos questions sur l'Omra et le Hajj, partagez vos expériences et lisez les témoignages de pèlerins. Communauté francophone active.",
     canonical: `${SITE}/discussions`,
+  },
+  "/search": {
+    title: "Recherche | Omra Bons Plans",
+    description: "Résultats de recherche sur Omra Bons Plans.",
+    canonical: `${SITE}/search`,
+    robots: "noindex, follow",
   },
   "/category/sejours": {
     title: "Annonces Séjours Omra & Hajj | Omra Bons Plans",
@@ -353,13 +360,14 @@ function buildHead(meta: PageMeta): string {
   const ogType = meta.ogType || "website";
   const keywords = meta.keywords ||
     "omra 2026, hajj 2026, omra ramadan, pèlerinage, arabie saoudite, la mecque, médine";
+  const robots = meta.robots || "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   return `
     <title>${escape(meta.title)}</title>
     <meta name="description" content="${escape(meta.description)}" />
     <meta name="keywords" content="${escape(keywords)}" />
     <meta name="author" content="Omra Bons Plans" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content="${escape(robots)}" />
     <link rel="canonical" href="${escape(meta.canonical)}" />
     <meta property="og:title" content="${escape(meta.title)}" />
     <meta property="og:description" content="${escape(meta.description)}" />
@@ -441,6 +449,24 @@ export default async (request: Request, context: Context) => {
         title: "Offre Omra & Hajj | Omra Bons Plans",
         description: "Détail d'une offre Omra ou Hajj depuis la France. Prix, dates, hôtel et agence.",
         canonical: `${SITE}${pathname}`,
+      };
+    }
+    // Protected/user routes — noindex to avoid duplicate content issues
+    else if (/^\/(auth|profile|publish|admin|my-ads|settings|notifications)(\/.*)?$/.test(pathname)) {
+      meta = {
+        title: "Omra Bons Plans",
+        description: "Omra Bons Plans — Comparez les offres Omra & Hajj depuis la France.",
+        canonical: `${SITE}${pathname}`,
+        robots: "noindex, follow",
+      };
+    }
+    // Old English blog article slugs (legacy URLs, now 301 via _redirects — belt-and-suspenders noindex)
+    else if (/^\/(competitive-analysis|five-ways-to-create|how-to-choose-best-laptops|how-to-create-listing|how-to-do-market-research|how-to-explode-your-leads|how-to-leverage-contests|how-to-place-an-ad|increase-your-business-leads|three-powerful-tricks|use-the-right-partner|why-online-free-classified)/.test(pathname)) {
+      meta = {
+        title: "Blog | Omra Bons Plans",
+        description: "Guides et conseils sur l'Omra et le Hajj.",
+        canonical: `${SITE}/blog`,
+        robots: "noindex, follow",
       };
     }
   }

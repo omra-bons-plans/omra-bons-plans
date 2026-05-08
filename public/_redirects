@@ -28,6 +28,29 @@
 # Redirections de normalisation des URLs de catégories (singulier vers pluriel)
 /category/hebergement /category/hebergements 301
 
+# Anciennes URLs génériques legacy
+/home / 301
+/test / 301
+/checkout / 301
+/all-ads / 301
+/2019 /blog 301
+/2019/06 /blog 301
+/2019/07 /blog 301
+
+# Anciennes URLs d'articles blog en anglais (consolidation SEO vers /blog)
+/competitive-analysis-for-entrepreneurs /blog 301
+/five-ways-to-create-your-classified-ad-that-will-stand-out /blog 301
+/how-to-choose-best-laptops-under-30000-in-2018 /blog 301
+/how-to-create-listing-that-gets-traffic /blog 301
+/how-to-do-market-research-for-to-sell-faster /blog 301
+/how-to-explode-your-leads-with-local-search /blog 301
+/how-to-leverage-contests-to-generate-thousands-of-leads-10 /blog 301
+/how-to-place-an-ad-for-immigration-advertising /blog 301
+/increase-your-business-leads-with-classified-advertising /blog 301
+/three-powerful-tricks-for-online-classified-advertising /blog 301
+/use-the-right-partner-to-sell-your-products /blog 301
+/why-online-free-classified-sites-are-essential-for-marketing /blog 301
+
 # Sitemap servi depuis le fichier statique public/sitemap.xml (complet, 100+ URLs)
 # Le proxy Supabase est supprimé car il empêchait Google de voir les nouvelles pages
 
