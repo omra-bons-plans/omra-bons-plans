@@ -164,6 +164,25 @@ const NextPrayerHero: React.FC = () => {
             </p>
           </div>
         )}
+        {state.timings && (
+          <div className="mt-8 pt-6 border-t border-primary/20">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">Horaires d'aujourd'hui</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {(['Fajr','Dhuhr','Asr','Maghrib','Isha'] as Array<keyof PrayerTime>).map((k) => {
+                const isNext = next && !next.isTomorrow && next.name === PRAYER_LABELS[k];
+                return (
+                  <div
+                    key={k}
+                    className={`rounded-lg p-3 text-center ${isNext ? 'bg-primary text-primary-foreground' : 'bg-background border border-border'}`}
+                  >
+                    <div className={`text-xs font-medium ${isNext ? 'opacity-90' : 'text-muted-foreground'}`}>{PRAYER_LABELS[k]}</div>
+                    <div className="text-xl font-bold tabular-nums mt-1">{state.timings![k].slice(0,5)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
