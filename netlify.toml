@@ -2,6 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
+# Redirect www → non-www (fix "Page en double sans canonical" in GSC)
+[[redirects]]
+  from = "https://www.omrabonsplans.fr/*"
+  to = "https://omrabonsplans.fr/:splat"
+  status = 301
+  force = true
+
 # ─── HTTP Cache Headers ────────────────────────────────────────────────────────
 # JS/CSS assets — content-hashed filenames → immutable cache (1 year)
 [[headers]]
@@ -108,6 +115,118 @@
 
 [[edge_functions]]
   path = "/prix-omra-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/rites-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-debutant"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/visa-omra-france"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/guide-omra-pas-chere"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-ramadan-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/hajj-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/guide-hajj-4-ecoles"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/liste-bagages-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/10-derniers-jours-ramadan"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-famille"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-seniors"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-enfants"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-badal"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/comparateur-omra-france"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/ramadan-hajj-dates"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/agences-liste"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-paris"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-lyon"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-marseille"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-toulouse"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-nice"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-bordeaux"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-strasbourg"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-lille"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-octobre-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-novembre-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-decembre-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-janvier-2027"
   function = "guide-prerender"
 
 # Injection des meta SEO (title/description/canonical/OG/Twitter) pour toutes
