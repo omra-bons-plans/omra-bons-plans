@@ -21,7 +21,7 @@ Allow: /blog/
 Allow: /prayer-times
 Allow: /islamic-calendar
 Allow: /ramadan-hajj-dates
-Allow: /dix-derniers-jours-ramadan
+Allow: /10-derniers-jours-ramadan
 Allow: /agences-liste
 Allow: /agence-details/
 Allow: /comparatif-agences
@@ -34,6 +34,7 @@ Allow: /ad/
 Allow: /offre-omra/
 Allow: /offre-hajj/
 Allow: /bons-plans
+Allow: /favoris
 
 # Guides & contenus SEO
 Allow: /guide-omra-pas-chere
@@ -41,8 +42,8 @@ Allow: /guide-hajj-4-ecoles
 Allow: /definition-omra
 Allow: /conditions-omra
 Allow: /rites-omra
-Allow: /visa-omra
-Allow: /prix-omra
+Allow: /visa-omra-france
+Allow: /prix-omra-2026
 Allow: /quand-partir-omra
 Allow: /liste-bagages-omra
 Allow: /meilleure-agence-omra
@@ -51,11 +52,27 @@ Allow: /omra-debutant
 Allow: /omra-enfants
 Allow: /omra-famille
 Allow: /omra-femme-seule
-Allow: /omra-ramadan
-Allow: /omra-saison
+Allow: /omra-ramadan-2026
+Allow: /omra-en-octobre-2026
+Allow: /omra-en-novembre-2026
+Allow: /omra-en-decembre-2026
+Allow: /omra-en-janvier-2027
 Allow: /omra-seniors
 Allow: /omra-tout-compris
-Allow: /omra-ville
+Allow: /omra-depuis-paris
+Allow: /omra-depuis-lyon
+Allow: /omra-depuis-marseille
+Allow: /omra-depuis-toulouse
+Allow: /omra-depuis-nice
+Allow: /omra-depuis-bordeaux
+Allow: /omra-depuis-strasbourg
+Allow: /omra-depuis-lille
+Allow: /omra-depuis-nantes
+Allow: /omra-depuis-rennes
+Allow: /omra-depuis-montpellier
+Allow: /omra-depuis-grenoble
+Allow: /omra-depuis-metz
+Allow: /omra-depuis-clermont-ferrand
 
 # Fichiers de vérification
 Allow: /google-site-verification.html
@@ -74,7 +91,6 @@ Disallow: /publish
 Disallow: /publish/
 Disallow: /settings
 Disallow: /auth
-Disallow: /favoris
 Disallow: /search
 Disallow: /ad-summary/
 
