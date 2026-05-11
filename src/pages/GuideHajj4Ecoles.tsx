@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Home, BookOpen } from 'lucide-react';
 import { MobileBottomNav } from '@/components/mobile/MobileBottomNav';
 import '@/styles/guide-hajj.css';
 
@@ -110,6 +112,79 @@ const GuideHajj4Ecoles = () => {
 
       <div ref={pageRef} className="hajj-guide-page">
         {/* HERO */}
+        {/* TOP NAV BAR */}
+        <nav
+          aria-label="Navigation retour"
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.75rem',
+            padding: '0.625rem 1rem',
+            backgroundColor: 'hsl(35, 30%, 96%)',
+            borderBottom: '1px solid hsl(35, 25%, 85%)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          <Link
+            to="/"
+            aria-label="Retour à l'accueil"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: 'hsl(25, 35%, 25%)',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+            }}
+          >
+            <ArrowLeft size={18} />
+            <span>Retour</span>
+          </Link>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <Link
+              to="/"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.4rem 0.75rem',
+                borderRadius: '999px',
+                backgroundColor: 'hsl(35, 25%, 90%)',
+                color: 'hsl(25, 35%, 25%)',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+              }}
+            >
+              <Home size={15} />
+              <span>Accueil</span>
+            </Link>
+            <Link
+              to="/blog"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.4rem 0.75rem',
+                borderRadius: '999px',
+                backgroundColor: 'hsl(40, 60%, 55%)',
+                color: 'white',
+                textDecoration: 'none',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+              }}
+            >
+              <BookOpen size={15} />
+              <span>Blog</span>
+            </Link>
+          </div>
+        </nav>
+
         <section className="hajj-hero">
           <div className="hajj-hero-bg" />
           <div className="hajj-hero-pattern" />
@@ -129,8 +204,119 @@ const GuideHajj4Ecoles = () => {
           <div className="hajj-scroll-indicator"><span></span></div>
         </section>
 
+        {/* SOMMAIRE FLOTTANT (desktop) */}
+        <aside
+          aria-label="Sommaire"
+          className="hajj-toc-floating"
+          style={{
+            position: 'fixed',
+            top: '90px',
+            right: '1.25rem',
+            width: '260px',
+            maxHeight: 'calc(100vh - 110px)',
+            overflowY: 'auto',
+            background: 'white',
+            border: '1px solid hsl(35, 25%, 88%)',
+            borderRadius: '14px',
+            padding: '1.1rem 1.1rem',
+            boxShadow: '0 8px 28px hsla(25, 30%, 20%, 0.10)',
+            zIndex: 40,
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '0.75rem',
+              paddingBottom: '0.6rem',
+              borderBottom: '1px solid hsl(35, 25%, 90%)',
+            }}
+          >
+            <span style={{ fontSize: '1.15rem' }}>📜</span>
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: '"Amiri", serif',
+                fontSize: '1.1rem',
+                color: 'hsl(25, 35%, 25%)',
+                fontWeight: 700,
+              }}
+            >
+              Sommaire
+            </h2>
+          </div>
+          <ol
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+              display: 'grid',
+              gap: '0.25rem',
+            }}
+          >
+            {[
+              { id: 'intro', label: "Le 5e pilier de l'Islam" },
+              { id: 'ecoles', label: 'Les Quatre Écoles Juridiques' },
+              { id: 'obligations', label: 'Les Obligations du Hajj' },
+              { id: 'types', label: 'Les Trois Types de Hajj' },
+              { id: 'rites', label: 'Étape par Étape : Les Rites' },
+              { id: 'ihram', label: "Les Vêtements de l'Ihrâm" },
+              { id: 'divergences', label: 'Les Points de Divergence' },
+              { id: 'faq', label: 'Questions Fréquentes' },
+            ].map((item, i) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(item.id);
+                    if (el) {
+                      const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+                      window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.6rem',
+                    padding: '0.45rem 0.55rem',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    color: 'hsl(25, 35%, 25%)',
+                    fontSize: '0.85rem',
+                    background: 'transparent',
+                    lineHeight: 1.25,
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'hsl(35, 30%, 95%)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                >
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      width: '22px',
+                      height: '22px',
+                      borderRadius: '50%',
+                      background: 'hsl(40, 60%, 55%)',
+                      color: 'white',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
         {/* INTRO */}
-        <section className="hajj-intro-section">
+        <section id="intro" className="hajj-intro-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Introduction</div>
             <h2 className="hajj-section-title">Le 5e pilier de l'<em>Islam</em></h2>
@@ -149,7 +335,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* SCHOOLS LEGEND */}
-        <section className="hajj-schools-legend">
+        <section id="ecoles" className="hajj-schools-legend">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Les Madhabs</div>
             <h2 className="hajj-section-title">Les Quatre <em>Écoles Juridiques</em></h2>
@@ -172,7 +358,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* OBLIGATIONS */}
-        <section className="hajj-obligations-section">
+        <section id="obligations" className="hajj-obligations-section">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Fondements</div>
             <h2 className="hajj-section-title">Les <em>Obligations</em> du Hajj</h2>
@@ -204,7 +390,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* TYPES DE HAJJ */}
-        <section className="hajj-types-section">
+        <section id="types" className="hajj-types-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Forme du Hajj</div>
             <h2 className="hajj-section-title">Les Trois <em>Types de Hajj</em></h2>
@@ -281,7 +467,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* ÉTAPES DU HAJJ */}
-        <section className="hajj-steps-section">
+        <section id="rites" className="hajj-steps-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Le Guide</div>
             <h2 className="hajj-section-title">Étape par Étape : <em>Les Rites du Hajj</em></h2>
@@ -438,7 +624,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* VÊTEMENTS IHRAM */}
-        <section className="hajj-ihram-section">
+        <section id="ihram" className="hajj-ihram-section">
           <div className="hajj-container-wide">
             <div className="hajj-section-number">Dress Code Sacré</div>
             <h2 className="hajj-section-title">Les Vêtements de l'<em>Ihrâm</em></h2>
@@ -499,7 +685,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* DIVERGENCES */}
-        <section className="hajj-divergences-section">
+        <section id="divergences" className="hajj-divergences-section">
           <div className="hajj-container">
             <div className="hajj-section-number">⚡ Section Clé</div>
             <h2 className="hajj-section-title">Les <em>Points de Divergence</em> Majeurs<br />entre les Quatre Écoles</h2>
@@ -578,7 +764,7 @@ const GuideHajj4Ecoles = () => {
         </section>
 
         {/* FAQ */}
-        <section className="hajj-faq-section">
+        <section id="faq" className="hajj-faq-section">
           <div className="hajj-container">
             <div className="hajj-section-number">Questions & Réponses</div>
             <h2 className="hajj-section-title">Les Questions <em>Fréquentes</em><br />selon les Quatre Écoles</h2>

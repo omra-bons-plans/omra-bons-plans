@@ -1,17 +1,19 @@
 # Robots.txt for omrabonsplans.fr
+# Politique : tout le contenu public est crawlable.
+# Seuls les espaces privés (admin, auth, profil, etc.) sont bloqués.
+
 User-agent: *
 Allow: /
 
 # Sitemap
 Sitemap: https://omrabonsplans.fr/sitemap.xml
 
-# Verification files
-Allow: /google-site-verification.html
-Allow: /BingSiteAuth.xml
-
-# Main public pages - explicitly allowed
+# ──────────────────────────────────────────────
+# Pages publiques — explicitement autorisées
+# ──────────────────────────────────────────────
 Allow: /omra
 Allow: /hajj
+Allow: /hajj-2026
 Allow: /about
 Allow: /contact
 Allow: /blog
@@ -19,18 +21,50 @@ Allow: /blog/
 Allow: /prayer-times
 Allow: /islamic-calendar
 Allow: /ramadan-hajj-dates
+Allow: /dix-derniers-jours-ramadan
 Allow: /agences-liste
 Allow: /agence-details/
 Allow: /comparatif-agences
 Allow: /comparatif-visuel
+Allow: /comparateur-omra
+Allow: /comparateur-omra-france
 Allow: /discussions
 Allow: /category/
 Allow: /ad/
 Allow: /offre-omra/
 Allow: /offre-hajj/
-Allow: /guide-omra-pas-chere
+Allow: /bons-plans
 
-# Private/admin areas - block indexing
+# Guides & contenus SEO
+Allow: /guide-omra-pas-chere
+Allow: /guide-hajj-4-ecoles
+Allow: /definition-omra
+Allow: /conditions-omra
+Allow: /rites-omra
+Allow: /visa-omra
+Allow: /prix-omra
+Allow: /quand-partir-omra
+Allow: /liste-bagages-omra
+Allow: /meilleure-agence-omra
+Allow: /omra-badal
+Allow: /omra-debutant
+Allow: /omra-enfants
+Allow: /omra-famille
+Allow: /omra-femme-seule
+Allow: /omra-ramadan
+Allow: /omra-saison
+Allow: /omra-seniors
+Allow: /omra-tout-compris
+Allow: /omra-ville
+
+# Fichiers de vérification
+Allow: /google-site-verification.html
+Allow: /BingSiteAuth.xml
+Allow: /llms.txt
+
+# ──────────────────────────────────────────────
+# Espaces privés — bloqués à l'indexation
+# ──────────────────────────────────────────────
 Disallow: /admin
 Disallow: /admin/
 Disallow: /profile
@@ -43,44 +77,13 @@ Disallow: /auth
 Disallow: /favoris
 Disallow: /search
 Disallow: /ad-summary/
-Disallow: /bons-plans
 
-# Block old redirect URLs (avoid "Page with redirect" in GSC)
-Disallow: /comparateur-omra$
-Disallow: /a-propos
-Disallow: /calendrier-islamique
-Disallow: /dates-ramadan-hajj
-Disallow: /horaires-prieres
-Disallow: /home
-Disallow: /test
-Disallow: /checkout
-Disallow: /all-ads
-
-# Block old English blog posts (redirected, no value)
-Disallow: /competitive-analysis-for-entrepreneurs
-Disallow: /five-ways-to-create-your-classified-ad-that-will-stand-out
-Disallow: /how-to-choose-best-laptops-under-30000-in-2018
-Disallow: /how-to-create-listing-that-gets-traffic
-Disallow: /how-to-do-market-research-for-to-sell-faster
-Disallow: /how-to-explode-your-leads-with-local-search
-Disallow: /how-to-leverage-contests-to-generate-thousands-of-leads-10
-Disallow: /how-to-place-an-ad-for-immigration-advertising
-Disallow: /increase-your-business-leads-with-classified-advertising
-Disallow: /three-powerful-tricks-for-online-classified-advertising
-Disallow: /use-the-right-partner-to-sell-your-products
-Disallow: /why-online-free-classified-sites-are-essential-for-marketing
-
-# Block old archive URLs
-Disallow: /2019
-Disallow: /2019/
-
-# Block old services URLs (redirected to /category/)
-Disallow: /services/
-
-# Crawl delay (default for all bots)
+# Crawl delay
 Crawl-delay: 1
 
-# AI Crawlers - explicitly allowed with specific crawl rates
+# ──────────────────────────────────────────────
+# AI Crawlers
+# ──────────────────────────────────────────────
 User-agent: GPTBot
 Allow: /
 Disallow: /admin
@@ -101,11 +104,29 @@ Disallow: /admin
 Disallow: /auth
 Crawl-delay: 1
 
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 1
+
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin
 Disallow: /auth
 Crawl-delay: 1
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Crawl-delay: 2
 
 User-agent: Bytespider
 Allow: /
@@ -125,24 +146,6 @@ Disallow: /admin
 Disallow: /auth
 Crawl-delay: 2
 
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /admin
-Disallow: /auth
-Crawl-delay: 2
-
-User-agent: ClaudeBot
-Allow: /
-Disallow: /admin
-Disallow: /auth
-Crawl-delay: 1
-
 User-agent: Google-Extended
 Allow: /
 Crawl-delay: 1
-
-User-agent: OAI-SearchBot
-Allow: /
-Disallow: /admin
-Disallow: /auth
-Crawl-delay: 2

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar as CalendarIcon, ArrowRightLeft } from 'lucide-react';
+import CalendarIcon from 'lucide-react/dist/esm/icons/calendar';
+import ArrowRightLeft from 'lucide-react/dist/esm/icons/arrow-right-left';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

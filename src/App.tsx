@@ -283,7 +283,20 @@ const App = () => (
                    <Route path="/prix-omra-2026" element={<PrixOmra />} />
                    <Route path="/omra-femme-seule" element={<OmraFemmeSeule />} />
                    <Route path="/visa-omra-france" element={<VisaOmra />} />
-                   <Route path="/omra-depuis-:ville" element={<OmraVille />} />
+                   <Route path="/omra-depuis-paris" element={<OmraVille />} />
+                   <Route path="/omra-depuis-lyon" element={<OmraVille />} />
+                   <Route path="/omra-depuis-marseille" element={<OmraVille />} />
+                   <Route path="/omra-depuis-toulouse" element={<OmraVille />} />
+                   <Route path="/omra-depuis-nice" element={<OmraVille />} />
+                   <Route path="/omra-depuis-bordeaux" element={<OmraVille />} />
+                   <Route path="/omra-depuis-strasbourg" element={<OmraVille />} />
+                   <Route path="/omra-depuis-lille" element={<OmraVille />} />
+                   <Route path="/omra-depuis-nantes" element={<OmraVille />} />
+                   <Route path="/omra-depuis-rennes" element={<OmraVille />} />
+                   <Route path="/omra-depuis-montpellier" element={<OmraVille />} />
+                   <Route path="/omra-depuis-grenoble" element={<OmraVille />} />
+                   <Route path="/omra-depuis-metz" element={<OmraVille />} />
+                   <Route path="/omra-depuis-clermont-ferrand" element={<OmraVille />} />
                    <Route path="/omra-en-octobre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-novembre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-decembre-2026" element={<OmraSaison />} />
@@ -299,6 +312,8 @@ const App = () => (
                    <Route path="/conditions-omra" element={<ConditionsOmra />} />
                    <Route path="/comparateur-omra-france" element={<ComparateurOmraFrance />} />
                    <Route path="/guide-hajj-4-ecoles" element={<GuideHajj4Ecoles />} />
+                   {/* Redirection de la version accentuée vers la version canonique sans accent */}
+                   <Route path="/guide-hajj-4-écoles" element={<Navigate to="/guide-hajj-4-ecoles" replace />} />
                    <Route path="/search" element={<Search />} />
                    <Route path="/favoris" element={<Favoris />} />
                    <Route path="/comparateur-omra" element={<Navigate to="/omra" replace />} />

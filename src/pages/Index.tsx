@@ -180,7 +180,7 @@ const Index = () => {
       isFlashSale: false,
       isPromo: true,
       flashSaleEndDate: undefined,
-      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf.webp",
+      image: "/lovable-uploads/81c64f5d-d94b-4e16-9f68-3b2b5689f9cf-optimized.webp",
       rating: 4.8,
       reviews: 124,
       location: "Makkah - Médine",
@@ -266,7 +266,7 @@ const Index = () => {
         keywords="annonces omra, hébergement omra, vols omra, guide omra, chauffeur hajj, bons plans pèlerinage"
         canonical="https://omrabonsplans.fr/bons-plans"
         ogImage="https://omrabonsplans.fr/hero-kaaba-new.webp"
-        noindex={true}
+        noindex={false}
       />
       {/* Desktop & Tablet Header - Fixed at top */}
       <header className="hidden md:block fixed top-0 left-0 right-0 glass-strong z-50 border-b border-border/20 mb-0">

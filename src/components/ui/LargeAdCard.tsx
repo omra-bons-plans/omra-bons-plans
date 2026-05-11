@@ -1,6 +1,8 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Star } from 'lucide-react';
+import Calendar from 'lucide-react/dist/esm/icons/calendar';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import Star from 'lucide-react/dist/esm/icons/star';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 

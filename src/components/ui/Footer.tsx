@@ -11,6 +11,7 @@ import Mail from 'lucide-react/dist/esm/icons/mail';
 import Info from 'lucide-react/dist/esm/icons/info';
 import BarChart3 from 'lucide-react/dist/esm/icons/bar-chart-3';
 import Heart from 'lucide-react/dist/esm/icons/heart';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 
 const Footer = () => {
   return (
@@ -101,6 +102,40 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Départ par ville */}
+        <div className="border-t pt-6 mb-6">
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
+            <MapPin className="w-4 h-4 text-primary" />
+            Omra par ville de départ
+          </h3>
+          <nav className="flex flex-wrap gap-x-4 gap-y-1" aria-label="Omra par ville">
+            {[
+              { slug: 'paris', nom: 'Paris' },
+              { slug: 'lyon', nom: 'Lyon' },
+              { slug: 'marseille', nom: 'Marseille' },
+              { slug: 'toulouse', nom: 'Toulouse' },
+              { slug: 'lille', nom: 'Lille' },
+              { slug: 'bordeaux', nom: 'Bordeaux' },
+              { slug: 'nice', nom: 'Nice' },
+              { slug: 'strasbourg', nom: 'Strasbourg' },
+              { slug: 'nantes', nom: 'Nantes' },
+              { slug: 'rennes', nom: 'Rennes' },
+              { slug: 'montpellier', nom: 'Montpellier' },
+              { slug: 'grenoble', nom: 'Grenoble' },
+              { slug: 'metz', nom: 'Metz' },
+              { slug: 'clermont-ferrand', nom: 'Clermont-Ferrand' },
+            ].map(({ slug, nom }) => (
+              <Link
+                key={slug}
+                to={`/omra-depuis-${slug}`}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Omra depuis {nom}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
         {/* Copyright */}
         <div className="border-t pt-6">
           <p className="text-sm text-muted-foreground text-center">
