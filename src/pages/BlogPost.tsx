@@ -63,14 +63,23 @@ const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Normalize slug: lowercase + strip diacritics (fixes URLs like combien-Omra-durant-séjour)
+  const normalizedSlug = slug
+    ? slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    : slug;
+
   useEffect(() => {
-    if (slug) {
-      fetchPost();
+    if (!slug) return;
+    // Redirect to canonical slug if URL contains uppercase or accents
+    if (slug !== normalizedSlug) {
+      navigate(`/blog/${category}/${normalizedSlug}`, { replace: true });
+      return;
     }
+    fetchPost();
   }, [slug]);
 
   const fetchPost = async () => {
-    if (!slug) return;
+    if (!normalizedSlug) return;
 
     try {
       setLoading(true);
@@ -101,7 +110,7 @@ const BlogPost = () => {
           author_id,
           slug
         `)
-        .eq('slug', slug)
+        .eq('slug', normalizedSlug)
         .eq('is_published', true)
         .maybeSingle();
 

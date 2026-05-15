@@ -127,7 +127,8 @@ export default async function handler(req: Request, _context: Context) {
         const posts = await res.json();
         blogEntries = posts.map((post: { slug: string; category: string; updated_at?: string; created_at: string }) => {
           const lastmod = (post.updated_at || post.created_at).split("T")[0];
-          const loc = `${SITE}/blog/${post.category}/${post.slug}`;
+          const normalizedSlug = post.slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+          const loc = `${SITE}/blog/${post.category}/${normalizedSlug}`;
           return urlEntry(loc, lastmod, "monthly", "0.70");
         });
       }
