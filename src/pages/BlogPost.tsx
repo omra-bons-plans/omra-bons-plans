@@ -63,7 +63,7 @@ const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Normalize slug: lowercase + strip diacritics (fixes URLs like combien-Omra-durant-séjour)
+  // Normalize slug: lowercase + strip diacritics (fixes URLs like combien-omra-durant-sejour)
   const normalizedSlug = slug
     ? slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     : slug;
@@ -258,7 +258,7 @@ const BlogPost = () => {
         keywords={post.tags}
         type="article"
         image={post.cover_image || undefined}
-        path={`/blog/${category}/${slug}`}
+        path={`/blog/${category}/${normalizedSlug}`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Article",
@@ -528,7 +528,7 @@ const BlogPost = () => {
             )}
 
             {/* Internal Links for SEO */}
-            <InternalLinks currentPage={`/blog/${category}/${slug}`} variant="related" maxLinks={6} />
+            <InternalLinks currentPage={`/blog/${category}/${normalizedSlug}`} variant="related" maxLinks={6} />
 
             {/* WhatsApp Community Link */}
             <Card className="mt-12 border-green-200 bg-green-50/50">
