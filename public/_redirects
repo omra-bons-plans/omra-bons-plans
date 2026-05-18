@@ -6,6 +6,24 @@
 /calendrier-islamique /islamic-calendar 301
 /dates-ramadan-hajj /ramadan-hajj-dates 301
 /horaires-prieres /prayer-times 301
+/horaires-priere /prayer-times 301
+/comparateur-omra /comparateur-omra-france 301
+
+# Anciennes URLs /agence/ → /agences-liste
+/agence/* /agences-liste 301
+
+# Anciens articles de blog sans catégorie → /blog/general/[slug]
+/blog/omra-sans-mahram-femme-seule /blog/general/omra-sans-mahram-femme-seule 301
+/blog/10-astuces-pour-conomiser-sur-votre-voyage-la-omra /blog/general/10-astuces-pour-conomiser-sur-votre-voyage-la-omra 301
+/blog/lhistoire-de-la-mosque-du-prophete /blog/general/lhistoire-de-la-mosque-du-prophete 301
+/blog/lhistoire-de-la-mosque-de-quba /blog/general/lhistoire-de-la-mosque-de-quba 301
+/blog/preparation-hajj /blog/general/preparation-hajj 301
+/blog/hajj-2026-guide-complet-pour-sinscrire-sur-nusuk /blog/general/hajj-2026-guide-complet-pour-sinscrire-sur-nusuk 301
+/blog/conseils-omra /blog/general/conseils-omra 301
+/blog/guides-pratiques /blog/general/guides-pratiques 301
+
+# Catégories de blog vides/inexistantes → /blog
+/blog/spiritualite /blog 301
 
 # Redirection version accentuée vers version canonique sans accent (consolidation SEO)
 /guide-hajj-4-écoles /guide-hajj-4-ecoles 301
