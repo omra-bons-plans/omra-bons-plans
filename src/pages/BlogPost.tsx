@@ -63,7 +63,7 @@ const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Normalize slug: lowercase + strip diacritics (fixes URLs like combien-omra-durant-sejour)
+  // Normalize slug: lowercase + strip diacritics (fixes URLs like combien-Omra-durant-séjour)
   const normalizedSlug = slug
     ? slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     : slug;
