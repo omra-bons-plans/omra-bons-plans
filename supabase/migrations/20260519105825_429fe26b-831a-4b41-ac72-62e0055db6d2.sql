@@ -1,0 +1,1 @@
+DELETE FROM public.hajj_offers;
