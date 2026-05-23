@@ -1,5 +1,6 @@
 export interface AgencyData {
   name: string;
+  slug: string;
   url: string;
   googleRating: number;
   reviewCount: number;
@@ -10,9 +11,19 @@ export interface AgencyData {
   highlight: string;
 }
 
+export function toAgencySlug(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export const agenciesData: AgencyData[] = [
   {
     name: "Medin Voyages",
+    slug: "medin-voyages",
     url: "https://medinvoyages.com/",
     googleRating: 5.0,
     reviewCount: 269,
@@ -33,6 +44,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Al Sirate Voyage",
+    slug: "al-sirate-voyage",
     url: "https://www.alsiratevoyage.com/",
     googleRating: 5.0,
     reviewCount: 1015,
@@ -53,6 +65,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Omra Du Savoir",
+    slug: "omra-du-savoir",
     url: "https://www.omradusavoir.fr/",
     googleRating: 5.0,
     reviewCount: 337,
@@ -73,6 +86,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Omra Pour Tous",
+    slug: "omra-pour-tous",
     url: "https://omrapourtous.com/",
     googleRating: 4.9,
     reviewCount: 4822,
@@ -94,6 +108,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "TAWAF",
+    slug: "tawaf",
     url: "https://www.tawaf.fr/",
     googleRating: 4.9,
     reviewCount: 1289,
@@ -114,6 +129,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Sabile Voyages",
+    slug: "sabile-voyages",
     url: "https://sabilevoyages.com/",
     googleRating: 4.9,
     reviewCount: 154,
@@ -134,6 +150,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Al Maqam Voyages",
+    slug: "al-maqam-voyages",
     url: "https://almaqamvoyages.com/",
     googleRating: 4.9,
     reviewCount: 349,
@@ -155,6 +172,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Pelerinhajj",
+    slug: "pelerinhajj",
     url: "https://pelerinhajj.com/",
     googleRating: 4.9,
     reviewCount: 1200,
@@ -175,6 +193,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Al Hayat Voyages",
+    slug: "al-hayat-voyages",
     url: "https://www.alhayat-voyages.com/",
     googleRating: 4.9,
     reviewCount: 478,
@@ -195,6 +214,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Partir à la Mecque",
+    slug: "partir-a-la-mecque",
     url: "https://partiralamecque.com/",
     googleRating: 4.8,
     reviewCount: 735,
@@ -215,6 +235,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Haramain Voyages",
+    slug: "haramain-voyages",
     url: "https://www.haramainvoyages.com/",
     googleRating: 4.8,
     reviewCount: 651,
@@ -235,6 +256,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Omra Sounnah",
+    slug: "omra-sounnah",
     url: "https://www.omrasounnah.com/",
     googleRating: 4.9,
     reviewCount: 303,
@@ -255,6 +277,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Omra Discount",
+    slug: "omra-discount",
     url: "https://www.omradiscount.fr/",
     googleRating: 4.9,
     reviewCount: 120,
@@ -277,6 +300,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "Labbayk",
+    slug: "labbayk",
     url: "https://www.labbayk.fr/",
     googleRating: 4.9,
     reviewCount: 172,
@@ -299,6 +323,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "OMRA GATE",
+    slug: "omra-gate",
     url: "https://www.omragate.com/",
     googleRating: 4.9,
     reviewCount: 96,
@@ -330,6 +355,7 @@ export const agenciesData: AgencyData[] = [
   },
   {
     name: "MERIDIANIS",
+    slug: "meridianis",
     url: "https://meridianis.fr",
     googleRating: 4.6,
     reviewCount: 646,

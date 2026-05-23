@@ -72,8 +72,8 @@ export default function AgencesListe() {
     return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300';
   };
 
-  const handleViewDetails = () => {
-    navigate('/comparatif-agences');
+  const handleViewDetails = (slug: string) => {
+    navigate(`/agence-details/${slug}`);
   };
 
   const handleCompare = () => {
@@ -262,11 +262,11 @@ export default function AgencesListe() {
                 </div>
 
                 <div className="flex gap-2 pt-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     className="flex-1 h-8 text-xs"
-                    onClick={handleViewDetails}
+                    onClick={() => handleViewDetails(agency.slug)}
                   >
                     <Eye className="h-3 w-3 mr-1" />
                     {isMobile ? 'Détail' : 'Voir détail'}

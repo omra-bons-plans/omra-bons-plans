@@ -215,6 +215,7 @@ export default function OfferDetails() {
             description={`Offre ${isHajj ? 'Hajj' : 'Omra'} de ${offer.agency_name} au départ de ${offer.departure_city}${offer.duration_nights ? ` - ${offer.duration_nights} nuits` : ''}${offer.hotel_makkah ? ` - Hôtel ${offer.hotel_makkah} à La Mecque` : ''} - ${Number(offer.price_eur).toLocaleString('fr-FR')}€. Comparez et réservez.`}
             keywords={[isHajj ? 'hajj' : 'omra', offer.agency_name, offer.departure_city, 'voyage', 'pèlerinage', `offre ${isHajj ? 'hajj' : 'omra'} ${offer.departure_city}`]}
             path={`/offre-${offerType}/${id}`}
+            noindex={true}
             structuredData={{
               "@context": "https://schema.org",
               "@type": "Product",

@@ -9,6 +9,67 @@
   status = 301
   force = true
 
+# Redirects agences — anciennes URLs avec %20 → nouvelles URLs avec tirets
+[[redirects]]
+  from = "/agence-details/Al%20Maqam%20Voyages"
+  to = "/agence-details/al-maqam-voyages"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Al%20Sirate%20Voyage"
+  to = "/agence-details/al-sirate-voyage"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Haramain%20Voyages"
+  to = "/agence-details/haramain-voyages"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Labbayk"
+  to = "/agence-details/labbayk"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Medin%20Voyages"
+  to = "/agence-details/medin-voyages"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/MERIDIANIS"
+  to = "/agence-details/meridianis"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Omra%20Discount"
+  to = "/agence-details/omra-discount"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Omra%20Pour%20Tous"
+  to = "/agence-details/omra-pour-tous"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Omra%20Sounnah"
+  to = "/agence-details/omra-sounnah"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Pelerinhajj"
+  to = "/agence-details/pelerinhajj"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/Sabile%20Voyages"
+  to = "/agence-details/sabile-voyages"
+  status = 301
+
+[[redirects]]
+  from = "/agence-details/TAWAF"
+  to = "/agence-details/tawaf"
+  status = 301
+
 # ─── HTTP Cache Headers ────────────────────────────────────────────────────────
 # JS/CSS assets — content-hashed filenames → immutable cache (1 year)
 [[headers]]
@@ -179,6 +240,10 @@
 
 [[edge_functions]]
   path = "/agences-liste"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/agence-details/*"
   function = "guide-prerender"
 
 [[edge_functions]]

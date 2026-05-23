@@ -271,7 +271,7 @@ const App = () => (
                   <Route path="/ramadan-hajj-dates" element={<RamadanHajjDates />} />
                   <Route path="/comparatif-agences" element={<ComparatifAgences />} />
                   <Route path="/agences-liste" element={<AgencesListe />} />
-                  <Route path="/agence-details/:agencyName" element={<AgenceDetails />} />
+                  <Route path="/agence-details/:agencySlug" element={<AgenceDetails />} />
                    <Route path="/comparatif-visuel" element={<ComparatifVisuel />} />
                    <Route path="/guide-omra-pas-chere" element={<GuideOmraPasChere />} />
                    <Route path="/rites-omra" element={<RitesOmra />} />

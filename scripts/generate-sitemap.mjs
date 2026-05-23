@@ -183,14 +183,22 @@ async function fetchBlogPosts() {
     }));
 }
 
+function toAgencySlug(name) {
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 async function fetchAgencies() {
   const rows = await fetchSupabase('agencies', 'select=name,updated_at&order=name.asc');
   if (!rows) return null;
   return rows.map((r) => ({
-    // ⚠️ doit matcher AgenceDetails.tsx → encodeURIComponent(agency.name)
-    path: `/agence-details/${encodeURIComponent(r.name)}`,
+    path: `/agence-details/${toAgencySlug(r.name)}`,
     lastmod: (r.updated_at || '').slice(0, 10) || today(),
-    priority: 0.6,
+    priority: 0.75,
     changefreq: 'weekly',
   }));
 }

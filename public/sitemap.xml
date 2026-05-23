@@ -681,75 +681,99 @@
   <!-- Fiches agences -->
 
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Al%20Maqam%20Voyages</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/al-maqam-voyages</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Al%20Sirate%20Voyage</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/al-sirate-voyage</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Haramain%20Voyages</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/al-hayat-voyages</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Labbayk</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/haramain-voyages</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Medin%20Voyages</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/labbayk</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/MERIDIANIS</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/medin-voyages</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Omra%20Discount</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/meridianis</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Omra%20Pour%20Tous</loc>
-    <lastmod>2026-02-17</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/omra-discount</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Omra%20Sounnah</loc>
-    <lastmod>2026-02-17</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/omra-du-savoir</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Pelerinhajj</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/omra-gate</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/Sabile%20Voyages</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/omra-pour-tous</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/agence-details/TAWAF</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://omrabonsplans.fr/agence-details/omra-sounnah</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/partir-a-la-mecque</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/pelerinhajj</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/sabile-voyages</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/tawaf</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
   </url>
 </urlset>
