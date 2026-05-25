@@ -9,6 +9,25 @@
   status = 301
   force = true
 
+# Redirect agency slugified URLs → canonical URL-encoded names
+[[redirects]]
+  from = "/agence-details/omra-pour-tous"
+  to = "/agence-details/Omra%20Pour%20Tous"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/agence-details/pelerinhajj"
+  to = "/agence-details/Pelerinhajj"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/agence-details/medin-voyages"
+  to = "/agence-details/Medin%20Voyages"
+  status = 301
+  force = true
+
 # ─── HTTP Cache Headers ────────────────────────────────────────────────────────
 # JS/CSS assets — content-hashed filenames → immutable cache (1 year)
 [[headers]]

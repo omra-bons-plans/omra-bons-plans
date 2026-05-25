@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -19,12 +20,24 @@ export default function AgenceDetails() {
   const { agencyName } = useParams();
   const navigate = useNavigate();
   const decodedName = decodeURIComponent(agencyName || '');
-  
+
+  // Fuzzy lookup: exact → case-insensitive → hyphens-as-spaces
+  const normalizedSearch = decodedName.toLowerCase().replace(/-/g, ' ');
+  const staticAgency =
+    agenciesData.find(a => a.name === decodedName) ||
+    agenciesData.find(a => a.name.toLowerCase() === decodedName.toLowerCase()) ||
+    agenciesData.find(a => a.name.toLowerCase() === normalizedSearch);
+
+  // Redirect non-canonical URL variants (e.g. "pelerinhajj" → "Pelerinhajj")
+  useEffect(() => {
+    if (staticAgency && agencyName !== encodeURIComponent(staticAgency.name)) {
+      navigate(`/agence-details/${encodeURIComponent(staticAgency.name)}`, { replace: true });
+    }
+  }, [staticAgency, agencyName, navigate]);
+
   // Fetch live data from Supabase
-  const { data: dbAgency } = useAgency(decodedName);
-  // Fallback to static data for strengths/weaknesses/specialties/highlight
-  const staticAgency = agenciesData.find(a => a.name === decodedName);
-  
+  const { data: dbAgency } = useAgency(staticAgency?.name ?? decodedName);
+
   // Merge: use DB for rating/reviewCount, static for the rest
   const agency = staticAgency ? {
     ...staticAgency,
@@ -52,6 +65,9 @@ export default function AgenceDetails() {
   if (!agency) {
     return (
       <div className="min-h-screen bg-background">
+        <Helmet>
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Agence non trouvée</h1>

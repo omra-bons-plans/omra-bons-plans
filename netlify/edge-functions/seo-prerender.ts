@@ -443,6 +443,14 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
+    // /ad/[id] — ad detail pages
+    else if (/^\/ad\/.+$/.test(pathname)) {
+      meta = {
+        title: "Annonce | Omra Bons Plans",
+        description: "Détail d'une annonce Omra ou Hajj sur Omra Bons Plans.",
+        canonical: `${SITE}${pathname}`,
+      };
+    }
   }
 
   if (!meta) {
