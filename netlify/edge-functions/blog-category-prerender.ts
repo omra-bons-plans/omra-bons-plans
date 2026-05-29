@@ -77,7 +77,8 @@ export default async function handler(req: Request, context: Context) {
 
     const articlesHtml = posts
       .map((post: { slug: string; title: string; excerpt?: string; created_at: string }) => {
-        const postUrl = `${SITE}/blog/${category}/${post.slug}`;
+        const normalizedSlug = post.slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        const postUrl = `${SITE}/blog/${category}/${normalizedSlug}`;
         const date = post.created_at.split("T")[0];
         return `  <article>
     <h2><a href="${postUrl}">${escHtml(post.title)}</a></h2>
@@ -144,7 +145,7 @@ export default async function handler(req: Request, context: Context) {
       headers: {
         "content-type": "text/html; charset=utf-8",
         "x-prerendered": "true",
-        "cache-control": "public, max-age=3600",
+        "cache-control": "public, max-age=300",
       },
     });
   } catch (_err) {

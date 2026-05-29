@@ -151,7 +151,7 @@ ${blogEntries.join("\n")}
     status: 200,
     headers: {
       "content-type": "application/xml; charset=utf-8",
-      "cache-control": "public, max-age=3600, s-maxage=3600",
+      "cache-control": "public, max-age=300, s-maxage=300",
       "x-robots-tag": "noindex",
     },
   });
