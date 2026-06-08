@@ -108,8 +108,7 @@ const BlogPost = () => {
       if (postError) throw postError;
       
       if (!postData) {
-        toast.error('Article non trouvé');
-        navigate('/blog');
+        setLoading(false);
         return;
       }
 
@@ -231,6 +230,12 @@ const BlogPost = () => {
   if (!post) {
     return (
       <ResponsiveLayout>
+        <DynamicSEO
+          title="Article non trouvé | Omra Bons Plans"
+          description="Cet article n'existe pas ou a été supprimé."
+          path={`/blog/${category}/${slug}`}
+          noindex
+        />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-2">Article non trouvé</h2>

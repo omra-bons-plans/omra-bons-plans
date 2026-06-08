@@ -55,7 +55,13 @@ export default async function handler(req: Request, context: Context) {
     if (!res.ok) return context.next();
 
     const posts = await res.json();
-    if (!posts?.length) return context.next();
+    if (!posts?.length) {
+      // Article doesn't exist or isn't published — return 404 so Google doesn't mark it as Soft 404
+      return new Response("<!DOCTYPE html><html lang='fr'><head><title>Article non trouvé</title><meta name='robots' content='noindex, follow'></head><body><h1>Article non trouvé</h1><p><a href='https://omrabonsplans.fr/blog'>Retour au blog</a></p></body></html>", {
+        status: 404,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
 
     const post = posts[0];
     const description = escHtml(
