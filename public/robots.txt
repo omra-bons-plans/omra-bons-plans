@@ -30,7 +30,7 @@ Allow: /comparateur-omra
 Allow: /comparateur-omra-france
 Allow: /discussions
 Allow: /category/
-Allow: /ad/
+Disallow: /ad/
 Allow: /offre-omra/
 Allow: /offre-hajj/
 Allow: /bons-plans
