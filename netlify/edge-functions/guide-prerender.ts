@@ -550,6 +550,102 @@ const PAGES: Record<string, PageData> = {
     ],
   },
 
+  "/omra-depuis-nantes": {
+    title: "Omra depuis Nantes 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Nantes 2026 : vols depuis Nantes Atlantique ou CDG (2h15 TGV), agences agréées, prix (1 000–4 700€) et conseils pour partir depuis les Pays de la Loire.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-nantes",
+    h1: "Omra depuis Nantes 2026 : Guide Complet",
+    intro: "Nantes et les Pays de la Loire comptent environ 100 000 musulmans. La 6e agglomération française est accessible à Paris CDG en 2h15 de TGV, ce qui ouvre l'accès aux nombreux vols directs vers Djeddah et Médine. Voici comment organiser votre Omra depuis Nantes au meilleur prix.",
+    sections: [
+      { h2: "Vols depuis Nantes vers l'Arabie Saoudite", text: "Depuis l'aéroport Nantes Atlantique (NTE) : Air France via CDG, Transavia, easyJet vers CDG, Royal Air Maroc via Casablanca. La plupart des pèlerins nantais choisissent de partir depuis Paris CDG (2h15 de TGV) pour accéder à plus de vols directs. Royal Air Maroc via Casablanca est une alternative compétitive depuis NTE. Supplément estimé : +100 à +250€ par rapport à Paris." },
+      { h2: "Prix Omra depuis Nantes 2026", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Ces prix incluent généralement le vol, l'hôtel, les transferts et le visa Omra. Pour bénéficier des meilleures offres, comparez les départs depuis Nantes NTE et depuis Paris CDG — le TGV (60–90€) + vol Paris peut parfois être moins cher qu'un vol direct depuis Nantes." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Nantes ?", a: "Deux options : vols directs depuis Nantes Atlantique (NTE) via Royal Air Maroc, Transavia ou easyJet, ou TGV Nantes–Paris CDG (2h15) + vol direct depuis CDG. La deuxième option offre souvent plus de choix et de meilleurs prix. Des agences de la région proposent des forfaits avec navette incluse. Utilisez notre comparateur pour trouver les meilleures offres au départ de Nantes." },
+      { q: "Quel est le prix d'une Omra depuis Nantes ?", a: "Comptez entre 1 000€ et 1 550€ en économique hors Ramadan, et 2 100 à 4 700€ pendant le Ramadan. Les forfaits via Paris CDG peuvent être plus compétitifs. Réservez 3–4 mois à l'avance pour les meilleures disponibilités. Notre comparateur liste toutes les offres disponibles au départ de Nantes et de la région." },
+    ],
+  },
+
+  "/omra-depuis-rennes": {
+    title: "Omra depuis Rennes 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Rennes 2026 : vols depuis Rennes Saint-Jacques ou CDG (1h30 TGV), agences agréées, prix (980–4 500€) et guide pour partir en Omra depuis la Bretagne.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-rennes",
+    h1: "Omra depuis Rennes 2026 : Guide Complet",
+    intro: "Rennes et la Bretagne comptent environ 80 000 musulmans. La capitale bretonne, reliée à Paris CDG en seulement 1h30 de TGV, est l'une des villes les mieux connectées à CDG hors Île-de-France. Voici comment organiser votre Omra depuis Rennes au meilleur prix.",
+    sections: [
+      { h2: "Vols depuis Rennes vers l'Arabie Saoudite", text: "Depuis l'aéroport Rennes Saint-Jacques (RNS) : Air France via CDG, Transavia via CDG, Royal Air Maroc via Casablanca. La connexion TGV Rennes–CDG (1h30, souvent moins de 50€ en avance) est probablement votre meilleure option. L'aéroport de Nantes NTE (1h de route) offre des alternatives compétitives. Supplément estimé : +80 à +200€ par rapport à Paris." },
+      { h2: "Prix Omra depuis Rennes 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 000–4 500€. Ces tarifs s'entendent pour des forfaits tout compris (vol, hôtel, transferts, visa). La proximité avec Paris (1h30 TGV) permet souvent d'accéder aux meilleures offres parisienne avec un surcoût minimal." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Rennes ?", a: "Le TGV Rennes–Paris CDG (1h30, ~50€) est généralement la meilleure option : il ouvre l'accès à tous les vols directs depuis CDG. Comparez aussi les vols depuis Nantes NTE (1h de route depuis Rennes). Arrivez à CDG 3h avant votre vol — la connexion train/aéroport est excellente. Notre comparateur liste toutes les offres disponibles." },
+      { q: "Quel est le prix d'une Omra depuis Rennes ?", a: "Comptez entre 980€ et 1 500€ en économique hors Ramadan, et 2 000 à 4 500€ pendant le Ramadan. Grâce à la proximité de Paris (1h30 TGV), les pèlerins rennais accèdent facilement aux meilleurs prix parisiens avec un surcoût de transport minimal. Réservez 3–4 mois à l'avance." },
+    ],
+  },
+
+  "/omra-depuis-montpellier": {
+    title: "Omra depuis Montpellier 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Montpellier 2026 : vols depuis Montpellier Méditerranée, Air Algérie, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Occitanie.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-montpellier",
+    h1: "Omra depuis Montpellier 2026 : Guide Complet",
+    intro: "Montpellier a l'une des plus fortes proportions de musulmans en France (estimée à 25–30% de la population). La ville universitaire dispose d'une forte demande pour l'Omra. Air Algérie propose des connexions depuis Montpellier via Alger vers Djeddah. Voici comment organiser votre Omra depuis Montpellier.",
+    sections: [
+      { h2: "Vols depuis Montpellier vers l'Arabie Saoudite", text: "Depuis l'aéroport Montpellier Méditerranée (MPL) : Air France via CDG, Transavia, Air Algérie via Alger, Royal Air Maroc via Casablanca. Air Algérie propose des connexions MPL–ALG–JED compétitives pour les ressortissants algériens. Marseille (1h30) offre des vols alternatifs dont des charters pendant le Ramadan. Supplément estimé : +80 à +200€ vs Paris." },
+      { h2: "Prix Omra depuis Montpellier 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 100–4 600€. Montpellier bénéficie des connexions Air Algérie pour des prix parfois compétitifs. Comparez aussi les départs depuis Marseille (1h30) qui propose des vols charters en haute saison." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Montpellier ?", a: "Trois options : vols depuis MPL (Air France via CDG, Air Algérie via Alger), départ depuis Marseille à 1h30 de route (plus de vols, dont des charters Ramadan), ou train vers Paris CDG. Air Algérie via Alger peut être compétitif pour les détenteurs d'un passeport algérien. Notre comparateur liste les offres disponibles depuis Montpellier et la région." },
+      { q: "Quel est le prix d'une Omra depuis Montpellier ?", a: "Comptez entre 980€ et 1 500€ en économique hors Ramadan. Le passage par Marseille ou Paris peut réduire le coût du vol. Pendant le Ramadan, les prix montent à 2 100–4 600€. Réservez tôt — la forte demande à Montpellier entraîne des ruptures de disponibilités rapides." },
+    ],
+  },
+
+  "/omra-depuis-grenoble": {
+    title: "Omra depuis Grenoble 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Grenoble 2026 : accès via Lyon-Saint Exupéry (1h), Turkish Airlines, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Isère.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-grenoble",
+    h1: "Omra depuis Grenoble 2026 : Guide Complet",
+    intro: "Grenoble compte environ 100 000 musulmans et bénéficie d'une position avantageuse à 1h de Lyon-Saint Exupéry, qui propose des vols Turkish Airlines directs vers Istanbul puis La Mecque. Voici comment organiser votre Omra depuis Grenoble et l'Isère.",
+    sections: [
+      { h2: "Vols depuis Grenoble vers l'Arabie Saoudite", text: "Depuis Grenoble, Lyon-Saint Exupéry (LYS, à 1h) est votre meilleur aéroport : Turkish Airlines direct vers Istanbul, Air France, Transavia, Royal Air Maroc. L'aéroport Grenoble-Alpes Isère (GNB) est principalement pour les vols ski et offre peu de connexions Moyen-Orient. Paris CDG est accessible en 3h de TGV. Supplément estimé : +80 à +200€ vs Paris." },
+      { h2: "Prix Omra depuis Grenoble 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. Depuis Lyon (1h de route), Turkish Airlines propose régulièrement de bons prix vers Istanbul et Djeddah. Les associations islamiques grenobloises organisent des départs groupés qui négocient en bloc et proposent souvent de bonnes offres." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Grenoble ?", a: "Lyon-Saint Exupéry (LYS), à 1h de route de Grenoble, est votre meilleur aéroport de départ : il propose Turkish Airlines directs vers Istanbul, Air France vers CDG, et Transavia. L'aéroport de Grenoble GNB offre peu de vols long-courriers. Vérifiez aussi les départs groupés organisés par les associations islamiques de Grenoble." },
+      { q: "Quel est le prix d'une Omra depuis Grenoble ?", a: "Comptez entre 980€ et 1 500€ en économique hors Ramadan, et 2 100 à 4 600€ pendant le Ramadan. Lyon est votre atout : Turkish Airlines via Istanbul depuis LYS propose régulièrement de bons prix. Réservez 3–4 mois à l'avance pour les meilleures disponibilités." },
+    ],
+  },
+
+  "/omra-depuis-metz": {
+    title: "Omra depuis Metz 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Metz 2026 : accès via Francfort (1h), Luxembourg (45 min) ou CDG (1h30 TGV), agences agréées, prix (980–4 600€) et guide pour partir depuis la Moselle.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-metz",
+    h1: "Omra depuis Metz 2026 : Guide Complet",
+    intro: "Metz et la Moselle comptent environ 80 000 musulmans. La position géographique de Metz est un atout unique : à 1h de Francfort (hub Lufthansa), 45 min de Luxembourg et 1h30 de TGV de Paris CDG. Ce guide vous aide à trouver les meilleures offres Omra depuis Metz.",
+    sections: [
+      { h2: "Vols depuis Metz et région Grand Est", text: "Depuis Francfort FRA (1h de route) : Lufthansa, Condor, Saudia — des centaines de vols vers Djeddah, souvent moins chers qu'à Paris. Depuis Luxembourg LUX (45 min) : Luxair, Condor. Depuis Paris CDG (1h30 TGV) : Air France, Saudia direct. L'aéroport Metz-Nancy ETZ offre peu de vols vers l'Arabie Saoudite. Supplément estimé : +80 à +200€ vs Paris." },
+      { h2: "Prix Omra depuis Metz 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. L'accès à Francfort (1h) est un avantage : les prix FRA vers Djeddah sont souvent inférieurs à CDG. Vérifiez Condor depuis Francfort qui propose des offres très compétitives vers Djeddah, notamment en haute saison." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Metz ?", a: "Francfort FRA (1h de route) est votre meilleur aéroport : hub majeur avec des centaines de vols vers Djeddah avec Lufthansa, Condor et Saudia, souvent moins chers qu'à Paris. Luxembourg LUX (45 min) est une alternative. Paris CDG est accessible en 1h30 de TGV. Notre comparateur liste les offres disponibles depuis la région Grand Est." },
+      { q: "Quel est le prix d'une Omra depuis Metz ?", a: "Comptez entre 980€ et 1 500€ en économique hors Ramadan, et 2 100 à 4 600€ pendant le Ramadan. L'accès à Francfort (1h de route) permet souvent de trouver des tarifs inférieurs à ceux de Paris CDG. Condor depuis Francfort est particulièrement compétitif en haute saison." },
+    ],
+  },
+
+  "/omra-depuis-clermont-ferrand": {
+    title: "Omra depuis Clermont-Ferrand 2026 : Vols, Agences et Prix",
+    description: "Omra depuis Clermont-Ferrand 2026 : accès via Lyon (1h30) ou CDG (3h TGV), agences agréées, prix (1 000–4 700€) et guide pour partir depuis l'Auvergne.",
+    canonical: "https://omrabonsplans.fr/omra-depuis-clermont-ferrand",
+    h1: "Omra depuis Clermont-Ferrand 2026 : Guide Complet",
+    intro: "Clermont-Ferrand et l'Auvergne comptent environ 60 000 musulmans. L'aéroport CFE offre peu de vols long-courriers, mais Lyon-Saint Exupéry (1h30 de route) donne accès à Turkish Airlines et d'autres vols vers Djeddah. Voici comment organiser votre Omra depuis Clermont-Ferrand.",
+    sections: [
+      { h2: "Vols depuis Clermont-Ferrand vers l'Arabie Saoudite", text: "Depuis Lyon-Saint Exupéry LYS (1h30 de route) : Turkish Airlines direct vers Istanbul, Air France, Transavia. Depuis Paris CDG (3h de TGV) : Air France, Saudia, Saudi Arabian Airlines. L'aéroport Clermont-Ferrand CFE propose principalement des destinations de loisirs — peu de connexions directes vers l'Arabie Saoudite. Supplément estimé : +100 à +250€ vs Paris." },
+      { h2: "Prix Omra depuis Clermont-Ferrand 2026", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Depuis Clermont, Lyon (1h30) est souvent préférable à Paris (3h de TGV) : Turkish Airlines via Istanbul depuis LYS propose de bons prix. Les associations islamiques locales organisent des départs groupés compétitifs." },
+    ],
+    faqs: [
+      { q: "Comment partir en Omra depuis Clermont-Ferrand ?", a: "Lyon-Saint Exupéry (LYS, 1h30 de route) est généralement la meilleure option : Turkish Airlines directs vers Istanbul, plus de vols et souvent moins chers que depuis Paris. Paris CDG est accessible en 3h de TGV mais représente plus de 5h de trajet total. Vérifiez les départs groupés organisés par les associations islamiques de Clermont, qui négocient souvent de bons tarifs." },
+      { q: "Quel est le prix d'une Omra depuis Clermont-Ferrand ?", a: "Comptez entre 1 000€ et 1 550€ en économique hors Ramadan, et 2 100 à 4 700€ pendant le Ramadan. Depuis Lyon (1h30), Turkish Airlines via Istanbul propose régulièrement des tarifs compétitifs. Réservez 3–4 mois à l'avance pour garantir les meilleures disponibilités." },
+    ],
+  },
+
   "/omra-en-octobre-2026": {
     title: "Omra en Octobre 2026 : Prix, Disponibilités et Conseils",
     description: "Omra en octobre 2026 : mois de Rabi' al-Awwal 1448 H. Prix (900-1 800€), températures, disponibilités et guide pour partir en Omra au mois d'octobre 2026.",

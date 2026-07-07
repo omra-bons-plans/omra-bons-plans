@@ -51,11 +51,6 @@ const PAGES: Record<string, PageMeta> = {
     description: "Tout sur le Hajj 2026 : dates officielles, prix, conditions et comparatif des meilleures agences agréées en France. Préparez votre pèlerinage.",
     canonical: `${SITE}/hajj-2026`,
   },
-  "/comparateur-omra": {
-    title: "Comparateur Omra 2026 | Offres Temps Réel | Omra Bons Plans",
-    description: "Notre comparateur Omra vous permet de comparer les offres des agences agréées en France. Prix, hôtels, dates : trouvez votre voyage idéal.",
-    canonical: `${SITE}/`,
-  },
   "/comparateur-omra-france": {
     title: "Comparateur Omra France 2026 | Toutes les Agences Agréées",
     description: "Le comparateur Omra n°1 en France 🇫🇷. Comparez plus de 20 agences agréées, prix mis à jour quotidiennement. Trouvez votre Omra 2026.",
@@ -113,11 +108,6 @@ const PAGES: Record<string, PageMeta> = {
     description: "Découvrez qui nous sommes : une équipe experte en pèlerinage qui facilite votre voyage religieux en Arabie Saoudite grâce à notre plateforme.",
     canonical: `${SITE}/about`,
   },
-  "/a-propos": {
-    title: "À Propos - Omra Bons Plans | Notre Mission",
-    description: "Notre mission : vous aider à trouver la meilleure offre Omra ou Hajj parmi toutes les agences agréées en France.",
-    canonical: `${SITE}/about`,
-  },
   "/contact": {
     title: "Contact - Omra Bons Plans | Nous Contacter",
     description: "Contactez notre équipe pour toute question sur votre Omra ou Hajj. Assistance personnalisée pour votre voyage religieux en Arabie Saoudite.",
@@ -169,25 +159,10 @@ const PAGES: Record<string, PageMeta> = {
     description: "Horaires de prière musulmane précis pour votre ville. Fajr, Dhuhr, Asr, Maghrib, Isha. Calendrier islamique et direction de la Qibla.",
     canonical: `${SITE}/prayer-times`,
   },
-  "/horaires-prieres": {
-    title: "Horaires de Prières - La Mecque, Médine & France | Omra Bons Plans",
-    description: "Horaires de prières précis pour La Mecque, Médine et toutes les villes de France. Fajr, Dhuhr, Asr, Maghrib, Isha.",
-    canonical: `${SITE}/prayer-times`,
-  },
   "/islamic-calendar": {
     title: "Calendrier Islamique Hijri 2026 | Omra Bons Plans",
     description: "Calendrier islamique (Hijri) complet 2026 avec dates importantes. Planifiez votre Omra aux meilleures périodes spirituelles.",
     canonical: `${SITE}/islamic-calendar`,
-  },
-  "/calendrier-islamique": {
-    title: "Calendrier Islamique 2026 | Dates Hijri | Omra Bons Plans",
-    description: "Calendrier islamique 2026 (Hijri) avec toutes les dates importantes : Ramadan, Aïd, Hajj. Planifiez vos voyages religieux.",
-    canonical: `${SITE}/islamic-calendar`,
-  },
-  "/dates-ramadan-hajj": {
-    title: "Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage",
-    description: "Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.",
-    canonical: `${SITE}/ramadan-hajj-dates`,
   },
   "/ramadan-hajj-dates": {
     title: "Dates Ramadan & Hajj 2026-2028 | Omra Bons Plans",
@@ -309,36 +284,6 @@ const PAGES: Record<string, PageMeta> = {
     title: "Guide Hajj selon les 4 Écoles : Hanafi, Maliki, Shafii, Hanbali",
     description: "Guide complet du Hajj selon les 4 écoles juridiques de l'Islam : différences de rites, conseils pratiques, sources.",
     canonical: `${SITE}/guide-hajj-4-ecoles`,
-  },
-  "/services/babysitting-omra": {
-    title: "Service Babysitting Omra : Garde d'Enfants à La Mecque & Médine",
-    description: "Trouvez un service de babysitting de confiance pour votre Omra. Gardes d'enfants francophones à La Mecque et Médine.",
-    canonical: `${SITE}/category/babysitting`,
-  },
-  "/services/guides-omra": {
-    title: "Guides Omra Francophones : Accompagnement à La Mecque et Médine",
-    description: "Guides Omra francophones expérimentés pour vous accompagner dans les rites à La Mecque et Médine. Réservez en ligne.",
-    canonical: `${SITE}/category/guides`,
-  },
-  "/services/hebergement-omra": {
-    title: "Hébergement Omra : Hôtels et Appartements à La Mecque & Médine",
-    description: "Trouvez votre hébergement Omra : hôtels et appartements proches du Haram à La Mecque et de la Mosquée du Prophète.",
-    canonical: `${SITE}/category/hebergements`,
-  },
-  "/services/sejours-omra": {
-    title: "Séjours Omra Tout Compris : Forfaits Complets",
-    description: "Séjours Omra tout compris : vol, hôtel, transferts, encadrement. Comparez les meilleures offres des agences agréées.",
-    canonical: `${SITE}/category/sejours`,
-  },
-  "/services/transport-omra": {
-    title: "Transport et Chauffeurs pour l'Omra : Réservez en Ligne",
-    description: "Services de transport pour votre Omra : chauffeurs privés, transferts aéroport, transport entre La Mecque et Médine.",
-    canonical: `${SITE}/category/chauffeurs`,
-  },
-  "/services/vols-omra": {
-    title: "Vols Omra : Comparez les Vols vers Djeddah et Médine",
-    description: "Comparez les vols pour votre Omra vers Djeddah et Médine. Meilleures compagnies aériennes, prix et horaires.",
-    canonical: `${SITE}/category/vols`,
   },
 };
 

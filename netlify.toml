@@ -214,6 +214,30 @@
   function = "guide-prerender"
 
 [[edge_functions]]
+  path = "/omra-depuis-nantes"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-rennes"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-montpellier"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-grenoble"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-metz"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-clermont-ferrand"
+  function = "guide-prerender"
+
+[[edge_functions]]
   path = "/omra-en-octobre-2026"
   function = "guide-prerender"
 

@@ -43,10 +43,11 @@ const AdminTopicRequests = () => {
 
   return (
     <ResponsiveLayout>
-      <SEOHead 
+      <SEOHead
         title="Gestion des demandes de sujets - Administration"
         description="Gérez les demandes de nouveaux sujets de discussion de la communauté."
-        canonical="/admin/topic-requests"
+        canonical="https://omrabonsplans.fr/admin/topic-requests"
+        noindex={true}
       />
       
       <div className="min-h-screen bg-background">
