@@ -223,7 +223,7 @@ export default function ComparateurOmra() {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: `Comparateur ${tripType === 'hajj' ? 'Hajj' : 'Omra'} 2026`,
+          title: `Comparateur ${tripType === 'hajj' ? 'Hajj' : 'Omra'} 2027`,
           text: `Comparez les meilleures offres ${tripType === 'hajj' ? 'Hajj' : 'Omra'} en France`,
           url: shareUrl,
         });
@@ -638,14 +638,14 @@ export default function ComparateurOmra() {
       <div className="min-h-screen bg-background">
       <DynamicSEO
         title={tripType === 'hajj'
-          ? "Comparateur Hajj 2026 — Packages & Prix de 20 Agences Agréées | Omra Bons Plans"
-          : "Comparateur Omra 2026 — Prix en Temps Réel de 20 Agences Vérifiées | Omra Bons Plans"}
+          ? "Comparateur Hajj 2027 — Packages & Prix de 20 Agences Agréées | Omra Bons Plans"
+          : "Comparateur Omra 2027 — Prix en Temps Réel de 20 Agences Vérifiées | Omra Bons Plans"}
         description={tripType === 'hajj'
-          ? "Comparez les packages Hajj 2026 de 20+ agences françaises agréées. Dates (3-8 juin 2026), prix 5 000€–15 000€, hôtels La Mecque & Médine, vols. Réservez le meilleur Hajj."
-          : "Comparez les offres Omra 2026 de 20+ agences françaises agréées (Tawaf, Medin Voyages, Al-Maqam). Prix transparents, hôtels, dates, vols inclus. Meilleur comparateur Omra France."}
+          ? "Comparez les packages Hajj 2027 de 20+ agences françaises agréées. Prix 5 000€–15 000€, hôtels La Mecque & Médine, vols. Réservez le meilleur Hajj."
+          : "Comparez les offres Omra 2027 de 20+ agences françaises agréées (Tawaf, Medin Voyages, Al-Maqam). Prix transparents, hôtels, dates, vols inclus. Meilleur comparateur Omra France."}
         keywords={tripType === 'hajj'
-          ? ['hajj 2026', 'prix hajj 2026', 'agence hajj france', 'comparateur hajj', 'package hajj', 'inscription hajj 2026', 'dates hajj 2026']
-          : ['comparateur omra', 'omra 2026', 'prix omra 2026', 'agence omra france', 'omra tout compris', 'omra pas chère', 'offres omra 2026', 'omra ramadan 2026']}
+          ? ['hajj 2027', 'prix hajj 2027', 'agence hajj france', 'comparateur hajj', 'package hajj', 'inscription hajj 2027', 'dates hajj 2027']
+          : ['comparateur omra', 'omra 2027', 'prix omra 2027', 'agence omra france', 'omra tout compris', 'omra pas chère', 'offres omra 2027', 'omra ramadan 2027']}
         path={tripType === 'omra' ? '/' : '/hajj'}
         structuredData={tripType === 'omra' ? {
           "@context": "https://schema.org",
@@ -734,7 +734,7 @@ export default function ComparateurOmra() {
         <div className="relative z-10 container mx-auto px-4 text-center" >
           <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">
-              {tripType === 'hajj' ? 'Comparateur Hajj 2026' : 'Comparateur Omra 2026'}
+              {tripType === 'hajj' ? 'Comparateur Hajj 2027' : 'Comparateur Omra 2027'}
             </span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">
               {tripType === 'hajj'
@@ -745,7 +745,7 @@ export default function ComparateurOmra() {
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
             {tripType === 'hajj'
               ? 'Comparez les prix, dates et hôtels pour le Hajj 2027'
-              : 'Comparez les prix, hôtels et dates pour votre Omra 2026'}
+              : 'Comparez les prix, hôtels et dates pour votre Omra 2027'}
           </p>
           <p className="text-sm sm:text-base md:text-lg text-white/90 px-4 leading-relaxed max-w-3xl mx-auto">
             {tripType === 'hajj'
@@ -779,7 +779,7 @@ export default function ComparateurOmra() {
           <div className="relative p-5 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-center text-primary bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20 shadow-sm">
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center leading-snug bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2026
+                Trouvez et comparez les meilleures offres pour votre Omra & Hajj 2027
               </p>
             </div>
 
@@ -1731,7 +1731,7 @@ export default function ComparateurOmra() {
                 </div>
                 <h3 className="text-xl font-semibold">Gain de temps considérable</h3>
                 <p className="text-muted-foreground">
-                  Plus besoin de consulter des dizaines de sites d'agences. Notre comparateur regroupe toutes les offres Omra 2026 en un seul endroit. Filtrez par prix, date de départ, ville, formule et trouvez instantanément le séjour qui vous convient.
+                  Plus besoin de consulter des dizaines de sites d'agences. Notre comparateur regroupe toutes les offres Omra 2027 en un seul endroit. Filtrez par prix, date de départ, ville, formule et trouvez instantanément le séjour qui vous convient.
                 </p>
               </div>
             </Card>
@@ -1876,7 +1876,7 @@ export default function ComparateurOmra() {
         {/* Section à propos de la Omra */}
         <Card className="p-8 md:p-12 bg-gradient-to-br from-background via-primary/5 to-background">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">Préparez votre Omra 2026</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center">Préparez votre Omra 2027</h2>
             
             <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
               <p>
@@ -2018,15 +2018,15 @@ export default function ComparateurOmra() {
         {/* Section SEO - Contenu riche en mots-clés */}
         <section className="mt-12 space-y-8">
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Omra Ramadan 2026 */}
+            {/* Omra Ramadan 2027 */}
             <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-amber-200 dark:border-amber-800">
               <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-amber-600" />
-                Omra Ramadan 2026 : Les Meilleures Offres
+                Omra Ramadan 2027 : Les Meilleures Offres
               </h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Réservez votre <strong>Omra Ramadan 2026</strong> avec notre comparateur. 
-                Le Ramadan 2026 débutera fin février et c'est la période la plus spirituelle 
+                Réservez votre <strong>Omra Ramadan 2027</strong> avec notre comparateur. 
+                Le Ramadan 2027 sera une période très demandée et spirituelle 
                 pour accomplir la Omra. Comparez les prix des agences agréées pour trouver 
                 votre séjour idéal à <strong>La Mecque</strong> et <strong>Médine</strong>.
               </p>
@@ -2038,14 +2038,14 @@ export default function ComparateurOmra() {
               </a>
             </Card>
 
-            {/* Hajj 2026 */}
+            {/* Hajj 2027 */}
             <Card className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 border-emerald-200 dark:border-emerald-800">
               <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
                 <Star className="w-5 h-5 text-emerald-600" />
-                Hajj 2026 : Comparez les Prix
+                Hajj 2027 : Comparez les Prix
               </h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Préparez votre <strong>Hajj 2026</strong> en comparant les offres des meilleures 
+                Préparez votre <strong>Hajj 2027</strong> en comparant les offres des meilleures 
                 agences de voyage. Le Hajj est le 5ème pilier de l'Islam et nécessite une 
                 réservation anticipée. Trouvez des formules complètes avec vol, visa, 
                 hébergement et encadrement religieux.
@@ -2054,7 +2054,7 @@ export default function ComparateurOmra() {
                 href="/ramadan-hajj-dates" 
                 className="text-emerald-700 dark:text-emerald-400 font-semibold hover:underline text-sm"
               >
-                Voir les dates Hajj 2026 →
+                Voir les dates Hajj 2027 →
               </a>
             </Card>
           </div>
@@ -2063,7 +2063,7 @@ export default function ComparateurOmra() {
           <Card className="p-6 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20 border-purple-200 dark:border-purple-800">
             <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-purple-600" />
-              Les 10 Derniers Jours du Ramadan 2026
+              Les 10 Derniers Jours du Ramadan 2027
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
               Les <strong>10 derniers jours du Ramadan</strong> sont les plus précieux de l'année. 
@@ -2077,7 +2077,7 @@ export default function ComparateurOmra() {
                 href="/ramadan-hajj-dates" 
                 className="text-purple-700 dark:text-purple-400 font-semibold hover:underline text-sm"
               >
-                Voir les dates du Ramadan 2026 →
+                Voir les dates du Ramadan 2027 →
               </a>
               <span className="text-muted-foreground text-sm">|</span>
               <a 
