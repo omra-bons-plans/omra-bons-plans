@@ -744,7 +744,7 @@ export default function ComparateurOmra() {
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
             {tripType === 'hajj'
-              ? 'Comparez les prix, dates et hôtels pour le Hajj 2026'
+              ? 'Comparez les prix, dates et hôtels pour le Hajj 2027'
               : 'Comparez les prix, hôtels et dates pour votre Omra 2026'}
           </p>
           <p className="text-sm sm:text-base md:text-lg text-white/90 px-4 leading-relaxed max-w-3xl mx-auto">
