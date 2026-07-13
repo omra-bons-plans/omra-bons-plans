@@ -22,6 +22,7 @@ interface PageMeta {
   canonical: string;
   ogImage?: string;
   ogType?: string;
+  noindex?: boolean;
 }
 
 const SITE = "https://omrabonsplans.fr";
@@ -92,16 +93,19 @@ const PAGES: Record<string, PageMeta> = {
     title: "Restaurants Halal à La Mecque & Médine | Blog Omra Bons Plans",
     description: "Découvrez les meilleurs restaurants halal à La Mecque et Médine. Adresses, avis et conseils pour bien manger pendant votre Omra.",
     canonical: `${SITE}/blog/restaurants`,
+    noindex: true,
   },
   "/blog/associations": {
     title: "Associations Islamiques en France | Blog Omra Bons Plans",
     description: "Annuaire des associations islamiques en France : mosquées, centres culturels, associations pèlerinage. Trouvez votre communauté.",
     canonical: `${SITE}/blog/associations`,
+    noindex: true,
   },
   "/blog/vendeurs": {
     title: "Vendeurs & Artisans Islamiques | Blog Omra Bons Plans",
     description: "Découvrez les meilleurs vendeurs et artisans islamiques : souvenirs de La Mecque, produits halal, tapis de prière, livres islamiques.",
     canonical: `${SITE}/blog/vendeurs`,
+    noindex: true,
   },
   "/about": {
     title: "À Propos - Omra Bons Plans | Notre Mission & Équipe",
@@ -118,6 +122,7 @@ const PAGES: Record<string, PageMeta> = {
     description: "Retrouvez toutes vos offres Omra et Hajj favorites en un seul endroit. Comparez et choisissez votre voyage.",
     canonical: `${SITE}/favoris`,
     ogType: "website",
+    noindex: true,
   },
   "/discussions": {
     title: "Forum Omra & Hajj : Questions et Témoignages | Omra Bons Plans",
@@ -304,7 +309,7 @@ function buildHead(meta: PageMeta): string {
     <meta name="description" content="${escape(meta.description)}" />
     <meta name="keywords" content="${escape(keywords)}" />
     <meta name="author" content="Omra Bons Plans" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content="${meta.noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}" />
     <link rel="canonical" href="${escape(meta.canonical)}" />
     <meta property="og:title" content="${escape(meta.title)}" />
     <meta property="og:description" content="${escape(meta.description)}" />

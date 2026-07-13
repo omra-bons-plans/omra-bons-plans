@@ -73,9 +73,7 @@ const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string; la
   { loc: `${SITE}/category/babysitting`, changefreq: "weekly", priority: "0.70" },
   { loc: `${SITE}/blog`, changefreq: "daily", priority: "0.90" },
   { loc: `${SITE}/blog/general`, changefreq: "weekly", priority: "0.80" },
-  { loc: `${SITE}/blog/restaurants`, changefreq: "weekly", priority: "0.70" },
-  { loc: `${SITE}/blog/associations`, changefreq: "weekly", priority: "0.70" },
-  { loc: `${SITE}/blog/vendeurs`, changefreq: "weekly", priority: "0.70" },
+  // /blog/restaurants, /blog/associations, /blog/vendeurs are noindex — excluded from sitemap
   { loc: `${SITE}/agence-details/Al%20Maqam%20Voyages`, changefreq: "weekly", priority: "0.60" },
   { loc: `${SITE}/agence-details/Al%20Sirate%20Voyage`, changefreq: "weekly", priority: "0.60" },
   { loc: `${SITE}/agence-details/Haramain%20Voyages`, changefreq: "weekly", priority: "0.60" },

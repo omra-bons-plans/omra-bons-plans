@@ -94,6 +94,7 @@ export default async function handler(req: Request, context: Context) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog ${escHtml(categoryLabel)} | Omra Bons Plans</title>
   <meta name="description" content="Tous les articles sur ${escHtml(categoryLabel)} : guides, conseils et actualités pour l'Omra et le Hajj.">
+  <meta name="robots" content="${['restaurants', 'associations', 'vendeurs'].includes(category) ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'}">
   <link rel="canonical" href="${canonicalUrl}">
   <meta property="og:title" content="Blog ${escHtml(categoryLabel)} | Omra Bons Plans">
   <meta property="og:url" content="${canonicalUrl}">

@@ -123,7 +123,7 @@ export const seoConfig = {
       "@type": "EventSeries",
       "name": "Calendrier Ramadan & Hajj 2026-2028",
       "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
-      "url": "https://omrabonsplans.fr/dates-ramadan-hajj",
+      "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
       "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
       "startDate": "2026-02-18",
       "endDate": "2028-05-15",
@@ -132,7 +132,7 @@ export const seoConfig = {
       "location": {
         "@type": "VirtualLocation",
         "name": "Calendrier en ligne",
-        "url": "https://omrabonsplans.fr/dates-ramadan-hajj"
+        "url": "https://omrabonsplans.fr/ramadan-hajj-dates"
       },
       "organizer": {
         "@type": "Organization",

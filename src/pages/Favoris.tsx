@@ -170,7 +170,7 @@ export default function Favoris() {
                 Ajoutez des offres à vos favoris pour les retrouver facilement et les comparer.
               </p>
               <Button asChild>
-                <a href="/comparateur-omra">
+                <a href="/comparateur-omra-france">
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Découvrir les offres
                 </a>
