@@ -363,8 +363,9 @@ const App = () => (
                    </Routes>
                  </CanonicalRedirect>
                </Suspense>
-               <BackToTopButton />
-            </BrowserRouter>
+                <BackToTopButton />
+                <WhatsAppFAB />
+             </BrowserRouter>
           </TooltipProvider>
         </AdminProvider>
       </AuthProvider>
