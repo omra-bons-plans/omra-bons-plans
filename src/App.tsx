@@ -9,6 +9,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider } from "@/contexts/AdminContext";
+import WhatsAppFAB from "@/components/WhatsAppFAB";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
 const ScrollToTop = lazy(() => import("./components/ui/ScrollToTop"));
@@ -362,8 +363,9 @@ const App = () => (
                    </Routes>
                  </CanonicalRedirect>
                </Suspense>
-               <BackToTopButton />
-            </BrowserRouter>
+                <BackToTopButton />
+                <WhatsAppFAB />
+             </BrowserRouter>
           </TooltipProvider>
         </AdminProvider>
       </AuthProvider>
