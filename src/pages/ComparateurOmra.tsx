@@ -99,6 +99,30 @@ const agencyFormSchema = z.object({
   message: z.string().trim().min(10, { message: "Le message doit faire au moins 10 caractères" }).max(1000, { message: "Le message doit faire moins de 1000 caractères" })
 });
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const withNetworkRetry = async <T,>(query: PromiseLike<T>, makeQuery: () => PromiseLike<T>, retries = 2): Promise<T> => {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      return await (attempt === 0 ? query : makeQuery());
+    } catch (err) {
+      lastError = err;
+      const message = err instanceof Error ? err.message : String(err);
+      const isNetworkError = message.toLowerCase().includes('failed to fetch') || message.toLowerCase().includes('network');
+
+      if (!isNetworkError || attempt === retries) {
+        throw err;
+      }
+
+      await wait(700 * (attempt + 1));
+    }
+  }
+
+  throw lastError;
+};
+
 export default function ComparateurOmra() {
   // ⚡ PERFORMANCE: Lazy load date locale
   const dateLocale = useDateLocale();
@@ -339,10 +363,11 @@ export default function ComparateurOmra() {
         
         if (tripType === 'hajj') {
           // Query hajj_offers table for Hajj trips
-          const { data, error } = await supabase
-            .from('hajj_offers')
-            .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,hotel_makkah_stars,hotel_medina_stars,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
-            .eq('status', 'active');
+          const makeHajjQuery = () => supabase
+              .from('hajj_offers')
+              .select('id,agency_name,agency_url,price_quad_eur,departure_date,return_date,duration_nights,hotel_makkah,hotel_medina,hotel_makkah_stars,hotel_medina_stars,accommodation_zone,airline,is_recommended,offer_url,package_type,camp_mina,half_board,departure_cities,nusuk_code')
+              .eq('status', 'active');
+          const { data, error } = await withNetworkRetry(makeHajjQuery(), makeHajjQuery);
           
           // Map hajj_offers to a unified format with Hajj-specific fields
           allActiveOffers = (data || []).map((offer: any) => ({
@@ -377,10 +402,11 @@ export default function ComparateurOmra() {
           allOffersError = error;
         } else {
           // Query omra_offers table for Omra trips
-          const { data, error } = await supabase
-            .from('omra_offers')
-            .select('id,agency_name,agency_url,price_eur,month_departure,date_start,date_end,departure_city,formula_type,duration_nights,makkah_nights,medina_nights,hotel_makkah,hotel_medinah,hotel_makkah_stars,hotel_medina_stars,distance_to_haram_m,offer_url,board,flights_included,visa_included,offer_title,is_recommended,is_complet,notes,airline')
-            .eq('status', 'active');
+          const makeOmraQuery = () => supabase
+              .from('omra_offers')
+              .select('id,agency_name,agency_url,price_eur,month_departure,date_start,date_end,departure_city,formula_type,duration_nights,makkah_nights,medina_nights,hotel_makkah,hotel_medinah,hotel_makkah_stars,hotel_medina_stars,distance_to_haram_m,offer_url,board,flights_included,visa_included,offer_title,is_recommended,is_complet,notes,airline')
+              .eq('status', 'active');
+          const { data, error } = await withNetworkRetry(makeOmraQuery(), makeOmraQuery);
           allActiveOffers = data || [];
           allOffersError = error;
         }
