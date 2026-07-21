@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import HotelNameLink from '@/components/HotelNameLink';
 import Plane from 'lucide-react/dist/esm/icons/plane';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
