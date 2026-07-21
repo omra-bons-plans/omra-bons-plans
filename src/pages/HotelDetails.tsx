@@ -117,21 +117,22 @@ export default function HotelDetails() {
 
         {/* Hero image */}
         <div className="mb-6 rounded-xl overflow-hidden h-64 sm:h-80 relative">
-          <img
-            src={getHotelImage(hotel)}
-            alt={`${hotel.name} — hôtel Omra ${hotel.ville}`}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const img = e.currentTarget;
-              if (!img.dataset.fallback) {
-                img.dataset.fallback = '1';
-                img.src = hotel.ville === 'La Mecque'
-                  ? 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80'
-                  : 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=800&q=80';
-              }
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {getHotelImage(hotel) ? (
+            <>
+              <img
+                src={getHotelImage(hotel)!}
+                alt={`${hotel.name} — hôtel Omra ${hotel.ville}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </>
+          ) : (
+            <div className={`w-full h-full flex flex-col items-center justify-center ${hotel.ville === 'La Mecque' ? 'bg-gradient-to-br from-amber-800 to-yellow-900' : 'bg-gradient-to-br from-emerald-800 to-teal-900'}`}>
+              <span className="text-7xl mb-3">{hotel.ville === 'La Mecque' ? '🕋' : '🕌'}</span>
+              <span className="text-white/90 text-lg font-semibold">{hotel.ville}</span>
+              <span className="text-white/60 text-sm mt-1">{hotel.quartier}</span>
+            </div>
+          )}
           <div className="absolute bottom-4 left-4 flex gap-2">
             <Badge className="bg-black/60 text-white border-0 text-sm px-3 py-1 backdrop-blur-sm">
               {hotel.ville === 'La Mecque' ? '🕋' : '🕌'} {hotel.ville}

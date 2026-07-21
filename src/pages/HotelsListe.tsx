@@ -46,20 +46,18 @@ function HotelCard({ hotel }: { hotel: HotelData }) {
     >
       {/* Image */}
       <div className="h-40 overflow-hidden relative">
-        <img
-          src={getHotelImage(hotel)}
-          alt={hotel.name}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!img.dataset.fallback) {
-              img.dataset.fallback = '1';
-              img.src = hotel.ville === 'La Mecque'
-                ? 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=75'
-                : 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=75';
-            }
-          }}
-        />
+        {getHotelImage(hotel) ? (
+          <img
+            src={getHotelImage(hotel)!}
+            alt={hotel.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className={`w-full h-full flex flex-col items-center justify-center ${hotel.ville === 'La Mecque' ? 'bg-gradient-to-br from-amber-800 to-yellow-900' : 'bg-gradient-to-br from-emerald-800 to-teal-900'}`}>
+            <span className="text-4xl mb-1">{hotel.ville === 'La Mecque' ? '🕋' : '🕌'}</span>
+            <span className="text-white/80 text-xs font-medium">{hotel.ville}</span>
+          </div>
+        )}
         <div className="absolute top-2 right-2">
           <Badge variant="outline" className={`text-xs ${STAR_COLORS[hotel.stars] || STAR_COLORS[3]} backdrop-blur-sm`}>
             {hotel.stars}★
