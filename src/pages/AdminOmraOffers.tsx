@@ -53,6 +53,21 @@ const MONTHS = [
   { value: 'ramadan', label: 'Ramadan' },
 ];
 
+const MONTH_LABEL_TO_INDEX: Record<string, number> = {
+  janvier: 0, février: 1, fevrier: 1, mars: 2, avril: 3, mai: 4, juin: 5,
+  juillet: 6, août: 7, aout: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11, decembre: 11,
+};
+
+const getMonthDefaultDate = (monthLabel?: string): Date | undefined => {
+  if (!monthLabel) return undefined;
+  const key = monthLabel.toLowerCase();
+  const idx = MONTH_LABEL_TO_INDEX[key];
+  if (idx === undefined) return undefined;
+  const now = new Date();
+  const year = idx < now.getMonth() ? now.getFullYear() + 1 : now.getFullYear();
+  return new Date(year, idx, 1);
+};
+
 interface OmraOfferForm {
   agency_name: string;
   agency_logo?: string;
@@ -621,6 +636,7 @@ const AdminOmraOffers = () => {
                         selected={dateRange}
                         onSelect={setDateRange}
                         numberOfMonths={2}
+                        defaultMonth={dateRange?.from ?? getMonthDefaultDate(formData.month_departure)}
                         disabled={(date) => date < new Date()}
                         initialFocus
                         className={cn("p-3 pointer-events-auto")}
