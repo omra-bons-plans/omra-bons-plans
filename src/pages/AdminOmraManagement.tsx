@@ -112,6 +112,7 @@ export default function AdminOmraManagement() {
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [sortOrder, setSortOrder] = useState<string>("date_asc");
 
   // Données pour les filtres
   const [agencies, setAgencies] = useState<string[]>([]);
@@ -123,7 +124,7 @@ export default function AdminOmraManagement() {
 
   useEffect(() => {
     applyFilters();
-  }, [offers, searchTerm, selectedAgency, selectedMonth, minPrice, maxPrice]);
+  }, [offers, searchTerm, selectedAgency, selectedMonth, minPrice, maxPrice, sortOrder]);
 
   const loadOffers = async () => {
     try {
@@ -188,6 +189,19 @@ export default function AdminOmraManagement() {
     if (maxPrice) {
       filtered = filtered.filter((o) => o.price_eur <= parseFloat(maxPrice));
     }
+
+    // Tri par date de départ
+    filtered.sort((a, b) => {
+      const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
+      const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+      if (sortOrder === "date_asc") {
+        return dateA - dateB;
+      }
+      if (sortOrder === "date_desc") {
+        return dateB - dateA;
+      }
+      return 0;
+    });
 
     setFilteredOffers(filtered);
   };
@@ -278,6 +292,7 @@ export default function AdminOmraManagement() {
     setSelectedMonth("all");
     setMinPrice("");
     setMaxPrice("");
+    setSortOrder("date_asc");
   };
 
   return (
@@ -312,7 +327,7 @@ export default function AdminOmraManagement() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Recherche */}
             <div>
               <Label htmlFor="search">Recherche</Label>
@@ -381,6 +396,20 @@ export default function AdminOmraManagement() {
                   onChange={(e) => setMaxPrice(e.target.value)}
                 />
               </div>
+            </div>
+
+            {/* Tri */}
+            <div>
+              <Label htmlFor="sort">Trier par date</Label>
+              <Select value={sortOrder} onValueChange={setSortOrder}>
+                <SelectTrigger id="sort">
+                  <SelectValue placeholder="Trier par" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date_asc">Du plus tôt au plus tard</SelectItem>
+                  <SelectItem value="date_desc">Du plus tard au plus tôt</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
