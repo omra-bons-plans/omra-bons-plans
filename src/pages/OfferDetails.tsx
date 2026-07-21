@@ -403,7 +403,7 @@ export default function OfferDetails() {
                 {offer.hotel_medinah && (
                   <Card className="p-4 bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20 border-emerald-200/50">
                     <div className="font-semibold text-emerald-800 dark:text-emerald-300 mb-1">Médine</div>
-                    <div className="font-medium">{offer.hotel_medinah}</div>
+                    <div className="font-medium"><HotelNameLink name={offer.hotel_medinah} city="medina" /></div>
                     {offer.hotel_medina_stars && (
                       <div className="flex items-center gap-1 mt-1">
                         {[...Array(offer.hotel_medina_stars)].map((_, i) => (
