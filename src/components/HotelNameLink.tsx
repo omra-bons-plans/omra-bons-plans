@@ -8,8 +8,8 @@ interface HotelNameLinkProps {
 }
 
 /**
- * Affiche le nom de l'hôtel. Si un lien vers le site officiel a été enregistré
- * dans l'admin (hotel_presets.website_url), il est rendu cliquable.
+ * Affiche le nom de l'hôtel suivi d'un petit bouton "site officiel"
+ * si un lien a été enregistré dans l'admin (hotel_presets.website_url).
  */
 const HotelNameLink = ({ name, city, className = '' }: HotelNameLinkProps) => {
   const { getUrl } = useHotelUrlMap();
@@ -20,17 +20,21 @@ const HotelNameLink = ({ name, city, className = '' }: HotelNameLinkProps) => {
   }
 
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer nofollow"
-      onClick={(e) => e.stopPropagation()}
-      className={`inline-flex items-center gap-1 text-primary hover:underline ${className}`}
-      title={`Voir le site officiel de ${name}`}
-    >
+    <span className={`inline-flex items-center gap-1.5 flex-wrap ${className}`}>
       <span>{name}</span>
-      <ExternalLink className="h-3 w-3 flex-shrink-0" />
-    </a>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        onClick={(e) => e.stopPropagation()}
+        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground text-[10px] font-medium leading-none transition-colors border border-primary/20"
+        title={`Voir le site officiel de ${name}`}
+        aria-label={`Site officiel de ${name}`}
+      >
+        <ExternalLink className="h-3 w-3" />
+        <span>Site</span>
+      </a>
+    </span>
   );
 };
 
