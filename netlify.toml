@@ -56,7 +56,8 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
     X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self' https://lovable.dev https://*.lovable.dev"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 # Edge Functions — Pré-rendu SEO
@@ -67,6 +68,39 @@
 [[edge_functions]]
   path = "/sitemap.xml"
   function = "sitemap"
+
+# SSR pour Googlebot — pages SPA sans contenu statique (homepage, agences)
+[[edge_functions]]
+  path = "/"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/hajj"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/hajj-2026"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/bons-plans"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/agences-liste"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/comparatif-agences"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/comparatif-visuel"
+  function = "homepage-prerender"
+
+[[edge_functions]]
+  path = "/comparateur-omra-france"
+  function = "homepage-prerender"
 
 # /blog/[category] doit être AVANT /blog/* pour intercepter les pages de liste
 [[edge_functions]]
@@ -214,6 +248,30 @@
   function = "guide-prerender"
 
 [[edge_functions]]
+  path = "/omra-depuis-nantes"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-rennes"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-montpellier"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-grenoble"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-metz"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-depuis-clermont-ferrand"
+  function = "guide-prerender"
+
+[[edge_functions]]
   path = "/omra-en-octobre-2026"
   function = "guide-prerender"
 
@@ -228,6 +286,10 @@
 [[edge_functions]]
   path = "/omra-en-janvier-2027"
   function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/les-hotels"
+  function = "seo-prerender"
 
 # Injection des meta SEO (title/description/canonical/OG/Twitter) pour toutes
 # les pages statiques publiques. Résout le souci de canonique vu par Googlebot.

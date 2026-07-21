@@ -2,7 +2,7 @@
 import Home from 'lucide-react/dist/esm/icons/home';
 import Package from 'lucide-react/dist/esm/icons/package';
 import Star from 'lucide-react/dist/esm/icons/star';
-import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import Hotel from 'lucide-react/dist/esm/icons/hotel';
 import User from 'lucide-react/dist/esm/icons/user';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -63,11 +63,11 @@ export const MobileBottomNav = () => {
       active: currentPath === '/favoris',
       badge: favoritesCount > 0 ? favoritesCount : null
     },
-    { 
-      icon: BookOpen, 
-      label: 'Blogs', 
-      path: '/blog', 
-      active: currentPath === '/blog',
+    {
+      icon: Hotel,
+      label: 'Hôtels',
+      path: '/les-hotels',
+      active: currentPath === '/les-hotels' || currentPath.startsWith('/hotel/'),
       badge: null
     },
     { 

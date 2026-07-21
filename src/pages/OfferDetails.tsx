@@ -191,20 +191,8 @@ export default function OfferDetails() {
   }
 
   if (error || !offer) {
-    return (
-      <ResponsiveLayout>
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <Card className="p-8 text-center max-w-md mx-4">
-            <h2 className="text-xl font-bold mb-4">Offre non trouvée</h2>
-            <p className="text-muted-foreground mb-6">Cette offre n'existe plus ou a été supprimée.</p>
-            <Button onClick={() => navigate(isHajj ? '/hajj' : '/omra')}>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Retour aux offres {isHajj ? 'Hajj' : 'Omra'}
-            </Button>
-          </Card>
-        </div>
-      </ResponsiveLayout>
-    );
+    navigate('/404', { replace: true });
+    return null;
   }
 
   return (

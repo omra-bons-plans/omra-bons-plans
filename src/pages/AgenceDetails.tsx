@@ -50,18 +50,8 @@ export default function AgenceDetails() {
   };
 
   if (!agency) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Agence non trouvée</h1>
-            <Button onClick={() => navigate('/agences-liste')}>
-              Retour à la liste
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
+    navigate('/404', { replace: true });
+    return null;
   }
 
   return (

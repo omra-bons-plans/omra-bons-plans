@@ -1055,8 +1055,15 @@ export default function ComparateurOmra() {
         {error ? (
           <Card className="p-12 text-center border-destructive">
             <p className="text-destructive text-lg font-semibold mb-2">
-              Erreur: {error}
+              {error.includes('Failed to fetch') || error.includes('NetworkError') || error.includes('fetch')
+                ? 'Connexion impossible à la base de données'
+                : `Erreur: ${error}`}
             </p>
+            {(error.includes('Failed to fetch') || error.includes('fetch')) && (
+              <p className="text-muted-foreground text-sm mb-4">
+                La base de données est temporairement indisponible. Si le problème persiste, le serveur est peut-être en cours de redémarrage (1-2 min).
+              </p>
+            )}
             <Button onClick={() => window.location.reload()}>
               Recharger
             </Button>

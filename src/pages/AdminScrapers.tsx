@@ -419,7 +419,7 @@ export default function AdminScrapers() {
             <h2 className="text-xl font-bold">Offres scrapées récemment</h2>
             <Button
               variant="outline"
-              onClick={() => window.open('/comparateur-omra', '_blank')}
+              onClick={() => window.open('/comparateur-omra-france', '_blank')}
             >
               Voir toutes les offres
             </Button>

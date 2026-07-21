@@ -10,6 +10,7 @@ interface DynamicSEOProps {
   image?: string;
   path: string;
   structuredData?: object;
+  noindex?: boolean;
 }
 
 /**
@@ -22,7 +23,8 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
   type = 'page',
   image,
   path,
-  structuredData
+  structuredData,
+  noindex = false
 }) => {
   // Ne pas ajouter de préfixe — le titre passé est déjà complet et optimisé
   const optimizedDescription = generateMetaDescription(description);
@@ -69,6 +71,7 @@ export const DynamicSEO: React.FC<DynamicSEOProps> = ({
       ogImage={defaultImage}
       ogType={type === 'article' ? 'article' : 'website'}
       structuredData={defaultStructuredData}
+      noindex={noindex}
     />
   );
 };
