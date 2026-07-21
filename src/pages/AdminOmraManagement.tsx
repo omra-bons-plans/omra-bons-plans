@@ -326,7 +326,7 @@ export default function AdminOmraManagement() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Recherche */}
             <div>
               <Label htmlFor="search">Recherche</Label>
@@ -395,6 +395,20 @@ export default function AdminOmraManagement() {
                   onChange={(e) => setMaxPrice(e.target.value)}
                 />
               </div>
+            </div>
+
+            {/* Tri */}
+            <div>
+              <Label htmlFor="sort">Trier par date</Label>
+              <Select value={sortOrder} onValueChange={setSortOrder}>
+                <SelectTrigger id="sort">
+                  <SelectValue placeholder="Trier par" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date_asc">Du plus tôt au plus tard</SelectItem>
+                  <SelectItem value="date_desc">Du plus tard au plus tôt</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
