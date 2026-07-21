@@ -261,7 +261,7 @@ export const HajjOfferFormCard = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 border-t-4 border-primary/20 pt-6 mt-8">
+    <form onSubmit={handleSubmit} data-offer-form="hajj" className="space-y-6 border-t-4 border-primary/20 pt-6 mt-8">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Offre Hajj #{index + 1}</h2>
         <Button
