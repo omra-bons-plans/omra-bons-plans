@@ -28,11 +28,11 @@ const HotelNameLink = ({ name, city, className = '' }: HotelNameLinkProps) => {
         rel="noopener noreferrer nofollow"
         onClick={(e) => e.stopPropagation()}
         className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground text-[10px] font-medium leading-none transition-colors border border-primary/20"
-        title={`Voir le site officiel de ${name}`}
-        aria-label={`Site officiel de ${name}`}
+        title={`Voir l’hôtel ${name}`}
+        aria-label={`Voir l’hôtel ${name}`}
       >
         <ExternalLink className="h-3 w-3" />
-        <span>Site</span>
+        <span>Voir l’hôtel</span>
       </a>
     </span>
   );
