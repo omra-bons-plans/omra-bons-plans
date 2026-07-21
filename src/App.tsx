@@ -65,6 +65,7 @@ const AdminOmraManagement = lazy(() => import("./pages/AdminOmraManagement"));
 const AdminHajjManagement = lazy(() => import("./pages/AdminHajjManagement"));
 const Favoris = lazy(() => import("./pages/Favoris"));
 const AdminAgencies = lazy(() => import("./pages/AdminAgencies"));
+const AdminHotels = lazy(() => import("./pages/AdminHotels"));
 const GuideOmraPasChere = lazy(() => import("./pages/GuideOmraPasChere"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
 const RitesOmra = lazy(() => import("./pages/RitesOmra"));
