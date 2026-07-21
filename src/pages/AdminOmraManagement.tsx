@@ -112,6 +112,7 @@ export default function AdminOmraManagement() {
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [sortOrder, setSortOrder] = useState<string>("date_asc");
 
   // Données pour les filtres
   const [agencies, setAgencies] = useState<string[]>([]);
@@ -123,7 +124,7 @@ export default function AdminOmraManagement() {
 
   useEffect(() => {
     applyFilters();
-  }, [offers, searchTerm, selectedAgency, selectedMonth, minPrice, maxPrice]);
+  }, [offers, searchTerm, selectedAgency, selectedMonth, minPrice, maxPrice, sortOrder]);
 
   const loadOffers = async () => {
     try {
