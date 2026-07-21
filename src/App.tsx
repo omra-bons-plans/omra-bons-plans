@@ -241,6 +241,11 @@ const App = () => (
                        <AdminAgencies />
                      </ProtectedRoute>
                    } />
+                   <Route path="/admin/hotels" element={
+                     <ProtectedRoute>
+                       <AdminHotels />
+                     </ProtectedRoute>
+                   } />
                    <Route path="/admin/ads" element={
                     <ProtectedRoute>
                       <AdminAds />
