@@ -749,6 +749,14 @@ const Admin = () => {
                     <Building2 className="w-4 h-4 mr-2" />
                     Gestion Agences
                   </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin/hotels')}
+                    className="text-sm"
+                  >
+                    <Building2 className="w-4 h-4 mr-2" />
+                    Gestion Hôtels
+                  </Button>
                 </>
               )}
               <UserMenu />
