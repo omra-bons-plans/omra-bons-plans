@@ -88,6 +88,8 @@ const ConditionsOmra = lazy(() => import("./pages/ConditionsOmra"));
 const ComparateurOmraFrance = lazy(() => import("./pages/ComparateurOmraFrance"));
 const OmraSaison = lazy(() => import("./pages/OmraSaison"));
 const GuideHajj4Ecoles = lazy(() => import("./pages/GuideHajj4Ecoles"));
+const HotelsListe = lazy(() => import("./pages/HotelsListe"));
+const HotelDetails = lazy(() => import("./pages/HotelDetails"));
 
 // Loading component
 const PageLoader = () => (
@@ -312,6 +314,8 @@ const App = () => (
                    <Route path="/conditions-omra" element={<ConditionsOmra />} />
                    <Route path="/comparateur-omra-france" element={<ComparateurOmraFrance />} />
                    <Route path="/guide-hajj-4-ecoles" element={<GuideHajj4Ecoles />} />
+                   <Route path="/les-hotels" element={<HotelsListe />} />
+                   <Route path="/hotel/:hotelId" element={<HotelDetails />} />
                    {/* Redirection de la version accentuée vers la version canonique sans accent */}
                    <Route path="/guide-hajj-4-écoles" element={<Navigate to="/guide-hajj-4-ecoles" replace />} />
                    <Route path="/search" element={<Search />} />

@@ -356,6 +356,14 @@ export function DesktopSidebar() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
+                      <NavLink to="/les-hotels" className={getNavCls}>
+                        <Hotel className="w-4 h-4" />
+                        <span>Les Hôtels</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
                       <NavLink to="/agences-liste" className={getNavCls}>
                         <BarChart3 className="w-4 h-4" />
                         <span>Agences Omra</span>

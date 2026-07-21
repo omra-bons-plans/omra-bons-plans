@@ -287,6 +287,10 @@
   path = "/omra-en-janvier-2027"
   function = "guide-prerender"
 
+[[edge_functions]]
+  path = "/les-hotels"
+  function = "seo-prerender"
+
 # Injection des meta SEO (title/description/canonical/OG/Twitter) pour toutes
 # les pages statiques publiques. Résout le souci de canonique vu par Googlebot.
 [[edge_functions]]

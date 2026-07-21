@@ -79,6 +79,12 @@ const PAGES: Record<string, PageMeta> = {
     description: "Annuaire complet des agences Omra & Hajj agréées en France 🇫🇷. Notes, avis, contacts et offres de chaque agence vérifiée.",
     canonical: `${SITE}/agences-liste`,
   },
+  "/les-hotels": {
+    title: "Hôtels Omra 2026 : La Mecque & Médine — Guide Complet | Omra Bons Plans",
+    description: "Tous les hôtels pour votre Omra 2026 : La Mecque et Médine. Distance au Haram, note Booking, prix par nuit, points forts et faibles. Comparez et choisissez.",
+    keywords: "hôtels omra la mecque, hôtels médine, hébergement omra 2026, hotel haram, hotel masjid nabawi",
+    canonical: `${SITE}/les-hotels`,
+  },
   "/blog": {
     title: "Blog Omra & Hajj | Guides et Conseils | Omra Bons Plans",
     description: "Guides complets sur l'Omra et le Hajj : rites, préparation, visa, bagages, prix. Conseils d'experts pour réussir votre pèlerinage.",

@@ -168,10 +168,20 @@ const MobileSidebar = () => {
             <Link
               to="/"
               onClick={() => setIsOpen(false)}
-              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors mb-4"
+              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors mb-2"
             >
               <Home className="w-5 h-5 text-muted-foreground" />
               <span className="font-medium">Comparateur Omra</span>
+            </Link>
+
+            {/* Les Hôtels */}
+            <Link
+              to="/les-hotels"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors mb-4"
+            >
+              <Hotel className="w-5 h-5 text-muted-foreground" />
+              <span className="font-medium">Les Hôtels</span>
             </Link>
 
             {/* Bons Plans Section - Collapsible */}
