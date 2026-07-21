@@ -621,6 +621,7 @@ const AdminOmraOffers = () => {
                         selected={dateRange}
                         onSelect={setDateRange}
                         numberOfMonths={2}
+                        defaultMonth={dateRange?.from ?? getMonthDefaultDate(formData.month_departure)}
                         disabled={(date) => date < new Date()}
                         initialFocus
                         className={cn("p-3 pointer-events-auto")}
