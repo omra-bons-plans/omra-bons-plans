@@ -17,6 +17,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import HotelNameLink from '@/components/HotelNameLink';
 import Clock from 'lucide-react/dist/esm/icons/clock';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import Filter from 'lucide-react/dist/esm/icons/filter';
