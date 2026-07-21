@@ -292,6 +292,7 @@ export default function AdminOmraManagement() {
     setSelectedMonth("all");
     setMinPrice("");
     setMaxPrice("");
+    setSortOrder("date_asc");
   };
 
   return (
