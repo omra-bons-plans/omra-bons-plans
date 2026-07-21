@@ -1021,11 +1021,32 @@ const AdminOmraOffers = () => {
         ))}
 
         {/* Bouton toujours visible pour ajouter un formulaire (utile quand on est sur les cartes #2/#3/...) */}
-        <div className="flex justify-center py-4">
+        <div className="flex flex-wrap justify-center gap-3 py-4">
           <Button type="button" variant="secondary" onClick={handleAddAnotherOffer} className="gap-2">
             <Plus className="h-4 w-4" />
             Ajouter une offre
           </Button>
+          {(offerType === 'omra' ? additionalForms.length : additionalHajjForms.length) > 0 && (
+            <Button
+              type="button"
+              onClick={async () => {
+                const forms = document.querySelectorAll<HTMLFormElement>(`form[data-offer-form="${offerType}"]`);
+                toast({
+                  title: 'Enregistrement en cours...',
+                  description: `${forms.length} offre(s) à enregistrer`,
+                });
+                for (const f of Array.from(forms)) {
+                  f.requestSubmit();
+                  // Laisser le temps à chaque insertion de se terminer
+                  await new Promise((r) => setTimeout(r, 800));
+                }
+              }}
+              className="gap-2"
+            >
+              <Save className="h-4 w-4" />
+              Enregistrer toutes les offres ({offerType === 'omra' ? additionalForms.length : additionalHajjForms.length})
+            </Button>
+          )}
         </div>
 
         {/* Compteur d'offres ajoutées */}
