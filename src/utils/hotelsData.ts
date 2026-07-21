@@ -18,6 +18,16 @@ export interface HotelData {
   quartier: string;              // ex: "Jabal Omar", "Aziziyah", "Centre"
   url: string;                   // lien officiel
   amenities: string[];           // ex: ["Spa", "Piscine", "Restaurant halal"]
+  imageUrl?: string;             // photo principale de l'hôtel
+}
+
+// Images de fallback par ville
+export const FALLBACK_IMAGE_MECCA = "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80";
+export const FALLBACK_IMAGE_MEDINA = "https://images.unsplash.com/photo-1552083375-1447ce886485?w=800&q=80";
+
+export function getHotelImage(hotel: HotelData): string {
+  if (hotel.imageUrl) return hotel.imageUrl;
+  return hotel.ville === "La Mecque" ? FALLBACK_IMAGE_MECCA : FALLBACK_IMAGE_MEDINA;
 }
 
 export const hotelsData: HotelData[] = [

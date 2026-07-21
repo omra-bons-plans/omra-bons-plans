@@ -13,7 +13,7 @@ import Euro from 'lucide-react/dist/esm/icons/euro';
 import Wifi from 'lucide-react/dist/esm/icons/wifi';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
-import { hotelsData } from '@/utils/hotelsData';
+import { hotelsData, getHotelImage } from '@/utils/hotelsData';
 
 function StarRow({ count }: { count: number }) {
   return (
@@ -115,14 +115,33 @@ export default function HotelDetails() {
           Retour à la liste des hôtels
         </Button>
 
-        {/* Hero */}
-        <header className="mb-8">
-          <div className="flex flex-wrap items-start gap-3 mb-3">
-            <Badge variant="outline" className="text-sm px-3 py-1">
+        {/* Hero image */}
+        <div className="mb-6 rounded-xl overflow-hidden h-64 sm:h-80 relative">
+          <img
+            src={getHotelImage(hotel)}
+            alt={`${hotel.name} — hôtel Omra ${hotel.ville}`}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (!img.dataset.fallback) {
+                img.dataset.fallback = '1';
+                img.src = hotel.ville === 'La Mecque'
+                  ? 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80'
+                  : 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=800&q=80';
+              }
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-4 flex gap-2">
+            <Badge className="bg-black/60 text-white border-0 text-sm px-3 py-1 backdrop-blur-sm">
               {hotel.ville === 'La Mecque' ? '🕋' : '🕌'} {hotel.ville}
             </Badge>
-            <Badge variant="secondary" className="text-sm px-3 py-1">{hotel.quartier}</Badge>
+            <Badge className="bg-black/60 text-white border-0 text-sm px-3 py-1 backdrop-blur-sm">{hotel.quartier}</Badge>
           </div>
+        </div>
+
+        {/* Hero */}
+        <header className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">{hotel.name}</h1>
           <StarRow count={hotel.stars} />
           <p className="text-muted-foreground mt-3 text-base max-w-2xl">{hotel.description}</p>

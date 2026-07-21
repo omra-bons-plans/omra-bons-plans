@@ -9,7 +9,7 @@ import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Search from 'lucide-react/dist/esm/icons/search';
 import { SEOHead } from '@/components/SEO/SEOHead';
 import { SEOBreadcrumb } from '@/components/SEO/SEOBreadcrumb';
-import { hotelsData, HotelData } from '@/utils/hotelsData';
+import { hotelsData, HotelData, getHotelImage } from '@/utils/hotelsData';
 
 const STAR_COLORS: Record<number, string> = {
   5: 'bg-yellow-100 text-yellow-800 border-yellow-300',
@@ -41,19 +41,37 @@ function HotelCard({ hotel }: { hotel: HotelData }) {
 
   return (
     <Card
-      className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 border hover:border-primary/30"
+      className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 border hover:border-primary/30 overflow-hidden"
       onClick={() => navigate(`/hotel/${hotel.id}`)}
     >
-      <CardContent className="p-4">
-        {/* Header */}
-        <div className="flex justify-between items-start mb-3">
-          <div className="flex-1 min-w-0 pr-2">
-            <h3 className="font-bold text-base leading-tight truncate">{hotel.name}</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">{hotel.quartier}</p>
-          </div>
-          <Badge variant="outline" className={`text-xs shrink-0 ${STAR_COLORS[hotel.stars] || STAR_COLORS[3]}`}>
+      {/* Image */}
+      <div className="h-40 overflow-hidden relative">
+        <img
+          src={getHotelImage(hotel)}
+          alt={hotel.name}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (!img.dataset.fallback) {
+              img.dataset.fallback = '1';
+              img.src = hotel.ville === 'La Mecque'
+                ? 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=75'
+                : 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=75';
+            }
+          }}
+        />
+        <div className="absolute top-2 right-2">
+          <Badge variant="outline" className={`text-xs ${STAR_COLORS[hotel.stars] || STAR_COLORS[3]} backdrop-blur-sm`}>
             {hotel.stars}★
           </Badge>
+        </div>
+      </div>
+
+      <CardContent className="p-4">
+        {/* Header */}
+        <div className="mb-3">
+          <h3 className="font-bold text-base leading-tight truncate">{hotel.name}</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">{hotel.quartier}</p>
         </div>
 
         {/* Stars visual */}
