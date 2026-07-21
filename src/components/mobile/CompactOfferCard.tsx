@@ -234,7 +234,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
               <div>
                 <span className="font-semibold">Mecque : </span>
-                {offer.hotel_makkah}
+                <HotelNameLink name={offer.hotel_makkah} city="makkah" />
                 {offer.hotel_makkah_stars && (
                   <span className="text-yellow-500"> {'⭐'.repeat(offer.hotel_makkah_stars)}</span>
                 )}
@@ -247,7 +247,7 @@ export const CompactOfferCard = ({ offer, agencyLogo, agencyInfo }: CompactOffer
               <Hotel className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
               <div>
                 <span className="font-semibold">Médine : </span>
-                {offer.hotel_medinah}
+                <HotelNameLink name={offer.hotel_medinah} city="medina" />
                 {offer.hotel_medina_stars && (
                   <span className="text-yellow-500"> {'⭐'.repeat(offer.hotel_medina_stars)}</span>
                 )}
