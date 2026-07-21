@@ -1627,7 +1627,7 @@ export default function ComparateurOmra() {
                                     <Hotel className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                     <div className="flex-1">
                                       <div className="text-xs text-muted-foreground">Médine</div>
-                                      <div className="text-sm font-semibold">{offer.hotel_medinah}</div>
+                                      <div className="text-sm font-semibold"><HotelNameLink name={offer.hotel_medinah} city="medina" /></div>
                                       {offer.hotel_medina_stars && (
                                         <div className="flex items-center gap-0.5 mt-0.5">
                                           {[...Array(offer.hotel_medina_stars)].map((_, i) => (
