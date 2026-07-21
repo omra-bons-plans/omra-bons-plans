@@ -190,6 +190,19 @@ export default function AdminOmraManagement() {
       filtered = filtered.filter((o) => o.price_eur <= parseFloat(maxPrice));
     }
 
+    // Tri par date de départ
+    filtered.sort((a, b) => {
+      const dateA = a.date_start ? new Date(a.date_start).getTime() : Infinity;
+      const dateB = b.date_start ? new Date(b.date_start).getTime() : Infinity;
+      if (sortOrder === "date_asc") {
+        return dateA - dateB;
+      }
+      if (sortOrder === "date_desc") {
+        return dateB - dateA;
+      }
+      return 0;
+    });
+
     setFilteredOffers(filtered);
   };
 
