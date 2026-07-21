@@ -3,7 +3,14 @@ import { supabase } from '@/integrations/supabase/client';
 
 export type HotelCity = 'makkah' | 'medina';
 
-const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+const normalize = (s: string) =>
+  s
+    .trim()
+    .toLowerCase()
+    // enlève un éventuel suffixe d'étoiles ex: " (3⭐)", " (5*)", " 4 étoiles"
+    .replace(/\s*[\(\-–—]?\s*\d\s*(⭐|\*|étoiles?|stars?)\s*\)?\s*$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 const makeKey = (name: string, city: HotelCity) => `${city}::${normalize(name)}`;
 
 let cache: Map<string, string> | null = null;
