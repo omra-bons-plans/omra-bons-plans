@@ -371,6 +371,17 @@ const MobileSidebar = () => {
                   </button>
 
                   <Link
+                    to="/les-hotels"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Hotel className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Les Hôtels</span>
+                    </div>
+                  </Link>
+
+                  <Link
                     to="/about"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
