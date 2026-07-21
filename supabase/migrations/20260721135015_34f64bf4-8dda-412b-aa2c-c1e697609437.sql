@@ -1,0 +1,1 @@
+ALTER TABLE public.hotel_presets ADD COLUMN IF NOT EXISTS website_url TEXT;

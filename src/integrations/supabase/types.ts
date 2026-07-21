@@ -937,6 +937,7 @@ export type Database = {
           stars: number | null
           updated_at: string
           usage_count: number | null
+          website_url: string | null
         }
         Insert: {
           city: string
@@ -946,6 +947,7 @@ export type Database = {
           stars?: number | null
           updated_at?: string
           usage_count?: number | null
+          website_url?: string | null
         }
         Update: {
           city?: string
@@ -955,6 +957,7 @@ export type Database = {
           stars?: number | null
           updated_at?: string
           usage_count?: number | null
+          website_url?: string | null
         }
         Relationships: []
       }
