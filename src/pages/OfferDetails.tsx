@@ -12,6 +12,7 @@ import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import HotelNameLink from '@/components/HotelNameLink';
 import Plane from 'lucide-react/dist/esm/icons/plane';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
@@ -385,7 +386,7 @@ export default function OfferDetails() {
                 {offer.hotel_makkah && (
                   <Card className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-amber-200/50">
                     <div className="font-semibold text-amber-800 dark:text-amber-300 mb-1">La Mecque</div>
-                    <div className="font-medium">{offer.hotel_makkah}</div>
+                    <div className="font-medium"><HotelNameLink name={offer.hotel_makkah} city="makkah" /></div>
                     {offer.hotel_makkah_stars && (
                       <div className="flex items-center gap-1 mt-1">
                         {[...Array(offer.hotel_makkah_stars)].map((_, i) => (
@@ -402,7 +403,7 @@ export default function OfferDetails() {
                 {offer.hotel_medinah && (
                   <Card className="p-4 bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20 border-emerald-200/50">
                     <div className="font-semibold text-emerald-800 dark:text-emerald-300 mb-1">Médine</div>
-                    <div className="font-medium">{offer.hotel_medinah}</div>
+                    <div className="font-medium"><HotelNameLink name={offer.hotel_medinah} city="medina" /></div>
                     {offer.hotel_medina_stars && (
                       <div className="flex items-center gap-1 mt-1">
                         {[...Array(offer.hotel_medina_stars)].map((_, i) => (

@@ -17,6 +17,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin';
 import Hotel from 'lucide-react/dist/esm/icons/hotel';
+import HotelNameLink from '@/components/HotelNameLink';
 import Clock from 'lucide-react/dist/esm/icons/clock';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
 import Filter from 'lucide-react/dist/esm/icons/filter';
@@ -1363,7 +1364,7 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel La Mecque</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{offer.hotel_makkah}</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1"><HotelNameLink name={offer.hotel_makkah} city="makkah" /></div>
                                   {offer.hotel_makkah_stars && (
                                     <div className="flex items-center gap-0.5 md:gap-1">
                                       {[...Array(offer.hotel_makkah_stars)].map((_, i) => (
@@ -1388,7 +1389,7 @@ export default function ComparateurOmra() {
                                 <Hotel className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5 md:mt-1" />
                                 <div className="flex-1 min-w-0">
                                   <div className="text-[10px] md:text-xs font-medium text-muted-foreground uppercase tracking-wide mb-0.5 md:mb-1">Hôtel Médine</div>
-                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1">{offer.hotel_medinah}</div>
+                                  <div className="text-sm md:text-base font-semibold text-foreground mb-1"><HotelNameLink name={offer.hotel_medinah} city="medina" /></div>
                                   {offer.hotel_medina_stars && (
                                     <div className="flex items-center gap-0.5 md:gap-1">
                                       {[...Array(offer.hotel_medina_stars)].map((_, i) => (
@@ -1607,7 +1608,7 @@ export default function ComparateurOmra() {
                                     <Hotel className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                     <div className="flex-1">
                                       <div className="text-xs text-muted-foreground">Mecque</div>
-                                      <div className="text-sm font-semibold">{offer.hotel_makkah}</div>
+                                      <div className="text-sm font-semibold"><HotelNameLink name={offer.hotel_makkah} city="makkah" /></div>
                                       {offer.hotel_makkah_stars && (
                                         <div className="flex items-center gap-0.5 mt-0.5">
                                           {[...Array(offer.hotel_makkah_stars)].map((_, i) => (
@@ -1626,7 +1627,7 @@ export default function ComparateurOmra() {
                                     <Hotel className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                     <div className="flex-1">
                                       <div className="text-xs text-muted-foreground">Médine</div>
-                                      <div className="text-sm font-semibold">{offer.hotel_medinah}</div>
+                                      <div className="text-sm font-semibold"><HotelNameLink name={offer.hotel_medinah} city="medina" /></div>
                                       {offer.hotel_medina_stars && (
                                         <div className="flex items-center gap-0.5 mt-0.5">
                                           {[...Array(offer.hotel_medina_stars)].map((_, i) => (

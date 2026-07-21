@@ -534,6 +534,17 @@ const Admin = () => {
             <Building2 className="w-4 h-4 mr-2" />
             Gestion Agences
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setMobileSheetOpen(false);
+              navigate('/admin/hotels');
+            }}
+            className="justify-start"
+          >
+            <Building2 className="w-4 h-4 mr-2" />
+            Gestion Hôtels
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -737,6 +748,14 @@ const Admin = () => {
                   >
                     <Building2 className="w-4 h-4 mr-2" />
                     Gestion Agences
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin/hotels')}
+                    className="text-sm"
+                  >
+                    <Building2 className="w-4 h-4 mr-2" />
+                    Gestion Hôtels
                   </Button>
                 </>
               )}
