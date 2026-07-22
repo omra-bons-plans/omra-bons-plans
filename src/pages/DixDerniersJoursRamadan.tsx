@@ -10,11 +10,11 @@ export default function DixDerniersJoursRamadan() {
       a: "Les 10 derniers jours du Ramadan sont les plus sacrés de l'année islamique car ils contiennent la Nuit du Destin (Laylat al-Qadr), une nuit meilleure que mille mois (83 ans) de dévotion. Le Prophète Muhammad (ﷺ) intensifiait son adoration et pratiquait l'i'tikaf (retraite spirituelle) pendant ces 10 jours. Faire l'Omra pendant cette période est considéré comme équivalant à accompagner le Prophète dans un Hajj selon certains hadiths."
     },
     {
-      q: "Quand sont exactement les 10 derniers jours du Ramadan 2026 ?",
-      a: "Le Ramadan 2026 devrait débuter autour du 18 février 2026. Les 10 derniers jours correspondraient donc approximativement au 10 au 19 mars 2026. La Nuit du Destin est traditionnellement cherchée dans les nuits impaires : 21, 23, 25, 27 et 29 du Ramadan — soit autour du 12, 14, 16, 18 et 20 mars 2026. Ces dates sont indicatives et peuvent varier d'un jour selon l'observation de la lune."
+      q: "Quand sont exactement les 10 derniers jours du Ramadan 2027 ?",
+      a: "Le Ramadan 2027 devrait débuter autour du 18 février 2027. Les 10 derniers jours correspondraient donc approximativement au 10 au 19 mars 2027. La Nuit du Destin est traditionnellement cherchée dans les nuits impaires : 21, 23, 25, 27 et 29 du Ramadan — soit autour du 12, 14, 16, 18 et 20 mars 2027. Ces dates sont indicatives et peuvent varier d'un jour selon l'observation de la lune."
     },
     {
-      q: "Combien coûte une Omra pendant les 10 derniers jours du Ramadan 2026 ?",
+      q: "Combien coûte une Omra pendant les 10 derniers jours du Ramadan 2027 ?",
       a: "Les 10 derniers jours sont la période la plus chère et la plus demandée de l'année. Les prix atteignent leur maximum : de 2 500€ à 6 000€ par personne en hôtel 3-4 étoiles. Les séjours de 10 jours couvrant toute la période coûtent entre 3 000€ et 8 000€. Les places sont limitées et se réservent souvent dès septembre-octobre pour le Ramadan de l'année suivante."
     },
     {
@@ -30,12 +30,12 @@ export default function DixDerniersJoursRamadan() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>10 Derniers Jours Ramadan 2026 à La Mecque — Omra, Prix & Guide</title>
-        <meta name="description" content="Omra 10 derniers jours Ramadan 2026 : dates, prix (2 500-8 000€), Laylat al-Qadr, conseils de préparation et agences spécialisées. Réservez tôt." />
+        <title>10 Derniers Jours Ramadan 2027 à La Mecque — Omra, Prix & Guide</title>
+        <meta name="description" content="Omra 10 derniers jours Ramadan 2027 : dates, prix (2 500-8 000€), Laylat al-Qadr, conseils de préparation et agences spécialisées. Réservez tôt." />
         <meta name="keywords" content="10 derniers jours ramadan, omra 10 derniers jours, laylat al-qadr, nuit du destin, omra ramadan prix, ramadan mecque 2026, dernières nuits ramadan" />
         <link rel="canonical" href="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
-        <meta property="og:title" content="10 Derniers Jours Ramadan 2026 à La Mecque — Omra & Guide" />
-        <meta property="og:description" content="Dates, prix et conseils pour l'Omra pendant les 10 derniers jours du Ramadan 2026 incluant Laylat al-Qadr." />
+        <meta property="og:title" content="10 Derniers Jours Ramadan 2027 à La Mecque — Omra & Guide" />
+        <meta property="og:description" content="Dates, prix et conseils pour l'Omra pendant les 10 derniers jours du Ramadan 2027 incluant Laylat al-Qadr." />
         <meta property="og:url" content="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
@@ -44,8 +44,8 @@ export default function DixDerniersJoursRamadan() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Les 10 Derniers Jours du Ramadan 2026 à La Mecque — Omra, Prix & Guide",
-          "description": "Guide complet sur l'Omra pendant les 10 derniers jours du Ramadan 2026 : dates, Laylat al-Qadr, prix et préparation.",
+          "headline": "Les 10 Derniers Jours du Ramadan 2027 à La Mecque — Omra, Prix & Guide",
+          "description": "Guide complet sur l'Omra pendant les 10 derniers jours du Ramadan 2027 : dates, Laylat al-Qadr, prix et préparation.",
           "url": "https://omrabonsplans.fr/10-derniers-jours-ramadan",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
@@ -77,7 +77,7 @@ export default function DixDerniersJoursRamadan() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Les 10 Derniers Jours du Ramadan 2026 à La Mecque
+            Les 10 Derniers Jours du Ramadan 2027 à La Mecque
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Les 10 derniers jours du Ramadan sont la période la plus sacrée pour accomplir l'Omra. Laylat al-Qadr — la Nuit du Destin — s'y cache. Voici comment préparer votre séjour, les dates clés et les prix à anticiper pour 2026.
@@ -85,13 +85,13 @@ export default function DixDerniersJoursRamadan() {
         </header>
 
         <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-xl p-5 mb-8">
-          <h2 className="font-bold text-purple-900 dark:text-purple-100 mb-3">📅 Dates indicatives Ramadan 2026</h2>
+          <h2 className="font-bold text-purple-900 dark:text-purple-100 mb-3">📅 Dates indicatives Ramadan 2027</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
             {[
               { label: 'Début Ramadan', date: '~18 fév. 2026', color: 'purple' },
-              { label: 'Début 10 derniers jours', date: '~10 mars 2026', color: 'orange' },
-              { label: 'Laylat al-Qadr (27ème)', date: '~18 mars 2026', color: 'yellow' },
-              { label: 'Eid al-Fitr', date: '~20 mars 2026', color: 'green' },
+              { label: 'Début 10 derniers jours', date: '~10 mars 2027', color: 'orange' },
+              { label: 'Laylat al-Qadr (27ème)', date: '~18 mars 2027', color: 'yellow' },
+              { label: 'Eid al-Fitr', date: '~20 mars 2027', color: 'green' },
             ].map((item, i) => (
               <div key={i} className="bg-white dark:bg-gray-800 rounded-lg p-3">
                 <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
@@ -103,7 +103,7 @@ export default function DixDerniersJoursRamadan() {
         </div>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">Prix des séjours Omra — 10 derniers jours du Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">Prix des séjours Omra — 10 derniers jours du Ramadan 2027</h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
@@ -176,7 +176,7 @@ export default function DixDerniersJoursRamadan() {
               Comparer les offres Ramadan
             </Link>
             <Link to="/omra-ramadan-2026" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">
-              Guide Omra Ramadan 2026
+              Guide Omra Ramadan 2027
             </Link>
           </div>
         </section>

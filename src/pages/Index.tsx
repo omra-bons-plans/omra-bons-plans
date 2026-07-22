@@ -716,12 +716,12 @@ const Index = () => {
                     
                     {/* Description */}
                     <p className="text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-                      Les offres pour le Hajj ne sont pas encore disponibles. Nous vous invitons à revenir début janvier 2026 pour découvrir et comparer toutes les offres Hajj des agences agréées.
+                      Les offres pour le Hajj ne sont pas encore disponibles. Nous vous invitons à revenir début janvier 2027 pour découvrir et comparer toutes les offres Hajj des agences agréées.
                     </p>
                     
                     {/* Badge disponibilité */}
                     <Badge variant="outline" className="text-sm md:text-base px-4 py-2 border-primary/50 text-primary">
-                      Disponible à partir de janvier 2026
+                      Disponible à partir de janvier 2027
                     </Badge>
                     
                     {/* Image des providers Nusuk */}
@@ -825,10 +825,10 @@ const Index = () => {
               </p>
               
               <div className="space-y-3 md:space-y-4">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary">Omra Janvier 2026</h3>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary">Omra Janvier 2027</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Profitez des prix attractifs de la basse saison avec des hôtels proches du Haram.</p>
                 
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Ramadan 2026</h3>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Ramadan 2027</h3>
                 <p className="text-muted-foreground text-sm md:text-base">Vivez le Ramadan à La Mecque, période la plus spirituelle de l'année.</p>
                 
                 <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-primary mt-4 md:mt-6">Omra Décembre 2026</h3>
@@ -1268,9 +1268,9 @@ const Index = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="space-y-4">
                 <div className="text-3xl mb-2">🌙</div>
-                <h3 className="text-xl font-bold">Omra Ramadan 2026 et 2027</h3>
+                <h3 className="text-xl font-bold">Omra Ramadan 2027 et 2027</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2026</strong> ou <strong className="text-foreground">2027</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
+                  La <strong className="text-foreground">Omra pendant Ramadan</strong> est la période la plus prisée. Réservez votre <strong className="text-foreground">forfait Omra Ramadan 2027</strong> ou <strong className="text-foreground">2027</strong> dès maintenant pour profiter des <strong className="text-foreground">meilleurs tarifs</strong> et de la spiritualité intense du mois sacré.
                 </p>
               </div>
             </Card>

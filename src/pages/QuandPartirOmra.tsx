@@ -242,7 +242,7 @@ export default function QuandPartirOmra() {
             <h2 className="text-2xl font-bold mb-4">Calendrier Omra 2026 : dates clés</h2>
             <div className="space-y-3">
               {[
-                { date: "Fin fév – Fin mars 2026", event: "Ramadan 2026 (dates approximatives)", type: "important" },
+                { date: "Fin fév – Fin mars 2027", event: "Ramadan 2027 (dates approximatives)", type: "important" },
                 { date: "Déc 2025 – Jan 2026", event: "Vacances de Noël — forte demande", type: "warning" },
                 { date: "Fév 2026", event: "Vacances scolaires — familles", type: "warning" },
                 { date: "Juin – Août 2026", event: "Hajj 2026 — Omra suspendue pour étrangers", type: "danger" },

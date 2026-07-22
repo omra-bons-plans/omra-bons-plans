@@ -248,7 +248,7 @@ export default function ComparateurOmraFrance() {
                   {[
                     { period: "Hors saison (sept-nov, janv)", min: "800€", max: "1 500€", crowd: "Faible" },
                     { period: "Vacances scolaires (Noël, fév)", min: "1 500€", max: "2 500€", crowd: "Élevée" },
-                    { period: "Omra Ramadan 2026", min: "1 800€", max: "5 000€", crowd: "Très élevée" },
+                    { period: "Omra Ramadan 2027", min: "1 800€", max: "5 000€", crowd: "Très élevée" },
                     { period: "10 derniers jours Ramadan", min: "3 000€", max: "6 000€", crowd: "Maximum" },
                     { period: "Hajj 2026 (juin)", min: "6 000€", max: "15 000€", crowd: "Maximum" }
                   ].map((row, i) => (

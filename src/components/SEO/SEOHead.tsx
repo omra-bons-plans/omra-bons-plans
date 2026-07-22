@@ -116,7 +116,7 @@ export const seoConfig = {
   ramadanHajj: {
     title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
     description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.',
-    keywords: 'dates ramadan 2026, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
+    keywords: 'dates ramadan 2027, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
     canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates',
     structuredData: {
       "@context": "https://schema.org",
