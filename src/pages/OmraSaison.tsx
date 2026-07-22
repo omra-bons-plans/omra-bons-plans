@@ -54,7 +54,7 @@ const saisonsData: Record<string, {
       "Prévoyez des vêtements légers et un léger pull pour les nuits",
       "Comparez les offres tout inclus vs vol seul — l'écart peut être important"
     ],
-    description: "Octobre 2026 est une excellente période pour effectuer votre Omra. Le Ramadan 2026 étant terminé depuis mars, les prix ont significativement baissé et l'affluence autour de la Kaaba est bien moindre. Les températures commencent à devenir plus clémentes, autour de 30–35°C à La Mecque. C'est l'une des périodes préférées des pèlerins français pour allier spiritualité et confort.",
+    description: "Octobre 2026 est une excellente période pour effectuer votre Omra. Le Ramadan 2027 étant terminé depuis mars, les prix ont significativement baissé et l'affluence autour de la Kaaba est bien moindre. Les températures commencent à devenir plus clémentes, autour de 30–35°C à La Mecque. C'est l'une des périodes préférées des pèlerins français pour allier spiritualité et confort.",
     tendance: "Croissante"
   },
   'novembre-2026': {
@@ -401,7 +401,7 @@ export default function OmraSaison() {
               <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
               <div className="flex flex-col gap-1">
                 <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
-                <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2026</Link>
+                <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
                 <Link to="/ramadan-hajj-dates" className="text-primary hover:underline text-sm">Dates Ramadan & Hajj</Link>
                 <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra</Link>
               </div>

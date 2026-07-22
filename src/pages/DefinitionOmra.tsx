@@ -222,7 +222,7 @@ export default function DefinitionOmra() {
           <ul className="space-y-2 mb-4 text-muted-foreground">
             <li>🟢 <strong>Hors saison</strong> (octobre – février) : 900€ – 1 800€ par personne</li>
             <li>🟡 <strong>Pendant les vacances scolaires</strong> : 1 500€ – 2 500€</li>
-            <li>🔴 <strong>Omra Ramadan 2026</strong> : 2 000€ – 4 500€</li>
+            <li>🔴 <strong>Omra Ramadan 2027</strong> : 2 000€ – 4 500€</li>
             <li>🔴 <strong>10 derniers jours Ramadan</strong> : 3 000€ – 6 000€</li>
           </ul>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">

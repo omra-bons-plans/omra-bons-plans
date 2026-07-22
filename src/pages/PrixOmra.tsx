@@ -94,7 +94,7 @@ export default function PrixOmra() {
 
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
-            <Badge className="bg-green-600 text-white">Mis à jour avril 2026</Badge>
+            <Badge className="bg-green-600 text-white">Mis à jour avril 2027</Badge>
             <Badge variant="outline">15+ agences analysées</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
@@ -155,7 +155,7 @@ export default function PrixOmra() {
                   { period: "Décembre", p3: "1 200 – 1 600€", p4: "1 700 – 2 200€", p5: "2 500 – 3 500€", crowd: "🟡 Moyenne" },
                   { period: "Janvier", p3: "950 – 1 300€", p4: "1 400 – 1 800€", p5: "2 100 – 3 000€", crowd: "🟢 Faible" },
                   { period: "Février (hors Ramadan)", p3: "1 000 – 1 400€", p4: "1 500 – 2 000€", p5: "2 200 – 3 200€", crowd: "🟡 Moyenne" },
-                  { period: "Ramadan (fév.-mars 2026)", p3: "1 800 – 2 500€", p4: "2 500 – 3 500€", p5: "3 500 – 5 500€", crowd: "🔴 Très forte" },
+                  { period: "Ramadan (fév.-mars 2027)", p3: "1 800 – 2 500€", p4: "2 500 – 3 500€", p5: "3 500 – 5 500€", crowd: "🔴 Très forte" },
                   { period: "10 derniers jours Ramadan", p3: "2 500 – 3 200€", p4: "3 200 – 4 500€", p5: "4 500 – 6 500€", crowd: "🔴 Maximale" },
                   { period: "Avril – Mai", p3: "1 000 – 1 400€", p4: "1 500 – 2 000€", p5: "2 200 – 3 200€", crowd: "🟡 Moyenne" },
                   { period: "Juin – Août (été)", p3: "1 300 – 1 700€", p4: "1 800 – 2 400€", p5: "2 800 – 4 000€", crowd: "🟡 Moyenne" },
@@ -311,7 +311,7 @@ export default function PrixOmra() {
           <div className="flex flex-wrap gap-2">
             <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2026</Link>
+            <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>

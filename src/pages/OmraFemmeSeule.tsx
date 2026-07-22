@@ -349,7 +349,7 @@ export default function OmraFemmeSeule() {
                   ["Hors saison (sept-nov)", "850 – 1 100€", "950 – 1 300€", "1 200 – 1 700€"],
                   ["Hiver (janv-fév)", "900 – 1 200€", "1 000 – 1 400€", "1 300 – 1 800€"],
                   ["Vacances scolaires", "1 100 – 1 500€", "1 300 – 1 800€", "1 600 – 2 200€"],
-                  ["Ramadan 2026", "1 600 – 2 500€", "1 900 – 3 000€", "2 500 – 4 500€"],
+                  ["Ramadan 2027", "1 600 – 2 500€", "1 900 – 3 000€", "2 500 – 4 500€"],
                 ].map(([periode, partage, double_, individuelle], i) => (
                   <tr key={i} className={i % 2 === 0 ? "bg-muted/20" : ""}>
                     <td className="border border-border p-3 font-medium">{periode}</td>

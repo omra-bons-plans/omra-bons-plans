@@ -9,28 +9,28 @@ import { Button } from '@/components/ui/button';
 
 const faqs = [
   {
-    question: "Quel est le prix d'une Omra pendant le Ramadan 2026 ?",
-    answer: "Le prix d'une Omra pendant le Ramadan 2026 varie entre 1 800€ et 4 500€ par personne selon la formule, la proximité de l'hôtel au Haram et la durée du séjour. Les 10 derniers jours du Ramadan sont les plus chers (2 500€ à 5 000€)."
+    question: "Quel est le prix d'une Omra pendant le Ramadan 2027 ?",
+    answer: "Le prix d'une Omra pendant le Ramadan 2027 varie entre 1 800€ et 4 500€ par personne selon la formule, la proximité de l'hôtel au Haram et la durée du séjour. Les 10 derniers jours du Ramadan sont les plus chers (2 500€ à 5 000€)."
   },
   {
-    question: "Quand commence le Ramadan 2026 ?",
-    answer: "Le Ramadan 2026 devrait commencer vers le 18 février 2026 (sous réserve de l'observation de la lune). Il se terminerait aux alentours du 19-20 mars 2026, avec Aïd el-Fitr autour du 20 mars."
+    question: "Quand commence le Ramadan 2027 ?",
+    answer: "Le Ramadan 2027 devrait commencer vers le 18 février 2027 (sous réserve de l'observation de la lune). Il se terminerait aux alentours du 19-20 mars 2027, avec Aïd el-Fitr autour du 20 mars."
   },
   {
-    question: "Quand sont les 10 derniers jours du Ramadan 2026 ?",
-    answer: "Les 10 derniers jours du Ramadan 2026 se situeraient du 10 au 19 mars 2026 environ. La nuit de Laylat al-Qadr (nuit du destin) se situe habituellement lors des nuits impaires : 21, 23, 25, 27 ou 29 du Ramadan."
+    question: "Quand sont les 10 derniers jours du Ramadan 2027 ?",
+    answer: "Les 10 derniers jours du Ramadan 2027 se situeraient du 10 au 19 mars 2027 environ. La nuit de Laylat al-Qadr (nuit du destin) se situe habituellement lors des nuits impaires : 21, 23, 25, 27 ou 29 du Ramadan."
   },
   {
     question: "Faut-il réserver longtemps à l'avance pour une Omra Ramadan ?",
-    answer: "Oui, absolument. Les offres Omra Ramadan 2026 se remplissent très vite, parfois 6 à 12 mois à l'avance. Nous conseillons de réserver dès septembre-octobre 2025 pour les meilleures places et tarifs."
+    answer: "Oui, absolument. Les offres Omra Ramadan 2027 se remplissent très vite, parfois 6 à 12 mois à l'avance. Nous conseillons de réserver dès septembre-octobre 2025 pour les meilleures places et tarifs."
   },
   {
     question: "Quelle est la différence entre Omra début Ramadan et fin Ramadan ?",
     answer: "L'Omra en début de Ramadan est moins chère (1 800-2 500€) et un peu moins fréquentée. Les 10 derniers jours sont les plus spirituels (Laylat al-Qadr) mais aussi les plus chers et les plus bondés. Choisissez selon votre budget et votre objectif spirituel."
   },
   {
-    question: "Quelle agence française choisir pour l'Omra Ramadan 2026 ?",
-    answer: "Les principales agences françaises agréées pour l'Omra Ramadan 2026 sont : Tawaf, Medinvoyages, Al Maqam, Pelerinhajj, Omra Sounnah, Omra Pour Tous et Sabil Voyages. Comparez leurs offres sur notre comparateur."
+    question: "Quelle agence française choisir pour l'Omra Ramadan 2027 ?",
+    answer: "Les principales agences françaises agréées pour l'Omra Ramadan 2027 sont : Tawaf, Medinvoyages, Al Maqam, Pelerinhajj, Omra Sounnah, Omra Pour Tous et Sabil Voyages. Comparez leurs offres sur notre comparateur."
   }
 ];
 
@@ -62,12 +62,12 @@ export default function OmraRamadan() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Ramadan 2026 : Prix, Offres & 10 Derniers Jours | Guide Complet</title>
-        <meta name="description" content="Tout sur l'Omra Ramadan 2026 : dates, prix (1800€-5000€), offres agences françaises, 10 derniers jours du Ramadan. Comparez et réservez votre séjour spirituel." />
-        <meta name="keywords" content="omra ramadan 2026, omra pendant le ramadan, 10 derniers jours ramadan 2026, prix omra ramadan, offre omra ramadan, laylat al qadr 2026, omra ramadan pas chere" />
+        <title>Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours | Guide Complet</title>
+        <meta name="description" content="Tout sur l'Omra Ramadan 2027 : dates, prix (1800€-5000€), offres agences françaises, 10 derniers jours du Ramadan. Comparez et réservez votre séjour spirituel." />
+        <meta name="keywords" content="omra ramadan 2027, omra pendant le ramadan, 10 derniers jours ramadan 2027, prix omra ramadan, offre omra ramadan, laylat al qadr 2026, omra ramadan pas chere" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-ramadan-2026" />
-        <meta property="og:title" content="Omra Ramadan 2026 : Prix, Offres & 10 Derniers Jours" />
-        <meta property="og:description" content="Guide complet pour l'Omra Ramadan 2026 : dates, prix, offres d'agences françaises agréées. Comparez les séjours pour les 10 derniers jours du Ramadan." />
+        <meta property="og:title" content="Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours" />
+        <meta property="og:description" content="Guide complet pour l'Omra Ramadan 2027 : dates, prix, offres d'agences françaises agréées. Comparez les séjours pour les 10 derniers jours du Ramadan." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-ramadan-2026" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
@@ -76,8 +76,8 @@ export default function OmraRamadan() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra Ramadan 2026 : Guide Complet, Prix et Offres",
-          "description": "Guide complet pour organiser votre Omra pendant le Ramadan 2026, avec les 10 derniers jours du Ramadan.",
+          "headline": "Omra Ramadan 2027 : Guide Complet, Prix et Offres",
+          "description": "Guide complet pour organiser votre Omra pendant le Ramadan 2027, avec les 10 derniers jours du Ramadan.",
           "url": "https://omrabonsplans.fr/omra-ramadan-2026",
           "datePublished": "2026-01-15",
           "dateModified": "2026-04-01",
@@ -92,7 +92,7 @@ export default function OmraRamadan() {
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
         { name: 'Omra 2026', url: '/omra' },
-        { name: 'Omra Ramadan 2026', url: '/omra-ramadan-2026' }
+        { name: 'Omra Ramadan 2027', url: '/omra-ramadan-2026' }
       ]} />
 
       <article className="max-w-4xl mx-auto px-4 py-8">
@@ -100,11 +100,11 @@ export default function OmraRamadan() {
         {/* Hero */}
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
-            <Badge className="bg-amber-500 text-white">Ramadan 2026</Badge>
-            <Badge variant="outline">Mis à jour avril 2026</Badge>
+            <Badge className="bg-amber-500 text-white">Ramadan 2027</Badge>
+            <Badge variant="outline">Mis à jour avril 2027</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra Ramadan 2026 : Guide Complet, Prix et Meilleures Offres
+            Omra Ramadan 2027 : Guide Complet, Prix et Meilleures Offres
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             L'Omra pendant le Ramadan est l'expérience spirituelle la plus intense de l'année.
@@ -121,17 +121,17 @@ export default function OmraRamadan() {
 
         {/* Dates */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">📅 Dates du Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">📅 Dates du Ramadan 2027</h2>
           <Card>
             <CardContent className="pt-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-semibold text-lg mb-3">Calendrier Ramadan 2026</h3>
+                  <h3 className="font-semibold text-lg mb-3">Calendrier Ramadan 2027</h3>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>🌙 <strong>Début du Ramadan :</strong> ~18 février 2026</li>
-                    <li>🕌 <strong>10 derniers jours :</strong> ~10 au 19 mars 2026</li>
+                    <li>🌙 <strong>Début du Ramadan :</strong> ~18 février 2027</li>
+                    <li>🕌 <strong>10 derniers jours :</strong> ~10 au 19 mars 2027</li>
                     <li>⭐ <strong>Laylat al-Qadr :</strong> Nuits du 21, 23, 25, 27 ou 29</li>
-                    <li>🎉 <strong>Aïd el-Fitr :</strong> ~20 mars 2026</li>
+                    <li>🎉 <strong>Aïd el-Fitr :</strong> ~20 mars 2027</li>
                   </ul>
                   <p className="text-xs text-muted-foreground mt-3">* Dates sous réserve de l'observation de la lune</p>
                 </div>
@@ -151,7 +151,7 @@ export default function OmraRamadan() {
 
         {/* Prix */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">💰 Prix de l'Omra Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">💰 Prix de l'Omra Ramadan 2027</h2>
           <p className="text-muted-foreground mb-4">
             Les prix varient considérablement selon la période du Ramadan choisie, la proximité de l'hôtel
             au Haram al-Sharif et la formule sélectionnée. Voici une grille tarifaire réaliste basée
@@ -236,9 +236,9 @@ export default function OmraRamadan() {
 
         {/* 10 derniers jours */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">⭐ Omra pendant les 10 Derniers Jours du Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">⭐ Omra pendant les 10 Derniers Jours du Ramadan 2027</h2>
           <p className="text-muted-foreground mb-4">
-            Les <strong>10 derniers jours du Ramadan 2026</strong> (environ du 10 au 19 mars 2026) représentent
+            Les <strong>10 derniers jours du Ramadan 2027</strong> (environ du 10 au 19 mars 2027) représentent
             la période la plus intense et la plus recherchée de l'année pour l'Omra. Voici ce qu'il faut savoir :
           </p>
           <div className="space-y-4">
@@ -271,7 +271,7 @@ export default function OmraRamadan() {
 
         {/* Conseils réservation */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">📋 Comment bien réserver son Omra Ramadan 2026 ?</h2>
+          <h2 className="text-2xl font-bold mb-4">📋 Comment bien réserver son Omra Ramadan 2027 ?</h2>
           <ol className="space-y-4">
             {[
               { step: "1", title: "Réservez le plus tôt possible", text: "Les offres Omra Ramadan partent en quelques semaines. Dès septembre-octobre 2025, les meilleures formules sont disponibles. Plus vous attendez, plus les prix montent et les disponibilités se réduisent." },
@@ -293,10 +293,10 @@ export default function OmraRamadan() {
 
         {/* Agences */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">🏢 Meilleures agences françaises pour l'Omra Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">🏢 Meilleures agences françaises pour l'Omra Ramadan 2027</h2>
           <p className="text-muted-foreground mb-4">
             Toutes ces agences sont agréées pour l'organisation d'Omra depuis la France et proposent des
-            offres spéciales Ramadan 2026 :
+            offres spéciales Ramadan 2027 :
           </p>
           <div className="grid md:grid-cols-2 gap-3">
             {[
@@ -354,7 +354,7 @@ export default function OmraRamadan() {
 
         {/* FAQ */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-6">❓ Questions fréquentes sur l'Omra Ramadan 2026</h2>
+          <h2 className="text-2xl font-bold mb-6">❓ Questions fréquentes sur l'Omra Ramadan 2027</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <Card key={i}>
@@ -371,7 +371,7 @@ export default function OmraRamadan() {
 
         {/* CTA */}
         <section className="bg-primary/5 rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-3">Prêt à réserver votre Omra Ramadan 2026 ?</h2>
+          <h2 className="text-2xl font-bold mb-3">Prêt à réserver votre Omra Ramadan 2027 ?</h2>
           <p className="text-muted-foreground mb-6">
             Comparez les offres de 15+ agences françaises agréées. Filtrez par ville de départ,
             période du Ramadan et budget. Réservez en toute confiance.
@@ -414,7 +414,7 @@ export default function OmraRamadan() {
             <span className="text-muted-foreground">·</span>
             <Link to="/agences-liste" className="text-primary hover:underline text-sm">Agences Omra France</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/ramadan-hajj-dates" className="text-primary hover:underline text-sm">Dates Ramadan 2026</Link>
+            <Link to="/ramadan-hajj-dates" className="text-primary hover:underline text-sm">Dates Ramadan 2027</Link>
           </div>
         </nav>
 

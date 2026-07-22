@@ -427,7 +427,7 @@ export default function OmraVille() {
   const tableauPrix = [
     { periode: 'Automne (sept – nov)', eco: data.prixEco, confort: data.prixConfort },
     { periode: 'Hiver hors-Ramadan (janv – fév)', eco: data.prixEco, confort: data.prixConfort },
-    { periode: 'Ramadan 2026', eco: data.prixRamadan, confort: data.prixRamadan },
+    { periode: 'Ramadan 2027', eco: data.prixRamadan, confort: data.prixRamadan },
     { periode: 'Printemps (avr – juin)', eco: data.prixEco, confort: data.prixConfort },
     { periode: 'Été (juil – août)', eco: data.prixEco, confort: data.prixConfort },
     { periode: 'Vacances scolaires', eco: data.prixConfort, confort: data.prixRamadan },

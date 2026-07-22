@@ -20,10 +20,10 @@ export const FAQSchema = () => {
         },
         {
           "@type": "Question",
-          "name": "Quel est le prix d'une Omra Ramadan 2026 ?",
+          "name": "Quel est le prix d'une Omra Ramadan 2027 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Le prix d'une Omra Ramadan 2026 varie entre 1800€ et 5000€ selon la formule (économique, confort ou luxe), la proximité des hôtels au Haram et si vous choisissez les 10 derniers jours du Ramadan. Les prix sont plus élevés pendant le Ramadan en raison de la forte demande spirituelle."
+            "text": "Le prix d'une Omra Ramadan 2027 varie entre 1800€ et 5000€ selon la formule (économique, confort ou luxe), la proximité des hôtels au Haram et si vous choisissez les 10 derniers jours du Ramadan. Les prix sont plus élevés pendant le Ramadan en raison de la forte demande spirituelle."
           }
         },
         {
@@ -55,7 +55,7 @@ export const FAQSchema = () => {
           "name": "Quelle est la meilleure période pour faire la Omra 2026 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La Omra peut être effectuée toute l'année 2026. Les périodes les plus prisées sont le Ramadan (février-mars 2026) pour sa spiritualité intense. Pour des prix plus avantageux, privilégiez janvier, septembre ou novembre 2026. Les vacances scolaires sont aussi populaires pour les familles."
+            "text": "La Omra peut être effectuée toute l'année 2026. Les périodes les plus prisées sont le Ramadan (février-mars 2027) pour sa spiritualité intense. Pour des prix plus avantageux, privilégiez janvier, septembre ou novembre 2026. Les vacances scolaires sont aussi populaires pour les familles."
           }
         }
       ]

@@ -12,28 +12,28 @@ import { Link } from 'react-router-dom';
 
 const faqs = [
   {
-    question: "Quand commence le Ramadan 2026 ?",
-    answer: "Le Ramadan 2026 commence le 18 février 2026 et se termine le 19 mars 2026. L'Aïd al-Fitr (fête de rupture du jeûne) est prévu le 19 mars 2026. Ces dates sont calculées par calcul astronomique et peuvent varier d'un jour selon l'observation locale de la lune croissante."
+    question: "Quand commence le Ramadan 2027 ?",
+    answer: "Le Ramadan 2027 commence le 18 février 2027 et se termine le 19 mars 2027. L'Aïd al-Fitr (fête de rupture du jeûne) est prévu le 19 mars 2027. Ces dates sont calculées par calcul astronomique et peuvent varier d'un jour selon l'observation locale de la lune croissante."
   },
   {
     question: "Quand a lieu le Hajj 2026 ?",
-    answer: "Le Hajj 2026 se déroule du 26 au 31 mai 2026. Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2026, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2026. Si vous souhaitez accomplir le Hajj 2026, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
+    answer: "Le Hajj 2026 se déroule du 26 au 31 mai 2027. Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2027, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2027. Si vous souhaitez accomplir le Hajj 2026, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
   },
   {
     question: "Comment sont calculées les dates du Ramadan et du Hajj ?",
     answer: "Les dates du Ramadan et du Hajj sont basées sur le calendrier lunaire islamique (calendrier hégirien). Chaque mois commence à la nouvelle lune. Le Ramadan est le 9e mois, le Hajj a lieu au 12e mois (Dhu al-Hijja). Comme l'année lunaire compte 354 jours (contre 365 pour l'année grégorienne), les dates avancent d'environ 10-11 jours chaque année."
   },
   {
-    question: "Peut-on faire l'Omra pendant le Ramadan 2026 ?",
-    answer: "Oui, l'Omra pendant le Ramadan est particulièrement recommandée car le Prophète Muhammad ﷺ a dit qu'elle équivaut en récompense à un Hajj. Comptez entre 2 000 € et 5 000 € par personne pour l'Omra du Ramadan 2026 (18 février - 19 mars). Les prix sont plus élevés que hors Ramadan en raison de la très forte demande. Réservez au moins 6 mois à l'avance."
+    question: "Peut-on faire l'Omra pendant le Ramadan 2027 ?",
+    answer: "Oui, l'Omra pendant le Ramadan est particulièrement recommandée car le Prophète Muhammad ﷺ a dit qu'elle équivaut en récompense à un Hajj. Comptez entre 2 000 € et 5 000 € par personne pour l'Omra du Ramadan 2027 (18 février - 19 mars). Les prix sont plus élevés que hors Ramadan en raison de la très forte demande. Réservez au moins 6 mois à l'avance."
   },
   {
     question: "Quelle est la différence entre l'Omra et le Hajj ?",
     answer: "L'Omra est le 'petit pèlerinage' : on peut le faire à n'importe quelle période de l'année, il comprend le tawaf (7 tours autour de la Kaaba) et le sa'y (entre Safa et Marwa). Le Hajj est le 'grand pèlerinage', obligatoire une fois dans la vie pour tout musulman qui en a les moyens : il a lieu uniquement du 8 au 13 Dhu al-Hijja et comprend des rites supplémentaires comme le séjour à Mina, le jour d'Arafat et le jet des pierres à Muzdalifa."
   },
   {
-    question: "Quand faut-il réserver son Omra pour le Ramadan 2026 ?",
-    answer: "Pour l'Omra du Ramadan 2026 (18 février - 19 mars), il est conseillé de réserver entre juin et octobre 2025, soit 4 à 8 mois à l'avance. Les agences sérieuses ouvrent leurs inscriptions très tôt pour cette période. Les 10 derniers jours du Ramadan (nuits impaires) sont les plus demandés : les places partent en quelques semaines et les prix peuvent atteindre 4 000 à 8 000 €."
+    question: "Quand faut-il réserver son Omra pour le Ramadan 2027 ?",
+    answer: "Pour l'Omra du Ramadan 2027 (18 février - 19 mars), il est conseillé de réserver entre juin et octobre 2025, soit 4 à 8 mois à l'avance. Les agences sérieuses ouvrent leurs inscriptions très tôt pour cette période. Les 10 derniers jours du Ramadan (nuits impaires) sont les plus demandés : les places partent en quelques semaines et les prix peuvent atteindre 4 000 à 8 000 €."
   },
   {
     question: "Quelles sont les dates du Ramadan et du Hajj pour 2027 et 2028 ?",
@@ -46,9 +46,9 @@ const RamadanHajjDates = () => {
   const ramadanDates = [
     {
       year: '2026',
-      startDate: '18 février 2026',
-      endDate: '19 mars 2026',
-      eidDate: '19 mars 2026',
+      startDate: '18 février 2027',
+      endDate: '19 mars 2027',
+      eidDate: '19 mars 2027',
       hijriYear: '1447'
     },
     {
@@ -70,10 +70,10 @@ const RamadanHajjDates = () => {
   const hajjDates = [
     {
       year: '2026',
-      startDate: '26 mai 2026',
-      endDate: '31 mai 2026',
-      arafatDate: '27 mai 2026',
-      eidDate: '28 mai 2026',
+      startDate: '26 mai 2027',
+      endDate: '31 mai 2027',
+      arafatDate: '27 mai 2027',
+      eidDate: '28 mai 2027',
       hijriYear: '1447'
     },
     {
@@ -99,7 +99,7 @@ const RamadanHajjDates = () => {
       <Helmet>
         <title>Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage Islam</title>
         <meta name="description" content="Découvrez les dates officielles du Ramadan et du Hajj 2026-2028 : début et fin du jeûne, jour d'Arafat, Aïd al-Fitr et Aïd al-Adha. Planifiez votre pèlerinage." />
-        <meta name="keywords" content="dates ramadan 2026, hajj 2027, calendrier hajj, arafat date, eid dates" />
+        <meta name="keywords" content="dates ramadan 2027, hajj 2027, calendrier hajj, arafat date, eid dates" />
         <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage" />
@@ -153,8 +153,8 @@ const RamadanHajjDates = () => {
               "itemListElement": [
                 {
                   "@type": "Event",
-                  "name": "Ramadan 2026",
-                  "description": "Mois sacré du jeûne musulman du 18 février au 19 mars 2026 avec l'Aïd al-Fitr le 19 mars 2026",
+                  "name": "Ramadan 2027",
+                  "description": "Mois sacré du jeûne musulman du 18 février au 19 mars 2027 avec l'Aïd al-Fitr le 19 mars 2027",
                   "startDate": "2026-02-18",
                   "endDate": "2026-03-19",
                   "location": {
@@ -169,7 +169,7 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Hajj 2026",
-                  "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2026 avec le jour d'Arafat le 27 mai et l'Aïd al-Adha le 28 mai 2026",
+                  "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2027 avec le jour d'Arafat le 27 mai et l'Aïd al-Adha le 28 mai 2027",
                   "startDate": "2026-05-26",
                   "endDate": "2026-05-31",
                   "location": {
@@ -255,7 +255,7 @@ const RamadanHajjDates = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Dates du Ramadan 2026 et du Hajj 2026
+              Dates du Ramadan 2027 et du Hajj 2026
             </h1>
             <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
               Calendrier complet des dates officielles du Ramadan et du Hajj pour 2026, 2027 et 2028
@@ -291,7 +291,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <Calendar className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2026-2028</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2027-2028</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier complet des dates de jeûne et de l'Aïd al-Fitr</p>
                 </div>
               </div>
@@ -439,7 +439,7 @@ const RamadanHajjDates = () => {
             </div>
             <div className="mt-6 p-4 bg-primary/5 rounded-lg border">
               <p className="text-sm text-muted-foreground">
-                Vous souhaitez accomplir l'Omra pendant le Ramadan 2026 ?{' '}
+                Vous souhaitez accomplir l'Omra pendant le Ramadan 2027 ?{' '}
                 <Link to="/" className="text-primary hover:underline font-medium">
                   Comparez les offres des agences agréées →
                 </Link>

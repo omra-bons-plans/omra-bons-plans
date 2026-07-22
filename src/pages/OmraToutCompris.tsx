@@ -237,7 +237,7 @@ export default function OmraToutCompris() {
                     <td className="p-3">Budget maîtrisé hors Ramadan</td>
                   </tr>
                   <tr className="border-t bg-muted/30">
-                    <td className="p-3 font-medium">Ramadan 2026 (mars)</td>
+                    <td className="p-3 font-medium">Ramadan 2027 (mars)</td>
                     <td className="p-3 text-center">🔴 Très forte</td>
                     <td className="p-3 text-center font-semibold text-red-700">2 800€-5 000€+</td>
                     <td className="p-3">Récompense spirituelle maximale</td>
