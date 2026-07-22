@@ -16,8 +16,8 @@ const faqs = [
     answer: "Le Ramadan 2027 commence le 18 février 2027 et se termine le 19 mars 2027. L'Aïd al-Fitr (fête de rupture du jeûne) est prévu le 19 mars 2027. Ces dates sont calculées par calcul astronomique et peuvent varier d'un jour selon l'observation locale de la lune croissante."
   },
   {
-    question: "Quand a lieu le Hajj 2026 ?",
-    answer: "Le Hajj 2026 se déroule du 26 au 31 mai 2027. Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2027, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2027. Si vous souhaitez accomplir le Hajj 2026, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
+    question: "Quand a lieu le Hajj 2027 ?",
+    answer: "Le Hajj 2027 se déroule du 26 au 31 mai 2027. Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2027, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2027. Si vous souhaitez accomplir le Hajj 2027, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
   },
   {
     question: "Comment sont calculées les dates du Ramadan et du Hajj ?",
@@ -97,13 +97,13 @@ const RamadanHajjDates = () => {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage Islam</title>
-        <meta name="description" content="Découvrez les dates officielles du Ramadan et du Hajj 2026-2028 : début et fin du jeûne, jour d'Arafat, Aïd al-Fitr et Aïd al-Adha. Planifiez votre pèlerinage." />
+        <title>Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage Islam</title>
+        <meta name="description" content="Découvrez les dates officielles du Ramadan et du Hajj 2027-2028 : début et fin du jeûne, jour d'Arafat, Aïd al-Fitr et Aïd al-Adha. Planifiez votre pèlerinage." />
         <meta name="keywords" content="dates ramadan 2027, hajj 2027, calendrier hajj, arafat date, eid dates" />
         <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage" />
-        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2026-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
+        <meta property="og:title" content="Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage" />
+        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2027-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
         <meta property="og:url" content="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -111,8 +111,8 @@ const RamadanHajjDates = () => {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage Islam",
-          "description": "Calendrier officiel des dates du Ramadan et du Hajj 2026-2028 : dates Arafat, Eid al-Fitr, Eid al-Adha. Préparez votre pèlerinage.",
+          "headline": "Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage Islam",
+          "description": "Calendrier officiel des dates du Ramadan et du Hajj 2027-2028 : dates Arafat, Eid al-Fitr, Eid al-Adha. Préparez votre pèlerinage.",
           "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
@@ -134,8 +134,8 @@ const RamadanHajjDates = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Dates Ramadan & Hajj 2026-2028",
-            "description": "Calendrier officiel des dates du Ramadan et du Hajj 2026-2028 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
+            "name": "Dates Ramadan & Hajj 2027-2028",
+            "description": "Calendrier officiel des dates du Ramadan et du Hajj 2027-2028 avec dates exactes pour Arafat, Eid al-Fitr et Eid al-Adha",
             "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
             "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
             "publisher": {
@@ -168,7 +168,7 @@ const RamadanHajjDates = () => {
                 },
                 {
                   "@type": "Event",
-                  "name": "Hajj 2026",
+                  "name": "Hajj 2027",
                   "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2027 avec le jour d'Arafat le 27 mai et l'Aïd al-Adha le 28 mai 2027",
                   "startDate": "2026-05-26",
                   "endDate": "2026-05-31",
@@ -255,7 +255,7 @@ const RamadanHajjDates = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Dates du Ramadan 2027 et du Hajj 2026
+              Dates du Ramadan 2027 et du Hajj 2027
             </h1>
             <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
               Calendrier complet des dates officielles du Ramadan et du Hajj pour 2026, 2027 et 2028
@@ -329,7 +329,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <MapPin className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2026-2028</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2027-2028</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier des dates officielles du pèlerinage à La Mecque et de l'Aïd al-Adha</p>
                 </div>
               </div>

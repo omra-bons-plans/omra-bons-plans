@@ -57,7 +57,7 @@ export const HajjNewsletterForm = () => {
         setEmail('');
         toast({
           title: "Inscription réussie !",
-          description: "Vous serez notifié(e) dès que les offres Hajj 2026 seront disponibles."
+          description: "Vous serez notifié(e) dès que les offres Hajj 2027 seront disponibles."
         });
       }
     } catch (error) {
@@ -84,7 +84,7 @@ export const HajjNewsletterForm = () => {
               Inscription confirmée !
             </h4>
             <p className="text-sm text-green-700 dark:text-green-300">
-              Vous recevrez un email dès que les offres Hajj 2026 seront disponibles.
+              Vous recevrez un email dès que les offres Hajj 2027 seront disponibles.
             </p>
           </div>
         </div>
@@ -100,7 +100,7 @@ export const HajjNewsletterForm = () => {
             Ne ratez rien !
           </h4>
           <p className="text-sm text-muted-foreground">
-            Inscrivez-vous pour être informé(e) dès que les offres Hajj 2026 seront disponibles
+            Inscrivez-vous pour être informé(e) dès que les offres Hajj 2027 seront disponibles
           </p>
         </div>
 

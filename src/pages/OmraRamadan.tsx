@@ -406,7 +406,7 @@ export default function OmraRamadan() {
           <div className="flex flex-wrap gap-2">
             <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/hajj" className="text-primary hover:underline text-sm">Comparateur Hajj 2026</Link>
+            <Link to="/hajj" className="text-primary hover:underline text-sm">Comparateur Hajj 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
             <span className="text-muted-foreground">·</span>

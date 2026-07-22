@@ -592,7 +592,7 @@ const PrayerTimes = () => {
               </a>
               <a href="/ramadan-hajj-dates" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
                 <h3 className="font-semibold mb-1">Dates Ramadan & Hajj</h3>
-                <p className="text-sm text-muted-foreground">Consultez les dates du Ramadan et du Hajj 2026-2028</p>
+                <p className="text-sm text-muted-foreground">Consultez les dates du Ramadan et du Hajj 2027-2028</p>
               </a>
               <a href="/category/sejours" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
                 <h3 className="font-semibold mb-1">Séjours Omra</h3>

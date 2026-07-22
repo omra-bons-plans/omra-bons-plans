@@ -250,7 +250,7 @@ export default function ComparateurOmraFrance() {
                     { period: "Vacances scolaires (Noël, fév)", min: "1 500€", max: "2 500€", crowd: "Élevée" },
                     { period: "Omra Ramadan 2027", min: "1 800€", max: "5 000€", crowd: "Très élevée" },
                     { period: "10 derniers jours Ramadan", min: "3 000€", max: "6 000€", crowd: "Maximum" },
-                    { period: "Hajj 2026 (juin)", min: "6 000€", max: "15 000€", crowd: "Maximum" }
+                    { period: "Hajj 2027 (juin)", min: "6 000€", max: "15 000€", crowd: "Maximum" }
                   ].map((row, i) => (
                     <tr key={i} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
                       <td className="p-4 font-medium">{row.period}</td>

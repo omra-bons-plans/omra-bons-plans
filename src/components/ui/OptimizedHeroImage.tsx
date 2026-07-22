@@ -21,7 +21,7 @@ export const OptimizedHeroImage = ({
       />
       <img
         src="/hero-kaaba-optimized.webp"
-        alt="Comparateur Omra & Hajj 2026 - La Kaaba à La Mecque"
+        alt="Comparateur Omra & Hajj 2027 - La Kaaba à La Mecque"
         className="absolute inset-0 w-full h-full object-cover"
         width={desktopWidth}
         height={desktopHeight}

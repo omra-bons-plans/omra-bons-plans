@@ -245,7 +245,7 @@ export default function QuandPartirOmra() {
                 { date: "Fin fév – Fin mars 2027", event: "Ramadan 2027 (dates approximatives)", type: "important" },
                 { date: "Déc 2025 – Jan 2026", event: "Vacances de Noël — forte demande", type: "warning" },
                 { date: "Fév 2026", event: "Vacances scolaires — familles", type: "warning" },
-                { date: "Juin – Août 2026", event: "Hajj 2026 — Omra suspendue pour étrangers", type: "danger" },
+                { date: "Juin – Août 2026", event: "Hajj 2027 — Omra suspendue pour étrangers", type: "danger" },
                 { date: "Sept – Nov 2026", event: "Basse saison — meilleurs prix", type: "success" }
               ].map((item, i) => {
                 const colors = {

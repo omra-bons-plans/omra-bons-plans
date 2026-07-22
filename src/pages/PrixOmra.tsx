@@ -60,7 +60,7 @@ export default function PrixOmra() {
       <Helmet>
         <title>Prix Omra 2026 : Tarifs par Saison, Ville & Agence | Comparatif Complet</title>
         <meta name="description" content="Tableau complet des prix Omra 2026 : de 800€ à 6 500€ selon la période, la ville de départ et l'agence. Comparez les tarifs et trouvez l'offre la moins chère." />
-        <meta name="keywords" content="prix omra 2026, tarif omra 2026, combien coute une omra, prix omra ramadan, omra pas chere, cout omra france, tarif hajj 2026" />
+        <meta name="keywords" content="prix omra 2026, tarif omra 2026, combien coute une omra, prix omra ramadan, omra pas chere, cout omra france, tarif hajj 2027" />
         <link rel="canonical" href="https://omrabonsplans.fr/prix-omra-2026" />
         <meta property="og:title" content="Prix Omra 2026 : Tarifs Complets par Saison et Agence" />
         <meta property="og:description" content="Découvrez les prix réels de l'Omra 2026. Tableaux de tarifs par saison, ville de départ et catégorie d'hôtel. De 800€ à 6 500€." />
