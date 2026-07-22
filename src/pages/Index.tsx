@@ -161,7 +161,7 @@ const Index = () => {
     { id: "guides", name: "Guides", icon: "book-open", description: "Guides spirituels", count: getCategoryCount("guides") },
     { id: "chauffeurs", name: "Chauffeurs", icon: "car", description: "Transport privé", count: getCategoryCount("chauffeurs") },
     { id: "babysitting", name: "Baby-sitting", icon: "heart", description: "Garde d'enfants", count: getCategoryCount("babysitting") },
-    { id: "hajj", name: "Hajj 2026", icon: "star", description: "Offres Hajj", count: 0 }
+    { id: "hajj", name: "Hajj 2027", icon: "star", description: "Offres Hajj", count: 0 }
   ];
 
   // ❌ REMOVED: Auto-scroll was blocking main thread during LCP
@@ -328,7 +328,7 @@ const Index = () => {
         <div className="hero-media" style={{ minHeight: isMobile ? '100svh' : '400px' }}>
           <img
             src="/hero-kaaba-optimized.webp"
-            alt="Omra Bons Plans – Séjours Omra et Hajj 2026"
+            alt="Omra Bons Plans – Séjours Omra et Hajj 2027"
             width={1280}
             height={720}
             fetchPriority="high"
@@ -439,7 +439,7 @@ const Index = () => {
                     <div className="mb-8 md:mb-16">
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-8 mb-6 md:mb-8">
                       <div>
-                        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">Ventes Flash Omra & Hajj 2026 : Séjours, vols et hébergements à prix réduits</h2>
+                        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">Ventes Flash Omra & Hajj 2027 : Séjours, vols et hébergements à prix réduits</h2>
                         <p className="text-muted-foreground text-sm md:text-base lg:text-lg">Profitez de nos offres promotionnelles limitées sur les packages tout inclus, billets d'avion et hôtels près du Haram</p>
                       </div>
                         
@@ -698,7 +698,7 @@ const Index = () => {
           {/* Listings under tabs */}
           <div id="services-listing" />
           
-          {/* Section spéciale Hajj 2026 */}
+          {/* Section spéciale Hajj 2027 */}
           {selectedCategory === "hajj" ? (
             <div className="py-8 md:py-12 mb-16">
               <Card className="overflow-hidden border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
@@ -711,7 +711,7 @@ const Index = () => {
                     
                     {/* Title */}
                     <h3 className="text-2xl md:text-4xl font-bold text-foreground">
-                      Offres Hajj 2026
+                      Offres Hajj 2027
                     </h3>
                     
                     {/* Description */}
@@ -727,7 +727,7 @@ const Index = () => {
                     {/* Image des providers Nusuk */}
                     <div className="mt-8">
                       <p className="text-foreground font-semibold text-lg md:text-xl mb-4">
-                        Voici les 12 providers qui proposeront très prochainement leurs offres "Hajj 2026" sur la plateforme Nusuk
+                        Voici les 12 providers qui proposeront très prochainement leurs offres "Hajj 2027" sur la plateforme Nusuk
                       </p>
                       <p className="text-muted-foreground text-sm md:text-base mb-6">
                         Pensez à mettre de l'argent sur votre compte Nusuk pour être prêt lors de l'ouverture des ventes !
@@ -735,7 +735,7 @@ const Index = () => {
                       <div className="rounded-xl overflow-hidden border-2 border-border/50 shadow-lg max-w-4xl mx-auto">
                         <img 
                           src="/images/hajj-providers-nusuk.png"
-                          alt="Les 12 providers Hajj 2026 sur la plateforme Nusuk"
+                          alt="Les 12 providers Hajj 2027 sur la plateforme Nusuk"
                           className="w-full h-auto"
                           width={800}
                           height={450}
@@ -749,7 +749,7 @@ const Index = () => {
                     <div className="mt-8 p-6 bg-card rounded-xl border max-w-lg mx-auto">
                       <h4 className="text-lg font-semibold mb-2">Ne ratez rien !</h4>
                       <p className="text-sm text-muted-foreground mb-4">
-                        Inscrivez-vous pour être informé(e) dès que les offres Hajj 2026 seront disponibles
+                        Inscrivez-vous pour être informé(e) dès que les offres Hajj 2027 seront disponibles
                       </p>
                       <Suspense fallback={<div className="h-10 bg-muted animate-pulse rounded" />}>
                         <HajjNewsletterForm />
@@ -998,7 +998,7 @@ const Index = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2 md:mr-3 mt-1">✓</span>
-                  <span className="text-muted-foreground text-sm md:text-base lg:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2026</strong>, étape par étape.</span>
+                  <span className="text-muted-foreground text-sm md:text-base lg:text-lg">Préparer sereinement le <strong className="font-semibold">Hajj 2027</strong>, étape par étape.</span>
                 </li>
               </ul>
               
@@ -1057,7 +1057,7 @@ const Index = () => {
       <section className="py-8 md:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 bg-card">
         <div className="container mx-auto md:max-w-6xl">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold mb-3 md:mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2026 : rituels, visa, choix d'agence</h2>
+            <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold mb-3 md:mb-4">Guides et articles complets pour préparer votre Omra et Hajj 2027 : rituels, visa, choix d'agence</h2>
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg px-2">Consultez nos guides détaillés rédigés par des experts pour bien préparer votre pèlerinage : explications des rites, démarches administratives, comparatif d'agences et conseils pratiques essentiels</p>
           </div>
 
@@ -1578,7 +1578,7 @@ const Index = () => {
           <div className="border-t border-border pt-8 pb-8">
             <div className="md:max-w-3xl mx-auto text-center space-y-4">
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                <strong className="text-foreground">Omra Bons Plans</strong> est le site de référence pour préparer votre <strong className="text-foreground">voyage Omra</strong> et votre <strong className="text-foreground">Hajj 2026</strong>. Avec des conseils pratiques, des comparatifs d'<strong className="text-foreground">agences Omra</strong>, des explications claires sur le <strong className="text-foreground">visa Omra</strong>, et des astuces pour trouver une <strong className="text-foreground">Omra pas chère</strong>, nous vous aidons à vivre votre pèlerinage dans les meilleures conditions.
+                <strong className="text-foreground">Omra Bons Plans</strong> est le site de référence pour préparer votre <strong className="text-foreground">voyage Omra</strong> et votre <strong className="text-foreground">Hajj 2027</strong>. Avec des conseils pratiques, des comparatifs d'<strong className="text-foreground">agences Omra</strong>, des explications claires sur le <strong className="text-foreground">visa Omra</strong>, et des astuces pour trouver une <strong className="text-foreground">Omra pas chère</strong>, nous vous aidons à vivre votre pèlerinage dans les meilleures conditions.
               </p>
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                 Que vous soyez en pleine préparation spirituelle ou à la recherche d'informations pratiques, ce site est là pour vous accompagner à chaque étape.

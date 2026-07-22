@@ -198,16 +198,16 @@ const Blog = () => {
     <ResponsiveLayout>
       <SEOHead
         title={
-          category === 'general' ? 'Blog Omra & Hajj 2026 | Guides et Conseils Pèlerinage'
+          category === 'general' ? 'Blog Omra & Hajj 2027 | Guides et Conseils Pèlerinage'
           : category ? `Blog ${getCategoryName(category)} - Omra Bons Plans`
-          : 'Blog Omra & Hajj 2026 | Guides, Conseils et Actualités Pèlerinage'
+          : 'Blog Omra & Hajj 2027 | Guides, Conseils et Actualités Pèlerinage'
         }
         description={
           category === 'general'
-            ? "Guides complets Omra & Hajj 2026 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
+            ? "Guides complets Omra & Hajj 2027 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
             : category
             ? `Articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage.`
-            : "Guides complets Omra & Hajj 2026 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
+            : "Guides complets Omra & Hajj 2027 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
         }
         keywords="blog omra, guides hajj, préparation pèlerinage, rites omra, visa omra, prix omra 2026"
         canonical={`https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`}
@@ -253,7 +253,7 @@ const Blog = () => {
               {selectedCategory === 'all' ? "Blog Omra & Hajj : Guides et Conseils 2026-2027" : `Blog ${getCategoryName(selectedCategory)}`}
             </h1>
             <h2 className="text-base sm:text-xl text-muted-foreground mb-2 font-semibold">
-              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2026-2027"}
+              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2027-2027"}
               {selectedCategory === 'restaurants' && "Sélection des meilleurs restaurants halal certifiés à La Mecque et Médine"}
               {selectedCategory === 'associations' && "Associations musulmanes et organisations caritatives œuvrant pour la communauté"}
               {selectedCategory === 'vendeurs' && "Annuaire des commerçants et artisans de confiance pour vos besoins"}

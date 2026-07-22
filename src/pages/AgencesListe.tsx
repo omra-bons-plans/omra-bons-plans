@@ -83,12 +83,12 @@ export default function AgencesListe() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs Comparés</title>
+        <title>Meilleures Agences Omra & Hajj 2027 — Avis, Notes & Tarifs Comparés</title>
         <meta name="description" content="Top 20 agences Omra & Hajj en France : notes authentiques, agréments officiels, points forts et tarifs 2026. Comparez et choisissez en toute confiance." />
         <meta name="keywords" content="meilleure agence omra 2026, agence hajj france, comparatif agences omra, agence voyage mecque agréée, avis agences omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs" />
+        <meta property="og:title" content="Meilleures Agences Omra & Hajj 2027 — Avis, Notes & Tarifs" />
         <meta property="og:description" content="Top 20 agences Omra & Hajj en France avec notes authentiques, agréments officiels et tarifs comparés 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/agences-liste" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
@@ -97,7 +97,7 @@ export default function AgencesListe() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Meilleures Agences Omra & Hajj 2026 — Avis, Notes & Tarifs Comparés",
+          "headline": "Meilleures Agences Omra & Hajj 2027 — Avis, Notes & Tarifs Comparés",
           "description": "Top 20 agences Omra & Hajj en France : notes clients authentiques, agréments ministère du Hajj, points forts, faiblesses et tarifs 2026.",
           "url": "https://omrabonsplans.fr/agences-liste",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -132,7 +132,7 @@ export default function AgencesListe() {
 
         <header className="text-center mb-6 md:mb-8">
           <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            {isMobile ? 'Agences Omra & Hajj 2026' : 'Liste Complète des Agences Omra & Hajj 2026-2027'}
+            {isMobile ? 'Agences Omra & Hajj 2027' : 'Liste Complète des Agences Omra & Hajj 2027-2027'}
           </h1>
           {!isMobile && (
               <>

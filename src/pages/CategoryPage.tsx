@@ -149,8 +149,8 @@ const CategoryPage = () => {
   return (
     <ResponsiveLayout>
       <SEOHead
-        title={`${categoryInfo.name} pour Omra & Hajj 2026 - ${sortedListings.length} Offres | Omra Bons Plans`}
-        description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2026. ${categoryInfo.description} au meilleur prix.`}
+        title={`${categoryInfo.name} pour Omra & Hajj 2027 - ${sortedListings.length} Offres | Omra Bons Plans`}
+        description={`Découvrez ${sortedListings.length} annonces de ${categoryInfo.name.toLowerCase()} pour votre Omra et Hajj 2027. ${categoryInfo.description} au meilleur prix.`}
         keywords={`${categoryInfo.name.toLowerCase()} omra, hajj ${categoryInfo.name.toLowerCase()}, ${category} omra 2026`}
         canonical={`https://omrabonsplans.fr/category/${category}`}
         noindex={!loading && sortedListings.length === 0}
@@ -465,7 +465,7 @@ const CategoryPage = () => {
                 {category === 'sejours' && (
                   <div className="space-y-4">
                     <p>
-                      Découvrez notre sélection exclusive de <strong>packages Omra et Hajj 2026</strong> tout inclus proposés par des agences de voyage certifiées. Chaque séjour comprend les vols internationaux, les hébergements en hôtels 4 ou 5 étoiles situés à proximité immédiate du Haram de La Mecque et de la Mosquée du Prophète à Médine, les transferts terrestres climatisés, les visas, l&apos;accompagnement spirituel par des guides francophones expérimentés, et l&apos;assurance voyage complète.
+                      Découvrez notre sélection exclusive de <strong>packages Omra et Hajj 2027</strong> tout inclus proposés par des agences de voyage certifiées. Chaque séjour comprend les vols internationaux, les hébergements en hôtels 4 ou 5 étoiles situés à proximité immédiate du Haram de La Mecque et de la Mosquée du Prophète à Médine, les transferts terrestres climatisés, les visas, l&apos;accompagnement spirituel par des guides francophones expérimentés, et l&apos;assurance voyage complète.
                     </p>
                     <p>
                       Nos séjours s&apos;adaptent à tous les budgets et toutes les durées : formules économiques de 7 jours pour une première Omra, packages standards de 10 à 15 jours pour une expérience complète, ou séjours premium de 21 jours avec services VIP et chambres face au Haram. Voyagez en groupe avec d&apos;autres pèlerins francophones ou optez pour un séjour individuel personnalisé selon vos dates et préférences.
@@ -475,7 +475,7 @@ const CategoryPage = () => {
                 {category === 'vols' && (
                   <div className="space-y-4">
                     <p>
-                      Comparez et réservez vos <strong>billets d&apos;avion vers Jeddah et Médine</strong> au meilleur prix pour votre Omra ou Hajj 2026. Nous proposons des vols directs et avec escale au départ des principales villes françaises (Paris, Lyon, Marseille, Toulouse, Nantes, Nice) vers l&apos;Arabie Saoudite. Les vols directs sur compagnies régulières (Saudi Airlines, Air France, Turkish Airlines) offrent un confort optimal avec une durée de vol de 5 à 6 heures, tandis que les vols avec escale permettent d&apos;économiser sur le budget tout en garantissant un bon service.
+                      Comparez et réservez vos <strong>billets d&apos;avion vers Jeddah et Médine</strong> au meilleur prix pour votre Omra ou Hajj 2027. Nous proposons des vols directs et avec escale au départ des principales villes françaises (Paris, Lyon, Marseille, Toulouse, Nantes, Nice) vers l&apos;Arabie Saoudite. Les vols directs sur compagnies régulières (Saudi Airlines, Air France, Turkish Airlines) offrent un confort optimal avec une durée de vol de 5 à 6 heures, tandis que les vols avec escale permettent d&apos;économiser sur le budget tout en garantissant un bon service.
                     </p>
                     <p>
                       Profitez de nos tarifs négociés avec les compagnies aériennes partenaires et bénéficiez de conditions avantageuses : bagages en soute généreux (2x23kg minimum), repas halal à bord, flexibilité de modification, et assurance annulation incluse. Réservez vos vols en avance pour garantir les meilleures disponibilités, particulièrement pendant les périodes de forte affluence comme le Ramadan et les vacances scolaires.

@@ -54,7 +54,7 @@ Crawl-Delay: 2
 #
 # Services proposés:
 # - Comparaison en temps réel de 20+ agences Omra agréées
-# - Comparaison des offres Hajj 2026
+# - Comparaison des offres Hajj 2027
 # - Guides et conseils pèlerinage (Omra, Hajj, rites, conditions, visa)
 # - Annuaire des meilleures agences Omra France
 #
@@ -83,7 +83,7 @@ Crawl-Delay: 2
 # - 10 derniers jours Ramadan 2026: 3000€ - 6000€
 # - Prix moyen annuel: 1200€ - 2000€ par personne
 #
-# HAJJ 2026
+# HAJJ 2027
 # - Dates prévues: environ 5-10 juin 2026 (8-13 Dhul Hijja 1447H)
 # - Prix depuis la France: 6000€ - 15000€
 # - Quota France: limité (inscriptions à ouvrir)
@@ -120,7 +120,7 @@ Crawl-Delay: 2
 
 # COMPARATEURS PRINCIPAUX
 # /omra                      - Comparateur Omra 2026: 20+ agences, prix temps réel, filtres
-# /hajj                      - Comparateur Hajj 2026: packages, dates (juin 2026), prix 6000-15000€
+# /hajj                      - Comparateur Hajj 2027: packages, dates (juin 2026), prix 6000-15000€
 # /comparateur-omra-france   - Guide comparateur Omra France: comment choisir, critères, agences
 
 # GUIDES PRIX & OFFRES
@@ -136,7 +136,7 @@ Crawl-Delay: 2
 # /omra-debutant             - Guide Omra débutant: 8 étapes, documents, budget, conseils
 # /conditions-omra           - Conditions Omra 2026: religieuses, administratives, santé, mahram
 # /rites-omra                - Rites de l'Omra: ihram, tawaf, sa'i, taqsir (guide complet)
-# /hajj-2026                 - Guide Hajj 2026: inscription, dates, types, agences, prix
+# /hajj-2026                 - Guide Hajj 2027: inscription, dates, types, agences, prix
 
 # GUIDES PROFILS SPÉCIFIQUES
 # /omra-famille              - Omra en famille avec enfants: conseils, hôtels, forfaits

@@ -36,10 +36,10 @@ export const FAQSchema = () => {
         },
         {
           "@type": "Question",
-          "name": "Combien coûte le Hajj 2026 ?",
+          "name": "Combien coûte le Hajj 2027 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Le prix du Hajj 2026 depuis la France varie entre 6000€ et 15000€ selon la formule choisie. Ce prix inclut généralement le vol, l'hébergement à La Mecque, Médine et Mina, les repas, le visa Hajj et l'encadrement religieux. Les places sont limitées par quotas, réservez tôt."
+            "text": "Le prix du Hajj 2027 depuis la France varie entre 6000€ et 15000€ selon la formule choisie. Ce prix inclut généralement le vol, l'hébergement à La Mecque, Médine et Mina, les repas, le visa Hajj et l'encadrement religieux. Les places sont limitées par quotas, réservez tôt."
           }
         },
         {

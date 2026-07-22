@@ -14,7 +14,7 @@ interface SEOHeadProps {
 export const SEOHead = ({
   title,
   description,
-  keywords = 'omra 2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
+  keywords = 'omra 2026, hajj 2027, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
   canonical,
   ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp',
   ogType = 'website',
@@ -65,16 +65,16 @@ export const SEOHead = ({
 // SEO configuration for each page
 export const seoConfig = {
   home: {
-    title: 'Comparateur Omra 2026 & Hajj 2026 | Omra Ramadan, 10 Derniers Jours - Omra Bons Plans',
-    description: 'Comparez les meilleures offres Omra 2026 et Hajj 2026. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France.',
-    keywords: 'omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France',
+    title: 'Comparateur Omra 2026 & Hajj 2027 | Omra Ramadan, 10 Derniers Jours - Omra Bons Plans',
+    description: 'Comparez les meilleures offres Omra 2026 et Hajj 2027. Trouvez votre Omra Ramadan, 10 derniers jours du Ramadan, séjours pas chers depuis la France.',
+    keywords: 'omra 2026, omra2026, hajj 2027, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France',
     canonical: 'https://omrabonsplans.fr/',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Omra Bons Plans",
       "url": "https://omrabonsplans.fr",
-      "description": "Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan",
+      "description": "Comparateur Omra 2026 & Hajj 2027 - Omra Ramadan et 10 derniers jours du Ramadan",
       "sameAs": ["https://www.facebook.com/omrabonsplans", "https://www.instagram.com/omrabonsplans"],
       "potentialAction": {
         "@type": "SearchAction",
@@ -96,7 +96,7 @@ export const seoConfig = {
     canonical: 'https://omrabonsplans.fr/contact'
   },
   blog: {
-    title: 'Blog Omra & Hajj 2026 | Guides, Conseils et Actualités Pèlerinage',
+    title: 'Blog Omra & Hajj 2027 | Guides, Conseils et Actualités Pèlerinage',
     description: 'Guides complets sur l\'Omra et le Hajj : rites, préparation, visa, bagages, prix. Conseils d\'experts pour réussir votre pèlerinage en Arabie Saoudite.',
     keywords: 'blog omra, conseils hajj, guide pèlerinage, préparation omra, spiritualité islam, voyage arabie saoudite',
     canonical: 'https://omrabonsplans.fr/blog'
@@ -114,14 +114,14 @@ export const seoConfig = {
     canonical: 'https://omrabonsplans.fr/islamic-calendar'
   },
   ramadanHajj: {
-    title: 'Dates Ramadan & Hajj 2026-2028 | Calendrier Pèlerinage',
-    description: 'Dates officielles du Ramadan et Hajj 2026, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.',
-    keywords: 'dates ramadan 2027, dates hajj 2026, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
+    title: 'Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage',
+    description: 'Dates officielles du Ramadan et Hajj 2027, 2027, 2028. Planifiez votre pèlerinage en Arabie Saoudite avec notre calendrier détaillé.',
+    keywords: 'dates ramadan 2027, dates hajj 2027, calendrier pèlerinage, planning ramadan hajj, dates religieuses islam',
     canonical: 'https://omrabonsplans.fr/ramadan-hajj-dates',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "EventSeries",
-      "name": "Calendrier Ramadan & Hajj 2026-2028",
+      "name": "Calendrier Ramadan & Hajj 2027-2028",
       "description": "Dates officielles du Ramadan et Hajj pour planifier votre voyage religieux",
       "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
       "image": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",

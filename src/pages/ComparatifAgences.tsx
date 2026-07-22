@@ -93,7 +93,7 @@ export default function ComparatifAgences() {
       <Helmet>
         <title>Tableau Comparatif Agences Omra - Notes & Tarifs 2026 | Omra Bons Plans</title>
         <meta name="description" content="Tableau comparatif complet des agences Omra et Hajj : notes Google, nombre d'avis, tarifs et spécialités. Comparez les meilleures agences pour votre pèlerinage 2026." />
-        <meta name="keywords" content="comparatif agence omra 2026, hajj 2026, agence voyage mecque, avis google, tableau comparatif" />
+        <meta name="keywords" content="comparatif agence omra 2026, hajj 2027, agence voyage mecque, avis google, tableau comparatif" />
         <link rel="canonical" href="https://omrabonsplans.fr/comparatif-agences" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Tableau Comparatif Agences Omra - Notes & Tarifs 2026" />
@@ -137,7 +137,7 @@ export default function ComparatifAgences() {
 
           <header className="text-center mb-6 md:mb-8">
             <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              {isMobile ? 'Tableau Comparatif Agences' : 'Tableau Comparatif Détaillé des Agences Omra & Hajj 2026'}
+              {isMobile ? 'Tableau Comparatif Agences' : 'Tableau Comparatif Détaillé des Agences Omra & Hajj 2027'}
             </h1>
             {!isMobile && (
               <>

@@ -28,7 +28,7 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
       <div className="hero-media" style={{ minHeight: isMobile ? '100vh' : '400px' }}>
         <img
           src="/hero-kaaba-optimized.webp"
-          alt="Comparateur Omra 2026 & Hajj 2026 - Omra Ramadan et 10 derniers jours du Ramadan"
+          alt="Comparateur Omra 2026 & Hajj 2027 - Omra Ramadan et 10 derniers jours du Ramadan"
           width={1280}
           height={720}
           fetchPriority="high"
@@ -52,12 +52,12 @@ export const HeroSection = memo(({ isMobile }: HeroSectionProps) => {
             <div className="space-y-6 md:space-y-10 w-full px-2">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                 <span className="text-white text-2xl md:text-3xl lg:text-4xl">Comparateur</span><br />
-                <span className="gradient-text-secondary font-black text-3xl md:text-5xl lg:text-6xl">Omra & Hajj 2026</span><br />
+                <span className="gradient-text-secondary font-black text-3xl md:text-5xl lg:text-6xl">Omra & Hajj 2027</span><br />
                 <span className="text-white text-2xl md:text-3xl lg:text-4xl">Omra Ramadan & Plus</span>
               </h1>
               
               <p className="text-base md:text-lg lg:text-xl leading-relaxed md:max-w-4xl mx-auto font-medium">
-                <span className="text-white">Comparez les offres Omra 2026, Hajj 2026, Omra Ramadan et les 10 derniers jours du Ramadan depuis la France</span>
+                <span className="text-white">Comparez les offres Omra 2026, Hajj 2027, Omra Ramadan et les 10 derniers jours du Ramadan depuis la France</span>
               </p>
 
               {/* WhatsApp Button */}
