@@ -36,8 +36,8 @@ interface FilterFormProps {
 
 const DEFAULT_MONTHS = [
   { value: "Ramadan", label: "🌙 Ramadan" },
-  { value: "Janvier", label: "Janvier 2026" },
-  { value: "Février", label: "Février 2026" },
+  { value: "Janvier", label: "Janvier 2027" },
+  { value: "Février", label: "Février 2027" },
   { value: "Mars", label: "Mars 2026" },
   { value: "Avril", label: "Avril 2026" },
   { value: "Mai", label: "Mai 2026" },
