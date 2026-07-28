@@ -39,6 +39,8 @@ const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const BlogEditor = lazy(() => import("./pages/BlogEditor"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogCategoryOrPost = lazy(() => import("./pages/BlogCategoryOrPost"));
+
 const PublicProfile = lazy(() => import("./pages/PublicProfile"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -205,7 +207,7 @@ const App = () => (
                   <Route path="/category/:category" element={<CategoryPage />} />
                   <Route path="/profile/:slug" element={<PublicProfile />} />
                   <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:category" element={<Blog />} />
+                  <Route path="/blog/:category" element={<BlogCategoryOrPost />} />
                   <Route path="/blog/:category/:slug" element={<BlogPost />} />
                   <Route path="/discussions" element={<Discussions />} />
                   <Route path="/admin/topic-requests" element={

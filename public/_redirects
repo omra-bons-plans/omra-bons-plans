@@ -22,6 +22,10 @@
 /blog/conseils-omra /blog/general/conseils-omra 301
 /blog/guides-pratiques /blog/general/guides-pratiques 301
 
+# Article voile : ancienne URL longue -> nouvelle URL courte
+/blog/general/je-souhaite-faire-la-omra-mais-je-ne-porte-pas-le-voile-dois-je-attendre /blog/omra-hajj-sans-voile-soeurs 301
+/blog/general/omra-hajj-sans-voile-soeurs /blog/omra-hajj-sans-voile-soeurs 301
+
 # Catégories de blog vides/inexistantes → /blog
 /blog/spiritualite /blog 301
 

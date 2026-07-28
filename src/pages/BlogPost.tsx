@@ -54,10 +54,18 @@ interface BlogPost {
   };
 }
 
-const BlogPost = () => {
+interface BlogPostProps {
+  slugOverride?: string;
+  categoryOverride?: string;
+}
+
+const BlogPost = ({ slugOverride, categoryOverride }: BlogPostProps = {}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category, slug } = useParams();
+  const params = useParams();
+  const category = categoryOverride ?? params.category;
+  const slug = slugOverride ?? params.slug;
+
   const { user } = useAuth();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
@@ -68,6 +76,9 @@ const BlogPost = () => {
     ? slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     : slug;
 
+  // Articles disposant d'une URL courte canonique /blog/<slug>
+  const SHORT_URL_SLUGS = ['omra-hajj-sans-voile-soeurs'];
+
   useEffect(() => {
     if (!slug) return;
     // Redirect to canonical slug if URL contains uppercase or accents
@@ -75,8 +86,14 @@ const BlogPost = () => {
       navigate(`/blog/${category}/${normalizedSlug}`, { replace: true });
       return;
     }
+    // Redirection vers l'URL courte canonique
+    if (!slugOverride && SHORT_URL_SLUGS.includes(normalizedSlug)) {
+      navigate(`/blog/${normalizedSlug}`, { replace: true });
+      return;
+    }
     fetchPost();
   }, [slug]);
+
 
   const fetchPost = async () => {
     if (!normalizedSlug) return;
@@ -258,7 +275,7 @@ const BlogPost = () => {
         keywords={post.tags}
         type="article"
         image={post.cover_image || undefined}
-        path={`/blog/${category}/${normalizedSlug}`}
+        path={slugOverride ? `/blog/${normalizedSlug}` : `/blog/${category}/${normalizedSlug}`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Article",
