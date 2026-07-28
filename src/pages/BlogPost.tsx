@@ -266,7 +266,7 @@ const BlogPost = ({ slugOverride, categoryOverride }: BlogPostProps = {}) => {
         keywords={post.tags}
         type="article"
         image={post.cover_image || undefined}
-        path={`/blog/${category}/${normalizedSlug}`}
+        path={slugOverride ? `/blog/${normalizedSlug}` : `/blog/${category}/${normalizedSlug}`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Article",
