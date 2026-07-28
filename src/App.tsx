@@ -39,6 +39,8 @@ const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const BlogEditor = lazy(() => import("./pages/BlogEditor"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogCategoryOrPost = lazy(() => import("./pages/BlogCategoryOrPost"));
+
 const PublicProfile = lazy(() => import("./pages/PublicProfile"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const NotFound = lazy(() => import("./pages/NotFound"));
