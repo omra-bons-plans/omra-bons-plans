@@ -1,0 +1,1 @@
+UPDATE public.blog_posts SET slug = 'omra-hajj-sans-voile-soeurs' WHERE id = 'a7252480-1335-4b63-b0ef-6b5ef00b584c';
