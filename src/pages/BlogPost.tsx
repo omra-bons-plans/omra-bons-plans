@@ -54,10 +54,18 @@ interface BlogPost {
   };
 }
 
-const BlogPost = () => {
+interface BlogPostProps {
+  slugOverride?: string;
+  categoryOverride?: string;
+}
+
+const BlogPost = ({ slugOverride, categoryOverride }: BlogPostProps = {}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category, slug } = useParams();
+  const params = useParams();
+  const category = categoryOverride ?? params.category;
+  const slug = slugOverride ?? params.slug;
+
   const { user } = useAuth();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
