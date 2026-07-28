@@ -76,6 +76,9 @@ const BlogPost = ({ slugOverride, categoryOverride }: BlogPostProps = {}) => {
     ? slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     : slug;
 
+  // Articles disposant d'une URL courte canonique /blog/<slug>
+  const SHORT_URL_SLUGS = ['omra-hajj-sans-voile-soeurs'];
+
   useEffect(() => {
     if (!slug) return;
     // Redirect to canonical slug if URL contains uppercase or accents
@@ -83,8 +86,14 @@ const BlogPost = ({ slugOverride, categoryOverride }: BlogPostProps = {}) => {
       navigate(`/blog/${category}/${normalizedSlug}`, { replace: true });
       return;
     }
+    // Redirection vers l'URL courte canonique
+    if (!slugOverride && SHORT_URL_SLUGS.includes(normalizedSlug)) {
+      navigate(`/blog/${normalizedSlug}`, { replace: true });
+      return;
+    }
     fetchPost();
   }, [slug]);
+
 
   const fetchPost = async () => {
     if (!normalizedSlug) return;
