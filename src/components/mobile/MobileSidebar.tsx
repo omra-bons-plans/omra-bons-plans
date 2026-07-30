@@ -404,7 +404,7 @@ const MobileSidebar = () => {
                   </Link>
 
                   <Link
-                    to="/prayer-times"
+                    to="/horaires-priere/paris"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
                   >

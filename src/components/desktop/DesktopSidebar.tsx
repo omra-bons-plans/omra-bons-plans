@@ -332,7 +332,9 @@ export function DesktopSidebar() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <NavLink to="/prayer-times" className={getNavCls}>
+                      <NavLink to="/horaires-priere/paris" className={({ isActive }) =>
+                        location.pathname.startsWith('/horaires-priere') ? "bg-muted text-primary font-medium" : "hover:bg-muted/50"
+                      }>
                         <Clock className="w-4 h-4" />
                         <span>Horaires de prière</span>
                       </NavLink>
