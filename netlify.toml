@@ -280,6 +280,14 @@
   function = "seo-prerender"
 
 [[edge_functions]]
+  path = "/coran"
+  function = "seo-prerender"
+
+[[edge_functions]]
+  path = "/coran/*"
+  function = "seo-prerender"
+
+[[edge_functions]]
   path = "/horaires-priere/*"
   function = "seo-prerender"
 

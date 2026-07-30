@@ -95,6 +95,8 @@ const GuideHajj4Ecoles = lazy(() => import("./pages/GuideHajj4Ecoles"));
 const HotelsListe = lazy(() => import("./pages/HotelsListe"));
 const HotelDetails = lazy(() => import("./pages/HotelDetails"));
 const HorairesPriereVille = lazy(() => import("./pages/HorairesPriereVille"));
+const QuranIndex = lazy(() => import("./pages/QuranIndex"));
+const SourateDetail = lazy(() => import("./pages/SourateDetail"));
 
 // Loading component
 const PageLoader = () => (
@@ -280,6 +282,8 @@ const App = () => (
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/prayer-times" element={<PrayerTimes />} />
                   <Route path="/horaires-priere/:ville" element={<HorairesPriereVille />} />
+                  <Route path="/coran" element={<QuranIndex />} />
+                  <Route path="/coran/:sourate" element={<SourateDetail />} />
                   <Route path="/islamic-calendar" element={<IslamicCalendar />} />
                   <Route path="/ramadan-hajj-dates" element={<RamadanHajjDates />} />
                   <Route path="/comparatif-agences" element={<ComparatifAgences />} />
