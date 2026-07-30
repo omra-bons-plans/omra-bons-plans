@@ -355,6 +355,88 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
+
+    // /hotel/[id] — pages hôtels individuelles
+    else if (/^\/hotel\/.+$/.test(pathname)) {
+      const hotelId = pathname.replace("/hotel/", "");
+      const HOTELS: Record<string, { name: string; ville: string; stars: number; dist: number }> = {
+        "address-jabal-omar": { name: "Address Jabal Omar", ville: "La Mecque", stars: 5, dist: 700 },
+        "anjum": { name: "ANJUM", ville: "La Mecque", stars: 4, dist: 450 },
+        "conrad-jabal-omar": { name: "CONRAD", ville: "La Mecque", stars: 5, dist: 700 },
+        "doubletree-jabal-omar": { name: "DOUBLE TREE", ville: "La Mecque", stars: 5, dist: 750 },
+        "elaf-bakkah": { name: "Elaf Bakkah", ville: "La Mecque", stars: 5, dist: 300 },
+        "emaar-al-noor": { name: "EMAAR AL NOOR", ville: "La Mecque", stars: 3, dist: 3500 },
+        "emaar-international": { name: "EMAAR INTERNATIONAL", ville: "La Mecque", stars: 4, dist: 3500 },
+        "hyatt-regency-jabal-omar": { name: "HAYAT REGENCY", ville: "La Mecque", stars: 5, dist: 800 },
+        "hibatullah": { name: "HIBATULLAH", ville: "La Mecque", stars: 3, dist: 600 },
+        "hilton-convention": { name: "HILTON CONVENTION", ville: "La Mecque", stars: 5, dist: 80 },
+        "hilton-suites": { name: "HILTON SUITE", ville: "La Mecque", stars: 5, dist: 700 },
+        "jumeirah-jabal-omar": { name: "JUMEIRAH", ville: "La Mecque", stars: 5, dist: 750 },
+        "marriott-jabal-omar": { name: "MARIOTT", ville: "La Mecque", stars: 5, dist: 800 },
+        "al-marwa-rotana": { name: "MARWA BY ROTANA", ville: "La Mecque", stars: 5, dist: 650 },
+        "mathaba": { name: "MATHABA", ville: "La Mecque", stars: 3, dist: 500 },
+        "millennium-al-naseem": { name: "MILLENIUM", ville: "La Mecque", stars: 4, dist: 1800 },
+        "millennium-al-dana": { name: "MILLIENIUM AL DANA", ville: "La Mecque", stars: 4, dist: 1500 },
+        "montana-hotel": { name: "MONTANA HOTEL", ville: "La Mecque", stars: 1, dist: 3000 },
+        "novotel-thakher": { name: "NOVOTEL THAKHER", ville: "La Mecque", stars: 4, dist: 2600 },
+        "osturat-emmar": { name: "OSTURAT EMMAR", ville: "La Mecque", stars: 4, dist: 3500 },
+        "park-house-hotel": { name: "PARK HOUSE HOTEL", ville: "La Mecque", stars: 3, dist: 3000 },
+        "park-plaza": { name: "PARK PLAZA", ville: "La Mecque", stars: 4, dist: 4000 },
+        "ponciana": { name: "PONCIANA", ville: "La Mecque", stars: 3, dist: 1200 },
+        "razana-al-rawda": { name: "RAZANA AL RAWDA", ville: "La Mecque", stars: 4, dist: 900 },
+        "safwat-al-talayie": { name: "SAFWAT AL TALAYIE", ville: "La Mecque", stars: 1, dist: 3200 },
+        "shaza-makkah": { name: "SHAZA", ville: "La Mecque", stars: 5, dist: 700 },
+        "sheraton-jabal-al-kaaba": { name: "SHERATON", ville: "La Mecque", stars: 4, dist: 1000 },
+        "shohada": { name: "SHOHADA", ville: "La Mecque", stars: 5, dist: 400 },
+        "taj-park": { name: "TAJ PARK", ville: "La Mecque", stars: 3, dist: 3200 },
+        "tilal-shaza": { name: "TILAL SHAZA", ville: "La Mecque", stars: 4, dist: 850 },
+        "voco-makkah": { name: "VOCO", ville: "La Mecque", stars: 4, dist: 900 },
+        "zamzam-hotel": { name: "ZAMZAM HOTEL", ville: "La Mecque", stars: 5, dist: 90 },
+        "al-shakreen-golden-tulip": { name: "AL SHAKREEN GOLDEN TULIP", ville: "Médine", stars: 4, dist: 300 },
+        "assafa-golden": { name: "ASSAFA GOLDEN HOTEL", ville: "Médine", stars: 4, dist: 350 },
+        "bosphorus-waqf-safi": { name: "BOSPHORUS WAQF SAFI", ville: "Médine", stars: 3, dist: 400 },
+        "concord-dar-al-khair": { name: "CONCORD DAR AL KHAIR", ville: "Médine", stars: 4, dist: 500 },
+        "crowne-plaza-madinah": { name: "CROWN PLAZA", ville: "Médine", stars: 5, dist: 400 },
+        "diwan-rose": { name: "DIWAN ROSE", ville: "Médine", stars: 3, dist: 600 },
+        "diyar-al-taqwa": { name: "DIYAR AL TAQWA", ville: "Médine", stars: 3, dist: 500 },
+        "emaar-royal": { name: "Emaar Royal", ville: "Médine", stars: 3, dist: 700 },
+        "hilton-diyar-ajwa": { name: "Hilton Diyar Ajwa", ville: "Médine", stars: 4, dist: 1200 },
+        "jayden": { name: "JAYDEN", ville: "Médine", stars: 4, dist: 350 },
+        "jewar-al-saha": { name: "JEWAR AL SAHA", ville: "Médine", stars: 1, dist: 800 },
+        "jiwar-al-madinah": { name: "Jiwar Al Madinah", ville: "Médine", stars: 4, dist: 500 },
+        "maien": { name: "MAIEN", ville: "Médine", stars: 3, dist: 600 },
+        "maysan-al-harithia": { name: "MAYSAN AL HARITHIA", ville: "Médine", stars: 4, dist: 1300 },
+        "mias-madinah": { name: "MIAS MADINAH", ville: "Médine", stars: 4, dist: 500 },
+        "movenpick-madinah": { name: "MOVENPICK", ville: "Médine", stars: 4, dist: 250 },
+        "musc-touch": { name: "MUSC TOUCH", ville: "Médine", stars: 4, dist: 500 },
+        "mysk-madinah": { name: "Mysk", ville: "Médine", stars: 4, dist: 400 },
+        "nusuk-al-eman": { name: "NUSUK AL EMAN", ville: "Médine", stars: 3, dist: 600 },
+        "peninsula-worth": { name: "PENINSULA WORTH", ville: "Médine", stars: 5, dist: 400 },
+        "pullman-zamzam-madinah": { name: "PULLMAN ZAMZAM", ville: "Médine", stars: 5, dist: 200 },
+        "rotana-madinah": { name: "ROTANA", ville: "Médine", stars: 4, dist: 400 },
+        "saafa": { name: "SAAFA", ville: "Médine", stars: 3, dist: 500 },
+        "shaza-regency-madinah": { name: "SHAZA REGENCY", ville: "Médine", stars: 5, dist: 350 },
+        "sofitel-shahd-madinah": { name: "SOFITEL SHAHD", ville: "Médine", stars: 5, dist: 300 },
+        "tabat-al-salam-swiss": { name: "TABAT AL SALAM SWISS", ville: "Médine", stars: 3, dist: 600 },
+        "taiba-front": { name: "TAIBA FRONT", ville: "Médine", stars: 4, dist: 300 },
+        "tulip-inn-madinah": { name: "Tulip Inn", ville: "Médine", stars: 3, dist: 600 },
+        "valy": { name: "VALY", ville: "Médine", stars: 4, dist: 400 },
+        "view-madinah": { name: "VIEW", ville: "Médine", stars: 4, dist: 450 },
+      };
+      const h = HOTELS[hotelId];
+      const mosquee = h?.ville === "La Mecque" ? "Masjid al-Haram" : "Masjid Nabawi";
+      const distLabel = h ? (h.dist < 1000 ? `${h.dist}m` : `${(h.dist / 1000).toFixed(1)}km`) : "";
+      meta = h ? {
+        title: `${h.name} ${h.ville} — ${h.stars}★, ${distLabel} du ${mosquee} | Omra Bons Plans`,
+        description: `${h.name} (${h.stars}★) à ${h.ville} : à ${distLabel} du ${mosquee}. Note Booking, prix/nuit, points forts et points d'attention pour votre Omra 2026.`,
+        keywords: `${h.name.toLowerCase()}, hôtel ${h.ville.toLowerCase()} omra, hébergement omra 2026, ${mosquee.toLowerCase()}`,
+        canonical: `${SITE}/hotel/${hotelId}`,
+      } : {
+        title: "Hôtel Omra | Omra Bons Plans",
+        description: "Détail hôtel pour votre Omra à La Mecque ou Médine : distance mosquée, note Booking, prix.",
+        canonical: `${SITE}/hotel/${hotelId}`,
+      };
+    }
     // /omra-depuis-[ville]
     else if (/^\/omra-depuis-.+$/.test(pathname)) {
       const citySlug = pathname.replace("/omra-depuis-", "");
@@ -391,12 +473,22 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
-    // /offre-omra/[id] and /offre-hajj/[id] — individual offers (index but with canonical)
+    // /offre-omra/[id] and /offre-hajj/[id] — noindex: dynamic offers all share identical generic meta
     else if (/^\/(offre-omra|offre-hajj)\/.+$/.test(pathname)) {
       meta = {
         title: "Offre Omra & Hajj | Omra Bons Plans",
         description: "Détail d'une offre Omra ou Hajj depuis la France. Prix, dates, hôtel et agence.",
         canonical: `${SITE}${pathname}`,
+        noindex: true,
+      };
+    }
+    // /search — noindex: search results page has no unique content
+    else if (pathname === "/search") {
+      meta = {
+        title: "Recherche | Omra Bons Plans",
+        description: "Résultats de recherche Omra Bons Plans.",
+        canonical: `${SITE}/search`,
+        noindex: true,
       };
     }
   }

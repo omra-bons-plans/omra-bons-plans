@@ -172,10 +172,6 @@
   function = "guide-prerender"
 
 [[edge_functions]]
-  path = "/hajj-2026"
-  function = "guide-prerender"
-
-[[edge_functions]]
   path = "/guide-hajj-4-ecoles"
   function = "guide-prerender"
 
@@ -204,15 +200,7 @@
   function = "guide-prerender"
 
 [[edge_functions]]
-  path = "/comparateur-omra-france"
-  function = "guide-prerender"
-
-[[edge_functions]]
   path = "/ramadan-hajj-dates"
-  function = "guide-prerender"
-
-[[edge_functions]]
-  path = "/agences-liste"
   function = "guide-prerender"
 
 [[edge_functions]]
@@ -289,6 +277,10 @@
 
 [[edge_functions]]
   path = "/les-hotels"
+  function = "seo-prerender"
+
+[[edge_functions]]
+  path = "/hotel/*"
   function = "seo-prerender"
 
 # Injection des meta SEO (title/description/canonical/OG/Twitter) pour toutes
