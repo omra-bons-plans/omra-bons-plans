@@ -415,6 +415,17 @@ const MobileSidebar = () => {
                   </Link>
 
                   <Link
+                    to="/coran"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <BookOpen className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">Coran</span>
+                    </div>
+                  </Link>
+
+                  <Link
                     to="/islamic-calendar"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors ml-3"

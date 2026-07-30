@@ -340,6 +340,14 @@ export function DesktopSidebar() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
+                      <NavLink to="/coran" className={getNavCls}>
+                        <BookOpen className="w-4 h-4" />
+                        <span>Coran</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
                       <NavLink to="/islamic-calendar" className={getNavCls}>
                         <Calendar className="w-4 h-4" />
                         <span>Calendrier islamique</span>
