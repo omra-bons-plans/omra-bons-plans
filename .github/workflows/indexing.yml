@@ -1,0 +1,26 @@
+name: Notify indexing after deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  notify-google:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Option 1 — Google Indexing API (prioritaire pour Google)
+      - name: Google Indexing API
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: node scripts/request-indexing.mjs
+
+      # Option 2 — IndexNow (Bing + Yandex)
+      - name: IndexNow (Bing / Yandex)
+        run: node scripts/indexnow.mjs
