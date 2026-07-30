@@ -355,6 +355,88 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
+
+    // /hotel/[id] — pages hôtels individuelles
+    else if (/^\/hotel\/.+$/.test(pathname)) {
+      const hotelId = pathname.replace("/hotel/", "");
+      const HOTELS: Record<string, { name: string; ville: string; stars: number; dist: number }> = {
+        "address-jabal-omar": { name: "Address Jabal Omar", ville: "La Mecque", stars: 5, dist: 700 },
+        "anjum": { name: "ANJUM", ville: "La Mecque", stars: 4, dist: 450 },
+        "conrad-jabal-omar": { name: "CONRAD", ville: "La Mecque", stars: 5, dist: 700 },
+        "doubletree-jabal-omar": { name: "DOUBLE TREE", ville: "La Mecque", stars: 5, dist: 750 },
+        "elaf-bakkah": { name: "Elaf Bakkah", ville: "La Mecque", stars: 5, dist: 300 },
+        "emaar-al-noor": { name: "EMAAR AL NOOR", ville: "La Mecque", stars: 3, dist: 3500 },
+        "emaar-international": { name: "EMAAR INTERNATIONAL", ville: "La Mecque", stars: 4, dist: 3500 },
+        "hyatt-regency-jabal-omar": { name: "HAYAT REGENCY", ville: "La Mecque", stars: 5, dist: 800 },
+        "hibatullah": { name: "HIBATULLAH", ville: "La Mecque", stars: 3, dist: 600 },
+        "hilton-convention": { name: "HILTON CONVENTION", ville: "La Mecque", stars: 5, dist: 80 },
+        "hilton-suites": { name: "HILTON SUITE", ville: "La Mecque", stars: 5, dist: 700 },
+        "jumeirah-jabal-omar": { name: "JUMEIRAH", ville: "La Mecque", stars: 5, dist: 750 },
+        "marriott-jabal-omar": { name: "MARIOTT", ville: "La Mecque", stars: 5, dist: 800 },
+        "al-marwa-rotana": { name: "MARWA BY ROTANA", ville: "La Mecque", stars: 5, dist: 650 },
+        "mathaba": { name: "MATHABA", ville: "La Mecque", stars: 3, dist: 500 },
+        "millennium-al-naseem": { name: "MILLENIUM", ville: "La Mecque", stars: 4, dist: 1800 },
+        "millennium-al-dana": { name: "MILLIENIUM AL DANA", ville: "La Mecque", stars: 4, dist: 1500 },
+        "montana-hotel": { name: "MONTANA HOTEL", ville: "La Mecque", stars: 1, dist: 3000 },
+        "novotel-thakher": { name: "NOVOTEL THAKHER", ville: "La Mecque", stars: 4, dist: 2600 },
+        "osturat-emmar": { name: "OSTURAT EMMAR", ville: "La Mecque", stars: 4, dist: 3500 },
+        "park-house-hotel": { name: "PARK HOUSE HOTEL", ville: "La Mecque", stars: 3, dist: 3000 },
+        "park-plaza": { name: "PARK PLAZA", ville: "La Mecque", stars: 4, dist: 4000 },
+        "ponciana": { name: "PONCIANA", ville: "La Mecque", stars: 3, dist: 1200 },
+        "razana-al-rawda": { name: "RAZANA AL RAWDA", ville: "La Mecque", stars: 4, dist: 900 },
+        "safwat-al-talayie": { name: "SAFWAT AL TALAYIE", ville: "La Mecque", stars: 1, dist: 3200 },
+        "shaza-makkah": { name: "SHAZA", ville: "La Mecque", stars: 5, dist: 700 },
+        "sheraton-jabal-al-kaaba": { name: "SHERATON", ville: "La Mecque", stars: 4, dist: 1000 },
+        "shohada": { name: "SHOHADA", ville: "La Mecque", stars: 5, dist: 400 },
+        "taj-park": { name: "TAJ PARK", ville: "La Mecque", stars: 3, dist: 3200 },
+        "tilal-shaza": { name: "TILAL SHAZA", ville: "La Mecque", stars: 4, dist: 850 },
+        "voco-makkah": { name: "VOCO", ville: "La Mecque", stars: 4, dist: 900 },
+        "zamzam-hotel": { name: "ZAMZAM HOTEL", ville: "La Mecque", stars: 5, dist: 90 },
+        "al-shakreen-golden-tulip": { name: "AL SHAKREEN GOLDEN TULIP", ville: "Médine", stars: 4, dist: 300 },
+        "assafa-golden": { name: "ASSAFA GOLDEN HOTEL", ville: "Médine", stars: 4, dist: 350 },
+        "bosphorus-waqf-safi": { name: "BOSPHORUS WAQF SAFI", ville: "Médine", stars: 3, dist: 400 },
+        "concord-dar-al-khair": { name: "CONCORD DAR AL KHAIR", ville: "Médine", stars: 4, dist: 500 },
+        "crowne-plaza-madinah": { name: "CROWN PLAZA", ville: "Médine", stars: 5, dist: 400 },
+        "diwan-rose": { name: "DIWAN ROSE", ville: "Médine", stars: 3, dist: 600 },
+        "diyar-al-taqwa": { name: "DIYAR AL TAQWA", ville: "Médine", stars: 3, dist: 500 },
+        "emaar-royal": { name: "Emaar Royal", ville: "Médine", stars: 3, dist: 700 },
+        "hilton-diyar-ajwa": { name: "Hilton Diyar Ajwa", ville: "Médine", stars: 4, dist: 1200 },
+        "jayden": { name: "JAYDEN", ville: "Médine", stars: 4, dist: 350 },
+        "jewar-al-saha": { name: "JEWAR AL SAHA", ville: "Médine", stars: 1, dist: 800 },
+        "jiwar-al-madinah": { name: "Jiwar Al Madinah", ville: "Médine", stars: 4, dist: 500 },
+        "maien": { name: "MAIEN", ville: "Médine", stars: 3, dist: 600 },
+        "maysan-al-harithia": { name: "MAYSAN AL HARITHIA", ville: "Médine", stars: 4, dist: 1300 },
+        "mias-madinah": { name: "MIAS MADINAH", ville: "Médine", stars: 4, dist: 500 },
+        "movenpick-madinah": { name: "MOVENPICK", ville: "Médine", stars: 4, dist: 250 },
+        "musc-touch": { name: "MUSC TOUCH", ville: "Médine", stars: 4, dist: 500 },
+        "mysk-madinah": { name: "Mysk", ville: "Médine", stars: 4, dist: 400 },
+        "nusuk-al-eman": { name: "NUSUK AL EMAN", ville: "Médine", stars: 3, dist: 600 },
+        "peninsula-worth": { name: "PENINSULA WORTH", ville: "Médine", stars: 5, dist: 400 },
+        "pullman-zamzam-madinah": { name: "PULLMAN ZAMZAM", ville: "Médine", stars: 5, dist: 200 },
+        "rotana-madinah": { name: "ROTANA", ville: "Médine", stars: 4, dist: 400 },
+        "saafa": { name: "SAAFA", ville: "Médine", stars: 3, dist: 500 },
+        "shaza-regency-madinah": { name: "SHAZA REGENCY", ville: "Médine", stars: 5, dist: 350 },
+        "sofitel-shahd-madinah": { name: "SOFITEL SHAHD", ville: "Médine", stars: 5, dist: 300 },
+        "tabat-al-salam-swiss": { name: "TABAT AL SALAM SWISS", ville: "Médine", stars: 3, dist: 600 },
+        "taiba-front": { name: "TAIBA FRONT", ville: "Médine", stars: 4, dist: 300 },
+        "tulip-inn-madinah": { name: "Tulip Inn", ville: "Médine", stars: 3, dist: 600 },
+        "valy": { name: "VALY", ville: "Médine", stars: 4, dist: 400 },
+        "view-madinah": { name: "VIEW", ville: "Médine", stars: 4, dist: 450 },
+      };
+      const h = HOTELS[hotelId];
+      const mosquee = h?.ville === "La Mecque" ? "Masjid al-Haram" : "Masjid Nabawi";
+      const distLabel = h ? (h.dist < 1000 ? `${h.dist}m` : `${(h.dist / 1000).toFixed(1)}km`) : "";
+      meta = h ? {
+        title: `${h.name} ${h.ville} — ${h.stars}★, ${distLabel} du ${mosquee} | Omra Bons Plans`,
+        description: `${h.name} (${h.stars}★) à ${h.ville} : à ${distLabel} du ${mosquee}. Note Booking, prix/nuit, points forts et points d'attention pour votre Omra 2026.`,
+        keywords: `${h.name.toLowerCase()}, hôtel ${h.ville.toLowerCase()} omra, hébergement omra 2026, ${mosquee.toLowerCase()}`,
+        canonical: `${SITE}/hotel/${hotelId}`,
+      } : {
+        title: "Hôtel Omra | Omra Bons Plans",
+        description: "Détail hôtel pour votre Omra à La Mecque ou Médine : distance mosquée, note Booking, prix.",
+        canonical: `${SITE}/hotel/${hotelId}`,
+      };
+    }
     // /omra-depuis-[ville]
     else if (/^\/omra-depuis-.+$/.test(pathname)) {
       const citySlug = pathname.replace("/omra-depuis-", "");
@@ -391,12 +473,148 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}${pathname}`,
       };
     }
-    // /offre-omra/[id] and /offre-hajj/[id] — individual offers (index but with canonical)
+    // /offre-omra/[id] and /offre-hajj/[id] — noindex: dynamic offers all share identical generic meta
     else if (/^\/(offre-omra|offre-hajj)\/.+$/.test(pathname)) {
       meta = {
         title: "Offre Omra & Hajj | Omra Bons Plans",
         description: "Détail d'une offre Omra ou Hajj depuis la France. Prix, dates, hôtel et agence.",
         canonical: `${SITE}${pathname}`,
+        noindex: true,
+      };
+    }
+    // /search — noindex: search results page has no unique content
+    else if (pathname === "/search") {
+      meta = {
+        title: "Recherche | Omra Bons Plans",
+        description: "Résultats de recherche Omra Bons Plans.",
+        canonical: `${SITE}/search`,
+        noindex: true,
+      };
+    }
+    // /horaires-priere/[ville] — per-city prayer times pages
+    else if (/^\/horaires-priere\/.+$/.test(pathname)) {
+      const villeSlug = pathname.replace("/horaires-priere/", "");
+      const CITIES: Record<string, { name: string; region: string }> = {
+        "paris": { name: "Paris", region: "Île-de-France" },
+        "saint-denis": { name: "Saint-Denis", region: "Île-de-France" },
+        "montreuil": { name: "Montreuil", region: "Île-de-France" },
+        "argenteuil": { name: "Argenteuil", region: "Île-de-France" },
+        "nanterre": { name: "Nanterre", region: "Île-de-France" },
+        "vitry-sur-seine": { name: "Vitry-sur-Seine", region: "Île-de-France" },
+        "creteil": { name: "Créteil", region: "Île-de-France" },
+        "aulnay-sous-bois": { name: "Aulnay-sous-Bois", region: "Île-de-France" },
+        "sarcelles": { name: "Sarcelles", region: "Île-de-France" },
+        "drancy": { name: "Drancy", region: "Île-de-France" },
+        "colombes": { name: "Colombes", region: "Île-de-France" },
+        "bobigny": { name: "Bobigny", region: "Île-de-France" },
+        "mantes-la-jolie": { name: "Mantes-la-Jolie", region: "Île-de-France" },
+        "meaux": { name: "Meaux", region: "Île-de-France" },
+        "evry": { name: "Évry", region: "Île-de-France" },
+        "trappes": { name: "Trappes", region: "Île-de-France" },
+        "cergy": { name: "Cergy", region: "Île-de-France" },
+        "versailles": { name: "Versailles", region: "Île-de-France" },
+        "boulogne-billancourt": { name: "Boulogne-Billancourt", region: "Île-de-France" },
+        "aubervilliers": { name: "Aubervilliers", region: "Île-de-France" },
+        "champigny-sur-marne": { name: "Champigny-sur-Marne", region: "Île-de-France" },
+        "noisy-le-grand": { name: "Noisy-le-Grand", region: "Île-de-France" },
+        "sevran": { name: "Sevran", region: "Île-de-France" },
+        "la-courneuve": { name: "La Courneuve", region: "Île-de-France" },
+        "pantin": { name: "Pantin", region: "Île-de-France" },
+        "bondy": { name: "Bondy", region: "Île-de-France" },
+        "orly": { name: "Orly", region: "Île-de-France" },
+        "corbeil-essonnes": { name: "Corbeil-Essonnes", region: "Île-de-France" },
+        "lyon": { name: "Lyon", region: "Auvergne-Rhône-Alpes" },
+        "villeurbanne": { name: "Villeurbanne", region: "Auvergne-Rhône-Alpes" },
+        "grenoble": { name: "Grenoble", region: "Auvergne-Rhône-Alpes" },
+        "saint-etienne": { name: "Saint-Étienne", region: "Auvergne-Rhône-Alpes" },
+        "annecy": { name: "Annecy", region: "Auvergne-Rhône-Alpes" },
+        "chambery": { name: "Chambéry", region: "Auvergne-Rhône-Alpes" },
+        "valence": { name: "Valence", region: "Auvergne-Rhône-Alpes" },
+        "clermont-ferrand": { name: "Clermont-Ferrand", region: "Auvergne-Rhône-Alpes" },
+        "marseille": { name: "Marseille", region: "Provence-Alpes-Côte d'Azur" },
+        "nice": { name: "Nice", region: "Provence-Alpes-Côte d'Azur" },
+        "toulon": { name: "Toulon", region: "Provence-Alpes-Côte d'Azur" },
+        "aix-en-provence": { name: "Aix-en-Provence", region: "Provence-Alpes-Côte d'Azur" },
+        "avignon": { name: "Avignon", region: "Provence-Alpes-Côte d'Azur" },
+        "cannes": { name: "Cannes", region: "Provence-Alpes-Côte d'Azur" },
+        "antibes": { name: "Antibes", region: "Provence-Alpes-Côte d'Azur" },
+        "frejus": { name: "Fréjus", region: "Provence-Alpes-Côte d'Azur" },
+        "lille": { name: "Lille", region: "Hauts-de-France" },
+        "roubaix": { name: "Roubaix", region: "Hauts-de-France" },
+        "tourcoing": { name: "Tourcoing", region: "Hauts-de-France" },
+        "valenciennes": { name: "Valenciennes", region: "Hauts-de-France" },
+        "dunkerque": { name: "Dunkerque", region: "Hauts-de-France" },
+        "lens": { name: "Lens", region: "Hauts-de-France" },
+        "douai": { name: "Douai", region: "Hauts-de-France" },
+        "amiens": { name: "Amiens", region: "Hauts-de-France" },
+        "calais": { name: "Calais", region: "Hauts-de-France" },
+        "arras": { name: "Arras", region: "Hauts-de-France" },
+        "saint-quentin": { name: "Saint-Quentin", region: "Hauts-de-France" },
+        "creil": { name: "Creil", region: "Hauts-de-France" },
+        "strasbourg": { name: "Strasbourg", region: "Grand Est" },
+        "metz": { name: "Metz", region: "Grand Est" },
+        "nancy": { name: "Nancy", region: "Grand Est" },
+        "mulhouse": { name: "Mulhouse", region: "Grand Est" },
+        "reims": { name: "Reims", region: "Grand Est" },
+        "colmar": { name: "Colmar", region: "Grand Est" },
+        "belfort": { name: "Belfort", region: "Grand Est" },
+        "troyes": { name: "Troyes", region: "Grand Est" },
+        "epinal": { name: "Épinal", region: "Grand Est" },
+        "toulouse": { name: "Toulouse", region: "Occitanie" },
+        "montpellier": { name: "Montpellier", region: "Occitanie" },
+        "nimes": { name: "Nîmes", region: "Occitanie" },
+        "perpignan": { name: "Perpignan", region: "Occitanie" },
+        "beziers": { name: "Béziers", region: "Occitanie" },
+        "albi": { name: "Albi", region: "Occitanie" },
+        "tarbes": { name: "Tarbes", region: "Occitanie" },
+        "bordeaux": { name: "Bordeaux", region: "Nouvelle-Aquitaine" },
+        "limoges": { name: "Limoges", region: "Nouvelle-Aquitaine" },
+        "la-rochelle": { name: "La Rochelle", region: "Nouvelle-Aquitaine" },
+        "poitiers": { name: "Poitiers", region: "Nouvelle-Aquitaine" },
+        "pau": { name: "Pau", region: "Nouvelle-Aquitaine" },
+        "bayonne": { name: "Bayonne", region: "Nouvelle-Aquitaine" },
+        "angouleme": { name: "Angoulême", region: "Nouvelle-Aquitaine" },
+        "agen": { name: "Agen", region: "Nouvelle-Aquitaine" },
+        "niort": { name: "Niort", region: "Nouvelle-Aquitaine" },
+        "nantes": { name: "Nantes", region: "Pays de la Loire" },
+        "le-mans": { name: "Le Mans", region: "Pays de la Loire" },
+        "angers": { name: "Angers", region: "Pays de la Loire" },
+        "saint-nazaire": { name: "Saint-Nazaire", region: "Pays de la Loire" },
+        "laval": { name: "Laval", region: "Pays de la Loire" },
+        "rennes": { name: "Rennes", region: "Bretagne" },
+        "brest": { name: "Brest", region: "Bretagne" },
+        "lorient": { name: "Lorient", region: "Bretagne" },
+        "quimper": { name: "Quimper", region: "Bretagne" },
+        "saint-brieuc": { name: "Saint-Brieuc", region: "Bretagne" },
+        "rouen": { name: "Rouen", region: "Normandie" },
+        "caen": { name: "Caen", region: "Normandie" },
+        "le-havre": { name: "Le Havre", region: "Normandie" },
+        "cherbourg": { name: "Cherbourg", region: "Normandie" },
+        "evreux": { name: "Évreux", region: "Normandie" },
+        "orleans": { name: "Orléans", region: "Centre-Val de Loire" },
+        "tours": { name: "Tours", region: "Centre-Val de Loire" },
+        "chartres": { name: "Chartres", region: "Centre-Val de Loire" },
+        "blois": { name: "Blois", region: "Centre-Val de Loire" },
+        "dijon": { name: "Dijon", region: "Bourgogne-Franche-Comté" },
+        "besancon": { name: "Besançon", region: "Bourgogne-Franche-Comté" },
+      };
+      const c = CITIES[villeSlug];
+      const cityName = c?.name ?? (villeSlug.charAt(0).toUpperCase() + villeSlug.slice(1).replace(/-/g, ' '));
+      const regionLabel = c?.region ? ` (${c.region})` : '';
+      meta = {
+        title: `Horaires de Prière ${cityName} — Fajr, Dhuhr, Asr, Maghrib, Isha | Omra Bons Plans`,
+        description: `Horaires de prière à ${cityName}${regionLabel} aujourd'hui : Fajr, Dhuhr, Asr, Maghrib et Isha. Calcul selon la méthode UOIF. Mis à jour quotidiennement.`,
+        keywords: `horaires prière ${cityName.toLowerCase()}, heure prière ${cityName.toLowerCase()}, salat ${cityName.toLowerCase()}, fajr ${cityName.toLowerCase()}, isha ${cityName.toLowerCase()}, mosquée ${cityName.toLowerCase()}`,
+        canonical: `${SITE}/horaires-priere/${villeSlug}`,
+      };
+    }
+    // /search — noindex: search results page has no unique content
+    else if (pathname === "/search") {
+      meta = {
+        title: "Recherche | Omra Bons Plans",
+        description: "Résultats de recherche Omra Bons Plans.",
+        canonical: `${SITE}/search`,
+        noindex: true,
       };
     }
   }
