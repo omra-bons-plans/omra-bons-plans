@@ -153,7 +153,7 @@ const sa = JSON.parse(raw);
 const token = await getAccessToken(sa);
 console.log(`✓ Authentifié en tant que ${sa.client_email}\n`);
 
-let ok = 0, err = 0;
+let ok = 0, quota = 0, err = 0;
 for (const path of URLS) {
   const url = `${SITE}${path}`;
   try {
@@ -161,6 +161,9 @@ for (const path of URLS) {
     if (status === 200) {
       console.log(`✅ ${url}`);
       ok++;
+    } else if (status === 429) {
+      console.warn(`⚠️  ${url} → quota journalier dépassé (429)`);
+      quota++;
     } else {
       console.warn(`⚠️  ${url} → HTTP ${status}: ${body.error?.message ?? JSON.stringify(body)}`);
       err++;
@@ -173,5 +176,6 @@ for (const path of URLS) {
   await new Promise(r => setTimeout(r, 150));
 }
 
-console.log(`\nRésultat : ${ok} soumises ✅  ${err} erreurs ❌`);
+console.log(`\nRésultat : ${ok} soumises ✅  ${quota} quota dépassé ⚠️  ${err} erreurs ❌`);
+if (quota > 0 && err === 0) console.log('ℹ️  Quota journalier Google atteint — les URLs restantes seront soumises au prochain déploiement.');
 if (err > 0) process.exit(1);
