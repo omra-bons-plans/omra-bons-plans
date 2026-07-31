@@ -59,7 +59,7 @@ export default function SourateDetail() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Sourate {surah.nameEn} ({surah.nameAr}) en Français — {surah.number}. {surah.nameFr} | Omra Bons Plans</title>
+        <title>{`Sourate ${surah.nameEn} (${surah.nameAr}) en Français — ${surah.number}. ${surah.nameFr} | Omra Bons Plans`}</title>
         <meta name="description" content={`Lire la Sourate ${surah.nameEn} (${surah.nameAr}) — ${surah.number}ème sourate du Coran, ${surah.verses} versets, révélée à ${surah.type === 'Mecquoise' ? 'La Mecque' : 'Médine'}. Texte arabe avec traduction française complète de Mohammed Hamidullah.`} />
         <meta name="keywords" content={`sourate ${surah.nameEn.toLowerCase()}, ${surah.nameEn.toLowerCase()} en français, sourate ${surah.number}, ${surah.nameFr.toLowerCase()}, coran français`} />
         <link rel="canonical" href={`https://omrabonsplans.fr/coran/${surah.slug}`} />
