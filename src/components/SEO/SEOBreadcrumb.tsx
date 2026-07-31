@@ -47,8 +47,8 @@ export const SEOBreadcrumb = ({ items, className }: SEOBreadcrumbProps) => {
   // Generate breadcrumb items from current path if not provided
   const breadcrumbItems = items || generateBreadcrumbItems(location.pathname);
 
-  // Generate structured data for SEO
-  const structuredData = {
+  // Generate structured data for SEO — stable JSON string to avoid re-running effect on every render
+  const structuredDataJson = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": breadcrumbItems.map((item, index) => ({
@@ -57,20 +57,20 @@ export const SEOBreadcrumb = ({ items, className }: SEOBreadcrumbProps) => {
       "name": item.name,
       "item": item.url ? `https://omrabonsplans.fr${item.url}` : undefined
     }))
-  };
+  });
 
   // Inject structured data into head
   useEffect(() => {
     let scriptTag = document.querySelector('script[data-breadcrumb-ld]') as HTMLScriptElement;
-    
+
     if (!scriptTag) {
       scriptTag = document.createElement('script');
       scriptTag.setAttribute('type', 'application/ld+json');
       scriptTag.setAttribute('data-breadcrumb-ld', 'true');
       document.head.appendChild(scriptTag);
     }
-    
-    scriptTag.textContent = JSON.stringify(structuredData);
+
+    scriptTag.textContent = structuredDataJson;
 
     return () => {
       const existingScript = document.querySelector('script[data-breadcrumb-ld]');
@@ -78,7 +78,7 @@ export const SEOBreadcrumb = ({ items, className }: SEOBreadcrumbProps) => {
         existingScript.remove();
       }
     };
-  }, [structuredData]);
+  }, [structuredDataJson]);
 
   // Don't show visual breadcrumb on homepage, but still inject structured data
   if (location.pathname === '/') {

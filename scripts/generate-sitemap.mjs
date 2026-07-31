@@ -88,6 +88,42 @@ const STATIC_ROUTES = [
   { path: '/islamic-calendar', priority: 0.7, changefreq: 'monthly' },
   { path: '/ramadan-hajj-dates', priority: 0.7, changefreq: 'monthly' },
 
+  // Horaires de prière par ville
+  { path: '/horaires-priere/paris', priority: 0.9, changefreq: 'daily' },
+  { path: '/horaires-priere/marseille', priority: 0.85, changefreq: 'daily' },
+  { path: '/horaires-priere/lyon', priority: 0.85, changefreq: 'daily' },
+  { path: '/horaires-priere/toulouse', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/nice', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/nantes', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/bordeaux', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/lille', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/strasbourg', priority: 0.8, changefreq: 'daily' },
+  { path: '/horaires-priere/rennes', priority: 0.75, changefreq: 'daily' },
+  { path: '/horaires-priere/montpellier', priority: 0.75, changefreq: 'daily' },
+  { path: '/horaires-priere/grenoble', priority: 0.75, changefreq: 'daily' },
+  { path: '/horaires-priere/clermont-ferrand', priority: 0.7, changefreq: 'daily' },
+  { path: '/horaires-priere/metz', priority: 0.7, changefreq: 'daily' },
+  { path: '/horaires-priere/orleans', priority: 0.7, changefreq: 'daily' },
+
+  // Coran
+  { path: '/coran', priority: 0.9, changefreq: 'monthly' },
+  { path: '/coran/al-fatiha', priority: 0.9, changefreq: 'yearly' },
+  { path: '/coran/al-baqarah', priority: 0.85, changefreq: 'yearly' },
+  { path: '/coran/al-imran', priority: 0.8, changefreq: 'yearly' },
+  { path: '/coran/an-nisa', priority: 0.8, changefreq: 'yearly' },
+  { path: '/coran/al-maida', priority: 0.8, changefreq: 'yearly' },
+  { path: '/coran/ya-sin', priority: 0.9, changefreq: 'yearly' },
+  { path: '/coran/ar-rahman', priority: 0.9, changefreq: 'yearly' },
+  { path: '/coran/al-kahf', priority: 0.9, changefreq: 'yearly' },
+  { path: '/coran/al-mulk', priority: 0.85, changefreq: 'yearly' },
+  { path: '/coran/al-ikhlas', priority: 0.85, changefreq: 'yearly' },
+  { path: '/coran/al-falaq', priority: 0.8, changefreq: 'yearly' },
+  { path: '/coran/an-nas', priority: 0.8, changefreq: 'yearly' },
+  { path: '/coran/al-asr', priority: 0.8, changefreq: 'yearly' },
+
+  // Hôtels
+  { path: '/les-hotels', priority: 0.85, changefreq: 'weekly' },
+
   // Communauté
   { path: '/discussions', priority: 0.6, changefreq: 'daily' },
 
@@ -118,6 +154,9 @@ const IGNORED_PATTERNS = [
   /^\/category\/:/,               // catégories listées explicitement
   /^\/profile\/:/,
   /^\/omra-depuis-:/,             // villes listées explicitement
+  /^\/horaires-priere\/:/,        // villes listées explicitement
+  /^\/coran\/:/,                  // sourates listées explicitement
+  /^\/hotel\/:/,                  // hôtels individuels
   /^\/omra$/,                     // redirige vers /
   /^\/comparateur-omra$/,         // redirige vers /omra
   /^\/a-propos|^\/calendrier-islamique|^\/dates-ramadan-hajj|^\/horaires-prieres/,
@@ -232,7 +271,7 @@ function runCheck() {
   const expected = expectedPublicPaths();
   const declared = new Set(STATIC_ROUTES.map((r) => r.path));
   // Sections dynamiques connues (pas dans STATIC_ROUTES)
-  const dynamicPrefixes = ['/agence-details/', '/blog/', '/category/', '/omra-depuis-'];
+  const dynamicPrefixes = ['/agence-details/', '/blog/', '/category/', '/omra-depuis-', '/horaires-priere/', '/coran/', '/hotel/'];
 
   const missing = expected.filter((p) => {
     if (p === '*') return false;                              // route NotFound catch-all
@@ -243,10 +282,13 @@ function runCheck() {
 
   const obsolete = [...declared].filter((p) => {
     // routes paramétrées du router qui matchent ces chemins
-    if (p.startsWith('/omra-depuis-')) return true && false;  // matched by /omra-depuis-:ville
+    if (p.startsWith('/omra-depuis-')) return false;          // matched by /omra-depuis-:ville
     if (p.startsWith('/omra-en-')) return false;              // chaque mois a sa Route explicite
     if (p.startsWith('/blog/')) return false;                 // matched by /blog/:category
     if (p.startsWith('/category/')) return false;             // matched by /category/:category
+    if (p.startsWith('/horaires-priere/')) return false;      // matched by /horaires-priere/:ville
+    if (p.startsWith('/coran/')) return false;                // matched by /coran/:sourate
+    if (p.startsWith('/hotel/')) return false;                // matched by /hotel/:hotelId
     return !expected.includes(p);
   });
 
