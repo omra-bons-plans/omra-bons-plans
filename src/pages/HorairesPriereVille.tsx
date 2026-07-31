@@ -122,7 +122,7 @@ export default function HorairesPriereVille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Horaires de Prière {city.name} {today.current.getFullYear()} — Fajr, Dhuhr, Asr, Maghrib, Isha | Omra Bons Plans</title>
+        <title>{`Horaires de Prière ${city.name} ${today.current.getFullYear()} — Fajr, Dhuhr, Asr, Maghrib, Isha | Omra Bons Plans`}</title>
         <meta name="description" content={`Horaires de prière à ${city.name} (${city.region}) aujourd'hui. Fajr, Dhuhr, Asr, Maghrib et Isha calculés selon la méthode UOIF. Horaires précis mis à jour quotidiennement.`} />
         <meta name="keywords" content={`horaires prière ${city.name.toLowerCase()}, heure prière ${city.name.toLowerCase()}, salat ${city.name.toLowerCase()}, fajr ${city.name.toLowerCase()}, isha ${city.name.toLowerCase()}`} />
         <link rel="canonical" href={`https://omrabonsplans.fr/horaires-priere/${city.slug}`} />
