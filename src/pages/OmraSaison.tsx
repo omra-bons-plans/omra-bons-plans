@@ -188,7 +188,7 @@ export default function OmraSaison() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra {data.nom} : Prix, Météo & Conseils | Guide Complet</title>
+        <title>{`Omra ${data.nom} : Prix, Météo & Conseils | Guide Complet`}</title>
         <meta name="description" content={`Tout savoir sur l'Omra en ${data.mois} ${data.annee} : prix ${data.prixMin}–${data.prixMax}, météo ${data.tempsMecque}, affluence ${data.affluence.toLowerCase()}. Guide complet et comparateur d'offres.`} />
         <meta name="keywords" content={`omra ${data.mois} ${data.annee}, omra en ${data.mois}, prix omra ${data.mois} ${data.annee}, omra ${data.periode.toLowerCase()}, météo la mecque ${data.mois}`} />
         <link rel="canonical" href={`https://omrabonsplans.fr/omra-en-${slug}`} />

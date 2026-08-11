@@ -486,7 +486,7 @@ export default function OmraVille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra depuis {data.nom} 2026 : Agences, Prix & Vols | Omra Bons Plans</title>
+        <title>{`Omra depuis ${data.nom} 2026 : Agences, Prix & Vols | Omra Bons Plans`}</title>
         <meta name="description" content={`Comparez les offres Omra 2026 depuis ${data.nom} (${data.codeAero}). ${data.supplement}. Agences agréées, vols ${data.volDuree}, conseils pratiques et prix par saison.`} />
         <meta name="keywords" content={`omra depuis ${data.nom.toLowerCase()}, omra ${data.nom.toLowerCase()} 2026, agence omra ${data.nom.toLowerCase()}, vol omra ${data.nom.toLowerCase()}, prix omra ${data.nom.toLowerCase()}, départ omra ${data.nom.toLowerCase()}`} />
         <link rel="canonical" href={canonicalUrl} />
