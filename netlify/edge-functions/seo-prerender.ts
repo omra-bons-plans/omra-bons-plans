@@ -42,10 +42,16 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/omra`,
   },
   "/hajj": {
-    title: "Comparateur Hajj 2026 — Agences Agréées | Omra Bons Plans",
-    description: "Comparez les offres Hajj 2026 des agences agréées en France 🇫🇷. Filtres par dates, hôtel, encadrement, prix. Trouvez votre Hajj idéal facilement.",
-    keywords: "hajj 2026, comparateur hajj, agences hajj France, prix hajj, pèlerinage Mecque",
+    title: "Comparateur Hajj 2027 — Agences Agréées | Omra Bons Plans",
+    description: "Comparez les offres Hajj 2027 des agences agréées en France 🇫🇷. Filtres par dates, hôtel, encadrement, prix. Trouvez votre Hajj idéal facilement.",
+    keywords: "hajj 2027, comparateur hajj, agences hajj France, prix hajj, pèlerinage Mecque",
     canonical: `${SITE}/hajj`,
+  },
+  "/hajj-2027": {
+    title: "Hajj 2027 : Dates (26-31 mai), Prix et Meilleures Agences | Omra Bons Plans",
+    description: "Hajj 2027 : dates du 26 au 31 mai 2027 (Arafat 27 mai), prix 5 000€-15 000€+, inscription Nusuk et comparatif des meilleures agences agréées en France.",
+    keywords: "hajj 2027, date hajj 2027, prix hajj 2027, inscription hajj 2027, agence hajj france",
+    canonical: `${SITE}/hajj-2027`,
   },
   "/hajj-2026": {
     title: "Hajj 2026 : Dates, Prix et Meilleures Agences | Omra Bons Plans",

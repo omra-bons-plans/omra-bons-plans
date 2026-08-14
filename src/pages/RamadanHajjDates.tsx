@@ -13,11 +13,11 @@ import { Link } from 'react-router-dom';
 const faqs = [
   {
     question: "Quand commence le Ramadan 2027 ?",
-    answer: "Le Ramadan 2027 commence le 18 février 2027 et se termine le 19 mars 2027. L'Aïd al-Fitr (fête de rupture du jeûne) est prévu le 19 mars 2027. Ces dates sont calculées par calcul astronomique et peuvent varier d'un jour selon l'observation locale de la lune croissante."
+    answer: "Le Ramadan 2027 (1448 AH) commence le 17 février 2027 et se termine le 18 mars 2027. L'Aïd al-Fitr (fête de rupture du jeûne) est prévu le 19 mars 2027. Ces dates sont calculées par calcul astronomique et peuvent varier d'un jour selon l'observation locale de la lune croissante."
   },
   {
     question: "Quand a lieu le Hajj 2027 ?",
-    answer: "Le Hajj 2027 se déroule du 26 au 31 mai 2027. Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2027, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2027. Si vous souhaitez accomplir le Hajj 2027, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
+    answer: "Le Hajj 2027 (1448 AH) se déroule du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448). Le jour d'Arafat (jour le plus important du pèlerinage) est le 27 mai 2027, et l'Aïd al-Adha (fête du sacrifice) est le 28 mai 2027. Si vous souhaitez accomplir le Hajj 2027, les inscriptions auprès des agences agréées commencent généralement 6 à 12 mois à l'avance."
   },
   {
     question: "Comment sont calculées les dates du Ramadan et du Hajj ?",
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: "Peut-on faire l'Omra pendant le Ramadan 2027 ?",
-    answer: "Oui, l'Omra pendant le Ramadan est particulièrement recommandée car le Prophète Muhammad ﷺ a dit qu'elle équivaut en récompense à un Hajj. Comptez entre 2 000 € et 5 000 € par personne pour l'Omra du Ramadan 2027 (18 février - 19 mars). Les prix sont plus élevés que hors Ramadan en raison de la très forte demande. Réservez au moins 6 mois à l'avance."
+    answer: "Oui, l'Omra pendant le Ramadan est particulièrement recommandée car le Prophète Muhammad ﷺ a dit qu'elle équivaut en récompense à un Hajj. Comptez entre 2 000 € et 5 000 € par personne pour l'Omra du Ramadan 2027 (17 février – 18 mars). Les prix sont plus élevés que hors Ramadan en raison de la très forte demande. Réservez au moins 6 mois à l'avance."
   },
   {
     question: "Quelle est la différence entre l'Omra et le Hajj ?",
@@ -33,11 +33,11 @@ const faqs = [
   },
   {
     question: "Quand faut-il réserver son Omra pour le Ramadan 2027 ?",
-    answer: "Pour l'Omra du Ramadan 2027 (18 février - 19 mars), il est conseillé de réserver entre juin et octobre 2025, soit 4 à 8 mois à l'avance. Les agences sérieuses ouvrent leurs inscriptions très tôt pour cette période. Les 10 derniers jours du Ramadan (nuits impaires) sont les plus demandés : les places partent en quelques semaines et les prix peuvent atteindre 4 000 à 8 000 €."
+    answer: "Pour l'Omra du Ramadan 2027 (17 février – 18 mars), il est conseillé de réserver dès maintenant (6 à 12 mois à l'avance). Les agences sérieuses ouvrent leurs inscriptions très tôt pour cette période. Les 10 derniers jours du Ramadan (nuits impaires, à partir du 9 mars) sont les plus demandés : les places partent en quelques semaines et les prix peuvent atteindre 4 000 à 8 000 €."
   },
   {
     question: "Quelles sont les dates du Ramadan et du Hajj pour 2027 et 2028 ?",
-    answer: "Ramadan 2027 : du 7 février au 8 mars 2027. Hajj 2027 : du 15 au 20 mai 2027 (Arafat le 16 mai). Ramadan 2028 : du 27 janvier au 26 février 2028. Hajj 2028 : du 4 au 9 mai 2028 (Arafat le 5 mai). Les dates avancent d'environ 10-11 jours par an car le calendrier islamique est lunaire."
+    answer: "Ramadan 2027 (1448 H) : du 17 février au 18 mars 2027, Aïd al-Fitr le 19 mars. Hajj 2027 (1448 H) : du 26 au 31 mai 2027, Arafat le 27 mai, Aïd al-Adha le 28 mai. Ramadan 2028 (1449 H) : du 6 février au 7 mars 2028, Aïd al-Fitr le 7 mars. Hajj 2028 (1449 H) : du 15 au 20 mai 2028, Arafat le 16 mai, Aïd al-Adha le 17 mai. Les dates avancent d'environ 10-11 jours par an car le calendrier islamique est lunaire."
   }
 ];
 
@@ -45,65 +45,65 @@ const faqs = [
 const RamadanHajjDates = () => {
   const ramadanDates = [
     {
-      year: '2026',
-      startDate: '18 février 2027',
-      endDate: '19 mars 2027',
-      eidDate: '19 mars 2027',
-      hijriYear: '1447'
-    },
-    {
       year: '2027',
-      startDate: '7 février 2027',
-      endDate: '8 mars 2027',
-      eidDate: '8 mars 2027',
+      startDate: '17 février 2027',
+      endDate: '18 mars 2027',
+      eidDate: '19 mars 2027',
       hijriYear: '1448'
     },
     {
       year: '2028',
-      startDate: '27 janvier 2028',
-      endDate: '26 février 2028',
-      eidDate: '26 février 2028',
+      startDate: '6 février 2028',
+      endDate: '7 mars 2028',
+      eidDate: '7 mars 2028',
       hijriYear: '1449'
+    },
+    {
+      year: '2029',
+      startDate: '26 janvier 2029',
+      endDate: '24 février 2029',
+      eidDate: '25 février 2029',
+      hijriYear: '1450'
     }
   ];
 
   const hajjDates = [
     {
-      year: '2026',
+      year: '2027',
       startDate: '26 mai 2027',
       endDate: '31 mai 2027',
       arafatDate: '27 mai 2027',
       eidDate: '28 mai 2027',
-      hijriYear: '1447'
-    },
-    {
-      year: '2027',
-      startDate: '15 mai 2027',
-      endDate: '20 mai 2027',
-      arafatDate: '16 mai 2027',
-      eidDate: '17 mai 2027',
       hijriYear: '1448'
     },
     {
       year: '2028',
-      startDate: '4 mai 2028',
-      endDate: '9 mai 2028',
-      arafatDate: '5 mai 2028',
-      eidDate: '6 mai 2028',
+      startDate: '15 mai 2028',
+      endDate: '20 mai 2028',
+      arafatDate: '16 mai 2028',
+      eidDate: '17 mai 2028',
       hijriYear: '1449'
+    },
+    {
+      year: '2029',
+      startDate: '4 mai 2029',
+      endDate: '9 mai 2029',
+      arafatDate: '5 mai 2029',
+      eidDate: '6 mai 2029',
+      hijriYear: '1450'
     }
   ];
 
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage Islam</title>
-        <meta name="description" content="Découvrez les dates officielles du Ramadan et du Hajj 2027-2028 : début et fin du jeûne, jour d'Arafat, Aïd al-Fitr et Aïd al-Adha. Planifiez votre pèlerinage." />
-        <meta name="keywords" content="dates ramadan 2027, hajj 2027, calendrier hajj, arafat date, eid dates" />
+        <title>{`Dates Ramadan & Hajj 2027-2029 | Calendrier Pèlerinage Islam`}</title>
+        <meta name="description" content="Dates officielles du Ramadan et du Hajj 2027-2029 : Ramadan 2027 du 17 fév au 18 mars, Hajj 2027 du 26 au 31 mai (Arafat 27 mai). Planifiez votre pèlerinage." />
+        <meta name="keywords" content="dates ramadan 2027, hajj 2027, date arafat 2027, eid al adha 2027, calendrier hajj 2027" />
         <link rel="canonical" href="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage" />
-        <meta property="og:description" content="Calendrier officiel des dates du Ramadan et du Hajj 2027-2028. Dates Arafat, Eid al-Fitr, Eid al-Adha." />
+        <meta property="og:title" content="Dates Ramadan & Hajj 2027-2029 | Calendrier Pèlerinage" />
+        <meta property="og:description" content="Calendrier officiel : Ramadan 2027 (17 fév–18 mars), Hajj 2027 (26-31 mai, Arafat 27 mai). Dates Eid al-Fitr et Eid al-Adha 2027-2029." />
         <meta property="og:url" content="https://omrabonsplans.fr/ramadan-hajj-dates" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -111,13 +111,13 @@ const RamadanHajjDates = () => {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Dates Ramadan & Hajj 2027-2028 | Calendrier Pèlerinage Islam",
-          "description": "Calendrier officiel des dates du Ramadan et du Hajj 2027-2028 : dates Arafat, Eid al-Fitr, Eid al-Adha. Préparez votre pèlerinage.",
+          "headline": "Dates Ramadan & Hajj 2027-2029 | Calendrier Pèlerinage Islam",
+          "description": "Calendrier officiel des dates du Ramadan et du Hajj 2027-2029 : Ramadan 2027 du 17 fév au 18 mars, Hajj 2027 du 26 au 31 mai (Arafat 27 mai).",
           "url": "https://omrabonsplans.fr/ramadan-hajj-dates",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-10-01",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-14",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>
@@ -149,14 +149,14 @@ const RamadanHajjDates = () => {
             },
             "mainEntity": {
               "@type": "ItemList",
-              "name": "Calendrier Islamique 2026-2028",
+              "name": "Calendrier Islamique 2027-2029",
               "itemListElement": [
                 {
                   "@type": "Event",
                   "name": "Ramadan 2027",
-                  "description": "Mois sacré du jeûne musulman du 18 février au 19 mars 2027 avec l'Aïd al-Fitr le 19 mars 2027",
-                  "startDate": "2026-02-18",
-                  "endDate": "2026-03-19",
+                  "description": "Mois sacré du jeûne musulman du 17 février au 18 mars 2027 — Aïd al-Fitr le 19 mars 2027 (1448 AH)",
+                  "startDate": "2027-02-17",
+                  "endDate": "2027-03-18",
                   "location": {
                     "@type": "Place",
                     "name": "Observance mondiale",
@@ -169,40 +169,9 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Hajj 2027",
-                  "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2027 avec le jour d'Arafat le 27 mai et l'Aïd al-Adha le 28 mai 2027",
-                  "startDate": "2026-05-26",
-                  "endDate": "2026-05-31",
-                  "location": {
-                    "@type": "Place",
-                    "name": "La Mecque",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "addressLocality": "La Mecque",
-                      "addressCountry": "Arabie Saoudite"
-                    }
-                  }
-                },
-                {
-                  "@type": "Event",
-                  "name": "Ramadan 2027",
-                  "description": "Mois sacré du jeûne musulman du 7 février au 8 mars 2027 avec l'Aïd al-Fitr le 8 mars 2027",
-                  "startDate": "2027-02-07",
-                  "endDate": "2027-03-08",
-                  "location": {
-                    "@type": "Place",
-                    "name": "Observance mondiale",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "addressCountry": "Monde"
-                    }
-                  }
-                },
-                {
-                  "@type": "Event",
-                  "name": "Hajj 2027",
-                  "description": "Pèlerinage annuel à La Mecque du 15 au 20 mai 2027 avec le jour d'Arafat le 16 mai et l'Aïd al-Adha le 17 mai 2027",
-                  "startDate": "2027-05-15",
-                  "endDate": "2027-05-20",
+                  "description": "Pèlerinage annuel à La Mecque du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448) — Arafat le 27 mai, Aïd al-Adha le 28 mai 2027",
+                  "startDate": "2027-05-26",
+                  "endDate": "2027-05-31",
                   "location": {
                     "@type": "Place",
                     "name": "La Mecque",
@@ -216,9 +185,9 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Ramadan 2028",
-                  "description": "Mois sacré du jeûne musulman du 27 janvier au 26 février 2028 avec l'Aïd al-Fitr le 26 février 2028",
-                  "startDate": "2028-01-27",
-                  "endDate": "2028-02-26",
+                  "description": "Mois sacré du jeûne musulman du 6 février au 7 mars 2028 — Aïd al-Fitr le 7 mars 2028 (1449 AH)",
+                  "startDate": "2028-02-06",
+                  "endDate": "2028-03-07",
                   "location": {
                     "@type": "Place",
                     "name": "Observance mondiale",
@@ -231,9 +200,40 @@ const RamadanHajjDates = () => {
                 {
                   "@type": "Event",
                   "name": "Hajj 2028",
-                  "description": "Pèlerinage annuel à La Mecque du 4 au 9 mai 2028 avec le jour d'Arafat le 5 mai et l'Aïd al-Adha le 6 mai 2028",
-                  "startDate": "2028-05-04",
-                  "endDate": "2028-05-09",
+                  "description": "Pèlerinage annuel à La Mecque du 15 au 20 mai 2028 (8-13 Dhul Hijja 1449) — Arafat le 16 mai, Aïd al-Adha le 17 mai 2028",
+                  "startDate": "2028-05-15",
+                  "endDate": "2028-05-20",
+                  "location": {
+                    "@type": "Place",
+                    "name": "La Mecque",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": "La Mecque",
+                      "addressCountry": "Arabie Saoudite"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Ramadan 2029",
+                  "description": "Mois sacré du jeûne musulman du 26 janvier au 24 février 2029 — Aïd al-Fitr le 25 février 2029 (1450 AH)",
+                  "startDate": "2029-01-26",
+                  "endDate": "2029-02-24",
+                  "location": {
+                    "@type": "Place",
+                    "name": "Observance mondiale",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressCountry": "Monde"
+                    }
+                  }
+                },
+                {
+                  "@type": "Event",
+                  "name": "Hajj 2029",
+                  "description": "Pèlerinage annuel à La Mecque du 4 au 9 mai 2029 (8-13 Dhul Hijja 1450) — Arafat le 5 mai, Aïd al-Adha le 6 mai 2029",
+                  "startDate": "2029-05-04",
+                  "endDate": "2029-05-09",
                   "location": {
                     "@type": "Place",
                     "name": "La Mecque",
@@ -258,7 +258,7 @@ const RamadanHajjDates = () => {
               Dates du Ramadan 2027 et du Hajj 2027
             </h1>
             <h2 className="text-2xl text-muted-foreground mb-4 font-semibold">
-              Calendrier complet des dates officielles du Ramadan et du Hajj pour 2026, 2027 et 2028
+              Calendrier complet des dates officielles du Ramadan et du Hajj pour 2027, 2028 et 2029
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Planifiez dès maintenant votre voyage spirituel avec notre calendrier détaillé des dates du Ramadan 
@@ -291,7 +291,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <Calendar className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2027-2028</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Ramadan 2027-2029</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier complet des dates de jeûne et de l'Aïd al-Fitr</p>
                 </div>
               </div>
@@ -329,7 +329,7 @@ const RamadanHajjDates = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <MapPin className="w-6 h-6 text-primary" />
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2027-2028</h2>
+                  <h2 className="text-2xl font-bold text-foreground">Dates du Hajj 2027-2029</h2>
                   <p className="text-sm text-muted-foreground mt-1">Calendrier des dates officielles du pèlerinage à La Mecque et de l'Aïd al-Adha</p>
                 </div>
               </div>

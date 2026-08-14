@@ -26,6 +26,7 @@ const routeMap: Record<string, string> = {
   '/bons-plans': 'Bons Plans',
   '/hajj': 'Hajj',
   '/hajj-2026': 'Hajj 2026',
+  '/hajj-2027': 'Hajj 2027',
   '/coran': 'Le Coran',
   '/horaires-priere': 'Horaires de Prière',
   '/comparateur-omra-france': 'Comparateur Omra',
