@@ -76,7 +76,7 @@ export default function MeilleureAgenceOmra() {
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
-          "dateModified": "2026-04-21",
+          "dateModified": "2026-08-16",
           "inLanguage": "fr-FR"
         })}</script>
         <script type="application/ld+json">{JSON.stringify({

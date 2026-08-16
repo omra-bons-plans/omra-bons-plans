@@ -14,7 +14,7 @@ interface SEOHeadProps {
 export const SEOHead = ({
   title,
   description,
-  keywords = 'omra 2026, hajj 2027, omra ramadan, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
+  keywords = 'omra 2027, hajj 2027, omra ramadan 2027, 10 derniers jours ramadan, pèlerinage, arabie saoudite, la mecque, médine, omra pas chère',
   canonical,
   ogImage = 'https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp',
   ogType = 'website',

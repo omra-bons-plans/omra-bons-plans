@@ -32,7 +32,7 @@ export default function DixDerniersJoursRamadan() {
       <Helmet>
         <title>10 Derniers Jours Ramadan 2027 à La Mecque — Omra, Prix & Guide</title>
         <meta name="description" content="Omra 10 derniers jours Ramadan 2027 : dates, prix (2 500-8 000€), Laylat al-Qadr, conseils de préparation et agences spécialisées. Réservez tôt." />
-        <meta name="keywords" content="10 derniers jours ramadan, omra 10 derniers jours, laylat al-qadr, nuit du destin, omra ramadan prix, ramadan mecque 2026, dernières nuits ramadan" />
+        <meta name="keywords" content="10 derniers jours ramadan 2027, omra 10 derniers jours, laylat al-qadr, nuit du destin, omra ramadan prix, ramadan mecque 2027, dernières nuits ramadan" />
         <link rel="canonical" href="https://omrabonsplans.fr/10-derniers-jours-ramadan" />
         <meta property="og:title" content="10 Derniers Jours Ramadan 2027 à La Mecque — Omra & Guide" />
         <meta property="og:description" content="Dates, prix et conseils pour l'Omra pendant les 10 derniers jours du Ramadan 2027 incluant Laylat al-Qadr." />
@@ -50,7 +50,7 @@ export default function DixDerniersJoursRamadan() {
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-11-01",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-16",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}

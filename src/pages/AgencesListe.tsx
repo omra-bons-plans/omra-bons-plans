@@ -103,7 +103,7 @@ export default function AgencesListe() {
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-09-01",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-16",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>
@@ -132,7 +132,7 @@ export default function AgencesListe() {
 
         <header className="text-center mb-6 md:mb-8">
           <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            {isMobile ? 'Agences Omra & Hajj 2027' : 'Liste Complète des Agences Omra & Hajj 2027-2027'}
+            {isMobile ? 'Agences Omra & Hajj 2027' : 'Liste Complète des Agences Omra & Hajj 2027'}
           </h1>
           {!isMobile && (
               <>

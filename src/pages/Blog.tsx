@@ -209,7 +209,7 @@ const Blog = () => {
             ? `Articles ${getCategoryName(category).toLowerCase()} pour votre pèlerinage.`
             : "Guides complets Omra & Hajj 2027 : rites, préparation, visa, bagages, prix, agences. Conseils d'experts pour réussir votre pèlerinage en Arabie Saoudite."
         }
-        keywords="blog omra, guides hajj, préparation pèlerinage, rites omra, visa omra, prix omra 2026"
+        keywords="blog omra, guides hajj, préparation pèlerinage, rites omra, visa omra, prix omra 2027"
         canonical={`https://omrabonsplans.fr/blog${category ? `/${category}` : ''}`}
         noindex={['restaurants', 'vendeurs', 'associations'].includes(category || '')}
         structuredData={{
@@ -250,10 +250,10 @@ const Blog = () => {
           {/* Page Title and Description - Compact on mobile */}
           <div className="text-center mb-4 sm:mb-8 px-2">
             <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-4">
-              {selectedCategory === 'all' ? "Blog Omra & Hajj : Guides et Conseils 2026-2027" : `Blog ${getCategoryName(selectedCategory)}`}
+              {selectedCategory === 'all' ? "Blog Omra & Hajj : Guides et Conseils 2027" : `Blog ${getCategoryName(selectedCategory)}`}
             </h1>
             <h2 className="text-base sm:text-xl text-muted-foreground mb-2 font-semibold">
-              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2027-2027"}
+              {selectedCategory === 'general' && "Guides complets et conseils pratiques pour réussir votre Omra et Hajj 2027"}
               {selectedCategory === 'restaurants' && "Sélection des meilleurs restaurants halal certifiés à La Mecque et Médine"}
               {selectedCategory === 'associations' && "Associations musulmanes et organisations caritatives œuvrant pour la communauté"}
               {selectedCategory === 'vendeurs' && "Annuaire des commerçants et artisans de confiance pour vos besoins"}

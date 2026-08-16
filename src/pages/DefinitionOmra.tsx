@@ -53,7 +53,7 @@ export default function DefinitionOmra() {
           "description": "Définition complète de l'Omra en Islam pour les musulmans français.",
           "url": "https://omrabonsplans.fr/definition-omra",
           "datePublished": "2026-04-03",
-          "dateModified": "2026-04-03",
+          "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/hero-kaaba-optimized.webp" }

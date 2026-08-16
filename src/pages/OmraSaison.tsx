@@ -213,7 +213,7 @@ export default function OmraSaison() {
           "headline": `Omra ${data.nom} : Guide Complet Prix et Conseils`,
           "url": `https://omrabonsplans.fr/omra-en-${slug}`,
           "datePublished": "2026-02-01",
-          "dateModified": "2026-04-01",
+          "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } }
         })}</script>

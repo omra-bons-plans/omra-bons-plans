@@ -467,7 +467,7 @@ export default function OmraVille() {
     description: `Comparez les meilleures offres Omra 2026 depuis ${data.nom}. Agences agréées, vols depuis ${data.codeAero}, prix et conseils pratiques.`,
     url: canonicalUrl,
     datePublished: '2026-01-15',
-    dateModified: '2026-05-01',
+    dateModified: '2026-08-16',
     author: { '@type': 'Person', '@id': `${SITE}/about#farid`, name: "Farid d'Arabie", jobTitle: 'Expert en pèlerinage islamique' },
     publisher: { '@type': 'Organization', name: 'Omra Bons Plans', url: SITE },
     inLanguage: 'fr-FR',

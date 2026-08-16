@@ -95,9 +95,14 @@ const GuideHajj4Ecoles = () => {
         <meta property="og:description" content="Découvrez les étapes du Hajj expliquées selon les 4 madhabs sunnites. Obligations, divergences et FAQ détaillées." />
         <meta property="og:url" content="https://omrabonsplans.fr/guide-hajj-4-ecoles" />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Guide Hajj 4 Écoles Juridiques | OmraBonsPlans" />
         <meta name="twitter:description" content="Guide complet du Hajj selon les 4 écoles sunnites : étapes, obligations, divergences et FAQ." />
+        <meta name="twitter:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

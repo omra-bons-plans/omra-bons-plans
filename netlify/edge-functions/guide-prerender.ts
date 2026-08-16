@@ -23,15 +23,15 @@ interface PageData {
 
 const PAGES: Record<string, PageData> = {
   "/omra-femme-seule": {
-    title: "Omra Femme Seule 2026 : Guide Complet, Conditions et Conseils",
-    description: "Omra femme seule 2026 : autorisée sans mahram depuis 2021. Visa, conditions, prix (950€–2 200€), conseils d'expert pour réussir votre pèlerinage.",
+    title: "Omra Femme Seule 2027 : Guide Complet, Conditions et Conseils",
+    description: "Omra femme seule 2027 : autorisée sans mahram depuis 2021. Visa, conditions, prix (950€–2 200€), conseils d'expert pour réussir votre pèlerinage.",
     canonical: "https://omrabonsplans.fr/omra-femme-seule",
-    h1: "Omra Femme Seule : Guide Complet 2026",
+    h1: "Omra Femme Seule : Guide Complet 2027",
     intro: "Depuis 2021, l'Arabie Saoudite autorise les femmes de tout âge à effectuer l'Omra sans mahram (accompagnateur masculin), en groupe organisé via une agence agréée. Ce guide répond à toutes vos questions : conditions légales et religieuses, documents nécessaires, prix, et conseils pratiques de Farid d'Arabie, expert ayant accompagné plus de 5 000 pèlerins dont de nombreuses femmes seules.",
     sections: [
       { h2: "Les femmes seules peuvent-elles faire l'Omra ?", text: "Oui. La loi saoudienne a supprimé l'obligation du mahram pour l'Omra en 2021. Les femmes de tout âge peuvent voyager en groupe organisé avec une agence agréée par le Ministère Saoudien des Affaires Islamiques. D'un point de vue religieux, la majorité des savants maintiennent l'obligation du mahram — consultez votre référent religieux de confiance." },
       { h2: "Documents nécessaires", text: "Passeport valide 6 mois après le retour. Visa Omra inclus dans le forfait agence, ou eVisa touristique saoudien. Vaccin méningocoque ACWY obligatoire (certificat de vaccination). Aucun acte mahram requis depuis 2021 selon la réglementation saoudienne." },
-      { h2: "Prix Omra femme seule 2026", text: "Basse saison (été) : 950€ à 1 400€ en chambre partagée. Hiver (déc-fév) : 1 200€ à 1 800€. Ramadan : 2 000€ à 2 800€. Ces prix incluent vol, hôtel, transferts et visa. Les agences proposent des chambres doubles ou individuelles à supplément." },
+      { h2: "Prix Omra femme seule 2027", text: "Basse saison (été) : 950€ à 1 400€ en chambre partagée. Hiver (déc-fév) : 1 200€ à 1 800€. Ramadan : 2 000€ à 2 800€. Ces prix incluent vol, hôtel, transferts et visa. Les agences proposent des chambres doubles ou individuelles à supplément." },
     ],
     faqs: [
       { q: "Une femme seule peut-elle faire l'Omra sans mahram ?", a: "Oui selon la loi saoudienne depuis 2021 — les femmes de tout âge peuvent partir en Omra en groupe organisé avec une agence agréée, sans mahram obligatoire légalement. D'un point de vue religieux, la majorité des savants maintiennent l'obligation du mahram. Consultez votre référent religieux." },
@@ -41,10 +41,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/conditions-omra": {
-    title: "Conditions pour Faire l'Omra 2026 : Qui Peut Partir ?",
-    description: "Toutes les conditions pour faire l'Omra en 2026 : conditions religieuses, documents obligatoires, règles pour les femmes seules, vaccins et conditions de santé.",
+    title: "Conditions pour Faire l'Omra 2027 : Qui Peut Partir ?",
+    description: "Toutes les conditions pour faire l'Omra en 2027 : conditions religieuses, documents obligatoires, règles pour les femmes seules, vaccins et conditions de santé.",
     canonical: "https://omrabonsplans.fr/conditions-omra",
-    h1: "Conditions pour Faire l'Omra 2026",
+    h1: "Conditions pour Faire l'Omra 2027",
     intro: "Pour accomplir l'Omra, plusieurs conditions doivent être réunies : conditions religieuses (être musulman, avoir l'âge de raison, être en capacité physique et financière), conditions administratives (passeport valide, visa, vaccin méningocoque ACWY), et conditions spécifiques selon votre situation (femme, personne âgée, femme enceinte).",
     sections: [
       { h2: "Conditions religieuses (Chourout)", text: "Être musulman(e). Avoir l'âge de raison (bâligh). Être libre de toute contrainte. Avoir la capacité physique d'effectuer le voyage. Disposer des ressources financières nécessaires sans s'endetter. Que le chemin soit sûr." },
@@ -59,10 +59,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/quand-partir-omra": {
-    title: "Quand partir en Omra ? Meilleures Périodes & Prix 2026",
-    description: "Découvrez la meilleure période pour partir en Omra selon votre budget : Ramadan, hiver, hors saison. Comparatif des prix et conseils pour choisir la bonne date en 2026.",
+    title: "Quand partir en Omra ? Meilleures Périodes & Prix 2027",
+    description: "Découvrez la meilleure période pour partir en Omra selon votre budget : Ramadan, hiver, hors saison. Comparatif des prix et conseils pour choisir la bonne date en 2027.",
     canonical: "https://omrabonsplans.fr/quand-partir-omra",
-    h1: "Quand partir en Omra ? Guide des Meilleures Périodes 2026",
+    h1: "Quand partir en Omra ? Guide des Meilleures Périodes 2027",
     intro: "L'Omra peut être accomplie à n'importe quel moment de l'année, contrairement au Hajj. Cependant, toutes les périodes ne se valent pas : les prix, l'affluence, les températures et la valeur spirituelle varient considérablement selon la saison. Ce guide vous aide à choisir la meilleure période selon votre budget et vos objectifs.",
     sections: [
       { h2: "Basse saison : le meilleur rapport qualité-prix", text: "Les mois de Mouharram et Safar (environ juillet-septembre selon le calendrier grégorien) offrent les prix les plus bas : dès 800€ tout compris. L'affluence est faible, permettant d'accomplir le Tawaf et le Sa'i dans de meilleures conditions." },
@@ -77,14 +77,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-tout-compris": {
-    title: "Omra Tout Compris 2026 : Forfaits et Meilleures Offres",
-    description: "Omra tout compris 2026 : forfaits all-inclusive, comparatif agences, prix (1 200€-4 000€). Vol, hôtel, transport, repas inclus. Réservez le meilleur package.",
+    title: "Omra Tout Compris 2027 : Forfaits et Meilleures Offres",
+    description: "Omra tout compris 2027 : forfaits all-inclusive, comparatif agences, prix (1 200€-4 000€). Vol, hôtel, transport, repas inclus. Réservez le meilleur package.",
     canonical: "https://omrabonsplans.fr/omra-tout-compris",
-    h1: "Omra Tout Compris 2026 : Guide Complet et Meilleures Offres",
+    h1: "Omra Tout Compris 2027 : Guide Complet et Meilleures Offres",
     intro: "Un forfait Omra tout compris inclut tout ce dont vous avez besoin pour votre pèlerinage : vol aller-retour, hébergement à La Mecque et Médine, pension complète, transferts, encadrement francophone et visa. C'est la solution idéale pour les primo-pèlerins, les personnes seules et tous ceux qui souhaitent se concentrer sur leur démarche spirituelle sans contrainte logistique.",
     sections: [
       { h2: "Ce qui est inclus dans un forfait tout compris", text: "Vol international aller-retour depuis la France. Hébergement 3 à 5 étoiles à La Mecque et Médine. Petit-déjeuner et dîner (pension complète). Transport terrestre en bus climatisé. Encadrement par guide francophone. Visa Omra. Transferts aéroport-hôtel. Assurance de base." },
-      { h2: "Prix des forfaits Omra tout compris 2026", text: "Économique (3★) : 1 200 à 1 500€. Standard (4★) : 1 800 à 2 500€. Confort (4-5★, <500m du Haram) : 2 500 à 3 500€. Luxury (5★ vue Kaaba) : 3 500 à 4 000€+. Ces prix sont valables hors Ramadan pour un séjour de 10 nuits." },
+      { h2: "Prix des forfaits Omra tout compris 2027", text: "Économique (3★) : 1 200 à 1 500€. Standard (4★) : 1 800 à 2 500€. Confort (4-5★, <500m du Haram) : 2 500 à 3 500€. Luxury (5★ vue Kaaba) : 3 500 à 4 000€+. Ces prix sont valables hors Ramadan pour un séjour de 10 nuits." },
       { h2: "Tout compris vs à la carte", text: "Tout compris : idéal pour primo-pèlerins, personnes seules, seniors — tranquillité d'esprit garantie. À la carte : pour voyageurs indépendants et groupes autonomes — 20 à 40% moins cher mais demande plus d'organisation. Notre comparateur vous permet de trouver la meilleure offre selon votre profil." },
     ],
     faqs: [
@@ -95,13 +95,13 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/meilleure-agence-omra": {
-    title: "Meilleure Agence Omra 2026 : Classement et Guide de Choix",
-    description: "Meilleure agence omra 2026 : classement Tawaf, Medinvoyages, Al-Maqam. Critères de choix et questions essentielles avant de réserver votre pèlerinage.",
+    title: "Meilleure Agence Omra 2027 : Classement et Guide de Choix",
+    description: "Meilleure agence omra 2027 : classement Tawaf, Medinvoyages, Al-Maqam. Critères de choix et questions essentielles avant de réserver votre pèlerinage.",
     canonical: "https://omrabonsplans.fr/meilleure-agence-omra",
-    h1: "Meilleure Agence Omra 2026 : Guide de Choix et Classement",
+    h1: "Meilleure Agence Omra 2027 : Guide de Choix et Classement",
     intro: "Choisir la bonne agence Omra est l'une des décisions les plus importantes de votre préparation. D'après les avis Google de milliers de pèlerins français, Tawaf (4,8/5), Medinvoyages (4,7/5) et Al-Maqam (4,6/5) se distinguent parmi les meilleures agences agréées en France. Voici notre guide complet pour bien choisir.",
     sections: [
-      { h2: "Top 5 meilleures agences Omra 2026", text: "1. Tawaf (4,8/5 — 520 avis) : sérieux reconnu, encadrement excellent. 2. Medinvoyages (4,7/5 — 380 avis) : meilleur rapport qualité-prix. 3. Al-Maqam (4,6/5 — 310 avis) : hôtels 4-5 étoiles proches du Haram. 4. Omra Discount (4,5/5) : meilleurs prix dès 999€. 5. Pèlerinhajj (4,6/5) : expertise Hajj et séjours longs." },
+      { h2: "Top 5 meilleures agences Omra 2027", text: "1. Tawaf (4,8/5 — 520 avis) : sérieux reconnu, encadrement excellent. 2. Medinvoyages (4,7/5 — 380 avis) : meilleur rapport qualité-prix. 3. Al-Maqam (4,6/5 — 310 avis) : hôtels 4-5 étoiles proches du Haram. 4. Omra Discount (4,5/5) : meilleurs prix dès 999€. 5. Pèlerinhajj (4,6/5) : expertise Hajj et séjours longs." },
       { h2: "Comment vérifier qu'une agence est fiable", text: "Vérifiez l'agrément ATOUT FRANCE (obligatoire). Contrôlez les avis Google : minimum 300 avis récents, note ≥ 4,3/5. Confirmez l'adresse physique en France et un numéro de téléphone fixe. Demandez le document d'assurance annulation avant de signer." },
       { h2: "Budget recommandé pour une Omra de qualité", text: "Minimum 1 500€ pour une Omra correcte en hôtel 3-4★ hors Ramadan. De 1 800 à 2 500€ pour un bon rapport qualité-prix. Au-delà de 3 000€ : segment premium avec vue Kaaba et petits groupes. Évitez les offres sous 1 200€ — les compromis sont souvent importants." },
     ],
@@ -129,17 +129,17 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/prix-omra-2026": {
-    title: "Prix Omra 2026 : Tarifs par Période, Agence et Standing",
-    description: "Prix Omra 2026 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif des tarifs par saison, agence et niveau de confort.",
+    title: "Prix Omra 2027 : Tarifs par Période, Agence et Standing",
+    description: "Prix Omra 2027 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif des tarifs par saison, agence et niveau de confort.",
     canonical: "https://omrabonsplans.fr/prix-omra-2026",
-    h1: "Prix Omra 2026 : Guide Complet des Tarifs",
-    intro: "Le prix d'une Omra en 2026 varie de 800€ à 5 000€+ selon la période de départ, le niveau de l'hôtel et la durée du séjour. Ce guide vous donne une vision complète des tarifs pratiqués par les agences françaises agréées pour vous aider à trouver le meilleur rapport qualité-prix.",
+    h1: "Prix Omra 2027 : Guide Complet des Tarifs",
+    intro: "Le prix d'une Omra en 2027 varie de 800€ à 5 000€+ selon la période de départ, le niveau de l'hôtel et la durée du séjour. Ce guide vous donne une vision complète des tarifs pratiqués par les agences françaises agréées pour vous aider à trouver le meilleur rapport qualité-prix.",
     sections: [
-      { h2: "Prix Omra 2026 par période", text: "Basse saison (Mouharram, Safar) : 800-1 500€. Hiver (déc-fév) : 1 200-2 500€. Sha'ban (avant Ramadan) : 1 500-2 500€. Ramadan (début) : 2 000-3 500€. Ramadan (10 derniers jours) : 2 500-5 000€." },
+      { h2: "Prix Omra 2027 par période", text: "Basse saison (Mouharram, Safar) : 800-1 500€. Hiver (déc-fév) : 1 200-2 500€. Sha'ban (avant Ramadan) : 1 500-2 500€. Ramadan (début) : 2 000-3 500€. Ramadan (10 derniers jours) : 2 500-5 000€." },
       { h2: "Prix par niveau d'hôtel", text: "Hôtel 3★ (1-2 km du Haram) : 800-1 500€. Hôtel 4★ (<1 km) : 1 500-2 500€. Hôtel 4-5★ (<500m) : 2 500-3 500€. Hôtel 5★ vue Kaaba : 3 500-5 000€+. Tous ces prix incluent vol, hôtel, transferts et visa." },
     ],
     faqs: [
-      { q: "Quel est le prix d'une Omra en 2026 ?", a: "Le prix d'une Omra en 2026 varie de 800€ (basse saison, hôtel 3★) à 5 000€+ (Ramadan, hôtel 5★ vue Kaaba). En moyenne, un forfait de qualité se situe entre 1 500 et 2 500€ hors Ramadan. Notre comparateur affiche en temps réel les tarifs de 20 agences agréées." },
+      { q: "Quel est le prix d'une Omra en 2027 ?", a: "Le prix d'une Omra en 2027 varie de 800€ (basse saison, hôtel 3★) à 5 000€+ (Ramadan, hôtel 5★ vue Kaaba). En moyenne, un forfait de qualité se situe entre 1 500 et 2 500€ hors Ramadan. Notre comparateur affiche en temps réel les tarifs de 20 agences agréées." },
       { q: "Pourquoi le prix de l'Omra varie-t-il autant ?", a: "Le prix dépend de 3 facteurs : la période (Ramadan coûte 50-100% plus cher), le niveau de l'hôtel (la distance au Haram impacte fortement le tarif) et la durée (10 à 21 nuits). Un hôtel à 500m du Haram coûte 2 à 3 fois plus cher qu'un hôtel à 2 km." },
     ],
   },
@@ -164,8 +164,8 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-debutant": {
-    title: "Omra pour Débutant : Guide Complet Première Omra 2026",
-    description: "Guide Omra débutant 2026 : comment préparer sa première Omra, les erreurs à éviter, le budget, les documents, et les conseils de pèlerins expérimentés.",
+    title: "Omra pour Débutant : Guide Complet Première Omra 2027",
+    description: "Guide Omra débutant 2027 : comment préparer sa première Omra, les erreurs à éviter, le budget, les documents, et les conseils de pèlerins expérimentés.",
     canonical: "https://omrabonsplans.fr/omra-debutant",
     h1: "Omra pour Débutant : Tout Savoir pour sa Première Omra",
     intro: "La première Omra est souvent un moment de grand émoi et de nombreuses interrogations. Ce guide complet vous accompagne de la décision jusqu'au retour : documents, budget, préparation spirituelle, déroulement des rites, erreurs à éviter et conseils pratiques issus de l'expérience de milliers de primo-pèlerins.",
@@ -182,10 +182,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/visa-omra-france": {
-    title: "Visa Omra France 2026 : Comment l'Obtenir, Prix et Délais",
-    description: "Visa Omra France 2026 : via agence agréée ou eVisa touristique saoudien. Prix (110-150€), délais, documents requis et guide étape par étape pour obtenir votre visa.",
+    title: "Visa Omra France 2027 : Comment l'Obtenir, Prix et Délais",
+    description: "Visa Omra France 2027 : via agence agréée ou eVisa touristique saoudien. Prix (110-150€), délais, documents requis et guide étape par étape pour obtenir votre visa.",
     canonical: "https://omrabonsplans.fr/visa-omra-france",
-    h1: "Visa Omra France 2026 : Guide Complet pour l'Obtenir",
+    h1: "Visa Omra France 2027 : Guide Complet pour l'Obtenir",
     intro: "Pour accomplir l'Omra depuis la France, vous avez besoin d'un visa pour entrer en Arabie Saoudite. Il existe deux options : le visa Omra délivré via une agence agréée (inclus dans la plupart des forfaits), ou le visa touristique saoudien (eVisa) obtenu en ligne. Ce guide vous explique les deux options, leurs avantages, prix et délais.",
     sections: [
       { h2: "Option 1 : Visa Omra via agence agréée", text: "Le visa Omra est obtenu par votre agence agréée par le Ministère Saoudien des Affaires Islamiques. Il est généralement inclus dans le forfait. L'agence gère toutes les démarches administratives. Délai : 1 à 4 semaines avant le départ. Documents fournis à l'agence : passeport valide 6 mois, photo d'identité, certificat de vaccination méningocoque ACWY." },
@@ -200,10 +200,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/guide-omra-pas-chere": {
-    title: "Omra Pas Chère 2026 : Astuces pour Payer Moins Cher",
-    description: "Guide Omra pas chère 2026 : 8 astuces pour économiser 30-50% sur votre Omra. Meilleures périodes, comparaison agences, hôtels, vols et erreurs à éviter.",
+    title: "Omra Pas Chère 2027 : Astuces pour Payer Moins Cher",
+    description: "Guide Omra pas chère 2027 : 8 astuces pour économiser 30-50% sur votre Omra. Meilleures périodes, comparaison agences, hôtels, vols et erreurs à éviter.",
     canonical: "https://omrabonsplans.fr/guide-omra-pas-chere",
-    h1: "Omra Pas Chère 2026 : 8 Astuces pour Économiser",
+    h1: "Omra Pas Chère 2027 : 8 Astuces pour Économiser",
     intro: "Il est tout à fait possible d'accomplir l'Omra avec un budget limité. En choisissant la bonne période, en comparant plusieurs agences et en évitant les erreurs classiques, vous pouvez réduire le coût de votre Omra de 30 à 50%. Voici 8 astuces concrètes de pèlerins expérimentés.",
     sections: [
       { h2: "Astuce 1 : Partez en basse saison", text: "Les mois de Mouharram et Safar (juillet-septembre) offrent les prix les plus bas : dès 800€ tout compris. Évitez le Ramadan (2x plus cher), les vacances scolaires de Noël et les week-ends prolongés. La chaleur est plus forte (40-45°C) mais les foules sont réduites." },
@@ -212,44 +212,44 @@ const PAGES: Record<string, PageData> = {
     ],
     faqs: [
       { q: "Quel est le prix minimum pour faire l'Omra ?", a: "En basse saison (Mouharram, Safar), les forfaits démarrent à 800€ en chambre partagée. Avec des frais personnels de 200-300€, comptez 1 000-1 100€ minimum. En dessous, méfiez-vous : des économies excessives impliquent souvent des compromis importants sur l'hôtel, l'encadrement ou les conditions de voyage." },
-      { q: "Quelle période est la moins chère pour l'Omra ?", a: "Les mois islamiques de Mouharram et Safar (correspondant en 2026 à environ juillet-septembre) sont les moins chers, avec des forfaits dès 800€. Suivent Rabi' al-Awwal et Rabi' al-Thani. Le Ramadan est la période la plus chère (2 000-5 000€). Les vacances scolaires de Noël et février sont 40-60% plus chères que la basse saison." },
+      { q: "Quelle période est la moins chère pour l'Omra ?", a: "Les mois islamiques de Mouharram et Safar (correspondant en 2027 à environ juillet-septembre) sont les moins chers, avec des forfaits dès 800€. Suivent Rabi' al-Awwal et Rabi' al-Thani. Le Ramadan est la période la plus chère (2 000-5 000€). Les vacances scolaires de Noël et février sont 40-60% plus chères que la basse saison." },
       { q: "Comment comparer les agences Omra ?", a: "Notre comparateur omrabonsplans.fr affiche en temps réel les offres de 20+ agences agréées ATOUT FRANCE. Comparez les prix, la distance hôtel-Haram, le nombre de nuits à La Mecque et Médine, les repas inclus et les avis clients. Demandez toujours un devis détaillé et vérifiez les conditions d'annulation avant de réserver." },
     ],
   },
 
   "/omra-ramadan-2026": {
-    title: "Omra Ramadan 2026 : Prix, Réservation et Conseils",
-    description: "Omra Ramadan 2026 : dates (20 février - 21 mars 2026), prix (2 000-5 000€), réservation, et conseils pour les 10 derniers jours. Guide complet pour partir pendant le Ramadan.",
+    title: "Omra Ramadan 2027 : Prix, Réservation et Conseils",
+    description: "Omra Ramadan 2027 : dates (17 février - 18 mars 2027), prix (1 800-5 000€), réservation, et conseils pour les 10 derniers jours. Guide complet pour partir pendant le Ramadan.",
     canonical: "https://omrabonsplans.fr/omra-ramadan-2026",
-    h1: "Omra Ramadan 2026 : Guide Complet et Meilleures Offres",
-    intro: "Le Ramadan 2026 débutera vers le 20 février et se terminera vers le 21 mars (sous réserve de l'observation de la lune). C'est la période la plus méritoire pour accomplir l'Omra : le Prophète Muhammad (ﷺ) a dit qu'une Omra pendant le Ramadan équivaut à un Hajj. Ce guide vous aide à planifier votre Omra Ramadan 2026.",
+    h1: "Omra Ramadan 2027 : Guide Complet et Meilleures Offres",
+    intro: "Le Ramadan 2027 débutera vers le 17 février et se terminera vers le 18 mars (sous réserve de l'observation de la lune). C'est la période la plus méritoire pour accomplir l'Omra : le Prophète Muhammad (ﷺ) a dit qu'une Omra pendant le Ramadan équivaut à un Hajj. Ce guide vous aide à planifier votre Omra Ramadan 2027.",
     sections: [
-      { h2: "Dates du Ramadan 2026", text: "Début estimé : 20 février 2026. Fin estimée : 21 mars 2026. Les 10 derniers jours (Laylat al-Qadr) : 11-21 mars 2026. Ces dates sont provisoires et seront confirmées par l'observation de la nouvelle lune. Prévoyez une flexibilité de ±1 jour dans vos réservations." },
-      { h2: "Prix Omra Ramadan 2026", text: "Début de Ramadan (20 fév - 3 mars) : 2 000-3 500€. Mi-Ramadan : 2 500-4 000€. 10 derniers jours (11-21 mars) : 3 000-5 000€+. Ces prix sont 1,5 à 2 fois plus élevés qu'en dehors du Ramadan. Réservez impérativement 6 à 9 mois à l'avance — les places partent dès l'automne." },
-      { h2: "Conseils pour l'Omra pendant le Ramadan", text: "Réservez avant octobre 2025 pour les meilleures places. Prévoyez un hôtel proche du Haram (<500m) pour les 10 derniers jours. Emportez des médicaments anti-fatigue et vitamines. Hydratez-vous abondamment entre le ftour et le suhoor. Les foules atteignent 2-3 millions de pèlerins — soyez patient et organisé." },
+      { h2: "Dates du Ramadan 2027", text: "Début estimé : 17 février 2027. Fin estimée : 18 mars 2027. Les 10 derniers jours (Laylat al-Qadr) : 9-18 mars 2027. Ces dates sont provisoires et seront confirmées par l'observation de la nouvelle lune. Prévoyez une flexibilité de ±1 jour dans vos réservations." },
+      { h2: "Prix Omra Ramadan 2027", text: "Début de Ramadan (17 fév - 3 mars) : 1 800-3 500€. Mi-Ramadan : 2 500-4 000€. 10 derniers jours (9-18 mars) : 3 000-5 000€+. Ces prix sont 1,5 à 2 fois plus élevés qu'en dehors du Ramadan. Réservez impérativement 6 à 9 mois à l'avance — les places partent dès l'automne." },
+      { h2: "Conseils pour l'Omra pendant le Ramadan", text: "Réservez avant octobre 2026 pour les meilleures places. Prévoyez un hôtel proche du Haram (<500m) pour les 10 derniers jours. Emportez des médicaments anti-fatigue et vitamines. Hydratez-vous abondamment entre le ftour et le suhoor. Les foules atteignent 2-3 millions de pèlerins — soyez patient et organisé." },
     ],
     faqs: [
-      { q: "Quand a lieu le Ramadan 2026 ?", a: "Le Ramadan 2026 est estimé du 20 février au 21 mars 2026 (sous réserve de l'observation lunaire). Les 10 derniers jours, période de Laylat al-Qadr la plus valorisée spirituellement, seront du 11 au 21 mars 2026. Ces dates sont calculées à partir du calendrier lunaire islamique et peuvent varier d'un jour." },
-      { q: "Combien coûte l'Omra pendant le Ramadan 2026 ?", a: "Entre 2 000€ (début Ramadan, hôtel 3★) et 5 000€+ (10 derniers jours, hôtel 5★). La majorité des forfaits de qualité pour les 10 derniers jours se situent entre 3 000 et 4 500€. Les prix sont 1,5 à 2 fois plus élevés qu'en dehors du Ramadan. Réservez au minimum 6 mois à l'avance." },
+      { q: "Quand a lieu le Ramadan 2027 ?", a: "Le Ramadan 2027 est estimé du 17 février au 18 mars 2027 (sous réserve de l'observation lunaire). Les 10 derniers jours, période de Laylat al-Qadr la plus valorisée spirituellement, seront du 9 au 18 mars 2027. Ces dates sont calculées à partir du calendrier lunaire islamique et peuvent varier d'un jour." },
+      { q: "Combien coûte l'Omra pendant le Ramadan 2027 ?", a: "Entre 1 800€ (début Ramadan, hôtel 3★) et 5 000€+ (10 derniers jours, hôtel 5★). La majorité des forfaits de qualité pour les 10 derniers jours se situent entre 3 000 et 4 500€. Les prix sont 1,5 à 2 fois plus élevés qu'en dehors du Ramadan. Réservez au minimum 6 mois à l'avance." },
       { q: "Vaut-il mieux partir au début ou à la fin du Ramadan ?", a: "Spirituellement, les 10 derniers jours sont les plus méritoires (Laylat al-Qadr). Pratiquement, le début du Ramadan est moins cher et moins chargé, tout en étant spirituellement très valorisé. Si votre budget est limité, les 2e et 3e semaines offrent un bon équilibre. La règle d'or : la nuit est plus apaisante pour le Tawaf — profitez-en." },
     ],
   },
 
-  "/hajj-2026": {
-    title: "Hajj 2026 : Guide Complet, Dates, Prix et Préparation",
-    description: "Hajj 2026 : dates (5-10 juin 2026), prix depuis la France (6 000-15 000€), conditions, inscription et guide complet des rites du grand pèlerinage islamique.",
-    canonical: "https://omrabonsplans.fr/hajj-2026",
-    h1: "Hajj 2026 : Guide Complet du Grand Pèlerinage",
-    intro: "Le Hajj 2026 aura lieu du 5 au 10 juin 2026 (10 au 15 Dhul Hijja 1447). Cinquième pilier de l'Islam, le Hajj est obligatoire une fois dans la vie pour tout musulman physiquement et financièrement capable. Ce guide complet vous accompagne de l'inscription jusqu'au retour.",
+  "/hajj-2027": {
+    title: "Hajj 2027 : Guide Complet, Dates (26-31 mai), Prix et Inscription",
+    description: "Hajj 2027 : dates du 26 au 31 mai 2027 (Arafat 27 mai, 8-13 Dhul Hijja 1448), prix depuis la France (5 000-15 000€), inscription Nusuk et guide complet des rites.",
+    canonical: "https://omrabonsplans.fr/hajj-2027",
+    h1: "Hajj 2027 : Guide Complet du Grand Pèlerinage",
+    intro: "Le Hajj 2027 aura lieu du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448 AH). Cinquième pilier de l'Islam, le Hajj est obligatoire une fois dans la vie pour tout musulman physiquement et financièrement capable. Ce guide complet vous accompagne de l'inscription jusqu'au retour.",
     sections: [
-      { h2: "Dates du Hajj 2026", text: "Arafa : 5 juin 2026. Sacrifice (Aïd al-Adha) : 6 juin 2026. Lapidation Jamarat : 6-9 juin 2026. Tawaf al-Ifada : 6-7 juin 2026. Ces dates sont basées sur le calendrier islamique et seront confirmées officiellement. La période complète avec départ et retour s'étend généralement sur 3 à 4 semaines." },
-      { h2: "Prix du Hajj 2026 depuis la France", text: "Forfait économique (4★) : 6 000-8 000€. Forfait standard (4-5★) : 8 000-10 000€. Forfait premium (5★) : 10 000-12 000€. Forfait luxury (5★ vue Kaaba) : 12 000-15 000€+. Ces prix incluent vol, hébergement à La Mecque, Médine, Mina et Arafat, repas, transport et encadrement." },
-      { h2: "Comment s'inscrire pour le Hajj 2026", text: "La France dispose d'un quota de pèlerins alloué par l'Arabie Saoudite. Les inscriptions se font via les agences agréées par le Ministère Saoudien des Affaires Islamiques. Les listes d'attente existent dans certaines agences. Inscrivez-vous dès maintenant pour le Hajj 2026 — les places sont très limitées (quota par pays)." },
+      { h2: "Dates du Hajj 2027", text: "Ihram à Mina : 26 mai 2027. Arafat (Jour crucial, 9 Dhul Hijja) : 27 mai 2027. Aïd al-Adha (Sacrifice, 10 Dhul Hijja) : 28 mai 2027. Lapidation Jamarat : 28-31 mai 2027. Tawaf d'adieu : 31 mai 2027. Ces dates sont estimées (8-13 Dhul Hijja 1448) et seront confirmées officiellement par l'Arabie Saoudite." },
+      { h2: "Prix du Hajj 2027 depuis la France", text: "Forfait économique (4★) : 5 000-7 000€. Forfait standard (4-5★) : 7 000-10 000€. Forfait confort (5★) : 10 000-13 000€. Forfait luxury (5★ vue Kaaba) : 13 000-15 000€+. Ces prix incluent vol, hébergement à La Mecque, Médine, Mina et Arafat, repas, transport et encadrement." },
+      { h2: "Comment s'inscrire pour le Hajj 2027", text: "La France dispose d'un quota de pèlerins alloué par l'Arabie Saoudite. Les inscriptions se font via les agences agréées par le Ministère Saoudien des Affaires Islamiques via le portail Nusuk. Inscrivez-vous dès maintenant pour le Hajj 2027 — les places sont très limitées (quota par pays) et les meilleures agences ferment leurs listes rapidement." },
     ],
     faqs: [
-      { q: "Quand a lieu le Hajj 2026 ?", a: "Le Hajj 2026 aura lieu du 5 au 10 juin 2026 (10 au 15 Dhul Hijja 1447 H). La journée d'Arafat, la plus importante, est le 5 juin 2026. L'Aïd al-Adha (Fête du Sacrifice) est le 6 juin 2026. Ces dates sont estimées et seront confirmées officiellement par l'Arabie Saoudite." },
-      { q: "Combien coûte le Hajj 2026 depuis la France ?", a: "Entre 6 000€ et 15 000€+ selon le standing. Un forfait de qualité se situe entre 7 000 et 10 000€ pour un hôtel 4-5★ à La Mecque et Médine. Les prix varient selon la distance au Haram, les hébergements à Mina et l'encadrement. Comparez impérativement plusieurs agences agréées." },
-      { q: "Quelle est la différence entre le Hajj et l'Omra ?", a: "Le Hajj est le 5e pilier de l'Islam, obligatoire une fois dans la vie, et se déroule uniquement du 8 au 13 Dhul Hijja. Il inclut des rites à Arafat, Muzdalifa et Mina (lapidation). L'Omra est un pèlerinage recommandé, faisable toute l'année, plus court (2-4 heures de rites) et bien moins onéreux (800-5 000€ vs 6 000-15 000€)." },
+      { q: "Quand a lieu le Hajj 2027 ?", a: "Le Hajj 2027 aura lieu du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448 AH). La journée d'Arafat, la plus importante, est le 27 mai 2027. L'Aïd al-Adha (Fête du Sacrifice) est le 28 mai 2027. Ces dates sont estimées et seront confirmées officiellement par l'Arabie Saoudite." },
+      { q: "Combien coûte le Hajj 2027 depuis la France ?", a: "Entre 5 000€ et 15 000€+ selon le standing. Un forfait de qualité se situe entre 7 000 et 10 000€ pour un hôtel 4-5★ à La Mecque et Médine. Les prix varient selon la distance au Haram, les hébergements à Mina et l'encadrement. Comparez impérativement plusieurs agences agréées." },
+      { q: "Quelle est la différence entre le Hajj et l'Omra ?", a: "Le Hajj est le 5e pilier de l'Islam, obligatoire une fois dans la vie, et se déroule uniquement du 8 au 13 Dhul Hijja. Il inclut des rites à Arafat, Muzdalifa et Mina (lapidation). L'Omra est un pèlerinage recommandé, faisable toute l'année, plus court (2-4 heures de rites) et bien moins onéreux (800-5 000€ vs 5 000-15 000€)." },
     ],
   },
 
@@ -260,7 +260,7 @@ const PAGES: Record<string, PageData> = {
     h1: "Hajj selon les 4 Écoles Juridiques : Guide Comparatif",
     intro: "Les 4 écoles juridiques islamiques (madhabs) — Hanafi, Maliki, Shafi'i et Hanbali — s'accordent sur les obligations fondamentales du Hajj tout en différant sur certains points de détail. Ce guide comparatif vous aide à comprendre ces différences et à accomplir le Hajj selon votre école de jurisprudence.",
     sections: [
-      { h2: "Les piliers du Hajj (consensus des 4 écoles)", text: "Toutes les écoles s'accordent sur : l'Ihram (état de consécration). La station d'Arafat (5 juin 2026). Le Tawaf al-Ifada (circumambulation autour de la Kaaba). Le Sa'i entre Safa et Marwa. La coupe des cheveux. Ces 5 piliers sont obligatoires selon les 4 madhabs — leur absence invalide le Hajj." },
+      { h2: "Les piliers du Hajj (consensus des 4 écoles)", text: "Toutes les écoles s'accordent sur : l'Ihram (état de consécration). La station d'Arafat (27 mai 2027). Le Tawaf al-Ifada (circumambulation autour de la Kaaba). Le Sa'i entre Safa et Marwa. La coupe des cheveux. Ces 5 piliers sont obligatoires selon les 4 madhabs — leur absence invalide le Hajj." },
       { h2: "Principales différences entre les 4 écoles", text: "Ihram : les Hanafis acceptent de porter l'Ihram avant le Miqat ; les Malikis recommandent de le mettre exactement au Miqat. Nuit à Muzdalifa : obligatoire selon Hanafi et Maliki, Sunnah selon Shafi'i. Sa'i : obligation selon Hanafi, Maliki et Shafi'i ; pilier selon Hanbali. Lapidation : les écoles diffèrent sur les jours et l'heure valide." },
       { h2: "Conseils pratiques selon votre école", text: "Hanafi (majoritaire en Turquie, Asie centrale, Inde, Pakistan) : suivez les recommandations de l'Association Hanafi agréée. Maliki (majoritaire en Afrique du Nord et Ouest) : de nombreuses agences françaises proposent des encadrants malikis. Shafi'i (Égypte, Asie du Sud-Est) et Hanbali (Arabie Saoudite) : les guides saoudiens suivent généralement l'école Hanbali." },
     ],
@@ -272,10 +272,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/liste-bagages-omra": {
-    title: "Liste Bagages Omra 2026 : Quoi Emporter (Checklist Complète)",
-    description: "Liste bagages Omra complète : vêtements Ihram, médicaments, documents, accessoires spirituels. Checklist téléchargeable pour ne rien oublier pour votre Omra 2026.",
+    title: "Liste Bagages Omra 2027 : Quoi Emporter (Checklist Complète)",
+    description: "Liste bagages Omra complète : vêtements Ihram, médicaments, documents, accessoires spirituels. Checklist téléchargeable pour ne rien oublier pour votre Omra 2027.",
     canonical: "https://omrabonsplans.fr/liste-bagages-omra",
-    h1: "Liste Bagages Omra 2026 : La Checklist Complète",
+    h1: "Liste Bagages Omra 2027 : La Checklist Complète",
     intro: "Cette checklist complète vous aide à préparer votre valise pour l'Omra sans rien oublier d'essentiel. Elle couvre les documents officiels, les vêtements pour l'Ihram, les médicaments recommandés, les accessoires spirituels et les produits du quotidien adaptés aux conditions de La Mecque.",
     sections: [
       { h2: "Documents obligatoires", text: "Passeport original (valide 6 mois après retour). Billet d'avion imprimé et électronique. Voucher hôtel. Certificat de vaccination méningocoque ACWY. Assurance voyage. Acte de mariage (si couple, parfois demandé). Photocopies de tous les documents (à conserver séparément). Numéros d'urgence de l'agence et des autorités françaises en Arabie Saoudite." },
@@ -290,32 +290,32 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/10-derniers-jours-ramadan": {
-    title: "10 Derniers Jours du Ramadan 2026 à La Mecque : Guide Complet",
-    description: "Omra pendant les 10 derniers jours du Ramadan 2026 (11-21 mars) : Laylat al-Qadr, prix (3 000-5 000€), réservation et conseils pour cette période spirituelle exceptionnelle.",
+    title: "10 Derniers Jours du Ramadan 2027 à La Mecque : Guide Complet",
+    description: "Omra pendant les 10 derniers jours du Ramadan 2027 (9-18 mars) : Laylat al-Qadr, prix (3 000-5 000€), réservation et conseils pour cette période spirituelle exceptionnelle.",
     canonical: "https://omrabonsplans.fr/10-derniers-jours-ramadan",
-    h1: "10 Derniers Jours du Ramadan 2026 à La Mecque",
-    intro: "Les 10 derniers jours du Ramadan 2026 (estimés du 11 au 21 mars 2026) sont la période la plus sacrée de l'année islamique. Laylat al-Qadr, la Nuit du Destin, se trouve parmi ces nuits — accomplir l'Omra ou la prière à La Mecque pendant cette période est d'une valeur spirituelle incomparable.",
+    h1: "10 Derniers Jours du Ramadan 2027 à La Mecque",
+    intro: "Les 10 derniers jours du Ramadan 2027 (estimés du 9 au 18 mars 2027) sont la période la plus sacrée de l'année islamique. Laylat al-Qadr, la Nuit du Destin, se trouve parmi ces nuits — accomplir l'Omra ou la prière à La Mecque pendant cette période est d'une valeur spirituelle incomparable.",
     sections: [
-      { h2: "Laylat al-Qadr : la Nuit du Destin", text: "Laylat al-Qadr est mentionnée dans le Coran comme 'meilleure que mille mois' (Sourate Al-Qadr). Elle se trouve dans l'une des nuits impaires des 10 derniers jours : 21e, 23e, 25e, 27e ou 29e nuit du Ramadan 2026. Être en prière à la Kaaba pendant cette nuit est considéré comme l'une des plus grandes grâces qu'un musulman peut recevoir." },
-      { h2: "Organiser son séjour pour les 10 derniers jours", text: "Réservez impérativement avant octobre 2025. Optez pour un hôtel à moins de 500m du Haram — les déplacements nocturnes sont constants. Prévoyez 5-7 nuits minimum pour couvrir plusieurs nuits impaires. Le tarif varie de 3 000 à 5 000€ pour cette période. Les places sont extrêmement limitées et parties des mois à l'avance." },
+      { h2: "Laylat al-Qadr : la Nuit du Destin", text: "Laylat al-Qadr est mentionnée dans le Coran comme 'meilleure que mille mois' (Sourate Al-Qadr). Elle se trouve dans l'une des nuits impaires des 10 derniers jours : 21e, 23e, 25e, 27e ou 29e nuit du Ramadan 2027. Être en prière à la Kaaba pendant cette nuit est considéré comme l'une des plus grandes grâces qu'un musulman peut recevoir." },
+      { h2: "Organiser son séjour pour les 10 derniers jours", text: "Réservez impérativement avant octobre 2026. Optez pour un hôtel à moins de 500m du Haram — les déplacements nocturnes sont constants. Prévoyez 5-7 nuits minimum pour couvrir plusieurs nuits impaires. Le tarif varie de 3 000 à 5 000€ pour cette période. Les places sont extrêmement limitées et parties des mois à l'avance." },
       { h2: "Conseils pratiques", text: "Dormez le jour pour prier la nuit. Emportez des dates, eau et snacks légers pour les longues nuits de prière. Un tapis de prière pliable est indispensable. Protégez-vous de la foule : arrivez tôt le soir au Haram. L'I'tikaf (retraite spirituelle de 10 jours dans la mosquée) est pratiqué par de nombreux pèlerins — demandez à votre agence si possible." },
     ],
     faqs: [
-      { q: "Quand sont les 10 derniers jours du Ramadan 2026 ?", a: "Les 10 derniers jours du Ramadan 2026 sont estimés du 11 au 21 mars 2026 (sous réserve de confirmation par l'observation lunaire). Laylat al-Qadr se cherche dans les nuits impaires : 21e (11 mars), 23e (13 mars), 25e (15 mars), 27e (17 mars) et 29e (19 mars) nuit du Ramadan 2026." },
-      { q: "Combien coûte l'Omra pendant les 10 derniers jours du Ramadan 2026 ?", a: "Entre 3 000 et 5 000€+ pour un séjour de 7-10 nuits. Les hôtels proches du Haram (<500m) sont les plus demandés et les plus chers. Réservez dès maintenant — les places pour cette période s'épuisent généralement en octobre-novembre, soit 4 à 5 mois avant le Ramadan." },
+      { q: "Quand sont les 10 derniers jours du Ramadan 2027 ?", a: "Les 10 derniers jours du Ramadan 2027 sont estimés du 9 au 18 mars 2027 (sous réserve de confirmation par l'observation lunaire). Laylat al-Qadr se cherche dans les nuits impaires : 21e (9 mars), 23e (11 mars), 25e (13 mars), 27e (15 mars) et 29e (17 mars) nuit du Ramadan 2027." },
+      { q: "Combien coûte l'Omra pendant les 10 derniers jours du Ramadan 2027 ?", a: "Entre 3 000 et 5 000€+ pour un séjour de 7-10 nuits. Les hôtels proches du Haram (<500m) sont les plus demandés et les plus chers. Réservez dès maintenant — les places pour cette période s'épuisent généralement en octobre-novembre, soit 4 à 5 mois avant le Ramadan." },
       { q: "Peut-on faire l'I'tikaf en France pendant les 10 derniers jours ?", a: "Oui, l'I'tikaf peut être pratiqué dans n'importe quelle mosquée, pas nécessairement à La Mecque. De nombreuses mosquées en France organisent des I'tikaf pendant les 10 derniers jours. Cependant, accomplir l'I'tikaf à la Masjid al-Haram de La Mecque est considéré d'une valeur spirituelle exceptionnelle selon les savants islamiques." },
     ],
   },
 
   "/omra-famille": {
-    title: "Omra en Famille 2026 : Guide, Prix et Conseils Pratiques",
-    description: "Omra en famille 2026 : conditions pour les enfants, prix famille (2 500-6 000€), conseils pratiques et agences spécialisées. Tout pour réussir l'Omra avec femme et enfants.",
+    title: "Omra en Famille 2027 : Guide, Prix et Conseils Pratiques",
+    description: "Omra en famille 2027 : conditions pour les enfants, prix famille (2 500-6 000€), conseils pratiques et agences spécialisées. Tout pour réussir l'Omra avec femme et enfants.",
     canonical: "https://omrabonsplans.fr/omra-famille",
-    h1: "Omra en Famille 2026 : Guide Complet",
+    h1: "Omra en Famille 2027 : Guide Complet",
     intro: "Partir en Omra en famille est une expérience spirituelle inoubliable pour parents et enfants. Ce guide vous aide à organiser votre voyage en famille : conditions pour les enfants, budget famille, logement adapté, conseils pratiques et précautions à prendre pour que ce voyage reste une expérience positive pour tous.",
     sections: [
       { h2: "Conditions et conseils pour les enfants", text: "L'Omra n'est pas obligatoire pour les enfants mais est autorisée dès le plus jeune âge. Les nourrissons et jeunes enfants peuvent accomplir le Tawaf et le Sa'i, portés par leurs parents. À partir de 7-8 ans, l'enfant peut participer activement. Les préados et ados vivent souvent l'expérience très intensément. Préparez les enfants : racontez l'histoire de la Kaaba, d'Ibrahim et d'Ismaël avant le départ." },
-      { h2: "Prix Omra famille 2026", text: "Couple + 2 enfants (chambre familiale) : 2 500-4 000€ hors Ramadan. Couple + 2 enfants pendant le Ramadan : 4 000-7 000€. Les enfants de moins de 2 ans voyagent généralement gratuitement (sans siège avion). Les 2-11 ans bénéficient souvent de tarifs réduits (-20 à -30%). Privilégiez les chambres familiales (4 lits) ou les suites pour votre confort." },
+      { h2: "Prix Omra famille 2027", text: "Couple + 2 enfants (chambre familiale) : 2 500-4 000€ hors Ramadan. Couple + 2 enfants pendant le Ramadan : 4 000-7 000€. Les enfants de moins de 2 ans voyagent généralement gratuitement (sans siège avion). Les 2-11 ans bénéficient souvent de tarifs réduits (-20 à -30%). Privilégiez les chambres familiales (4 lits) ou les suites pour votre confort." },
       { h2: "Choisir le bon moment pour l'Omra en famille", text: "Pendant les vacances scolaires françaises (Noël, Pâques) : confort organisationnel mais prix plus élevés. L'été (juillet-août) : moins cher mais chaleur intense (40-45°C) peu adaptée aux jeunes enfants. Le Ramadan : spirituellement fort mais foules difficiles avec des enfants. Notre recommandation : les vacances de Noël ou de Pâques pour conjuguer spiritualité, confort thermique et organisation." },
     ],
     faqs: [
@@ -326,10 +326,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-seniors": {
-    title: "Omra Seniors 2026 : Conseils, Conditions Médicales et Agences",
-    description: "Omra seniors 2026 : conseils médicaux, conditions physiques requises, agences spécialisées, prix et astuces pour partir en Omra après 60 ans. Guide complet.",
+    title: "Omra Seniors 2027 : Conseils, Conditions Médicales et Agences",
+    description: "Omra seniors 2027 : conseils médicaux, conditions physiques requises, agences spécialisées, prix et astuces pour partir en Omra après 60 ans. Guide complet.",
     canonical: "https://omrabonsplans.fr/omra-seniors",
-    h1: "Omra Seniors 2026 : Guide Complet pour Partir Sereinement",
+    h1: "Omra Seniors 2027 : Guide Complet pour Partir Sereinement",
     intro: "Il n'y a pas d'âge maximum pour accomplir l'Omra. De nombreux pèlerins de 60, 70 ou 80 ans accomplissent ce voyage spirituel chaque année. Une bonne préparation médicale, le choix d'un forfait adapté et quelques précautions pratiques permettent aux seniors de vivre cette expérience dans les meilleures conditions.",
     sections: [
       { h2: "Conditions médicales et préparation", text: "Consultez votre médecin 2-3 mois avant le départ. Bilan cardiologique recommandé pour les personnes de 65+. Prévoyez vos médicaments habituels en quantité suffisante (avec ordonnance en français et en anglais). Le vaccin méningocoque ACWY est obligatoire quel que soit l'âge. Informez votre agence de votre état de santé pour adapter l'accompagnement." },
@@ -344,10 +344,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-enfants": {
-    title: "Omra avec Enfants 2026 : Âge, Préparation et Conseils Pratiques",
-    description: "Guide Omra avec enfants 2026 : âge minimum, préparation spirituelle, documents nécessaires, précautions médicales et conseils pour une Omra réussie en famille.",
+    title: "Omra avec Enfants 2027 : Âge, Préparation et Conseils Pratiques",
+    description: "Guide Omra avec enfants 2027 : âge minimum, préparation spirituelle, documents nécessaires, précautions médicales et conseils pour une Omra réussie en famille.",
     canonical: "https://omrabonsplans.fr/omra-enfants",
-    h1: "Omra avec Enfants : Guide Pratique 2026",
+    h1: "Omra avec Enfants : Guide Pratique 2027",
     intro: "Emmener ses enfants en Omra est un acte d'amour profond — les exposer dès l'enfance à la Maison d'Allah laisse une empreinte spirituelle pour la vie. Ce guide pratique couvre tout ce que vous devez savoir : âge minimum, préparation, documents, précautions et conseils pour que l'Omra avec enfants soit une expérience réussie.",
     sections: [
       { h2: "Âge minimum et conditions pour les enfants", text: "Pas d'âge minimum légal : les nourrissons peuvent accomplir l'Omra portés par leurs parents. Les moins de 2 ans voyagent généralement sans siège avion (tarif bébé, environ 10% du tarif adulte). Les enfants de 2-12 ans bénéficient souvent de tarifs réduits (-20 à -30%). Le vaccin méningocoque ACWY est obligatoire pour tous, quel que soit l'âge — vérifiez l'âge minimum auprès de votre médecin." },
@@ -362,8 +362,8 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-badal": {
-    title: "Omra Badal (par Procuration) : Règles, Conditions et Prix 2026",
-    description: "Omra Badal 2026 : accomplir l'Omra par procuration pour une personne décédée ou dans l'incapacité. Conditions islamiques, qui peut faire le Badal et prix des services.",
+    title: "Omra Badal (par Procuration) : Règles, Conditions et Prix 2027",
+    description: "Omra Badal 2027 : accomplir l'Omra par procuration pour une personne décédée ou dans l'incapacité. Conditions islamiques, qui peut faire le Badal et prix des services.",
     canonical: "https://omrabonsplans.fr/omra-badal",
     h1: "Omra Badal : Guide Complet de l'Omra par Procuration",
     intro: "L'Omra Badal (البدل) consiste à accomplir l'Omra au nom d'une personne décédée ou physiquement incapable de l'accomplir elle-même. Cette pratique est autorisée par la majorité des savants islamiques et peut être un acte d'amour et de bienfaisance envers un proche. Ce guide explique les conditions, règles et modalités.",
@@ -380,10 +380,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/comparateur-omra-france": {
-    title: "Comparateur Omra France 2026 : Comparez 20+ Agences Agréées",
-    description: "Comparateur Omra France : comparez en temps réel les offres de 20+ agences agréées. Prix, hôtels, dates de départ, avis clients. Trouvez la meilleure offre Omra 2026.",
+    title: "Comparateur Omra France 2027 : Comparez 20+ Agences Agréées",
+    description: "Comparateur Omra France : comparez en temps réel les offres de 20+ agences agréées. Prix, hôtels, dates de départ, avis clients. Trouvez la meilleure offre Omra 2027.",
     canonical: "https://omrabonsplans.fr/comparateur-omra-france",
-    h1: "Comparateur Omra France : Trouvez la Meilleure Offre 2026",
+    h1: "Comparateur Omra France : Trouvez la Meilleure Offre 2027",
     intro: "Notre comparateur Omra France vous permet de comparer en temps réel les offres de plus de 20 agences agréées ATOUT FRANCE. Filtrez par prix, dates, standing hôtel, distance au Haram et avis clients pour trouver le forfait Omra qui correspond exactement à vos besoins et votre budget.",
     sections: [
       { h2: "Comment fonctionne notre comparateur", text: "1. Saisissez vos dates de départ et de retour souhaitées. 2. Indiquez le nombre de pèlerins et le budget. 3. Filtrez par standing hôtel (3★ à 5★) et distance au Haram. 4. Comparez les offres triées par prix ou par note. 5. Accédez directement au site de l'agence pour réserver. Toutes les agences référencées sont agréées par ATOUT FRANCE et le Ministère Saoudien des Affaires Islamiques." },
@@ -397,28 +397,28 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/ramadan-hajj-dates": {
-    title: "Dates Ramadan et Hajj 2026-2028 : Calendrier Islamique",
-    description: "Dates officielles du Ramadan et du Hajj 2026, 2027 et 2028. Calendrier islamique, Aïd al-Fitr, Aïd al-Adha et principales fêtes islamiques à venir.",
+    title: "Dates Ramadan & Hajj 2027-2029 : Calendrier Islamique Officiel",
+    description: "Dates officielles du Ramadan 2027 (17 fév–18 mars) et du Hajj 2027 (26-31 mai, Arafat 27 mai). Calendrier islamique 2027-2029, Aïd al-Fitr et Aïd al-Adha.",
     canonical: "https://omrabonsplans.fr/ramadan-hajj-dates",
-    h1: "Dates Ramadan et Hajj 2026-2028",
-    intro: "Ce calendrier récapitule les dates estimées du Ramadan, du Hajj et des principales fêtes islamiques pour les années 2026, 2027 et 2028. Ces dates sont basées sur le calendrier lunaire islamique (Hijri) et sont approximatives — elles seront confirmées par l'observation officielle de la nouvelle lune.",
+    h1: "Dates Ramadan 2027 et Hajj 2027 — Calendrier Islamique",
+    intro: "Ce calendrier récapitule les dates estimées du Ramadan, du Hajj et des principales fêtes islamiques pour les années 2027, 2028 et 2029. Le Hajj 2027 aura lieu du 26 au 31 mai 2027 (Arafat le 27 mai). Le Ramadan 2027 débutera le 17 février 2027. Ces dates sont basées sur le calendrier lunaire islamique (Hijri) et sont approximatives.",
     sections: [
-      { h2: "Ramadan 2026", text: "Début estimé : 20 février 2026. Fin estimée : 21 mars 2026. Aïd al-Fitr : 21 mars 2026. Laylat al-Qadr (27e nuit) : estimée au 17 mars 2026." },
-      { h2: "Hajj et Aïd al-Adha 2026", text: "Jour d'Arafat : 5 juin 2026. Aïd al-Adha (Fête du Sacrifice) : 6 juin 2026. Journées de Tachrik : 7-9 juin 2026." },
-      { h2: "Ramadan et Hajj 2027-2028", text: "Ramadan 2027 : estimé du 10 février au 11 mars 2027. Hajj 2027 : estimé le 26 mai 2027. Ramadan 2028 : estimé du 30 janvier au 28 février 2028. Hajj 2028 : estimé le 14 mai 2028. Le calendrier islamique avance de 10 à 11 jours chaque année par rapport au calendrier grégorien." },
+      { h2: "Ramadan 2027 (1448 AH)", text: "Début estimé : 17 février 2027. Fin estimée : 18 mars 2027. Aïd al-Fitr : 19 mars 2027. Laylat al-Qadr (27e nuit) : estimée au 15 mars 2027. 10 derniers jours : du 9 au 18 mars 2027." },
+      { h2: "Hajj et Aïd al-Adha 2027 (1448 AH)", text: "Ihram à Mina (8 Dhul Hijja) : 26 mai 2027. Jour d'Arafat (9 Dhul Hijja) : 27 mai 2027. Aïd al-Adha (10 Dhul Hijja) : 28 mai 2027. Journées de Tachrik : 29-31 mai 2027." },
+      { h2: "Ramadan et Hajj 2028-2029", text: "Ramadan 2028 (1449 AH) : du 6 février au 7 mars 2028, Aïd al-Fitr 7 mars. Hajj 2028 : du 15 au 20 mai 2028, Arafat 16 mai, Aïd al-Adha 17 mai. Ramadan 2029 (1450 AH) : du 26 janvier au 24 février 2029. Le calendrier islamique avance de 10 à 11 jours chaque année par rapport au calendrier grégorien." },
     ],
     faqs: [
-      { q: "Quand est le Ramadan 2026 ?", a: "Le Ramadan 2026 est estimé du 20 février au 21 mars 2026. Ces dates sont provisoires et seront confirmées officiellement par l'observation de la nouvelle lune. L'Aïd al-Fitr (fin du Ramadan) est estimé au 21 mars 2026. Les 10 derniers jours (recherche de Laylat al-Qadr) sont estimés du 11 au 21 mars 2026." },
-      { q: "Quand est le Hajj 2026 ?", a: "Le Hajj 2026 aura lieu du 5 au 10 juin 2026 (10 au 15 Dhul Hijja 1447 H). Le jour d'Arafat est le 5 juin 2026. L'Aïd al-Adha est le 6 juin 2026. Ces dates sont estimées et seront confirmées officiellement par les autorités saoudiennes." },
+      { q: "Quand est le Ramadan 2027 ?", a: "Le Ramadan 2027 (1448 AH) est estimé du 17 février au 18 mars 2027. L'Aïd al-Fitr (fin du Ramadan) est estimé au 19 mars 2027. Les 10 derniers jours (recherche de Laylat al-Qadr) couvrent la période du 9 au 18 mars 2027, avec la Nuit du Destin cherchée dans les nuits impaires." },
+      { q: "Quand est le Hajj 2027 ?", a: "Le Hajj 2027 aura lieu du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448 AH). Le jour d'Arafat est le 27 mai 2027. L'Aïd al-Adha est le 28 mai 2027. Ces dates sont estimées et seront confirmées officiellement par les autorités saoudiennes." },
       { q: "Comment les dates islamiques sont-elles calculées ?", a: "Le calendrier islamique est lunaire : chaque mois commence avec la nouvelle lune. L'année islamique a 354 ou 355 jours (contre 365 pour le calendrier grégorien), ce qui explique que les dates islamiques avancent de 10-11 jours par an dans le calendrier grégorien. La confirmation officielle des dates se fait par l'observation de la lune par les autorités religieuses saoudiennes." },
     ],
   },
 
   "/agences-liste": {
-    title: "Liste des Agences Omra Agréées en France 2026",
-    description: "Liste complète des agences Omra agréées en France 2026 : coordonnées, avis clients, spécialités et villes de départ. Trouvez une agence Omra fiable près de chez vous.",
+    title: "Liste des Agences Omra Agréées en France 2027",
+    description: "Liste complète des agences Omra agréées en France 2027 : coordonnées, avis clients, spécialités et villes de départ. Trouvez une agence Omra fiable près de chez vous.",
     canonical: "https://omrabonsplans.fr/agences-liste",
-    h1: "Liste des Agences Omra Agréées en France 2026",
+    h1: "Liste des Agences Omra Agréées en France 2027",
     intro: "Cette liste recense les principales agences de voyage Omra agréées ATOUT FRANCE et autorisées par le Ministère Saoudien des Affaires Islamiques. Toutes ces agences ont été vérifiées pour leur sérieux et leurs avis clients. Retrouvez aussi les agences disponibles sur notre comparateur pour comparer leurs offres en temps réel.",
     sections: [
       { h2: "Comment vérifier l'agrément d'une agence Omra", text: "Toute agence vendant des voyages Omra en France doit être titulaire de la licence ATOUT FRANCE (anciennement licence d'agence de voyage). Vérifiez l'agrément sur registre.atout-france.fr. L'agence doit aussi être habilitée par le Ministère Saoudien des Affaires Islamiques pour obtenir les visas Omra. Un numéro d'habilitation saoudien doit figurer dans les documents contractuels." },
@@ -432,10 +432,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-paris": {
-    title: "Omra depuis Paris 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Paris 2026 : vols depuis CDG et Orly, agences spécialisées, prix (900-4 500€) et conseils pour partir en Omra depuis la région parisienne.",
+    title: "Omra depuis Paris 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Paris 2027 : vols depuis CDG et Orly, agences spécialisées, prix (900-4 500€) et conseils pour partir en Omra depuis la région parisienne.",
     canonical: "https://omrabonsplans.fr/omra-depuis-paris",
-    h1: "Omra depuis Paris 2026 : Guide Complet",
+    h1: "Omra depuis Paris 2027 : Guide Complet",
     intro: "Paris est le principal hub de départ pour l'Omra en France. Les aéroports Charles de Gaulle (CDG) et Orly desservent Djeddah et Médine avec de nombreuses compagnies. De nombreuses agences agréées sont basées en région parisienne. Ce guide vous aide à organiser votre Omra depuis Paris au meilleur prix.",
     sections: [
       { h2: "Vols Paris → Djeddah et Médine", text: "Compagnies au départ de CDG : Air France, Saudi Arabian Airlines, Saudia, Flynas. Au départ d'Orly : Air Arabia, Transavia. Durée : 6h30 à 7h30. Prix vols seuls : 250-700€ aller-retour selon la saison. Les forfaits agences incluent généralement le vol — comparez vol inclus vs à la carte pour votre période." },
@@ -448,10 +448,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-lyon": {
-    title: "Omra depuis Lyon 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Lyon 2026 : vols depuis l'aéroport Lyon-Saint Exupéry, agences lyonnaises agréées, prix et conseils pour partir en Omra depuis la région Rhône-Alpes.",
+    title: "Omra depuis Lyon 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Lyon 2027 : vols depuis l'aéroport Lyon-Saint Exupéry, agences lyonnaises agréées, prix et conseils pour partir en Omra depuis la région Rhône-Alpes.",
     canonical: "https://omrabonsplans.fr/omra-depuis-lyon",
-    h1: "Omra depuis Lyon 2026 : Guide Complet",
+    h1: "Omra depuis Lyon 2027 : Guide Complet",
     intro: "Lyon est le deuxième plus grand hub de départ pour l'Omra en France, avec une large communauté musulmane et plusieurs agences agréées. L'aéroport Lyon-Saint Exupéry propose des vols directs et avec escale vers Djeddah et Médine. Voici tout ce que vous devez savoir pour partir en Omra depuis Lyon.",
     sections: [
       { h2: "Vols Lyon → Djeddah et Médine", text: "Compagnies au départ de Lyon-Saint Exupéry : Saudia, Air Arabia Maroc (via Casablanca), Transavia (saisonnier). Certaines agences proposent des charters depuis Lyon pendant le Ramadan et l'été. Durée avec escale : 8 à 12 heures selon la correspondance. Vols directs moins fréquents qu'à Paris — planifiez à l'avance." },
@@ -464,10 +464,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-marseille": {
-    title: "Omra depuis Marseille 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Marseille 2026 : vols depuis Marseille-Provence, agences agréées à Marseille, prix et guide complet pour partir en Omra depuis la région PACA.",
+    title: "Omra depuis Marseille 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Marseille 2027 : vols depuis Marseille-Provence, agences agréées à Marseille, prix et guide complet pour partir en Omra depuis la région PACA.",
     canonical: "https://omrabonsplans.fr/omra-depuis-marseille",
-    h1: "Omra depuis Marseille 2026 : Guide Complet",
+    h1: "Omra depuis Marseille 2027 : Guide Complet",
     intro: "Marseille abrite l'une des plus grandes communautés musulmanes de France et dispose de nombreuses agences Omra agréées. L'aéroport Marseille-Provence propose des connexions vers les villes saintes. Voici comment organiser votre Omra depuis Marseille au meilleur prix.",
     sections: [
       { h2: "Vols Marseille → Djeddah et Médine", text: "Compagnies depuis Marseille-Provence : Saudia (vols saisonniers directs), Air Arabia (via Casablanca), Tunisair (via Tunis), Turkish Airlines (via Istanbul). Certaines agences marseilaises organisent des charters directs Marseille-Djeddah pendant le Ramadan. Prix estimés : 300-600€ aller-retour selon saison et compagnie." },
@@ -480,10 +480,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-toulouse": {
-    title: "Omra depuis Toulouse 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Toulouse 2026 : vols depuis Toulouse-Blagnac, agences agréées à Toulouse, prix et conseils pour partir en Omra depuis la région Occitanie.",
+    title: "Omra depuis Toulouse 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Toulouse 2027 : vols depuis Toulouse-Blagnac, agences agréées à Toulouse, prix et conseils pour partir en Omra depuis la région Occitanie.",
     canonical: "https://omrabonsplans.fr/omra-depuis-toulouse",
-    h1: "Omra depuis Toulouse 2026 : Guide Complet",
+    h1: "Omra depuis Toulouse 2027 : Guide Complet",
     intro: "Toulouse et la région Occitanie disposent d'agences Omra agréées et de connexions aériennes vers les villes saintes. Ce guide vous aide à organiser votre Omra depuis Toulouse, avec les options de vols, les agences locales et les conseils pratiques.",
     sections: [
       { h2: "Vols depuis Toulouse-Blagnac", text: "Vols directs limités depuis Toulouse vers Djeddah/Médine — des correspondances via Paris CDG, Casablanca ou Istanbul sont généralement nécessaires. Compagnies : Air France (via CDG), Royal Air Maroc (via Casablanca), Turkish Airlines (via Istanbul). Durée totale avec escale : 9-14 heures. Certaines agences proposent des navettes Toulouse-CDG." },
@@ -495,10 +495,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-nice": {
-    title: "Omra depuis Nice 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Nice 2026 : vols depuis l'aéroport Nice Côte d'Azur, agences agréées à Nice, prix et conseils pour partir en Omra depuis la Côte d'Azur.",
+    title: "Omra depuis Nice 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Nice 2027 : vols depuis l'aéroport Nice Côte d'Azur, agences agréées à Nice, prix et conseils pour partir en Omra depuis la Côte d'Azur.",
     canonical: "https://omrabonsplans.fr/omra-depuis-nice",
-    h1: "Omra depuis Nice 2026 : Guide Complet",
+    h1: "Omra depuis Nice 2027 : Guide Complet",
     intro: "La région Côte d'Azur dispose de connexions aériennes depuis l'aéroport Nice Côte d'Azur et d'agences Omra agréées. Ce guide vous aide à organiser votre départ en Omra depuis Nice et la région PACA-Est.",
     sections: [
       { h2: "Vols depuis Nice Côte d'Azur", text: "Des vols avec escale vers Djeddah et Médine sont disponibles depuis Nice via Paris, Casablanca, Istanbul ou Rome. Compagnies : Air France (via CDG), easyJet puis correspondance, Saudia (via CDG ou Riyad). Certaines agences proposent des forfaits avec transfert jusqu'à Marseille ou Paris pour bénéficier de vols plus directs." },
@@ -509,10 +509,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-bordeaux": {
-    title: "Omra depuis Bordeaux 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Bordeaux 2026 : vols depuis l'aéroport Bordeaux-Mérignac, agences agréées à Bordeaux, prix et guide pour partir en Omra depuis la région Nouvelle-Aquitaine.",
+    title: "Omra depuis Bordeaux 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Bordeaux 2027 : vols depuis l'aéroport Bordeaux-Mérignac, agences agréées à Bordeaux, prix et guide pour partir en Omra depuis la région Nouvelle-Aquitaine.",
     canonical: "https://omrabonsplans.fr/omra-depuis-bordeaux",
-    h1: "Omra depuis Bordeaux 2026 : Guide Complet",
+    h1: "Omra depuis Bordeaux 2027 : Guide Complet",
     intro: "Bordeaux et la Nouvelle-Aquitaine disposent d'agences Omra agréées et de connexions aériennes depuis l'aéroport Bordeaux-Mérignac. Ce guide vous aide à organiser votre Omra depuis Bordeaux.",
     sections: [
       { h2: "Vols et connexions depuis Bordeaux", text: "Des vols avec escale depuis Bordeaux-Mérignac permettent de rejoindre Djeddah ou Médine, généralement via Paris CDG, Casablanca ou Istanbul. Compagnies : Air France (via CDG), Transavia, Royal Air Maroc (via Casablanca). Des navettes vers Paris CDG sont parfois incluses dans les forfaits agences locales." },
@@ -523,10 +523,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-strasbourg": {
-    title: "Omra depuis Strasbourg 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Strasbourg 2026 : vols depuis l'aéroport Strasbourg-Entzheim, agences agréées à Strasbourg, prix et guide pour partir en Omra depuis l'Alsace.",
+    title: "Omra depuis Strasbourg 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Strasbourg 2027 : vols depuis l'aéroport Strasbourg-Entzheim, agences agréées à Strasbourg, prix et guide pour partir en Omra depuis l'Alsace.",
     canonical: "https://omrabonsplans.fr/omra-depuis-strasbourg",
-    h1: "Omra depuis Strasbourg 2026 : Guide Complet",
+    h1: "Omra depuis Strasbourg 2027 : Guide Complet",
     intro: "Strasbourg et l'Alsace disposent d'agences Omra agréées et de connexions aériennes. Ce guide vous aide à organiser votre Omra depuis Strasbourg ou la région Grand Est.",
     sections: [
       { h2: "Vols et connexions depuis Strasbourg", text: "Des vols avec escale depuis l'aéroport Strasbourg-Entzheim permettent de rejoindre Djeddah ou Médine, via Paris CDG, Frankfurt ou Istanbul. Certains pèlerins de la région préfèrent se rendre à l'aéroport de Bâle-Mulhouse (à 60 km) pour accéder à plus de vols directs. Des agences strasbourgeoises proposent des départs groupés avec navette incluse." },
@@ -537,10 +537,10 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-lille": {
-    title: "Omra depuis Lille 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Lille 2026 : vols depuis l'aéroport de Lille-Lesquin, agences agréées à Lille, prix et guide pour partir en Omra depuis les Hauts-de-France.",
+    title: "Omra depuis Lille 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Lille 2027 : vols depuis l'aéroport de Lille-Lesquin, agences agréées à Lille, prix et guide pour partir en Omra depuis les Hauts-de-France.",
     canonical: "https://omrabonsplans.fr/omra-depuis-lille",
-    h1: "Omra depuis Lille 2026 : Guide Complet",
+    h1: "Omra depuis Lille 2027 : Guide Complet",
     intro: "Lille et la région Hauts-de-France disposent d'agences Omra agréées. La proximité avec Paris CDG (1h en Eurostar ou TGV) facilite l'accès à de nombreux vols vers Djeddah et Médine. Ce guide vous aide à organiser votre Omra depuis Lille.",
     sections: [
       { h2: "Vols et connexions depuis Lille", text: "L'aéroport Lille-Lesquin propose des vols avec escale vers Djeddah. La proximité de Paris CDG (1h en Eurostar ou TGV) en fait une option attractive pour les vols directs. Des agences lilloises proposent des navettes ou des forfaits avec départ depuis Lille via Paris. Bruxelles (45 min en train) offre aussi des connexions vers l'Arabie Saoudite." },
@@ -551,14 +551,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-nantes": {
-    title: "Omra depuis Nantes 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Nantes 2026 : vols depuis Nantes Atlantique ou CDG (2h15 TGV), agences agréées, prix (1 000–4 700€) et conseils pour partir depuis les Pays de la Loire.",
+    title: "Omra depuis Nantes 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Nantes 2027 : vols depuis Nantes Atlantique ou CDG (2h15 TGV), agences agréées, prix (1 000–4 700€) et conseils pour partir depuis les Pays de la Loire.",
     canonical: "https://omrabonsplans.fr/omra-depuis-nantes",
-    h1: "Omra depuis Nantes 2026 : Guide Complet",
+    h1: "Omra depuis Nantes 2027 : Guide Complet",
     intro: "Nantes et les Pays de la Loire comptent environ 100 000 musulmans. La 6e agglomération française est accessible à Paris CDG en 2h15 de TGV, ce qui ouvre l'accès aux nombreux vols directs vers Djeddah et Médine. Voici comment organiser votre Omra depuis Nantes au meilleur prix.",
     sections: [
       { h2: "Vols depuis Nantes vers l'Arabie Saoudite", text: "Depuis l'aéroport Nantes Atlantique (NTE) : Air France via CDG, Transavia, easyJet vers CDG, Royal Air Maroc via Casablanca. La plupart des pèlerins nantais choisissent de partir depuis Paris CDG (2h15 de TGV) pour accéder à plus de vols directs. Royal Air Maroc via Casablanca est une alternative compétitive depuis NTE. Supplément estimé : +100 à +250€ par rapport à Paris." },
-      { h2: "Prix Omra depuis Nantes 2026", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Ces prix incluent généralement le vol, l'hôtel, les transferts et le visa Omra. Pour bénéficier des meilleures offres, comparez les départs depuis Nantes NTE et depuis Paris CDG — le TGV (60–90€) + vol Paris peut parfois être moins cher qu'un vol direct depuis Nantes." },
+      { h2: "Prix Omra depuis Nantes 2027", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Ces prix incluent généralement le vol, l'hôtel, les transferts et le visa Omra. Pour bénéficier des meilleures offres, comparez les départs depuis Nantes NTE et depuis Paris CDG — le TGV (60–90€) + vol Paris peut parfois être moins cher qu'un vol direct depuis Nantes." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Nantes ?", a: "Deux options : vols directs depuis Nantes Atlantique (NTE) via Royal Air Maroc, Transavia ou easyJet, ou TGV Nantes–Paris CDG (2h15) + vol direct depuis CDG. La deuxième option offre souvent plus de choix et de meilleurs prix. Des agences de la région proposent des forfaits avec navette incluse. Utilisez notre comparateur pour trouver les meilleures offres au départ de Nantes." },
@@ -567,14 +567,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-rennes": {
-    title: "Omra depuis Rennes 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Rennes 2026 : vols depuis Rennes Saint-Jacques ou CDG (1h30 TGV), agences agréées, prix (980–4 500€) et guide pour partir en Omra depuis la Bretagne.",
+    title: "Omra depuis Rennes 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Rennes 2027 : vols depuis Rennes Saint-Jacques ou CDG (1h30 TGV), agences agréées, prix (980–4 500€) et guide pour partir en Omra depuis la Bretagne.",
     canonical: "https://omrabonsplans.fr/omra-depuis-rennes",
-    h1: "Omra depuis Rennes 2026 : Guide Complet",
+    h1: "Omra depuis Rennes 2027 : Guide Complet",
     intro: "Rennes et la Bretagne comptent environ 80 000 musulmans. La capitale bretonne, reliée à Paris CDG en seulement 1h30 de TGV, est l'une des villes les mieux connectées à CDG hors Île-de-France. Voici comment organiser votre Omra depuis Rennes au meilleur prix.",
     sections: [
       { h2: "Vols depuis Rennes vers l'Arabie Saoudite", text: "Depuis l'aéroport Rennes Saint-Jacques (RNS) : Air France via CDG, Transavia via CDG, Royal Air Maroc via Casablanca. La connexion TGV Rennes–CDG (1h30, souvent moins de 50€ en avance) est probablement votre meilleure option. L'aéroport de Nantes NTE (1h de route) offre des alternatives compétitives. Supplément estimé : +80 à +200€ par rapport à Paris." },
-      { h2: "Prix Omra depuis Rennes 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 000–4 500€. Ces tarifs s'entendent pour des forfaits tout compris (vol, hôtel, transferts, visa). La proximité avec Paris (1h30 TGV) permet souvent d'accéder aux meilleures offres parisienne avec un surcoût minimal." },
+      { h2: "Prix Omra depuis Rennes 2027", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 000–4 500€. Ces tarifs s'entendent pour des forfaits tout compris (vol, hôtel, transferts, visa). La proximité avec Paris (1h30 TGV) permet souvent d'accéder aux meilleures offres parisienne avec un surcoût minimal." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Rennes ?", a: "Le TGV Rennes–Paris CDG (1h30, ~50€) est généralement la meilleure option : il ouvre l'accès à tous les vols directs depuis CDG. Comparez aussi les vols depuis Nantes NTE (1h de route depuis Rennes). Arrivez à CDG 3h avant votre vol — la connexion train/aéroport est excellente. Notre comparateur liste toutes les offres disponibles." },
@@ -583,14 +583,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-montpellier": {
-    title: "Omra depuis Montpellier 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Montpellier 2026 : vols depuis Montpellier Méditerranée, Air Algérie, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Occitanie.",
+    title: "Omra depuis Montpellier 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Montpellier 2027 : vols depuis Montpellier Méditerranée, Air Algérie, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Occitanie.",
     canonical: "https://omrabonsplans.fr/omra-depuis-montpellier",
-    h1: "Omra depuis Montpellier 2026 : Guide Complet",
+    h1: "Omra depuis Montpellier 2027 : Guide Complet",
     intro: "Montpellier a l'une des plus fortes proportions de musulmans en France (estimée à 25–30% de la population). La ville universitaire dispose d'une forte demande pour l'Omra. Air Algérie propose des connexions depuis Montpellier via Alger vers Djeddah. Voici comment organiser votre Omra depuis Montpellier.",
     sections: [
       { h2: "Vols depuis Montpellier vers l'Arabie Saoudite", text: "Depuis l'aéroport Montpellier Méditerranée (MPL) : Air France via CDG, Transavia, Air Algérie via Alger, Royal Air Maroc via Casablanca. Air Algérie propose des connexions MPL–ALG–JED compétitives pour les ressortissants algériens. Marseille (1h30) offre des vols alternatifs dont des charters pendant le Ramadan. Supplément estimé : +80 à +200€ vs Paris." },
-      { h2: "Prix Omra depuis Montpellier 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 100–4 600€. Montpellier bénéficie des connexions Air Algérie pour des prix parfois compétitifs. Comparez aussi les départs depuis Marseille (1h30) qui propose des vols charters en haute saison." },
+      { h2: "Prix Omra depuis Montpellier 2027", text: "Économique : 980–1 500€. Confort : 1 500–2 300€. Ramadan : 2 100–4 600€. Montpellier bénéficie des connexions Air Algérie pour des prix parfois compétitifs. Comparez aussi les départs depuis Marseille (1h30) qui propose des vols charters en haute saison." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Montpellier ?", a: "Trois options : vols depuis MPL (Air France via CDG, Air Algérie via Alger), départ depuis Marseille à 1h30 de route (plus de vols, dont des charters Ramadan), ou train vers Paris CDG. Air Algérie via Alger peut être compétitif pour les détenteurs d'un passeport algérien. Notre comparateur liste les offres disponibles depuis Montpellier et la région." },
@@ -599,14 +599,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-grenoble": {
-    title: "Omra depuis Grenoble 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Grenoble 2026 : accès via Lyon-Saint Exupéry (1h), Turkish Airlines, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Isère.",
+    title: "Omra depuis Grenoble 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Grenoble 2027 : accès via Lyon-Saint Exupéry (1h), Turkish Airlines, agences agréées, prix (980–4 600€) et guide pour partir depuis l'Isère.",
     canonical: "https://omrabonsplans.fr/omra-depuis-grenoble",
-    h1: "Omra depuis Grenoble 2026 : Guide Complet",
+    h1: "Omra depuis Grenoble 2027 : Guide Complet",
     intro: "Grenoble compte environ 100 000 musulmans et bénéficie d'une position avantageuse à 1h de Lyon-Saint Exupéry, qui propose des vols Turkish Airlines directs vers Istanbul puis La Mecque. Voici comment organiser votre Omra depuis Grenoble et l'Isère.",
     sections: [
       { h2: "Vols depuis Grenoble vers l'Arabie Saoudite", text: "Depuis Grenoble, Lyon-Saint Exupéry (LYS, à 1h) est votre meilleur aéroport : Turkish Airlines direct vers Istanbul, Air France, Transavia, Royal Air Maroc. L'aéroport Grenoble-Alpes Isère (GNB) est principalement pour les vols ski et offre peu de connexions Moyen-Orient. Paris CDG est accessible en 3h de TGV. Supplément estimé : +80 à +200€ vs Paris." },
-      { h2: "Prix Omra depuis Grenoble 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. Depuis Lyon (1h de route), Turkish Airlines propose régulièrement de bons prix vers Istanbul et Djeddah. Les associations islamiques grenobloises organisent des départs groupés qui négocient en bloc et proposent souvent de bonnes offres." },
+      { h2: "Prix Omra depuis Grenoble 2027", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. Depuis Lyon (1h de route), Turkish Airlines propose régulièrement de bons prix vers Istanbul et Djeddah. Les associations islamiques grenobloises organisent des départs groupés qui négocient en bloc et proposent souvent de bonnes offres." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Grenoble ?", a: "Lyon-Saint Exupéry (LYS), à 1h de route de Grenoble, est votre meilleur aéroport de départ : il propose Turkish Airlines directs vers Istanbul, Air France vers CDG, et Transavia. L'aéroport de Grenoble GNB offre peu de vols long-courriers. Vérifiez aussi les départs groupés organisés par les associations islamiques de Grenoble." },
@@ -615,14 +615,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-metz": {
-    title: "Omra depuis Metz 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Metz 2026 : accès via Francfort (1h), Luxembourg (45 min) ou CDG (1h30 TGV), agences agréées, prix (980–4 600€) et guide pour partir depuis la Moselle.",
+    title: "Omra depuis Metz 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Metz 2027 : accès via Francfort (1h), Luxembourg (45 min) ou CDG (1h30 TGV), agences agréées, prix (980–4 600€) et guide pour partir depuis la Moselle.",
     canonical: "https://omrabonsplans.fr/omra-depuis-metz",
-    h1: "Omra depuis Metz 2026 : Guide Complet",
+    h1: "Omra depuis Metz 2027 : Guide Complet",
     intro: "Metz et la Moselle comptent environ 80 000 musulmans. La position géographique de Metz est un atout unique : à 1h de Francfort (hub Lufthansa), 45 min de Luxembourg et 1h30 de TGV de Paris CDG. Ce guide vous aide à trouver les meilleures offres Omra depuis Metz.",
     sections: [
       { h2: "Vols depuis Metz et région Grand Est", text: "Depuis Francfort FRA (1h de route) : Lufthansa, Condor, Saudia — des centaines de vols vers Djeddah, souvent moins chers qu'à Paris. Depuis Luxembourg LUX (45 min) : Luxair, Condor. Depuis Paris CDG (1h30 TGV) : Air France, Saudia direct. L'aéroport Metz-Nancy ETZ offre peu de vols vers l'Arabie Saoudite. Supplément estimé : +80 à +200€ vs Paris." },
-      { h2: "Prix Omra depuis Metz 2026", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. L'accès à Francfort (1h) est un avantage : les prix FRA vers Djeddah sont souvent inférieurs à CDG. Vérifiez Condor depuis Francfort qui propose des offres très compétitives vers Djeddah, notamment en haute saison." },
+      { h2: "Prix Omra depuis Metz 2027", text: "Économique : 980–1 500€. Confort : 1 500–2 350€. Ramadan : 2 100–4 600€. L'accès à Francfort (1h) est un avantage : les prix FRA vers Djeddah sont souvent inférieurs à CDG. Vérifiez Condor depuis Francfort qui propose des offres très compétitives vers Djeddah, notamment en haute saison." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Metz ?", a: "Francfort FRA (1h de route) est votre meilleur aéroport : hub majeur avec des centaines de vols vers Djeddah avec Lufthansa, Condor et Saudia, souvent moins chers qu'à Paris. Luxembourg LUX (45 min) est une alternative. Paris CDG est accessible en 1h30 de TGV. Notre comparateur liste les offres disponibles depuis la région Grand Est." },
@@ -631,14 +631,14 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-depuis-clermont-ferrand": {
-    title: "Omra depuis Clermont-Ferrand 2026 : Vols, Agences et Prix",
-    description: "Omra depuis Clermont-Ferrand 2026 : accès via Lyon (1h30) ou CDG (3h TGV), agences agréées, prix (1 000–4 700€) et guide pour partir depuis l'Auvergne.",
+    title: "Omra depuis Clermont-Ferrand 2027 : Vols, Agences et Prix",
+    description: "Omra depuis Clermont-Ferrand 2027 : accès via Lyon (1h30) ou CDG (3h TGV), agences agréées, prix (1 000–4 700€) et guide pour partir depuis l'Auvergne.",
     canonical: "https://omrabonsplans.fr/omra-depuis-clermont-ferrand",
-    h1: "Omra depuis Clermont-Ferrand 2026 : Guide Complet",
+    h1: "Omra depuis Clermont-Ferrand 2027 : Guide Complet",
     intro: "Clermont-Ferrand et l'Auvergne comptent environ 60 000 musulmans. L'aéroport CFE offre peu de vols long-courriers, mais Lyon-Saint Exupéry (1h30 de route) donne accès à Turkish Airlines et d'autres vols vers Djeddah. Voici comment organiser votre Omra depuis Clermont-Ferrand.",
     sections: [
       { h2: "Vols depuis Clermont-Ferrand vers l'Arabie Saoudite", text: "Depuis Lyon-Saint Exupéry LYS (1h30 de route) : Turkish Airlines direct vers Istanbul, Air France, Transavia. Depuis Paris CDG (3h de TGV) : Air France, Saudia, Saudi Arabian Airlines. L'aéroport Clermont-Ferrand CFE propose principalement des destinations de loisirs — peu de connexions directes vers l'Arabie Saoudite. Supplément estimé : +100 à +250€ vs Paris." },
-      { h2: "Prix Omra depuis Clermont-Ferrand 2026", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Depuis Clermont, Lyon (1h30) est souvent préférable à Paris (3h de TGV) : Turkish Airlines via Istanbul depuis LYS propose de bons prix. Les associations islamiques locales organisent des départs groupés compétitifs." },
+      { h2: "Prix Omra depuis Clermont-Ferrand 2027", text: "Économique : 1 000–1 550€. Confort : 1 550–2 400€. Ramadan : 2 100–4 700€. Depuis Clermont, Lyon (1h30) est souvent préférable à Paris (3h de TGV) : Turkish Airlines via Istanbul depuis LYS propose de bons prix. Les associations islamiques locales organisent des départs groupés compétitifs." },
     ],
     faqs: [
       { q: "Comment partir en Omra depuis Clermont-Ferrand ?", a: "Lyon-Saint Exupéry (LYS, 1h30 de route) est généralement la meilleure option : Turkish Airlines directs vers Istanbul, plus de vols et souvent moins chers que depuis Paris. Paris CDG est accessible en 3h de TGV mais représente plus de 5h de trajet total. Vérifiez les départs groupés organisés par les associations islamiques de Clermont, qui négocient souvent de bons tarifs." },
@@ -738,7 +738,7 @@ export default async function handler(req: Request, context: Context) {
       "name": "Omra Bons Plans",
       "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" },
     },
-    "dateModified": "2026-04-14",
+    "dateModified": "2026-08-16",
   });
 
   const sectionsHtml = page.sections

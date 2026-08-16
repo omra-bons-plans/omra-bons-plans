@@ -63,7 +63,7 @@ export default function ComparateurOmraFrance() {
           "description": "Guide complet du comparateur Omra en France : comment ça marche, critères de sélection, agences vérifiées.",
           "url": "https://omrabonsplans.fr/comparateur-omra-france",
           "datePublished": "2026-04-14",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/hero-kaaba-optimized.webp" }
