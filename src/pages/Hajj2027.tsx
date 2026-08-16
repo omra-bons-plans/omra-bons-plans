@@ -11,19 +11,19 @@ import AlertCircle from 'lucide-react/dist/esm/icons/alert-circle';
 
 const faqItems = [
   {
-    question: "Quelle est la date du Hajj 2026 ?",
-    answer: "Le Hajj 2026 aura lieu du 3 au 8 juin 2026 environ (dates sujettes à confirmation lunaire). Le 9 Dhul Hijja (Jour d'Arafat) sera le 4 juin 2026. Les dates officielles sont annoncées par le Royaume d'Arabie Saoudite avant le mois de Dhul Hijja."
+    question: "Quelle est la date du Hajj 2027 ?",
+    answer: "Le Hajj 2027 aura lieu du 24 au 29 mai 2027 environ (dates sujettes à confirmation lunaire). Le 9 Dhul Hijja (Jour d'Arafat) sera le 25 mai 2027. Les dates officielles sont annoncées par le Royaume d'Arabie Saoudite avant le mois de Dhul Hijja."
   },
   {
-    question: "Quel est le prix du Hajj 2026 ?",
-    answer: "Le prix du Hajj 2026 en France varie de 4 500€ à 15 000€+ selon le type de Hajj (Ifrad, Tamattu, Qiran), la durée du séjour, la catégorie d'hôtel et les services inclus. Notre comparateur affiche les prix à jour de plus de 20 agences françaises."
+    question: "Quel est le prix du Hajj 2027 ?",
+    answer: "Le prix du Hajj 2027 en France varie de 4 500€ à 15 000€+ selon le type de Hajj (Ifrad, Tamattu, Qiran), la durée du séjour, la catégorie d'hôtel et les services inclus. Notre comparateur affiche les prix à jour de plus de 20 agences françaises."
   },
   {
     question: "Quelle est la différence entre Ifrad, Tamattu et Qiran ?",
     answer: "Ifrad : faire le Hajj uniquement sans Omra au préalable. Tamattu : faire d'abord la Omra, puis le Hajj (option la plus populaire). Qiran : faire l'Omra et le Hajj avec une seule intention et un seul ihram. Tous les trois sont valides ; Tamattu est le plus courant et généralement moins cher."
   },
   {
-    question: "Comment s'inscrire au Hajj 2026 en France ?",
+    question: "Comment s'inscrire au Hajj 2027 en France ?",
     answer: "Contactez une agence de voyage agréée (ministère français) spécialisée dans le Hajj. Elle gérera l'inscription via le portail Nusuk du gouvernement saoudien. Vous devez avoir un passeport valide 6+ mois après le Hajj et recevoir une convocation officielle."
   },
   {
@@ -49,17 +49,17 @@ const structuredData = {
   }))
 };
 
-export default function Hajj2026() {
+export default function Hajj2027() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Hajj 2026 : Dates, Prix, Inscription et Guide Complet</title>
-        <meta name="description" content="Hajj 2026 : dates (3-8 juin), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
-        <meta name="keywords" content="hajj 2026, date hajj 2026, prix hajj 2026, inscription hajj, agence hajj france, nusuk, types hajj" />
-        <link rel="canonical" href="https://omrabonsplans.fr/hajj-2026" />
-        <meta property="og:title" content="Hajj 2026 : Dates, Prix et Guide d'Inscription" />
-        <meta property="og:description" content="Tout ce qu'il faut savoir sur le Hajj 2026 : dates, prix, types de Hajj, inscription Nusuk et meilleures agences." />
-        <meta property="og:url" content="https://omrabonsplans.fr/hajj-2026" />
+        <title>Hajj 2027 : Dates, Prix, Inscription et Guide Complet</title>
+        <meta name="description" content="Hajj 2027 : dates (24-29 mai), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
+        <meta name="keywords" content="hajj 2027, date hajj 2027, prix hajj 2027, inscription hajj, agence hajj france, nusuk, types hajj" />
+        <link rel="canonical" href="https://omrabonsplans.fr/hajj-2027" />
+        <meta property="og:title" content="Hajj 2027 : Dates, Prix et Guide d'Inscription" />
+        <meta property="og:description" content="Tout ce qu'il faut savoir sur le Hajj 2027 : dates, prix, types de Hajj, inscription Nusuk et meilleures agences." />
+        <meta property="og:url" content="https://omrabonsplans.fr/hajj-2027" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
@@ -67,13 +67,13 @@ export default function Hajj2026() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Hajj 2026 : Dates, Prix, Inscription et Guide Complet",
-          "description": "Hajj 2026 : dates (3-8 juin), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises.",
-          "url": "https://omrabonsplans.fr/hajj-2026",
+          "headline": "Hajj 2027 : Dates, Prix, Inscription et Guide Complet",
+          "description": "Hajj 2027 : dates (24-29 mai), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises.",
+          "url": "https://omrabonsplans.fr/hajj-2027",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-10-01",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-16",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>
@@ -85,19 +85,19 @@ export default function Hajj2026() {
           <SEOBreadcrumb items={[
             { name: 'Accueil', url: '/' },
             { name: 'Hajj', url: '/hajj' },
-            { name: 'Hajj 2026', url: '/hajj-2026' }
+            { name: 'Hajj 2027', url: '/hajj-2027' }
           ]} />
 
           <header className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Hajj 2026 : Dates, Prix et Guide Complet d'Inscription
+              Hajj 2027 : Dates, Prix et Guide Complet d'Inscription
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Le Hajj 2026 approche. Découvrez les dates officielles, le comparateur des prix par agence, les types de Hajj, et tout ce que vous devez savoir pour bien vous préparer au plus grand pèlerinage islamique.
+              Le Hajj 2027 approche. Découvrez les dates officielles, le comparateur des prix par agence, les types de Hajj, et tout ce que vous devez savoir pour bien vous préparer au plus grand pèlerinage islamique.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
               <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Obligatoire</Badge>
-              <Badge variant="secondary">Juin 2026</Badge>
+              <Badge variant="secondary">Mai 2027</Badge>
               <Badge variant="secondary">10 jours environ</Badge>
               <Badge variant="outline">5e Pilier de l'Islam</Badge>
             </div>
@@ -106,29 +106,29 @@ export default function Hajj2026() {
           <Alert className="mb-8 border-amber-500 bg-amber-50 dark:bg-amber-900/20">
             <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
             <AlertDescription className="text-amber-800 dark:text-amber-200 ml-2">
-              Les dates du Hajj 2026 sont <strong>provisoires</strong> et dépendent de la confirmation lunaire par les autorités saoudiennes. Les dates officielles seront annoncées dans le courant du mois de Dhul Qi'dah 1447 (environ mai 2026).
+              Les dates du Hajj 2027 sont <strong>provisoires</strong> et dépendent de la confirmation lunaire par les autorités saoudiennes. Les dates officielles seront annoncées dans le courant du mois de Dhul Qi'dah 1448 (environ avril 2027).
             </AlertDescription>
           </Alert>
 
           {/* Dates principales */}
           <section id="dates" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Dates du Hajj 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Dates du Hajj 2027</h2>
             <Card className="border-2 border-primary/30 mb-6">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Période estimée :</p>
-                    <p className="text-2xl font-bold text-primary">3 - 8 juin 2026</p>
-                    <p className="text-xs text-muted-foreground mt-2">(8-13 Dhul Hijja 1447 AH)</p>
+                    <p className="text-2xl font-bold text-primary">24 - 29 mai 2027</p>
+                    <p className="text-xs text-muted-foreground mt-2">(8-13 Dhul Hijja 1448 AH)</p>
                   </div>
                   <div className="space-y-2">
                     <div>
                       <p className="font-semibold text-sm">Jour d'Arafat (Jour crucial)</p>
-                      <p className="text-base">≈ 4 juin 2026</p>
+                      <p className="text-base">≈ 25 mai 2027</p>
                     </div>
                     <div>
                       <p className="font-semibold text-sm">Eid al-Adha</p>
-                      <p className="text-base">≈ 5 juin 2026</p>
+                      <p className="text-base">≈ 26 mai 2027</p>
                     </div>
                   </div>
                 </div>
@@ -138,11 +138,11 @@ export default function Hajj2026() {
             <h3 className="text-lg font-semibold mb-4">Chronologie des rites (Tamattu)</h3>
             <div className="space-y-3">
               {[
-                { jour: "Jour 1", date: "~3 juin", rite: "Ihram à Mina, intention de Hajj" },
-                { jour: "Jour 2", date: "~4 juin", rite: "Station à Arafat (Jour d'Arafat) - OBLIGATOIRE", highlight: true },
-                { jour: "Jour 3", date: "~5 juin", rite: "Muzdalifah, lapidation début, sacrifice (Eid)" },
-                { jour: "Jours 4-5", date: "~6-7 juin", rite: "Lapidation (Jamarat) les autres jours" },
-                { jour: "Jour 6", date: "~8 juin", rite: "Tawaf d'adieu (Al-Wada')" }
+                { jour: "Jour 1", date: "~24 mai", rite: "Ihram à Mina, intention de Hajj" },
+                { jour: "Jour 2", date: "~25 mai", rite: "Station à Arafat (Jour d'Arafat) - OBLIGATOIRE", highlight: true },
+                { jour: "Jour 3", date: "~26 mai", rite: "Muzdalifah, lapidation début, sacrifice (Eid)" },
+                { jour: "Jours 4-5", date: "~27-28 mai", rite: "Lapidation (Jamarat) les autres jours" },
+                { jour: "Jour 6", date: "~29 mai", rite: "Tawaf d'adieu (Al-Wada')" }
               ].map((item, i) => (
                 <div key={i} className={`p-4 rounded-lg border-2 ${item.highlight ? 'bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700' : 'border-border'}`}>
                   <div className="flex gap-4">
@@ -159,7 +159,7 @@ export default function Hajj2026() {
 
           {/* Types de Hajj */}
           <section id="types" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Les 3 Types de Hajj 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Les 3 Types de Hajj 2027</h2>
             <div className="grid md:grid-cols-3 gap-4">
               <Card>
                 <CardContent className="pt-4">
@@ -203,9 +203,9 @@ export default function Hajj2026() {
             </div>
           </section>
 
-          {/* Prix 2026 */}
+          {/* Prix 2027 */}
           <section id="prix" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Prix du Hajj 2026 en France</h2>
+            <h2 className="text-2xl font-bold mb-6">Prix du Hajj 2027 en France</h2>
             <Card className="mb-6">
               <CardContent className="pt-6">
                 <h3 className="font-semibold mb-4">Fourchette de prix par catégorie</h3>
@@ -263,7 +263,7 @@ export default function Hajj2026() {
 
           {/* Comment s'inscrire */}
           <section id="inscription" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Comment S'inscrire au Hajj 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Comment S'inscrire au Hajj 2027</h2>
             <ol className="space-y-4">
               <li className="flex gap-4">
                 <span className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shrink-0">1</span>
@@ -304,7 +304,7 @@ export default function Hajj2026() {
                 <span className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shrink-0">6</span>
                 <div>
                   <p className="font-semibold">Se préparer et partir</p>
-                  <p className="text-sm text-muted-foreground">Vaccination méningite ACYW135 obligatoire. Préparation spirituelle et physique. Décollage début juin 2026.</p>
+                  <p className="text-sm text-muted-foreground">Vaccination méningite ACYW135 obligatoire. Préparation spirituelle et physique. Décollage fin mai 2027.</p>
                 </div>
               </li>
             </ol>
@@ -360,7 +360,7 @@ export default function Hajj2026() {
 
           {/* FAQ */}
           <section id="faq" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Questions Fréquentes sur le Hajj 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Questions Fréquentes sur le Hajj 2027</h2>
             <div className="space-y-4">
               {faqItems.map((item, index) => (
                 <Card key={index}>
@@ -378,7 +378,7 @@ export default function Hajj2026() {
             <h2 className="text-xl font-bold mb-4">Pour préparer votre Hajj</h2>
             <div className="grid md:grid-cols-3 gap-3">
               <Link to="/" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
-                <p className="font-semibold text-sm">Comparateur Hajj 2026</p>
+                <p className="font-semibold text-sm">Comparateur Hajj 2027</p>
                 <p className="text-xs text-muted-foreground mt-1">Voir toutes les offres</p>
               </Link>
               <Link to="/meilleure-agence-omra" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
@@ -406,7 +406,7 @@ export default function Hajj2026() {
             </div>
           </section>
 
-          <InternalLinks currentPage="/hajj-2026" variant="related" className="mt-8" />
+          <InternalLinks currentPage="/hajj-2027" variant="related" className="mt-8" />
         </div>
       </div>
     </ResponsiveLayout>
