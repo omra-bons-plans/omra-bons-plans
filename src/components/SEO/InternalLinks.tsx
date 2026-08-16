@@ -42,7 +42,7 @@ const allInternalLinks: InternalLink[] = [
   { href: '/omra-seniors', label: 'Omra Seniors', description: 'Conseils pour les seniors', icon: <Users className="w-4 h-4" /> },
   { href: '/omra-enfants', label: 'Omra avec Enfants', description: 'Guide pratique', icon: <Users className="w-4 h-4" /> },
   { href: '/omra-badal', label: 'Omra Badal', description: 'Omra par procuration', icon: <BookOpen className="w-4 h-4" /> },
-  { href: '/hajj-2026', label: 'Hajj 2027', description: 'Guide pèlerinage 2026', icon: <Calendar className="w-4 h-4" /> },
+  { href: '/hajj-2027', label: 'Hajj 2027', description: 'Guide pèlerinage 2027', icon: <Calendar className="w-4 h-4" /> },
   { href: '/guide-hajj-4-ecoles', label: 'Guide Hajj 4 Écoles', description: 'Rites selon Hanafi, Maliki, Shafi\'i, Hanbali', icon: <BookOpen className="w-4 h-4" /> },
   { href: '/liste-bagages-omra', label: 'Liste Bagages Omra', description: 'Quoi emporter', icon: <BookOpen className="w-4 h-4" /> },
   { href: '/10-derniers-jours-ramadan', label: '10 Derniers Jours Ramadan', description: 'Laylat al-Qadr à La Mecque', icon: <Calendar className="w-4 h-4" /> },
@@ -60,9 +60,9 @@ const allInternalLinks: InternalLink[] = [
 
 const relatedLinksMap: Record<string, string[]> = {
   '/': ['/meilleure-agence-omra', '/prix-omra-2026', '/conditions-omra', '/quand-partir-omra'],
-  '/hajj': ['/hajj-2026', '/guide-hajj-4-ecoles', '/meilleure-agence-omra', '/ramadan-hajj-dates'],
-  '/hajj-2026': ['/guide-hajj-4-ecoles', '/hajj', '/ramadan-hajj-dates', '/meilleure-agence-omra'],
-  '/guide-hajj-4-ecoles': ['/hajj-2026', '/hajj', '/ramadan-hajj-dates', '/rites-omra'],
+  '/hajj': ['/hajj-2027', '/guide-hajj-4-ecoles', '/meilleure-agence-omra', '/ramadan-hajj-dates'],
+  '/hajj-2027': ['/guide-hajj-4-ecoles', '/hajj', '/ramadan-hajj-dates', '/meilleure-agence-omra'],
+  '/guide-hajj-4-ecoles': ['/hajj-2027', '/hajj', '/ramadan-hajj-dates', '/rites-omra'],
   '/meilleure-agence-omra': ['/comparatif-agences', '/agences-liste', '/prix-omra-2026', '/omra-tout-compris'],
   '/prix-omra-2026': ['/omra-tout-compris', '/meilleure-agence-omra', '/quand-partir-omra', '/comparatif-agences'],
   '/conditions-omra': ['/visa-omra-france', '/omra-femme-seule', '/quand-partir-omra', '/omra-debutant'],

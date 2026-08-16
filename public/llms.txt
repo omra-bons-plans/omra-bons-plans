@@ -136,7 +136,7 @@ Crawl-Delay: 2
 # /omra-debutant             - Guide Omra débutant: 8 étapes, documents, budget, conseils
 # /conditions-omra           - Conditions Omra 2026: religieuses, administratives, santé, mahram
 # /rites-omra                - Rites de l'Omra: ihram, tawaf, sa'i, taqsir (guide complet)
-# /hajj-2026                 - Guide Hajj 2027: inscription, dates, types, agences, prix
+# /hajj-2027                 - Guide Hajj 2027: inscription, dates, types, agences, prix
 
 # GUIDES PROFILS SPÉCIFIQUES
 # /omra-famille              - Omra en famille avec enfants: conseils, hôtels, forfaits
