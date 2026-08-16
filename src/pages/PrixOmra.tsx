@@ -58,12 +58,12 @@ export default function PrixOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Prix Omra 2026 : Tarifs par Saison, Ville & Agence | Comparatif Complet</title>
-        <meta name="description" content="Tableau complet des prix Omra 2026 : de 800€ à 6 500€ selon la période, la ville de départ et l'agence. Comparez les tarifs et trouvez l'offre la moins chère." />
-        <meta name="keywords" content="prix omra 2026, tarif omra 2026, combien coute une omra, prix omra ramadan, omra pas chere, cout omra france, tarif hajj 2027" />
+        <title>Prix Omra 2027 : Tarifs par Saison, Ville & Agence | Comparatif Complet</title>
+        <meta name="description" content="Tableau complet des prix Omra 2027 : de 800€ à 6 500€ selon la période, la ville de départ et l'agence. Comparez les tarifs et trouvez l'offre la moins chère." />
+        <meta name="keywords" content="prix omra 2027, tarif omra 2027, combien coute une omra, prix omra ramadan 2027, omra pas chere, cout omra france, tarif hajj 2027" />
         <link rel="canonical" href="https://omrabonsplans.fr/prix-omra-2026" />
-        <meta property="og:title" content="Prix Omra 2026 : Tarifs Complets par Saison et Agence" />
-        <meta property="og:description" content="Découvrez les prix réels de l'Omra 2026. Tableaux de tarifs par saison, ville de départ et catégorie d'hôtel. De 800€ à 6 500€." />
+        <meta property="og:title" content="Prix Omra 2027 : Tarifs Complets par Saison et Agence" />
+        <meta property="og:description" content="Découvrez les prix réels de l'Omra 2027. Tableaux de tarifs par saison, ville de départ et catégorie d'hôtel. De 800€ à 6 500€." />
         <meta property="og:url" content="https://omrabonsplans.fr/prix-omra-2026" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
@@ -72,11 +72,11 @@ export default function PrixOmra() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Prix Omra 2026 : Guide Complet des Tarifs",
-          "description": "Tableau complet des prix Omra 2026 par saison, ville de départ et formule.",
+          "headline": "Prix Omra 2027 : Guide Complet des Tarifs",
+          "description": "Tableau complet des prix Omra 2027 par saison, ville de départ et formule.",
           "url": "https://omrabonsplans.fr/prix-omra-2026",
           "datePublished": "2026-01-10",
-          "dateModified": "2026-04-01",
+          "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"

@@ -34,7 +34,7 @@ const STATIC_ROUTES = [
   { path: '/', priority: 1.0, changefreq: 'daily' },
   { path: '/bons-plans', priority: 0.8, changefreq: 'daily' },
   { path: '/hajj', priority: 0.9, changefreq: 'daily' },
-  { path: '/hajj-2026', priority: 0.95, changefreq: 'weekly' },
+  { path: '/hajj-2027', priority: 0.95, changefreq: 'weekly' },
   { path: '/about', priority: 0.6, changefreq: 'monthly' },
   { path: '/contact', priority: 0.6, changefreq: 'monthly' },
 

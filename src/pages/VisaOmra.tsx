@@ -75,7 +75,7 @@ export default function VisaOmra() {
           "headline": "Visa Omra France 2026 : Types, Prix et Démarches",
           "url": "https://omrabonsplans.fr/visa-omra-france",
           "datePublished": "2026-01-25",
-          "dateModified": "2026-04-01",
+          "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"

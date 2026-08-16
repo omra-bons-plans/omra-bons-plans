@@ -11,7 +11,7 @@ const URLS = [
   '/',
   '/bons-plans',
   '/hajj',
-  '/hajj-2026',
+  '/hajj-2027',
   '/comparateur-omra-france',
   '/agences-liste',
   '/comparatif-agences',

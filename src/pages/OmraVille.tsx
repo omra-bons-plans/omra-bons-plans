@@ -467,7 +467,7 @@ export default function OmraVille() {
     description: `Comparez les meilleures offres Omra 2026 depuis ${data.nom}. Agences agréées, vols depuis ${data.codeAero}, prix et conseils pratiques.`,
     url: canonicalUrl,
     datePublished: '2026-01-15',
-    dateModified: '2026-05-01',
+    dateModified: '2026-08-16',
     author: { '@type': 'Person', '@id': `${SITE}/about#farid`, name: "Farid d'Arabie", jobTitle: 'Expert en pèlerinage islamique' },
     publisher: { '@type': 'Organization', name: 'Omra Bons Plans', url: SITE },
     inLanguage: 'fr-FR',
@@ -486,7 +486,7 @@ export default function OmraVille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra depuis {data.nom} 2026 : Agences, Prix & Vols | Omra Bons Plans</title>
+        <title>{`Omra depuis ${data.nom} 2026 : Agences, Prix & Vols | Omra Bons Plans`}</title>
         <meta name="description" content={`Comparez les offres Omra 2026 depuis ${data.nom} (${data.codeAero}). ${data.supplement}. Agences agréées, vols ${data.volDuree}, conseils pratiques et prix par saison.`} />
         <meta name="keywords" content={`omra depuis ${data.nom.toLowerCase()}, omra ${data.nom.toLowerCase()} 2026, agence omra ${data.nom.toLowerCase()}, vol omra ${data.nom.toLowerCase()}, prix omra ${data.nom.toLowerCase()}, départ omra ${data.nom.toLowerCase()}`} />
         <link rel="canonical" href={canonicalUrl} />

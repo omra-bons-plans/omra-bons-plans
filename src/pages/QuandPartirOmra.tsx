@@ -79,11 +79,11 @@ export default function QuandPartirOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Quand partir en Omra ? Meilleures Périodes & Prix 2026 | Omra Bons Plans</title>
-        <meta name="description" content="Meilleure période pour partir en Omra 2026 : Ramadan, hiver, hors saison. Comparatif des prix par mois et conseils pour choisir la bonne date." />
-        <meta name="keywords" content="quand partir en omra, meilleure période omra, omra ramadan, omra hiver, prix omra saison, omra 2026" />
+        <title>Quand partir en Omra ? Meilleures Périodes & Prix 2027 | Omra Bons Plans</title>
+        <meta name="description" content="Meilleure période pour partir en Omra 2027 : Ramadan (17 fév–18 mars 2027), hiver, hors saison. Comparatif des prix par mois et conseils pour choisir la bonne date." />
+        <meta name="keywords" content="quand partir en omra, meilleure période omra, omra ramadan 2027, omra hiver, prix omra saison, omra 2027" />
         <link rel="canonical" href="https://omrabonsplans.fr/quand-partir-omra" />
-        <meta property="og:title" content="Quand partir en Omra ? Guide des Meilleures Périodes 2026" />
+        <meta property="og:title" content="Quand partir en Omra ? Guide des Meilleures Périodes 2027" />
         <meta property="og:description" content="Ramadan, hiver ou hors saison : quelle est la meilleure période pour votre Omra ? Comparatif complet des prix et de l'affluence." />
         <meta property="og:url" content="https://omrabonsplans.fr/quand-partir-omra" />
         <meta property="og:type" content="article" />
@@ -92,19 +92,19 @@ export default function QuandPartirOmra() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Quand partir en Omra ? Meilleures Périodes 2026" />
+        <meta name="twitter:title" content="Quand partir en Omra ? Meilleures Périodes 2027" />
         <meta name="twitter:description" content="Ramadan, hiver ou hors saison : comparatif complet des prix et de l'affluence." />
         <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Quand partir en Omra ? Meilleures Périodes & Prix 2026",
+          "headline": "Quand partir en Omra ? Meilleures Périodes & Prix 2027",
           "description": "Guide complet pour choisir la meilleure période pour votre Omra selon votre budget, votre disponibilité et vos objectifs spirituels.",
           "url": "https://omrabonsplans.fr/quand-partir-omra",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
           "datePublished": "2025-01-01",
-          "dateModified": "2026-04-14",
+          "dateModified": "2026-08-16",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/og-omra-debutant.jpg", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>

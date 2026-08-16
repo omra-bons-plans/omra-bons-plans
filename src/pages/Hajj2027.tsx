@@ -12,11 +12,11 @@ import AlertCircle from 'lucide-react/dist/esm/icons/alert-circle';
 const faqItems = [
   {
     question: "Quelle est la date du Hajj 2027 ?",
-    answer: "Le Hajj 2027 aura lieu du 24 au 29 mai 2027 environ (dates sujettes à confirmation lunaire). Le 9 Dhul Hijja (Jour d'Arafat) sera le 25 mai 2027. Les dates officielles sont annoncées par le Royaume d'Arabie Saoudite avant le mois de Dhul Hijja."
+    answer: "Le Hajj 2027 aura lieu du 26 au 31 mai 2027 environ (8-13 Dhul Hijja 1448 AH, dates sujettes à confirmation lunaire). Le 9 Dhul Hijja (Jour d'Arafat) sera le 27 mai 2027, et l'Aïd al-Adha le 28 mai 2027. Les dates officielles sont annoncées par le Royaume d'Arabie Saoudite avant le mois de Dhul Hijja."
   },
   {
     question: "Quel est le prix du Hajj 2027 ?",
-    answer: "Le prix du Hajj 2027 en France varie de 4 500€ à 15 000€+ selon le type de Hajj (Ifrad, Tamattu, Qiran), la durée du séjour, la catégorie d'hôtel et les services inclus. Notre comparateur affiche les prix à jour de plus de 20 agences françaises."
+    answer: "Le prix du Hajj 2027 en France varie de 5 000€ à 15 000€+ selon le type de Hajj (Ifrad, Tamattu, Qiran), la durée du séjour, la catégorie d'hôtel et les services inclus. Notre comparateur affiche les prix à jour de plus de 20 agences françaises."
   },
   {
     question: "Quelle est la différence entre Ifrad, Tamattu et Qiran ?",
@@ -54,11 +54,11 @@ export default function Hajj2027() {
     <ResponsiveLayout>
       <Helmet>
         <title>Hajj 2027 : Dates, Prix, Inscription et Guide Complet</title>
-        <meta name="description" content="Hajj 2027 : dates (24-29 mai), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
+        <meta name="description" content="Hajj 2027 : dates (26-31 mai 2027), prix (5 000€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
         <meta name="keywords" content="hajj 2027, date hajj 2027, prix hajj 2027, inscription hajj, agence hajj france, nusuk, types hajj" />
         <link rel="canonical" href="https://omrabonsplans.fr/hajj-2027" />
         <meta property="og:title" content="Hajj 2027 : Dates, Prix et Guide d'Inscription" />
-        <meta property="og:description" content="Tout ce qu'il faut savoir sur le Hajj 2027 : dates, prix, types de Hajj, inscription Nusuk et meilleures agences." />
+        <meta property="og:description" content="Tout ce qu'il faut savoir sur le Hajj 2027 : dates (26-31 mai), prix, types de Hajj, inscription Nusuk et meilleures agences." />
         <meta property="og:url" content="https://omrabonsplans.fr/hajj-2027" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -68,7 +68,7 @@ export default function Hajj2027() {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "Hajj 2027 : Dates, Prix, Inscription et Guide Complet",
-          "description": "Hajj 2027 : dates (24-29 mai), prix (4 500€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises.",
+          "description": "Hajj 2027 : dates (26-31 mai 2027), prix (5 000€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises.",
           "url": "https://omrabonsplans.fr/hajj-2027",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
@@ -93,7 +93,7 @@ export default function Hajj2027() {
               Hajj 2027 : Dates, Prix et Guide Complet d'Inscription
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Le Hajj 2027 approche. Découvrez les dates officielles, le comparateur des prix par agence, les types de Hajj, et tout ce que vous devez savoir pour bien vous préparer au plus grand pèlerinage islamique.
+              Le Hajj 2027 se tiendra du 26 au 31 mai 2027. Découvrez les dates officielles, le comparateur des prix par agence, les types de Hajj, et tout ce que vous devez savoir pour bien vous préparer au plus grand pèlerinage islamique.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
               <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Obligatoire</Badge>
@@ -106,7 +106,7 @@ export default function Hajj2027() {
           <Alert className="mb-8 border-amber-500 bg-amber-50 dark:bg-amber-900/20">
             <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
             <AlertDescription className="text-amber-800 dark:text-amber-200 ml-2">
-              Les dates du Hajj 2027 sont <strong>provisoires</strong> et dépendent de la confirmation lunaire par les autorités saoudiennes. Les dates officielles seront annoncées dans le courant du mois de Dhul Qi'dah 1448 (environ avril 2027).
+              Les dates du Hajj 2027 sont <strong>provisoires</strong> et dépendent de la confirmation lunaire par les autorités saoudiennes. Les dates officielles seront annoncées dans le courant du mois de Dhul Qi'dah 1448 (environ avril-mai 2027).
             </AlertDescription>
           </Alert>
 
@@ -118,17 +118,17 @@ export default function Hajj2027() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Période estimée :</p>
-                    <p className="text-2xl font-bold text-primary">24 - 29 mai 2027</p>
+                    <p className="text-2xl font-bold text-primary">26 - 31 mai 2027</p>
                     <p className="text-xs text-muted-foreground mt-2">(8-13 Dhul Hijja 1448 AH)</p>
                   </div>
                   <div className="space-y-2">
                     <div>
                       <p className="font-semibold text-sm">Jour d'Arafat (Jour crucial)</p>
-                      <p className="text-base">≈ 25 mai 2027</p>
+                      <p className="text-base">≈ 27 mai 2027</p>
                     </div>
                     <div>
                       <p className="font-semibold text-sm">Eid al-Adha</p>
-                      <p className="text-base">≈ 26 mai 2027</p>
+                      <p className="text-base">≈ 28 mai 2027</p>
                     </div>
                   </div>
                 </div>
@@ -138,11 +138,11 @@ export default function Hajj2027() {
             <h3 className="text-lg font-semibold mb-4">Chronologie des rites (Tamattu)</h3>
             <div className="space-y-3">
               {[
-                { jour: "Jour 1", date: "~24 mai", rite: "Ihram à Mina, intention de Hajj" },
-                { jour: "Jour 2", date: "~25 mai", rite: "Station à Arafat (Jour d'Arafat) - OBLIGATOIRE", highlight: true },
-                { jour: "Jour 3", date: "~26 mai", rite: "Muzdalifah, lapidation début, sacrifice (Eid)" },
-                { jour: "Jours 4-5", date: "~27-28 mai", rite: "Lapidation (Jamarat) les autres jours" },
-                { jour: "Jour 6", date: "~29 mai", rite: "Tawaf d'adieu (Al-Wada')" }
+                { jour: "Jour 1", date: "~26 mai", rite: "Ihram à Mina, intention de Hajj" },
+                { jour: "Jour 2", date: "~27 mai", rite: "Station à Arafat (Jour d'Arafat) - OBLIGATOIRE", highlight: true },
+                { jour: "Jour 3", date: "~28 mai", rite: "Muzdalifah, lapidation début, sacrifice (Eid)" },
+                { jour: "Jours 4-5", date: "~29-30 mai", rite: "Lapidation (Jamarat) les autres jours" },
+                { jour: "Jour 6", date: "~31 mai", rite: "Tawaf d'adieu (Al-Wada')" }
               ].map((item, i) => (
                 <div key={i} className={`p-4 rounded-lg border-2 ${item.highlight ? 'bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700' : 'border-border'}`}>
                   <div className="flex gap-4">
@@ -183,7 +183,7 @@ export default function Hajj2027() {
                     <li>✅ Moins de rituel</li>
                     <li>⚠️ Rituels différents</li>
                     <li className="mt-2">Durée : 7-10 jours</li>
-                    <li>Prix : 4 500€-10 000€</li>
+                    <li>Prix : 5 000€-10 000€</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -282,7 +282,7 @@ export default function Hajj2027() {
               <li className="flex gap-4">
                 <span className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shrink-0">3</span>
                 <div>
-                  <p className="font-semibold">Inscrire auprès de l'agence</p>
+                  <p className="font-semibold">S'inscrire auprès de l'agence</p>
                   <p className="text-sm text-muted-foreground">Versement acompte (généralement 1 500-2 000€). L'agence gère l'inscription Nusuk auprès du gouvernement saoudien.</p>
                 </div>
               </li>
