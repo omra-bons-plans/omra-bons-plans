@@ -28,11 +28,13 @@ interface PageMeta {
 const SITE = "https://omrabonsplans.fr";
 const DEFAULT_OG = `${SITE}/hero-kaaba-optimized.webp`;
 
+const BOT_PATTERN = /googlebot|bingbot|yandexbot|duckduckbot|baiduspider|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|applebot|perplexitybot|claudebot|gptbot|anthropic-ai|claude-web|google-extended|chatgpt-user|ccbot|cohere-ai|oai-searchbot/i;
+
 const PAGES: Record<string, PageMeta> = {
   "/": {
-    title: "Comparateur Omra & Hajj 2026 | Omra Ramadan — Omra Bons Plans",
-    description: "Comparez les meilleures offres Omra 2026 & Hajj 2026 depuis la France 🇫🇷. Omra Ramadan, 10 derniers jours du Ramadan, séjours tout compris. Prix mis à jour quotidiennement.",
-    keywords: "omra 2026, omra2026, hajj 2026, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France",
+    title: "Comparateur Omra & Hajj 2027 | Omra Ramadan — Omra Bons Plans",
+    description: "Comparez les meilleures offres Omra 2027 & Hajj 2027 depuis la France 🇫🇷. Omra Ramadan, 10 derniers jours du Ramadan, séjours tout compris. Prix mis à jour quotidiennement.",
+    keywords: "omra 2027, omra2027, hajj 2027, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France",
     canonical: `${SITE}/`,
   },
   "/omra": {
@@ -299,7 +301,7 @@ const PAGES: Record<string, PageMeta> = {
     canonical: `${SITE}/rites-omra`,
   },
   "/guide-omra-pas-chere": {
-    title: "Omra Pas Chère 2026 : Guide Complet pour Économiser",
+    title: "Omra Pas Chère 2027 : Guide Complet pour Économiser",
     description: "Comment partir en Omra pas chère en 2026 : meilleures périodes, agences low-cost, 10 astuces pour réduire votre budget pèlerinage.",
     canonical: `${SITE}/guide-omra-pas-chere`,
   },
@@ -320,7 +322,7 @@ function buildHead(meta: PageMeta): string {
   const ogImage = meta.ogImage || DEFAULT_OG;
   const ogType = meta.ogType || "website";
   const keywords = meta.keywords ||
-    "omra 2026, hajj 2026, omra ramadan, pèlerinage, arabie saoudite, la mecque, médine";
+    "omra 2027, hajj 2027, omra ramadan, pèlerinage, arabie saoudite, la mecque, médine";
 
   return `
     <title>${escape(meta.title)}</title>
@@ -348,11 +350,32 @@ function buildHead(meta: PageMeta): string {
   `;
 }
 
+function buildBotPage(meta: PageMeta, bodyHtml: string): string {
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+${buildHead(meta)}
+</head>
+<body>
+<nav><a href="${SITE}">Omra Bons Plans</a></nav>
+<main>${bodyHtml}</main>
+<footer>
+<p><a href="${SITE}/">Comparateur Omra &amp; Hajj 2027</a> · <a href="${SITE}/hajj-2027">Hajj 2027</a> · <a href="${SITE}/agences-liste">Agences agréées</a> · <a href="${SITE}/coran">Coran en français</a></p>
+</footer>
+</body>
+</html>`;
+}
+
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
+  const userAgent = request.headers.get("user-agent") || "";
+  const isBot = BOT_PATTERN.test(userAgent);
 
   let meta = PAGES[pathname];
+  let botBodyHtml = "";
 
   // ── Dynamic route patterns ──────────────────────────────────────────────────
   // For routes not in the static PAGES map, we at minimum inject the correct
@@ -624,6 +647,44 @@ export default async (request: Request, context: Context) => {
         keywords: `sourate ${(s?.nameEn ?? slug).toLowerCase()}, ${(s?.nameEn ?? slug).toLowerCase()} en français, coran français, traduction ${(s?.nameEn ?? slug).toLowerCase()}`,
         canonical: `${SITE}/coran/${slug}`,
       };
+      if (isBot && s) {
+        const ordinal = s.number === 1 ? 'ère' : 'ème';
+        const revelation = s.type === 'Mecquoise' ? "à La Mecque avant l'Hégire" : "à Médine après l'Hégire";
+        botBodyHtml = `
+<h1>Sourate ${escape(s.nameEn)} (${s.nameAr}) — ${escape(s.nameFr)} | Coran en Français</h1>
+<p>La Sourate ${escape(s.nameEn)} est la ${s.number}${ordinal} sourate du Coran. Elle comprend ${s.verses} versets et a été révélée ${revelation} (sourate ${s.type.toLowerCase()}).</p>
+<section>
+  <h2>Informations sur la Sourate ${escape(s.nameEn)}</h2>
+  <ul>
+    <li><strong>Numéro :</strong> ${s.number}/114</li>
+    <li><strong>Nom arabe :</strong> ${s.nameAr}</li>
+    <li><strong>Nom français :</strong> ${escape(s.nameFr)}</li>
+    <li><strong>Nombre de versets :</strong> ${s.verses}</li>
+    <li><strong>Type :</strong> ${s.type} (révélée ${revelation})</li>
+  </ul>
+</section>
+<section>
+  <h2>Comment lire la Sourate ${escape(s.nameEn)} ?</h2>
+  <p>La Sourate ${escape(s.nameEn)} (${s.nameAr}) se lit de droite à gauche en arabe. Elle compte ${s.verses} verset${s.verses > 1 ? 's' : ''}. La traduction française ci-dessous est celle de Mohammed Hamidullah, référence pour les musulmans francophones.</p>
+</section>
+<section>
+  <h2>Questions fréquentes</h2>
+  <div><h3>Combien de versets compte la Sourate ${escape(s.nameEn)} ?</h3><p>La Sourate ${escape(s.nameEn)} compte ${s.verses} verset${s.verses > 1 ? 's' : ''}. C'est la ${s.number}${ordinal} sourate du Saint Coran.</p></div>
+  <div><h3>La Sourate ${escape(s.nameEn)} est-elle mecquoise ou médinoise ?</h3><p>La Sourate ${escape(s.nameEn)} est ${s.type === 'Mecquoise' ? 'mecquoise' : 'médinoise'}, révélée ${revelation}.</p></div>
+  <div><h3>Que signifie ${escape(s.nameEn)} en français ?</h3><p>${escape(s.nameEn)} se traduit en français par « ${escape(s.nameFr)} ».</p></div>
+</section>
+<nav aria-label="Autres sourates populaires">
+  <h2>Autres sourates à lire</h2>
+  <ul>
+    <li><a href="${SITE}/coran/al-fatiha">Sourate Al-Fatiha (L'Ouverture) — 7 versets</a></li>
+    <li><a href="${SITE}/coran/ya-sin">Sourate Ya-Sin (Yâ-Sîn) — 83 versets</a></li>
+    <li><a href="${SITE}/coran/ar-rahman">Sourate Ar-Rahman (Le Tout Miséricordieux) — 78 versets</a></li>
+    <li><a href="${SITE}/coran/al-mulk">Sourate Al-Mulk (La Royauté) — 30 versets</a></li>
+    <li><a href="${SITE}/coran/al-kahf">Sourate Al-Kahf (La Caverne) — 110 versets</a></li>
+    <li><a href="${SITE}/coran">Voir les 114 sourates du Coran →</a></li>
+  </ul>
+</nav>`;
+      }
     }
     // /search — noindex: search results page has no unique content
     else if (pathname === "/search") {
@@ -750,6 +811,46 @@ export default async (request: Request, context: Context) => {
         keywords: `horaires prière ${cityName.toLowerCase()}, heure prière ${cityName.toLowerCase()}, salat ${cityName.toLowerCase()}, fajr ${cityName.toLowerCase()}, isha ${cityName.toLowerCase()}, mosquée ${cityName.toLowerCase()}`,
         canonical: `${SITE}/horaires-priere/${villeSlug}`,
       };
+      if (isBot) {
+        botBodyHtml = `
+<h1>Horaires de Prière à ${escape(cityName)}${escape(regionLabel)} — 5 Prières du Jour</h1>
+<p>Retrouvez les horaires de prière (salat) à ${escape(cityName)}${escape(regionLabel)} pour aujourd'hui. Les cinq prières quotidiennes sont calculées selon la méthode de l'UOIF (Union des Organisations Islamiques de France), référence pour les musulmans de France.</p>
+<section>
+  <h2>Les 5 prières du jour à ${escape(cityName)}</h2>
+  <table>
+    <thead><tr><th>Prière</th><th>Nom arabe</th><th>Signification</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fajr</strong></td><td>الفجر</td><td>Prière de l'aube (avant le lever du soleil)</td></tr>
+      <tr><td><strong>Dhuhr</strong></td><td>الظهر</td><td>Prière du midi</td></tr>
+      <tr><td><strong>Asr</strong></td><td>العصر</td><td>Prière de l'après-midi</td></tr>
+      <tr><td><strong>Maghrib</strong></td><td>المغرب</td><td>Prière du coucher du soleil</td></tr>
+      <tr><td><strong>Isha</strong></td><td>العشاء</td><td>Prière de la nuit</td></tr>
+    </tbody>
+  </table>
+  <p><em>Les horaires exacts sont calculés dynamiquement sur la page en fonction de la date et de la position géographique de ${escape(cityName)}.</em></p>
+</section>
+<section>
+  <h2>Comment sont calculés les horaires de prière à ${escape(cityName)} ?</h2>
+  <p>Les horaires de prière à ${escape(cityName)}${escape(regionLabel)} sont calculés selon la méthode de l'UOIF (angle de 12° pour Fajr et Isha), utilisée par la majorité des mosquées de France. Les calculs tiennent compte des coordonnées géographiques exactes de ${escape(cityName)} et de l'équation du temps solaire.</p>
+</section>
+<section>
+  <h2>Questions fréquentes</h2>
+  <div><h3>Quelle est l'heure de Fajr à ${escape(cityName)} ?</h3><p>L'heure de Fajr à ${escape(cityName)} varie selon la saison. En été elle peut être vers 3h30-4h30, en hiver vers 6h-7h. Consultez la page pour l'heure exacte du jour.</p></div>
+  <div><h3>Quelle méthode de calcul est utilisée ?</h3><p>Nous utilisons la méthode UOIF (angle 12°), qui est la référence officielle pour les musulmans de France et recommandée par le Conseil Français du Culte Musulman.</p></div>
+  <div><h3>Les horaires changent-ils chaque jour ?</h3><p>Oui, les horaires de prière changent chaque jour en fonction de la position du soleil. Ils varient aussi selon les saisons : plus tôt en été, plus tard en hiver.</p></div>
+</section>
+<nav aria-label="Autres villes">
+  <h2>Horaires de prière dans d'autres villes</h2>
+  <ul>
+    <li><a href="${SITE}/horaires-priere/paris">Horaires de prière Paris</a></li>
+    <li><a href="${SITE}/horaires-priere/lyon">Horaires de prière Lyon</a></li>
+    <li><a href="${SITE}/horaires-priere/marseille">Horaires de prière Marseille</a></li>
+    <li><a href="${SITE}/horaires-priere/lille">Horaires de prière Lille</a></li>
+    <li><a href="${SITE}/horaires-priere/toulouse">Horaires de prière Toulouse</a></li>
+    <li><a href="${SITE}/horaires-priere/strasbourg">Horaires de prière Strasbourg</a></li>
+  </ul>
+</nav>`;
+      }
     }
     // /search — noindex: search results page has no unique content
     else if (pathname === "/search") {
@@ -764,6 +865,19 @@ export default async (request: Request, context: Context) => {
 
   if (!meta) {
     return; // let Netlify serve default index.html
+  }
+
+  // For bots on content-rich dynamic pages, serve a full HTML page directly
+  // instead of injecting into the SPA shell (which has empty body pre-JS).
+  if (isBot && botBodyHtml) {
+    return new Response(buildBotPage(meta, botBodyHtml), {
+      status: 200,
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
+        "x-robots-tag": "index, follow",
+      },
+    });
   }
 
   const response = await context.next();

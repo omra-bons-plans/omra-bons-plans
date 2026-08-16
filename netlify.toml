@@ -78,9 +78,15 @@
   path = "/hajj"
   function = "homepage-prerender"
 
+[[redirects]]
+  from = "/hajj-2026"
+  to = "/hajj-2027"
+  status = 301
+  force = true
+
 [[edge_functions]]
-  path = "/hajj-2026"
-  function = "homepage-prerender"
+  path = "/hajj-2027"
+  function = "guide-prerender"
 
 [[edge_functions]]
   path = "/bons-plans"
