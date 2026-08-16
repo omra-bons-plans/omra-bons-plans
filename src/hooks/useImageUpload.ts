@@ -69,7 +69,17 @@ export const useImageUpload = (bucketName: string = 'ad-images') => {
       // Generate unique filename with correct extension
       const fileExt = processedFile.name.split('.').pop();
       const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-      const filePath = folder ? `${folder}/${fileName}` : fileName;
+
+      // Sécurité: chaque upload est isolé dans le dossier de l'utilisateur
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error('Vous devez être connecté pour envoyer une image');
+        return null;
+      }
+
+      const filePath = folder
+        ? `${folder}/${user.id}/${fileName}`
+        : `${user.id}/${fileName}`;
 
       // Upload to Supabase Storage
       const { error: uploadError } = await supabase.storage
