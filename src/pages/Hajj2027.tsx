@@ -53,7 +53,7 @@ export default function Hajj2027() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>{`Hajj 2027 : Dates, Prix, Inscription et Guide Complet`}</title>
+        <title>Hajj 2027 : Dates, Prix, Inscription et Guide Complet</title>
         <meta name="description" content="Hajj 2027 : dates (26-31 mai 2027), prix (5 000€-15 000€+), inscription Nusuk, types Ifrad/Tamattu/Qiran. Guide et comparateur des meilleures agences françaises." />
         <meta name="keywords" content="hajj 2027, date hajj 2027, prix hajj 2027, inscription hajj, agence hajj france, nusuk, types hajj" />
         <link rel="canonical" href="https://omrabonsplans.fr/hajj-2027" />
@@ -72,8 +72,8 @@ export default function Hajj2027() {
           "url": "https://omrabonsplans.fr/hajj-2027",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "url": "https://omrabonsplans.fr" },
-          "datePublished": "2026-08-14",
-          "dateModified": "2026-08-14",
+          "datePublished": "2025-10-01",
+          "dateModified": "2026-08-16",
           "image": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp", "width": 1200, "height": 630 },
           "inLanguage": "fr-FR"
         })}</script>

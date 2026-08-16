@@ -71,7 +71,6 @@ const AdminHotels = lazy(() => import("./pages/AdminHotels"));
 const GuideOmraPasChere = lazy(() => import("./pages/GuideOmraPasChere"));
 const SitemapXml = lazy(() => import("./pages/SitemapXml"));
 const RitesOmra = lazy(() => import("./pages/RitesOmra"));
-const Hajj2026 = lazy(() => import("./pages/Hajj2026"));
 const Hajj2027 = lazy(() => import("./pages/Hajj2027"));
 const OmraToutCompris = lazy(() => import("./pages/OmraToutCompris"));
 const MeilleureAgenceOmra = lazy(() => import("./pages/MeilleureAgenceOmra"));

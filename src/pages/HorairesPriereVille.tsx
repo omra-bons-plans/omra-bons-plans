@@ -333,7 +333,7 @@ export default function HorairesPriereVille() {
                 <div className="font-semibold text-sm">Dates Ramadan & Hajj</div>
                 <div className="text-xs text-muted-foreground mt-0.5">Calendrier 2026-2027</div>
               </Link>
-              <Link to="/hajj-2026" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
+              <Link to="/hajj-2027" className="p-3 bg-background rounded-lg border hover:border-primary transition-colors">
                 <div className="font-semibold text-sm">Hajj 2026</div>
                 <div className="text-xs text-muted-foreground mt-0.5">Dates, prix et agences</div>
               </Link>

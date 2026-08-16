@@ -13,7 +13,7 @@ Sitemap: https://omrabonsplans.fr/sitemap.xml
 # ──────────────────────────────────────────────
 Allow: /omra
 Allow: /hajj
-Allow: /hajj-2026
+Allow: /hajj-2027
 Allow: /about
 Allow: /contact
 Allow: /blog
