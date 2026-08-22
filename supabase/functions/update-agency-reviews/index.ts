@@ -90,7 +90,7 @@ Deno.serve(async (req) => {
         }
 
         const scrapeData = await scrapeResponse.json();
-        const content = scrapeData.data?.markdown || '';
+        const content = String(scrapeData.data?.markdown || '');
 
         console.log(`[update-agency-reviews] Content length for ${agency.name}:`, content.length);
         console.log(`[update-agency-reviews] First 500 chars for ${agency.name}:`, content.substring(0, 500));
