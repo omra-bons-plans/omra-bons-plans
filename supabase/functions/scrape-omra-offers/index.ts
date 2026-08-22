@@ -271,7 +271,7 @@ function parseTawafOffers(doc: any, config: ScraperConfig): any[] {
   
   let currentMonth = 'Non spécifié';
   
-  offerLinks.forEach((link, index) => {
+  offerLinks.forEach((link: any, index: number) => {
     try {
       const buttonText = link.querySelector('.elementor-button-text');
       if (!buttonText) return;
