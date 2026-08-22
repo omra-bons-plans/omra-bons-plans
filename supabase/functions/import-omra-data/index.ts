@@ -280,7 +280,7 @@ function extractMonthFromDate(dateStr: string | null): string {
   return '';
 }
 
-function extractDuration(durationStr: string | null): number | null {
+function extractDuration(durationStr: string | null | undefined): number | null {
   if (!durationStr) return null;
   
   const match = durationStr.match(/(\d+)\s*(?:jours|nuits)/i);
