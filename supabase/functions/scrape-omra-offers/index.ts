@@ -239,7 +239,7 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
     const offerElements = doc.querySelectorAll(containerSelector);
     console.log(`Found ${offerElements.length} potential offer elements for ${config.agency_name}`);
     
-    offerElements.forEach((element, index) => {
+    offerElements.forEach((element: any, index: number) => {
       if (index >= 20) return; // Limiter à 20 offres max
       
       try {
