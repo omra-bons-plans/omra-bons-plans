@@ -127,7 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
                 message: `Votre annonce "${ad.title}" expire dans ${daysLeft} jour${daysLeft > 1 ? 's' : ''}`,
                 related_id: ad.id,
                 related_type: 'ad'
-              });
+              } as any);
 
             if (notificationError) {
               console.error('Error creating expiring notification:', notificationError);
