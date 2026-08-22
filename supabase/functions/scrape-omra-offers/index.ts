@@ -259,7 +259,7 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   return offers;
 }
 
-function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
+function parseTawafOffers(doc: any, config: ScraperConfig): any[] {
   const offers: any[] = [];
   const selectors = config.selectors || {};
   
@@ -393,7 +393,7 @@ function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
   return offers;
 }
 
-function extractOfferData(element: Element, config: ScraperConfig, fullHtml: string): any | null {
+function extractOfferData(element: any, config: ScraperConfig, fullHtml: string): any | null {
   const selectors = config.selectors || {};
   
   // Extraire le prix

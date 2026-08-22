@@ -223,11 +223,13 @@ serve(async (req) => {
     
     try {
       // Renommer omra_offers -> omra_offers_old
-      await supabase.rpc('execute_sql', {
-        sql: 'ALTER TABLE public.omra_offers RENAME TO omra_offers_old;'
-      }).catch(() => {
+      try {
+        await supabase.rpc('execute_sql', {
+          sql: 'ALTER TABLE public.omra_offers RENAME TO omra_offers_old;'
+        });
+      } catch {
         // Fallback: supprimer directement et renommer
-      });
+      }
 
       // Supprimer toutes les anciennes offres
       await supabase
