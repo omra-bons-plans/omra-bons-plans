@@ -81,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
     oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
     // Get ads expiring in 3 days
-    const { data: expiringAds, error: adsError } = await supabase
+    const { data: expiringAdsRaw, error: adsError } = await supabase
       .from('ads')
       .select('id, title, user_id, publish_end_date')
       .eq('is_published', true)
@@ -89,6 +89,13 @@ const handler = async (req: Request): Promise<Response> => {
       .eq('is_paused', false)
       .gte('publish_end_date', oneDayFromNow.toISOString())
       .lte('publish_end_date', threeDaysFromNow.toISOString());
+
+    const expiringAds = (expiringAdsRaw ?? []) as Array<{
+      id: string;
+      title: string;
+      user_id: string;
+      publish_end_date?: string | null;
+    }>;
 
     if (adsError) {
       console.error('Error fetching expiring ads:', adsError);
