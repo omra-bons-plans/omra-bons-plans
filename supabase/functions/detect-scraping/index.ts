@@ -159,7 +159,7 @@ serve(async (req) => {
   } catch (error) {
     console.error('Erreur dans detect-scraping:', error);
     return new Response(
-      JSON.stringify({ error: error.message, allowed: true }),
+      JSON.stringify({ error: (error as Error).message, allowed: true }),
       {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

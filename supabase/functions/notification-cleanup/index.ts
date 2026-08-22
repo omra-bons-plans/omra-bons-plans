@@ -81,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
     oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
     // Get ads expiring in 3 days
-    const { data: expiringAds, error: adsError } = await supabase
+    const { data: expiringAdsRaw, error: adsError } = await supabase
       .from('ads')
       .select('id, title, user_id, publish_end_date')
       .eq('is_published', true)
@@ -89,6 +89,13 @@ const handler = async (req: Request): Promise<Response> => {
       .eq('is_paused', false)
       .gte('publish_end_date', oneDayFromNow.toISOString())
       .lte('publish_end_date', threeDaysFromNow.toISOString());
+
+    const expiringAds = (expiringAdsRaw ?? []) as Array<{
+      id: string;
+      title: string;
+      user_id: string;
+      publish_end_date?: string | null;
+    }>;
 
     if (adsError) {
       console.error('Error fetching expiring ads:', adsError);
@@ -120,7 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
                 message: `Votre annonce "${ad.title}" expire dans ${daysLeft} jour${daysLeft > 1 ? 's' : ''}`,
                 related_id: ad.id,
                 related_type: 'ad'
-              });
+              } as any);
 
             if (notificationError) {
               console.error('Error creating expiring notification:', notificationError);
@@ -149,7 +156,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error('Error in notification cleanup:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: (error as Error).message }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json', ...corsHeaders },
