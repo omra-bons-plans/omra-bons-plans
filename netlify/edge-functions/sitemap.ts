@@ -17,7 +17,7 @@ const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string; la
   { loc: `${SITE}/`, changefreq: "daily", priority: "1.00" },
   { loc: `${SITE}/bons-plans`, changefreq: "daily", priority: "0.80" },
   { loc: `${SITE}/hajj`, changefreq: "daily", priority: "0.90" },
-  { loc: `${SITE}/hajj-2026`, changefreq: "weekly", priority: "0.95" },
+  { loc: `${SITE}/hajj-2027`, changefreq: "weekly", priority: "0.95", lastmod: "2026-08-16" },
   { loc: `${SITE}/about`, changefreq: "monthly", priority: "0.60" },
   { loc: `${SITE}/contact`, changefreq: "monthly", priority: "0.60" },
   { loc: `${SITE}/comparateur-omra-france`, changefreq: "monthly", priority: "0.95" },
@@ -408,7 +408,12 @@ export default async function handler(req: Request, _context: Context) {
         const posts = await res.json();
         blogEntries = posts.map((post: { slug: string; category: string; updated_at?: string; created_at: string }) => {
           const lastmod = (post.updated_at || post.created_at).split("T")[0];
-          const normalizedSlug = post.slug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+          const normalizedSlug = post.slug.toLowerCase()
+            .normalize('NFD')
+            .replace(/[̀-ͯ]/g, '')
+            .replace(/[^a-z0-9-]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
           const loc = `${SITE}/blog/${post.category}/${normalizedSlug}`;
           return urlEntry(loc, lastmod, "monthly", "0.70");
         });
