@@ -874,7 +874,10 @@ export default async (request: Request, context: Context) => {
       status: 200,
       headers: {
         "content-type": "text/html; charset=utf-8",
-        "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
+        // Never cache bot-specific HTML at CDN level — real users would receive
+        // the stripped bot page instead of the React SPA.
+        "cache-control": "private, no-store",
+        "vary": "User-Agent",
         "x-robots-tag": "index, follow",
       },
     });
