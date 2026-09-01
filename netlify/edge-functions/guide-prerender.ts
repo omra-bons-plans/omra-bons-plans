@@ -217,10 +217,10 @@ const PAGES: Record<string, PageData> = {
     ],
   },
 
-  "/omra-ramadan-2026": {
+  "/omra-ramadan-2027": {
     title: "Omra Ramadan 2027 : Prix, Réservation et Conseils",
     description: "Omra Ramadan 2027 : dates (17 février - 18 mars 2027), prix (1 800-5 000€), réservation, et conseils pour les 10 derniers jours. Guide complet pour partir pendant le Ramadan.",
-    canonical: "https://omrabonsplans.fr/omra-ramadan-2026",
+    canonical: "https://omrabonsplans.fr/omra-ramadan-2027",
     h1: "Omra Ramadan 2027 : Guide Complet et Meilleures Offres",
     intro: "Le Ramadan 2027 débutera vers le 17 février et se terminera vers le 18 mars (sous réserve de l'observation de la lune). C'est la période la plus méritoire pour accomplir l'Omra : le Prophète Muhammad (ﷺ) a dit qu'une Omra pendant le Ramadan équivaut à un Hajj. Ce guide vous aide à planifier votre Omra Ramadan 2027.",
     sections: [

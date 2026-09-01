@@ -289,7 +289,7 @@ export default function PrixOmra() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg"><Link to="/">Comparer les prix →</Link></Button>
-            <Button asChild variant="outline" size="lg"><Link to="/omra-ramadan-2026">Prix Omra Ramadan</Link></Button>
+            <Button asChild variant="outline" size="lg"><Link to="/omra-ramadan-2027">Prix Omra Ramadan</Link></Button>
           </div>
         </section>
 
@@ -311,7 +311,7 @@ export default function PrixOmra() {
           <div className="flex flex-wrap gap-2">
             <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
+            <Link to="/omra-ramadan-2027" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>

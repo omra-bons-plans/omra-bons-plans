@@ -65,10 +65,10 @@ export default function OmraRamadan() {
         <title>Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours | Guide Complet</title>
         <meta name="description" content="Tout sur l'Omra Ramadan 2027 : dates, prix (1800€-5000€), offres agences françaises, 10 derniers jours du Ramadan. Comparez et réservez votre séjour spirituel." />
         <meta name="keywords" content="omra ramadan 2027, omra pendant le ramadan, 10 derniers jours ramadan 2027, prix omra ramadan, offre omra ramadan, laylat al qadr 2027, omra ramadan pas chere" />
-        <link rel="canonical" href="https://omrabonsplans.fr/omra-ramadan-2026" />
+        <link rel="canonical" href="https://omrabonsplans.fr/omra-ramadan-2027" />
         <meta property="og:title" content="Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours" />
         <meta property="og:description" content="Guide complet pour l'Omra Ramadan 2027 : dates, prix, offres d'agences françaises agréées. Comparez les séjours pour les 10 derniers jours du Ramadan." />
-        <meta property="og:url" content="https://omrabonsplans.fr/omra-ramadan-2026" />
+        <meta property="og:url" content="https://omrabonsplans.fr/omra-ramadan-2027" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -78,13 +78,13 @@ export default function OmraRamadan() {
           "@type": "Article",
           "headline": "Omra Ramadan 2027 : Guide Complet, Prix et Offres",
           "description": "Guide complet pour organiser votre Omra pendant le Ramadan 2027, avec les 10 derniers jours du Ramadan.",
-          "url": "https://omrabonsplans.fr/omra-ramadan-2026",
+          "url": "https://omrabonsplans.fr/omra-ramadan-2027",
           "datePublished": "2026-01-15",
           "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp",
-          "mainEntityOfPage": "https://omrabonsplans.fr/omra-ramadan-2026"
+          "mainEntityOfPage": "https://omrabonsplans.fr/omra-ramadan-2027"
         })}</script>
       </Helmet>
       <FAQSchema faqs={faqs} />
@@ -92,7 +92,7 @@ export default function OmraRamadan() {
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
         { name: 'Omra 2027', url: '/omra' },
-        { name: 'Omra Ramadan 2027', url: '/omra-ramadan-2026' }
+        { name: 'Omra Ramadan 2027', url: '/omra-ramadan-2027' }
       ]} />
 
       <article className="max-w-4xl mx-auto px-4 py-8">

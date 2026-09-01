@@ -434,7 +434,7 @@ export default function OmraFemmeSeule() {
             <span className="text-muted-foreground">·</span>
             <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/omra-ramadan-2026" className="text-primary hover:underline text-sm">Omra Ramadan</Link>
+            <Link to="/omra-ramadan-2027" className="text-primary hover:underline text-sm">Omra Ramadan</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>

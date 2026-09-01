@@ -123,7 +123,7 @@ function buildHomepage(): string {
       <li><a href="${SITE}/liste-bagages-omra">Liste des bagages pour l'Omra</a></li>
       <li><a href="${SITE}/omra-femme-seule">Omra femme seule : guide complet</a></li>
       <li><a href="${SITE}/omra-famille">Omra en famille 2027</a></li>
-      <li><a href="${SITE}/omra-ramadan-2026">Omra Ramadan 2027 : offres et conseils</a></li>
+      <li><a href="${SITE}/omra-ramadan-2027">Omra Ramadan 2027 : offres et conseils</a></li>
       <li><a href="${SITE}/hajj-2027">Hajj 2027 : dates, prix et guide complet</a></li>
       <li><a href="${SITE}/meilleure-agence-omra">Quelle est la meilleure agence Omra ?</a></li>
     </ul>
@@ -280,7 +280,7 @@ function buildComparateurPage(): string {
       <li><a href="${SITE}/omra-en-novembre-2026">Omra Novembre 2026</a> — hors saison, idéal pour le recueillement</li>
       <li><a href="${SITE}/omra-en-decembre-2026">Omra Décembre 2026</a> — vacances scolaires, idéal en famille</li>
       <li><a href="${SITE}/omra-en-janvier-2027">Omra Janvier 2027</a> — début d'année, prix attractifs</li>
-      <li><a href="${SITE}/omra-ramadan-2026">Omra Ramadan 2027</a> — 17 fév–18 mars, période la plus méritoire spirituellement</li>
+      <li><a href="${SITE}/omra-ramadan-2027">Omra Ramadan 2027</a> — 17 fév–18 mars, période la plus méritoire spirituellement</li>
     </ul>
   </section>
 

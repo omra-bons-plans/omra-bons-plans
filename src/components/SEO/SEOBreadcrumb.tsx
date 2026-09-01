@@ -39,7 +39,7 @@ const routeMap: Record<string, string> = {
   '/prix-omra-2026': 'Prix Omra 2026',
   '/omra-tout-compris': 'Omra Tout Compris',
   '/omra-femme-seule': 'Omra Femme Seule',
-  '/omra-ramadan-2026': 'Omra Ramadan 2026',
+  '/omra-ramadan-2027': 'Omra Ramadan 2027',
   '/omra-en-janvier-2027': 'Omra en Janvier 2027',
   '/omra-en-decembre-2026': 'Omra en Décembre 2026',
   '/omra-en-novembre-2026': 'Omra en Novembre 2026',
