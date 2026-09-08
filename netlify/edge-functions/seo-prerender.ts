@@ -646,6 +646,7 @@ export default async (request: Request, context: Context) => {
         description: `Lire la Sourate ${s?.nameEn ?? nameLabel} (${s?.nameAr ?? ''}) — ${verses ? `${verses} versets, ` : ''}révélée ${type === 'Mecquoise' ? 'à La Mecque' : type === 'Médinoise' ? 'à Médine' : ''}. Texte arabe avec traduction française de Mohammed Hamidullah.`,
         keywords: `sourate ${(s?.nameEn ?? slug).toLowerCase()}, ${(s?.nameEn ?? slug).toLowerCase()} en français, coran français, traduction ${(s?.nameEn ?? slug).toLowerCase()}`,
         canonical: `${SITE}/coran/${slug}`,
+        noindex: true,
       };
       if (isBot && s) {
         const ordinal = s.number === 1 ? 'ère' : 'ème';
@@ -810,6 +811,7 @@ export default async (request: Request, context: Context) => {
         description: `Horaires de prière à ${cityName}${regionLabel} aujourd'hui : Fajr, Dhuhr, Asr, Maghrib et Isha. Calcul selon la méthode UOIF. Mis à jour quotidiennement.`,
         keywords: `horaires prière ${cityName.toLowerCase()}, heure prière ${cityName.toLowerCase()}, salat ${cityName.toLowerCase()}, fajr ${cityName.toLowerCase()}, isha ${cityName.toLowerCase()}, mosquée ${cityName.toLowerCase()}`,
         canonical: `${SITE}/horaires-priere/${villeSlug}`,
+        noindex: true,
       };
       if (isBot) {
         botBodyHtml = `
@@ -878,7 +880,7 @@ export default async (request: Request, context: Context) => {
         // the stripped bot page instead of the React SPA.
         "cache-control": "private, no-store",
         "vary": "User-Agent",
-        "x-robots-tag": "index, follow",
+        "x-robots-tag": meta.noindex ? "noindex, follow" : "index, follow",
       },
     });
   }
