@@ -70,7 +70,7 @@ export default function DixDerniersJoursRamadan() {
 
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
-        { name: 'Omra Ramadan', url: '/omra-ramadan-2026' },
+        { name: 'Omra Ramadan', url: '/omra-ramadan-2027' },
         { name: '10 Derniers Jours', url: '/10-derniers-jours-ramadan' }
       ]} />
 
@@ -175,7 +175,7 @@ export default function DixDerniersJoursRamadan() {
             <Link to="/" className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Comparer les offres Ramadan
             </Link>
-            <Link to="/omra-ramadan-2026" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">
+            <Link to="/omra-ramadan-2027" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/5 transition-colors">
               Guide Omra Ramadan 2027
             </Link>
           </div>
