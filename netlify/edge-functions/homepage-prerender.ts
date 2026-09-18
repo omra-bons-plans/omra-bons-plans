@@ -41,7 +41,7 @@ const AGENCIES = [
 
 // ─── Pages ──────────────────────────────────────────────────────────────────
 
-function buildHomepage(): string {
+function buildHomepage(path = "/"): string {
   const agenciesHtml = AGENCIES.slice(0, 8).map(a =>
     `<div class="agency-card">
       <strong>${esc(a.name)}</strong>
@@ -51,18 +51,32 @@ function buildHomepage(): string {
     </div>`
   ).join("\n");
 
+  const canonical = `${SITE}${path === "/" ? "/" : path}`;
+  const isHajj = path === "/hajj";
+  const isBonsPlans = path === "/bons-plans";
+  const title = isHajj
+    ? "Hajj 2027 — Offres &amp; Comparateur | Omra Bons Plans"
+    : isBonsPlans
+      ? "Bons Plans Omra &amp; Hajj 2027 | Omra Bons Plans"
+      : "Comparateur Omra &amp; Hajj 2027 | Omra Bons Plans";
+  const description = isHajj
+    ? "Comparez les offres Hajj 2027 depuis la France. Dates Hajj 2027 : 26-31 mai. Agences agréées, prix, hôtels à La Mecque. Réservez votre pèlerinage au meilleur prix."
+    : isBonsPlans
+      ? "Les meilleurs bons plans Omra &amp; Hajj 2027 depuis la France. Offres promotionnelles, séjours tout compris, vols et hébergements à prix réduits — mise à jour quotidienne."
+      : "Comparez les meilleures offres Omra 2027 &amp; Hajj 2027 depuis la France. Ramadan 2027 (17 fév–18 mars), Hajj 2027 (26-31 mai). Prix mis à jour quotidiennement.";
+
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparateur Omra &amp; Hajj 2027 | Omra Bons Plans</title>
-  <meta name="description" content="Comparez les meilleures offres Omra 2027 &amp; Hajj 2027 depuis la France. Ramadan 2027 (17 fév–18 mars), Hajj 2027 (26-31 mai). Prix mis à jour quotidiennement.">
+  <title>${title}</title>
+  <meta name="description" content="${description}">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="${SITE}/">
-  <meta property="og:title" content="Comparateur Omra &amp; Hajj 2027 | Omra Bons Plans">
-  <meta property="og:description" content="Comparez les meilleures offres Omra 2027 &amp; Hajj 2027 depuis la France. Agences agréées, prix mis à jour quotidiennement.">
-  <meta property="og:url" content="${SITE}/">
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:url" content="${canonical}">
   <meta property="og:type" content="website">
   <script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
@@ -114,7 +128,7 @@ function buildHomepage(): string {
     <h2>Guides pratiques Omra &amp; Hajj</h2>
     <ul>
       <li><a href="${SITE}/definition-omra">Qu'est-ce que l'Omra ? Définition et guide complet</a></li>
-      <li><a href="${SITE}/definition-omra">Qu'est-ce que l'Omra ? Définition et guide complet</a></li>
+      <li><a href="${SITE}/omra-debutant">Guide Omra pour débutants 2027</a></li>
       <li><a href="${SITE}/conditions-omra">Conditions pour faire l'Omra 2027</a></li>
       <li><a href="${SITE}/rites-omra">Les rites de l'Omra étape par étape</a></li>
       <li><a href="${SITE}/prix-omra-2026">Prix Omra 2027 : tarifs par période et agence</a></li>
@@ -308,7 +322,7 @@ export default async function handler(req: Request, context: Context) {
   let html: string;
 
   if (path === "/" || path === "/hajj" || path === "/bons-plans") {
-    html = buildHomepage();
+    html = buildHomepage(path);
   } else if (path === "/agences-liste" || path === "/comparatif-agences" || path === "/comparatif-visuel") {
     html = buildAgenciesPage();
   } else if (path === "/comparateur-omra-france") {
