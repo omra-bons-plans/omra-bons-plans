@@ -37,12 +37,6 @@ const PAGES: Record<string, PageMeta> = {
     keywords: "omra 2027, omra2027, hajj 2027, omra ramadan, 10 derniers jours ramadan, omra pas chère, séjour omra tout compris, agence omra France",
     canonical: `${SITE}/`,
   },
-  "/omra": {
-    title: "Comparateur Omra 2027 — Agences Agréées | Omra Bons Plans",
-    description: "Comparez les offres Omra 2027 de toutes les agences agréées en France 🇫🇷. Filtres par dates, ville, hôtel, prix. Trouvez votre Omra idéale en quelques clics.",
-    keywords: "comparateur omra, omra 2027, agences omra France, prix omra, séjour omra",
-    canonical: `${SITE}/omra`,
-  },
   "/hajj": {
     title: "Comparateur Hajj 2027 — Agences Agréées | Omra Bons Plans",
     description: "Comparez les offres Hajj 2027 des agences agréées en France 🇫🇷. Filtres par dates, hôtel, encadrement, prix. Trouvez votre Hajj idéal facilement.",
@@ -377,18 +371,84 @@ export default async (request: Request, context: Context) => {
   let meta = PAGES[pathname];
   let botBodyHtml = "";
 
+  // URLs with query params are SPA interaction states, not standalone pages — noindex
+  if (url.search && meta) {
+    meta = { ...meta, noindex: true };
+  }
+
   // ── Dynamic route patterns ──────────────────────────────────────────────────
   // For routes not in the static PAGES map, we at minimum inject the correct
   // canonical so Google doesn't treat them as duplicates of the homepage.
 
+  // /omra — client-side Navigate to "/" — return proper 301 so Google doesn't see Soft 404
+  if (pathname === "/omra") {
+    return new Response(null, {
+      status: 301,
+      headers: { "Location": `${SITE}/`, "cache-control": "public, max-age=86400" },
+    });
+  }
+
   if (!meta) {
-    // /blog/[category]/[slug] — blog-prerender handles bots; we cover WRS here
+    // /blog/[category]/[slug] — fetch post from Supabase for bots, inject real title+content
     if (/^\/blog\/(general|restaurants|associations|vendeurs)\/.+$/.test(pathname)) {
+      const parts = pathname.split('/'); // ['', 'blog', category, slug]
+      const category = parts[2];
+      const rawSlug = parts[3] ?? '';
+      const slug = rawSlug.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
       meta = {
         title: "Blog Omra & Hajj | Omra Bons Plans",
         description: "Guides, conseils et actualités sur l'Omra et le Hajj.",
-        canonical: `${SITE}${pathname}`,
+        canonical: `${SITE}/blog/${category}/${slug}`,
       };
+
+      if (isBot) {
+        const supabaseUrl = Deno.env.get("VITE_SUPABASE_URL");
+        const supabaseKey = Deno.env.get("VITE_SUPABASE_PUBLISHABLE_KEY");
+        if (supabaseUrl && supabaseKey) {
+          try {
+            const apiUrl = `${supabaseUrl}/rest/v1/blog_posts` +
+              `?slug=eq.${encodeURIComponent(slug)}` +
+              `&category=eq.${category}` +
+              `&is_published=eq.true` +
+              `&select=title,excerpt,content,published_at,slug,category` +
+              `&limit=1`;
+            const res = await fetch(apiUrl, {
+              headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+            });
+            if (res.ok) {
+              const posts = await res.json();
+              const post = posts[0];
+              if (post) {
+                const plain = (post.excerpt || post.content || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+                const desc = plain.substring(0, 160);
+                meta = {
+                  title: `${post.title} | Blog Omra Hajj — Omra Bons Plans`,
+                  description: desc,
+                  canonical: `${SITE}/blog/${post.category}/${slug}`,
+                };
+                botBodyHtml = `
+<h1>${escape(post.title)}</h1>
+<p>${escape(desc)}</p>
+<section>
+  <h2>À propos de cet article</h2>
+  <p>Cet article fait partie du blog <a href="${SITE}/blog">Omra Bons Plans</a>, dédié aux guides pratiques pour réussir votre pèlerinage Omra et Hajj depuis la France.</p>
+</section>
+<nav aria-label="Liens utiles">
+  <ul>
+    <li><a href="${SITE}/blog/general">Tous les articles du blog</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra 2027</a></li>
+    <li><a href="${SITE}/agences-liste">Agences Omra agréées en France</a></li>
+    <li><a href="${SITE}/definition-omra">Qu'est-ce que l'Omra ? Guide complet</a></li>
+  </ul>
+</nav>`;
+              }
+            }
+          } catch (_) {
+            // fallback to generic meta already set above
+          }
+        }
+      }
     }
 
     // /hotel/[id] — pages hôtels individuelles
