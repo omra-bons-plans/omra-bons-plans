@@ -19,36 +19,44 @@ const AdminAgencies = () => {
   const [updating, setUpdating] = useState(false);
   const [selectedAgencyId, setSelectedAgencyId] = useState<string>('');
   const [newReviewCount, setNewReviewCount] = useState<string>('');
+  const [newRating, setNewRating] = useState<string>('');
   const [updatingReviewCount, setUpdatingReviewCount] = useState(false);
 
   const handleUpdateReviewCount = async () => {
-    if (!selectedAgencyId || !newReviewCount) {
+    if (!selectedAgencyId || (!newReviewCount && !newRating)) {
       toast({
         title: 'Erreur',
-        description: 'Veuillez sélectionner une agence et entrer un nombre d\'avis',
+        description: 'Sélectionnez une agence et entrez un nombre d\'avis ou une note',
         variant: 'destructive',
       });
       return;
     }
 
-    const count = parseInt(newReviewCount, 10);
-    if (isNaN(count) || count < 0) {
-      toast({
-        title: 'Erreur',
-        description: 'Veuillez entrer un nombre valide',
-        variant: 'destructive',
-      });
-      return;
+    const updates: { review_count?: number; google_rating?: number; last_review_update: string } = {
+      last_review_update: new Date().toISOString(),
+    };
+    if (newReviewCount) {
+      const count = parseInt(newReviewCount, 10);
+      if (isNaN(count) || count < 0) {
+        toast({ title: 'Erreur', description: 'Nombre d\'avis invalide', variant: 'destructive' });
+        return;
+      }
+      updates.review_count = count;
+    }
+    if (newRating) {
+      const rating = parseFloat(newRating.replace(',', '.'));
+      if (isNaN(rating) || rating < 0 || rating > 5) {
+        toast({ title: 'Erreur', description: 'La note doit être entre 0 et 5', variant: 'destructive' });
+        return;
+      }
+      updates.google_rating = Math.round(rating * 10) / 10;
     }
 
     setUpdatingReviewCount(true);
     try {
       const { error } = await supabase
         .from('agencies')
-        .update({ 
-          review_count: count,
-          last_review_update: new Date().toISOString()
-        })
+        .update(updates)
         .eq('id', selectedAgencyId);
 
       if (error) throw error;
@@ -56,10 +64,11 @@ const AdminAgencies = () => {
       const selectedAgency = agencies?.find(a => a.id === selectedAgencyId);
       toast({
         title: 'Mise à jour réussie',
-        description: `${selectedAgency?.name} : ${count.toLocaleString()} avis`,
+        description: `${selectedAgency?.name}${updates.review_count !== undefined ? ` : ${updates.review_count.toLocaleString()} avis` : ''}${updates.google_rating !== undefined ? ` · ${updates.google_rating}★` : ''}`,
       });
 
       setNewReviewCount('');
+      setNewRating('');
       refetch();
     } catch (error) {
       console.error('Error updating review count:', error);
@@ -172,9 +181,21 @@ const AdminAgencies = () => {
                 onChange={(e) => setNewReviewCount(e.target.value)}
               />
             </div>
+            <div className="w-full sm:w-[150px]">
+              <label className="text-sm font-medium mb-2 block">Note (étoiles)</label>
+              <Input
+                type="number"
+                min="0"
+                max="5"
+                step="0.1"
+                placeholder="Ex: 4.8"
+                value={newRating}
+                onChange={(e) => setNewRating(e.target.value)}
+              />
+            </div>
             <Button 
               onClick={handleUpdateReviewCount}
-              disabled={updatingReviewCount || !selectedAgencyId || !newReviewCount}
+              disabled={updatingReviewCount || !selectedAgencyId || (!newReviewCount && !newRating)}
               className="gap-2"
             >
               {updatingReviewCount ? (
