@@ -564,9 +564,30 @@ export default async (request: Request, context: Context) => {
       const agencyRaw = decodeURIComponent(pathname.replace("/agence-details/", ""));
       meta = {
         title: `${agencyRaw} | Avis, Offres Omra & Hajj | Omra Bons Plans`,
-        description: `Découvrez les offres Omra et Hajj de l'agence ${agencyRaw}. Avis clients, prix et contact sur Omra Bons Plans.`,
+        description: `Découvrez les offres Omra et Hajj de l'agence ${agencyRaw}. Avis clients vérifiés, prix 2027 et toutes les informations pour réserver votre pèlerinage.`,
         canonical: `${SITE}${pathname}`,
       };
+      if (isBot) {
+        botBodyHtml = `
+<h1>${escape(agencyRaw)} — Avis et Offres Omra & Hajj 2027</h1>
+<p>Retrouvez toutes les informations sur l'agence <strong>${escape(agencyRaw)}</strong> : avis clients Google vérifiés, offres Omra et Hajj 2027, tarifs et spécialités. ${escape(agencyRaw)} est référencée sur Omra Bons Plans, le premier comparateur d'agences Omra agréées en France.</p>
+<section>
+  <h2>Pourquoi choisir une agence Omra agréée ?</h2>
+  <p>Toutes les agences sur Omra Bons Plans sont agréées ATOUT FRANCE (licence obligatoire pour vendre des voyages en France) et habilitées par le Ministère Saoudien des Affaires Islamiques pour organiser des voyages Omra et Hajj. Chaque agence est évaluée selon ses avis Google vérifiés, son sérieux et la qualité de ses prestations pèlerinage.</p>
+</section>
+<section>
+  <h2>Comment comparer les agences Omra en France ?</h2>
+  <p>Notre comparateur vous permet de mettre en regard les offres des 20+ agences agréées par dates, prix, standing hôtel et distance au Haram. Demandez toujours plusieurs devis et vérifiez l'agrément ATOUT FRANCE sur registre.atout-france.fr avant de réserver.</p>
+</section>
+<nav aria-label="Liens utiles">
+  <ul>
+    <li><a href="${SITE}/agences-liste">Toutes les agences Omra agréées en France</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra 2027</a></li>
+    <li><a href="${SITE}/comparatif-agences">Comparatif détaillé des agences</a></li>
+    <li><a href="${SITE}/conditions-omra">Conditions pour faire l'Omra</a></li>
+  </ul>
+</nav>`;
+      }
     }
     // /offre-omra/[id] and /offre-hajj/[id] — noindex: dynamic offers all share identical generic meta
     else if (/^\/(offre-omra|offre-hajj)\/.+$/.test(pathname)) {
@@ -922,6 +943,234 @@ export default async (request: Request, context: Context) => {
         canonical: `${SITE}/search`,
         noindex: true,
       };
+    }
+  }
+
+  // Contenu bot pour les pages statiques du PAGES map qui n'ont pas de botBodyHtml.
+  // Sans ce bloc, Googlebot voit les bonnes balises meta mais un body vide (SPA shell) —
+  // Google classe alors ces pages en "Explorée non indexée" (contenu insuffisant).
+  if (isBot && !botBodyHtml && meta && !meta.noindex) {
+    if (pathname === "/about") {
+      botBodyHtml = `
+<h1>À Propos de Omra Bons Plans — Farid d'Arabie, Expert en Pèlerinage</h1>
+<p>Omra Bons Plans est le premier comparateur d'agences Omra en France, fondé par Farid d'Arabie — expert en pèlerinage islamique avec plus de 10 ans de résidence à La Mecque et plus de 5 000 pèlerins accompagnés lors du Hajj et de l'Omra.</p>
+<section>
+  <h2>Notre Mission</h2>
+  <p>Simplifier l'accès au pèlerinage pour tous les musulmans francophones en offrant un comparateur transparent des meilleures agences Omra et Hajj agréées en France. Nous vérifions chaque agence (agrément ATOUT FRANCE, habilitation saoudienne) et centralisons les avis clients pour vous aider à choisir en toute confiance.</p>
+</section>
+<section>
+  <h2>Farid d'Arabie — Notre Fondateur Expert</h2>
+  <p>Farid d'Arabie a vécu plus de 10 ans à La Mecque (Makkah al-Mukarrama). Guide spirituel francophone, il a accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra. Sa connaissance intime des lieux saints, des rites et des agences fait d'Omra Bons Plans une référence de confiance pour les musulmans de France, Belgique et Suisse.</p>
+</section>
+<section>
+  <h2>Pourquoi nous faire confiance ?</h2>
+  <p>Expertise terrain : notre fondateur connaît La Mecque et Médine comme personne. Transparence : tous les avis sont vérifiés depuis Google Maps. Indépendance : nous ne sommes pas une agence, nous comparons. Mises à jour régulières des offres, prix et disponibilités des agences agréées.</p>
+</section>
+<nav aria-label="Liens utiles">
+  <ul>
+    <li><a href="${SITE}/">Comparer les offres Omra &amp; Hajj 2027</a></li>
+    <li><a href="${SITE}/agences-liste">Liste des agences agréées</a></li>
+    <li><a href="${SITE}/contact">Nous contacter</a></li>
+    <li><a href="${SITE}/definition-omra">Qu'est-ce que l'Omra ?</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/contact") {
+      botBodyHtml = `
+<h1>Contactez Omra Bons Plans — Aide pour votre Omra &amp; Hajj</h1>
+<p>Vous avez une question sur votre prochain pèlerinage Omra ou Hajj ? L'équipe d'Omra Bons Plans, guidée par Farid d'Arabie (expert avec 10+ ans à La Mecque), est là pour vous aider à trouver la meilleure offre et répondre à toutes vos questions.</p>
+<section>
+  <h2>Comment nous contacter ?</h2>
+  <p>Utilisez notre formulaire de contact en ligne pour toute question sur l'Omra, le Hajj, le choix d'une agence, les conditions de voyage ou les dates. Nous répondons dans un délai de 24 à 48 heures ouvrées.</p>
+</section>
+<nav aria-label="Ressources utiles">
+  <ul>
+    <li><a href="${SITE}/conditions-omra">Conditions pour faire l'Omra</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra 2027</a></li>
+    <li><a href="${SITE}/agences-liste">Agences Omra agréées en France</a></li>
+    <li><a href="${SITE}/about">À propos de notre équipe</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/sejours") {
+      botBodyHtml = `
+<h1>Annonces Séjours Omra &amp; Hajj 2027 — Toutes les Offres</h1>
+<p>Comparez toutes les offres de séjours Omra et Hajj 2027 tout compris depuis la France. Filtrez par dates, prix, standing hôtel, distance au Haram et avis clients. Toutes les agences référencées sont agréées ATOUT FRANCE.</p>
+<section>
+  <h2>Trouver votre séjour Omra tout compris</h2>
+  <p>Nos annonces couvrent tous les types de séjours : Omra hors Ramadan (850€–1 800€), Omra Ramadan 2027 (1 800€–3 500€), 10 derniers jours du Ramadan (3 000€–5 000€), Hajj 2027 (5 000€–15 000€+). Comparez et réservez en toute sécurité via les agences agréées.</p>
+</section>
+<nav aria-label="Guides utiles">
+  <ul>
+    <li><a href="${SITE}/comparateur-omra-france">Comparateur Omra France</a></li>
+    <li><a href="${SITE}/prix-omra-2026">Prix et tarifs Omra 2027</a></li>
+    <li><a href="${SITE}/agences-liste">Agences agréées</a></li>
+    <li><a href="${SITE}/conditions-omra">Conditions Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/babysitting") {
+      botBodyHtml = `
+<h1>Services de Garde d'Enfants (Babysitting) pour votre Omra à La Mecque</h1>
+<p>Trouvez un service de babysitting fiable pour votre Omra à La Mecque et Médine. Des baby-sitters francophones vérifiés, expérimentés avec les enfants de pèlerins, disponibles sur réservation pour vous permettre de vous concentrer pleinement sur votre pèlerinage.</p>
+<section>
+  <h2>Pourquoi ce service est-il utile ?</h2>
+  <p>Pendant l'Omra, certains rites nécessitent une concentration totale (Tawaf, Sa'i, prières). Confier vos enfants à un baby-sitter de confiance vous permet de vous recueillir sereinement. Ce service s'adresse particulièrement aux familles avec de jeunes enfants de moins de 6 ans.</p>
+</section>
+<nav aria-label="Liens utiles">
+  <ul>
+    <li><a href="${SITE}/omra-famille">Guide Omra en famille</a></li>
+    <li><a href="${SITE}/omra-enfants">Omra avec enfants</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/vols") {
+      botBodyHtml = `
+<h1>Vols pour l'Omra &amp; le Hajj depuis la France — Comparez les Prix</h1>
+<p>Comparez les vols pour l'Omra et le Hajj depuis les aéroports français vers Djeddah et Médine. Vols directs et avec escale, compagnies régulières et charters saisonniers.</p>
+<section>
+  <h2>Compagnies aériennes Omra depuis la France</h2>
+  <p>Air France, Saudi Arabian Airlines (Saudia), Flynas, Air Arabia, Transavia, Turkish Airlines, Royal Air Maroc. Vols directs depuis Paris CDG vers Djeddah (6h30) et Médine (7h). Autres départs : Lyon, Marseille, Toulouse, Nice, Bordeaux, Strasbourg, Lille.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/omra-depuis-paris">Omra depuis Paris</a></li>
+    <li><a href="${SITE}/omra-depuis-lyon">Omra depuis Lyon</a></li>
+    <li><a href="${SITE}/omra-depuis-marseille">Omra depuis Marseille</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les forfaits Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/hebergements") {
+      botBodyHtml = `
+<h1>Hébergements Omra à La Mecque &amp; Médine — Hôtels et Appartements</h1>
+<p>Trouvez votre hébergement pour l'Omra à La Mecque (près du Masjid al-Haram) et à Médine (près du Masjid Nabawi). Hôtels 1★ à 5★ de moins de 100m à plus de 5km du Haram. Comparez distance, prix et avis pèlerins.</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/les-hotels">Guide complet des hôtels Omra</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparateur Omra</a></li>
+    <li><a href="${SITE}/agences-liste">Agences avec hébergement inclus</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/guides") {
+      botBodyHtml = `
+<h1>Guides Francophones pour l'Omra &amp; le Hajj — Trouvez votre Accompagnateur</h1>
+<p>Trouvez un guide francophone expérimenté pour vous accompagner pendant votre Omra ou Hajj à La Mecque et Médine. Nos guides certifiés connaissent parfaitement les rites, les lieux saints et peuvent vous accompagner en arabe et en français.</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/rites-omra">Guide des rites de l'Omra</a></li>
+    <li><a href="${SITE}/conditions-omra">Conditions pour l'Omra</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les forfaits Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/category/chauffeurs") {
+      botBodyHtml = `
+<h1>Chauffeurs &amp; Transport pour l'Omra entre La Mecque et Médine</h1>
+<p>Réservez un chauffeur privé francophone agréé pour vos transferts entre La Mecque et Médine pendant votre Omra. Transport confortable, disponible 24h/24, tarifs transparents. Distance La Mecque–Médine : environ 430 km (4h30 de route).</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/omra-famille">Omra en famille</a></li>
+    <li><a href="${SITE}/omra-seniors">Omra seniors</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/discussions") {
+      botBodyHtml = `
+<h1>Forum Omra &amp; Hajj — Questions, Témoignages et Conseils de Pèlerins</h1>
+<p>Rejoignez la communauté francophone d'Omra Bons Plans : posez vos questions sur l'Omra et le Hajj, partagez votre expérience de pèlerin et lisez les témoignages de fidèles ayant visité La Mecque et Médine. Farid d'Arabie et notre équipe répondent régulièrement.</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/conditions-omra">Conditions pour l'Omra</a></li>
+    <li><a href="${SITE}/rites-omra">Les rites de l'Omra</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra</a></li>
+    <li><a href="${SITE}/blog/general">Blog Omra &amp; Hajj</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/prayer-times") {
+      botBodyHtml = `
+<h1>Heures de Prière — Horaires Salat pour votre Ville</h1>
+<p>Calculez les heures de prière (Fajr, Dhuhr, Asr, Maghrib, Isha) précises pour votre ville en France et dans le monde. Calendrier islamique avec direction de la Qibla. Horaires mis à jour quotidiennement selon votre géolocalisation.</p>
+<section>
+  <h2>Les 5 prières quotidiennes</h2>
+  <p>Fajr (aube), Dhuhr (midi), Asr (après-midi), Maghrib (coucher du soleil), Isha (nuit). Les horaires varient chaque jour selon la position du soleil et les saisons. Pour La Mecque et Médine, des horaires spéciaux sont affichés pendant le Hajj et le Ramadan.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/islamic-calendar">Calendrier islamique 2027</a></li>
+    <li><a href="${SITE}/ramadan-hajj-dates">Dates Ramadan &amp; Hajj 2027</a></li>
+    <li><a href="${SITE}/">Comparer les offres Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/islamic-calendar") {
+      botBodyHtml = `
+<h1>Calendrier Islamique (Hijri) 2027 — Dates et Fêtes Importantes</h1>
+<p>Consultez le calendrier islamique (Hijri) complet pour l'année 2027 / 1448-1449 AH. Dates du Ramadan, du Hajj, de l'Aïd al-Fitr et de l'Aïd al-Adha. Planifiez votre Omra en choisissant la période spirituelle la plus favorable.</p>
+<section>
+  <h2>Dates islamiques importantes 2027</h2>
+  <p>Ramadan 2027 : du 17 février au 18 mars 2027. Aïd al-Fitr : 19 mars 2027. Hajj 2027 : du 26 au 31 mai 2027 (Arafat le 27 mai). Aïd al-Adha : 28 mai 2027. Le calendrier islamique est lunaire — chaque mois commence avec l'observation de la nouvelle lune.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/ramadan-hajj-dates">Dates détaillées Ramadan &amp; Hajj</a></li>
+    <li><a href="${SITE}/10-derniers-jours-ramadan">Les 10 derniers jours du Ramadan</a></li>
+    <li><a href="${SITE}/omra-ramadan-2027">Omra Ramadan 2027</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/les-hotels") {
+      botBodyHtml = `
+<h1>Hôtels pour l'Omra 2027 — La Mecque &amp; Médine : Guide Complet</h1>
+<p>Comparez tous les hôtels pour votre Omra 2027 à La Mecque et à Médine. Plus de 50 hôtels classés de 1★ à 5★ avec distance au Haram, note Booking, prix par nuit, points forts et points d'attention.</p>
+<section>
+  <h2>Hôtels La Mecque — Distance au Masjid al-Haram</h2>
+  <p>Les plus proches : Hilton Convention (80m), Zamzam Hotel (90m), Elaf Bakkah (300m), Shohada (400m). 5★ (Hyatt, Conrad, Marriott, Address) à 600–1 200m. 4★ (Anjum, Tilal, Voco) à 450–900m. Prix/nuit : 100€ (3★ éloigné) à 800€+ (5★ très proche).</p>
+</section>
+<section>
+  <h2>Hôtels Médine — Distance au Masjid Nabawi</h2>
+  <p>Recommandés : Pullman Zamzam (200m), Sofitel Shahd (300m), Movenpick (250m). Prix moyens : 80€–400€/nuit selon standing et période.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les forfaits Omra 2027</a></li>
+    <li><a href="${SITE}/agences-liste">Agences avec hébergement inclus</a></li>
+    <li><a href="${SITE}/liste-bagages-omra">Liste de bagages pour l'Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/blog") {
+      botBodyHtml = `
+<h1>Blog Omra &amp; Hajj — Guides Pratiques et Conseils de Pèlerins</h1>
+<p>Le blog d'Omra Bons Plans propose des guides pratiques complets sur l'Omra et le Hajj : préparation spirituelle, rites, visa, bagages, hôtels, budgets. Rédigés par Farid d'Arabie (10+ ans à La Mecque, 5 000+ pèlerins accompagnés).</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/blog/general">Tous les articles du blog</a></li>
+    <li><a href="${SITE}/definition-omra">Qu'est-ce que l'Omra ?</a></li>
+    <li><a href="${SITE}/rites-omra">Les rites de l'Omra</a></li>
+    <li><a href="${SITE}/conditions-omra">Conditions pour l'Omra</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/blog/general") {
+      botBodyHtml = `
+<h1>Blog Général Omra &amp; Hajj — Guides, Conseils et Actualités</h1>
+<p>Retrouvez tous nos articles et guides sur l'Omra et le Hajj : préparation du pèlerinage, rites, spiritualité islamique, actualités Arabie Saoudite, conseils pratiques. Des contenus de qualité par des experts ayant vécu à La Mecque.</p>
+<nav>
+  <ul>
+    <li><a href="${SITE}/blog">Accueil du blog</a></li>
+    <li><a href="${SITE}/definition-omra">Définition de l'Omra</a></li>
+    <li><a href="${SITE}/rites-omra">Les rites de l'Omra</a></li>
+    <li><a href="${SITE}/guide-hajj-4-ecoles">Guide Hajj — 4 écoles juridiques</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/coran") {
+      botBodyHtml = `
+<h1>Le Coran en Français — Les 114 Sourates avec Traduction</h1>
+<p>Lisez le Coran en français et en arabe : les 114 sourates avec traduction complète de Mohammed Hamidullah. Texte arabe authentique et traduction française intégrale, accessible gratuitement.</p>
+<section>
+  <h2>Sourates les plus lues</h2>
+  <p>Al-Fatiha (L'Ouverture, 7 versets), Al-Baqarah (La Vache, 286 versets), Al-Imran (La Famille d'Imran, 200 versets), Ya-Sin (Yâ-Sîn, 83 versets), Ar-Rahman (Le Tout Miséricordieux, 78 versets), Al-Mulk (La Royauté, 30 versets), Al-Kahf (La Caverne, 110 versets).</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/prayer-times">Heures de prière</a></li>
+    <li><a href="${SITE}/islamic-calendar">Calendrier islamique 2027</a></li>
+    <li><a href="${SITE}/ramadan-hajj-dates">Dates Ramadan &amp; Hajj</a></li>
+    <li><a href="${SITE}/">Comparer les offres Omra</a></li>
+  </ul>
+</nav>`;
     }
   }
 

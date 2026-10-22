@@ -84,6 +84,32 @@
   status = 301
   force = true
 
+# /a-propos → /about : la Navigate React est invisible aux bots, il faut un vrai 301
+[[redirects]]
+  from = "/a-propos"
+  to = "/about"
+  status = 301
+  force = true
+
+# Anciennes URLs de services (dernière visite Google : sept 2025 — "Page en double")
+[[redirects]]
+  from = "/services/hebergement-omra"
+  to = "/les-hotels"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/babysitting-omra"
+  to = "/category/babysitting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/transport-omra"
+  to = "/category/chauffeurs"
+  status = 301
+  force = true
+
 [[edge_functions]]
   path = "/hajj-2027"
   function = "guide-prerender"
