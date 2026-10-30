@@ -1,5 +1,5 @@
 # Roadmap
 
-- [ ] Passer les annonces guide/chauffeur/babysitting à 3 ans de durée de vie
-- [ ] Désactiver le nettoyage automatique des annonces expirées
-- [ ] Donner les codes couleur du site
+- [x] Passer les annonces guide/chauffeur/babysitting à 3 ans de durée de vie
+- [x] Désactiver le nettoyage automatique des annonces expirées
+- [x] Donner les codes couleur du site
