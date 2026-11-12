@@ -153,10 +153,10 @@ const PAGES: Record<string, PageMeta> = {
     description: "Comparez les vols pour l'Omra et le Hajj au départ de France. Vols directs et avec escale vers Djeddah et Médine.",
     canonical: `${SITE}/category/vols`,
   },
-  "/category/hebergements": {
+  "/category/hebergement": {
     title: "Annonces Hébergements à La Mecque & Médine | Omra Bons Plans",
     description: "Hôtels et appartements pour votre Omra à La Mecque et Médine. Annonces triées par distance au Haram et note des pèlerins.",
-    canonical: `${SITE}/category/hebergements`,
+    canonical: `${SITE}/category/hebergement`,
   },
   "/category/guides": {
     title: "Guides Francophones Omra & Hajj | Omra Bons Plans",
@@ -367,6 +367,14 @@ export default async (request: Request, context: Context) => {
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
   const userAgent = request.headers.get("user-agent") || "";
   const isBot = BOT_PATTERN.test(userAgent);
+
+  // Redirect duplicate URLs to canonical equivalents
+  if (pathname === "/calendrier-islamique") {
+    return new Response(null, {
+      status: 301,
+      headers: { "Location": `${SITE}/islamic-calendar`, "cache-control": "public, max-age=86400" },
+    });
+  }
 
   let meta = PAGES[pathname];
   let botBodyHtml = "";
@@ -982,7 +990,62 @@ export default async (request: Request, context: Context) => {
   // Sans ce bloc, Googlebot voit les bonnes balises meta mais un body vide (SPA shell) —
   // Google classe alors ces pages en "Explorée non indexée" (contenu insuffisant).
   if (isBot && !botBodyHtml && meta && !meta.noindex) {
-    if (pathname === "/about") {
+    if (pathname === "/agences-liste") {
+      botBodyHtml = `
+<h1>Agences Omra &amp; Hajj Agréées en France — Liste Complète 2027</h1>
+<p>Annuaire complet des agences Omra et Hajj agréées ATOUT FRANCE et habilitées par l'Arabie Saoudite. Toutes les agences référencées sur Omra Bons Plans ont été vérifiées : agrément en cours de validité, avis Google clients réels, offres 2027 disponibles.</p>
+<section>
+  <h2>Meilleures agences Omra France 2027</h2>
+  <p>Parmi les agences agréées disponibles : Al Hayat Voyages, Medin Voyages, Sabile, Al Maqam, Omra Gate, Partir à la Mecque, Omra du Savoir. Chaque agence propose des forfaits Omra tout compris au départ de Paris, Lyon, Marseille, Bordeaux et d'autres villes françaises. Comparez leurs notes, prix et services sur notre comparateur.</p>
+</section>
+<section>
+  <h2>Comment choisir une agence Omra sérieuse ?</h2>
+  <p>Vérifiez l'agrément ATOUT FRANCE (obligatoire pour les agences de voyages) et l'habilitation saoudienne. Lisez les avis Google clients (note ≥ 4/5 est un bon signe). Demandez le programme détaillé, les hôtels utilisés (avec leur distance au Haram), et les vols inclus. Préférez les agences avec un service client francophone disponible 24h/24.</p>
+</section>
+<nav aria-label="Liens utiles">
+  <ul>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres Omra 2027</a></li>
+    <li><a href="${SITE}/comparatif-agences">Comparatif détaillé des agences</a></li>
+    <li><a href="${SITE}/meilleure-agence-omra">Comment choisir la meilleure agence</a></li>
+    <li><a href="${SITE}/prix-omra-2027">Prix d'une Omra en 2027</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/comparatif-agences") {
+      botBodyHtml = `
+<h1>Comparatif Agences Omra 2027 — Notes, Avis et Prix</h1>
+<p>Comparez les agences Omra et Hajj agréées en France : notes Google, nombre d'avis, fourchettes de prix, points forts et points de vigilance. Toutes les informations pour choisir en toute confiance votre agence de pèlerinage.</p>
+<section>
+  <h2>Critères de comparaison des agences Omra</h2>
+  <p>Notre comparatif évalue chaque agence sur : la note Google Maps (sur 5 étoiles), le nombre d'avis clients vérifiés, le prix moyen d'un forfait Omra tout compris, la qualité des hôtels proposés (distance au Haram), la réactivité du service client, et la présence d'un agrément ATOUT FRANCE en cours de validité.</p>
+</section>
+<section>
+  <h2>Prix moyens des agences Omra France 2027</h2>
+  <p>Entrée de gamme : 1 200€–1 800€ (hôtels éloignés, vol charter). Milieu de gamme : 1 800€–2 800€ (hôtels 3-4★ à 500m–1km du Haram). Haut de gamme : 3 000€–6 000€+ (hôtels 5★ très proches, vols réguliers, accompagnement). Ces prix incluent vol, hébergement, visa Omra et transferts.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/agences-liste">Liste complète des agences</a></li>
+    <li><a href="${SITE}/prix-omra-2027">Prix d'une Omra en 2027</a></li>
+    <li><a href="${SITE}/meilleure-agence-omra">Comment choisir son agence</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les offres en ligne</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/comparatif-visuel") {
+      botBodyHtml = `
+<h1>Comparatif Visuel des Offres Omra 2027 — Côte à Côte</h1>
+<p>Comparez visuellement les offres Omra 2027 côte à côte : hôtels, prix, dates et services des différentes agences. Notre outil de comparaison visuelle vous permet d'évaluer rapidement les meilleures options pour votre pèlerinage.</p>
+<section>
+  <h2>Comparer les offres Omra facilement</h2>
+  <p>Sélectionnez les critères importants pour vous : dates (Ramadan, été, automne, hiver), standing hôtel (1★ à 5★), distance au Haram (moins de 100m à plus de 2km), ville de départ en France (Paris, Lyon, Marseille…). Notre comparatif visuel affiche les offres correspondantes côte à côte pour une comparaison immédiate.</p>
+</section>
+<nav>
+  <ul>
+    <li><a href="${SITE}/comparateur-omra-france">Comparateur Omra interactif</a></li>
+    <li><a href="${SITE}/agences-liste">Toutes les agences agréées</a></li>
+    <li><a href="${SITE}/prix-omra-2027">Prix des forfaits Omra 2027</a></li>
+  </ul>
+</nav>`;
+    } else if (pathname === "/about") {
       botBodyHtml = `
 <h1>À Propos de Omra Bons Plans — Farid d'Arabie, Expert en Pèlerinage</h1>
 <p>Omra Bons Plans est le premier comparateur d'agences Omra en France, fondé par Farid d'Arabie — expert en pèlerinage islamique avec plus de 10 ans de résidence à La Mecque et plus de 5 000 pèlerins accompagnés lors du Hajj et de l'Omra.</p>
@@ -1069,7 +1132,7 @@ export default async (request: Request, context: Context) => {
     <li><a href="${SITE}/comparateur-omra-france">Comparer les forfaits Omra</a></li>
   </ul>
 </nav>`;
-    } else if (pathname === "/category/hebergements") {
+    } else if (pathname === "/category/hebergement") {
       botBodyHtml = `
 <h1>Hébergements Omra à La Mecque &amp; Médine — Hôtels et Appartements</h1>
 <p>Trouvez votre hébergement pour l'Omra à La Mecque (près du Masjid al-Haram) et à Médine (près du Masjid Nabawi). Hôtels 1★ à 5★ de moins de 100m à plus de 5km du Haram. Comparez distance, prix et avis pèlerins.</p>

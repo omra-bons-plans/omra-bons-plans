@@ -98,7 +98,7 @@ const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string; la
   { loc: `${SITE}/discussions`, changefreq: "daily", priority: "0.60" },
   { loc: `${SITE}/category/sejours`, changefreq: "daily", priority: "0.90" },
   { loc: `${SITE}/category/vols`, changefreq: "daily", priority: "0.90" },
-  { loc: `${SITE}/category/hebergements`, changefreq: "weekly", priority: "0.80" },
+  { loc: `${SITE}/category/hebergement`, changefreq: "weekly", priority: "0.80" },
   { loc: `${SITE}/category/guides`, changefreq: "weekly", priority: "0.80" },
   { loc: `${SITE}/category/chauffeurs`, changefreq: "weekly", priority: "0.80" },
   { loc: `${SITE}/category/babysitting`, changefreq: "weekly", priority: "0.70" },

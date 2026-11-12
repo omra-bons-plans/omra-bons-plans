@@ -99,6 +99,7 @@ export default async function handler(req: Request, context: Context) {
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:image" content="${post.cover_image || "https://omrabonsplans.fr/hero-kaaba-optimized.webp"}">
   <link rel="canonical" href="${canonicalUrl}">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <script type="application/ld+json">${schema}</script>
 </head>
 <body>
@@ -111,7 +112,6 @@ export default async function handler(req: Request, context: Context) {
   <footer>
     <p><a href="https://omrabonsplans.fr/">Comparer les offres Omra</a> · <a href="https://omrabonsplans.fr/comparatif-agences">Comparer les agences</a></p>
   </footer>
-  <div id="root"></div>
 </body>
 </html>`;
 
@@ -121,6 +121,7 @@ export default async function handler(req: Request, context: Context) {
         "content-type": "text/html; charset=utf-8",
         "x-prerendered": "true",
         "cache-control": "public, max-age=3600",
+        "x-robots-tag": "index, follow",
       },
     });
   } catch (err) {
