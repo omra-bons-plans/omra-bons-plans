@@ -179,8 +179,18 @@
   path = "/definition-omra"
   function = "guide-prerender"
 
+[[redirects]]
+  from = "/prix-omra-2026"
+  to = "/prix-omra-2027"
+  status = 301
+  force = false
+
 [[edge_functions]]
   path = "/prix-omra-2026"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/prix-omra-2027"
   function = "guide-prerender"
 
 [[edge_functions]]
@@ -311,6 +321,24 @@
 
 [[edge_functions]]
   path = "/omra-en-janvier-2027"
+  function = "guide-prerender"
+
+[[redirects]]
+  from = "/omra-en-octobre-2026"
+  to = "/omra-en-janvier-2027"
+  status = 301
+  force = false
+
+[[edge_functions]]
+  path = "/omra-en-fevrier-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-mars-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-mai-2027"
   function = "guide-prerender"
 
 [[edge_functions]]

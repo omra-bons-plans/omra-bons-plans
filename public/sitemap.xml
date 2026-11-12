@@ -105,8 +105,8 @@
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/prix-omra-2026</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://omrabonsplans.fr/prix-omra-2027</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -225,10 +225,40 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://omrabonsplans.fr/omra-en-octobre-2026</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://omrabonsplans.fr/omra-depuis-nantes</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-depuis-rennes</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-depuis-montpellier</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-depuis-grenoble</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-depuis-metz</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-depuis-clermont-ferrand</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
   </url>
   <url>
     <loc>https://omrabonsplans.fr/omra-en-novembre-2026</loc>
@@ -244,7 +274,25 @@
   </url>
   <url>
     <loc>https://omrabonsplans.fr/omra-en-janvier-2027</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-en-fevrier-2027</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-en-mars-2027</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/omra-en-mai-2027</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -451,6 +499,105 @@
     <lastmod>2026-07-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.60</priority>
+  </url>
+
+  <!-- Pages agences -->
+
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Medin%20Voyages</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Al%20Sirate%20Voyage</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Omra%20Du%20Savoir</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Omra%20Pour%20Tous</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/TAWAF</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Sabile%20Voyages</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Al%20Maqam%20Voyages</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Pelerinhajj</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Al%20Hayat%20Voyages</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Partir%20%C3%A0%20la%20Mecque</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Haramain%20Voyages</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Omra%20Sounnah</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Omra%20Discount</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/Labbayk</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/OMRA%20GATE</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omrabonsplans.fr/agence-details/MERIDIANIS</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
   </url>
 
   <!-- Catégories d'annonces -->
