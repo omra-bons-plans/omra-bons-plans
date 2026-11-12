@@ -523,14 +523,48 @@ export default async (request: Request, context: Context) => {
       const distLabel = h ? (h.dist < 1000 ? `${h.dist}m` : `${(h.dist / 1000).toFixed(1)}km`) : "";
       meta = h ? {
         title: `${h.name} ${h.ville} — ${h.stars}★, ${distLabel} du ${mosquee} | Omra Bons Plans`,
-        description: `${h.name} (${h.stars}★) à ${h.ville} : à ${distLabel} du ${mosquee}. Note Booking, prix/nuit, points forts et points d'attention pour votre Omra 2026.`,
-        keywords: `${h.name.toLowerCase()}, hôtel ${h.ville.toLowerCase()} omra, hébergement omra 2026, ${mosquee.toLowerCase()}`,
+        description: `${h.name} (${h.stars}★) à ${h.ville} : à ${distLabel} du ${mosquee}. Note Booking, prix/nuit, points forts et points d'attention pour votre Omra 2027.`,
+        keywords: `${h.name.toLowerCase()}, hôtel ${h.ville.toLowerCase()} omra, hébergement omra 2027, ${mosquee.toLowerCase()}`,
         canonical: `${SITE}/hotel/${hotelId}`,
       } : {
         title: "Hôtel Omra | Omra Bons Plans",
         description: "Détail hôtel pour votre Omra à La Mecque ou Médine : distance mosquée, note Booking, prix.",
         canonical: `${SITE}/hotel/${hotelId}`,
       };
+      if (isBot && h) {
+        const stars = "★".repeat(h.stars) + "☆".repeat(5 - h.stars);
+        botBodyHtml = `
+<h1>${escape(h.name)} ${escape(h.ville)} — Hôtel ${h.stars}★ pour l'Omra, ${distLabel} du ${escape(mosquee)}</h1>
+<p>${escape(h.name)} est un hôtel ${h.stars} étoiles idéalement situé à ${h.ville}, à seulement ${distLabel} du ${escape(mosquee)}. C'est l'une des adresses recommandées par Omra Bons Plans pour les pèlerins français souhaitant allier confort et proximité des lieux saints.</p>
+<section>
+  <h2>Fiche hôtel ${escape(h.name)}</h2>
+  <ul>
+    <li><strong>Nom :</strong> ${escape(h.name)}</li>
+    <li><strong>Ville :</strong> ${escape(h.ville)}</li>
+    <li><strong>Classement :</strong> ${h.stars}★ ${stars}</li>
+    <li><strong>Distance du ${escape(mosquee)} :</strong> ${distLabel}</li>
+    <li><strong>Idéal pour :</strong> Omra ${h.stars >= 4 ? 'confort & premium' : h.stars === 3 ? 'milieu de gamme' : 'budget'}</li>
+  </ul>
+</section>
+<section>
+  <h2>Pourquoi choisir ${escape(h.name)} pour votre Omra ?</h2>
+  <p>Situé à ${distLabel} du ${escape(mosquee)} à ${escape(h.ville)}, ${escape(h.name)} (${h.stars}★) est régulièrement inclus dans les forfaits Omra proposés par les agences agréées françaises. Sa proximité des lieux saints permet aux pèlerins de se rendre facilement aux prières quotidiennes, notamment les prières de nuit (Tahajjud) et l'aube (Fajr).</p>
+</section>
+<section>
+  <h2>Questions fréquentes</h2>
+  <div><h3>À quelle distance se trouve ${escape(h.name)} du ${escape(mosquee)} ?</h3><p>${escape(h.name)} est situé à ${distLabel} du ${escape(mosquee)} à ${escape(h.ville)}. ${h.dist <= 500 ? "C'est une distance très courte, idéale pour les prières nocturnes." : h.dist <= 1500 ? "Cette distance est accessible à pied en quelques minutes." : "Des navettes gratuites permettent de rejoindre les lieux saints."}</p></div>
+  <div><h3>${escape(h.name)} est-il inclus dans des forfaits Omra ?</h3><p>Oui, ${escape(h.name)} (${h.stars}★) est régulièrement proposé par les agences Omra agréées françaises dans leurs forfaits ${h.stars >= 4 ? 'premium et confort' : 'standard et économique'}. Comparez les offres incluant cet hôtel sur Omra Bons Plans.</p></div>
+  <div><h3>Quelle est la catégorie de l'hôtel ${escape(h.name)} ?</h3><p>${escape(h.name)} est un établissement ${h.stars} étoiles à ${escape(h.ville)}. ${h.stars === 5 ? "C'est un hôtel luxe avec des prestations haut de gamme." : h.stars === 4 ? "C'est un hôtel supérieur offrant confort et services de qualité." : "C'est un hôtel standard proposant l'essentiel pour un séjour Omra réussi."}</p></div>
+</section>
+<nav aria-label="Voir d'autres hôtels">
+  <h2>Autres hôtels pour votre Omra</h2>
+  <ul>
+    <li><a href="${SITE}/les-hotels">Tous les hôtels Omra à La Mecque &amp; Médine</a></li>
+    <li><a href="${SITE}/comparateur-omra-france">Comparer les forfaits Omra avec hôtel</a></li>
+    <li><a href="${SITE}/prix-omra-2027">Prix Omra 2027 tout compris</a></li>
+  </ul>
+</nav>`;
+      }
     }
     // /omra-depuis-[ville]
     else if (/^\/omra-depuis-.+$/.test(pathname)) {
@@ -727,7 +761,6 @@ export default async (request: Request, context: Context) => {
         description: `Lire la Sourate ${s?.nameEn ?? nameLabel} (${s?.nameAr ?? ''}) — ${verses ? `${verses} versets, ` : ''}révélée ${type === 'Mecquoise' ? 'à La Mecque' : type === 'Médinoise' ? 'à Médine' : ''}. Texte arabe avec traduction française de Mohammed Hamidullah.`,
         keywords: `sourate ${(s?.nameEn ?? slug).toLowerCase()}, ${(s?.nameEn ?? slug).toLowerCase()} en français, coran français, traduction ${(s?.nameEn ?? slug).toLowerCase()}`,
         canonical: `${SITE}/coran/${slug}`,
-        noindex: true,
       };
       if (isBot && s) {
         const ordinal = s.number === 1 ? 'ère' : 'ème';
@@ -892,7 +925,6 @@ export default async (request: Request, context: Context) => {
         description: `Horaires de prière à ${cityName}${regionLabel} aujourd'hui : Fajr, Dhuhr, Asr, Maghrib et Isha. Calcul selon la méthode UOIF. Mis à jour quotidiennement.`,
         keywords: `horaires prière ${cityName.toLowerCase()}, heure prière ${cityName.toLowerCase()}, salat ${cityName.toLowerCase()}, fajr ${cityName.toLowerCase()}, isha ${cityName.toLowerCase()}, mosquée ${cityName.toLowerCase()}`,
         canonical: `${SITE}/horaires-priere/${villeSlug}`,
-        noindex: true,
       };
       if (isBot) {
         botBodyHtml = `
@@ -1001,7 +1033,7 @@ export default async (request: Request, context: Context) => {
 <nav aria-label="Guides utiles">
   <ul>
     <li><a href="${SITE}/comparateur-omra-france">Comparateur Omra France</a></li>
-    <li><a href="${SITE}/prix-omra-2026">Prix et tarifs Omra 2027</a></li>
+    <li><a href="${SITE}/prix-omra-2027">Prix et tarifs Omra 2027</a></li>
     <li><a href="${SITE}/agences-liste">Agences agréées</a></li>
     <li><a href="${SITE}/conditions-omra">Conditions Omra</a></li>
   </ul>

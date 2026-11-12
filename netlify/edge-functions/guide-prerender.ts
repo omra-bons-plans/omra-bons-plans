@@ -131,7 +131,7 @@ const PAGES: Record<string, PageData> = {
   "/prix-omra-2026": {
     title: "Prix Omra 2027 : Tarifs par Période, Agence et Standing",
     description: "Prix Omra 2027 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif des tarifs par saison, agence et niveau de confort.",
-    canonical: "https://omrabonsplans.fr/prix-omra-2026",
+    canonical: "https://omrabonsplans.fr/prix-omra-2027",
     h1: "Prix Omra 2027 : Guide Complet des Tarifs",
     intro: "Le prix d'une Omra en 2027 varie de 800€ à 5 000€+ selon la période de départ, le niveau de l'hôtel et la durée du séjour. Ce guide vous donne une vision complète des tarifs pratiqués par les agences françaises agréées pour vous aider à trouver le meilleur rapport qualité-prix.",
     sections: [
@@ -699,11 +699,83 @@ const PAGES: Record<string, PageData> = {
     h1: "Omra en Janvier 2027 : Guide et Meilleures Offres",
     intro: "Janvier 2027 correspond à Rajab/Sha'ban 1448 H dans le calendrier islamique — juste avant le Ramadan 2027 estimé en début de février. C'est une période intermédiaire avec des conditions climatiques excellentes à La Mecque. Pour les musulmans souhaitant se préparer spirituellement avant le Ramadan, janvier est une période privilégiée.",
     sections: [
-      { h2: "Janvier 2027 : avant le Ramadan", text: "Le Ramadan 2027 est estimé à partir du 10 février 2027. Janvier 2027 est donc le mois de Sha'ban, considéré comme un mois de préparation spirituelle au Ramadan. La tradition islamique recommande d'intensifier les actes d'adoration en Sha'ban. Partir en Omra en janvier 2027 permet d'arriver bien préparé spirituellement pour le jeûne." },
+      { h2: "Janvier 2027 : avant le Ramadan", text: "Le Ramadan 2027 est estimé à partir du 17 février 2027. Janvier 2027 est donc le mois de Sha'ban, considéré comme un mois de préparation spirituelle au Ramadan. La tradition islamique recommande d'intensifier les actes d'adoration en Sha'ban. Partir en Omra en janvier 2027 permet d'arriver bien préparé spirituellement pour le jeûne." },
       { h2: "Prix et disponibilités Omra janvier 2027", text: "Hôtel 3★ : 1 200-1 800€. Hôtel 4★ : 1 800-2 500€. Hôtel 5★ proche Haram : 2 500-3 500€. Janvier est une période de forte demande (vacances de début d'année, Sha'ban). Réservez 3-4 mois à l'avance. Température à La Mecque : 22-30°C le jour, 15-20°C la nuit — conditions idéales." },
     ],
     faqs: [
-      { q: "Est-ce une bonne période pour partir en Omra en janvier 2027 ?", a: "Oui, janvier 2027 est excellent : températures agréables (22-30°C), mois de Sha'ban (préparation au Ramadan), bonne disponibilité. Si vous souhaitez profiter du Ramadan 2027 (estimé dès le 10 février), partir en Omra en janvier vous permet de vous préparer spirituellement. Les prix sont intermédiaires (1 200-2 500€)." },
+      { q: "Est-ce une bonne période pour partir en Omra en janvier 2027 ?", a: "Oui, janvier 2027 est excellent : températures agréables (22-30°C), mois de Sha'ban (préparation au Ramadan), bonne disponibilité. Si vous souhaitez profiter du Ramadan 2027 (estimé dès le 17 février), partir en Omra en janvier vous permet de vous préparer spirituellement. Les prix sont intermédiaires (1 200-2 500€)." },
+    ],
+  },
+
+  "/prix-omra-2027": {
+    title: "Prix Omra 2027 : Tarifs par Période, Agence et Standing",
+    description: "Prix Omra 2027 : de 800€ à 5 000€+ selon la période et l'hôtel. Comparatif complet des tarifs par saison, agence et niveau de confort pour l'Omra 2027.",
+    canonical: "https://omrabonsplans.fr/prix-omra-2027",
+    h1: "Prix Omra 2027 : Guide Complet des Tarifs",
+    intro: "Le prix d'une Omra en 2027 varie de 800€ à 5 000€+ selon la période de départ, le niveau de l'hôtel et la durée du séjour. Ce guide vous donne une vision complète des tarifs pratiqués par les agences françaises agréées pour vous aider à trouver le meilleur rapport qualité-prix pour votre Omra 2027.",
+    sections: [
+      { h2: "Prix Omra 2027 par période", text: "Basse saison (Mouharram, Safar) : 800-1 500€. Hiver (déc-fév) : 1 200-2 500€. Sha'ban (avant Ramadan) : 1 500-2 500€. Ramadan (début) : 2 000-3 500€. Ramadan (10 derniers jours) : 2 500-5 000€. Après Ramadan (Chawwal) : 1 000-1 800€." },
+      { h2: "Prix par niveau d'hôtel en 2027", text: "Hôtel 3★ (1-2 km du Haram) : 800-1 500€. Hôtel 4★ (<1 km) : 1 500-2 500€. Hôtel 4-5★ (<500m) : 2 500-3 500€. Hôtel 5★ vue Kaaba : 3 500-5 000€+. Tous ces prix incluent vol depuis la France, hôtel, transferts et visa Omra." },
+      { h2: "Comment économiser sur votre Omra 2027", text: "Partez en basse saison (juillet-septembre) : économisez 30-50%. Choisissez un hôtel à 1-2 km du Haram plutôt qu'à 500m : économisez 500-1 000€. Réservez 4-6 mois à l'avance pour les meilleures offres early bird. Comparez au moins 5 agences — pour les mêmes dates et hôtel, les prix varient de 300 à 800€." },
+    ],
+    faqs: [
+      { q: "Quel est le prix d'une Omra en 2027 ?", a: "Le prix d'une Omra en 2027 varie de 800€ (basse saison, hôtel 3★) à 5 000€+ (Ramadan, hôtel 5★ vue Kaaba). En moyenne, un forfait de qualité se situe entre 1 500 et 2 500€ hors Ramadan. Notre comparateur affiche en temps réel les tarifs de 20 agences agréées." },
+      { q: "Pourquoi le prix de l'Omra varie-t-il autant en 2027 ?", a: "Le prix dépend de 3 facteurs principaux : la période (Ramadan coûte 50-100% plus cher), le niveau de l'hôtel (la distance au Haram impacte fortement le tarif) et la durée (10 à 21 nuits). Un hôtel à 500m du Haram coûte 2 à 3 fois plus cher qu'un hôtel à 2 km pour les mêmes dates." },
+      { q: "Quelle est la période la moins chère pour l'Omra 2027 ?", a: "La basse saison islamique (Mouharram et Safar, correspondant à juillet-septembre 2027) offre les prix les plus bas dès 800€ tout compris. L'affluence est faible, ce qui permet d'accomplir les rites dans de meilleures conditions. La chaleur est plus intense (40-45°C), mais les pèlerins confirmés s'y adaptent facilement." },
+    ],
+  },
+
+  "/omra-en-fevrier-2027": {
+    title: "Omra en Février 2027 : Ramadan 2027, Prix et Conseils",
+    description: "Omra en février 2027 : début du Ramadan 2027 (vers le 17 février). Prix (1 800-5 000€), conseils pour cette période la plus méritoire de l'année.",
+    canonical: "https://omrabonsplans.fr/omra-en-fevrier-2027",
+    h1: "Omra en Février 2027 : Ramadan et Meilleures Offres",
+    intro: "Février 2027 est l'un des mois les plus importants pour l'Omra : le Ramadan 2027 débutera vers le 17 février. Partir en Omra en février 2027 signifie accomplir le pèlerinage pendant le mois béni du Ramadan, période la plus méritoire de l'année selon le Prophète Muhammad (ﷺ). Ce guide vous aide à tout planifier.",
+    sections: [
+      { h2: "Le Ramadan 2027 débute en février", text: "Le Ramadan 2027 est estimé du 17 février au 18 mars 2027 (sous réserve de l'observation lunaire). La première quinzaine de février (1-16 fév) est encore Sha'ban 1448 — période de préparation spirituelle au Ramadan, avec des prix légèrement inférieurs. Les places Ramadan (dès le 17 fév) sont très demandées — réservez dès maintenant." },
+      { h2: "Prix Omra février 2027", text: "Début février (Sha'ban, avant Ramadan) : 1 500-2 800€. Mi-février (début Ramadan) : 2 000-3 500€. Les prix augmentent dès l'entrée en Ramadan. Réservez 6-9 mois à l'avance pour le Ramadan — les meilleures places sont souvent complètes dès septembre. Les 10 derniers jours (mars) coûtent encore plus cher." },
+      { h2: "Conseils pratiques pour l'Omra en février", text: "Températures idéales à La Mecque en février : 22-30°C. Pendant le jeûne du Ramadan, hydratez-vous entre le ftour et le suhoor. Évitez d'accomplir le Tawaf aux heures les plus chargées (après les prières collectives). Prévoyez une tenue légère mais couverte. Réservez votre hôtel proche du Haram (<500m) pour les prières nocturnes." },
+    ],
+    faqs: [
+      { q: "Quand commence le Ramadan 2027 ?", a: "Le Ramadan 2027 est estimé à partir du 17 février 2027 (sous réserve de l'observation officielle de la lune par les autorités saoudiennes). La date exacte peut varier d'un jour. Les agences prévoient généralement des départs dès le 15-16 février pour être sur place à l'entrée du Ramadan." },
+      { q: "Quel est le prix d'une Omra en février 2027 pendant le Ramadan ?", a: "Entre 2 000€ (début Ramadan, hôtel 3★) et 3 500€ (hôtel 4-5★). Pour la première semaine du Ramadan, les prix sont légèrement inférieurs à la deuxième quinzaine. Comptez 300-500€ de supplément par rapport aux mêmes dates hors Ramadan. Réservez impérativement avant septembre 2026." },
+      { q: "Est-ce difficile d'accomplir l'Omra pendant le jeûne du Ramadan ?", a: "L'Omra pendant le Ramadan est physiquement exigeante — les rites (Tawaf, Sa'i) se font souvent de nuit pour profiter de la fraîcheur et éviter les foules du jour. L'ambiance spirituelle est incomparable. Prévoyez de l'eau et des dattes pour le suhoor, et profitez des nuits entre la rupture du jeûne et le suhoor pour accomplir les rites et la prière nocturne." },
+    ],
+  },
+
+  "/omra-en-mars-2027": {
+    title: "Omra en Mars 2027 : 10 Derniers Jours Ramadan, Prix et Conseils",
+    description: "Omra en mars 2027 : fin du Ramadan 2027 et 10 derniers jours (Laylat al-Qadr). Prix (2 500-5 000€). Guide complet pour les jours les plus méritoires de l'année.",
+    canonical: "https://omrabonsplans.fr/omra-en-mars-2027",
+    h1: "Omra en Mars 2027 : Fin Ramadan et Meilleures Offres",
+    intro: "Mars 2027 correspond à la fin du Ramadan 2027 (estimé jusqu'au 18 mars) et aux 10 derniers jours du Ramadan, période des nuits de Laylat al-Qadr. C'est la période la plus spirituellement chargée de l'année islamique. Après le Ramadan, le mois de Chawwal (à partir du 19 mars) offre des prix plus doux et une ambiance apaisée.",
+    sections: [
+      { h2: "Les 10 derniers jours du Ramadan en mars 2027", text: "Les 10 derniers jours du Ramadan 2027 se situent du 9 au 18 mars 2027. Ces nuits contiennent Laylat al-Qadr (la Nuit du Destin), meilleure que 1 000 mois selon le Coran (97:3). Les mosquées du monde entier organisent des retraites spirituelles (I'tikaf). À La Mecque, les foules atteignent 2-3 millions — préparez-vous à une immersion totale." },
+      { h2: "Prix Omra mars 2027", text: "1er-8 mars (suite Ramadan) : 2 500-4 000€. 10 derniers jours (9-18 mars) : 3 000-5 000€. Après Ramadan (19-31 mars, Chawwal) : 1 000-1 800€. Les 10 derniers jours sont les plus chers de l'année. Après l'Aïd (28 mars), les prix chutent et l'ambiance est plus sereine." },
+      { h2: "Après le Ramadan : Omra de Chawwal", text: "Chawwal 1448 débutera le 19 mars 2027 (Aïd al-Fitr). La tradition islamique recommande 6 jours de jeûne en Chawwal pour compléter une année complète d'adoration. Partir en Omra en fin mars 2027 (Chawwal) permet de profiter d'une ambiance post-Ramadan apaisée, avec moins de foule et des prix redevenus normaux (1 000-1 800€)." },
+    ],
+    faqs: [
+      { q: "Quand se terminent les 10 derniers jours du Ramadan 2027 ?", a: "Les 10 derniers jours du Ramadan 2027 s'étendent du 9 au 18 mars 2027 (21e au 29e jour du Ramadan). L'Aïd al-Fitr 2027 est estimé au 19 mars 2027. Ces dates sont provisoires et dépendent de l'observation officielle de la lune par les autorités saoudiennes." },
+      { q: "Quel est le prix d'une Omra pour les 10 derniers jours du Ramadan 2027 ?", a: "Pour les 10 derniers jours du Ramadan 2027 (9-18 mars), les forfaits varient de 3 000€ (hôtel 3-4★) à 5 000€+ (hôtel 5★ proche Haram). Ce sont les prix les plus élevés de l'année. Les places sont quasi épuisées 6-9 mois à l'avance. Réservez dès que possible si vous souhaitez vivre Laylat al-Qadr à La Mecque." },
+      { q: "Vaut-il mieux partir pendant ou après le Ramadan en mars 2027 ?", a: "Pendant le Ramadan (1-18 mars) : prix élevés (2 500-5 000€), foules immenses, mais intensité spirituelle incomparable. Après le Ramadan (19-31 mars, Chawwal) : prix modérés (1 000-1 800€), moins de foule, ambiance sereine. Les deux périodes sont excellentes — tout dépend de votre budget et de votre tolérance à la foule." },
+    ],
+  },
+
+  "/omra-en-mai-2027": {
+    title: "Omra en Mai 2027 : Prix, Disponibilités et Conseils",
+    description: "Omra en mai 2027 : mois de Sha'ban / Ramadan 1449 H (selon calcul). Prix (900-1 800€), températures chaudes mais disponibilités. Guide complet pour l'Omra en mai.",
+    canonical: "https://omrabonsplans.fr/omra-en-mai-2027",
+    h1: "Omra en Mai 2027 : Guide et Meilleures Offres",
+    intro: "Mai 2027 correspond approximativement au début de Dhul Qa'da 1448 H à Dhu al-Hijja 1448 H dans le calendrier islamique. Attention : la période du Hajj 2027 (26-31 mai) suspend l'accès à l'Omra pour les non-pèlerins du Hajj. Les départs Omra en mai 2027 doivent donc être planifiés avec précaution.",
+    sections: [
+      { h2: "Attention : Hajj 2027 en mai", text: "Le Hajj 2027 est estimé du 26 au 31 mai 2027. Pendant cette période, les autorités saoudiennes limitent l'accès à La Mecque aux pèlerins du Hajj uniquement. Les départs Omra doivent être planifiés avant le 20 mai ou après le 2 juin 2027. Vérifiez les dates exactes avec votre agence avant de réserver." },
+      { h2: "Prix Omra mai 2027 (hors période Hajj)", text: "Hôtel 3★ : 900-1 500€. Hôtel 4★ : 1 500-2 000€. Hôtel 4-5★ proche Haram : 2 000-2 800€. Mai est une période de saison intermédiaire avec des disponibilités correctes (hors période Hajj). Les températures commencent à monter (35-42°C) mais restent plus supportables qu'en juillet-août." },
+      { h2: "Conditions à La Mecque en mai 2027", text: "Températures diurnes : 35-42°C en mai. Températures nocturnes : 25-30°C. Conseils : accomplissez les rites la nuit pour éviter la chaleur intense. Hydratation constante obligatoire. Crème solaire indispensable. L'ombre des galeries du Masjid al-Haram offre une certaine fraîcheur. Évitez les départs entre le 20 mai et le 2 juin (période Hajj)." },
+    ],
+    faqs: [
+      { q: "Peut-on faire l'Omra en mai 2027 ?", a: "Oui, mais avec des restrictions. Le Hajj 2027 se déroule du 26 au 31 mai, période pendant laquelle l'Omra est suspendue pour les non-pèlerins du Hajj. Planifiez votre départ avant le 20 mai 2027 ou après le 2 juin. Hors période Hajj, mai est une bonne période avec des prix modérés (900-2 000€) et des disponibilités." },
+      { q: "Quel est le prix d'une Omra en mai 2027 ?", a: "Hors période Hajj, les forfaits Omra pour mai 2027 varient de 900€ (hôtel 3★, basse saison de début mai) à 2 800€ (hôtel 4-5★). C'est une période intermédiaire — moins chère que le Ramadan, légèrement plus chère que la basse saison d'été. La chaleur croissante en mai peut réduire l'affluence et favoriser de meilleures disponibilités." },
+      { q: "Quand a lieu le Hajj 2027 ?", a: "Le Hajj 2027 est estimé du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448 AH). La journée d'Arafat (jour le plus important du Hajj) est le 27 mai 2027. Ces dates sont provisoires — elles seront confirmées officiellement par les autorités saoudiennes. Pendant le Hajj, l'Omra est suspendue pour les visiteurs non-pèlerins." },
     ],
   },
 };
@@ -738,8 +810,21 @@ export default async function handler(req: Request, context: Context) {
       "name": "Omra Bons Plans",
       "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" },
     },
-    "dateModified": "2026-08-16",
+    "dateModified": "2026-11-12",
   });
+
+  const faqSchema = page.faqs.length > 0 ? JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": page.faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a,
+      },
+    })),
+  }) : null;
 
   const sectionsHtml = page.sections
     .map((s) => `<section><h2>${escHtml(s.h2)}</h2><p>${escHtml(s.text)}</p></section>`)
@@ -762,6 +847,7 @@ export default async function handler(req: Request, context: Context) {
   <meta property="og:url" content="${page.canonical}">
   <meta property="og:type" content="article">
   <script type="application/ld+json">${articleSchema}</script>
+  ${faqSchema ? `<script type="application/ld+json">${faqSchema}</script>` : ""}
 </head>
 <body>
   <nav><a href="https://omrabonsplans.fr">Omra Bons Plans</a> › <a href="https://omrabonsplans.fr/comparatif-agences">Comparer les agences</a></nav>
