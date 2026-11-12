@@ -42,9 +42,9 @@ serve(async (req) => {
     let enrichedData = {};
 
     if (agency === 'Medin Voyages') {
-      enrichedData = enrichMedinVoyages(doc, html);
+      enrichedData = enrichMedinVoyages(html);
     } else if (agency === 'Omra Sounnah') {
-      enrichedData = enrichOmraSounnah(doc, html);
+      enrichedData = enrichOmraSounnah(html);
     }
 
     console.log('✅ Enriched data:', enrichedData);
@@ -72,7 +72,7 @@ serve(async (req) => {
   }
 });
 
-function enrichMedinVoyages(doc: Document, html: string): any {
+function enrichMedinVoyages(html: string): any {
   const enriched: any = {};
 
   // Extraire les dates précises
@@ -121,7 +121,7 @@ function enrichMedinVoyages(doc: Document, html: string): any {
   return enriched;
 }
 
-function enrichOmraSounnah(doc: Document, html: string): any {
+function enrichOmraSounnah(html: string): any {
   const enriched: any = {};
 
   // Extraire les dates précises

@@ -16,7 +16,7 @@ import { Helmet } from "react-helmet-async";
 const AGENCY_LOGOS: Record<string, string> = {
   'Medinvoyages': '/lovable-uploads/logomedinvoyages.webp',
   'Almaqam': '/lovable-uploads/logoalmaqam.webp',
-  'Pelerinhajj': '/lovable-uploads/logopelerinhajj.webp',
+  'Pelerinhajj': '/lovable-uploads/logopelerinhajj-v2.webp',
   'Hayat': '/lovable-uploads/logohayat.webp',
   'Omra Sounnah': '/lovable-uploads/logoomrasounnah.webp',
   'Omra Discount': '/lovable-uploads/logoomradiscount.webp',

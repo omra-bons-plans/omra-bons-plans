@@ -171,7 +171,7 @@ serve(async (req) => {
     return new Response(JSON.stringify({
       airlines: staticAirlines,
       source: 'fallback',
-      error: error.message
+      error: (error as Error).message
     }), {
       status: 200, // Return 200 with fallback data instead of 500
       headers: {

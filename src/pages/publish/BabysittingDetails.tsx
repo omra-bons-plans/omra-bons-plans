@@ -157,7 +157,7 @@ const BabysittingDetails = () => {
           show_phone: data.showPhone,
           show_whatsapp: data.showWhatsapp,
           show_professional_phone: data.showProfessionalPhone,
-          publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
+          publish_end_date: new Date(Date.now() + 3 * 365 * 24 * 60 * 60 * 1000).toISOString(), // 3 ans dans le futur
           is_paused: false,
         };
 
@@ -184,7 +184,7 @@ const BabysittingDetails = () => {
         show_phone: data.showPhone,
         show_whatsapp: data.showWhatsapp,
         show_professional_phone: data.showProfessionalPhone,
-        publish_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 an dans le futur
+        publish_end_date: new Date(Date.now() + 3 * 365 * 24 * 60 * 60 * 1000).toISOString(), // 3 ans dans le futur
         is_published: true,
         is_draft: false,
         is_paused: false,

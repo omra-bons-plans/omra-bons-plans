@@ -136,7 +136,7 @@ Deno.serve(async (req) => {
         results.push({
           agency: agency.name,
           success: false,
-          error: error.message,
+          error: (error as Error).message,
         });
       }
     }
@@ -153,7 +153,7 @@ Deno.serve(async (req) => {
 
   } catch (error) {
     console.error('❌ Fatal error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorMessage = error instanceof Error ? (error as Error).message : 'Unknown error';
     return new Response(
       JSON.stringify({ 
         success: false,

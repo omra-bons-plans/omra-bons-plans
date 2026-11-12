@@ -71,13 +71,13 @@ serve(async (req) => {
                 }
               }
             } catch (error) {
-              console.log(`⚠️ WeatherAPI ${protocol} failed for ${cityData.name}:`, error.message);
-              lastError = `WeatherAPI: ${error.message}`;
+              console.log(`⚠️ WeatherAPI ${protocol} failed for ${cityData.name}:`, (error as Error).message);
+              lastError = `WeatherAPI: ${(error as Error).message}`;
             }
           }
         } catch (error) {
-          console.log(`❌ WeatherAPI failed for ${cityData.name}:`, error.message);
-          lastError = `WeatherAPI: ${error.message}`;
+          console.log(`❌ WeatherAPI failed for ${cityData.name}:`, (error as Error).message);
+          lastError = `WeatherAPI: ${(error as Error).message}`;
         }
       }
       
@@ -123,8 +123,8 @@ serve(async (req) => {
             }
           }
         } catch (error) {
-          console.log(`❌ Open-Meteo failed for ${cityData.name}:`, error.message);
-          lastError = `Open-Meteo: ${error.message}`;
+          console.log(`❌ Open-Meteo failed for ${cityData.name}:`, (error as Error).message);
+          lastError = `Open-Meteo: ${(error as Error).message}`;
         }
       }
       
@@ -184,7 +184,7 @@ serve(async (req) => {
     console.error('❌ Error updating weather data:', error);
     return new Response(JSON.stringify({ 
       success: false, 
-      error: error.message 
+      error: (error as Error).message 
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

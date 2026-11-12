@@ -239,7 +239,7 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
     const offerElements = doc.querySelectorAll(containerSelector);
     console.log(`Found ${offerElements.length} potential offer elements for ${config.agency_name}`);
     
-    offerElements.forEach((element, index) => {
+    offerElements.forEach((element: any, index: number) => {
       if (index >= 20) return; // Limiter à 20 offres max
       
       try {
@@ -259,7 +259,7 @@ function parseOffersFromHTML(html: string, config: ScraperConfig): any[] {
   return offers;
 }
 
-function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
+function parseTawafOffers(doc: any, config: ScraperConfig): any[] {
   const offers: any[] = [];
   const selectors = config.selectors || {};
   
@@ -271,7 +271,7 @@ function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
   
   let currentMonth = 'Non spécifié';
   
-  offerLinks.forEach((link, index) => {
+  offerLinks.forEach((link: any, index: number) => {
     try {
       const buttonText = link.querySelector('.elementor-button-text');
       if (!buttonText) return;
@@ -393,7 +393,7 @@ function parseTawafOffers(doc: Document, config: ScraperConfig): any[] {
   return offers;
 }
 
-function extractOfferData(element: Element, config: ScraperConfig, fullHtml: string): any | null {
+function extractOfferData(element: any, config: ScraperConfig, fullHtml: string): any | null {
   const selectors = config.selectors || {};
   
   // Extraire le prix

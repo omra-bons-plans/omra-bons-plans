@@ -161,7 +161,7 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error('❌ Import error:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: (error as Error).message }),
       { 
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -280,7 +280,7 @@ function extractMonthFromDate(dateStr: string | null): string {
   return '';
 }
 
-function extractDuration(durationStr: string | null): number | null {
+function extractDuration(durationStr: string | null | undefined): number | null {
   if (!durationStr) return null;
   
   const match = durationStr.match(/(\d+)\s*(?:jours|nuits)/i);
