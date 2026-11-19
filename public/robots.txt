@@ -5,8 +5,9 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap & LLMs
 Sitemap: https://omrabonsplans.fr/sitemap.xml
+LLMs: https://omrabonsplans.fr/llms.txt
 
 # ──────────────────────────────────────────────
 # Pages publiques — explicitement autorisées
@@ -31,6 +32,7 @@ Allow: /comparateur-omra-france
 Allow: /discussions
 Allow: /category/
 Disallow: /ad/
+Allow: /ad/
 Allow: /offre-omra/
 Allow: /offre-hajj/
 Allow: /bons-plans
