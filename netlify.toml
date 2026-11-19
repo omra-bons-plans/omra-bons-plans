@@ -342,6 +342,42 @@
   function = "guide-prerender"
 
 [[edge_functions]]
+  path = "/omra-en-avril-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-juin-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-juillet-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-aout-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-septembre-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/omra-en-octobre-2027"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/tenue-ihram"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/sante-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
+  path = "/dua-omra"
+  function = "guide-prerender"
+
+[[edge_functions]]
   path = "/les-hotels"
   function = "seo-prerender"
 
