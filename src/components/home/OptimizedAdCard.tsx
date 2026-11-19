@@ -60,7 +60,7 @@ export const OptimizedAdCard = memo(({ listing, priority = false, className = ''
 
   return (
     <Link
-      to={`/ad/${listing.id}`}
+      to={`/ad/${listing.slug || listing.id}`}
       state={{ fromCategory: listing.type === 'hebergement' ? 'hebergements' : listing.type }}
       className="block"
     >
