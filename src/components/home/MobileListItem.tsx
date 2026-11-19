@@ -20,7 +20,7 @@ export const MobileListItem = memo(({ listing, selectedCategory }: MobileListIte
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/ad/${listing.id}`, { state: { fromCategory: selectedCategory } });
+    navigate(`/ad/${listing.slug || listing.id}`, { state: { fromCategory: selectedCategory } });
   };
 
   const getCategoryBadgeClass = (type: string) => {

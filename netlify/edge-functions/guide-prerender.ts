@@ -778,6 +778,162 @@ const PAGES: Record<string, PageData> = {
       { q: "Quand a lieu le Hajj 2027 ?", a: "Le Hajj 2027 est estimé du 26 au 31 mai 2027 (8-13 Dhul Hijja 1448 AH). La journée d'Arafat (jour le plus important du Hajj) est le 27 mai 2027. Ces dates sont provisoires — elles seront confirmées officiellement par les autorités saoudiennes. Pendant le Hajj, l'Omra est suspendue pour les visiteurs non-pèlerins." },
     ],
   },
+  "/omra-en-avril-2027": {
+    title: "Omra en Avril 2027 : Prix, Calendrier et Conseils Pratiques",
+    description: "Omra en avril 2027 : mois de Dhul Qa'da 1448 H, mois béni pour l'Omra. Prix (1 100-2 200€), températures modérées (28-37°C). Guide complet pour partir en Omra en avril 2027.",
+    canonical: "https://omrabonsplans.fr/omra-en-avril-2027",
+    h1: "Omra en Avril 2027 : Guide Complet et Meilleures Offres",
+    intro: "Avril 2027 correspond approximativement au mois de Dhul Qa'da 1448 H dans le calendrier hégirien, un mois sacré particulièrement recommandé pour accomplir l'Omra. Le Prophète Muhammad ﷺ a accompli plusieurs de ses Omra en Dhul Qa'da. Températures agréables (28-37°C), disponibilités correctes et prix intermédiaires font d'avril une option attractive entre la foule du Ramadan et la chaleur estivale.",
+    sections: [
+      { h2: "Pourquoi avril 2027 est idéal pour l'Omra", text: "Dhul Qa'da est l'un des quatre mois sacrés (Ashur al-Hurum) et l'un des mois où le Prophète ﷺ a accompli l'Omra. Les températures en avril (28-37°C le jour, 20-25°C la nuit) sont nettement plus confortables qu'en été. Les flux de pèlerins sont modérés — entre la période post-Ramadan et la période pré-Hajj — ce qui permet d'accomplir les rites dans de bonnes conditions." },
+      { h2: "Prix des séjours Omra en avril 2027", text: "Hôtel 3★ à Médine + La Mecque : 1 100-1 500€. Hôtel 4★ : 1 500-2 000€. Hôtel 4-5★ proche Haram : 2 000-2 800€. Avril est une période intermédiaire — les prix sont plus élevés qu'en été (basse saison thermique) mais moins chers que le Ramadan (3 000-5 000€). Les forfaits tout inclus 10-14 nuits restent accessibles. Réservez 3-4 mois à l'avance pour les meilleurs tarifs." },
+      { h2: "Organisation pratique et visa pour avril 2027", text: "Le visa Omra pour avril 2027 s'obtient en ligne via la plateforme Nusuk (nusuk.sa) ou par votre agence. Délai d'obtention : 3-7 jours ouvrés. Validity : 90 jours. Les vaccinations obligatoires sont le vaccin contre la méningite (ACYW135, moins de 3 ans) et recommandées : grippe, COVID-19 booster. Pensez à souscrire une assurance rapatriement médicalisé." },
+    ],
+    faqs: [
+      { q: "Avril 2027 est-il un bon mois pour l'Omra ?", a: "Oui, avril 2027 (Dhul Qa'da 1448 H) est excellent pour l'Omra. C'est un mois sacré où le Prophète ﷺ a accompli plusieurs Omra. Les températures sont agréables (28-37°C), les foules modérées par rapport au Ramadan, et les prix restent raisonnables (1 100-2 800€ selon le standing). C'est une période idéale avant la chaleur estivale intense." },
+      { q: "Quel est le prix d'une Omra en avril 2027 ?", a: "Les forfaits Omra pour avril 2027 varient de 1 100€ (hôtel 3★, vol inclus) à 2 800€ (hôtel 4-5★ proche Haram). Les forfaits familles (2 adultes + 2 enfants) se situent entre 3 500 et 7 000€. Réservez 3-4 mois à l'avance pour obtenir les meilleurs prix et disponibilités sur les vols depuis Paris, Lyon, Marseille et les autres grandes villes françaises." },
+      { q: "Dhul Qa'da est-il un bon mois pour l'Omra ?", a: "Dhul Qa'da est l'un des quatre mois sacrés de l'Islam (avec Dhul Hijja, Muharram et Rajab). Le Prophète Muhammad ﷺ a accompli 3 de ses 4 Omra en Dhul Qa'da. Accomplir l'Omra en mois sacré est particulièrement recommandé dans la tradition islamique. Les rites dans les Lieux Saints ont une valeur spirituelle renforcée en ces mois bénis." },
+    ],
+  },
+  "/omra-en-juin-2027": {
+    title: "Omra en Juin 2027 : Prix Bas, Chaleur et Muharram 1449 H",
+    description: "Omra en juin 2027 : mois de Muharram 1449 H (Nouvel An islamique) post-Hajj. Prix très compétitifs (750-1 400€), températures chaudes (40-46°C). Conseils pour l'Omra en été.",
+    canonical: "https://omrabonsplans.fr/omra-en-juin-2027",
+    h1: "Omra en Juin 2027 : Guide et Offres Post-Hajj",
+    intro: "Juin 2027 correspond approximativement au mois de Muharram 1449 H, le premier mois de la nouvelle année islamique. Après la période du Hajj (fin mai), les pèlerins Omra peuvent de nouveau accéder à La Mecque dès début juin. Muharram est un mois sacré — le jeûne du jour d'Achoura (10 Muharram) y est fortement recommandé. Les prix post-Hajj sont parmi les plus bas de l'année malgré la chaleur estivale.",
+    sections: [
+      { h2: "Réouverture des Omra post-Hajj en juin 2027", text: "Après la clôture du Hajj (fin mai 2027), les autorités saoudiennes rouvrent progressivement les visas Omra à partir de début juin. Les premières semaines de juin peuvent connaître quelques délais administratifs liés à la réouverture du système. Prévoyez vos voyages à partir du 10 juin 2027 pour être sûr d'obtenir un visa sans délai. Les agences françaises spécialisées gèrent ces transitions et proposent les premiers forfaits disponibles." },
+      { h2: "Prix des séjours Omra en juin 2027", text: "Juin est l'une des périodes les moins chères de l'année pour l'Omra. Hôtel 3★ : 750-1 100€. Hôtel 4★ : 1 100-1 600€. Hôtel 4-5★ proche Haram : 1 600-2 400€. La chaleur intense (42-47°C) dissuade de nombreux pèlerins, ce qui maintient les prix très bas. Pour les familles avec un budget serré, juin offre le meilleur rapport qualité-prix de l'année." },
+      { h2: "Faire l'Omra en été : conseils pour la chaleur", text: "Températures en juin à La Mecque : 42-47°C le jour, 30-33°C la nuit. Pour accomplir les rites dans de bonnes conditions : privilégiez les rites de nuit (Tawaf, Sa'y) entre 23h et 5h du matin, hydratez-vous constamment (3-4 litres d'eau par jour minimum), couvrez-vous de vêtements légers en coton blanc, utilisez parasols et ventilateurs, et choisissez un hôtel avec vue ou accès direct au Haram pour limiter l'exposition solaire." },
+    ],
+    faqs: [
+      { q: "Peut-on faire l'Omra en juin 2027 ?", a: "Oui, à partir de début juin 2027, après la clôture du Hajj. Les visas Omra rouvrent généralement 3-7 jours après la fin du Hajj. Juin est un mois sacré (Muharram) et l'un des moins chers pour l'Omra (750-2 400€). La contrainte principale est la chaleur intense (42-47°C). Privilégiez les rites nocturnes et l'hydratation constante." },
+      { q: "Quel est le mois de juin 2027 dans le calendrier islamique ?", a: "Juin 2027 correspond approximativement au mois de Muharram 1449 H, le premier mois de la nouvelle année islamique. Muharram est l'un des quatre mois sacrés de l'Islam. Le 10 Muharram (Achoura), le jeûne est fortement recommandé — il expie les péchés de l'année écoulée selon le Prophète ﷺ. C'est une période spirituellement riche pour accomplir l'Omra." },
+      { q: "Quels sont les risques de l'Omra en été ?", a: "Le principal risque est le coup de chaleur (insolation). Avec 42-47°C, l'exposition solaire prolongée peut provoquer déshydratation, vertiges et malaise. Conseils : accomplissez les rites la nuit, buvez 3-4 litres d'eau par jour, portez des vêtements légers, utilisez parasol et ventilateur. Les personnes âgées, malades chroniques et enceintes doivent consulter leur médecin avant de partir en Omra en été." },
+    ],
+  },
+  "/omra-en-juillet-2027": {
+    title: "Omra en Juillet 2027 : Prix Très Bas et Chaleur Extrême",
+    description: "Omra en juillet 2027 : Safar 1449 H, basse saison thermique. Prix très compétitifs (700-1 200€) mais chaleur extrême (44-48°C). Guide pratique pour l'Omra en plein été.",
+    canonical: "https://omrabonsplans.fr/omra-en-juillet-2027",
+    h1: "Omra en Juillet 2027 : Guide Basse Saison Estivale",
+    intro: "Juillet 2027 correspond au mois de Safar 1449 H dans le calendrier hégirien. C'est la période la plus chaude de l'année à La Mecque avec des températures pouvant dépasser 48°C en journée. En contrepartie, juillet offre les prix les plus bas de l'année pour les séjours Omra (700-1 200€ pour un hôtel 3★). Les vacances scolaires d'été en France augmentent légèrement la demande des familles, mais la chaleur maintient les prix bas.",
+    sections: [
+      { h2: "Juillet 2027 : la période la plus chaude mais la moins chère", text: "Juillet est statistiquement le mois le plus chaud à La Mecque. Les températures diurnes atteignent régulièrement 46-48°C. La nuit, les températures restent élevées (32-35°C). Cette chaleur extrême limite le nombre de pèlerins et maintient les prix très bas : 700-1 200€ pour un hôtel 3★ tout inclus. Pour les pèlerins en bonne santé et bien préparés, juillet est une opportunité financière rare. Les rites nocturnes permettent d'accomplir le Tawaf et le Sa'y dans des conditions plus supportables." },
+      { h2: "Prix des séjours Omra en juillet 2027", text: "Hôtel 3★ : 700-1 100€. Hôtel 4★ : 1 100-1 500€. Hôtel 4-5★ proche Haram : 1 500-2 200€. Les vols depuis Paris CDG, Lyon Saint-Exupéry, Marseille Provence et Bordeaux sont également moins chers en juillet (200-350€ aller-retour). Pour une famille de 4 (2 adultes + 2 enfants), le budget total peut être de 2 500-4 000€ — une économie de 2 000-3 000€ par rapport à une Omra en Ramadan." },
+      { h2: "Conseils indispensables pour l'Omra en juillet", text: "1) Accomplissez tous les rites après 22h : Tawaf et Sa'y de nuit sont 10-15°C plus frais. 2) Buvez au minimum 4 litres d'eau par jour, répartis régulièrement. 3) Portez des sandales ventilées ou chaussettes anti-brûlure pour le sol brûlant autour de la Ka'ba. 4) Choisissez un hôtel avec accès couvert ou tunnel direct vers le Haram. 5) Ne sortez pas entre 11h et 17h. 6) Emportez ventilateur portable et brumisateur. 7) Consultez votre médecin si vous avez des pathologies cardiaques, respiratoires ou diabète." },
+    ],
+    faqs: [
+      { q: "Juillet 2027 est-il recommandé pour l'Omra ?", a: "Juillet 2027 est recommandé uniquement pour les personnes en bonne santé qui tolèrent la chaleur. Avec 44-48°C le jour, c'est un défi physique. Les avantages : prix très bas (700-1 500€), moins de foule, disponibilités. La stratégie est d'accomplir tous les rites la nuit. Déconseillé aux personnes âgées, malades chroniques, femmes enceintes et jeunes enfants." },
+      { q: "Quel est le prix d'une Omra en juillet 2027 ?", a: "Les séjours Omra en juillet 2027 sont parmi les moins chers de l'année. Comptez 700-1 100€ pour un hôtel 3★ (10-12 nuits, vol inclus), 1 100-1 500€ pour un hôtel 4★, et 1 500-2 200€ pour un hôtel 4-5★ proche du Haram. Le mois de juillet est idéal pour des pèlerins à budget serré qui acceptent la contrainte de la chaleur estivale." },
+      { q: "Comment survivre à la chaleur pendant l'Omra en juillet ?", a: "Les clés : (1) Faites le Tawaf et le Sa'y uniquement la nuit (après 22h), (2) Buvez 4+ litres d'eau par jour, (3) Portez du coton blanc léger et un parasol, (4) Choisissez un hôtel avec accès direct couvert au Masjid al-Haram, (5) Emportez un ventilateur personnel et spray brumisateur, (6) Reposez-vous pendant les heures les plus chaudes (11h-17h), (7) Mangez des aliments riches en sels minéraux pour compenser la transpiration." },
+    ],
+  },
+  "/omra-en-aout-2027": {
+    title: "Omra en Août 2027 : Vacances d'Été et Prix Compétitifs",
+    description: "Omra en août 2027 : Safar/Rabi' al-Awwal 1449 H. Prix compétitifs (750-1 400€), vacances scolaires françaises, chaleur intense (43-47°C). Tout pour organiser votre Omra en août.",
+    canonical: "https://omrabonsplans.fr/omra-en-aout-2027",
+    h1: "Omra en Août 2027 : Guide Vacances d'Été",
+    intro: "Août 2027 correspond aux mois de Safar / Rabi' al-Awwal 1449 H. C'est la période des grandes vacances scolaires en France, ce qui en fait le mois d'été avec le plus de familles françaises qui partent en Omra. Malgré la chaleur intense (43-47°C), la combinaison vacances + Omra attire de nombreux Français. Les prix restent très compétitifs et les vols directs depuis les grandes villes françaises sont nombreux.",
+    sections: [
+      { h2: "Août 2027 : le choix des familles françaises", text: "Août est le mois de référence pour les familles françaises qui veulent combiner vacances scolaires et Omra. Les enfants sont en vacances, les adultes peuvent prendre des congés, et les prix restent bien inférieurs au Ramadan. Rabi' al-Awwal (qui commence mi-août 2027) est le mois de naissance du Prophète Muhammad ﷺ — accomplir l'Omra en ce mois béni a une dimension spirituelle particulière pour de nombreux pèlerins." },
+      { h2: "Prix des séjours Omra en août 2027", text: "Hôtel 3★ : 750-1 150€. Hôtel 4★ : 1 150-1 600€. Hôtel 4-5★ proche Haram : 1 600-2 300€. Forfaits familles (4 personnes) : 2 800-5 500€. Les vols sont légèrement plus chers en août (vacances scolaires) qu'en juillet. Réservez 4-5 mois à l'avance pour obtenir les meilleurs tarifs. Les agences françaises proposent souvent des formules spéciales familles en août avec garderie ou activités pour enfants à l'hôtel." },
+      { h2: "Préparer l'Omra avec des enfants en août", text: "Pour l'Omra avec des enfants en août : choisissez un hôtel 4★ avec piscine et proche du Haram (moins de marche dans la chaleur), accomplissez les rites la nuit (Tawaf et Sa'y après 22h quand il fait plus frais), prévoyez des vêtements ihram pour les garçons et des tenues couvrantes légères pour les filles, hydratez les enfants toutes les 30 minutes, et consultez un pédiatre avant le départ pour les enfants de moins de 7 ans. Minimum recommandé : 7-8 ans pour l'Omra en été." },
+    ],
+    faqs: [
+      { q: "Peut-on faire l'Omra avec des enfants en août ?", a: "Oui, mais avec des précautions. Les enfants de 7 ans et plus peuvent accomplir l'Omra en août. Clés du succès : hôtel 4★ avec climatisation puissante et proche du Haram, rites nocturnes uniquement, hydratation intensive (1,5-2 litres/heure pendant les rites), vêtements légers, et pauses fréquentes. Consultez votre pédiatre avant le départ. Les enfants en bas âge sont déconseillés en Omra estivale." },
+      { q: "Quel est le prix d'une Omra en famille en août 2027 ?", a: "Pour une famille de 4 (2 adultes + 2 enfants), comptez 2 800-4 500€ pour un hôtel 3-4★ (vols + hébergement + transferts) ou 4 500-7 000€ pour un 4-5★ proche du Haram. Les agences spécialisées proposent des réductions enfants (jusqu'à 30% pour les moins de 12 ans) et des formules familles clé-en-main. Réservez 4-5 mois à l'avance pour les meilleures disponibilités." },
+      { q: "Quel mois islamique correspond à août 2027 ?", a: "Août 2027 correspond aux mois de Safar (fin) et Rabi' al-Awwal (début) 1449 H. Rabi' al-Awwal est le mois de naissance du Prophète Muhammad ﷺ — un mois de grande joie spirituelle pour de nombreux musulmans. Accomplir l'Omra en Rabi' al-Awwal est perçu comme particulièrement béni par les pèlerins qui attachent de l'importance à ce mois." },
+    ],
+  },
+  "/omra-en-septembre-2027": {
+    title: "Omra en Septembre 2027 : Températures en Baisse et Rentrée",
+    description: "Omra en septembre 2027 : Rabi' al-Awwal/Rabi' al-Thani 1449 H. Températures qui baissent (35-42°C), rentrée scolaire française, bons prix (900-1 700€). Guide complet.",
+    canonical: "https://omrabonsplans.fr/omra-en-septembre-2027",
+    h1: "Omra en Septembre 2027 : Guide et Meilleures Offres",
+    intro: "Septembre 2027 correspond à Rabi' al-Awwal / Rabi' al-Thani 1449 H dans le calendrier hégirien. C'est le mois de la rentrée scolaire en France, ce qui réduit naturellement les départs familiaux et maintient des prix modérés. Les températures commencent à baisser légèrement par rapport au pic estivale — comptez 36-42°C en journée — rendant les rites progressivement plus accessibles. Une excellente option pour les voyageurs sans enfants scolarisés.",
+    sections: [
+      { h2: "Septembre 2027 : transition entre été et automne", text: "Septembre marque le début de la transition climatique à La Mecque. Les températures diurnes oscillent entre 36-42°C (contre 44-48°C en juillet-août), et les nuits deviennent plus supportables (27-30°C). La rentrée scolaire française (début septembre) réduit la demande des familles, ce qui maintient des prix modérés. Les retraités, travailleurs indépendants et couples sans enfants en profitent pour partir à des tarifs avantageux." },
+      { h2: "Prix des séjours Omra en septembre 2027", text: "Hôtel 3★ : 900-1 300€. Hôtel 4★ : 1 300-1 800€. Hôtel 4-5★ proche Haram : 1 800-2 600€. Septembre offre un meilleur rapport qualité-prix que juillet-août grâce à des températures plus clémentes, sans l'augmentation de prix de l'automne (octobre-novembre). Les disponibilités sont bonnes. Idéal pour des séjours de 10-14 nuits combinant La Mecque et Médine." },
+      { h2: "Que visiter à Médine en septembre 2027", text: "Médine est agréable à visiter en septembre avec des températures plus douces (32-38°C). Ne manquez pas : la Mosquée du Prophète (Masjid an-Nabawi) et la visite du tombeau du Prophète ﷺ, Masjid Quba (première mosquée de l'Islam), le cimetière de Baqi', la Mosquée des Deux Qiblas (Masjid al-Qiblatayn), et les montagnes de Uhud. Prévoyez 3-4 nuits à Médine dans votre séjour Omra pour visiter ces lieux saints." },
+    ],
+    faqs: [
+      { q: "Septembre 2027 est-il un bon mois pour l'Omra ?", a: "Oui, septembre 2027 est une bonne période pour l'Omra, notamment pour ceux qui n'ont pas d'enfants scolarisés. Les températures (36-42°C) sont plus confortables qu'en juillet-août, les prix restent compétitifs (900-2 600€), et les disponibilités sont bonnes. Les rites peuvent être accomplis à n'importe quelle heure sans trop souffrir de la chaleur, notamment tôt le matin ou en soirée." },
+      { q: "Quel est le prix d'une Omra en septembre 2027 ?", a: "Les forfaits Omra en septembre 2027 varient de 900€ (hôtel 3★, 10 nuits, vol inclus depuis Paris) à 2 600€ (hôtel 4-5★ proche du Haram). Les prix sont légèrement supérieurs à juillet-août mais inférieurs à octobre-novembre. Pour les couples (2 personnes), comptez 1 800-4 000€ selon le standing de l'hébergement choisi." },
+      { q: "Comment organiser une Omra en septembre depuis la France ?", a: "Étapes : (1) Choisissez votre agence Omra agréée en France (voir notre comparatif), (2) Réservez votre forfait 2-3 mois à l'avance, (3) Fournissez les documents (passeport valide 6 mois, photo, certificat de vaccination méningite), (4) Obtenez votre visa Omra via l'agence ou Nusuk, (5) Préparez vos vêtements d'ihram. Les vols depuis Paris CDG, Lyon, Marseille et d'autres villes françaises sont directs vers Médine (MED) ou Djeddah (JED)." },
+    ],
+  },
+  "/omra-en-octobre-2027": {
+    title: "Omra en Octobre 2027 : Températures Idéales et Haute Saison",
+    description: "Omra en octobre 2027 : Jumada al-Awwal 1449 H. Températures confortables (25-35°C), début de la haute saison, prix modérés à élevés (1 100-2 500€). Guide et conseils.",
+    canonical: "https://omrabonsplans.fr/omra-en-octobre-2027",
+    h1: "Omra en Octobre 2027 : Guide Haute Saison Automnale",
+    intro: "Octobre 2027 correspond approximativement au mois de Jumada al-Awwal 1449 H. C'est le début de la haute saison de l'Omra : les températures à La Mecque deviennent confortables (25-35°C), le nombre de pèlerins augmente progressivement, et les prix commencent à monter. Octobre est considéré comme l'une des meilleures périodes pour accomplir l'Omra — un bon équilibre entre conditions climatiques agréables, disponibilités et budget.",
+    sections: [
+      { h2: "Octobre 2027 : début de la haute saison Omra", text: "Octobre marque le retour des conditions climatiques favorables à La Mecque. Les températures diurnes chutent à 25-35°C et les nuits deviennent fraîches (18-24°C). Le nombre de pèlerins augmente sensiblement, notamment les week-ends et les vacances scolaires françaises de Toussaint (fin octobre). La Masjid al-Haram est plus animée — l'atmosphère collective du Tawaf et de la Sa'y est particulièrement émouvante à cette période." },
+      { h2: "Prix des séjours Omra en octobre 2027", text: "Hôtel 3★ : 1 100-1 600€. Hôtel 4★ : 1 600-2 200€. Hôtel 4-5★ proche Haram : 2 200-3 200€. Octobre est plus cher que les mois d'été (basse saison) mais moins cher que la période de Ramadan 2028. Les prix montent vers la fin octobre avec les vacances de Toussaint. Réservez 3-4 mois à l'avance pour sécuriser les meilleures disponibilités. Les vols depuis Paris, Lyon et Marseille sont légèrement plus chers qu'en été." },
+      { h2: "Les vacances de Toussaint en Omra (fin octobre 2027)", text: "Les vacances scolaires de Toussaint en France (fin octobre 2027) sont une période très demandée pour les familles françaises qui souhaitent combiner vacances et Omra. Les prix augmentent de 15-25% pendant cette semaine. Avantages : températures excellentes (22-30°C), enfants disponibles, temps prolongé sur les Lieux Saints. Réservez 5-6 mois à l'avance pour les dates de Toussaint. Les agences proposent des formules spéciales familles avec animations." },
+    ],
+    faqs: [
+      { q: "Octobre 2027 est-il idéal pour l'Omra ?", a: "Oui, octobre 2027 est l'une des meilleures périodes de l'année pour l'Omra. Les températures sont confortables (25-35°C), permettant d'accomplir les rites à toute heure sans souffrir de la chaleur. L'ambiance spirituelle est excellente avec la reprise des arrivées de pèlerins du monde entier. Les prix sont raisonnables (1 100-3 200€) avant l'augmentation des mois suivants." },
+      { q: "Quel est le prix d'une Omra en octobre 2027 ?", a: "Les séjours Omra en octobre 2027 varient de 1 100€ (hôtel 3★, 10 nuits) à 3 200€ (hôtel 4-5★ proche du Haram). Les prix augmentent fin octobre pendant les vacances de Toussaint. Pour les familles, comptez 4 000-8 000€ pour 4 personnes. Réservez 4-5 mois à l'avance pour les meilleurs tarifs, surtout si vous partez pendant les vacances scolaires." },
+      { q: "Quels mois islamiques correspondent à octobre 2027 ?", a: "Octobre 2027 correspond approximativement aux mois de Rabi' al-Thani (début) et Jumada al-Awwal (fin) 1449 H dans le calendrier hégirien. Ces mois n'ont pas de statut sacré particulier mais sont des périodes normales du calendrier islamique, sans interdits ni obligations spécifiques liés au pèlerinage. L'Omra reste valide et recommandée toute l'année." },
+    ],
+  },
+  "/tenue-ihram": {
+    title: "Tenue Ihram Omra : Guide Complet Homme et Femme 2027",
+    description: "Guide complet sur la tenue d'ihram pour l'Omra : vêtements homme (2 pièces de tissu blanc), tenue femme (abaya, jilbab), règles du port, où acheter. Tout sur la tenue de pèlerinage.",
+    canonical: "https://omrabonsplans.fr/tenue-ihram",
+    h1: "Tenue d'Ihram pour l'Omra : Guide Homme et Femme",
+    intro: "L'ihram est l'état de sacralisation que tout pèlerin doit entrer avant d'accomplir l'Omra. La tenue d'ihram fait partie intégrante de cet état spirituel. Pour les hommes, elle consiste en deux pièces de tissu blanc non cousu. Pour les femmes, la tenue est leur tenue islamique habituelle, à condition de dégager visage et mains. Comprendre les règles de l'ihram est essentiel pour accomplir une Omra valide.",
+    sections: [
+      { h2: "Tenue d'ihram pour les hommes", text: "La tenue d'ihram masculine comprend exactement deux pièces : (1) L'izâr : tissu enroulé autour de la taille, couvrant du nombril aux genoux au minimum. (2) Le ridâ : tissu enroulé sur les épaules, couvrant le haut du corps. Les deux tissus doivent être blancs, non cousus (sans coutures), propres et sans motifs. Largeur recommandée : 1,5 à 2 mètres. Longueur : 2 à 2,5 mètres. Matière conseillée : coton ou tissu terry éponge pour l'été (légèreté + absorption). Interdit en ihram pour les hommes : vêtements cousus, couvrir la tête, porter des chaussettes, utiliser des parfums." },
+      { h2: "Tenue de pèlerinage pour les femmes", text: "Pour les femmes, la tenue d'ihram n'est pas une tenue spécifique : il s'agit de leur tenue islamique habituelle répondant à des critères précis. La tenue doit : couvrir tout le corps sauf le visage (niqab interdit en ihram) et les mains (gants interdits en ihram), être décente et ample (pas près du corps), être sobre (ni trop colorée ni ornementée). Recommandations pratiques : abaya légère en coton blanc ou de couleur unie, jilbab ample, hijab sécurisé. Les femmes gardent leur tenue habituelle — il n'y a pas de couleur imposée ni de tissu particulier." },
+      { h2: "Où acheter la tenue d'ihram en France", text: "La tenue d'ihram homme s'achète : (1) Dans les boutiques islamiques de Paris (Goutte d'Or, Château Rouge), Lyon, Marseille, Strasbourg — comptez 15-40€. (2) Sur Amazon ou sites spécialisés (omrastore.com, nusuk.sa/shop) — livraison en 2-3 jours. (3) Auprès de votre agence Omra lors de la remise des documents. (4) À l'aéroport de Djeddah ou Médine à votre arrivée (légèrement plus cher). Pour les femmes, leur tenue islamique habituelle convient — certaines investissent dans une abaya en coton léger spéciale Omra (20-60€)." },
+    ],
+    faqs: [
+      { q: "Quelle est la tenue obligatoire pour l'Omra ?", a: "Pour les hommes : deux pièces de tissu blanc non cousu (izâr + ridâ). Le tissu blanc non cousu est obligatoire — les hommes ne peuvent pas porter de vêtements cousus (chemise, pantalon, etc.) en état d'ihram. Pour les femmes : leur tenue islamique habituelle couvrant tout le corps sauf le visage et les mains. Pas de tenue spécifique imposée aux femmes, mais le niqab et les gants sont interdits en ihram." },
+      { q: "Où s'habille-t-on en ihram avant l'Omra ?", a: "L'état d'ihram est pris au niveau du Miqat (lieu délimité autour de La Mecque). Pour les voyageurs venant de France : (1) À l'hôtel de Médine (Miqat de Dhul Hulaifa/Bir Ali, à 9 km de Médine), si vous passez par Médine. (2) À bord de l'avion ou à l'aéroport si vous arrivez directement à Djeddah, en passant le Miqat de Al-Juhfa ou Qarn al-Manâzil. L'imposition de l'ihram avant le Miqat est permise mais déconseillée (long trajet en état d'ihram)." },
+      { q: "Peut-on porter des sous-vêtements sous l'ihram ?", a: "Pour les hommes : non, les sous-vêtements cousus (caleçons, slips) sont interdits en état d'ihram. Certains pèlerins portent des dessous spéciaux en tissu non cousu (sans élastique) appelés 'wazra'. Pour les femmes : oui, les femmes portent leurs vêtements habituels (y compris sous-vêtements) sous leur tenue d'ihram. Les femmes n'ont pas les mêmes restrictions de vêtements que les hommes pendant l'ihram." },
+      { q: "Combien coûte une tenue d'ihram ?", a: "Une tenue d'ihram homme standard (2 pièces en coton) coûte 15-25€ en France dans les boutiques islamiques ou sur Amazon. Les tenues de qualité supérieure (tissu terry, anti-transpiration, anti-odeur) coûtent 30-60€. Prévoyez 2 jeux d'ihram pour pouvoir changer si un se salit. Les femmes n'ont pas de dépense supplémentaire puisqu'elles portent leur tenue islamique habituelle." },
+    ],
+  },
+  "/sante-omra": {
+    title: "Santé et Vaccins pour l'Omra 2027 : Guide Médical Complet",
+    description: "Vaccins obligatoires et recommandés pour l'Omra 2027 : méningite (ACYW135) obligatoire, grippe, COVID. Médicaments à emporter, assurance rapatriement, conseils médicaux. Guide santé pèlerinage.",
+    canonical: "https://omrabonsplans.fr/sante-omra",
+    h1: "Santé pour l'Omra 2027 : Vaccins, Médicaments et Conseils",
+    intro: "Se préparer médicalement avant l'Omra est aussi important que se préparer spirituellement. Les autorités saoudiennes imposent certaines vaccinations obligatoires et recommandent d'autres précautions sanitaires. Avec plusieurs millions de pèlerins venus du monde entier, le risque de transmission de maladies respiratoires est réel. Ce guide médical complet vous aidera à partir en Omra en toute sécurité.",
+    sections: [
+      { h2: "Vaccins obligatoires pour l'Omra (Arabie Saoudite)", text: "Méningite à méningocoques ACYW135 : OBLIGATOIRE. Ce vaccin est exigé à l'entrée en Arabie Saoudite pour tout pèlerin Omra ou Hajj. Il doit avoir été administré moins de 3 ans avant l'entrée. Vaccin recommandé : Nimenrix ou Menveo (tétravalent). Le carnet de vaccination doit mentionner ce vaccin. Sans ce vaccin, vous risquez de vous voir refuser le visa ou l'accès au territoire. Faites-le 2-4 semaines avant le départ pour qu'il soit actif." },
+      { h2: "Vaccins recommandés et préparation médicale", text: "Grippe saisonnière : fortement recommandée (rassemblements de millions de personnes = risque épidémique). COVID-19 : vérifiez les exigences actuelles des autorités saoudiennes. Typhoïde : recommandée. Hépatite A et B : si non immunisé. Polio : rappel si nécessaire. Médicaments à emporter : paracétamol, ibuprofène, antidiarrhéiques (lopéramide), antihistaminiques, désinfectant cutané, pansements, traitement habituel + 15 jours de réserve, hydratants nasaux. Consultez votre médecin traitant ou un médecin du voyage 6-8 semaines avant le départ." },
+      { h2: "Assurance rapatriement et prise en charge médicale en Arabie Saoudite", text: "Une assurance rapatriement médicalisé est INDISPENSABLE pour l'Omra. Les frais médicaux en Arabie Saoudite peuvent atteindre plusieurs milliers d'euros pour une hospitalisation. Votre carte européenne d'assurance maladie ne fonctionne PAS en Arabie Saoudite. Souscrivez une assurance voyage avec rapatriement médical (30-80€ pour 2 semaines). La plupart des agences Omra agréées incluent une assurance dans leurs forfaits. Vérifiez les plafonds de couverture (minimum recommandé : 100 000€)." },
+    ],
+    faqs: [
+      { q: "Quel vaccin est obligatoire pour l'Omra ?", a: "Le vaccin contre la méningite à méningocoques ACYW135 est OBLIGATOIRE pour entrer en Arabie Saoudite pour l'Omra. Il doit être administré moins de 3 ans avant votre entrée sur le territoire. Vaccin recommandé : Nimenrix (Pfizer) ou Menveo (GSK). Obtenez-le chez votre médecin ou dans un centre de vaccination internationale au moins 2 semaines avant votre départ. Votre carnet international de vaccination doit mentionner ce vaccin pour l'obtention du visa Omra." },
+      { q: "Doit-on être vacciné contre la COVID pour l'Omra ?", a: "Les exigences de vaccination COVID pour l'Omra évoluent régulièrement. Depuis 2023, l'Arabie Saoudite a levé l'obligation de vaccination COVID pour les pèlerins. Cependant, un rappel booster COVID est fortement recommandé par les autorités sanitaires françaises avant tout pèlerinage compte tenu des rassemblements massifs. Vérifiez les recommandations actuelles sur le site de votre agence et auprès de l'ambassade d'Arabie Saoudite avant votre départ en 2027." },
+      { q: "Comment éviter les maladies respiratoires pendant l'Omra ?", a: "Le 'rhume de La Mecque' touche plus de 50% des pèlerins. Prévention : portez un masque FFP2 dans les espaces très fréquentés (Tawaf, Sa'y), lavez-vous les mains fréquemment avec du gel hydroalcoolique, évitez de vous approcher trop près des malades, hydratez-vous bien (3-4 litres/jour), dormez suffisamment. Emportez des médicaments pour rhume/toux dans votre trousse médicale. Vaccinez-vous contre la grippe 2-4 semaines avant le départ." },
+      { q: "Les personnes diabétiques ou cardiaques peuvent-elles faire l'Omra ?", a: "Oui, avec une préparation médicale renforcée. Consultez votre cardiologue ou endocrinologue au moins 2 mois avant le départ. Points clés pour les diabétiques : adapter votre traitement à la chaleur et aux rites (marche intensive), emportez glucomètre + bandelettes + insuline avec ordonnance, glucose rapide en cas d'hypoglycémie. Pour les cardiaques : emportez votre ECG récent, votre liste de médicaments en français et en anglais, et souscrivez une assurance rapatriement avec couverture élevée (200 000€+)." },
+    ],
+  },
+  "/dua-omra": {
+    title: "Dua et Invocations pour l'Omra : Guide Complet des Supplications",
+    description: "Toutes les duas et invocations pour l'Omra : dua du Tawaf, dua de la Sa'y, invocation Safa et Marwa, dhikr entre chaque tour. Guide spirituel complet avec translittération.",
+    canonical: "https://omrabonsplans.fr/dua-omra",
+    h1: "Duas et Invocations pour l'Omra : Guide Spirituel Complet",
+    intro: "L'Omra est un acte d'adoration profond qui se vit pleinement dans la prière et l'invocation. Contrairement à une idée répandue, il n'existe pas de duas spécifiques obligatoires pour le Tawaf ou la Sa'y — vous pouvez invoquer Allah ﷻ dans vos propres mots, en arabe, français ou toute autre langue. Cependant, apprendre les duas authentiques transmises par le Prophète ﷺ et ses compagnons enrichit considérablement l'expérience spirituelle du pèlerinage.",
+    sections: [
+      { h2: "Duas pendant le Tawaf (circumambulation de la Ka'ba)", text: "Pendant le Tawaf (7 tours autour de la Ka'ba dans le sens antihoraire), il n'y a pas de dua imposée pour chaque tour. La tradition recommande de : (1) Dire 'Bismillah, Allahu Akbar' en touchant ou faisant face à la Pierre Noire à chaque tour, (2) Faire des duas personnelles sincères entre la Pierre Noire et la Porte de la Ka'ba (côté yéménite) — ce lieu est particulièrement béni : 'Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhab an-nar' (Notre Seigneur, accorde-nous le bien en ce monde et le bien dans l'au-delà, et préserve-nous du feu de l'Enfer), (3) Faire du dhikr (Subhanallah, Alhamdulillah, La ilaha illallah, Allahu Akbar) entre les supplications personnelles." },
+      { h2: "Invocations à Safa et Marwa (Sa'y)", text: "La Sa'y commence à Safa. En y montant, récitez : 'Inna as-Safa wal-Marwata min sha'a'irillah' (Safa et Marwa font partie des rites d'Allah), puis tournez-vous vers la Ka'ba et dites : 'Allahu Akbar, Allahu Akbar, Allahu Akbar, wa lillahil hamd. La ilaha illallahu wahdahu la sharika lah, lahul mulku wa lahul hamdu, yuhyi wa yumit, wa huwa 'ala kulli shay'in qadir'. Cette invocation est répétée 3 fois à Safa et à Marwa à chaque tour. Entre les deux, vous pouvez faire toutes les duas que vous souhaitez. Accélérez le pas entre les deux balises vertes (Mas'a) si vous êtes un homme — c'est une Sunna." },
+      { h2: "Le sens spirituel des invocations pendant l'Omra", text: "Les invocations de l'Omra ne sont pas de simples formules — elles sont une conversation directe avec Allah ﷻ. L'Omra est un moment unique où les prières sont plus susceptibles d'être exaucées selon de nombreux savants. Conseils pour des invocations sincères : préparez en amont une liste de vos besoins et de ceux de votre famille, invocations pour vos proches malades, pour votre avenir, pour la Oumma — le fait d'être sur les Lieux Saints ajoute une dimension particulière à chaque dua. La langue importe peu — Allah ﷻ comprend toutes les langues et ce qui compte est la sincérité du cœur (ikhlas)." },
+    ],
+    faqs: [
+      { q: "Quelles duas réciter pendant le Tawaf ?", a: "Pendant le Tawaf, il n'y a pas de duas imposées. Vous pouvez : (1) Réciter du Coran, (2) Faire du dhikr (Subhanallah, Alhamdulillah, Allahu Akbar, La ilaha illallah), (3) Faire des invocations personnelles en français ou arabe, (4) À chaque passage devant la Pierre Noire, dire 'Bismillah, Allahu Akbar'. La seule invocation prouvée de manière authentique pour le Tawaf est celle du Coin yéménite : 'Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhab an-nar'." },
+      { q: "Peut-on faire ses duas en français pendant l'Omra ?", a: "Oui, absolument. Allah ﷻ comprend toutes les langues. Les duas personnelles peuvent être faites en français, arabe, berbère, ourdou ou toute autre langue. Les invocations en arabe du Prophète ﷺ ont l'avantage d'être des prières confirmées, mais vos invocations personnelles en français, sincères et venant du cœur, sont tout aussi valables. L'essentiel est la présence du cœur (khushu') et la sincérité." },
+      { q: "Quelle est la dua pour commencer l'Omra ?", a: "En entrant en état d'ihram après les 2 raka'at de prière sunnah, dites la Talbiyya : 'Labbayka Allahumma labbayk, labbayka la sharika laka labbayk, innal hamda wan-ni'mata laka wal-mulk, la sharika lak'. Traduction : 'Me voici, ô Allah, me voici ! Me voici, Tu n'as pas d'associé, me voici ! La louange, la grâce et la royauté T'appartiennent, Tu n'as pas d'associé.' La Talbiyya est répétée tout au long du trajet vers La Mecque jusqu'au premier Tawaf." },
+      { q: "Est-il permis de faire des duas pour les autres pendant l'Omra ?", a: "Oui, faire des duas pour les autres (parents, enfants, malades, défunts, Oumma) est fortement recommandé pendant l'Omra. L'ange répond 'Amin' à vos duas pour les autres et vous fait la même dua en retour. Préparez une liste des personnes pour lesquelles vous souhaitez prier avant votre départ. Les savants recommandent de prier d'abord pour soi-même, puis pour ses parents, puis pour sa famille, puis pour les musulmans en général — sur les Lieux Saints, chaque dua est précieuse." },
+    ],
+  },
 };
 
 function escHtml(s: string): string {
@@ -810,7 +966,17 @@ export default async function handler(req: Request, context: Context) {
       "name": "Omra Bons Plans",
       "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" },
     },
-    "dateModified": "2026-11-12",
+    "dateModified": "2026-11-19",
+  });
+
+  const breadcrumbSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://omrabonsplans.fr" },
+      { "@type": "ListItem", "position": 2, "name": "Guides Omra & Hajj", "item": "https://omrabonsplans.fr/category/guides" },
+      { "@type": "ListItem", "position": 3, "name": page.h1, "item": page.canonical },
+    ],
   });
 
   const faqSchema = page.faqs.length > 0 ? JSON.stringify({
@@ -841,12 +1007,14 @@ export default async function handler(req: Request, context: Context) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escHtml(page.title)}</title>
   <meta name="description" content="${escHtml(page.description)}">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="${page.canonical}">
   <meta property="og:title" content="${escHtml(page.title)}">
   <meta property="og:description" content="${escHtml(page.description)}">
   <meta property="og:url" content="${page.canonical}">
   <meta property="og:type" content="article">
   <script type="application/ld+json">${articleSchema}</script>
+  <script type="application/ld+json">${breadcrumbSchema}</script>
   ${faqSchema ? `<script type="application/ld+json">${faqSchema}</script>` : ""}
 </head>
 <body>
@@ -863,7 +1031,6 @@ export default async function handler(req: Request, context: Context) {
   <footer>
     <p><a href="https://omrabonsplans.fr/">Comparer les offres Omra</a> · <a href="https://omrabonsplans.fr/comparatif-agences">Comparatif agences</a> · <a href="https://omrabonsplans.fr/about">À propos de Farid d'Arabie</a></p>
   </footer>
-  <div id="root"></div>
 </body>
 </html>`;
 
@@ -876,6 +1043,7 @@ export default async function handler(req: Request, context: Context) {
       // the stripped bot page instead of the React SPA.
       "cache-control": "private, no-store",
       "vary": "User-Agent",
+      "x-robots-tag": "index, follow",
     },
   });
 }

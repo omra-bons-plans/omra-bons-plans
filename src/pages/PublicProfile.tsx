@@ -633,7 +633,7 @@ const PublicProfile = () => {
                       <Card 
                         key={ad.id}
                         className="cursor-pointer hover:shadow-lg transition-shadow"
-                        onClick={() => navigate(`/ad/${ad.id}`)}
+                        onClick={() => navigate(`/ad/${ad.slug || ad.id}`)}
                       >
                         {ad.cover_image && (
                           <div className="aspect-video w-full overflow-hidden rounded-t-lg">

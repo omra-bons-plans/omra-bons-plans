@@ -118,14 +118,22 @@ export default function AdDetails() {
     try {
       setLoading(true);
 
-      // Fetch ad first
-      const { data: adData, error: adError } = await supabase
-        .from('ads')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+      // Fetch ad by UUID or slug
+      const query = supabase.from('ads').select('*');
+      const { data: adData, error: adError } = await (isUuid
+        ? query.eq('id', id)
+        : query.eq('slug', id)
+      ).single();
 
       if (adError) throw adError;
+
+      // Redirect old UUID URLs to slug URL for SEO
+      if (isUuid && adData.slug) {
+        navigate(`/ad/${adData.slug}`, { replace: true });
+        return;
+      }
 
       if (!adData.is_published) {
         throw new Error('Cette annonce n\'est plus disponible');
@@ -392,7 +400,7 @@ export default function AdDetails() {
         keywords={[ad.category, 'omra', 'hajj', ad.location]}
         type="product"
         image={ad.cover_image || ad.images[0] || undefined}
-        path={`/ad/${id}`}
+        path={`/ad/${ad.slug || id}`}
         structuredData={structuredData}
         noindex={true}
       />

@@ -76,7 +76,7 @@ const Search = () => {
   const getResultLink = (result: SearchResult) => {
     switch (result.type) {
       case 'ad':
-        return `/ad/${result.id}`;
+        return `/ad/${result.slug || result.id}`;
       case 'blog':
         return `/blog/${result.category}/${result.slug}`;
       default:

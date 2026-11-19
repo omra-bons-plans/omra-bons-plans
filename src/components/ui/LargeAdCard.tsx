@@ -15,7 +15,7 @@ interface LargeAdCardProps {
 export const LargeAdCard = ({ listing, className, selectedCategory }: LargeAdCardProps) => {
   return (
     <Link 
-      to={`/ad/${listing.id}`}
+      to={`/ad/${listing.slug || listing.id}`}
       state={{ selectedCategory: selectedCategory || listing.type }}
     >
       <Card className={cn(

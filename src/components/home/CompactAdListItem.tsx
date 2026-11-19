@@ -42,7 +42,7 @@ const getCategoryLabel = (type: string) => {
 export const CompactAdListItem = memo(({ listing, selectedCategory }: CompactAdListItemProps) => {
   return (
     <Link
-      to={`/ad/${listing.id}`}
+      to={`/ad/${listing.slug || listing.id}`}
       state={{ fromCategory: selectedCategory || (listing.type === 'hebergement' ? 'hebergements' : listing.type) }}
       className="block"
     >
