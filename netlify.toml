@@ -134,6 +134,10 @@
   path = "/comparateur-omra-france"
   function = "homepage-prerender"
 
+[[edge_functions]]
+  path = "/ad/*"
+  function = "ad-prerender"
+
 # /blog/[category] doit être AVANT /blog/* pour intercepter les pages de liste
 [[edge_functions]]
   path = "/blog/general"
