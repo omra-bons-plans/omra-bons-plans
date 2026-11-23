@@ -32,11 +32,8 @@ import LayoutGrid from 'lucide-react/dist/esm/icons/layout-grid';
 import Search from 'lucide-react/dist/esm/icons/search';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
-import { useAdmin } from '@/contexts/AdminContext';
-import { useNotifications } from '@/hooks/useNotifications';
 import Logo from '@/components/ui/Logo';
-import { toast } from 'sonner';
+import { useSidebarAuth } from '@/hooks/useSidebarAuth';
 import {
   Sidebar,
   SidebarContent,
@@ -52,33 +49,17 @@ import {
 export function DesktopSidebar() {
   const [bonsPlansOpen, setBonsPlansOpen] = useState(true);
   const [servicesOpen, setServicesOpen] = useState(true);
-  const { user, signOut } = useAuth();
-  const { isAdmin } = useAdmin();
-  const { unreadCount } = useNotifications();
+  const { user, isAdmin, unreadCount, handleSignOut, getInitials } = useSidebarAuth();
   const { state } = useSidebar();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // Détermine si on est sur la page comparateur (accueil) ou bons plans
+
   const isOnComparateur = location.pathname === '/' || location.pathname === '/omra' || location.pathname === '/hajj' || location.pathname === '/comparateur-omra';
   const mainButtonLabel = isOnComparateur ? 'Bons Plans' : 'Comparateur';
   const mainButtonLink = isOnComparateur ? '/bons-plans' : '/omra';
   const MainButtonIcon = isOnComparateur ? LayoutGrid : Home;
 
   const collapsed = state === "collapsed";
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      toast.success('Déconnexion réussie');
-    } catch (error) {
-      toast.error('Erreur lors de la déconnexion');
-    }
-  };
-
-  const getInitials = (email: string) => {
-    return email.split('@')[0].substring(0, 2).toUpperCase();
-  };
 
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive ? "bg-muted text-primary font-medium" : "hover:bg-muted/50";
