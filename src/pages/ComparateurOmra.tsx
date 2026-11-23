@@ -28,10 +28,8 @@ import Star from 'lucide-react/dist/esm/icons/star';
 import Building2 from 'lucide-react/dist/esm/icons/building-2';
 import X from 'lucide-react/dist/esm/icons/x';
 import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw';
-import Mail from 'lucide-react/dist/esm/icons/mail';
 import List from 'lucide-react/dist/esm/icons/list';
 import Grid3x3 from 'lucide-react/dist/esm/icons/grid-3x3';
-import Send from 'lucide-react/dist/esm/icons/send';
 import Package from 'lucide-react/dist/esm/icons/package';
 import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Copy from 'lucide-react/dist/esm/icons/copy';
@@ -44,10 +42,7 @@ import { OptimizedHeroImage } from '@/components/ui/OptimizedHeroImage';
 import { OffersPagination } from '@/components/ui/OffersPagination';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
 import { InternalLinks } from '@/components/SEO/InternalLinks';
-// ⚡ LAZY LOAD: Textarea for non-critical form
-const Textarea = lazy(() => import('@/components/ui/textarea').then(m => ({ default: m.Textarea })));
 import { toast } from 'sonner';
-import { z } from 'zod';
 // ⚡ PERFORMANCE: Preload agency logos
 import { usePreloadAgencyLogos } from '@/hooks/usePreloadAgencyLogos';
 // ⚡ PERFORMANCE: Constants extracted to reduce main bundle parsing
@@ -56,6 +51,7 @@ import { MONTHS, FORMULA_TYPES, CITIES, AGENCY_LOGOS, getAgencyLogo, extractStar
 // ⚡ LAZY LOAD: Only large non-critical components
 const FilterForm = lazy(() => import('@/components/ui/FilterForm').then(m => ({ default: m.FilterForm })));
 const HajjNewsletterForm = lazy(() => import('@/components/forms/HajjNewsletterForm').then(m => ({ default: m.HajjNewsletterForm })));
+const AgencyContactForm = lazy(() => import('@/components/comparateur/AgencyContactForm').then(m => ({ default: m.AgencyContactForm })));
 // Direct imports for above-the-fold components
 import { CompactOfferCard } from '@/components/mobile/CompactOfferCard';
 import { LazyAgencyLogo } from '@/components/ui/LazyAgencyLogo';
@@ -92,13 +88,6 @@ const normalizeCity = (city: string) => {
   return cityMap[normalized] || city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
 };
 
-const agencyFormSchema = z.object({
-  agencyName: z.string().trim().min(2, { message: "Le nom de l'agence est requis" }).max(100, { message: "Le nom de l'agence doit faire moins de 100 caractères" }),
-  contactName: z.string().trim().min(2, { message: "Votre nom est requis" }).max(100, { message: "Le nom doit faire moins de 100 caractères" }),
-  email: z.string().trim().email({ message: "Email invalide" }).max(255, { message: "L'email doit faire moins de 255 caractères" }),
-  phone: z.string().trim().min(10, { message: "Numéro de téléphone invalide" }).max(20, { message: "Le téléphone doit faire moins de 20 caractères" }),
-  message: z.string().trim().min(10, { message: "Le message doit faire au moins 10 caractères" }).max(1000, { message: "Le message doit faire moins de 1000 caractères" })
-});
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -182,15 +171,6 @@ export default function ComparateurOmra() {
   const [dataPhaseEnabled, setDataPhaseEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Formulaire agence
-  const [agencyForm, setAgencyForm] = useState({
-    agencyName: '',
-    contactName: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // ⚡ TBT OPTIMIZATION: Defer non-critical queries - only load after user interacts or after 3s
   const [deferredQueriesEnabled, setDeferredQueriesEnabled] = useState(false);
@@ -618,47 +598,6 @@ export default function ComparateurOmra() {
     setSelectedPackage('all');
   };
 
-  const handleAgencyFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const validatedData = agencyFormSchema.parse(agencyForm);
-      
-      // Séparer le nom complet en prénom et nom
-      const nameParts = validatedData.contactName.trim().split(' ');
-      const prenom = nameParts[0] || '';
-      const nom = nameParts.slice(1).join(' ') || nameParts[0];
-      
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          nom: nom,
-          prenom: prenom,
-          mail: validatedData.email,
-          message: `Demande d'apparition dans le comparateur\n\nAgence: ${validatedData.agencyName}\nContact: ${validatedData.contactName}\nTéléphone: ${validatedData.phone}\n\nMessage:\n${validatedData.message}`
-        }
-      });
-
-      if (error) throw error;
-
-      toast.success('Votre demande a été envoyée avec succès !');
-      setAgencyForm({
-        agencyName: '',
-        contactName: '',
-        email: '',
-        phone: '',
-        message: ''
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        toast.error(error.errors[0].message);
-      } else {
-        toast.error('Erreur lors de l\'envoi du message');
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <ResponsiveLayout>
@@ -1936,117 +1875,9 @@ export default function ComparateurOmra() {
          </Card>
 
          {/* Formulaire contact agence */}
-         <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/5 via-background to-primary/5 border-primary/20">
-           <div className="max-w-2xl mx-auto">
-             <div className="text-center mb-8">
-               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-                 <Mail className="h-4 w-4" />
-                 <span>Agences de voyage</span>
-               </div>
-               <h2 className="text-3xl md:text-4xl font-bold mb-3">Vous souhaitez apparaître sur notre comparateur ?</h2>
-               <p className="text-muted-foreground text-lg">Écrivez-nous et faites découvrir vos offres à des milliers de pèlerins</p>
-             </div>
-
-             <form onSubmit={handleAgencyFormSubmit} className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <div className="space-y-2">
-                   <label htmlFor="agencyName" className="text-sm font-medium">
-                     Nom de l'agence <span className="text-destructive">*</span>
-                   </label>
-                   <Input
-                     id="agencyName"
-                     placeholder="Votre agence"
-                     value={agencyForm.agencyName}
-                     onChange={(e) => setAgencyForm({ ...agencyForm, agencyName: e.target.value })}
-                     required
-                     maxLength={100}
-                   />
-                 </div>
-
-                 <div className="space-y-2">
-                   <label htmlFor="contactName" className="text-sm font-medium">
-                     Votre nom <span className="text-destructive">*</span>
-                   </label>
-                   <Input
-                     id="contactName"
-                     placeholder="Prénom Nom"
-                     value={agencyForm.contactName}
-                     onChange={(e) => setAgencyForm({ ...agencyForm, contactName: e.target.value })}
-                     required
-                     maxLength={100}
-                   />
-                 </div>
-
-                 <div className="space-y-2">
-                   <label htmlFor="email" className="text-sm font-medium">
-                     Email <span className="text-destructive">*</span>
-                   </label>
-                   <Input
-                     id="email"
-                     type="email"
-                     placeholder="contact@votre-agence.fr"
-                     value={agencyForm.email}
-                     onChange={(e) => setAgencyForm({ ...agencyForm, email: e.target.value })}
-                     required
-                     maxLength={255}
-                   />
-                 </div>
-
-                 <div className="space-y-2">
-                   <label htmlFor="phone" className="text-sm font-medium">
-                     Téléphone <span className="text-destructive">*</span>
-                   </label>
-                   <Input
-                     id="phone"
-                     type="tel"
-                     placeholder="06 12 34 56 78"
-                     value={agencyForm.phone}
-                     onChange={(e) => setAgencyForm({ ...agencyForm, phone: e.target.value })}
-                     required
-                     maxLength={20}
-                   />
-                 </div>
-               </div>
-
-               <div className="space-y-2">
-                 <label htmlFor="message" className="text-sm font-medium">
-                   Votre message <span className="text-destructive">*</span>
-                 </label>
-                 <Textarea
-                   id="message"
-                   placeholder="Parlez-nous de votre agence, de vos offres et pourquoi vous souhaitez rejoindre notre comparateur..."
-                   value={agencyForm.message}
-                   onChange={(e) => setAgencyForm({ ...agencyForm, message: e.target.value })}
-                   required
-                   maxLength={1000}
-                   rows={6}
-                   className="resize-none"
-                 />
-                 <p className="text-xs text-muted-foreground text-right">
-                   {agencyForm.message.length}/1000 caractères
-                 </p>
-               </div>
-
-               <Button 
-                 type="submit" 
-                 className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md hover:shadow-xl transition-all"
-                 disabled={isSubmitting}
-               >
-                 {isSubmitting ? (
-                   <>
-                     <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
-                     Envoi en cours...
-                   </>
-                 ) : (
-                   <>
-                     <Send className="h-5 w-5 mr-2" />
-                     Envoyer ma demande
-                   </>
-                 )}
-               </Button>
-             </form>
-           </div>
-          </Card>
+         <Suspense fallback={null}>
+           <AgencyContactForm />
+         </Suspense>
         </div>
         
         {/* Section SEO - Contenu riche en mots-clés */}
