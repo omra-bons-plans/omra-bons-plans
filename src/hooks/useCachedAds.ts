@@ -52,6 +52,7 @@ export interface CachedFormattedListing {
   location: string;
   isPopular: boolean;
   isExpired?: boolean;
+  slug?: string;
 }
 
 // ⚡ FIXED: Deterministic pseudo-random based on id to avoid re-renders

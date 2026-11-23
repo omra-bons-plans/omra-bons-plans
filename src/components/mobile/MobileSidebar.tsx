@@ -31,38 +31,23 @@ import Home from 'lucide-react/dist/esm/icons/home';
 import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
-import { useAdmin } from '@/contexts/AdminContext';
-import { useNotifications } from '@/hooks/useNotifications';
 import Logo from '@/components/ui/Logo';
-import { toast } from 'sonner';
+import { useSidebarAuth } from '@/hooks/useSidebarAuth';
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bonsPlansOpen, setBonsPlansOpen] = useState(false);
   const [comparatifsOpen, setComparatifsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const { user, signOut } = useAuth();
-  const { isAdmin } = useAdmin();
-  const { unreadCount } = useNotifications();
+  const { user, isAdmin, unreadCount, handleSignOut: signOut, getInitials } = useSidebarAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // Le bouton flottant "Publier une annonce" ne s'affiche QUE sur la page Bons Plans
+
   const shouldShowPublishButton = location.pathname === '/bons-plans';
 
   const handleSignOut = async () => {
-    try {
-      await signOut();
-      toast.success('Déconnexion réussie');
-      setIsOpen(false);
-    } catch (error) {
-      toast.error('Erreur lors de la déconnexion');
-    }
-  };
-
-  const getInitials = (email: string) => {
-    return email.split('@')[0].substring(0, 2).toUpperCase();
+    await signOut();
+    setIsOpen(false);
   };
 
   return (

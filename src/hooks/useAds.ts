@@ -42,8 +42,9 @@ export interface FormattedListing {
   reviews: number;
   location: string;
   isPopular: boolean;
-  isExpired?: boolean; // Nouvelle propriété pour indiquer si l'annonce est expirée
-  hotelStars?: number; // Nombre d'étoiles pour les hébergements de type hôtel
+  isExpired?: boolean;
+  hotelStars?: number;
+  slug?: string;
 }
 
 export const useAds = (limit: number = 15, offset: number = 0) => {
