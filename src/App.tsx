@@ -12,6 +12,7 @@ import { AdminProvider } from "@/contexts/AdminContext";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
+import AdminRoute from "./components/ui/AdminRoute";
 const ScrollToTop = lazy(() => import("./components/ui/ScrollToTop"));
 const BackToTopButton = lazy(() => import("./components/ui/BackToTopButton"));
 const CanonicalRedirect = lazy(() => import("./components/SEO/CanonicalRedirect"));
@@ -152,9 +153,9 @@ const App = () => (
                     </ProtectedRoute>
                   } />
                   <Route path="/admin" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <Admin />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/publish" element={
                     <ProtectedRoute>
@@ -214,64 +215,64 @@ const App = () => (
                   <Route path="/blog/:category/:slug" element={<BlogPost />} />
                   <Route path="/discussions" element={<Discussions />} />
                   <Route path="/admin/topic-requests" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <AdminTopicRequests />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                    <Route path="/admin/security-audit" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminSecurityAudit />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/scrapers" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminScrapers />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/omra-offers" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminOmraOffers />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/omra-management" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminOmraManagement />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/hajj-management" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminHajjManagement />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/agencies" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminAgencies />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/hotels" element={
-                     <ProtectedRoute>
+                     <AdminRoute>
                        <AdminHotels />
-                     </ProtectedRoute>
+                     </AdminRoute>
                    } />
                    <Route path="/admin/ads" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <AdminAds />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/admin/blog" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <AdminBlog />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/admin/blog/new" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <BlogEditor />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/admin/blog/edit/:id" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <BlogEditor />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/notifications" element={
                     <ProtectedRoute>

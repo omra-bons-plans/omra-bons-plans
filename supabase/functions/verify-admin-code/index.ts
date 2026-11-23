@@ -9,6 +9,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const MAX_ATTEMPTS = 5;
+
 interface VerifyCodeRequest {
   email: string;
   code: string;
@@ -24,7 +26,7 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const { email, code, ipAddress, userAgent, deviceFingerprint }: VerifyCodeRequest = await req.json();
-    
+
     console.log("Verify admin code for:", email);
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -37,10 +39,25 @@ const handler = async (req: Request): Promise<Response> => {
       .single();
 
     if (userError || !userData) {
-      console.error("User not found:", email);
       return new Response(
         JSON.stringify({ error: "Utilisateur non trouvé" }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Compter les tentatives échouées récentes (codes non utilisés mais avec échecs)
+    const { count: failedCount } = await supabase
+      .from('admin_login_attempts')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userData.id)
+      .eq('success', false)
+      .gte('attempted_at', new Date(Date.now() - 30 * 60 * 1000).toISOString()); // 30 dernières minutes
+
+    if ((failedCount ?? 0) >= MAX_ATTEMPTS) {
+      console.warn("Too many failed attempts for:", email);
+      return new Response(
+        JSON.stringify({ error: "Trop de tentatives. Réessayez dans 30 minutes." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -57,11 +74,21 @@ const handler = async (req: Request): Promise<Response> => {
       .single();
 
     if (codeError || !codeData) {
-      console.error("Invalid or expired code");
+      // Enregistrer l'échec
+      await supabase.from('admin_login_attempts').insert({
+        user_id: userData.id,
+        ip_address: ipAddress,
+        success: false,
+        attempted_at: new Date().toISOString(),
+      });
+
+      const remaining = MAX_ATTEMPTS - (failedCount ?? 0) - 1;
       return new Response(
-        JSON.stringify({ 
+        JSON.stringify({
           success: false,
-          error: "Code invalide ou expiré" 
+          error: remaining > 0
+            ? `Code invalide ou expiré. ${remaining} tentative(s) restante(s).`
+            : "Code invalide. Compte temporairement bloqué.",
         }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -69,7 +96,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Générer un token de session
     const sessionToken = crypto.randomUUID();
-    const sessionExpiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 minutes
+    const sessionExpiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
 
     // Marquer le code comme utilisé et créer la session
     const { error: updateError } = await supabase
@@ -85,14 +112,21 @@ const handler = async (req: Request): Promise<Response> => {
       .eq('id', codeData.id);
 
     if (updateError) {
-      console.error("Error updating code:", updateError);
       throw updateError;
     }
+
+    // Enregistrer le succès
+    await supabase.from('admin_login_attempts').insert({
+      user_id: userData.id,
+      ip_address: ipAddress,
+      success: true,
+      attempted_at: new Date().toISOString(),
+    });
 
     console.log("Code verified successfully, session created");
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
         sessionToken,
         expiresAt: sessionExpiresAt,
@@ -100,10 +134,7 @@ const handler = async (req: Request): Promise<Response> => {
       }),
       {
         status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          ...corsHeaders,
-        },
+        headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   } catch (error: any) {
