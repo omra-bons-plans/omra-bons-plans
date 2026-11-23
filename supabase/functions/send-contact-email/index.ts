@@ -18,6 +18,20 @@ interface ContactEmailRequest {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// In-memory rate limit: max 5 requests per IP per hour
+const rateLimitMap = new Map<string, number[]>();
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (rateLimitMap.get(ip) ?? []).filter(t => now - t < RATE_WINDOW_MS);
+  if (timestamps.length >= RATE_LIMIT) return true;
+  timestamps.push(now);
+  rateLimitMap.set(ip, timestamps);
+  return false;
+}
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -28,16 +42,22 @@ function escapeHtml(str: string): string {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (isRateLimited(ip)) {
+    return new Response(
+      JSON.stringify({ error: "Trop de requêtes. Réessayez dans une heure." }),
+      { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+    );
   }
 
   try {
     const body = await req.json();
     const { nom, prenom, mail, message } = body as ContactEmailRequest;
 
-    // Validation des champs requis
     if (!nom || !prenom || !mail || !message) {
       return new Response(
         JSON.stringify({ error: "Tous les champs sont obligatoires" }),
@@ -45,7 +65,6 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Validation des longueurs
     if (nom.trim().length < 2 || nom.trim().length > 100) {
       return new Response(
         JSON.stringify({ error: "Le nom doit contenir entre 2 et 100 caractères" }),
@@ -101,9 +120,9 @@ const handler = async (req: Request): Promise<Response> => {
               ${safeMessage.replace(/\n/g, '<br>')}
             </div>
           </div>
-          
+
           <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
-          
+
           <p style="font-size: 12px; color: #666;">
             Ce message a été envoyé depuis le formulaire de contact d'OmraBonsPlans.fr
           </p>
