@@ -62,11 +62,11 @@ export default function OmraRamadan() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours | Guide Complet</title>
-        <meta name="description" content="Tout sur l'Omra Ramadan 2027 : dates, prix (1800€-5000€), offres agences françaises, 10 derniers jours du Ramadan. Comparez et réservez votre séjour spirituel." />
+        <title>Omra Ramadan 2027 : offres, prix et dates — Omra Bons Plans</title>
+        <meta name="description" content="Comparez les offres Omra Ramadan 2027 des agences françaises, dès 999 €. Dates, prix et conseils pour les 10 derniers jours." />
         <meta name="keywords" content="omra ramadan 2027, omra pendant le ramadan, 10 derniers jours ramadan 2027, prix omra ramadan, offre omra ramadan, laylat al qadr 2027, omra ramadan pas chere" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-ramadan-2027" />
-        <meta property="og:title" content="Omra Ramadan 2027 : Prix, Offres & 10 Derniers Jours" />
+        <meta property="og:title" content="Omra Ramadan 2027 : offres, prix et dates — Omra Bons Plans" />
         <meta property="og:description" content="Guide complet pour l'Omra Ramadan 2027 : dates, prix, offres d'agences françaises agréées. Comparez les séjours pour les 10 derniers jours du Ramadan." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-ramadan-2027" />
         <meta property="og:type" content="article" />
@@ -104,7 +104,7 @@ export default function OmraRamadan() {
             <Badge variant="outline">Mis à jour avril 2027</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra Ramadan 2027 : Guide Complet, Prix et Meilleures Offres
+            Omra Ramadan 2027
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             L'Omra pendant le Ramadan est l'expérience spirituelle la plus intense de l'année.

@@ -46,11 +46,11 @@ export default function ComparateurOmraFrance() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Comparateur Omra France 2026 — 20+ Agences Agréées</title>
-        <meta name="description" content="Comparateur Omra France : 20+ agences agréées, prix temps réel, avis vérifiés. Trouvez votre séjour Omra 2026 au meilleur prix. 100% gratuit." />
+        <title>Comparateur Omra : comparez les prix des agences — Omra Bons Plans</title>
+        <meta name="description" content="Comparez les offres Omra des agences françaises, dès 999 €. Filtrez par ville de départ, hôtel et pension. Prix mis à jour régulièrement." />
         <meta name="keywords" content="comparateur omra france, comparateur omra, comparateur omra hajj france, comparer omra france, meilleur comparateur omra, agences omra comparatif" />
         <link rel="canonical" href="https://omrabonsplans.fr/comparateur-omra-france" />
-        <meta property="og:title" content="Comparateur Omra France 2026 — 20+ Agences Agréées" />
+        <meta property="og:title" content="Comparateur Omra : comparez les prix des agences — Omra Bons Plans" />
         <meta property="og:description" content="Comparez les offres Omra de toutes les agences agréées en France. Prix en temps réel, avis vérifiés, gratuit." />
         <meta property="og:url" content="https://omrabonsplans.fr/comparateur-omra-france" />
         <meta property="og:type" content="article" />
@@ -114,7 +114,7 @@ export default function ComparateurOmraFrance() {
               <span className="text-foreground">Comparateur Omra France</span>
             </nav>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Comparateur Omra France 2026
+              Comparateur d'offres Omra
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               Comparez les offres de 20+ agences Omra agréées en France — prix en temps réel, avis vérifiés, 100% gratuit

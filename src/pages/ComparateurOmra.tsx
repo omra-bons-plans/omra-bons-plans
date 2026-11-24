@@ -605,10 +605,10 @@ export default function ComparateurOmra() {
       <DynamicSEO
         title={tripType === 'hajj'
           ? "Comparateur Hajj 2027 — Packages & Prix de 20 Agences Agréées | Omra Bons Plans"
-          : "Comparateur Omra 2027 — Prix en Temps Réel de 20 Agences Vérifiées | Omra Bons Plans"}
+          : "Omra pas chère : comparez les offres dès 999 € — Omra Bons Plans"}
         description={tripType === 'hajj'
           ? "Comparez les packages Hajj 2027 de 20+ agences françaises agréées. Prix 5 000€–15 000€, hôtels La Mecque & Médine, vols. Réservez le meilleur Hajj."
-          : "Comparez les offres Omra 2027 de 20+ agences françaises agréées (Tawaf, Medin Voyages, Al-Maqam). Prix transparents, hôtels, dates, vols inclus. Meilleur comparateur Omra France."}
+          : "Comparez les offres Omra des agences françaises, dès 999 €, mises à jour régulièrement. Départs depuis plusieurs villes de France, hôtels et pensions détaillés."}
         keywords={tripType === 'hajj'
           ? ['hajj 2027', 'prix hajj 2027', 'agence hajj france', 'comparateur hajj', 'package hajj', 'inscription hajj 2027', 'dates hajj 2027']
           : ['comparateur omra', 'omra 2027', 'prix omra 2027', 'agence omra france', 'omra tout compris', 'omra pas chère', 'offres omra 2027', 'omra ramadan 2027']}
@@ -700,7 +700,7 @@ export default function ComparateurOmra() {
         <div className="relative z-10 container mx-auto px-4 text-center" >
           <h1 className="font-bold tracking-tight leading-tight px-2 mb-4">
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-lg font-extrabold">
-              {tripType === 'hajj' ? 'Comparateur Hajj 2027' : 'Comparateur Omra 2027'}
+              {tripType === 'hajj' ? 'Comparateur Hajj 2027' : 'Omra pas chère : comparez les offres, dès 999 €'}
             </span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">
               {tripType === 'hajj'
