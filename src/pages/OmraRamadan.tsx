@@ -63,7 +63,7 @@ export default function OmraRamadan() {
     <ResponsiveLayout>
       <Helmet>
         <title>Omra Ramadan 2027 : offres, prix et dates — Omra Bons Plans</title>
-        <meta name="description" content="Comparez les offres Omra Ramadan 2027 des agences françaises, dès 999 €. Dates, prix et conseils pour les 10 derniers jours." />
+        <meta name="description" content="Comparez les offres Omra Ramadan 2027 des agences françaises. Dates, prix et conseils pour les 10 derniers jours." />
         <meta name="keywords" content="omra ramadan 2027, omra pendant le ramadan, 10 derniers jours ramadan 2027, prix omra ramadan, offre omra ramadan, laylat al qadr 2027, omra ramadan pas chere" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-ramadan-2027" />
         <meta property="og:title" content="Omra Ramadan 2027 : offres, prix et dates — Omra Bons Plans" />
@@ -101,7 +101,7 @@ export default function OmraRamadan() {
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
             <Badge className="bg-amber-500 text-white">Ramadan 2027</Badge>
-            <Badge variant="outline">Mis à jour avril 2027</Badge>
+            <Badge variant="outline">Mis à jour novembre 2026</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Omra Ramadan 2027

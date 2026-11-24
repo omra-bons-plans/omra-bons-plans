@@ -704,8 +704,8 @@ export default function ComparateurOmra() {
             </span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">
               {tripType === 'hajj'
-                ? '20+ agences agréées — Packages Hajj vérifiés'
-                : '20+ agences agréées — Offres Omra vérifiées'}
+                ? 'Agences agréées — Packages Hajj vérifiés'
+                : 'Agences agréées — Offres Omra vérifiées'}
             </span>
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
@@ -715,8 +715,8 @@ export default function ComparateurOmra() {
           </p>
           <p className="text-sm sm:text-base md:text-lg text-white/90 px-4 leading-relaxed max-w-3xl mx-auto">
             {tripType === 'hajj'
-              ? 'Packages Hajj depuis toutes les villes de France • Prix mis à jour quotidiennement'
-              : 'Offres Omra depuis Paris, Lyon, Marseille, Bordeaux • Prix mis à jour quotidiennement'}
+              ? 'Packages Hajj depuis toutes les villes de France • Prix mis à jour régulièrement'
+              : 'Offres Omra depuis Paris, Lyon, Marseille, Bordeaux • Prix mis à jour régulièrement'}
           </p>
 
           {/* ⭐ AggregateRating badge — visible pour Google et les utilisateurs */}
