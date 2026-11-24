@@ -22,7 +22,7 @@ const URLS = [
   '/prix-omra-2026',
   '/omra-tout-compris',
   '/omra-femme-seule',
-  '/omra-ramadan-2026',
+  '/omra-ramadan-2027',
   '/omra-en-janvier-2027',
   '/omra-en-decembre-2026',
   '/omra-en-novembre-2026',
