@@ -24,6 +24,7 @@ import { DynamicSEO } from '@/components/SEO/DynamicSEO';
 
 interface UserAd {
   id: string;
+  slug?: string | null;
   title: string;
   description: string;
   price: number;
@@ -71,6 +72,7 @@ const MyAds = () => {
 
       const mappedAds: UserAd[] = (data || []).map(ad => ({
         id: ad.id,
+        slug: ad.slug ?? null,
         title: ad.title,
         description: ad.description,
         price: ad.price,

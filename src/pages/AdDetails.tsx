@@ -31,6 +31,7 @@ import ResponsiveLayout from '@/components/ResponsiveLayout';
 
 interface AdData {
   id: string;
+  slug?: string | null;
   title: string;
   description: string;
   price: number;

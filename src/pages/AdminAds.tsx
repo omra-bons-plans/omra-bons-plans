@@ -28,6 +28,7 @@ import { maskPhoneNumbers } from '@/utils/phoneUtils';
 
 interface AdData {
   id: string;
+  slug?: string | null;
   title: string;
   description: string;
   price: number;

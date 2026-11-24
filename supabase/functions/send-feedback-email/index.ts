@@ -89,7 +89,7 @@ const handler = async (req: Request): Promise<Response> => {
     const adminEmailResponse = await resend.emails.send({
       from: "OmraBonsPlans <contact@omrabonsplans.fr>",
       to: ["contact@omrabonsplans.fr"],
-      reply_to: safeMail,
+      replyTo: safeMail,
       subject: `Nouveau feedback de ${safePrenom} ${safeNom}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
