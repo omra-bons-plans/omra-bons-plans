@@ -98,7 +98,7 @@ export default function PrixOmra() {
             <Badge variant="outline">15+ agences analysées</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Prix Omra 2026 : Tableau Complet des Tarifs par Saison et Agence
+            Prix Omra 2027 : Tableau Complet des Tarifs par Saison et Agence
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Combien coûte une Omra en 2026 depuis la France ? Le prix varie de <strong>800€ à plus de 6 500€</strong>
