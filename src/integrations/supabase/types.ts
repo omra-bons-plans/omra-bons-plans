@@ -113,6 +113,30 @@ export type Database = {
         }
         Relationships: []
       }
+      admin_login_attempts: {
+        Row: {
+          attempted_at: string
+          id: string
+          ip_address: string | null
+          success: boolean
+          user_id: string
+        }
+        Insert: {
+          attempted_at?: string
+          id?: string
+          ip_address?: string | null
+          success?: boolean
+          user_id: string
+        }
+        Update: {
+          attempted_at?: string
+          id?: string
+          ip_address?: string | null
+          success?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
       ads: {
         Row: {
           category: string
@@ -135,6 +159,7 @@ export type Database = {
           show_phone: boolean | null
           show_professional_phone: boolean | null
           show_whatsapp: boolean | null
+          slug: string | null
           title: string
           updated_at: string
           user_id: string
@@ -160,6 +185,7 @@ export type Database = {
           show_phone?: boolean | null
           show_professional_phone?: boolean | null
           show_whatsapp?: boolean | null
+          slug?: string | null
           title: string
           updated_at?: string
           user_id: string
@@ -185,6 +211,7 @@ export type Database = {
           show_phone?: boolean | null
           show_professional_phone?: boolean | null
           show_whatsapp?: boolean | null
+          slug?: string | null
           title?: string
           updated_at?: string
           user_id?: string
@@ -1778,6 +1805,10 @@ export type Database = {
         }
         Returns: string
       }
+      generate_unique_ad_slug: {
+        Args: { p_id: string; p_title: string }
+        Returns: string
+      }
       get_ad_rating: {
         Args: { ad_id: string }
         Returns: {
@@ -1916,6 +1947,8 @@ export type Database = {
         Args: { publish_end_date: string }
         Returns: boolean
       }
+      slugify: { Args: { input: string }; Returns: string }
+      unaccent: { Args: { "": string }; Returns: string }
       verify_admin_session: {
         Args: {
           p_current_ip: unknown
