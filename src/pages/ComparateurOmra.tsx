@@ -704,8 +704,8 @@ export default function ComparateurOmra() {
             </span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mt-3">
               {tripType === 'hajj'
-                ? 'Agences agréées — Packages Hajj vérifiés'
-                : 'Agences agréées — Offres Omra vérifiées'}
+                ? '20+ agences agréées — Packages Hajj vérifiées'
+                : '20+ agences agréées — Offres Omra vérifiées'}
             </span>
           </h1>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-white/95 mb-2 px-4">
