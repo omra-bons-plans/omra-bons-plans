@@ -13,7 +13,7 @@ const faqs = [
     answer: "Pour l'Omra depuis la France, il vous faut un visa Omra (le plus courant, inclus dans les forfaits agences) ou un visa touristique saoudien (eVisa). Le visa Omra est spécifiquement pour le pèlerinage, tandis que le visa touristique permet de visiter l'Arabie Saoudite et d'effectuer l'Omra."
   },
   {
-    question: "Combien coûte le visa Omra en 2026 ?",
+    question: "Combien coûte le visa Omra en 2027 ?",
     answer: "Le visa Omra est généralement inclus dans le prix du forfait agence (sa valeur est de 35 à 60€). Si vous faites une Omra via visa touristique (eVisa), celui-ci coûte environ 130 à 150€ et inclut une assurance obligatoire."
   },
   {
@@ -25,7 +25,7 @@ const faqs = [
     answer: "Oui, depuis 2019, les ressortissants français peuvent faire l'Omra avec un visa touristique saoudien. L'avantage est de pouvoir organiser son voyage librement. L'inconvénient est que vous ne bénéficiez pas du suivi et de l'accompagnement d'une agence agréée."
   },
   {
-    question: "Y a-t-il des restrictions pour le visa Omra en 2026 ?",
+    question: "Y a-t-il des restrictions pour le visa Omra en 2027 ?",
     answer: "Le visa Omra standard permet généralement une entrée en Arabie Saoudite pendant une durée de 30 jours. Il est limité aux villes saintes (La Mecque, Médine). Pour visiter d'autres régions d'Arabie Saoudite, un visa touristique est préférable."
   }
 ];
@@ -58,12 +58,12 @@ export default function VisaOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Visa Omra France 2026 : Types, Prix, Démarches & eVisa Saoudien</title>
-        <meta name="description" content="Tout sur le visa Omra depuis la France en 2026 : visa Omra agence vs eVisa touristique, prix, délais, documents requis. Guide complet et actualisé." />
-        <meta name="keywords" content="visa omra, visa omra france 2026, evisa arabie saoudite, visa touristique omra, demande visa omra, visa omra prix, visa omra délai" />
+        <title>Visa Omra France 2027 : Types, Prix, Démarches & eVisa Saoudien</title>
+        <meta name="description" content="Tout sur le visa Omra depuis la France en 2027 : visa Omra agence vs eVisa touristique, prix, délais, documents requis. Guide complet et actualisé." />
+        <meta name="keywords" content="visa omra, visa omra france 2027, evisa arabie saoudite, visa touristique omra, demande visa omra, visa omra prix, visa omra délai" />
         <link rel="canonical" href="https://omrabonsplans.fr/visa-omra-france" />
-        <meta property="og:title" content="Visa Omra France 2026 : Guide Complet des Démarches" />
-        <meta property="og:description" content="Comment obtenir votre visa Omra depuis la France ? Types de visas, prix, délais, documents nécessaires. Tout ce qu'il faut savoir pour 2026." />
+        <meta property="og:title" content="Visa Omra France 2027 : Guide Complet des Démarches" />
+        <meta property="og:description" content="Comment obtenir votre visa Omra depuis la France ? Types de visas, prix, délais, documents nécessaires. Tout ce qu'il faut savoir pour 2027." />
         <meta property="og:url" content="https://omrabonsplans.fr/visa-omra-france" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
@@ -72,10 +72,10 @@ export default function VisaOmra() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Visa Omra France 2026 : Types, Prix et Démarches",
+          "headline": "Visa Omra France 2027 : Types, Prix et Démarches",
           "url": "https://omrabonsplans.fr/visa-omra-france",
           "datePublished": "2026-01-25",
-          "dateModified": "2026-08-16",
+          "dateModified": "2026-11-24",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp"
@@ -85,7 +85,7 @@ export default function VisaOmra() {
 
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
-        { name: 'Omra 2026', url: '/omra' },
+        { name: 'Omra 2027', url: '/omra' },
         { name: 'Visa Omra France', url: '/visa-omra-france' }
       ]} />
 
@@ -93,17 +93,17 @@ export default function VisaOmra() {
 
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
-            <Badge className="bg-blue-600 text-white">Mis à jour 2026</Badge>
+            <Badge className="bg-blue-600 text-white">Mis à jour 2027</Badge>
             <Badge variant="outline">Procédure officielle</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Visa Omra depuis la France en 2026 : Guide Complet des Démarches
+            Visa Omra depuis la France en 2027 : Guide Complet des Démarches
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Pour accomplir l'Omra, les ressortissants français doivent obtenir un <strong>visa saoudien</strong>.
             Il en existe deux types : le <strong>visa Omra</strong> (via une agence agréée) et
             le <strong>visa touristique eVisa</strong> (individuel). Ce guide vous explique tout
-            pour 2026 : types de visas, prix, délais et documents nécessaires.
+            pour 2027 : types de visas, prix, délais et documents nécessaires.
           </p>
           <Button asChild size="lg" className="mt-4">
             <Link to="/">Trouver une agence avec visa inclus →</Link>
@@ -112,7 +112,7 @@ export default function VisaOmra() {
 
         {/* Comparaison visas */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">🔍 Visa Omra vs eVisa Touristique : Comparatif 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">🔍 Visa Omra vs eVisa Touristique : Comparatif 2027</h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
@@ -209,7 +209,7 @@ export default function VisaOmra() {
 
         {/* Vaccins */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">💉 Vaccinations obligatoires pour l'Omra 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">💉 Vaccinations obligatoires pour l'Omra 2027</h2>
           <Card className="border-amber-200 bg-amber-50">
             <CardContent className="pt-4">
               <h3 className="font-semibold text-amber-800 mb-2">Vaccin méningite ACYW135 : OBLIGATOIRE</h3>
@@ -292,9 +292,9 @@ export default function VisaOmra() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
+            <Link to="/prix-omra-2027" className="text-primary hover:underline text-sm">Prix Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/omra-ramadan-2027" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
             <span className="text-muted-foreground">·</span>
