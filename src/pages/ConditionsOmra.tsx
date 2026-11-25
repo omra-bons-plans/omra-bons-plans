@@ -31,11 +31,11 @@ export default function ConditionsOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Conditions pour Faire l'Omra 2026 : Qui Peut Partir ? | Omra Bons Plans</title>
+        <title>Conditions pour Faire l'Omra 2027 : Qui Peut Partir ? | Omra Bons Plans</title>
         <meta name="description" content="Toutes les conditions pour faire l'Omra en 2026 : conditions religieuses, documents obligatoires, règles pour les femmes seules, vaccins et conditions de santé." />
         <meta name="keywords" content="conditions omra, qui peut faire omra, omra femme seule, mahram omra, vaccin omra, documents omra, visa omra conditions" />
         <link rel="canonical" href="https://omrabonsplans.fr/conditions-omra" />
-        <meta property="og:title" content="Conditions pour Faire l'Omra 2026 : Guide Complet" />
+        <meta property="og:title" content="Conditions pour Faire l'Omra 2027 : Guide Complet" />
         <meta property="og:description" content="Conditions religieuses, documents, vaccins, règles pour les femmes : tout ce qu'il faut savoir pour pouvoir partir en Omra en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/conditions-omra" />
         <meta property="og:type" content="article" />
@@ -44,13 +44,13 @@ export default function ConditionsOmra() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Conditions pour Faire l'Omra 2026" />
+        <meta name="twitter:title" content="Conditions pour Faire l'Omra 2027" />
         <meta name="twitter:description" content="Conditions religieuses, documents, vaccins, règles pour les femmes pour partir en Omra." />
         <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Conditions pour Faire l'Omra 2026 : Qui Peut Partir ?",
+          "headline": "Conditions pour Faire l'Omra 2027 : Qui Peut Partir ?",
           "description": "Guide complet des conditions religieuses, administratives et sanitaires pour partir en Omra en 2026.",
           "url": "https://omrabonsplans.fr/conditions-omra",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },

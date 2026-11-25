@@ -74,7 +74,7 @@ export default function OmraDebutant() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Guide Omra pour Débutant : Premier Pèlerinage 2026 | Omra Bons Plans</title>
+        <title>Guide Omra pour Débutant : Premier Pèlerinage 2027 | Omra Bons Plans</title>
         <meta name="description" content="Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra : préparation, documents, rites étape par étape, budget et conseils pratiques pour 2026." />
         <meta name="keywords" content="omra débutant, premier pèlerinage omra, guide omra, préparer omra, comment faire omra, rites omra étapes" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-debutant" />
@@ -88,13 +88,13 @@ export default function OmraDebutant() {
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Guide Omra pour débutant - Omra Bons Plans" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Guide Omra pour Débutant : Premier Pèlerinage 2026" />
+        <meta name="twitter:title" content="Guide Omra pour Débutant : Premier Pèlerinage 2027" />
         <meta name="twitter:description" content="Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra en 2026." />
         <meta name="twitter:image" content="https://omrabonsplans.fr/og-omra-debutant.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Guide Omra pour Débutant : Premier Pèlerinage 2026",
+          "headline": "Guide Omra pour Débutant : Premier Pèlerinage 2027",
           "description": "Tout ce qu'il faut savoir pour réussir son premier pèlerinage Omra : préparation, documents, rites étape par étape, budget et conseils pratiques pour 2026.",
           "url": "https://omrabonsplans.fr/omra-debutant",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },

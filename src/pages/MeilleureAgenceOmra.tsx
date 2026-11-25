@@ -56,7 +56,7 @@ export default function MeilleureAgenceOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Meilleure Agence Omra 2026 : Classement et Guide de Choix</title>
+        <title>Meilleure Agence Omra 2027 : Classement et Guide de Choix</title>
         <meta name="description" content="Meilleure agence omra 2026 : classement des 5 meilleures (Tawaf, Medinvoyages, Al-Maqam), critères de sélection et questions essentielles à poser." />
         <meta name="keywords" content="meilleure agence omra, quelle agence omra choisir, agence omra fiable, classement agences omra france, comparatif agences" />
         <link rel="canonical" href="https://omrabonsplans.fr/meilleure-agence-omra" />
@@ -70,7 +70,7 @@ export default function MeilleureAgenceOmra() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Meilleure Agence Omra 2026 : Classement et Guide de Choix",
+          "headline": "Meilleure Agence Omra 2027 : Classement et Guide de Choix",
           "description": "Classement des 5 meilleures agences Omra en France basé sur les avis Google, critères de fiabilité et guide complet pour bien choisir.",
           "url": "https://omrabonsplans.fr/meilleure-agence-omra",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -120,7 +120,7 @@ export default function MeilleureAgenceOmra() {
           ]} />
 
           <header className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Meilleure Agence Omra 2026 : Guide de Choix et Classement</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Meilleure Agence Omra 2027 : Guide de Choix et Classement</h1>
             <p className="text-lg text-muted-foreground">
               Découvrez notre classement des 5 meilleures agences Omra en France, les critères de sélection essentiels, et les questions à poser avant de vous engager.
             </p>

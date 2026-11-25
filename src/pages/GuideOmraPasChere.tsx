@@ -56,11 +56,11 @@ export default function GuideOmraPasChere() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Pas Chère 2026 : Prix, 10 Astuces & Comparatif Agences</title>
+        <title>Omra Pas Chère 2027 : Prix, 10 Astuces & Comparatif Agences</title>
         <meta name="description" content="Guide complet pour une Omra pas chère en 2026 : prix réels, 10 astuces pour économiser, comparatif tout compris vs à la carte. Conseils d'experts vérifiés." />
         <meta name="keywords" content="omra pas chère, omra pas cher 2026, prix omra, omra économique, omra budget, omra tout compris pas cher, comparateur omra prix" />
         <link rel="canonical" href="https://omrabonsplans.fr/guide-omra-pas-chere" />
-        <meta property="og:title" content="Guide Omra Pas Chère 2026 : Prix, Astuces & Comparatif" />
+        <meta property="og:title" content="Guide Omra Pas Chère 2027 : Prix, Astuces & Comparatif" />
         <meta property="og:description" content="Guide complet pour organiser une Omra pas chère en 2026. Comparez les prix, découvrez nos astuces pour économiser." />
         <meta property="og:url" content="https://omrabonsplans.fr/guide-omra-pas-chere" />
         <meta property="og:type" content="article" />
@@ -70,7 +70,7 @@ export default function GuideOmraPasChere() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Guide Omra Pas Chère 2026 : Prix, Astuces & Comparatif Complet",
+            "headline": "Guide Omra Pas Chère 2027 : Prix, Astuces & Comparatif Complet",
             "description": "Guide complet pour organiser une Omra pas chère en 2026.",
             "url": "https://omrabonsplans.fr/guide-omra-pas-chere",
             "datePublished": "2026-01-15",

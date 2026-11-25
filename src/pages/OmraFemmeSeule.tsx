@@ -33,11 +33,11 @@ export default function OmraFemmeSeule() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Femme Seule 2026 : Règles, Conseils & Agences Sans Mahram</title>
+        <title>Omra Femme Seule 2027 : Règles, Conseils & Agences Sans Mahram</title>
         <meta name="description" content="Tout sur l'Omra pour femme seule en 2026 : règles actualisées, peut-on partir sans mahram, meilleures agences, conseils sécurité et prix. Guide complet et fiable." />
         <meta name="keywords" content="omra femme seule, omra sans mahram, omra femme 2026, omra pour femme seule france, omra groupe femmes, omra sans mahram 2026, règle omra femme" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-femme-seule" />
-        <meta property="og:title" content="Omra Femme Seule 2026 : Guide Complet Sans Mahram" />
+        <meta property="og:title" content="Omra Femme Seule 2027 : Guide Complet Sans Mahram" />
         <meta property="og:description" content="Peut-on faire l'Omra sans mahram en 2026 ? Oui ! Découvrez les règles, les meilleures agences et tous nos conseils pour une Omra sereine en tant que femme seule." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-femme-seule" />
         <meta property="og:type" content="article" />
@@ -47,7 +47,7 @@ export default function OmraFemmeSeule() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra Femme Seule 2026 : Guide Complet, Règles et Conseils",
+          "headline": "Omra Femme Seule 2027 : Guide Complet, Règles et Conseils",
           "url": "https://omrabonsplans.fr/omra-femme-seule",
           "datePublished": "2026-01-20",
           "dateModified": "2026-08-16",

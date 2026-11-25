@@ -13,11 +13,11 @@ export default function OmraToutCompris() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Tout Compris 2026 : Forfaits et Meilleures Offres</title>
+        <title>Omra Tout Compris 2027 : Forfaits et Meilleures Offres</title>
         <meta name="description" content="Omra tout compris 2026 : forfaits all-inclusive, comparatif agences, prix (1 200€-4 000€). Vol, hôtel, transport, repas inclus. Réservez le meilleur package." />
         <meta name="keywords" content="omra tout compris, forfait omra, séjour omra tout compris, omra all inclusive, package omra pas cher" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-tout-compris" />
-        <meta property="og:title" content="Omra Tout Compris 2026 : Les Meilleures Offres" />
+        <meta property="og:title" content="Omra Tout Compris 2027 : Les Meilleures Offres" />
         <meta property="og:description" content="Omra tout compris : forfaits all-inclusive avec vol + hôtel + repas. Comparatif des meilleures agences et prix." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-tout-compris" />
         <meta property="og:type" content="article" />
@@ -27,7 +27,7 @@ export default function OmraToutCompris() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra Tout Compris 2026 : Forfaits et Meilleures Offres",
+          "headline": "Omra Tout Compris 2027 : Forfaits et Meilleures Offres",
           "description": "Guide complet des forfaits Omra tout compris 2026 : ce qui est inclus, comparatif des prix par standing, et conseils pour bien choisir son package.",
           "url": "https://omrabonsplans.fr/omra-tout-compris",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -85,7 +85,7 @@ export default function OmraToutCompris() {
           ]} />
 
           <header className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Omra Tout Compris 2026 : Guide Complet et Meilleures Offres</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Omra Tout Compris 2027 : Guide Complet et Meilleures Offres</h1>
             <p className="text-lg text-muted-foreground">
               Découvrez les meilleures offres de Omra tout compris : forfaits all-inclusive avec vol, hôtel, repas et encadrement. Comparatif agences et prix actualisés.
             </p>
@@ -140,7 +140,7 @@ export default function OmraToutCompris() {
           </section>
 
           <section id="prix" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Prix Omra Tout Compris 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Prix Omra Tout Compris 2027</h2>
             <div className="space-y-3">
               {[
                 { cat: "Économique (3★)", prix: "1 200€ - 1 500€", hotel: "Hôtel 3 étoiles", dist: "1-2 km du Haram" },
