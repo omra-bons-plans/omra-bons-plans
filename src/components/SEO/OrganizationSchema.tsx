@@ -27,7 +27,7 @@ export const OrganizationSchema = () => {
         "@id": "https://omrabonsplans.fr/about#farid",
         "name": "Farid d'Arabie",
         "jobTitle": "Expert en pèlerinage islamique & Guide spirituel",
-        "description": "Plus de 10 ans de résidence à La Mecque. A accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra.",
+        "description": "Résident à La Mecque (Makkah). Guide spirituel accompagnant les pèlerins lors du Hajj et de l'Omra.",
         "knowsAbout": ["Omra", "Hajj", "Pèlerinage islamique", "La Mecque", "Médine"]
       },
       "contactPoint": [
