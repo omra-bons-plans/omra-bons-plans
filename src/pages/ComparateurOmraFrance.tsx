@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: "Les agences sur les comparateurs Omra sont-elles fiables ?",
-    answer: "Sur Omra Bons Plans, toutes les agences sont vérifiées : agrément du Ministère Saoudien des Affaires Religieuses et licence ATOUT France obligatoires. Les avis Google sont authentiques (4.8/5 de moyenne). Aucune agence non agréée n'est référencée."
+    answer: "Sur Omra Bons Plans, toutes les agences sont vérifiées : agrément du Ministère Saoudien des Affaires Religieuses et licence ATOUT France obligatoires. Les avis Google sont authentiques. Aucune agence non agréée n'est référencée."
   },
   {
     question: "Est-ce que le comparateur Omra est gratuit ?",
@@ -137,13 +137,12 @@ export default function ComparateurOmraFrance() {
               Omra Bons Plans est un <strong>comparateur d'offres Omra en France</strong>. Notre outil gratuit regroupe et compare en temps réel les séjours proposés par toutes les agences agréées françaises, vous permettant de trouver la meilleure offre pour votre pèlerinage 2026.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Chaque année, <strong>plus de 50 000 pèlerins français</strong> partent en Omra. Face à la multitude d'agences et d'offres disponibles, comparer devient essentiel pour ne pas payer trop cher ou choisir une agence non fiable.
+              Chaque année, <strong>des dizaines de milliers de pèlerins français</strong> partent en Omra. Face à la multitude d'agences et d'offres disponibles, comparer devient essentiel pour ne pas payer trop cher ou choisir une agence non fiable.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
               {[
                 { num: "20+", label: "Agences vérifiées" },
                 { num: "100%", label: "Gratuit" },
-                { num: "4.8/5", label: "Note moyenne agences" },
                 { num: "Daily", label: "Prix mis à jour" }
               ].map((stat, i) => (
                 <div key={i} className="bg-card border border-border rounded-xl p-4 text-center">

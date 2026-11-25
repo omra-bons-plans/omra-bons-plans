@@ -297,7 +297,7 @@ export default function AgencesListe() {
                 },
                 {
                   q: "Quelle note Google minimum pour une agence fiable ?",
-                  a: "Nous recommandons de ne pas choisir une agence avec moins de 4.2/5 sur Google avec au moins 50 avis. Les agences top du marché (Tawaf, Medinvoyages, Al-Maqam) affichent généralement 4.6 à 4.9/5 avec plusieurs centaines d'avis."
+                  a: "Nous recommandons de choisir une agence avec une note Google solide et un nombre d'avis suffisant. Les agences de référence (Tawaf, Medinvoyages, Al-Maqam) affichent généralement d'excellentes notes avec plusieurs centaines d'avis."
                 },
                 {
                   q: "Peut-on négocier le prix avec une agence Omra ?",

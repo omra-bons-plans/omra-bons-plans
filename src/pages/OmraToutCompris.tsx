@@ -273,12 +273,12 @@ export default function OmraToutCompris() {
                 </thead>
                 <tbody>
                   {[
-                    { name: "Tawaf Voyages", note: "4.7/5", points: "Encadrement religieux, guide francophone", prix: "1 350€" },
-                    { name: "Medinvoyages", note: "4.6/5", points: "Hôtels proches, rapport Q/P", prix: "1 280€" },
-                    { name: "Al-Maqam", note: "4.8/5", points: "Expertise, groupe réduit", prix: "1 490€" },
-                    { name: "Pèlerinhajj", note: "4.6/5", points: "Spécialiste Hajj & Omra", prix: "1 320€" },
-                    { name: "Labbayk Voyages", note: "4.5/5", points: "Prix compétitifs, vols directs", prix: "1 200€" },
-                    { name: "Sabil Voyages", note: "4.7/5", points: "Accompagnement senior, groupes", prix: "1 450€" }
+                    { name: "Tawaf Voyages", note: "Agréée", points: "Encadrement religieux, guide francophone", prix: "1 350€" },
+                    { name: "Medinvoyages", note: "Agréée", points: "Hôtels proches, rapport Q/P", prix: "1 280€" },
+                    { name: "Al-Maqam", note: "Agréée", points: "Expertise, groupe réduit", prix: "1 490€" },
+                    { name: "Pèlerinhajj", note: "Agréée", points: "Spécialiste Hajj & Omra", prix: "1 320€" },
+                    { name: "Labbayk Voyages", note: "Agréée", points: "Prix compétitifs, vols directs", prix: "1 200€" },
+                    { name: "Sabil Voyages", note: "Agréée", points: "Accompagnement senior, groupes", prix: "1 450€" }
                   ].map((a, i) => (
                     <tr key={i} className={`border-t ${i % 2 === 1 ? "bg-muted/30" : ""}`}>
                       <td className="p-3 font-medium">{a.name}</td>
