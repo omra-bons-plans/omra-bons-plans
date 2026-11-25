@@ -726,11 +726,11 @@ export default function ComparateurOmra() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 transition-colors"
-              aria-label="4,8 étoiles sur 5 — 156 avis Google vérifiés"
+              aria-label="Voir les avis Google"
             >
               <span className="text-yellow-400 text-base leading-none">★★★★★</span>
-              <span className="text-white font-bold text-sm">4,8/5</span>
-              <span className="text-white/80 text-xs">— 156 avis Google vérifiés</span>
+              
+              <span className="text-white/80 text-xs">Voir les avis Google</span>
             </a>
           </div>
         </div>

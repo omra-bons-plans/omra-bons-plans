@@ -376,7 +376,7 @@ export default function OmraSaison() {
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie</p>
-              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 "On me demande souvent : 'Quelle est la meilleure saison pour l'Omra ?' Ma réponse est toujours : <strong>la meilleure saison, c'est celle où vous pouvez partir</strong>. Cela dit, si vous avez le choix, Mouharram et Safar (janvier-février) offrent les meilleures conditions : moins de monde, températures douces la nuit, et des prix qui peuvent être 40% moins chers qu'en Ramadan. Pour une première Omra, évitez absolument les 10 derniers jours du Ramadan — réservez cela pour quand vous maîtrisez les rites."
               </p>

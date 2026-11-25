@@ -297,7 +297,7 @@ export default function QuandPartirOmra() {
               <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
               <div>
                 <p className="font-bold text-foreground">Farid d'Arabie</p>
-                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   "Après dix ans à La Mecque, ma période préférée reste <strong>Mouharram et Safar</strong> — janvier à mars hors Ramadan. Le Haram est moins bondé, les rites se font dans le recueillement, les prix sont accessibles. Le Ramadan est sublime spirituellement, mais l'intensité physique est réelle : chaleur, foule dense, nuits courtes. Pour une première Omra, je recommande souvent la basse saison pour se concentrer pleinement sur les rites sans être submergé par la fatigue. La qualité de présence compte plus que le moment choisi."
                 </p>

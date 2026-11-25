@@ -17,17 +17,17 @@ const About = () => {
     <ResponsiveLayout>
       <Helmet>
         <title>À Propos - Omra Bons Plans | Notre Histoire et Mission</title>
-        <meta name="description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj. Notre mission, nos valeurs et notre expertise." />
+        <meta name="description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Plateforme dédiée aux services Omra et Hajj. Notre mission, nos valeurs et notre expertise." />
         <meta name="keywords" content="à propos omra bons plans, équipe omra, mission hajj, plateforme pèlerinage, expertise arabie saoudite" />
         <link rel="canonical" href="https://omrabonsplans.fr/about" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
-        <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
+        <meta property="og:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Plateforme dédiée aux services Omra et Hajj." />
         <meta property="og:url" content="https://omrabonsplans.fr/about" />
         <meta property="og:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="À Propos - Omra Bons Plans | Notre Histoire" />
-        <meta name="twitter:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Première plateforme au monde dédiée aux services Omra et Hajj." />
+        <meta name="twitter:description" content="Découvrez l'équipe passionnée derrière Omra Bons Plans. Plateforme dédiée aux services Omra et Hajj." />
         <meta name="twitter:image" content="https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp" />
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">
@@ -42,12 +42,12 @@ const About = () => {
               "name": "Omra Bons Plans",
               "url": "https://omrabonsplans.fr",
               "logo": "https://omrabonsplans.fr/lovable-uploads/d506d5c2-ddc8-446e-84b9-f2254d23d35a.webp",
-              "description": "Première plateforme au monde dédiée aux services Omra et Hajj",
+              "description": "Plateforme dédiée aux services Omra et Hajj",
               "founder": {
                 "@type": "Person",
                 "name": "Farid d'Arabie",
                 "jobTitle": "Expert en pèlerinage islamique & Fondateur",
-                "description": "Plus de 10 ans de résidence à La Mecque. A accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra.",
+                "description": "Résident à La Mecque (Makkah), guide spirituel accompagnant les pèlerins lors du Hajj et de l'Omra.",
                 "knowsAbout": ["Omra", "Hajj", "La Mecque", "Médine", "Pèlerinage islamique", "Agences de voyage halal"]
               }
             }
@@ -60,7 +60,7 @@ const About = () => {
             "@id": "https://omrabonsplans.fr/about#farid",
             "name": "Farid d'Arabie",
             "jobTitle": "Expert en pèlerinage islamique & Fondateur d'Omra Bons Plans",
-            "description": "Plus de 10 ans de résidence à La Mecque (Makkah). Guide spirituel ayant accompagné plus de 5 000 pèlerins lors du Hajj et de l'Omra. Fondateur du premier comparateur d'agences Omra en France.",
+            "description": "Résident à La Mecque (Makkah), guide spirituel accompagnant les pèlerins lors du Hajj et de l'Omra. Fondateur d'un comparateur d'agences Omra en France.",
             "url": "https://omrabonsplans.fr/about",
             "image": {
               "@type": "ImageObject",
@@ -75,8 +75,8 @@ const About = () => {
             },
             "knowsAbout": ["Omra", "Hajj", "La Mecque", "Médine", "Rites islamiques", "Agences de voyage Omra", "Calendrier islamique"],
             "hasCredential": [
-              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Guide spirituel agréé", "description": "Plus de 5 000 pèlerins accompagnés lors du Hajj et de l'Omra" },
-              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Résident de Makkah", "description": "Plus de 10 années de résidence à La Mecque" }
+              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Guide spirituel agréé", "description": "Guide spirituel accompagnant les pèlerins lors du Hajj et de l'Omra" },
+              { "@type": "EducationalOccupationalCredential", "credentialCategory": "Résident de Makkah", "description": "Résident de Makkah" }
             ]
           })}
         </script>

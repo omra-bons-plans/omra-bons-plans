@@ -344,7 +344,7 @@ export default function MeilleureAgenceOmra() {
               <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
               <div>
                 <p className="font-bold text-foreground">Farid d'Arabie</p>
-                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   "Après des années à accompagner des pèlerins francophones sur les terres saintes, mon conseil numéro un : <strong>ne choisissez jamais une agence uniquement sur le prix</strong>. J'ai vu trop de pèlerins arriver à La Mecque avec un hôtel à 3 km du Haram, sans guide compétent, pour avoir voulu économiser 200 euros. Le pèlerinage est l'un des actes les plus importants de votre vie — investissez dans une agence qui vous accompagnera vraiment. Vérifiez les avis Google récents, appelez l'agence et posez des questions précises sur l'hôtel et le guide. Une bonne agence ne fuit pas ces questions."
                 </p>

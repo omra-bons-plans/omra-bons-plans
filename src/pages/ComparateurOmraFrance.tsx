@@ -134,7 +134,7 @@ export default function ComparateurOmraFrance() {
           <section>
             <h2 className="text-2xl font-bold mb-4">Le comparateur Omra de référence en France</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Omra Bons Plans est le <strong>premier comparateur d'offres Omra en France</strong>. Notre outil gratuit regroupe et compare en temps réel les séjours proposés par toutes les agences agréées françaises, vous permettant de trouver la meilleure offre pour votre pèlerinage 2026.
+              Omra Bons Plans est un <strong>comparateur d'offres Omra en France</strong>. Notre outil gratuit regroupe et compare en temps réel les séjours proposés par toutes les agences agréées françaises, vous permettant de trouver la meilleure offre pour votre pèlerinage 2026.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
               Chaque année, <strong>plus de 50 000 pèlerins français</strong> partent en Omra. Face à la multitude d'agences et d'offres disponibles, comparer devient essentiel pour ne pas payer trop cher ou choisir une agence non fiable.

@@ -405,7 +405,7 @@ export default function OmraFemmeSeule() {
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary">F</div>
                 <div>
-                  <p className="text-sm font-semibold text-primary mb-1">Farid d'Arabie — Expert pèlerinage, +10 ans à La Mecque, +5 000 pèlerins accompagnés</p>
+                  <p className="text-sm font-semibold text-primary mb-1">Farid d'Arabie — Expert pèlerinage</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     "Au fil des années, j'ai accompagné des centaines de femmes en Omra — des mères de famille, des retraitées, des jeunes femmes. La réforme de 2021 a changé les choses légalement, mais sur le terrain, ce qui fait la différence c'est le choix de l'agence et la qualité de l'accompagnement. Une bonne agence avec une accompagnatrice compétente vaut mille fois mieux qu'un groupe anonyme. Mon conseil : demandez systématiquement si un guide ou une accompagnatrice sera présent(e) lors des rites, pas seulement à l'aéroport. Et partez avec une copie de tous vos documents sur vous — pas seulement dans votre valise."
                   </p>

@@ -412,7 +412,7 @@ export default function RitesOmra() {
               <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
               <div>
                 <p className="font-bold text-foreground">Farid d'Arabie</p>
-                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   "Le Tawaf est souvent le moment le plus intense pour un premier pèlerin — voir la Kaaba en vrai après des années d'image, c'est une émotion qui dépasse toute préparation. <strong>Mon conseil : apprenez les invocations à l'avance, mais ne vous mettez pas de pression si vous les oubliez</strong>. Le dua du cœur vaut tous les textes. Pour le Sa'i, marchez à votre rythme — il n'y a pas de course obligatoire dans les rites. Prenez le temps de vivre chaque étape consciemment plutôt que de les cocher comme une liste."
                 </p>

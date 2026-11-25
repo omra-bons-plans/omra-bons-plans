@@ -662,7 +662,7 @@ export default function OmraVille() {
             <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie — Expert pèlerinage</p>
-              <p className="text-xs text-primary mb-3">+10 ans à La Mecque · +5 000 pèlerins accompagnés · Auteur du Guide Omra Bons Plans</p>
+              <p className="text-xs text-primary mb-3">Auteur du Guide Omra Bons Plans</p>
               <p className="text-muted-foreground text-sm leading-relaxed">"{data.conseilPro}"</p>
             </div>
           </div>

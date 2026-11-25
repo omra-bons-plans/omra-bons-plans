@@ -298,7 +298,7 @@ export default function PrixOmra() {
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie</p>
-              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 "Le piège classique : comparer uniquement le prix affiché sans regarder la distance de l'hôtel au Haram. <strong>Un hôtel à 2 km peut vous coûter plus cher en taxi et en fatigue</strong> qu'un hôtel à 500 mètres légèrement plus onéreux. Mon conseil : divisez le budget par le nombre de nuits, comparez le coût total en incluant les transports sur place. Une Omra réussie n'est pas la moins chère — c'est celle où vous arrivez à la Kaaba reposé, sans stress logistique, avec l'énergie pour vous concentrer sur l'essentiel."
               </p>

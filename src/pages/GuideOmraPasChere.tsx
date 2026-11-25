@@ -432,7 +432,7 @@ export default function GuideOmraPasChere() {
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie</p>
-              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 "Une Omra pas chère, ça existe — à condition de ne pas confondre 'pas cher' et 'bon marché au détriment de l'essentiel'. <strong>La règle d'or : ne jamais sacrifier la distance de l'hôtel au Haram</strong>. Un hôtel à 2 km qui semble économique vous coûtera en réalité plus cher en taxis, en fatigue et en opportunités de prières manquées. Réservez tôt (3-4 mois à l'avance), choisissez la basse saison (Mouharram-Safar), et partagez la chambre à 2 plutôt qu'en individuel. Vous pouvez économiser 30-40% sans sacrifier l'essentiel."
               </p>

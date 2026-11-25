@@ -255,7 +255,7 @@ export default function DefinitionOmra() {
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie</p>
-              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 "Vivre à La Mecque pendant dix ans m'a permis de voir l'Omra sous un angle rare. <strong>Chaque pèlerin qui accomplit le Tawaf porte une intention unique</strong> — certains pleurent dès le premier regard sur la Kaaba, d'autres ressentent une paix profonde qu'ils n'avaient jamais connue. L'Omra n'est pas un voyage touristique, c'est un retour à l'essentiel. Si vous hésitez encore à partir, sachez que le Prophète ﷺ a dit : 'L'Omra est une expiation des péchés commis entre elle et la suivante.' Il n'existe pas de meilleur moment que maintenant."
               </p>

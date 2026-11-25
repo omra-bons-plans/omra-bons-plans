@@ -281,7 +281,7 @@ export default function VisaOmra() {
             <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
             <div>
               <p className="font-bold text-foreground">Farid d'Arabie</p>
-              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+              <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 "Le visa Omra est aujourd'hui très simple à obtenir via les agences agréées — c'est un e-Visa traité en quelques jours. <strong>Le point que les pèlerins oublient le plus souvent : le vaccin méningocoque ACWY est obligatoire</strong>, et certains centres de vaccination ont des délais. Faites-le dès que vous réservez. L'autre erreur courante : un passeport valide moins de 6 mois après la date de retour — vérifiez cela avant d'envoyer vos documents à l'agence."
               </p>

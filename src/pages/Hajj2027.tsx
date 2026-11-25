@@ -398,7 +398,7 @@ export default function Hajj2027() {
               <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">F</div>
               <div>
                 <p className="font-bold text-foreground">Farid d'Arabie</p>
-                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique · +10 ans à La Mecque · +5 000 pèlerins accompagnés</p>
+                <p className="text-sm text-primary mb-3">Expert en pèlerinage islamique</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   "Le Hajj est une expérience qui dépasse toute description — la station à Arafat, les millions de pèlerins en ihram blanc, c'est l'image la plus puissante de l'unité de l'Islam. <strong>Ma recommandation pour les Français : ne partez jamais au Hajj sans une agence agréée fiable</strong>. L'inscription Nusuk, les hôtels à Mina, les transports vers Muzdalifah — c'est une logistique colossale que vous ne pouvez pas gérer seul. Choisissez votre agence sur la qualité de l'accompagnement, pas sur le prix. Un Hajj bien encadré change une vie."
                 </p>

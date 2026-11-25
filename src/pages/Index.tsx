@@ -976,7 +976,7 @@ const Index = () => {
             
             <div className="prose prose-lg max-w-none text-left">
               <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-relaxed mb-4 md:mb-6">
-                Depuis plus de dix ans à Makkah, j'ai accompagné plus de 5000 pèlerins dans leur Omra et leur Hajj. J'ai pu voir leurs joies, leurs difficultés, leurs questions, et surtout leur soif de bien faire.
+                Depuis plusieurs années à Makkah, j'ai accompagné de nombreux pèlerins dans leur Omra et leur Hajj. J'ai pu voir leurs joies, leurs difficultés, leurs questions, et surtout leur soif de bien faire.
               </p>
               
               <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-relaxed mb-4 md:mb-6">
