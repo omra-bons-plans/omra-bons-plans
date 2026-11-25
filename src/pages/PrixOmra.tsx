@@ -95,14 +95,14 @@ export default function PrixOmra() {
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
             <Badge className="bg-green-600 text-white">Mis à jour avril 2027</Badge>
-            <Badge variant="outline">15+ agences analysées</Badge>
+            <Badge variant="outline">20+ agences analysées</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
             Prix Omra 2027 : Tableau Complet des Tarifs par Saison et Agence
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Combien coûte une Omra en 2026 depuis la France ? Le prix varie de <strong>800€ à plus de 6 500€</strong>
-            selon la saison, la formule choisie et la ville de départ. Nous avons analysé les offres de 15+ agences
+            selon la saison, la formule choisie et la ville de départ. Nous avons analysé les offres de 20+ agences
             françaises agréées pour vous donner les tarifs les plus précis et actualisés.
           </p>
           <Button asChild size="lg" className="mt-4">
@@ -247,7 +247,7 @@ export default function PrixOmra() {
           <ol className="space-y-4">
             {[
               { t: "Voyagez hors vacances scolaires", d: "Les prix baissent de 20 à 40% en septembre, octobre, novembre et janvier par rapport aux vacances de février ou de printemps. Un séjour en octobre peut coûter 900€ là où le même séjour en février coûte 1 400€." },
-              { t: "Comparez via notre comparateur", d: "Notre comparateur agrège les offres de 15+ agences en temps réel. Même pour une même période, les prix peuvent varier de 200 à 500€ d'une agence à l'autre pour des prestations similaires." },
+              { t: "Comparez via notre comparateur", d: "Notre comparateur agrège les offres de 20+ agences en temps réel. Même pour une même période, les prix peuvent varier de 200 à 500€ d'une agence à l'autre pour des prestations similaires." },
               { t: "Réservez 3 à 6 mois à l'avance", d: "Les premières offres publiées sont souvent les moins chères ('early bird'). En attendant le dernier moment, vous risquez de payer 20 à 30% plus cher ou de ne plus trouver de disponibilités." },
               { t: "Optez pour un hôtel à 500m-1km du Haram", d: "Les hôtels adjacents au Masjid al-Haram coûtent 2 à 3 fois plus cher que des hôtels à 10 minutes à pied. Pour la plupart des pèlerins, la marche est tout à fait faisable." },
               { t: "Choisissez une durée optimale (10-14 nuits)", d: "Les séjours de 10-14 nuits offrent le meilleur rapport qualité/prix. Les séjours courts (7 nuits) coûtent presque autant que les séjours plus longs en raison des frais fixes (vol, visa)." }
@@ -284,7 +284,7 @@ export default function PrixOmra() {
         <section className="bg-primary/5 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-3">Comparez les prix Omra 2026 maintenant</h2>
           <p className="text-muted-foreground mb-6">
-            Utilisez notre comparateur pour voir en temps réel les prix de 15+ agences françaises agréées.
+            Utilisez notre comparateur pour voir en temps réel les prix de 20+ agences françaises agréées.
             Filtrez par ville, mois et budget.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">

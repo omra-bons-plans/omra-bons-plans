@@ -275,7 +275,7 @@ export default function OmraRamadan() {
           <ol className="space-y-4">
             {[
               { step: "1", title: "Réservez le plus tôt possible", text: "Les offres Omra Ramadan partent en quelques semaines. Dès maintenant, les meilleures formules sont disponibles. Plus vous attendez, plus les prix montent et les disponibilités se réduisent." },
-              { step: "2", title: "Comparez sur notre comparateur", text: "Utilisez notre comparateur Omra pour filtrer par mois, ville de départ, budget et formule. Vous verrez en temps réel les offres disponibles de 15+ agences françaises agréées." },
+              { step: "2", title: "Comparez sur notre comparateur", text: "Utilisez notre comparateur Omra pour filtrer par mois, ville de départ, budget et formule. Vous verrez en temps réel les offres disponibles de 20+ agences françaises agréées." },
               { step: "3", title: "Vérifiez l'agrément de l'agence", text: "Assurez-vous que l'agence est agréée par le ministère saoudien du Hajj et qu'elle possède une autorisation ATOUT France. Notre liste d'agences agréées vous facilite la vérification." },
               { step: "4", title: "Choisissez votre formule", text: "Formule Essentiel (hôtel 3★ à 500m-1km du Haram) ou Confort (hôtel 4-5★ à moins de 300m) ? Votre budget et vos priorités déterminent ce choix. En Ramadan, la proximité au Haram vaut vraiment son prix." },
               { step: "5", title: "Vérifiez votre passeport et visa", text: "Assurez-vous que votre passeport est valide pour au moins 6 mois après votre retour. Le visa Omra est inclus dans la plupart des forfaits. Certaines agences proposent aussi des visas touristiques." }
@@ -373,7 +373,7 @@ export default function OmraRamadan() {
         <section className="bg-primary/5 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-3">Prêt à réserver votre Omra Ramadan 2027 ?</h2>
           <p className="text-muted-foreground mb-6">
-            Comparez les offres de 15+ agences françaises agréées. Filtrez par ville de départ,
+            Comparez les offres de 20+ agences françaises agréées. Filtrez par ville de départ,
             période du Ramadan et budget. Réservez en toute confiance.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">

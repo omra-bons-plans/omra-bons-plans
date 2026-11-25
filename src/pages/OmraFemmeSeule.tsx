@@ -419,7 +419,7 @@ export default function OmraFemmeSeule() {
         <section className="bg-rose-50 border border-rose-200 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-3">Trouvez votre offre Omra pour femme</h2>
           <p className="text-muted-foreground mb-6">
-            Comparez les offres de 15+ agences agréées proposant des groupes adaptés aux femmes voyageant seules.
+            Comparez les offres de 20+ agences agréées proposant des groupes adaptés aux femmes voyageant seules.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg"><Link to="/">Comparer les offres →</Link></Button>

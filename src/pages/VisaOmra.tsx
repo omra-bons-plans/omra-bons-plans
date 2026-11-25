@@ -271,7 +271,7 @@ export default function VisaOmra() {
           <h2 className="text-2xl font-bold mb-3">Réservez avec visa inclus</h2>
           <p className="text-muted-foreground mb-6">
             La solution la plus simple : réservez un forfait Omra tout compris avec visa inclus.
-            L'agence s'occupe de tout. Comparez 15+ agences françaises agréées.
+            L'agence s'occupe de tout. Comparez 20+ agences françaises agréées.
           </p>
           <Button asChild size="lg"><Link to="/">Comparer les offres avec visa inclus →</Link></Button>
         </section>
