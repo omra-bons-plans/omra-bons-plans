@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Faut-il réserver longtemps à l'avance pour une Omra Ramadan ?",
-    answer: "Oui, absolument. Les offres Omra Ramadan 2027 se remplissent très vite, parfois 6 à 12 mois à l'avance. Nous conseillons de réserver dès septembre-octobre 2025 pour les meilleures places et tarifs."
+    answer: "Oui, absolument. Les offres Omra Ramadan 2027 se remplissent très vite, parfois 6 à 12 mois à l'avance. Nous conseillons de réserver plusieurs mois à l'avance pour les meilleures places et tarifs."
   },
   {
     question: "Quelle est la différence entre Omra début Ramadan et fin Ramadan ?",
@@ -80,7 +80,7 @@ export default function OmraRamadan() {
           "description": "Guide complet pour organiser votre Omra pendant le Ramadan 2027, avec les 10 derniers jours du Ramadan.",
           "url": "https://omrabonsplans.fr/omra-ramadan-2027",
           "datePublished": "2026-01-15",
-          "dateModified": "2026-08-16",
+          "dateModified": "2026-11-25",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
           "publisher": { "@type": "Organization", "name": "Omra Bons Plans", "logo": { "@type": "ImageObject", "url": "https://omrabonsplans.fr/logo.svg" } },
           "image": "https://omrabonsplans.fr/hero-kaaba-optimized.webp",
@@ -263,7 +263,7 @@ export default function OmraRamadan() {
               <p className="text-sm text-muted-foreground">
                 Attendez-vous à des tarifs 30 à 50% plus élevés que le reste du Ramadan.
                 Les hôtels proches du Haram pratiquent des prix premium.
-                Réservez très tôt (dès septembre 2025) pour obtenir les meilleurs tarifs.
+                Réservez très tôt (dès maintenant) pour obtenir les meilleurs tarifs.
               </p>
             </div>
           </div>
@@ -274,7 +274,7 @@ export default function OmraRamadan() {
           <h2 className="text-2xl font-bold mb-4">📋 Comment bien réserver son Omra Ramadan 2027 ?</h2>
           <ol className="space-y-4">
             {[
-              { step: "1", title: "Réservez le plus tôt possible", text: "Les offres Omra Ramadan partent en quelques semaines. Dès septembre-octobre 2025, les meilleures formules sont disponibles. Plus vous attendez, plus les prix montent et les disponibilités se réduisent." },
+              { step: "1", title: "Réservez le plus tôt possible", text: "Les offres Omra Ramadan partent en quelques semaines. Dès maintenant, les meilleures formules sont disponibles. Plus vous attendez, plus les prix montent et les disponibilités se réduisent." },
               { step: "2", title: "Comparez sur notre comparateur", text: "Utilisez notre comparateur Omra pour filtrer par mois, ville de départ, budget et formule. Vous verrez en temps réel les offres disponibles de 15+ agences françaises agréées." },
               { step: "3", title: "Vérifiez l'agrément de l'agence", text: "Assurez-vous que l'agence est agréée par le ministère saoudien du Hajj et qu'elle possède une autorisation ATOUT France. Notre liste d'agences agréées vous facilite la vérification." },
               { step: "4", title: "Choisissez votre formule", text: "Formule Essentiel (hôtel 3★ à 500m-1km du Haram) ou Confort (hôtel 4-5★ à moins de 300m) ? Votre budget et vos priorités déterminent ce choix. En Ramadan, la proximité au Haram vaut vraiment son prix." },
@@ -404,11 +404,11 @@ export default function OmraRamadan() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/hajj" className="text-primary hover:underline text-sm">Comparateur Hajj 2027</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
+            <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>
