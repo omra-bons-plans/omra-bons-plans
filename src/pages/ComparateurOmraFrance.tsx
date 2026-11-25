@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: "Les agences sur les comparateurs Omra sont-elles fiables ?",
-    answer: "Sur Omra Bons Plans, toutes les agences sont vérifiées : agrément du Ministère Saoudien des Affaires Religieuses et licence ATOUT France obligatoires. Les avis Google sont authentiques. Aucune agence non agréée n'est référencée."
+    answer: "Sur Omra Bons Plans, toutes les agences sont vérifiées : agrément du Ministère Saoudien des Affaires Religieuses et licence ATOUT France obligatoires. Les avis Google sont authentiques (4.8/5 de moyenne). Aucune agence non agréée n'est référencée."
   },
   {
     question: "Est-ce que le comparateur Omra est gratuit ?",
@@ -143,6 +143,7 @@ export default function ComparateurOmraFrance() {
               {[
                 { num: "20+", label: "Agences vérifiées" },
                 { num: "100%", label: "Gratuit" },
+                { num: "4.8/5", label: "Note moyenne agences" },
                 { num: "Daily", label: "Prix mis à jour" }
               ].map((stat, i) => (
                 <div key={i} className="bg-card border border-border rounded-xl p-4 text-center">

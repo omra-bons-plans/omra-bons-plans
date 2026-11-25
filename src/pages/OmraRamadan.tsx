@@ -300,12 +300,12 @@ export default function OmraRamadan() {
           </p>
           <div className="grid md:grid-cols-2 gap-3">
             {[
-              { name: "Tawaf", specialty: "10 derniers jours, hôtels proches" },
-              { name: "Medinvoyages", specialty: "Formules tout compris" },
-              { name: "Al Maqam", specialty: "Spécialiste Ramadan" },
-              { name: "Pelerinhajj", specialty: "Accompagnement religieux inclus" },
-              { name: "Omra Sounnah", specialty: "Budget et économique" },
-              { name: "Omra Pour Tous", specialty: "Familles et groupes" }
+              { name: "Tawaf", specialty: "10 derniers jours, hôtels proches", rating: "4.8/5" },
+              { name: "Medinvoyages", specialty: "Formules tout compris", rating: "4.7/5" },
+              { name: "Al Maqam", specialty: "Spécialiste Ramadan", rating: "4.6/5" },
+              { name: "Pelerinhajj", specialty: "Accompagnement religieux inclus", rating: "4.9/5" },
+              { name: "Omra Sounnah", specialty: "Budget et économique", rating: "4.5/5" },
+              { name: "Omra Pour Tous", specialty: "Familles et groupes", rating: "4.6/5" }
             ].map(agency => (
               <div key={agency.name} className="border rounded-lg p-3 flex justify-between items-center">
                 <div>

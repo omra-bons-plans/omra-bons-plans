@@ -46,7 +46,7 @@ const agenciesFeatures: AgencyFeatures[] = [
     googleRating: 5.0,
     reviewCount: 269,
     priceRange: "Standard",
-    highlight: "Agence bien notée par ses clients",
+    highlight: "Note parfaite 5/5 avec 269 avis",
     features: {
       formulesToutInclus: true,
       guidesExperience: true,

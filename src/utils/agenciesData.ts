@@ -17,7 +17,7 @@ export const agenciesData: AgencyData[] = [
     googleRating: 5.0,
     reviewCount: 269,
     strengths: [
-      "Bonne base d'avis clients",
+      "Note parfaite 5/5 avec base solide d'avis clients",
       "Agence spécialisée Hajj & Omra",
       "Forte présence sur les réseaux sociaux (10.6K+ followers Instagram)",
       "Basée à Gennevilliers avec équipe dédiée",
@@ -29,7 +29,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra guidée", "Hajj", "Voyages spirituels personnalisés"],
     priceRange: "Standard",
-    highlight: "Agence spécialisée basée à Gennevilliers"
+    highlight: "Note parfaite 5/5 avec 269 avis - Agence spécialisée basée à Gennevilliers"
   },
   {
     name: "Al Sirate Voyage",
@@ -49,7 +49,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra premium", "Hajj VIP", "Voyages de groupe"],
     priceRange: "Premium",
-    highlight: "Organisation d'excellence"
+    highlight: "Note parfaite 5/5 avec organisation d'excellence"
   },
   {
     name: "Omra Du Savoir",
@@ -69,7 +69,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra éducative", "Séminaires spirituels", "Voyages d'apprentissage"],
     priceRange: "Premium",
-    highlight: "Approche pédagogique unique"
+    highlight: "Approche pédagogique unique avec note parfaite 5/5"
   },
   {
     name: "Omra Pour Tous",
@@ -90,7 +90,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra économique", "Séjours courts", "Départs régionaux"],
     priceRange: "Économique",
-    highlight: "Départs multi-villes"
+    highlight: "Leader avec plus de 4800 avis et départs multi-villes"
   },
   {
     name: "TAWAF",
@@ -159,7 +159,7 @@ export const agenciesData: AgencyData[] = [
     googleRating: 4.9,
     reviewCount: 1200,
     strengths: [
-      "Présence active sur les réseaux sociaux",
+      "Note élevée avec plus de 1200 avis sur réseaux sociaux",
       "Présence active sur réseaux (visibilité + retours clients)",
       "Tarifs clairs dès 999€",
       "Ancienneté depuis 2018"
@@ -251,7 +251,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra traditionnelle", "Voyages spirituels", "Accompagnement personnalisé"],
     priceRange: "Standard",
-    highlight: "Accompagnement personnalisé de qualité"
+    highlight: "Note excellente de 4.9/5 avec accompagnement personnalisé"
   },
   {
     name: "Omra Discount",
@@ -281,7 +281,7 @@ export const agenciesData: AgencyData[] = [
     googleRating: 4.9,
     reviewCount: 172,
     strengths: [
-      "Très bonne réputation en ligne",
+      "Note exceptionnelle de 4.9/5 sur Google",
       "Voyages spirituels enrichissants avec temps libre",
       "Excellent accompagnement et organisation",
       "Groupes à taille humaine pour une ambiance conviviale",
@@ -295,7 +295,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra guidée spirituelle", "Hajj", "Voyages émotionnels", "Accompagnement personnalisé"],
     priceRange: "Standard",
-    highlight: "Agence parisienne avec forte dimension spirituelle"
+    highlight: "Agence parisienne d'excellence avec note exceptionnelle 4.9/5 et forte dimension spirituelle"
   },
   {
     name: "OMRA GATE",
@@ -303,7 +303,7 @@ export const agenciesData: AgencyData[] = [
     googleRating: 4.9,
     reviewCount: 96,
     strengths: [
-      "Bonne réputation Google",
+      "Excellente note Google de 4.9/5 avec 96 avis vérifiés",
       "Service personnalisé et accompagnement attentif tout au long du voyage",
       "Organisation soignée et professionnelle reconnue par les pèlerins",
       "Réactivité exceptionnelle du service client disponible 7j/7",
@@ -326,7 +326,7 @@ export const agenciesData: AgencyData[] = [
       "Formules économiques et confort"
     ],
     priceRange: "Standard",
-    highlight: "Agence de qualité avec service personnalisé - Accompagnement francophone 7j/7"
+    highlight: "Agence de qualité avec service personnalisé et note exceptionnelle 4.9/5 - Accompagnement francophone 7j/7"
   },
   {
     name: "MERIDIANIS",
@@ -334,8 +334,8 @@ export const agenciesData: AgencyData[] = [
     googleRating: 4.6,
     reviewCount: 646,
     strengths: [
-      "Excellente réputation",
-      "Grande expérience",
+      "Excellente réputation avec 4.6/5 sur Google",
+      "Grande expérience (646 avis clients)",
       "Service client réactif",
       "Formules Hajj et Omra complètes"
     ],
@@ -349,7 +349,7 @@ export const agenciesData: AgencyData[] = [
       "Accompagnement francophone"
     ],
     priceRange: "Standard",
-    highlight: "Agence établie, reconnue par ses clients"
+    highlight: "Agence établie avec excellente note 4.6/5 et plus de 600 avis clients satisfaits"
   }
 ];
 

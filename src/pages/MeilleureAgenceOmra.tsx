@@ -88,7 +88,7 @@ export default function MeilleureAgenceOmra() {
               "name": "Quelle est la meilleure agence Omra en France ?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "La question de la meilleure agence Omra n'a pas de réponse universelle — tout dépend de vos priorités et de votre budget. D'après les avis Google de milliers de pèlerins français, Tawaf se distingue notamment pour la qualité de son encadrement. Medinvoyages est souvent citée pour son excellent rapport qualité-prix et sa flexibilité de paiement. Al-Maqam est la référence pour les hôtels 4-5 étoiles proches de la Masjid al-Haram. Pour les petits budgets, Omra Discount propose les tarifs les plus accessibles. La vraie méthode : comparez au minimum 3 devis pour les mêmes dates, vérifiez l'agrément ATOUT FRANCE, lisez les 10 derniers avis Google et appelez directement l'agence pour tester la qualité de leur service client avant tout engagement."
+                "text": "La question de la meilleure agence Omra n'a pas de réponse universelle — tout dépend de vos priorités et de votre budget. D'après les avis Google de milliers de pèlerins français, Tawaf se distingue avec une note de 4,8/5 sur plus de 520 avis, notamment pour la qualité de son encadrement. Medinvoyages (4,7/5) est souvent citée pour son excellent rapport qualité-prix et sa flexibilité de paiement. Al-Maqam (4,6/5) est la référence pour les hôtels 4-5 étoiles proches de la Masjid al-Haram. Pour les petits budgets, Omra Discount propose les tarifs les plus accessibles. La vraie méthode : comparez au minimum 3 devis pour les mêmes dates, vérifiez l'agrément ATOUT FRANCE, lisez les 10 derniers avis Google et appelez directement l'agence pour tester la qualité de leur service client avant tout engagement."
               }
             },
             {
@@ -193,7 +193,7 @@ export default function MeilleureAgenceOmra() {
                   </h3>
                   <ul className="text-sm text-muted-foreground space-y-2">
                     <li>✅ 300+ avis Google (minimum)</li>
-                    <li>✅ Bonne note Google</li>
+                    <li>✅ Note moyenne ≥ 4.4/5</li>
                     <li>✅ Avis détaillés récents</li>
                     <li>✅ Réponse aux avis négatifs</li>
                     <li>✅ Photos clients authentiques</li>

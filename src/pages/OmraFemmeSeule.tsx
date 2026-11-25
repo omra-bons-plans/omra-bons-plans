@@ -198,19 +198,19 @@ export default function OmraFemmeSeule() {
           <h2 className="text-2xl font-bold mb-4">🏢 Agences françaises recommandées pour femmes seules</h2>
           <div className="grid md:grid-cols-2 gap-3">
             {[
-              { name: "Tawaf", note: "Groupes femmes disponibles", rating: "Agréée" },
-              { name: "Medinvoyages", note: "Accompagnatrices dédiées", rating: "Agréée" },
-              { name: "Pelerinhajj", note: "Spécialiste accompagnement féminin", rating: "Agréée" },
-              { name: "Al Maqam", note: "Groupes mixtes sécurisés", rating: "Agréée" },
-              { name: "Omra Pour Tous", note: "Idéal pour voyageuses seules", rating: "Agréée" },
-              { name: "Sabil Voyages", note: "Petits groupes, suivi personnalisé", rating: "Agréée" }
+              { name: "Tawaf", note: "Groupes femmes disponibles", rating: "4.8/5" },
+              { name: "Medinvoyages", note: "Accompagnatrices dédiées", rating: "4.7/5" },
+              { name: "Pelerinhajj", note: "Spécialiste accompagnement féminin", rating: "4.6/5" },
+              { name: "Al Maqam", note: "Groupes mixtes sécurisés", rating: "4.6/5" },
+              { name: "Omra Pour Tous", note: "Idéal pour voyageuses seules", rating: "4.6/5" },
+              { name: "Sabil Voyages", note: "Petits groupes, suivi personnalisé", rating: "4.7/5" }
             ].map(a => (
               <div key={a.name} className="border rounded-lg p-3 flex justify-between items-center">
                 <div>
                   <div className="font-semibold text-sm">{a.name}</div>
                   <div className="text-xs text-muted-foreground">{a.note}</div>
                 </div>
-                <Badge variant="secondary" className="text-xs">✓ {a.rating}</Badge>
+                <Badge variant="secondary" className="text-xs">⭐ {a.rating}</Badge>
               </div>
             ))}
           </div>
