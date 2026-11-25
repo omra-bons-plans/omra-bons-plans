@@ -49,7 +49,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra premium", "Hajj VIP", "Voyages de groupe"],
     priceRange: "Premium",
-    highlight: "Note parfaite 5/5 avec organisation d'excellence"
+    highlight: "Organisation d'excellence"
   },
   {
     name: "Omra Du Savoir",
@@ -69,7 +69,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra éducative", "Séminaires spirituels", "Voyages d'apprentissage"],
     priceRange: "Premium",
-    highlight: "Approche pédagogique unique avec note parfaite 5/5"
+    highlight: "Approche pédagogique unique"
   },
   {
     name: "Omra Pour Tous",

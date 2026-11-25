@@ -333,7 +333,7 @@ export default function GuideOmraPasChere() {
                 <strong className="text-foreground">2. Agrément du ministère du Hajj saoudien :</strong> sans ce numéro, l'agence ne peut pas légalement organiser des Omras. Demandez-le systématiquement.
               </li>
               <li className="text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">3. Avis Google vérifiés :</strong> minimum 4 étoiles avec plus de 50 avis. Lisez les avis négatifs pour identifier les points faibles récurrents. Consultez notre <Link to="/comparatif-agences" className="text-primary hover:underline">comparatif d'agences</Link>.
+                <strong className="text-foreground">3. Avis Google vérifiés :</strong> une bonne note avec de nombreux avis. Lisez les avis négatifs pour identifier les points faibles récurrents. Consultez notre <Link to="/comparatif-agences" className="text-primary hover:underline">comparatif d'agences</Link>.
               </li>
               <li className="text-muted-foreground leading-relaxed">
                 <strong className="text-foreground">4. Transparence des prix :</strong> méfiez-vous des prix trop bas sans détail. Une bonne agence détaille vol, hôtel, visa, transferts et assurance.
