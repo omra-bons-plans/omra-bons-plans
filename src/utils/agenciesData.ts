@@ -251,7 +251,7 @@ export const agenciesData: AgencyData[] = [
     ],
     specialties: ["Omra traditionnelle", "Voyages spirituels", "Accompagnement personnalisé"],
     priceRange: "Standard",
-    highlight: "Note excellente de 4.9/5 avec accompagnement personnalisé"
+    highlight: "Accompagnement personnalisé de qualité"
   },
   {
     name: "Omra Discount",

@@ -308,7 +308,7 @@ export default function OmraToutCompris() {
                 {
                   step: "2",
                   title: "Comparez 3 à 5 agences",
-                  text: "Utilisez notre comparateur pour visualiser les offres en temps réel. Vérifiez que l'agence est agréée par le Ministère Saoudien des Affaires Religieuses. Lisez les avis Google (minimum 50 avis, note ≥ 4.3/5)."
+                  text: "Utilisez notre comparateur pour visualiser les offres en temps réel. Vérifiez que l'agence est agréée par le Ministère Saoudien des Affaires Religieuses. Lisez les avis Google récents."
                 },
                 {
                   step: "3",

@@ -106,13 +106,13 @@ const About = () => {
                   <h2 className="text-2xl font-bold mb-1">Farid d'Arabie</h2>
                   <p className="text-primary font-semibold mb-3">Expert en pèlerinage islamique · Fondateur d'Omra Bons Plans</p>
                   <div className="flex flex-wrap gap-3 mb-4">
-                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🕌 +10 ans à La Mecque</span>
-                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🤲 +5 000 pèlerins accompagnés</span>
+                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🕌 Résident à La Mecque</span>
+                    <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">🤲 Nombreux pèlerins accompagnés</span>
                     <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">✈️ Hajj & Omra</span>
                   </div>
                   <p className="text-muted-foreground leading-relaxed">
                     J&apos;ai vécu plus de <strong>10 années à Makkah (La Mecque)</strong>, au cœur des lieux les plus sacrés de l&apos;Islam.
-                    Durant cette période, j&apos;ai eu l&apos;honneur d&apos;accompagner personnellement <strong>plus de 5 000 pèlerins</strong> francophones
+                    Durant cette période, j&apos;ai eu l&apos;honneur d&apos;accompagner personnellement <strong>de nombreux pèlerins</strong> francophones
                     lors du Hajj et de l&apos;Omra — des familles, des seniors, des couples, des personnes à mobilité réduite.
                     Cette expérience unique sur le terrain m&apos;a permis de comprendre de l&apos;intérieur les défis que rencontrent
                     les pèlerins français pour trouver une agence fiable et une offre adaptée. C&apos;est de ce constat qu&apos;est né
@@ -126,7 +126,7 @@ const About = () => {
           <Card>
             <CardHeader>
               <h1 className="text-3xl font-bold text-center mb-4">À Propos d'Omra Bons Plans</h1>
-              <p className="text-xl text-muted-foreground text-center">Le premier comparateur d&apos;agences Omra et Hajj agréées en France, fondé par un expert du terrain</p>
+              <p className="text-xl text-muted-foreground text-center">Le comparateur d&apos;agences Omra et Hajj agréées en France, fondé par un expert du terrain</p>
             </CardHeader>
             <CardContent className="prose prose-lg max-w-none">
               <div className="space-y-6 text-muted-foreground leading-relaxed">
