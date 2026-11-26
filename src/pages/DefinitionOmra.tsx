@@ -30,8 +30,8 @@ export default function DefinitionOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Qu'est-ce que l'Omra ? Définition, Conditions & Étapes — Guide 2026</title>
-        <meta name="description" content="Définition complète de l'Omra en Islam : signification du mot, différence avec le Hajj, conditions requises, les 4 étapes des rites. Guide 2026 pour musulmans français." />
+        <title>Qu'est-ce que l'Omra ? Définition, Conditions & Étapes — Guide 2027</title>
+        <meta name="description" content="Définition complète de l'Omra en Islam : signification du mot, différence avec le Hajj, conditions requises, les 4 étapes des rites. Guide 2027 pour musulmans français." />
         <meta name="keywords" content="définition omra, qu'est-ce que l'omra, omra signification, omra islam, différence omra hajj, rites omra explication, pèlerinage mineur islam" />
         <link rel="canonical" href="https://omrabonsplans.fr/definition-omra" />
         <meta property="og:title" content="Qu'est-ce que l'Omra ? Définition complète 2026" />
@@ -49,7 +49,7 @@ export default function DefinitionOmra() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Qu'est-ce que l'Omra ? Définition, Conditions & Étapes — Guide 2026",
+          "headline": "Qu'est-ce que l'Omra ? Définition, Conditions & Étapes — Guide 2027",
           "description": "Définition complète de l'Omra en Islam pour les musulmans français.",
           "url": "https://omrabonsplans.fr/definition-omra",
           "datePublished": "2026-04-03",

@@ -34,11 +34,11 @@ export default function OmraFamille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra en Famille 2026 : Guide Complet, Prix & Conseils</title>
+        <title>Omra en Famille 2027 : Guide Complet, Prix & Conseils</title>
         <meta name="description" content="Omra en famille 2026 : prix complets (5 000-14 000€ pour 4), documents enfants, meilleures périodes et conseils pratiques. Guide actualisé." />
         <meta name="keywords" content="omra famille, omra avec enfants, omra famille prix, omra enfant mineur, voyage omra famille, pèlerinage famille france" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-famille" />
-        <meta property="og:title" content="Omra en Famille 2026 — Guide Complet avec Enfants" />
+        <meta property="og:title" content="Omra en Famille 2027 — Guide Complet avec Enfants" />
         <meta property="og:description" content="Prix, documents, conseils : tout pour organiser votre Omra en famille avec enfants en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-famille" />
         <meta property="og:type" content="article" />
@@ -48,7 +48,7 @@ export default function OmraFamille() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra en Famille 2026 : Guide Complet avec Enfants",
+          "headline": "Omra en Famille 2027 : Guide Complet avec Enfants",
           "description": "Comment organiser l'Omra en famille : prix, documents, conseils pratiques pour partir avec ses enfants en 2026.",
           "url": "https://omrabonsplans.fr/omra-famille",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -81,7 +81,7 @@ export default function OmraFamille() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra en Famille 2026 : Guide Complet avec Enfants
+            Omra en Famille 2027 : Guide Complet avec Enfants
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Organiser une Omra en famille est un projet magnifique mais qui demande une préparation rigoureuse. Prix, documents, meilleures périodes, conseils pratiques — voici tout ce qu'il faut savoir pour réussir ce voyage spirituel en famille en 2026.

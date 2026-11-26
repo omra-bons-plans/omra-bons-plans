@@ -50,7 +50,7 @@ const structuredData = {
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Guide Complet des Rites de la Omra 2026 : Ihram, Tawaf, Sa'i et Tahallul",
+  "headline": "Guide Complet des Rites de la Omra 2027 : Ihram, Tawaf, Sa'i et Tahallul",
   "description": "Guide complet des rites de la Omra : comment se mettre en ihram, effectuer le tawaf, le sa'i entre Safa et Marwa et le tahallul. Étapes détaillées avec conseils pratiques.",
   "url": "https://omrabonsplans.fr/rites-omra",
   "datePublished": "2025-10-01",
@@ -67,11 +67,11 @@ export default function RitesOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Rites de la Omra 2026 : Guide Complet Ihram, Tawaf, Sa'i, Tahallul</title>
+        <title>Rites de la Omra 2027 : Guide Complet Ihram, Tawaf, Sa'i, Tahallul</title>
         <meta name="description" content="Rites de la Omra : ihram au miqat, tawaf autour de la Kaaba, sa'i (Safa-Marwa), tahallul. Guide complet des 4 étapes pour réussir votre pèlerinage." />
         <meta name="keywords" content="rites omra, comment faire la omra, étapes omra, ihram omra, tawaf kaaba, sai safa marwa, tahallul omra, guide omra 2026" />
         <link rel="canonical" href="https://omrabonsplans.fr/rites-omra" />
-        <meta property="og:title" content="Rites de la Omra 2026 : Guide Complet Étapes" />
+        <meta property="og:title" content="Rites de la Omra 2027 : Guide Complet Étapes" />
         <meta property="og:description" content="Toutes les étapes de la Omra expliquées : ihram, tawaf, sa'i et tahallul. Guide pratique pour bien préparer votre pèlerinage." />
         <meta property="og:url" content="https://omrabonsplans.fr/rites-omra" />
         <meta property="og:type" content="article" />
@@ -92,7 +92,7 @@ export default function RitesOmra() {
 
           <header className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Rites de la Omra 2026 : Guide Complet des Étapes
+              Rites de la Omra 2027 : Guide Complet des Étapes
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
               La Omra est composée de 4 rites essentiels à accomplir dans l'ordre. Ce guide détaillé explique chaque étape — de l'ihram au miqat jusqu'au tahallul — pour que vous puissiez accomplir votre pèlerinage en toute sérénité.

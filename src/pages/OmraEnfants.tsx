@@ -30,11 +30,11 @@ export default function OmraEnfants() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra avec Enfants 2026 : Guide Pratique et Conseils</title>
+        <title>Omra avec Enfants 2027 : Guide Pratique et Conseils</title>
         <meta name="description" content="Omra avec enfants 2026 : âge idéal, vêtements ihram, documents nécessaires et conseils pour gérer les foules. Guide complet pour parents pèlerins." />
         <meta name="keywords" content="omra enfants, omra avec enfants, omra enfant ihram, vêtement ihram enfant, pèlerinage avec enfants, omra famille enfant, omra mineur" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-enfants" />
-        <meta property="og:title" content="Omra avec Enfants 2026 — Guide Pratique & Conseils Parents" />
+        <meta property="og:title" content="Omra avec Enfants 2027 — Guide Pratique & Conseils Parents" />
         <meta property="og:description" content="Âge idéal, vêtements ihram, documents, conseils pratiques pour l'Omra avec enfants en 2026." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-enfants" />
         <meta property="og:type" content="article" />
@@ -44,7 +44,7 @@ export default function OmraEnfants() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra avec Enfants 2026 : Guide Complet pour les Parents",
+          "headline": "Omra avec Enfants 2027 : Guide Complet pour les Parents",
           "description": "Tout pour préparer l'Omra avec des enfants : âge idéal, vêtements, documents, conseils pratiques.",
           "url": "https://omrabonsplans.fr/omra-enfants",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -77,7 +77,7 @@ export default function OmraEnfants() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra avec Enfants 2026 : Guide Complet pour les Parents
+            Omra avec Enfants 2027 : Guide Complet pour les Parents
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Emmener ses enfants en Omra est une expérience spirituelle inoubliable. Mais elle demande une préparation spécifique. Voici tous nos conseils pratiques pour que ce voyage soit une réussite pour toute la famille.

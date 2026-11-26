@@ -13,11 +13,11 @@ export default function ListeBagagesOmra() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Liste Complète Bagages Omra 2026 : Homme & Femme Détaillée</title>
+        <title>Liste Complète Bagages Omra 2027 : Homme & Femme Détaillée</title>
         <meta name="description" content="Liste bagages Omra homme et femme : vêtements ihram, documents, médicaments. Checklist complète à imprimer pour votre pèlerinage 2026." />
         <meta name="keywords" content="liste bagages omra, quoi emporter omra, valise omra, vetements omra, vêtements ihram, liste packing omra" />
         <link rel="canonical" href="https://omrabonsplans.fr/liste-bagages-omra" />
-        <meta property="og:title" content="Liste Bagages Omra 2026 : Tout Ce Qu'il Faut Emporter" />
+        <meta property="og:title" content="Liste Bagages Omra 2027 : Tout Ce Qu'il Faut Emporter" />
         <meta property="og:description" content="Checklist complète de tous les bagages pour la Omra : documents, vêtements ihram, médicaments, hygiène. Guides homme et femme séparés." />
         <meta property="og:url" content="https://omrabonsplans.fr/liste-bagages-omra" />
         <meta property="og:type" content="article" />
@@ -27,7 +27,7 @@ export default function ListeBagagesOmra() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Liste Complète Bagages Omra 2026 : Homme & Femme Détaillée",
+          "headline": "Liste Complète Bagages Omra 2027 : Homme & Femme Détaillée",
           "description": "Liste bagages Omra homme et femme : vêtements ihram, documents, médicaments. Checklist complète à imprimer pour votre pèlerinage 2026.",
           "url": "https://omrabonsplans.fr/liste-bagages-omra",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -86,7 +86,7 @@ export default function ListeBagagesOmra() {
           ]} />
 
           <header className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Liste Complète des Bagages pour la Omra 2026</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Liste Complète des Bagages pour la Omra 2027</h1>
             <p className="text-lg text-muted-foreground">
               Checklist détaillée de tous les bagages à emporter pour votre Omra. Guides séparés pour homme et femme avec des conseils pratiques et une liste à imprimer.
             </p>

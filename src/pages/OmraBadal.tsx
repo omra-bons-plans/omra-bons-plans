@@ -34,11 +34,11 @@ export default function OmraBadal() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Badal 2026 — Guide Complet, Conditions & Agences</title>
-        <meta name="description" content="Omra Badal 2026 : définition, conditions islamiques, intention, agences fiables, prix (300-600€). Accomplir l'Omra au nom d'un défunt ou malade." />
+        <title>Omra Badal 2027 — Guide Complet, Conditions & Agences</title>
+        <meta name="description" content="Omra Badal 2027 : définition, conditions islamiques, intention, agences fiables, prix (300-600€). Accomplir l'Omra au nom d'un défunt ou malade." />
         <meta name="keywords" content="omra badal, omra défunt, omra par procuration, omra pour mort, omra pour malade, omra au nom de quelqu'un, pèlerinage défunt" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-badal" />
-        <meta property="og:title" content="Omra Badal 2026 — Omra pour un Défunt ou par Procuration" />
+        <meta property="og:title" content="Omra Badal 2027 — Omra pour un Défunt ou par Procuration" />
         <meta property="og:description" content="Comment faire l'Omra Badal (par procuration) ? Conditions islamiques, intention, prix agences, arnaques à éviter." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-badal" />
         <meta property="og:type" content="article" />
@@ -48,7 +48,7 @@ export default function OmraBadal() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra Badal 2026 : Guide Complet de l'Omra pour un Défunt",
+          "headline": "Omra Badal 2027 : Guide Complet de l'Omra pour un Défunt",
           "description": "Tout sur l'Omra Badal (par procuration) : conditions islamiques, intention, prix des agences, arnaques à éviter.",
           "url": "https://omrabonsplans.fr/omra-badal",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -81,7 +81,7 @@ export default function OmraBadal() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra Badal 2026 : Guide Complet de l'Omra pour un Défunt
+            Omra Badal 2027 : Guide Complet de l'Omra pour un Défunt
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             L'Omra Badal permet d'accomplir l'Omra au nom d'un proche décédé ou dans l'incapacité physique de le faire. Voici tout ce que vous devez savoir sur les conditions islamiques, comment la pratiquer, et comment choisir une agence fiable.

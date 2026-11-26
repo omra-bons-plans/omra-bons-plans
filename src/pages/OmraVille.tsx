@@ -486,7 +486,7 @@ export default function OmraVille() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>{`Omra depuis ${data.nom} 2026 : Agences, Prix & Vols | Omra Bons Plans`}</title>
+        <title>{`Omra depuis ${data.nom} 2027 : Agences, Prix & Vols | Omra Bons Plans`}</title>
         <meta name="description" content={`Comparez les offres Omra 2026 depuis ${data.nom} (${data.codeAero}). ${data.supplement}. Agences agréées, vols ${data.volDuree}, conseils pratiques et prix par saison.`} />
         <meta name="keywords" content={`omra depuis ${data.nom.toLowerCase()}, omra ${data.nom.toLowerCase()} 2026, agence omra ${data.nom.toLowerCase()}, vol omra ${data.nom.toLowerCase()}, prix omra ${data.nom.toLowerCase()}, départ omra ${data.nom.toLowerCase()}`} />
         <link rel="canonical" href={canonicalUrl} />
@@ -516,7 +516,7 @@ export default function OmraVille() {
             <Badge variant="secondary">{data.supplement}</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Omra depuis {data.nom} en 2026 : Agences, Prix et Vols
+            Omra depuis {data.nom} en 2027 : Agences, Prix et Vols
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
             {data.description}

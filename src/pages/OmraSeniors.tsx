@@ -30,11 +30,11 @@ export default function OmraSeniors() {
   return (
     <ResponsiveLayout>
       <Helmet>
-        <title>Omra Seniors 2026 : Guide Mobilité Réduite & Conseils Médicaux</title>
+        <title>Omra Seniors 2027 : Guide Mobilité Réduite & Conseils Médicaux</title>
         <meta name="description" content="Omra seniors 2026 : fauteuil roulant à La Mecque, conseils médicaux, formules adaptées, agences spécialisées. Accomplir l'Omra à tout âge en sérénité." />
         <meta name="keywords" content="omra seniors, omra personnes âgées, omra fauteuil roulant, omra mobilité réduite, pèlerinage senior, omra 3ème âge" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-seniors" />
-        <meta property="og:title" content="Omra Seniors 2026 — Guide Personnes Âgées & Mobilité Réduite" />
+        <meta property="og:title" content="Omra Seniors 2027 — Guide Personnes Âgées & Mobilité Réduite" />
         <meta property="og:description" content="Comment faire l'Omra en étant senior ou à mobilité réduite ? Fauteuil roulant, conseils médicaux, formules adaptées." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-seniors" />
         <meta property="og:type" content="article" />
@@ -44,7 +44,7 @@ export default function OmraSeniors() {
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Omra Seniors 2026 : Guide pour Personnes Âgées et Mobilité Réduite",
+          "headline": "Omra Seniors 2027 : Guide pour Personnes Âgées et Mobilité Réduite",
           "description": "Guide complet Omra seniors 2026 : fauteuil roulant, conseils médicaux, formules adaptées, agences spécialisées.",
           "url": "https://omrabonsplans.fr/omra-seniors",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -77,7 +77,7 @@ export default function OmraSeniors() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Omra Seniors 2026 : Guide Complet pour Personnes Âgées
+            Omra Seniors 2027 : Guide Complet pour Personnes Âgées
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             L'Omra est accessible à tous, quel que soit l'âge. Des aménagements spéciaux existent à La Mecque pour les seniors et les personnes à mobilité réduite. Voici tout ce qu'il faut savoir pour préparer votre pèlerinage sereinement.
