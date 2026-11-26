@@ -689,7 +689,7 @@ export default function OmraVille() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg"><Link to="/">Comparer les offres →</Link></Button>
-            <Button asChild variant="outline" size="lg"><Link to="/prix-omra-2026">Guide des prix 2026</Link></Button>
+            <Button asChild variant="outline" size="lg"><Link to="/prix-omra-2027">Guide des prix 2026</Link></Button>
           </div>
         </section>
 
@@ -712,7 +712,7 @@ export default function OmraVille() {
           <div className="mt-4 flex flex-wrap gap-2">
             <Link to="/meilleure-agence-omra" className="text-sm text-muted-foreground hover:text-primary">Meilleures agences Omra</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/prix-omra-2026" className="text-sm text-muted-foreground hover:text-primary">Prix Omra 2026</Link>
+            <Link to="/prix-omra-2027" className="text-sm text-muted-foreground hover:text-primary">Prix Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/conditions-omra" className="text-sm text-muted-foreground hover:text-primary">Conditions Omra</Link>
             <span className="text-muted-foreground">·</span>

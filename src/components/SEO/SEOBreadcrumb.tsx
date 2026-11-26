@@ -36,7 +36,7 @@ const routeMap: Record<string, string> = {
   '/ramadan-hajj-dates': 'Dates Ramadan & Hajj',
   // Guides
   '/meilleure-agence-omra': 'Meilleure Agence Omra',
-  '/prix-omra-2026': 'Prix Omra 2026',
+  '/prix-omra-2027': 'Prix Omra 2027',
   '/omra-tout-compris': 'Omra Tout Compris',
   '/omra-femme-seule': 'Omra Femme Seule',
   '/omra-ramadan-2027': 'Omra Ramadan 2027',

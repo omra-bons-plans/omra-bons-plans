@@ -301,7 +301,7 @@ export default function MeilleureAgenceOmra() {
           </section>
 
           <section id="prix-guide" className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Guide des Prix Omra 2026</h2>
+            <h2 className="text-2xl font-bold mb-6">Guide des Prix Omra 2027</h2>
             <Card>
               <CardContent className="pt-4">
                 <div className="space-y-3">

@@ -392,8 +392,8 @@ export default function RitesOmra() {
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">Pour préparer votre Omra</h2>
             <div className="grid md:grid-cols-3 gap-3">
-              <Link to="/prix-omra-2026" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
-                <p className="font-semibold text-sm">Prix Omra 2026</p>
+              <Link to="/prix-omra-2027" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                <p className="font-semibold text-sm">Prix Omra 2027</p>
                 <p className="text-xs text-muted-foreground mt-1">Combien coûte une Omra ?</p>
               </Link>
               <Link to="/visa-omra-france" className="block p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors">

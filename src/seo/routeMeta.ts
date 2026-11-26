@@ -58,7 +58,7 @@ export const STATIC_ROUTE_META: Record<string, RouteMeta> = {
   "/omra-tout-compris": { title: t("Omra tout compris : vols, hôtels et visa"), description: "Ce que comprend une Omra tout compris : vol, visa, hôtels, transferts et accompagnement. Comparez les formules des agences." },
   "/meilleure-agence-omra": { title: t("Meilleure agence Omra : comment bien choisir"), description: "Critères pour choisir la meilleure agence Omra : agrément, avis, hôtels, encadrement et transparence des prix." },
   "/liste-bagages-omra": { title: t("Liste des bagages pour l'Omra : checklist"), description: "Checklist complète des affaires à emporter pour l'Omra : tenue d'Ihram, papiers, santé et objets pratiques." },
-  "/prix-omra-2026": { title: t("Prix de l'Omra 2027 par période et standing"), description: "Combien coûte une Omra ? Tarifs selon la période, la durée, le standing des hôtels et la ville de départ, dès 999 €." },
+  "/prix-omra-2027": { title: t("Prix de l'Omra 2027 par période et standing"), description: "Combien coûte une Omra ? Tarifs selon la période, la durée, le standing des hôtels et la ville de départ, dès 999 €." },
   "/omra-femme-seule": { title: t("Omra femme seule : conditions et conseils"), description: "Partir en Omra en tant que femme seule : règles saoudiennes, avis religieux, agences et conseils pratiques." },
   "/visa-omra-france": { title: t("Visa Omra depuis la France : démarches et délais"), description: "Comment obtenir son visa Omra depuis la France : documents, délais, coût et rôle de l'agence." },
   "/omra-famille": { title: t("Omra en famille : préparation et conseils"), description: "Organiser une Omra en famille : budget, hébergement, rythme et conseils pour voyager avec ses proches." },

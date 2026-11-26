@@ -285,7 +285,7 @@ export default function QuandPartirOmra() {
               <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Comparer les offres Omra
               </Link>
-              <Link to="/prix-omra-2026" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
+              <Link to="/prix-omra-2027" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
                 Voir les prix 2026
               </Link>
             </div>

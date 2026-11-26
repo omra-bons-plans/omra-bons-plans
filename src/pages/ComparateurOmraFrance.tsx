@@ -233,7 +233,7 @@ export default function ComparateurOmraFrance() {
 
           {/* Prix comparatif */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">Prix Omra 2026 — ce que vous trouverez sur le comparateur</h2>
+            <h2 className="text-2xl font-bold mb-4">Prix Omra 2027 — ce que vous trouverez sur le comparateur</h2>
             <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-sm">
                 <thead className="bg-muted/50">
@@ -286,7 +286,7 @@ export default function ComparateurOmraFrance() {
               <Link to="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                 Accéder au comparateur Omra
               </Link>
-              <Link to="/prix-omra-2026" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
+              <Link to="/prix-omra-2027" className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
                 Voir les prix 2026
               </Link>
             </div>
@@ -299,7 +299,7 @@ export default function ComparateurOmraFrance() {
               { href: "/omra", label: "Comparateur Omra 2026", description: "Comparer les offres maintenant" },
               { href: "/meilleure-agence-omra", label: "Meilleures agences Omra", description: "Classement et avis" },
               { href: "/guide-omra-pas-chere", label: "Omra pas chère", description: "Astuces et périodes" },
-              { href: "/prix-omra-2026", label: "Prix Omra 2026", description: "Tableau complet des tarifs" },
+              { href: "/prix-omra-2027", label: "Prix Omra 2027", description: "Tableau complet des tarifs" },
               { href: "/agences-liste", label: "Toutes les agences", description: "Annuaire agréées France" },
               { href: "/conditions-omra", label: "Conditions Omra", description: "Qui peut partir ?" }
             ]}

@@ -61,10 +61,10 @@ export default function PrixOmra() {
         <title>Prix Omra 2027 : Tarifs par Saison, Ville & Agence | Comparatif Complet</title>
         <meta name="description" content="Tableau complet des prix Omra 2027 : de 800€ à 6 500€ selon la période, la ville de départ et l'agence. Comparez les tarifs et trouvez l'offre la moins chère." />
         <meta name="keywords" content="prix omra 2027, tarif omra 2027, combien coute une omra, prix omra ramadan 2027, omra pas chere, cout omra france, tarif hajj 2027" />
-        <link rel="canonical" href="https://omrabonsplans.fr/prix-omra-2026" />
+        <link rel="canonical" href="https://omrabonsplans.fr/prix-omra-2027" />
         <meta property="og:title" content="Prix Omra 2027 : Tarifs Complets par Saison et Agence" />
         <meta property="og:description" content="Découvrez les prix réels de l'Omra 2027. Tableaux de tarifs par saison, ville de départ et catégorie d'hôtel. De 800€ à 6 500€." />
-        <meta property="og:url" content="https://omrabonsplans.fr/prix-omra-2026" />
+        <meta property="og:url" content="https://omrabonsplans.fr/prix-omra-2027" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -74,7 +74,7 @@ export default function PrixOmra() {
           "@type": "Article",
           "headline": "Prix Omra 2027 : Guide Complet des Tarifs",
           "description": "Tableau complet des prix Omra 2027 par saison, ville de départ et formule.",
-          "url": "https://omrabonsplans.fr/prix-omra-2026",
+          "url": "https://omrabonsplans.fr/prix-omra-2027",
           "datePublished": "2026-01-10",
           "dateModified": "2026-08-16",
           "author": { "@type": "Person", "@id": "https://omrabonsplans.fr/about#farid", "name": "Farid d'Arabie", "jobTitle": "Expert en pèlerinage islamique" },
@@ -87,7 +87,7 @@ export default function PrixOmra() {
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
         { name: 'Omra 2026', url: '/omra' },
-        { name: 'Prix Omra 2026', url: '/prix-omra-2026' }
+        { name: 'Prix Omra 2027', url: '/prix-omra-2027' }
       ]} />
 
       <article className="max-w-4xl mx-auto px-4 py-8">
@@ -131,7 +131,7 @@ export default function PrixOmra() {
 
         {/* Tableau par saison */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">📅 Prix Omra 2026 par saison et mois</h2>
+          <h2 className="text-2xl font-bold mb-4">📅 Prix Omra 2027 par saison et mois</h2>
           <p className="text-muted-foreground mb-4">
             Le facteur le plus important dans le prix d'une Omra est la période du voyage.
             Voici les tarifs moyens par période pour un séjour de 10 nuits au départ de Paris :
@@ -176,7 +176,7 @@ export default function PrixOmra() {
 
         {/* Prix par ville */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">✈️ Prix Omra 2026 par ville de départ</h2>
+          <h2 className="text-2xl font-bold mb-4">✈️ Prix Omra 2027 par ville de départ</h2>
           <p className="text-muted-foreground mb-4">
             La ville de départ influence le prix du vol, donc le prix total du forfait.
             Voici les différences habituellement constatées (par rapport à Paris) :

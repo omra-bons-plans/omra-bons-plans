@@ -229,7 +229,7 @@ export default function DefinitionOmra() {
             <Link to="/" className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/90 transition-colors">
               Comparer les prix maintenant →
             </Link>
-            <Link to="/prix-omra-2026" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/5 transition-colors">
+            <Link to="/prix-omra-2027" className="border border-primary text-primary px-6 py-3 rounded-lg font-semibold text-center hover:bg-primary/5 transition-colors">
               Guide des prix Omra 2026
             </Link>
           </div>

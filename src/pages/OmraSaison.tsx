@@ -400,7 +400,7 @@ export default function OmraSaison() {
             <div>
               <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
               <div className="flex flex-col gap-1">
-                <Link to="/prix-omra-2026" className="text-primary hover:underline text-sm">Prix Omra 2026</Link>
+                <Link to="/prix-omra-2027" className="text-primary hover:underline text-sm">Prix Omra 2027</Link>
                 <Link to="/omra-ramadan-2027" className="text-primary hover:underline text-sm">Omra Ramadan 2027</Link>
                 <Link to="/ramadan-hajj-dates" className="text-primary hover:underline text-sm">Dates Ramadan & Hajj</Link>
                 <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra</Link>

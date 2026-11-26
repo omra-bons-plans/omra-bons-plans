@@ -125,7 +125,7 @@ export default function GuideOmraPasChere() {
         <nav className="bg-muted/50 rounded-xl p-6 mb-10 border border-border">
           <h2 className="text-lg font-semibold mb-3">📋 Sommaire</h2>
           <ol className="space-y-2 text-sm md:text-base">
-            <li><a href="#prix-omra-2026" className="text-primary hover:underline">1. Prix d'une Omra en 2026 : combien ça coûte vraiment ?</a></li>
+            <li><a href="#prix-omra-2027" className="text-primary hover:underline">1. Prix d'une Omra en 2026 : combien ça coûte vraiment ?</a></li>
             <li><a href="#meilleure-periode" className="text-primary hover:underline">2. Quelle est la meilleure période pour une Omra pas chère ?</a></li>
             <li><a href="#10-astuces" className="text-primary hover:underline">3. 10 astuces pour économiser sur votre Omra</a></li>
             <li><a href="#tout-compris-vs-carte" className="text-primary hover:underline">4. Omra tout compris ou à la carte : le comparatif</a></li>
@@ -138,7 +138,7 @@ export default function GuideOmraPasChere() {
 
         <div className="prose prose-lg max-w-none space-y-10">
           {/* Section 1 */}
-          <section id="prix-omra-2026">
+          <section id="prix-omra-2027">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">1. Prix d'une Omra en 2026 : combien ça coûte vraiment ?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
               Le prix d'une <strong className="text-foreground">Omra</strong> varie considérablement selon la saison, la formule choisie et la proximité de votre hôtel au Haram. 
