@@ -213,6 +213,10 @@
   path = "/guide-omra-pas-chere"
   function = "guide-prerender"
 
+[[edge_functions]]
+  path = "/omra-sans-agence"
+  function = "guide-prerender"
+
 [[redirects]]
   from = "/omra-ramadan-2026"
   to = "/omra-ramadan-2027"

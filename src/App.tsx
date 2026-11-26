@@ -92,6 +92,7 @@ const OmraDebutant = lazy(() => import("./pages/OmraDebutant"));
 const ConditionsOmra = lazy(() => import("./pages/ConditionsOmra"));
 const ComparateurOmraFrance = lazy(() => import("./pages/ComparateurOmraFrance"));
 const OmraSaison = lazy(() => import("./pages/OmraSaison"));
+const OmraSansAgence = lazy(() => import("./pages/OmraSansAgence"));
 const GuideHajj4Ecoles = lazy(() => import("./pages/GuideHajj4Ecoles"));
 const HotelsListe = lazy(() => import("./pages/HotelsListe"));
 const HotelDetails = lazy(() => import("./pages/HotelDetails"));
@@ -330,6 +331,7 @@ const App = () => (
                    <Route path="/omra-en-aout-2027" element={<OmraSaison />} />
                    <Route path="/omra-en-septembre-2027" element={<OmraSaison />} />
                    <Route path="/omra-en-octobre-2027" element={<OmraSaison />} />
+                   <Route path="/omra-sans-agence" element={<OmraSansAgence />} />
                    <Route path="/omra-famille" element={<OmraFamille />} />
                    <Route path="/omra-seniors" element={<OmraSeniors />} />
                    <Route path="/omra-enfants" element={<OmraEnfants />} />

@@ -36,6 +36,7 @@ const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string; la
   { loc: `${SITE}/meilleure-agence-omra`, changefreq: "monthly", priority: "0.85", lastmod: "2026-09-01" },
   { loc: `${SITE}/omra-tout-compris`, changefreq: "weekly", priority: "0.90", lastmod: "2026-09-01" },
   { loc: `${SITE}/omra-debutant`, changefreq: "monthly", priority: "0.88", lastmod: "2026-09-01" },
+  { loc: `${SITE}/omra-sans-agence`, changefreq: "monthly", priority: "0.80", lastmod: "2026-11-26" },
   { loc: `${SITE}/omra-ramadan-2027`, changefreq: "weekly", priority: "0.90", lastmod: "2026-09-01" },
   { loc: `${SITE}/omra-femme-seule`, changefreq: "monthly", priority: "0.80", lastmod: "2026-09-01" },
   { loc: `${SITE}/omra-famille`, changefreq: "monthly", priority: "0.85", lastmod: "2026-09-01" },
