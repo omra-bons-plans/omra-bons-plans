@@ -11,6 +11,24 @@
     <!-- Mobile viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
 
+    <!-- Masquer le badge "Powered by Netlify" (plan gratuit) qui recouvre le menu mobile -->
+    <style>
+      a[href*="netlify"],
+      iframe[src*="netlify"],
+      [class*="netlify-badge"],
+      img[src*="netlify"] {
+        display: none !important;
+      }
+    </style>
+    <script>
+      (function () {
+        var removeBadge = function () {
+          document.querySelectorAll('a[href*="netlify"], iframe[src*="netlify"], [class*="netlify-badge"], [data-netlify]').forEach(function (el) { el.remove(); });
+        };
+        window.addEventListener('load', function () { setTimeout(removeBadge, 500); setTimeout(removeBadge, 2000); });
+      })();
+    </script>
+
     <!-- ⚡ PERFORMANCE: Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://lptyhenryzhztdwpkvsc.supabase.co" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
