@@ -321,6 +321,15 @@ const App = () => (
                    <Route path="/omra-en-novembre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-decembre-2026" element={<OmraSaison />} />
                    <Route path="/omra-en-janvier-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-fevrier-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-mars-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-avril-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-mai-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-juin-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-juillet-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-aout-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-septembre-2027" element={<OmraSaison />} />
+                   <Route path="/omra-en-octobre-2027" element={<OmraSaison />} />
                    <Route path="/omra-famille" element={<OmraFamille />} />
                    <Route path="/omra-seniors" element={<OmraSeniors />} />
                    <Route path="/omra-enfants" element={<OmraEnfants />} />
