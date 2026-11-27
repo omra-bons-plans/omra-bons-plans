@@ -1,3 +1,5 @@
+https://www.omrabonsplans.fr/*  https://omrabonsplans.fr/:splat  301
+
 # /omra redirige vers / (la vraie page d'accueil)
 /omra / 301
 
@@ -57,7 +59,11 @@
 /404 /404.html 404
 /404/ /404.html 404
 
+# Saison 2026 -> 2027 (301, avant le fallback SPA)
+/hajj-2026 /hajj-2027 301
+/prix-omra-2026 /prix-omra-2027 301
+/omra-ramadan-2026 /omra-ramadan-2027 301
+/omra-en-octobre-2026 /omra-en-janvier-2027 301
+
 # SPA fallback - redirect all routes to index.html for client-side routing
 /*    /index.html   200
-
-/hajj-2026 /hajj-2027 301
