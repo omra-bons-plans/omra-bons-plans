@@ -16,14 +16,17 @@
       a[href*="netlify"],
       iframe[src*="netlify"],
       [class*="netlify-badge"],
-      img[src*="netlify"] {
+      img[src*="netlify"],
+      iframe#nl-badge-frame,
+      iframe[id*="nl-badge"],
+      [id*="nl-badge"] {
         display: none !important;
       }
     </style>
     <script>
       (function () {
         var removeBadge = function () {
-          document.querySelectorAll('a[href*="netlify"], iframe[src*="netlify"], [class*="netlify-badge"], [data-netlify]').forEach(function (el) { el.remove(); });
+          document.querySelectorAll('a[href*="netlify"], iframe[src*="netlify"], [class*="netlify-badge"], [data-netlify], #nl-badge-frame, iframe[id*="nl-badge"], [id*="nl-badge"]').forEach(function (el) { el.remove(); });
         };
         window.addEventListener('load', function () { setTimeout(removeBadge, 500); setTimeout(removeBadge, 2000); });
       })();
