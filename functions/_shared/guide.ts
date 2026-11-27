@@ -307,7 +307,7 @@ const PAGES: Record<string, PageData> = {
   },
 
   "/omra-famille": {
-    title: "Omra en Famille 2027 : Guide, Prix et Conseils Pratiques",
+    title: "Omra en Famille 2027 : Guide, Tarifs et Conseils Pratiques",
     description: "Omra en famille 2027 : conditions pour les enfants, prix famille (2 500-6 000€), conseils pratiques et agences spécialisées. Tout pour réussir l'Omra avec femme et enfants.",
     canonical: "https://omrabonsplans.fr/omra-famille",
     h1: "Omra en Famille 2027 : Guide Complet",

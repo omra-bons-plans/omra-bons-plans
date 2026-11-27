@@ -67,6 +67,7 @@ export const STATIC_ROUTE_META: Record<string, RouteMeta> = {
   "/omra-femme-seule": { title: t("Omra femme seule : conditions et conseils"), description: "Partir en Omra en tant que femme seule : règles saoudiennes, avis religieux, agences et conseils pratiques." },
   "/visa-omra-france": { title: t("Visa Omra depuis la France : démarches et délais"), description: "Comment obtenir son visa Omra depuis la France : documents, délais, coût et rôle de l'agence." },
   "/omra-famille": { title: t("Omra en famille : tarifs, préparation et conseils"), description: "Organiser une Omra en famille : budget, hébergement, rythme et conseils pour voyager avec ses proches." },
+  "/omra-sans-agence": { title: t("Omra sans agence : visa, budget et démarches"), description: "Partir en Omra sans agence : visa électronique, budget détaillé, démarches étape par étape et risques. Comparez avec les offres d'agences dès 999 €." },
   "/omra-seniors": { title: t("Omra pour les seniors : santé et confort"), description: "Omra pour les personnes âgées : mobilité réduite, conseils médicaux, hôtels proches et agences adaptées." },
   "/omra-enfants": { title: t("Omra avec des enfants : âge et préparation"), description: "Faire l'Omra avec des enfants : âge conseillé, formalités, santé et astuces pour un séjour serein." },
   "/omra-badal": { title: t("Omra Badal : l'Omra par procuration"), description: "Omra Badal (par procuration) : définition, conditions, déroulement et agences qui la proposent." },
