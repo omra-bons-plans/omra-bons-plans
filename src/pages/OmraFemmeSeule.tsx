@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 const faqs = [
   {
-    question: "Une femme peut-elle faire l'Omra seule sans mahram en 2026 ?",
+    question: "Une femme peut-elle faire l'Omra seule sans mahram en 2027 ?",
     answer: "Selon la loi saoudienne en vigueur depuis 2021, oui : les femmes de tout âge peuvent accomplir l'Omra sans mahram, à condition de voyager avec un groupe organisé par une agence agréée par le Ministère saoudien du Hajj et de l'Omra. Cette réforme a été officiellement annoncée par les autorités saoudiennes et est appliquée sans restriction depuis lors. D'un point de vue légal, aucun document attestant d'un mahram n'est requis à l'entrée en Arabie Saoudite pour l'Omra. Cependant, d'un point de vue religieux, la majorité des savants (hanafite, malikite, shafiite) considèrent que le mahram reste obligatoire pour le voyage de la femme. Il est recommandé de consulter votre référent religieux avant de prendre votre décision."
   },
   {
@@ -34,11 +34,11 @@ export default function OmraFemmeSeule() {
     <ResponsiveLayout>
       <Helmet>
         <title>Omra Femme Seule 2027 : Règles, Conseils & Agences Sans Mahram</title>
-        <meta name="description" content="Tout sur l'Omra pour femme seule en 2026 : règles actualisées, peut-on partir sans mahram, meilleures agences, conseils sécurité et prix. Guide complet et fiable." />
-        <meta name="keywords" content="omra femme seule, omra sans mahram, omra femme 2026, omra pour femme seule france, omra groupe femmes, omra sans mahram 2026, règle omra femme" />
+        <meta name="description" content="Tout sur l'Omra pour femme seule en 2027 : règles actualisées, peut-on partir sans mahram, meilleures agences, conseils sécurité et prix. Guide complet et fiable." />
+        <meta name="keywords" content="omra femme seule, omra sans mahram, omra femme 2027, omra pour femme seule france, omra groupe femmes, omra sans mahram 2027, règle omra femme" />
         <link rel="canonical" href="https://omrabonsplans.fr/omra-femme-seule" />
         <meta property="og:title" content="Omra Femme Seule 2027 : Guide Complet Sans Mahram" />
-        <meta property="og:description" content="Peut-on faire l'Omra sans mahram en 2026 ? Oui ! Découvrez les règles, les meilleures agences et tous nos conseils pour une Omra sereine en tant que femme seule." />
+        <meta property="og:description" content="Peut-on faire l'Omra sans mahram en 2027 ? Oui ! Découvrez les règles, les meilleures agences et tous nos conseils pour une Omra sereine en tant que femme seule." />
         <meta property="og:url" content="https://omrabonsplans.fr/omra-femme-seule" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://omrabonsplans.fr/hero-kaaba-optimized.webp" />
@@ -68,7 +68,7 @@ export default function OmraFemmeSeule() {
 
       <SEOBreadcrumb items={[
         { name: 'Accueil', url: '/' },
-        { name: 'Omra 2026', url: '/omra' },
+        { name: 'Omra 2027', url: '/omra' },
         { name: 'Omra Femme Seule', url: '/omra-femme-seule' }
       ]} />
 
@@ -77,16 +77,16 @@ export default function OmraFemmeSeule() {
         <header className="mb-10">
           <div className="flex flex-wrap gap-2 mb-4">
             <Badge className="bg-rose-500 text-white">Guide Femmes</Badge>
-            <Badge variant="outline">Règles 2026 actualisées</Badge>
+            <Badge variant="outline">Règles 2027 actualisées</Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Omra Femme Seule en 2026 : Tout Ce Qu'il Faut Savoir
+            Omra Femme Seule en 2027 : Tout Ce Qu'il Faut Savoir
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Depuis la réforme saoudienne de 2021, la loi saoudienne n'exige plus de <strong>mahram</strong>
             (tuteur masculin) pour accomplir l'Omra. Les femmes de tout âge peuvent voyager en groupe organisé.
             Cependant, d'un point de vue religieux, le mahram reste obligatoire selon la majorité des savants.
-            Voici le guide complet et actualisé pour 2026.
+            Voici le guide complet et actualisé pour 2027.
           </p>
           <Button asChild size="lg" className="mt-4">
             <Link to="/">Voir les offres Omra pour femmes →</Link>
@@ -95,7 +95,7 @@ export default function OmraFemmeSeule() {
 
         {/* Règles actuelles */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">📋 Règles concernant le mahram en 2026</h2>
+          <h2 className="text-2xl font-bold mb-4">📋 Règles concernant le mahram en 2027</h2>
           <Card className="border-green-200 bg-green-50">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
@@ -333,7 +333,7 @@ export default function OmraFemmeSeule() {
 
         {/* Prix détaillé */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">💰 Prix Omra pour femme seule en 2026 : tableau détaillé</h2>
+          <h2 className="text-2xl font-bold mb-4">💰 Prix Omra pour femme seule en 2027 : tableau détaillé</h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
@@ -430,7 +430,7 @@ export default function OmraFemmeSeule() {
         <nav className="mt-10 pt-6 border-t" aria-label="Pages associées">
           <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase">Pages associées</h3>
           <div className="flex flex-wrap gap-2">
-            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2026</Link>
+            <Link to="/" className="text-primary hover:underline text-sm">Comparateur Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/prix-omra-2027" className="text-primary hover:underline text-sm">Prix Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
@@ -438,7 +438,7 @@ export default function OmraFemmeSeule() {
             <span className="text-muted-foreground">·</span>
             <Link to="/guide-omra-pas-chere" className="text-primary hover:underline text-sm">Guide Omra Pas Chère</Link>
             <span className="text-muted-foreground">·</span>
-            <Link to="/visa-omra-france" className="text-primary hover:underline text-sm">Visa Omra 2026</Link>
+            <Link to="/visa-omra-france" className="text-primary hover:underline text-sm">Visa Omra 2027</Link>
             <span className="text-muted-foreground">·</span>
             <Link to="/blog/general/omra-sans-mahram-pour-femme-seule-en-2026-guide-complet" className="text-primary hover:underline text-sm">Omra sans Mahram : Guide détaillé</Link>
           </div>

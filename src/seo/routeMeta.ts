@@ -26,6 +26,11 @@ const VILLES_DEPART: Record<string, string> = {
 const MOIS: Record<string, string> = {
   "octobre-2026": "octobre 2026", "novembre-2026": "novembre 2026",
   "decembre-2026": "décembre 2026", "janvier-2027": "janvier 2027",
+  "fevrier-2027": "février 2027", "mars-2027": "mars 2027",
+  "avril-2027": "avril 2027", "mai-2027": "mai 2027",
+  "juin-2027": "juin 2027", "juillet-2027": "juillet 2027",
+  "aout-2027": "août 2027", "septembre-2027": "septembre 2027",
+  "octobre-2027": "octobre 2027",
 };
 
 export const STATIC_ROUTE_META: Record<string, RouteMeta> = {
@@ -61,7 +66,7 @@ export const STATIC_ROUTE_META: Record<string, RouteMeta> = {
   "/prix-omra-2027": { title: t("Prix de l'Omra 2027 par période et standing"), description: "Combien coûte une Omra ? Tarifs selon la période, la durée, le standing des hôtels et la ville de départ, dès 999 €." },
   "/omra-femme-seule": { title: t("Omra femme seule : conditions et conseils"), description: "Partir en Omra en tant que femme seule : règles saoudiennes, avis religieux, agences et conseils pratiques." },
   "/visa-omra-france": { title: t("Visa Omra depuis la France : démarches et délais"), description: "Comment obtenir son visa Omra depuis la France : documents, délais, coût et rôle de l'agence." },
-  "/omra-famille": { title: t("Omra en famille : préparation et conseils"), description: "Organiser une Omra en famille : budget, hébergement, rythme et conseils pour voyager avec ses proches." },
+  "/omra-famille": { title: t("Omra en famille : tarifs, préparation et conseils"), description: "Organiser une Omra en famille : budget, hébergement, rythme et conseils pour voyager avec ses proches." },
   "/omra-seniors": { title: t("Omra pour les seniors : santé et confort"), description: "Omra pour les personnes âgées : mobilité réduite, conseils médicaux, hôtels proches et agences adaptées." },
   "/omra-enfants": { title: t("Omra avec des enfants : âge et préparation"), description: "Faire l'Omra avec des enfants : âge conseillé, formalités, santé et astuces pour un séjour serein." },
   "/omra-badal": { title: t("Omra Badal : l'Omra par procuration"), description: "Omra Badal (par procuration) : définition, conditions, déroulement et agences qui la proposent." },
@@ -92,7 +97,7 @@ export const STATIC_ROUTE_META: Record<string, RouteMeta> = {
 
 for (const [slug, ville] of Object.entries(VILLES_DEPART)) {
   STATIC_ROUTE_META[`/omra-depuis-${slug}`] = {
-    title: t(`Omra au départ de ${ville}`),
+    title: t(`Omra au départ de ${ville} : prix pas cher dès 999 €`),
     description: `Comparez les offres Omra au départ de ${ville}, dès 999 € : agences, vols, hôtels et pensions détaillés.`,
   };
 }
