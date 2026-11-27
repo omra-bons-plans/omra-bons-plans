@@ -49,7 +49,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 5 étoiles de la marque Address (groupe Emaar) au cœur du complexe Jabal Omar. Il combine luxe contemporain, vues spectaculaires sur la Kaaba et accès direct couvert vers le Haram.",
     quartier: "Jabal Omar",
     url: "https://www.addresshotels.com/fr/hotels/address-jabal-omar-makkah/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Service de conciergerie"]
   },
   {
@@ -74,7 +74,7 @@ export const hotelsData: HotelData[] = [
     description: "Grand hôtel 4 étoiles très prisé des pèlerins pour sa proximité avec le Haram. Il offre un excellent compromis entre emplacement, capacité et prix maîtrisé.",
     quartier: "Ajyad",
     url: "https://anjumhotels.com/en/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Buffet", "Salle de prière", "Wifi gratuit", "Navette", "Blanchisserie"]
   },
   {
@@ -99,7 +99,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 5 étoiles Conrad au sein du complexe Jabal Omar, référence du luxe à La Mecque. Il séduit par ses prestations soignées et son accès facilité vers la Grande Mosquée.",
     quartier: "Jabal Omar",
     url: "https://www.hilton.com/fr/hotels/makcici-conrad-jabal-omar-makkah/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -124,7 +124,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel DoubleTree by Hilton situé dans le complexe Jabal Omar. Il offre le confort d'une grande marque internationale à un tarif plus accessible que les 5 étoiles de luxe voisins.",
     quartier: "Jabal Omar",
     url: "https://www.hilton.com/fr/hotels/makdmdi-doubletree-jabal-omar-makkah/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Navette"]
   },
   {
@@ -149,7 +149,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel de la chaîne Elaf situé à proximité immédiate du Haram. Apprécié pour son emplacement stratégique et son accueil orienté pèlerins.",
     quartier: "Ajyad",
     url: "https://www.elafhotels.com/elaf-bakkah",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie", "Navette"]
   },
   {
@@ -174,7 +174,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel économique 3 étoiles situé dans le quartier d'Aziziyah. Choix pertinent pour les pèlerins au budget limité qui acceptent l'éloignement du Haram.",
     quartier: "Aziziyah",
     url: "https://emaaralnoorhotel.sa-makkah.com/fr/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière"]
   },
   {
@@ -199,7 +199,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles du quartier d'Aziziyah offrant confort et espace à prix contenu. Adapté aux groupes et familles acceptant un transfert vers le Haram.",
     quartier: "Aziziyah",
     url: "https://emaaralnoorhotel.sa-makkah.com/fr/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière", "Parking"]
   },
   {
@@ -224,7 +224,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Hyatt Regency au sein du complexe Jabal Omar, alliant confort international et bon accès au Haram. Valeur sûre pour un séjour 5 étoiles.",
     quartier: "Jabal Omar",
     url: "https://www.hyatt.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -249,7 +249,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique situé dans le secteur de Jarwal, à distance de marche du Haram. Option pratique pour les pèlerins recherchant un bon compromis prix/emplacement.",
     quartier: "Jarwal",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Wifi gratuit", "Salle de prière", "Blanchisserie"]
   },
   {
@@ -274,7 +274,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Hilton Makkah Convention situé dans le complexe Abraj Al-Bait, à quelques dizaines de mètres du Haram. Emplacement premium imbattable pour un accès ultra-rapide à la Grande Mosquée.",
     quartier: "Abraj Al-Bait",
     url: "https://www.hilton.com/fr/hotels/makhitw-makkah-hotel/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Centre commercial", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -299,7 +299,7 @@ export const hotelsData: HotelData[] = [
     description: "Hilton Suites Makkah propose de grandes suites au sein du complexe Jabal Omar. Format apprécié des familles souhaitant espace et confort de marque internationale.",
     quartier: "Jabal Omar",
     url: "https://www.hilton.com/fr/hotels/makhstw-hilton-suites-makkah/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Suites familiales", "Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -324,7 +324,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Jumeirah Jabal Omar Makkah, adresse de luxe à l'élégance orientale contemporaine. Il offre un séjour 5 étoiles raffiné avec accès facilité vers le Haram.",
     quartier: "Jabal Omar",
     url: "https://www.jumeirah.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Spa", "Salle de sport", "Salle de prière", "Conciergerie"]
   },
   {
@@ -349,7 +349,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Marriott Jabal Omar Makkah offrant le confort et le service d'une grande enseigne internationale. Bon choix 5 étoiles au cœur du complexe Jabal Omar.",
     quartier: "Jabal Omar",
     url: "https://www.marriott.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -374,7 +374,7 @@ export const hotelsData: HotelData[] = [
     description: "Al Marwa Rayhaan by Rotana, hôtel 5 étoiles du complexe Jabal Omar réputé pour sa restauration et son confort. Une valeur sûre pour un séjour Omra haut de gamme.",
     quartier: "Jabal Omar",
     url: "https://www.rotana.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Buffet", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -399,7 +399,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique situé à distance de marche du Haram. Option pratique pour un séjour Omra à petit budget sans dépendre systématiquement d'une navette.",
     quartier: "Misfalah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Wifi gratuit", "Salle de prière", "Blanchisserie"]
   },
   {
@@ -424,7 +424,7 @@ export const hotelsData: HotelData[] = [
     description: "Millennium Makkah Al Naseem, grand hôtel 4 étoiles situé dans le nouveau secteur Al Naseem. Bon choix pour les groupes recherchant confort et prix maîtrisé avec navette.",
     quartier: "Al Naseem",
     url: "https://www.millenniumhotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -449,7 +449,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles de la gamme Millennium offrant confort et espace à distance du Haram. Adapté aux pèlerins privilégiant le rapport qualité-prix avec transfert.",
     quartier: "Al Naseem",
     url: "https://www.millenniumhotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de prière", "Wifi gratuit", "Parking"]
   },
   {
@@ -475,7 +475,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel économique 1 étoile du quartier d'Aziziyah. Solution d'appoint pour les budgets très serrés, avec un niveau de confort minimal.",
     quartier: "Aziziyah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Wifi gratuit", "Salle de prière", "Navette"]
   },
   {
@@ -500,7 +500,7 @@ export const hotelsData: HotelData[] = [
     description: "Novotel Makkah Thakher City, hôtel 4 étoiles moderne du groupe Accor. Il séduit par son excellent rapport qualité-prix et sa navette gratuite fréquente vers le Haram.",
     quartier: "Thakher City",
     url: "https://all.accor.com/hotel/B1J6/index.fr.shtml",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette gratuite", "Salle de sport", "Salle de prière", "Wifi gratuit", "Parking"]
   },
   {
@@ -525,7 +525,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles économique du quartier d'Aziziyah. Adapté aux familles et groupes recherchant de l'espace à petit prix avec transfert vers le Haram.",
     quartier: "Aziziyah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière", "Parking"]
   },
   {
@@ -550,7 +550,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique du secteur d'Aziziyah. Choix pratique pour un séjour Omra à budget maîtrisé avec navette vers le Haram.",
     quartier: "Aziziyah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière"]
   },
   {
@@ -575,7 +575,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Park Plaza situé à Aziziyah. Il offre un confort de marque internationale à prix raisonnable, avec navette vers la Grande Mosquée.",
     quartier: "Aziziyah",
     url: "https://www.radissonhotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -600,7 +600,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique offrant un bon compromis prix/emplacement. Adapté aux pèlerins recherchant une option abordable à distance raisonnable du Haram.",
     quartier: "Shubaikah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière"]
   },
   {
@@ -625,7 +625,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles offrant un bon rapport qualité-prix à distance de marche du Haram. Choix pertinent pour un séjour confortable sans dépenses excessives.",
     quartier: "Jarwal",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Navette", "Blanchisserie"]
   },
   {
@@ -651,7 +651,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel économique 1 étoile du quartier d'Aziziyah. Solution d'appoint pour les budgets très serrés, avec un confort minimal.",
     quartier: "Aziziyah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Wifi gratuit", "Salle de prière", "Navette"]
   },
   {
@@ -676,7 +676,7 @@ export const hotelsData: HotelData[] = [
     description: "Shaza Makkah, hôtel 5 étoiles à l'élégance orientale au sein du complexe Jabal Omar. Il propose un séjour luxueux et raffiné avec un service très personnalisé.",
     quartier: "Jabal Omar",
     url: "https://www.shazahotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Spa", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -701,7 +701,7 @@ export const hotelsData: HotelData[] = [
     description: "Sheraton Makkah Jabal Al Kaaba, hôtel de bon standing offrant confort et service d'une grande marque. Bon compromis entre qualité et prix à distance modérée du Haram.",
     quartier: "Jabal Al Kaaba",
     url: "https://www.marriott.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -726,7 +726,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 5 étoiles Shohada situé à proximité immédiate du Haram. Apprécié pour son emplacement stratégique et son bon rapport qualité-prix.",
     quartier: "Ajyad",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/11056539/pexels-photo-11056539.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -751,7 +751,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique du quartier d'Aziziyah. Option pratique pour les pèlerins au budget limité avec navette vers le Haram.",
     quartier: "Aziziyah",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/29213298/pexels-photo-29213298.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Wifi gratuit", "Salle de prière"]
   },
   {
@@ -776,7 +776,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles de la gamme Shaza au sein du secteur Jabal Omar. Il propose un confort élégant à tarif intermédiaire pour un séjour Omra agréable.",
     quartier: "Jabal Omar",
     url: "https://www.shazahotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/27130671/pexels-photo-27130671.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Salle de sport", "Wifi gratuit", "Navette"]
   },
   {
@@ -801,7 +801,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel voco (groupe IHG) offrant un cadre moderne et un bon niveau de confort à La Mecque. Bon choix 4 étoiles à tarif intermédiaire.",
     quartier: "Jabal Omar",
     url: "https://www.ihg.com/voco/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/37756578/pexels-photo-37756578.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Navette"]
   },
   {
@@ -826,7 +826,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Zamzam (Swissôtel Al Maqam / Abraj Al-Bait) situé au pied de la tour de l'horloge, à quelques mètres du Haram. Emplacement premium pour un accès ultra-rapide à la Grande Mosquée.",
     quartier: "Abraj Al-Bait",
     url: "https://www.swissotel.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Find-the-qibla.jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/36571246/pexels-photo-36571246.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue Haram", "Restaurant halal", "Centre commercial", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
 
@@ -853,7 +853,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Golden Tulip situé dans le secteur central de Médine, à courte distance de marche de la Mosquée du Prophète. Bon compromis confort/emplacement.",
     quartier: "Centre",
     url: "https://www.goldentulip.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie", "Navette"]
   },
   {
@@ -878,7 +878,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles du secteur central de Médine, à courte distance de la Mosquée du Prophète. Choix pratique alliant emplacement et prix raisonnable.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -903,7 +903,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique du secteur central de Médine, à distance de marche de la Mosquée du Prophète. Bon compromis prix/emplacement pour l'Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -928,7 +928,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Concord Dar Al Khair du secteur intermédiaire de Médine. Bon rapport qualité-prix pour un séjour confortable à distance de marche de la Mosquée du Prophète.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   },
   {
@@ -953,7 +953,7 @@ export const hotelsData: HotelData[] = [
     description: "Crowne Plaza Madinah, hôtel 5 étoiles IHG situé à courte distance de la Mosquée du Prophète. Confort international et service constant pour un séjour haut de gamme.",
     quartier: "Centre",
     url: "https://www.ihg.com/crowneplaza/hotels/us/en/madinah/medcp/hoteldetail",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie", "Navette"]
   },
   {
@@ -978,7 +978,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique du secteur intermédiaire de Médine. Choix pratique pour un séjour Omra à budget maîtrisé, à distance de marche de la mosquée.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1003,7 +1003,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique de Médine à distance de marche de la Mosquée du Prophète. Option abordable pour les pèlerins soucieux de leur budget.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1028,7 +1028,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique de Médine, à distance de marche modérée de la Mosquée du Prophète. Choix pratique pour un séjour à petit budget.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Navette"]
   },
   {
@@ -1053,7 +1053,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Hilton du secteur Al-Harithia à Médine. Il offre le confort d'une grande marque internationale à distance du sanctuaire, avec service de navette.",
     quartier: "Al-Harithia",
     url: "https://www.hilton.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -1078,7 +1078,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Jayden situé dans le secteur central de Médine, à courte distance de la Mosquée du Prophète. Bon compromis confort et emplacement.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   },
   {
@@ -1104,7 +1104,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel économique 1 étoile de Médine. Solution d'appoint pour les budgets très serrés, avec un confort minimal à distance de marche de la mosquée.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Wifi gratuit", "Salle de prière", "Blanchisserie"]
   },
   {
@@ -1129,7 +1129,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Jiwar Al Madinah offrant un bon rapport qualité-prix à distance de marche de la Mosquée du Prophète. Adapté aux groupes et familles.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Navette"]
   },
   {
@@ -1154,7 +1154,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique de Médine à distance de marche de la Mosquée du Prophète. Option abordable pour un séjour Omra à petit budget.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1179,7 +1179,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles du secteur Al-Harithia à Médine. Il offre espace et confort à prix contenu, avec navette vers la Mosquée du Prophète.",
     quartier: "Al-Harithia",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Navette", "Salle de prière", "Wifi gratuit", "Parking"]
   },
   {
@@ -1204,7 +1204,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Mias Madinah offrant confort moderne et bon emplacement à distance de marche de la Mosquée du Prophète. Bon choix pour un séjour Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   },
   {
@@ -1229,7 +1229,7 @@ export const hotelsData: HotelData[] = [
     description: "Mövenpick Hotel Madinah, établissement de la place de la mosquée offrant un accès quasi immédiat au sanctuaire. Confort et service de standing international pour un séjour privilégié.",
     quartier: "Centre",
     url: "https://all.accor.com/hotel/7222/index.en.shtml",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue mosquée", "Restaurant halal", "Buffet", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -1254,7 +1254,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Musc Touch offrant confort et cadre soigné à distance de marche de la Mosquée du Prophète. Bon rapport qualité-prix pour l'Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   },
   {
@@ -1279,7 +1279,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Mysk (gamme lifestyle de Shaza) au design contemporain, situé à courte distance de la Mosquée du Prophète. Bon choix 4 étoiles moderne pour l'Omra.",
     quartier: "Centre",
     url: "https://www.shazahotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Conciergerie"]
   },
   {
@@ -1304,7 +1304,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique de Médine à distance de marche de la Mosquée du Prophète. Option abordable pour un séjour Omra à budget maîtrisé.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1329,7 +1329,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 5 étoiles Peninsula Worth offrant confort haut de gamme à courte distance de la Mosquée du Prophète. Bon rapport qualité-prix pour la catégorie.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -1354,7 +1354,7 @@ export const hotelsData: HotelData[] = [
     description: "Pullman Zamzam Madina, hôtel 5 étoiles Accor situé à proximité immédiate de la Mosquée du Prophète. Confort et service de standing pour un séjour privilégié.",
     quartier: "Centre",
     url: "https://all.accor.com/hotel/9963/index.en.shtml",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue mosquée", "Restaurant halal", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -1379,7 +1379,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel Rotana de Médine, réputé pour son confort et sa restauration, situé à courte distance de la Mosquée du Prophète. Valeur sûre pour un séjour 4 étoiles.",
     quartier: "Centre",
     url: "https://www.rotana.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Buffet", "Salle de sport", "Salle de prière", "Wifi gratuit"]
   },
   {
@@ -1404,7 +1404,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles économique de Médine à distance de marche de la Mosquée du Prophète. Option pratique pour un séjour Omra à petit budget.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1429,7 +1429,7 @@ export const hotelsData: HotelData[] = [
     description: "Shaza Regency, hôtel 5 étoiles à l'élégance orientale situé à courte distance de la Mosquée du Prophète. Séjour luxueux avec un service très personnalisé.",
     quartier: "Centre",
     url: "https://www.shazahotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Spa", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -1454,7 +1454,7 @@ export const hotelsData: HotelData[] = [
     description: "Sofitel Shahd Al Madinah, adresse de luxe Accor à courte distance de la Mosquée du Prophète. Elle allie raffinement à la française, confort et service haut de gamme.",
     quartier: "Centre",
     url: "https://all.accor.com/hotel/A5J3/index.en.shtml",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue mosquée", "Restaurant halal", "Spa", "Salle de sport", "Salle de prière", "Wifi gratuit", "Conciergerie"]
   },
   {
@@ -1479,7 +1479,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles Swiss International de Médine, à distance de marche de la Mosquée du Prophète. Option abordable et fiable pour un séjour Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/32290179/pexels-photo-32290179.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1504,7 +1504,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Taiba Front situé en première ligne du secteur central de Médine, à courte distance de la Mosquée du Prophète. Excellent emplacement pour l'Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/35385132/pexels-photo-35385132.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Vue mosquée", "Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1529,7 +1529,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 3 étoiles Tulip Inn de Médine, à distance de marche de la Mosquée du Prophète. Bon rapport qualité-prix d'une marque internationale reconnue.",
     quartier: "Centre",
     url: "https://www.louvrehotels.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/34987529/pexels-photo-34987529.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Blanchisserie"]
   },
   {
@@ -1554,7 +1554,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles Valy offrant confort et bon emplacement à courte distance de la Mosquée du Prophète. Bon rapport qualité-prix pour un séjour Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30698863/pexels-photo-30698863.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   },
   {
@@ -1579,7 +1579,7 @@ export const hotelsData: HotelData[] = [
     description: "Hôtel 4 étoiles View offrant confort moderne et bon emplacement à distance de marche de la Mosquée du Prophète. Choix pertinent pour l'Omra.",
     quartier: "Centre",
     url: "https://www.booking.com/",
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Al-Masjid%20An-Nabawi%20(Bird%27s%20Eye%20View).jpg?width=800",
+    imageUrl: "https://images.pexels.com/photos/30648625/pexels-photo-30648625.jpeg?auto=compress&cs=tinysrgb&w=800",
     amenities: ["Restaurant halal", "Salle de prière", "Wifi gratuit", "Salle de sport", "Blanchisserie"]
   }
 ];
