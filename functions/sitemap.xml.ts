@@ -209,8 +209,8 @@ function urlEntry(loc: string, lastmod: string, changefreq: string, priority: st
 export async function onRequest(context: PagesFunctionContext) {
   const today = new Date().toISOString().split("T")[0];
 
-  const supabaseUrl = context.env.VITE_SUPABASE_URL;
-  const supabaseKey = context.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const supabaseUrl = context.env.SUPABASE_URL;
+  const supabaseKey = context.env.SUPABASE_PUBLISHABLE_KEY;
 
   // Fetch all published blog posts
   let blogEntries: string[] = [];

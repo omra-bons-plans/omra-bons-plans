@@ -412,8 +412,8 @@ export async function renderSeo(request: Request, env: Env, next: () => Promise<
       };
 
       if (isBot) {
-        const supabaseUrl = env.VITE_SUPABASE_URL;
-        const supabaseKey = env.VITE_SUPABASE_PUBLISHABLE_KEY;
+        const supabaseUrl = env.SUPABASE_URL;
+        const supabaseKey = env.SUPABASE_PUBLISHABLE_KEY;
         if (supabaseUrl && supabaseKey) {
           try {
             const apiUrl = `${supabaseUrl}/rest/v1/blog_posts` +

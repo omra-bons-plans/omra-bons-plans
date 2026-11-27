@@ -47,8 +47,8 @@ export async function renderBlogCategory(req: Request, env: Env): Promise<Respon
   const category = parts[1];
   if (!CATEGORY_LABELS[category]) return null;
 
-  const supabaseUrl = env.VITE_SUPABASE_URL;
-  const supabaseKey = env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const supabaseUrl = env.SUPABASE_URL;
+  const supabaseKey = env.SUPABASE_PUBLISHABLE_KEY;
 
   if (!supabaseUrl || !supabaseKey) return null;
 
