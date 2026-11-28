@@ -202,7 +202,7 @@ async function main() {
       // Fetch cover photo
       const coverImage = await fetchCoverPhoto(article.unsplashQuery);
 
-      // Publish
+      // Publier → insérer en BROUILLON (is_published: false) : le client publie manuellement
       await insertPost({
         title: article.title,
         excerpt: article.excerpt,
@@ -212,8 +212,7 @@ async function main() {
         tags: article.tags,
         cover_image: coverImage,
         author_id: authorId,
-        is_published: true,
-        published_at: new Date().toISOString(),
+        is_published: false,
       });
 
       publishedIds.push(article.id);
