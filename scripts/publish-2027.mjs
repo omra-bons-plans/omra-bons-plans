@@ -96,7 +96,6 @@ async function main() {
         cover_image: a.cover_image,
         author_id: authorId,
         is_published: false,
-        scheduled_publish_at: a.scheduled_publish_at,
       });
       ok++;
       console.log("✅");
@@ -108,7 +107,8 @@ async function main() {
   }
 
   console.log(`\n✅ Insérés : ${ok} | ❌ Échecs : ${fail}`);
-  console.log("Les articles seront publiés automatiquement chaque semaine (fonction publish-scheduled-posts).");
+  console.log("Les articles sont en BROUILLON (is_published=false, aucune date programmée).");
+  console.log("Ils resteront en brouillon jusqu'à publication manuelle — la fonction publish-scheduled-posts ne les touchera pas.");
 }
 
 main().catch((err) => { console.error("💥 Erreur fatale:", err.message); process.exit(1); });
